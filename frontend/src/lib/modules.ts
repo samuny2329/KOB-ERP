@@ -19,6 +19,8 @@ export type SkeletonKind =
 
 export type CardSize = "sm" | "md" | "lg" | "wide" | "tall";
 
+export type ModuleCategory = "core" | "wms" | "ops" | "finance" | "people";
+
 export interface ModuleEntry {
   key: string;
   name: string;
@@ -33,9 +35,32 @@ export interface ModuleEntry {
   skeleton: SkeletonKind;
   phase: string;
   enabled: boolean;
+  category?: ModuleCategory;
 }
 
+export const CATEGORIES: { id: ModuleCategory; labelKey: string }[] = [
+  { id: "core", labelKey: "category.core" },
+  { id: "wms", labelKey: "category.wms" },
+  { id: "ops", labelKey: "category.ops" },
+  { id: "finance", labelKey: "category.finance" },
+  { id: "people", labelKey: "category.people" },
+];
+
 export const MODULES: ModuleEntry[] = [
+  {
+    key: "users",
+    name: "Users",
+    description: "Roles, companies, locale",
+    route: "/users",
+    size: "md",
+    gradient: "from-slate-600 via-slate-700 to-slate-800",
+    accent: "text-slate-100",
+    iconLabel: "U",
+    skeleton: "users",
+    phase: "9",
+    enabled: true,
+    category: "core",
+  },
   {
     key: "products",
     name: "Products",
@@ -48,6 +73,7 @@ export const MODULES: ModuleEntry[] = [
     skeleton: "barcode",
     phase: "2a",
     enabled: true,
+    category: "wms",
   },
   {
     key: "warehouses",
@@ -61,6 +87,7 @@ export const MODULES: ModuleEntry[] = [
     skeleton: "boxes",
     phase: "2a",
     enabled: true,
+    category: "wms",
   },
   {
     key: "transfers",
@@ -74,6 +101,7 @@ export const MODULES: ModuleEntry[] = [
     skeleton: "rows",
     phase: "2a",
     enabled: true,
+    category: "wms",
   },
   {
     key: "stock",
@@ -87,6 +115,7 @@ export const MODULES: ModuleEntry[] = [
     skeleton: "shelf",
     phase: "2a",
     enabled: true,
+    category: "wms",
   },
   {
     key: "lots",
@@ -100,6 +129,7 @@ export const MODULES: ModuleEntry[] = [
     skeleton: "tags",
     phase: "2a",
     enabled: true,
+    category: "wms",
   },
   {
     key: "outbound",
@@ -113,6 +143,7 @@ export const MODULES: ModuleEntry[] = [
     skeleton: "package",
     phase: "2b",
     enabled: true,
+    category: "ops",
   },
   {
     key: "couriers",
@@ -126,6 +157,7 @@ export const MODULES: ModuleEntry[] = [
     skeleton: "package",
     phase: "2b",
     enabled: true,
+    category: "ops",
   },
   {
     key: "counts",
@@ -139,6 +171,7 @@ export const MODULES: ModuleEntry[] = [
     skeleton: "shelf",
     phase: "2c",
     enabled: true,
+    category: "ops",
   },
   {
     key: "quality",
@@ -152,6 +185,7 @@ export const MODULES: ModuleEntry[] = [
     skeleton: "tags",
     phase: "2c",
     enabled: true,
+    category: "ops",
   },
   {
     key: "audit",
@@ -165,6 +199,7 @@ export const MODULES: ModuleEntry[] = [
     skeleton: "rows",
     phase: "2b",
     enabled: true,
+    category: "core",
   },
   {
     key: "ops",
@@ -178,6 +213,7 @@ export const MODULES: ModuleEntry[] = [
     skeleton: "rows",
     phase: "2d",
     enabled: true,
+    category: "ops",
   },
   {
     key: "purchase",
@@ -191,6 +227,7 @@ export const MODULES: ModuleEntry[] = [
     skeleton: "rows",
     phase: "3",
     enabled: true,
+    category: "finance",
   },
   {
     key: "manufacturing",
@@ -204,6 +241,7 @@ export const MODULES: ModuleEntry[] = [
     skeleton: "rows",
     phase: "3",
     enabled: true,
+    category: "ops",
   },
   {
     key: "sales",
@@ -217,6 +255,7 @@ export const MODULES: ModuleEntry[] = [
     skeleton: "rows",
     phase: "4",
     enabled: true,
+    category: "finance",
   },
   {
     key: "accounting",
@@ -230,6 +269,7 @@ export const MODULES: ModuleEntry[] = [
     skeleton: "rows",
     phase: "5",
     enabled: true,
+    category: "finance",
   },
   {
     key: "hr",
@@ -243,6 +283,7 @@ export const MODULES: ModuleEntry[] = [
     skeleton: "users",
     phase: "6",
     enabled: true,
+    category: "people",
   },
 ];
 
@@ -251,9 +292,9 @@ export function findModule(key: string): ModuleEntry | undefined {
 }
 
 export const SIZE_CLASSES: Record<CardSize, string> = {
-  sm: "col-span-1 row-span-1",
-  md: "col-span-1 row-span-1 sm:col-span-2",
-  lg: "col-span-1 row-span-2 sm:col-span-2",
-  wide: "col-span-1 row-span-1 sm:col-span-3",
-  tall: "col-span-1 row-span-2",
+  sm: "col-span-2 row-span-1",
+  md: "col-span-2 row-span-1 sm:col-span-3",
+  lg: "col-span-2 row-span-2 sm:col-span-3",
+  wide: "col-span-2 row-span-1 sm:col-span-4 lg:col-span-6",
+  tall: "col-span-2 row-span-2",
 };

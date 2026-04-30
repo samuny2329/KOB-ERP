@@ -68,6 +68,22 @@ api.interceptors.response.use(
   },
 );
 
+export interface CompanyRead {
+  id: number;
+  code: string;
+  name: string;
+  legal_name: string | null;
+  tax_id: string | null;
+  address: string | null;
+  phone: string | null;
+  email: string | null;
+  currency: string;
+  locale: string;
+  timezone: string;
+  parent_id: number | null;
+  is_active: boolean;
+}
+
 export interface UserRead {
   id: number;
   email: string;
@@ -76,6 +92,10 @@ export interface UserRead {
   is_superuser: boolean;
   last_login_at: string | null;
   created_at: string;
+  default_company_id: number | null;
+  preferred_locale: string;
+  companies: CompanyRead[];
+  default_company: CompanyRead | null;
 }
 
 export interface TokenPair {

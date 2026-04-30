@@ -64,7 +64,7 @@ export default function PreviewHomePage() {
           </div>
         </div>
 
-        <div className="grid auto-rows-[140px] grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        <div className="grid auto-rows-[150px] grid-cols-4 gap-4 [grid-auto-flow:dense] sm:grid-cols-6 lg:grid-cols-12">
           {MODULES.map((m, i) => {
             const loading = !loaded.has(m.key);
             const metric = !loading ? MOCK_METRICS[m.key] : undefined;

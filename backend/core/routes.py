@@ -12,8 +12,10 @@ from sqlalchemy.orm import selectinload
 from backend.core.auth import CurrentUser, requires
 from backend.core.audit import set_audit_context, _request_id_ctx
 from backend.core.db import SessionDep
-from backend.core.models import Group, Permission, User
+from backend.core.models import Company, Group, Permission, User
 from backend.core.schemas import (
+    CompanyCreate,
+    CompanyRead,
     GroupCreate,
     GroupRead,
     LoginRequest,
@@ -35,6 +37,7 @@ router = APIRouter(prefix="/api/v1")
 auth_router = APIRouter(prefix="/auth", tags=["auth"])
 users_router = APIRouter(prefix="/users", tags=["users"])
 groups_router = APIRouter(prefix="/groups", tags=["groups"])
+companies_router = APIRouter(prefix="/companies", tags=["companies"])
 
 
 # ── Auth ───────────────────────────────────────────────────────────────
@@ -45,7 +48,11 @@ async def login(body: LoginRequest, session: SessionDep) -> TokenPair:
     stmt = (
         select(User)
         .where(User.email == body.email, User.deleted_at.is_(None))
-        .options(selectinload(User.groups))
+        .options(
+            selectinload(User.groups),
+            selectinload(User.companies),
+            selectinload(User.default_company),
+        )
     )
     user = (await session.execute(stmt)).scalar_one_or_none()
 
@@ -90,8 +97,83 @@ async def refresh(body: RefreshRequest, session: SessionDep) -> TokenPair:
 
 
 @auth_router.get("/me", response_model=UserRead)
-async def me(user: CurrentUser) -> User:
-    return user
+async def me(user: CurrentUser, session: SessionDep) -> User:
+    # Refresh with companies relationship loaded.
+    stmt = (
+        select(User)
+        .where(User.id == user.id)
+        .options(
+            selectinload(User.groups),
+            selectinload(User.companies),
+            selectinload(User.default_company),
+        )
+    )
+    return (await session.execute(stmt)).scalar_one()
+
+
+# ── Companies ──────────────────────────────────────────────────────────
+
+
+@companies_router.get("", response_model=list[CompanyRead])
+async def list_companies(
+    session: SessionDep, user: CurrentUser
+) -> list[Company]:
+    """Return only the companies the current user is allowed to see.
+
+    Superusers see every active company; everyone else sees their
+    user_company memberships.
+    """
+    if user.is_superuser:
+        stmt = (
+            select(Company)
+            .where(Company.deleted_at.is_(None))
+            .order_by(Company.code)
+        )
+        return list((await session.execute(stmt)).scalars().all())
+    return list(user.companies)
+
+
+@companies_router.post(
+    "",
+    response_model=CompanyRead,
+    status_code=status.HTTP_201_CREATED,
+)
+async def create_company(
+    body: CompanyCreate, session: SessionDep, user: CurrentUser
+) -> Company:
+    if not user.is_superuser:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "only superusers can create companies")
+    company = Company(**body.model_dump(), is_active=True)
+    session.add(company)
+    await session.flush()
+    return company
+
+
+@companies_router.post("/{company_id}/switch", response_model=UserRead)
+async def switch_company(
+    company_id: int, session: SessionDep, user: CurrentUser
+) -> User:
+    """Set the current user's default company for subsequent sessions.
+
+    Returns the refreshed user record with companies + default loaded.
+    """
+    company = await session.get(Company, company_id)
+    if company is None or company.deleted_at is not None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "company not found")
+    if not user.is_superuser and company not in user.companies:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "not a member of this company")
+    user.default_company_id = company_id
+
+    stmt = (
+        select(User)
+        .where(User.id == user.id)
+        .options(
+            selectinload(User.groups),
+            selectinload(User.companies),
+            selectinload(User.default_company),
+        )
+    )
+    return (await session.execute(stmt)).scalar_one()
 
 
 # ── Users (admin) ──────────────────────────────────────────────────────
@@ -204,3 +286,4 @@ async def _resolve_permissions(session, codes: list[str]) -> list[Permission]:
 router.include_router(auth_router)
 router.include_router(users_router)
 router.include_router(groups_router)
+router.include_router(companies_router)

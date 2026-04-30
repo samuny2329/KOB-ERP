@@ -35,6 +35,34 @@ def set_audit_context(request_id: str | None, actor_id: int | None) -> None:
     _actor_id_ctx.set(actor_id)
 
 
+def _jsonable(value: Any) -> Any:
+    """Coerce Python values into something json.dumps can swallow.
+
+    SQLAlchemy hands us datetimes / Decimals / dates; the JSON column
+    encoder doesn't know what to do with them, so we stringify here.
+    """
+    import datetime as _dt
+    import decimal as _dc
+    import enum as _enum
+    import uuid as _uuid
+
+    if value is None or isinstance(value, (str, int, float, bool)):
+        return value
+    if isinstance(value, (_dt.datetime, _dt.date, _dt.time)):
+        return value.isoformat()
+    if isinstance(value, _dc.Decimal):
+        return float(value)
+    if isinstance(value, _uuid.UUID):
+        return str(value)
+    if isinstance(value, _enum.Enum):
+        return value.value
+    if isinstance(value, (list, tuple)):
+        return [_jsonable(v) for v in value]
+    if isinstance(value, dict):
+        return {str(k): _jsonable(v) for k, v in value.items()}
+    return str(value)
+
+
 def _diff_changed(obj: Any) -> tuple[dict[str, Any], dict[str, Any]]:
     """Return (before, after) dicts of columns whose value changed."""
     inspected = inspect(obj)
@@ -43,8 +71,8 @@ def _diff_changed(obj: Any) -> tuple[dict[str, Any], dict[str, Any]]:
     for attr in inspected.mapper.column_attrs:
         history = getattr(inspected.attrs, attr.key).history
         if history.has_changes():
-            before[attr.key] = history.deleted[0] if history.deleted else None
-            after[attr.key] = history.added[0] if history.added else None
+            before[attr.key] = _jsonable(history.deleted[0]) if history.deleted else None
+            after[attr.key] = _jsonable(history.added[0]) if history.added else None
     return before, after
 
 

@@ -44,6 +44,24 @@ user_group = Table(
     schema="core",
 )
 
+user_company = Table(
+    "user_company",
+    Base.metadata,
+    Column(
+        "user_id",
+        BigInteger,
+        ForeignKey("core.user.id", ondelete="CASCADE"),
+        primary_key=True,
+    ),
+    Column(
+        "company_id",
+        BigInteger,
+        ForeignKey("core.company.id", ondelete="CASCADE"),
+        primary_key=True,
+    ),
+    schema="core",
+)
+
 group_permission = Table(
     "group_permission",
     Base.metadata,
@@ -66,8 +84,34 @@ group_permission = Table(
 # ── Models ─────────────────────────────────────────────────────────────
 
 
+class Company(CoreModel):
+    """Operating company (multi-tenant unit).
+
+    Most transactional records carry a ``company_id`` so a single
+    deployment can serve multiple legal entities.  Tree via ``parent_id``.
+    """
+
+    __tablename__ = "company"
+    __table_args__ = ({"schema": "core"},)
+
+    code: Mapped[str] = mapped_column(String(20), unique=True, nullable=False)
+    name: Mapped[str] = mapped_column(String(255), nullable=False)
+    legal_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    tax_id: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    address: Mapped[str | None] = mapped_column(String(1000), nullable=True)
+    phone: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    email: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    currency: Mapped[str] = mapped_column(String(3), nullable=False, default="THB")
+    locale: Mapped[str] = mapped_column(String(8), nullable=False, default="th-TH")
+    timezone: Mapped[str] = mapped_column(String(40), nullable=False, default="Asia/Bangkok")
+    parent_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("core.company.id", ondelete="SET NULL"), nullable=True
+    )
+    is_active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+
+
 class User(CoreModel):
-    """Application user — login + group membership."""
+    """Application user — login + group membership + allowed companies."""
 
     __tablename__ = "user"
     __table_args__ = ({"schema": "core"},)
@@ -78,10 +122,24 @@ class User(CoreModel):
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
     is_superuser: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     last_login_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    default_company_id: Mapped[int | None] = mapped_column(
+        BigInteger,
+        ForeignKey("core.company.id", ondelete="SET NULL", use_alter=True, name="fk_user_default_company"),
+        nullable=True,
+    )
+    preferred_locale: Mapped[str] = mapped_column(String(8), nullable=False, default="th-TH")
 
     groups: Mapped[list["Group"]] = relationship(
         secondary=user_group,
         back_populates="users",
+        lazy="selectin",
+    )
+    companies: Mapped[list["Company"]] = relationship(
+        secondary=user_company,
+        lazy="selectin",
+    )
+    default_company: Mapped["Company | None"] = relationship(
+        foreign_keys=[default_company_id],
         lazy="selectin",
     )
 

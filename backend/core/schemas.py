@@ -29,6 +29,39 @@ class RefreshRequest(BaseModel):
     refresh_token: str
 
 
+# ── Company ────────────────────────────────────────────────────────────
+
+
+class CompanyCreate(BaseModel):
+    code: str = Field(min_length=1, max_length=20)
+    name: str = Field(min_length=1, max_length=255)
+    legal_name: str | None = None
+    tax_id: str | None = None
+    address: str | None = None
+    phone: str | None = None
+    email: str | None = None
+    currency: str = Field(default="THB", min_length=3, max_length=3)
+    locale: str = "th-TH"
+    timezone: str = "Asia/Bangkok"
+    parent_id: int | None = None
+
+
+class CompanyRead(_ORMSchema):
+    id: int
+    code: str
+    name: str
+    legal_name: str | None = None
+    tax_id: str | None = None
+    address: str | None = None
+    phone: str | None = None
+    email: str | None = None
+    currency: str
+    locale: str
+    timezone: str
+    parent_id: int | None = None
+    is_active: bool
+
+
 # ── User ───────────────────────────────────────────────────────────────
 
 
@@ -37,16 +70,22 @@ class UserCreate(BaseModel):
     password: str = Field(min_length=8, max_length=200)
     full_name: str = Field(min_length=1, max_length=255)
     is_superuser: bool = False
+    default_company_id: int | None = None
+    company_ids: list[int] = Field(default_factory=list)
 
 
 class UserRead(_ORMSchema):
     id: int
-    email: EmailStr
+    email: str
     full_name: str
     is_active: bool
     is_superuser: bool
     last_login_at: datetime | None = None
     created_at: datetime
+    default_company_id: int | None = None
+    preferred_locale: str
+    companies: list[CompanyRead] = Field(default_factory=list)
+    default_company: CompanyRead | None = None
 
 
 # ── Group / Permission ─────────────────────────────────────────────────

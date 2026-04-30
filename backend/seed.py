@@ -17,7 +17,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import selectinload
 
 from backend.core.db import session_factory
-from backend.core.models import Group, Permission, User
+from backend.core.models import Company, Group, Permission, User
 from backend.core.security import hash_password
 
 
@@ -98,6 +98,30 @@ async def _ensure_permissions(session) -> dict[str, Permission]:
     return by_code
 
 
+async def _ensure_default_company(session) -> Company:
+    """Create the headquarters company on first run."""
+    stmt = select(Company).where(Company.code == "KOB")
+    company = (await session.execute(stmt)).scalar_one_or_none()
+    if company is None:
+        company = Company(
+            code="KOB",
+            name="KOB Headquarters",
+            legal_name="บริษัท คิสออฟบิวตี้ จำกัด",
+            tax_id="0105560000000",
+            address="Bangkok, Thailand",
+            currency="THB",
+            locale="th-TH",
+            timezone="Asia/Bangkok",
+            is_active=True,
+        )
+        session.add(company)
+        await session.flush()
+        print(f"  • created default company {company.code!r}")  # noqa: T201
+    else:
+        print(f"  • default company {company.code!r} already exists")  # noqa: T201
+    return company
+
+
 async def _ensure_admin_group(session, perms: dict[str, Permission]) -> Group:
     stmt = select(Group).where(Group.name == "admin").options(selectinload(Group.permissions))
     group = (await session.execute(stmt)).scalar_one_or_none()
@@ -109,11 +133,15 @@ async def _ensure_admin_group(session, perms: dict[str, Permission]) -> Group:
     return group
 
 
-async def _ensure_superuser(session, admin_group: Group) -> User:
-    email = os.environ.get("KOB_SEED_ADMIN_EMAIL", "admin@kob.local")
+async def _ensure_superuser(session, admin_group: Group, default_company: Company) -> User:
+    email = os.environ.get("KOB_SEED_ADMIN_EMAIL", "admin@koberp.co.th")
     password = os.environ.get("KOB_SEED_ADMIN_PASSWORD", "ChangeMe!2026")
 
-    stmt = select(User).where(User.email == email).options(selectinload(User.groups))
+    stmt = (
+        select(User)
+        .where(User.email == email)
+        .options(selectinload(User.groups), selectinload(User.companies))
+    )
     user = (await session.execute(stmt)).scalar_one_or_none()
     if user is None:
         user = User(
@@ -122,14 +150,20 @@ async def _ensure_superuser(session, admin_group: Group) -> User:
             full_name="System Administrator",
             is_active=True,
             is_superuser=True,
+            default_company_id=default_company.id,
+            preferred_locale="th-TH",
         )
         session.add(user)
         print(f"  • created superuser {email!r}")  # noqa: T201
     else:
+        if user.default_company_id is None:
+            user.default_company_id = default_company.id
         print(f"  • superuser {email!r} already exists")  # noqa: T201
 
     if admin_group not in user.groups:
         user.groups.append(admin_group)
+    if default_company not in user.companies:
+        user.companies.append(default_company)
 
     await session.flush()
     return user
@@ -139,11 +173,12 @@ async def main() -> None:
     print("seeding KOB-ERP core data ...")  # noqa: T201
     async with session_factory() as session:
         try:
+            company = await _ensure_default_company(session)
             perms = await _ensure_permissions(session)
             print(f"  • {len(perms)} permissions ensured")  # noqa: T201
             admin_group = await _ensure_admin_group(session, perms)
             print(f"  • group {admin_group.name!r} ensured with {len(admin_group.permissions)} perms")  # noqa: T201
-            await _ensure_superuser(session, admin_group)
+            await _ensure_superuser(session, admin_group, company)
             await session.commit()
         except Exception:
             await session.rollback()
