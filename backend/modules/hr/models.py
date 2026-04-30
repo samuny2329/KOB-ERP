@@ -23,7 +23,8 @@ class Department(BaseModel):
         BigInteger, ForeignKey("hr.department.id", ondelete="SET NULL")
     )
     manager_id: Mapped[int | None] = mapped_column(
-        BigInteger, ForeignKey("hr.employee.id", ondelete="SET NULL")
+        BigInteger,
+        ForeignKey("hr.employee.id", ondelete="SET NULL", use_alter=True, name="fk_department_manager"),
     )
     active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
 

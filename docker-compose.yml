@@ -8,7 +8,7 @@ services:
       POSTGRES_PASSWORD: ${KOB_DB_PASSWORD:-kob_dev_password_change_me}
       POSTGRES_DB: ${KOB_DB_NAME:-kob_erp}
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - kob_pgdata:/var/lib/postgresql/data
     healthcheck:
