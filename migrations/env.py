@@ -23,6 +23,7 @@ from backend.modules.inventory import models as inventory_models  # noqa: F401
 from backend.modules.inventory import models_advanced as inventory_advanced_models  # noqa: F401
 from backend.modules.inventory import models_count as inventory_count_models  # noqa: F401
 from backend.modules.mfg import models as mfg_models  # noqa: F401
+from backend.modules.mfg import models_advanced as mfg_advanced_models  # noqa: F401
 from backend.modules.ops import models as ops_models  # noqa: F401
 from backend.modules.outbound import models as outbound_models  # noqa: F401
 from backend.modules.purchase import models as purchase_models  # noqa: F401
