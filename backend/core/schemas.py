@@ -15,7 +15,7 @@ class _ORMSchema(BaseModel):
 
 
 class LoginRequest(BaseModel):
-    email: EmailStr
+    email: str = Field(min_length=1, max_length=255)
     password: str = Field(min_length=1, max_length=200)
 
 
