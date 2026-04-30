@@ -8,10 +8,13 @@ from datetime import datetime
 
 from sqlalchemy import (
     BigInteger,
+    Boolean,
     DateTime,
     ForeignKey,
+    Integer,
     Numeric,
     String,
+    Text,
     UniqueConstraint,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -125,11 +128,29 @@ class Transfer(BaseModel, WorkflowMixin):
     origin: Mapped[str | None] = mapped_column(String(120), nullable=True)
     scheduled_date: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     done_date: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
-    note: Mapped[str | None] = mapped_column(String(2000), nullable=True)
+    note: Mapped[str | None] = mapped_column(Text, nullable=True)
+    # Odoo 19 additions
+    is_return: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    origin_transfer_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("inventory.transfer.id", ondelete="SET NULL"), nullable=True
+    )
+    backorder_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("inventory.transfer.id", ondelete="SET NULL"), nullable=True
+    )
+    responsible_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("core.user.id", ondelete="SET NULL"), nullable=True
+    )
+    carrier_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("outbound.courier.id", ondelete="SET NULL"), nullable=True
+    )
+    carrier_tracking_ref: Mapped[str | None] = mapped_column(String(120), nullable=True)
 
     transfer_type: Mapped[TransferType] = relationship()
     source_location: Mapped[Location] = relationship(foreign_keys=[source_location_id])
     dest_location: Mapped[Location] = relationship(foreign_keys=[dest_location_id])
+    origin_transfer: Mapped["Transfer | None"] = relationship(
+        foreign_keys=[origin_transfer_id], remote_side="Transfer.id"
+    )
     lines: Mapped[list["TransferLine"]] = relationship(
         back_populates="transfer",
         cascade="all, delete-orphan",
@@ -166,6 +187,14 @@ class TransferLine(BaseModel):
     )
     quantity_demand: Mapped[float] = mapped_column(Numeric(16, 4), nullable=False, default=0)
     quantity_done: Mapped[float] = mapped_column(Numeric(16, 4), nullable=False, default=0)
+    quantity_reserved: Mapped[float] = mapped_column(Numeric(16, 4), nullable=False, default=0)
+    # Package grouping (Odoo 19)
+    package_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("inventory.package", ondelete="SET NULL"), nullable=True
+    )
+    result_package_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("inventory.package", ondelete="SET NULL"), nullable=True
+    )
 
     transfer: Mapped[Transfer] = relationship(back_populates="lines")
     product: Mapped[Product] = relationship()

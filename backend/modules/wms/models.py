@@ -15,6 +15,7 @@ from sqlalchemy import (
     ForeignKey,
     Numeric,
     String,
+    Text,
     UniqueConstraint,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -119,7 +120,10 @@ class Zone(BaseModel):
 
 # Allowed values for Location.usage — kept as a tuple so seed scripts &
 # schema validation stay in sync.
-LOCATION_USAGES = ("supplier", "customer", "internal", "inventory", "transit", "view", "production")
+LOCATION_USAGES = ("supplier", "customer", "internal", "inventory", "transit", "view", "production", "scrap")
+
+# Removal strategies — order in which lots are picked from a location.
+REMOVAL_STRATEGIES = ("fifo", "fefo", "lifo", "closest")
 
 
 class Location(BaseModel):
@@ -127,7 +131,9 @@ class Location(BaseModel):
 
     ``parent_id`` builds a tree (e.g. WH → Stock → Shelf-A).  ``usage``
     distinguishes physical (internal) from virtual (supplier / customer /
-    inventory adjustment / transit) locations.
+    inventory adjustment / transit / scrap) locations.
+    ``removal_strategy`` controls pick order for outbound moves.
+    ``putaway_strategy`` hints to putaway rules how to select a child location.
     """
 
     __tablename__ = "location"
@@ -150,6 +156,12 @@ class Location(BaseModel):
     usage: Mapped[str] = mapped_column(String(20), nullable=False, default="internal")
     barcode: Mapped[str | None] = mapped_column(String(60), nullable=True)
     active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+    # Odoo 19 additions
+    removal_strategy: Mapped[str] = mapped_column(String(10), nullable=False, default="fifo")
+    max_weight_kg: Mapped[float | None] = mapped_column(Float, nullable=True)
+    max_volume_m3: Mapped[float | None] = mapped_column(Float, nullable=True)
+    is_scrap: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    sequence: Mapped[int] = mapped_column(BigInteger, nullable=False, default=10)
 
     warehouse: Mapped[Warehouse | None] = relationship(back_populates="locations")
     parent: Mapped["Location | None"] = relationship(
@@ -179,13 +191,15 @@ class ProductCategory(BaseModel):
 
 
 PRODUCT_TYPES = ("consu", "service", "product")  # mirrors Odoo
+TRACKING_TYPES = ("none", "lot", "serial")  # none=no tracking, lot=batch, serial=unit
+COST_METHODS = ("standard", "fifo", "avco")  # standard=fixed cost, fifo, average cost
 
 
 class Product(BaseModel):
     """Sellable / stockable item.
 
-    For Phase 2a we collapse Odoo's template/variant pair into a single
-    table — variants will be re-introduced if/when the business needs them.
+    Odoo 19 additions: tracking (lot/serial/none), cost_method (fifo/avco/standard),
+    weight/volume for logistics, purchase/sales uom, reorder point fields.
     """
 
     __tablename__ = "product"
@@ -197,7 +211,7 @@ class Product(BaseModel):
     default_code: Mapped[str] = mapped_column(String(60), nullable=False, index=True)
     barcode: Mapped[str | None] = mapped_column(String(60), nullable=True, unique=True)
     name: Mapped[str] = mapped_column(String(255), nullable=False)
-    description: Mapped[str | None] = mapped_column(String(2000), nullable=True)
+    description: Mapped[str | None] = mapped_column(Text, nullable=True)
     type: Mapped[str] = mapped_column(String(10), nullable=False, default="product")
     category_id: Mapped[int | None] = mapped_column(
         BigInteger, ForeignKey("wms.product_category.id", ondelete="SET NULL"), nullable=True
@@ -205,16 +219,33 @@ class Product(BaseModel):
     uom_id: Mapped[int] = mapped_column(
         BigInteger, ForeignKey("wms.uom.id", ondelete="RESTRICT"), nullable=False
     )
+    uom_purchase_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("wms.uom.id", ondelete="SET NULL"), nullable=True
+    )
     list_price: Mapped[float] = mapped_column(Numeric(14, 2), nullable=False, default=0)
     standard_price: Mapped[float] = mapped_column(Numeric(14, 2), nullable=False, default=0)
     active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+    # Odoo 19 additions
+    tracking: Mapped[str] = mapped_column(String(10), nullable=False, default="none")
+    cost_method: Mapped[str] = mapped_column(String(10), nullable=False, default="standard")
+    weight_kg: Mapped[float] = mapped_column(Float, nullable=False, default=0)
+    volume_m3: Mapped[float] = mapped_column(Float, nullable=False, default=0)
+    purchase_ok: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+    sale_ok: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+    # Computed/cached average cost (updated by valuation service)
+    avg_cost: Mapped[float] = mapped_column(Numeric(14, 6), nullable=False, default=0)
 
     category: Mapped[ProductCategory | None] = relationship()
-    uom: Mapped[Uom] = relationship()
+    uom: Mapped[Uom] = relationship(foreign_keys=[uom_id])
+    uom_purchase: Mapped[Uom | None] = relationship(foreign_keys=[uom_purchase_id])
 
 
 class Lot(BaseModel):
-    """Lot or serial number bound to a single product."""
+    """Lot or serial number bound to a single product.
+
+    Odoo 19: lot_type distinguishes batch lot from unique serial number.
+    Added use_date (best-before) and removal_date for FEFO strategies.
+    """
 
     __tablename__ = "lot"
     __table_args__ = (
@@ -226,7 +257,12 @@ class Lot(BaseModel):
         BigInteger, ForeignKey("wms.product.id", ondelete="CASCADE"), nullable=False
     )
     name: Mapped[str] = mapped_column(String(60), nullable=False)
+    lot_type: Mapped[str] = mapped_column(String(10), nullable=False, default="lot")
     expiration_date: Mapped[date | None] = mapped_column(Date, nullable=True)
-    note: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    use_date: Mapped[date | None] = mapped_column(Date, nullable=True)
+    removal_date: Mapped[date | None] = mapped_column(Date, nullable=True)
+    note: Mapped[str | None] = mapped_column(Text, nullable=True)
+    # supplier ref for traceability
+    supplier_lot_ref: Mapped[str | None] = mapped_column(String(60), nullable=True)
 
     product: Mapped[Product] = relationship()
