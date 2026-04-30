@@ -18,7 +18,9 @@ from backend.core.db import SCHEMAS, Base
 # shared metadata before autogenerate runs.
 from backend.core import models, models_audit  # noqa: F401
 from backend.modules.inventory import models as inventory_models  # noqa: F401
+from backend.modules.inventory import models_count as inventory_count_models  # noqa: F401
 from backend.modules.outbound import models as outbound_models  # noqa: F401
+from backend.modules.quality import models as quality_models  # noqa: F401
 from backend.modules.wms import models as wms_models  # noqa: F401
 from backend.modules.wms import models_outbound as wms_outbound_models  # noqa: F401
 

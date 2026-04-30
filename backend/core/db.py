@@ -26,6 +26,7 @@ SCHEMAS = (
     "wms",
     "inventory",
     "outbound",
+    "quality",
     "purchase",
     "mfg",
     "accounting",

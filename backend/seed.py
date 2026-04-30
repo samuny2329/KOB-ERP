@@ -69,6 +69,17 @@ CORE_PERMISSIONS: list[_Perm] = [
     _Perm("outbound.dispatch", "read", "View dispatch batches"),
     _Perm("outbound.dispatch", "write", "Create/scan/finalise dispatch batches"),
     _Perm("core.activity_log", "read", "Read the hash-chained activity log"),
+    # Cycle counts (Phase 2c)
+    _Perm("inventory.count_session", "read", "View count sessions"),
+    _Perm("inventory.count_session", "write", "Create / transition count sessions"),
+    _Perm("inventory.count_task", "read", "View count tasks"),
+    _Perm("inventory.count_task", "write", "Assign / transition count tasks"),
+    _Perm("inventory.count_entry", "write", "Record count entries"),
+    _Perm("inventory.count_adjustment", "approve", "Approve count adjustments"),
+    # Quality (Phase 2c)
+    _Perm("quality.check", "read", "View quality checks"),
+    _Perm("quality.check", "write", "Create / transition quality checks"),
+    _Perm("quality.defect", "write", "Record quality defects"),
 ]
 
 

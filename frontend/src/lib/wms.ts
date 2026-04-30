@@ -336,3 +336,98 @@ export const outboundApi = {
       .get<{ valid: boolean; broken_at_id: number | null }>("/audit/activity-log/verify")
       .then((r) => r.data),
 };
+
+// ── Cycle counts + quality (Phase 2c) ─────────────────────────────────
+
+export interface CountSession {
+  id: number;
+  name: string;
+  state: "draft" | "in_progress" | "reconciling" | "done" | "cancelled";
+  session_type: "full" | "cycle";
+  warehouse_id: number;
+  responsible_id: number | null;
+  date_start: string | null;
+  date_end: string | null;
+  variance_threshold_pct: number;
+  note: string | null;
+  created_at: string;
+}
+
+export interface CountTask {
+  id: number;
+  session_id: number;
+  state:
+    | "assigned"
+    | "counting"
+    | "submitted"
+    | "verified"
+    | "approved"
+    | "cancelled";
+  location_id: number;
+  product_id: number | null;
+  assigned_user_id: number | null;
+  expected_qty: number;
+  counted_qty: number;
+  variance: number;
+}
+
+export interface QualityDefect {
+  id: number;
+  check_id: number;
+  product_id: number;
+  defect_type: string;
+  severity: "minor" | "major" | "critical";
+  description: string | null;
+  occurred_at: string;
+}
+
+export interface QualityCheck {
+  id: number;
+  state: "pending" | "passed" | "failed" | "skipped";
+  order_id: number;
+  order_line_id: number | null;
+  product_id: number;
+  lot_id: number | null;
+  expected_qty: number;
+  checked_by_id: number | null;
+  checked_at: string | null;
+  check_notes: string | null;
+  defects: QualityDefect[];
+  created_at: string;
+}
+
+export const countsApi = {
+  sessions: (state?: string) =>
+    api
+      .get<CountSession[]>("/inventory/counts/sessions", { params: { state } })
+      .then((r) => r.data),
+  tasks: (sessionId?: number) =>
+    api
+      .get<CountTask[]>("/inventory/counts/tasks", { params: { session_id: sessionId } })
+      .then((r) => r.data),
+  transitionSession: (id: number, target: string) =>
+    api
+      .post<CountSession>(`/inventory/counts/sessions/${id}/transition`, null, {
+        params: { target },
+      })
+      .then((r) => r.data),
+  transitionTask: (id: number, target: string) =>
+    api
+      .post<CountTask>(`/inventory/counts/tasks/${id}/transition`, null, {
+        params: { target },
+      })
+      .then((r) => r.data),
+};
+
+export const qualityApi = {
+  checks: (params?: { state?: string; order_id?: number }) =>
+    api.get<QualityCheck[]>("/quality/checks", { params }).then((r) => r.data),
+  transitionCheck: (id: number, target: "passed" | "failed" | "skipped") =>
+    api
+      .post<QualityCheck>(`/quality/checks/${id}/transition`, null, { params: { target } })
+      .then((r) => r.data),
+  defects: (checkId?: number) =>
+    api
+      .get<QualityDefect[]>("/quality/defects", { params: { check_id: checkId } })
+      .then((r) => r.data),
+};

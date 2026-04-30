@@ -17,6 +17,9 @@ const MOCK_METRICS: Record<string, { primary: string | number; secondary: string
   lots: { primary: 218, secondary: "lots tracked" },
   outbound: { primary: 91, secondary: "in pick / pack" },
   couriers: { primary: 6, secondary: "active carriers" },
+  counts: { primary: 4, secondary: "open sessions" },
+  quality: { primary: 12, secondary: "pending checks" },
+  audit: { primary: "1,840", secondary: "events · chain ✓" },
 };
 
 export default function PreviewHomePage() {

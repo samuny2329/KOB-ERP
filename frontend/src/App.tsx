@@ -8,6 +8,9 @@ import WarehousesPage from "@/pages/WarehousesPage";
 import TransfersPage from "@/pages/TransfersPage";
 import OutboundPage from "@/pages/OutboundPage";
 import CouriersPage from "@/pages/CouriersPage";
+import CountsPage from "@/pages/CountsPage";
+import QualityPage from "@/pages/QualityPage";
+import ActivityLogPage from "@/pages/ActivityLogPage";
 import { useAuth } from "@/lib/auth";
 
 function ProtectedRoute({ children }: { children: React.ReactElement }) {
@@ -39,6 +42,9 @@ export default function App() {
         <Route path="/transfers" element={<TransfersPage />} />
         <Route path="/outbound" element={<OutboundPage />} />
         <Route path="/couriers" element={<CouriersPage />} />
+        <Route path="/counts" element={<CountsPage />} />
+        <Route path="/quality" element={<QualityPage />} />
+        <Route path="/audit" element={<ActivityLogPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

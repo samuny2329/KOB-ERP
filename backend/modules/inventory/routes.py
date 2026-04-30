@@ -20,6 +20,7 @@ from backend.modules.inventory.schemas import (
     TransferTypeCreate,
     TransferTypeRead,
 )
+from backend.modules.inventory.routes_count import router as count_router
 from backend.modules.inventory.service import (
     cancel_transfer,
     complete_transfer,

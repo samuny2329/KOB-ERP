@@ -14,7 +14,9 @@ from backend.config import get_settings
 from backend.core.audit import register_audit_hooks, request_id_middleware
 from backend.core.routes import router as core_router
 from backend.modules.inventory.routes import router as inventory_router
+from backend.modules.inventory.routes_count import router as inventory_counts_router
 from backend.modules.outbound.routes import router as outbound_router
+from backend.modules.quality.routes import router as quality_router
 from backend.modules.wms.routes import router as wms_router
 
 _log = logging.getLogger(__name__)
@@ -69,7 +71,9 @@ def create_app() -> FastAPI:
     app.include_router(core_router)
     app.include_router(wms_router, prefix="/api/v1")
     app.include_router(inventory_router, prefix="/api/v1")
+    app.include_router(inventory_counts_router, prefix="/api/v1")
     app.include_router(outbound_router, prefix="/api/v1")
+    app.include_router(quality_router, prefix="/api/v1")
 
     return app
 

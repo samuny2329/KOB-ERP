@@ -4,8 +4,8 @@ Source of truth for current phase and what comes next. Update as phases
 complete. Tag releases as `v0.<phase>-<name>` (e.g. `v0.1-core`).
 
 ## Current Status
-**Phase 2b — KOB-WMS pick / pack / ship + bento launcher** (complete)
-Next: Phase 2c — Cycle counts + quality checks
+**Phase 2c — Cycle counts + Quality** (complete)
+Next: Phase 2d — Operations / KPI / Boxes / Integrations
 
 ## Phases
 
@@ -57,10 +57,14 @@ Tag: `v0.2a-wms`
 
 Tag: `v0.2b-outbound`
 
-### Phase 2c — Cycle counts + Quality
-- [ ] `inventory.count_session`, `count_task`, `count_entry`, `count_adjustment`, `count_snapshot`
-- [ ] `quality.check`, `quality.defect`
-- [ ] Variance reconciliation flow
+### Phase 2c — Cycle counts + Quality ✅
+- [x] `inventory.count_session` (5-state machine) + `count_task` (6-state w/ recount + revert)
+- [x] `inventory.count_entry`, `count_adjustment`, `count_snapshot`
+- [x] `quality.check` (pending → passed/failed/skipped) + `quality.defect` (3 severities)
+- [x] Routes: 8 count endpoints + 5 quality endpoints, all logged into hash-chain
+- [x] Frontend: launcher tiles (Counts, Quality, Audit), Counts page, Quality page, Activity log page w/ "Verify chain" button
+- [x] 9 new permissions seeded
+- [x] 29 tests passing (added 4 Phase 2c state-machine tests)
 
 Tag: `v0.2c-counts`
 
