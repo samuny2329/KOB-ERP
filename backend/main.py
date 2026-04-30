@@ -22,6 +22,7 @@ from backend.modules.mfg.routes import router as mfg_router
 from backend.modules.ops.routes import router as ops_router
 from backend.modules.outbound.routes import router as outbound_router
 from backend.modules.purchase.routes import router as purchase_router
+from backend.modules.purchase.routes_advanced import router as purchase_advanced_router
 from backend.modules.quality.routes import router as quality_router
 from backend.modules.sales.routes import router as sales_router
 from backend.modules.wms.routes import router as wms_router
@@ -84,6 +85,7 @@ def create_app() -> FastAPI:
     app.include_router(quality_router, prefix="/api/v1")
     app.include_router(ops_router, prefix="/api/v1")
     app.include_router(purchase_router, prefix="/api/v1")
+    app.include_router(purchase_advanced_router, prefix="/api/v1")
     app.include_router(mfg_router, prefix="/api/v1")
     app.include_router(sales_router, prefix="/api/v1")
     app.include_router(accounting_router, prefix="/api/v1")

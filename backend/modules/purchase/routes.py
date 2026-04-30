@@ -83,13 +83,18 @@ async def create_purchase_order(
     session.add(po)
     await session.flush()
     subtotal = 0.0
+    total_tax = 0.0
     for line_data in body.lines:
         line = PoLine(order_id=po.id, **line_data.model_dump())
-        line.subtotal = line.qty_ordered * line.unit_price
+        line.subtotal = float(line.qty_ordered) * float(line.unit_price)
+        line.tax_amount = round(line.subtotal * float(line.tax_rate) / 100, 2)
+        line.total = line.subtotal + line.tax_amount
         subtotal += line.subtotal
+        total_tax += line.tax_amount
         session.add(line)
     po.subtotal = subtotal
-    po.total_amount = subtotal + po.tax_amount
+    po.tax_amount = total_tax
+    po.total_amount = subtotal + total_tax
     await session.flush()
     await session.refresh(po, ["lines"])
     return po

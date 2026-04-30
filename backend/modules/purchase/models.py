@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from datetime import date, datetime
 
-from sqlalchemy import BigInteger, Boolean, Date, DateTime, ForeignKey, Integer, Numeric, String, Text
+from sqlalchemy import BigInteger, Boolean, Date, DateTime, Float, ForeignKey, Integer, Numeric, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from backend.core.base_model import BaseModel
@@ -25,12 +25,25 @@ class Vendor(BaseModel):
     phone: Mapped[str | None] = mapped_column(String(40))
     address: Mapped[str | None] = mapped_column(Text)
     payment_term_days: Mapped[int] = mapped_column(Integer, default=30)
+    payment_term_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("purchase.payment_term.id", ondelete="SET NULL"), nullable=True
+    )
+    lead_time_days: Mapped[int] = mapped_column(Integer, default=7, nullable=False)
+    wht_type: Mapped[str] = mapped_column(String(10), default="pnd53", nullable=False)
+    wht_rate: Mapped[float] = mapped_column(Numeric(5, 2), default=3.0, nullable=False)
+    performance_score: Mapped[float] = mapped_column(Float, default=0, nullable=False)
     active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
 
     orders: Mapped[list["PurchaseOrder"]] = relationship(back_populates="vendor", lazy="select")
 
 
-PO_STATES = ["draft", "sent", "confirmed", "received", "closed", "cancelled"]
+PO_STATES = ["draft", "sent", "waiting_approval", "confirmed", "received", "closed", "cancelled"]
+
+# Approval states (used when budget control or amount threshold requires approval)
+PO_APPROVAL_STATES = ["not_required", "pending", "approved", "rejected"]
+
+# Incoterms (Odoo 19 parity)
+INCOTERMS = ("EXW", "FCA", "CPT", "CIP", "DAP", "DPU", "DDP", "FAS", "FOB", "CFR", "CIF")
 
 
 class PurchaseOrder(BaseModel, WorkflowMixin):
@@ -38,6 +51,16 @@ class PurchaseOrder(BaseModel, WorkflowMixin):
 
     __tablename__ = "purchase_order"
     __table_args__ = ({"schema": "purchase"},)
+
+    allowed_transitions = {
+        "draft": {"sent", "confirmed", "waiting_approval", "cancelled"},
+        "sent": {"confirmed", "waiting_approval", "cancelled"},
+        "waiting_approval": {"confirmed", "cancelled"},
+        "confirmed": {"received", "closed", "cancelled"},
+        "received": {"closed"},
+        "closed": set(),
+        "cancelled": set(),
+    }
 
     number: Mapped[str] = mapped_column(String(60), unique=True, nullable=False)
     vendor_id: Mapped[int] = mapped_column(
@@ -56,6 +79,27 @@ class PurchaseOrder(BaseModel, WorkflowMixin):
     notes: Mapped[str | None] = mapped_column(Text)
     confirmed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     received_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    # Odoo 19 parity additions
+    note_internal: Mapped[str | None] = mapped_column(Text)
+    note_vendor: Mapped[str | None] = mapped_column(Text)
+    incoterms: Mapped[str | None] = mapped_column(String(10))
+    buyer_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("core.user.id", ondelete="SET NULL"), nullable=True
+    )
+    payment_term_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("purchase.payment_term.id", ondelete="SET NULL"), nullable=True
+    )
+    # KOB-exclusive: approval + budget
+    approval_state: Mapped[str] = mapped_column(String(20), default="not_required", nullable=False)
+    approver_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("core.user.id", ondelete="SET NULL"), nullable=True
+    )
+    approved_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    budget_id: Mapped[int | None] = mapped_column(
+        BigInteger,
+        ForeignKey("purchase.procurement_budget.id", ondelete="SET NULL"),
+        nullable=True,
+    )
 
     vendor: Mapped[Vendor] = relationship(back_populates="orders", lazy="select")
     lines: Mapped[list["PoLine"]] = relationship(
@@ -81,6 +125,13 @@ class PoLine(BaseModel):
     unit_price: Mapped[float] = mapped_column(Numeric(12, 4), nullable=False)
     uom_id: Mapped[int | None] = mapped_column(BigInteger, ForeignKey("wms.uom.id"))
     subtotal: Mapped[float] = mapped_column(Numeric(16, 2), default=0)
+    # Odoo 19 parity: per-line tax
+    tax_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("accounting.tax_rate.id", ondelete="SET NULL"), nullable=True
+    )
+    tax_rate: Mapped[float] = mapped_column(Numeric(5, 2), default=0)   # e.g. 7.0 for 7% VAT
+    tax_amount: Mapped[float] = mapped_column(Numeric(14, 2), default=0)
+    total: Mapped[float] = mapped_column(Numeric(16, 2), default=0)     # subtotal + tax_amount
 
     order: Mapped[PurchaseOrder] = relationship(back_populates="lines", lazy="select")
 

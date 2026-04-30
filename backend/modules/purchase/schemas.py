@@ -20,6 +20,10 @@ class VendorCreate(_Base):
     phone: str | None = None
     address: str | None = None
     payment_term_days: int = 30
+    payment_term_id: int | None = None
+    lead_time_days: int = 7
+    wht_type: str = "pnd53"
+    wht_rate: float = 3.0
 
 
 class VendorRead(_Base):
@@ -31,6 +35,11 @@ class VendorRead(_Base):
     email: str | None
     phone: str | None
     payment_term_days: int
+    payment_term_id: int | None = None
+    lead_time_days: int
+    wht_type: str
+    wht_rate: float
+    performance_score: float
     active: bool
 
 
@@ -40,6 +49,8 @@ class PoLineCreate(_Base):
     qty_ordered: float
     unit_price: float
     uom_id: int | None = None
+    tax_id: int | None = None
+    tax_rate: float = 0.0
 
 
 class PoLineRead(_Base):
@@ -50,6 +61,9 @@ class PoLineRead(_Base):
     qty_received: float
     unit_price: float
     subtotal: float
+    tax_rate: float
+    tax_amount: float
+    total: float
 
 
 class PurchaseOrderCreate(_Base):
@@ -60,6 +74,12 @@ class PurchaseOrderCreate(_Base):
     expected_date: date | None = None
     currency: str = "THB"
     notes: str | None = None
+    note_internal: str | None = None
+    note_vendor: str | None = None
+    incoterms: str | None = None
+    buyer_id: int | None = None
+    payment_term_id: int | None = None
+    budget_id: int | None = None
     lines: list[PoLineCreate] = []
 
 
@@ -74,6 +94,14 @@ class PurchaseOrderRead(_Base):
     subtotal: float
     tax_amount: float
     total_amount: float
+    note_internal: str | None = None
+    note_vendor: str | None = None
+    incoterms: str | None = None
+    buyer_id: int | None = None
+    payment_term_id: int | None = None
+    approval_state: str
+    approved_at: datetime | None = None
+    budget_id: int | None = None
     lines: list[PoLineRead] = []
 
 
