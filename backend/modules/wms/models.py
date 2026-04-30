@@ -82,6 +82,10 @@ class Warehouse(BaseModel):
     name: Mapped[str] = mapped_column(String(120), nullable=False)
     address: Mapped[str | None] = mapped_column(String(500), nullable=True)
     active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+    # Phase 10 multi-company link — nullable for backward compat.
+    company_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("core.company.id", ondelete="SET NULL"), nullable=True, index=True
+    )
 
     locations: Mapped[list["Location"]] = relationship(
         back_populates="warehouse",

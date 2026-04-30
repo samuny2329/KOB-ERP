@@ -1,18 +1,41 @@
-"""Sales models — customers, quotations, sales orders, deliveries."""
+"""Sales models — customers, quotations, sales orders, deliveries.
+
+Extended in Phase 10 with company linkage, sales-team fields, pricing, and
+KOB-exclusive promise-to-deliver / LTV / multi-platform support.
+"""
 
 from __future__ import annotations
 
 from datetime import date, datetime
 
-from sqlalchemy import BigInteger, Boolean, Date, DateTime, ForeignKey, Integer, Numeric, String, Text
+from sqlalchemy import (
+    BigInteger,
+    Boolean,
+    Date,
+    DateTime,
+    Float,
+    ForeignKey,
+    Integer,
+    Numeric,
+    String,
+    Text,
+)
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from backend.core.base_model import BaseModel
 from backend.core.workflow import WorkflowMixin
 
 
+# Customer group buckets — used for pricelist routing + LTV cohorts.
+CUSTOMER_GROUPS = ("vip", "regular", "wholesale", "retail")
+
+
 class Customer(BaseModel):
-    """Customer / client master."""
+    """Customer / client master.
+
+    Phase 10 additions: company link, pricelist + sales team + payment term
+    references, customer group, credit consumed/blocked state, LTV score.
+    """
 
     __tablename__ = "customer"
     __table_args__ = ({"schema": "sales"},)
@@ -26,6 +49,27 @@ class Customer(BaseModel):
     credit_limit: Mapped[float] = mapped_column(Numeric(14, 2), default=0)
     payment_term_days: Mapped[int] = mapped_column(Integer, default=30)
     active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
+
+    # ── Phase 10 additions ────────────────────────────────────────────
+    company_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("core.company.id", ondelete="SET NULL"), nullable=True, index=True
+    )
+    pricelist_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("sales.pricelist.id", ondelete="SET NULL"), nullable=True
+    )
+    sales_team_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("sales.sales_team.id", ondelete="SET NULL"), nullable=True
+    )
+    payment_term_id: Mapped[int | None] = mapped_column(
+        BigInteger,
+        ForeignKey("purchase.payment_term.id", ondelete="SET NULL", use_alter=True, name="fk_customer_payment_term"),
+        nullable=True,
+    )
+    customer_group: Mapped[str] = mapped_column(String(20), default="regular", nullable=False)
+    credit_consumed: Mapped[float] = mapped_column(Numeric(14, 2), default=0, nullable=False)
+    ltv_score: Mapped[float] = mapped_column(Float, default=0, nullable=False)
+    blocked: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    blocked_reason: Mapped[str | None] = mapped_column(String(500), nullable=True)
 
     orders: Mapped[list["SalesOrder"]] = relationship(back_populates="customer", lazy="select")
 
@@ -60,6 +104,40 @@ class SalesOrder(BaseModel, WorkflowMixin):
     platform_order_id: Mapped[int | None] = mapped_column(
         BigInteger, ForeignKey("ops.platform_order.id", ondelete="SET NULL")
     )
+
+    # ── Phase 10 additions ────────────────────────────────────────────
+    company_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("core.company.id", ondelete="SET NULL"), nullable=True, index=True
+    )
+    sales_team_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("sales.sales_team.id", ondelete="SET NULL"), nullable=True
+    )
+    salesperson_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("core.user.id", ondelete="SET NULL"), nullable=True
+    )
+    commission_pct: Mapped[float] = mapped_column(Numeric(5, 2), default=0, nullable=False)
+    payment_term_id: Mapped[int | None] = mapped_column(
+        BigInteger,
+        ForeignKey("purchase.payment_term.id", ondelete="SET NULL", use_alter=True, name="fk_so_payment_term"),
+        nullable=True,
+    )
+    pricelist_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("sales.pricelist.id", ondelete="SET NULL"), nullable=True
+    )
+    lost_reason_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("sales.lost_reason.id", ondelete="SET NULL"), nullable=True
+    )
+    won_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    lost_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    revision: Mapped[int] = mapped_column(Integer, default=1, nullable=False)
+    revision_of_id: Mapped[int | None] = mapped_column(
+        BigInteger,
+        ForeignKey("sales.sales_order.id", ondelete="SET NULL", use_alter=True, name="fk_so_revision_of"),
+        nullable=True,
+    )
+    # KOB-exclusive: promise-to-deliver
+    promise_date: Mapped[date | None] = mapped_column(Date, nullable=True)
+    p2d_confidence: Mapped[float] = mapped_column(Float, default=0, nullable=False)
 
     customer: Mapped[Customer] = relationship(back_populates="orders", lazy="select")
     lines: Mapped[list["SoLine"]] = relationship(

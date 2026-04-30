@@ -53,6 +53,9 @@ class Order(BaseModel, WorkflowMixin):
 
     ref: Mapped[str] = mapped_column(String(40), unique=True, nullable=False, index=True)
     customer_name: Mapped[str] = mapped_column(String(255), nullable=False)
+    company_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("core.company.id", ondelete="SET NULL"), nullable=True, index=True
+    )
     platform: Mapped[str] = mapped_column(String(20), nullable=False, default="manual")
     courier_id: Mapped[int | None] = mapped_column(
         BigInteger, ForeignKey("wms.courier.id", ondelete="SET NULL"), nullable=True

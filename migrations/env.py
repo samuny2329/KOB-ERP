@@ -30,6 +30,7 @@ from backend.modules.purchase import models as purchase_models  # noqa: F401
 from backend.modules.purchase import models_advanced as purchase_advanced_models  # noqa: F401
 from backend.modules.quality import models as quality_models  # noqa: F401
 from backend.modules.sales import models as sales_models  # noqa: F401
+from backend.modules.sales import models_advanced as sales_advanced_models  # noqa: F401
 from backend.modules.wms import models as wms_models  # noqa: F401
 from backend.modules.wms import models_outbound as wms_outbound_models  # noqa: F401
 

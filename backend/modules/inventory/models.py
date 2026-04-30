@@ -141,7 +141,7 @@ class Transfer(BaseModel, WorkflowMixin):
         BigInteger, ForeignKey("core.user.id", ondelete="SET NULL"), nullable=True
     )
     carrier_id: Mapped[int | None] = mapped_column(
-        BigInteger, ForeignKey("outbound.courier.id", ondelete="SET NULL"), nullable=True
+        BigInteger, ForeignKey("wms.courier.id", ondelete="SET NULL"), nullable=True
     )
     carrier_tracking_ref: Mapped[str | None] = mapped_column(String(120), nullable=True)
 
@@ -190,10 +190,10 @@ class TransferLine(BaseModel):
     quantity_reserved: Mapped[float] = mapped_column(Numeric(16, 4), nullable=False, default=0)
     # Package grouping (Odoo 19)
     package_id: Mapped[int | None] = mapped_column(
-        BigInteger, ForeignKey("inventory.package", ondelete="SET NULL"), nullable=True
+        BigInteger, ForeignKey("inventory.package.id", ondelete="SET NULL"), nullable=True
     )
     result_package_id: Mapped[int | None] = mapped_column(
-        BigInteger, ForeignKey("inventory.package", ondelete="SET NULL"), nullable=True
+        BigInteger, ForeignKey("inventory.package.id", ondelete="SET NULL"), nullable=True
     )
 
     transfer: Mapped[Transfer] = relationship(back_populates="lines")

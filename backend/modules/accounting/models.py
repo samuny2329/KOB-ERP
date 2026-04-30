@@ -75,6 +75,9 @@ class JournalEntry(BaseModel, WorkflowMixin):
     journal_id: Mapped[int] = mapped_column(
         BigInteger, ForeignKey("accounting.journal.id", ondelete="RESTRICT"), nullable=False
     )
+    company_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("core.company.id", ondelete="SET NULL"), nullable=True, index=True
+    )
     state: Mapped[str] = mapped_column(String(20), default="draft", nullable=False, index=True)
     entry_date: Mapped[date] = mapped_column(Date, nullable=False)
     reference: Mapped[str | None] = mapped_column(String(120))

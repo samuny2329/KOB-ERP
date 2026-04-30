@@ -69,6 +69,9 @@ class PurchaseOrder(BaseModel, WorkflowMixin):
     warehouse_id: Mapped[int | None] = mapped_column(
         BigInteger, ForeignKey("wms.warehouse.id", ondelete="SET NULL")
     )
+    company_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("core.company.id", ondelete="SET NULL"), nullable=True, index=True
+    )
     state: Mapped[str] = mapped_column(String(40), default="draft", nullable=False, index=True)
     order_date: Mapped[date] = mapped_column(Date, nullable=False)
     expected_date: Mapped[date | None] = mapped_column(Date)
