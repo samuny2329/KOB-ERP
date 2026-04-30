@@ -4,7 +4,8 @@ Source of truth for current phase and what comes next. Update as phases
 complete. Tag releases as `v0.<phase>-<name>` (e.g. `v0.1-core`).
 
 ## Current Status
-**Phase 0 — Foundation** (in progress)
+**Phase 1 — Core Engine** (complete, awaiting Postgres-backed integration test)
+Next: Phase 2 — WMS + Inventory port
 
 ## Phases
 
@@ -15,20 +16,21 @@ complete. Tag releases as `v0.<phase>-<name>` (e.g. `v0.1-core`).
 - [x] Project skeleton (backend/, frontend/, migrations/, docs/, scripts/)
 - [x] Initial documentation (ARCHITECTURE, ODOO_MAPPING, ROADMAP)
 
-### Phase 1 — Core Engine
-- [ ] FastAPI app skeleton (`backend/main.py`, settings, CORS)
-- [ ] SQLAlchemy 2.0 base + session management
-- [ ] `BaseModel` (id, timestamps, soft delete, audit fields)
-- [ ] Auth: JWT login/refresh, argon2 password hashing
-- [ ] RBAC: User, Group, Permission + `@requires` decorator
-- [ ] State machine: `WorkflowMixin` (draft → confirmed → done → cancelled)
-- [ ] Audit log middleware
-- [ ] Event bus (in-memory pub/sub)
-- [ ] Alembic init + first migration
-- [ ] pytest harness + fixtures
-- [ ] Docker Compose (Postgres 16, Redis 7, Adminer)
-- [ ] Frontend init (Vite + React + TS + Tailwind + TanStack Query + shadcn/ui)
-- [ ] Login page + auth flow
+### Phase 1 — Core Engine ✅
+- [x] FastAPI app skeleton ([backend/main.py](../backend/main.py), settings, CORS)
+- [x] SQLAlchemy 2.0 async engine + session ([backend/core/db.py](../backend/core/db.py))
+- [x] `BaseModel` / `CoreModel` mixins ([backend/core/base_model.py](../backend/core/base_model.py))
+- [x] Auth: JWT login/refresh, argon2 ([backend/core/security.py](../backend/core/security.py))
+- [x] User / Group / Permission models ([backend/core/models.py](../backend/core/models.py))
+- [x] RBAC `@requires` dependency ([backend/core/auth.py](../backend/core/auth.py))
+- [x] State machine `WorkflowMixin` ([backend/core/workflow.py](../backend/core/workflow.py))
+- [x] Audit log middleware + after_flush hook ([backend/core/audit.py](../backend/core/audit.py))
+- [x] Event bus (in-memory pub/sub) ([backend/core/events.py](../backend/core/events.py))
+- [x] Alembic config + multi-schema env ([alembic.ini](../alembic.ini), [migrations/env.py](../migrations/env.py))
+- [x] pytest harness — 14 passing tests
+- [x] Docker Compose (Postgres 16, Redis 7, Adminer) ([docker-compose.yml](../docker-compose.yml))
+- [x] Frontend: Vite + React 18 + TS + Tailwind + TanStack Query + Axios
+- [x] Login page + auth context with refresh-token interceptor
 
 Tag: `v0.1-core`
 

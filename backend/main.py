@@ -1,0 +1,71 @@
+"""FastAPI application entrypoint."""
+
+from __future__ import annotations
+
+import logging
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
+
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from backend import __version__
+from backend.config import get_settings
+from backend.core.audit import register_audit_hooks, request_id_middleware
+from backend.core.routes import router as core_router
+
+_log = logging.getLogger(__name__)
+
+
+@asynccontextmanager
+async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
+    register_audit_hooks()
+    _log.info("KOB-ERP backend starting (version=%s)", __version__)
+    yield
+    _log.info("KOB-ERP backend shutting down")
+
+
+def create_app() -> FastAPI:
+    settings = get_settings()
+
+    app = FastAPI(
+        title="KOB-ERP",
+        version=__version__,
+        debug=settings.debug,
+        lifespan=lifespan,
+    )
+
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=settings.cors_origins,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+        expose_headers=["X-Request-ID"],
+    )
+
+    @app.middleware("http")
+    async def _request_id(request, call_next):  # type: ignore[no-untyped-def]
+        # Use the pure-ASGI request_id_middleware via Starlette's BaseHTTPMiddleware-style
+        # adapter — but BaseHTTPMiddleware does not give us direct ASGI scope, so we set
+        # the audit context here and let the route handlers stamp the response header.
+        import uuid
+
+        from backend.core.audit import set_audit_context
+
+        request_id = uuid.uuid4().hex[:16]
+        set_audit_context(request_id, None)
+        response = await call_next(request)
+        response.headers["X-Request-ID"] = request_id
+        return response
+
+    @app.get("/health", tags=["meta"])
+    async def health() -> dict[str, str]:
+        return {"status": "ok", "version": __version__}
+
+    app.include_router(core_router)
+
+    return app
+
+
+app = create_app()

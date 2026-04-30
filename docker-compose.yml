@@ -1,0 +1,45 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: kob-erp-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${KOB_DB_USER:-kob}
+      POSTGRES_PASSWORD: ${KOB_DB_PASSWORD:-kob_dev_password_change_me}
+      POSTGRES_DB: ${KOB_DB_NAME:-kob_erp}
+    ports:
+      - "5432:5432"
+    volumes:
+      - kob_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${KOB_DB_USER:-kob} -d ${KOB_DB_NAME:-kob_erp}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: kob-erp-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  adminer:
+    image: adminer:latest
+    container_name: kob-erp-adminer
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+
+volumes:
+  kob_pgdata:
