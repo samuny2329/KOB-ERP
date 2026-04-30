@@ -16,9 +16,11 @@ from backend.core.db import SCHEMAS, Base
 
 # Import every module that declares ORM models so they register on the
 # shared metadata before autogenerate runs.
-from backend.core import models  # noqa: F401
+from backend.core import models, models_audit  # noqa: F401
 from backend.modules.inventory import models as inventory_models  # noqa: F401
+from backend.modules.outbound import models as outbound_models  # noqa: F401
 from backend.modules.wms import models as wms_models  # noqa: F401
+from backend.modules.wms import models_outbound as wms_outbound_models  # noqa: F401
 
 config = context.config
 if config.config_file_name is not None:

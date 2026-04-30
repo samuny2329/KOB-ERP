@@ -3,10 +3,12 @@ import { useAuth } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 
 const NAV = [
-  { to: "/", label: "Dashboard" },
+  { to: "/", label: "Home" },
   { to: "/products", label: "Products" },
   { to: "/warehouses", label: "Warehouses" },
   { to: "/transfers", label: "Transfers" },
+  { to: "/outbound", label: "Outbound" },
+  { to: "/couriers", label: "Couriers" },
 ];
 
 export default function Layout() {

@@ -13,6 +13,19 @@ export default {
           900: "#0c4a6e",
         },
       },
+      keyframes: {
+        shimmer: {
+          "100%": { transform: "translateX(100%)" },
+        },
+        floatIn: {
+          "0%": { opacity: "0", transform: "translateY(8px) scale(0.98)" },
+          "100%": { opacity: "1", transform: "translateY(0) scale(1)" },
+        },
+      },
+      animation: {
+        shimmer: "shimmer 1.6s infinite",
+        "float-in": "floatIn 0.5s ease-out both",
+      },
     },
   },
   plugins: [],

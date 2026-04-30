@@ -55,6 +55,20 @@ CORE_PERMISSIONS: list[_Perm] = [
     _Perm("inventory.transfer", "confirm", "Confirm transfers"),
     _Perm("inventory.transfer", "done", "Validate (complete) transfers"),
     _Perm("inventory.transfer", "cancel", "Cancel transfers"),
+    # WMS pick / pack master data (Phase 2b)
+    _Perm("wms.rack", "read", "View racks"),
+    _Perm("wms.rack", "write", "Create/edit racks"),
+    _Perm("wms.pickface", "read", "View pickfaces"),
+    _Perm("wms.pickface", "write", "Create/edit pickfaces"),
+    _Perm("wms.courier", "read", "View couriers"),
+    _Perm("wms.courier", "write", "Create/edit couriers"),
+    # Outbound flow (Phase 2b)
+    _Perm("outbound.order", "read", "View outbound orders"),
+    _Perm("outbound.order", "write", "Create/edit outbound orders"),
+    _Perm("outbound.order", "transition", "Move orders through pick/pack/ship states"),
+    _Perm("outbound.dispatch", "read", "View dispatch batches"),
+    _Perm("outbound.dispatch", "write", "Create/scan/finalise dispatch batches"),
+    _Perm("core.activity_log", "read", "Read the hash-chained activity log"),
 ]
 
 

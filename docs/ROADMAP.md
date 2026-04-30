@@ -4,8 +4,8 @@ Source of truth for current phase and what comes next. Update as phases
 complete. Tag releases as `v0.<phase>-<name>` (e.g. `v0.1-core`).
 
 ## Current Status
-**Phase 2a — WMS Foundation** (complete, awaiting Postgres-backed integration test)
-Next: Phase 2b — KOB-WMS pick / pack / ship layer (zone, rack, pickface, courier, outbound order, dispatch batch, hash-chain activity log)
+**Phase 2b — KOB-WMS pick / pack / ship + bento launcher** (complete)
+Next: Phase 2c — Cycle counts + quality checks
 
 ## Phases
 
@@ -45,13 +45,15 @@ Tag: `v0.1-core`
 
 Tag: `v0.2a-wms`
 
-### Phase 2b — KOB-WMS pick / pack / ship (next)
-Port the operational layer that sits on top of stock transfers.
-- [ ] `wms.rack`, `wms.pickface`, `wms.courier`
-- [ ] `outbound.order` + `outbound.order_line` (with state machine: pending → picking → picked → packing → packed → shipped/cancelled)
-- [ ] `outbound.dispatch_batch` + `outbound.scan_item` (courier handover w/ signature)
-- [ ] Activity log w/ SHA256 hash-chain audit
-- [ ] Frontend: Pick / Pack / Outbound / Dispatch screens (handheld-friendly)
+### Phase 2b — KOB-WMS pick / pack / ship ✅
+- [x] `wms.rack`, `wms.pickface`, `wms.courier` (master data)
+- [x] `outbound.order` + `order_line` w/ 7-state machine
+- [x] `outbound.dispatch_batch` + `scan_item` w/ scanning state
+- [x] `core.activity_log` w/ SHA-256 hash-chain audit + `verify_chain()`
+- [x] 25 passing tests (added 9 outbound + hash-chain tests)
+- [x] Frontend: bento app launcher with per-module skeleton variants
+- [x] Frontend: Outbound orders + Couriers/Dispatch list pages
+- [x] Permission catalogue extended (12 new perms)
 
 Tag: `v0.2b-outbound`
 

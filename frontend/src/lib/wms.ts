@@ -109,6 +109,117 @@ export interface TransferLine {
   quantity_done: number;
 }
 
+export interface Rack {
+  id: number;
+  zone_id: number;
+  location_id: number | null;
+  code: string;
+  name: string;
+  capacity: number;
+  frozen: boolean;
+  active: boolean;
+}
+
+export interface Pickface {
+  id: number;
+  zone_id: number;
+  location_id: number;
+  product_id: number;
+  code: string;
+  min_qty: number;
+  max_qty: number;
+  active: boolean;
+}
+
+export interface Courier {
+  id: number;
+  code: string;
+  name: string;
+  sequence: number;
+  color_hex: string | null;
+  tracking_url_template: string | null;
+  active: boolean;
+}
+
+export type OutboundOrderState =
+  | "pending"
+  | "picking"
+  | "picked"
+  | "packing"
+  | "packed"
+  | "shipped"
+  | "cancelled";
+
+export interface OutboundOrderLine {
+  id: number;
+  order_id: number;
+  product_id: number;
+  lot_id: number | null;
+  qty_expected: number;
+  qty_picked: number;
+  qty_packed: number;
+  sku: string | null;
+  description: string | null;
+}
+
+export interface OutboundOrder {
+  id: number;
+  ref: string;
+  customer_name: string;
+  platform: string;
+  state: OutboundOrderState;
+  courier_id: number | null;
+  awb: string | null;
+  box_barcode: string | null;
+  note: string | null;
+  sla_start_at: string | null;
+  pick_start_at: string | null;
+  picked_at: string | null;
+  pack_start_at: string | null;
+  packed_at: string | null;
+  shipped_at: string | null;
+  picker_id: number | null;
+  packer_id: number | null;
+  shipper_id: number | null;
+  lines: OutboundOrderLine[];
+  created_at: string;
+}
+
+export interface DispatchBatch {
+  id: number;
+  name: string;
+  state: "draft" | "scanning" | "dispatched" | "cancelled";
+  courier_id: number;
+  work_date: string | null;
+  receiver_name: string | null;
+  dispatched_at: string | null;
+  dispatched_by: number | null;
+  note: string | null;
+  scans: ScanItem[];
+  created_at: string;
+}
+
+export interface ScanItem {
+  id: number;
+  batch_id: number;
+  order_id: number | null;
+  barcode: string;
+  scanned_at: string;
+  scanned_by: number | null;
+}
+
+export interface ActivityLog {
+  id: number;
+  actor_id: number | null;
+  action: string;
+  ref: string | null;
+  code: string | null;
+  note: string | null;
+  occurred_at: string;
+  prev_hash: string | null;
+  block_hash: string;
+}
+
 export interface Transfer {
   id: number;
   name: string;
@@ -155,6 +266,14 @@ export const wmsApi = {
 
   lots: (productId?: number) =>
     api.get<Lot[]>("/wms/lots", { params: { product_id: productId } }).then((r) => r.data),
+
+  racks: (zoneId?: number) =>
+    api.get<Rack[]>("/wms/racks", { params: { zone_id: zoneId } }).then((r) => r.data),
+  pickfaces: (zoneId?: number) =>
+    api
+      .get<Pickface[]>("/wms/pickfaces", { params: { zone_id: zoneId } })
+      .then((r) => r.data),
+  couriers: () => api.get<Courier[]>("/wms/couriers").then((r) => r.data),
 };
 
 export const inventoryApi = {
@@ -178,4 +297,42 @@ export const inventoryApi = {
     api.post<Transfer>(`/inventory/transfers/${id}/done`).then((r) => r.data),
   cancelTransfer: (id: number) =>
     api.post<Transfer>(`/inventory/transfers/${id}/cancel`).then((r) => r.data),
+};
+
+export const outboundApi = {
+  orders: (params?: { state?: string; limit?: number }) =>
+    api.get<OutboundOrder[]>("/outbound/orders", { params }).then((r) => r.data),
+  getOrder: (id: number) =>
+    api.get<OutboundOrder>(`/outbound/orders/${id}`).then((r) => r.data),
+  transitionOrder: (id: number, target: OutboundOrderState) =>
+    api
+      .post<OutboundOrder>(`/outbound/orders/${id}/transition`, null, {
+        params: { target },
+      })
+      .then((r) => r.data),
+
+  dispatchBatches: (params?: { state?: string }) =>
+    api.get<DispatchBatch[]>("/outbound/dispatch-batches", { params }).then((r) => r.data),
+  createBatch: (body: { courier_id: number; work_date?: string; note?: string }) =>
+    api.post<DispatchBatch>("/outbound/dispatch-batches", body).then((r) => r.data),
+  scan: (batchId: number, barcode: string, orderId?: number) =>
+    api
+      .post<ScanItem>(`/outbound/dispatch-batches/${batchId}/scan`, {
+        barcode,
+        order_id: orderId,
+      })
+      .then((r) => r.data),
+  transitionBatch: (id: number, target: "scanning" | "dispatched" | "cancelled") =>
+    api
+      .post<DispatchBatch>(`/outbound/dispatch-batches/${id}/transition`, null, {
+        params: { target },
+      })
+      .then((r) => r.data),
+
+  activity: (params?: { limit?: number; action?: string }) =>
+    api.get<ActivityLog[]>("/audit/activity-log", { params }).then((r) => r.data),
+  verifyChain: () =>
+    api
+      .get<{ valid: boolean; broken_at_id: number | null }>("/audit/activity-log/verify")
+      .then((r) => r.data),
 };
