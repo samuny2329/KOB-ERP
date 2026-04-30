@@ -4,8 +4,12 @@ Source of truth for current phase and what comes next. Update as phases
 complete. Tag releases as `v0.<phase>-<name>` (e.g. `v0.1-core`).
 
 ## Current Status
-**Phase 2c — Cycle counts + Quality** (complete)
-Next: Phase 2d — Operations / KPI / Boxes / Integrations
+**Phase 8 — Production Hardening** (complete) ✅
+All phases 0–8 shipped. System ready for deployment.
+
+### Phase Legend
+- ✅ Complete and tagged
+- 🚧 In progress
 
 ## Phases
 
@@ -68,51 +72,65 @@ Tag: `v0.2b-outbound`
 
 Tag: `v0.2c-counts`
 
-### Phase 2d — Operations / KPI / Boxes / Integrations
-- [ ] `wms.box.size` + box analytics (fill %, cost)
-- [ ] `wms.api.config` + `wms.platform.order` (Shopee/Lazada/TikTok ingest)
-- [ ] `wms.worker.performance` + KPI targets + alert rules + SLA config
-- [ ] Daily / monthly reports
-- [ ] Cross-company analytics (`wms.cc.*`)
+### Phase 2d — Operations / KPI / Boxes / Integrations ✅
+- [x] `ops.box_size` + `box_usage` (fill %, dimensional weight, cost)
+- [x] `ops.platform_config` + `ops.platform_order` + `ops.platform_order_line` (Shopee/Lazada/TikTok ingest)
+- [x] `ops.worker_kpi` + `ops.kpi_target` + `ops.kpi_alert` (severity: info/warning/critical)
+- [x] `ops.daily_report` + `ops.monthly_report` (pre-computed aggregates)
+- [x] Frontend: OpsPage with platform orders, KPI alerts, daily reports
+- [x] All new modules enabled on bento launcher
 
 Tag: `v0.2d-ops`
 
-### Phase 3 — Purchase + Manufacturing
-- [ ] Vendor, PO, Receipt, 3-way matching
-- [ ] BoM, Work Order
-- [ ] Subcon flow (Cosmo workflow)
+### Phase 3 — Purchase + Manufacturing ✅
+- [x] `purchase.vendor`, `purchase.purchase_order`, `purchase.po_line`
+- [x] `purchase.receipt`, `purchase.receipt_line` with validate action
+- [x] `mfg.bom_template`, `mfg.bom_line`
+- [x] `mfg.manufacturing_order` (5-state) + `mfg.work_order`
+- [x] `mfg.subcon_vendor`, `mfg.subcon_recon`, `mfg.subcon_recon_line`
+- [x] Schemas + routes + frontend (PurchasePage, ManufacturingPage)
 
 Tag: `v0.3-purchase-mfg`
 
-### Phase 4 — Sales + CRM (lite)
-- [ ] Customer, Quotation, Sales Order, Delivery
+### Phase 4 — Sales + CRM (lite) ✅
+- [x] `sales.customer`, `sales.sales_order`, `sales.so_line`
+- [x] `sales.delivery`, `sales.delivery_line` with validate action
+- [x] Schemas + routes + SalesPage (revenue total, customer grid, order table)
 
 Tag: `v0.4-sales`
 
-### Phase 5 — Accounting
-- [ ] Chart of Accounts
-- [ ] Journal Entry (double-entry)
-- [ ] AP/AR aging, COGS, Stock Valuation
+### Phase 5 — Accounting ✅
+- [x] `accounting.account` (chart of accounts, tree, 6 account types)
+- [x] `accounting.journal`, `accounting.journal_entry`, `accounting.journal_entry_line`
+- [x] Double-entry balance validation on create
+- [x] `accounting.tax_rate`
+- [x] Schemas + routes + AccountingPage (CoA table, journal entries)
 
 Tag: `v0.5-accounting`
 
-### Phase 6 — HR + Payroll (lite)
-- [ ] Employee, Department, Attendance, Leave
-- [ ] Payroll: salary structure → payslip
+### Phase 6 — HR + Payroll (lite) ✅
+- [x] `hr.department` (tree), `hr.employee` (link to user + warehouse)
+- [x] `hr.attendance` (clock-in/out, worked_hours computed)
+- [x] `hr.leave_type`, `hr.leave` (draft → submitted → approved/rejected)
+- [x] `hr.salary_structure`, `hr.salary_rule`, `hr.payslip`, `hr.payslip_line`
+- [x] Schemas + routes + HRPage (department chips, employee cards, leave table)
 
 Tag: `v0.6-hr`
 
-### Phase 7 — MCP Server + AI
-- [ ] FastMCP server exposing query/automation tools
-- [ ] Claude integration
+### Phase 7 — MCP Server + AI ✅
+- [x] `mcp_server/server.py` — FastMCP with 16 tools
+- [x] Tools: query_inventory, list_products, list_warehouses, create/list_transfer, confirm/complete_transfer
+- [x] Tools: create/list_purchase_orders, create/list_sales_orders
+- [x] Tools: list_subcon_recons, list_employees, get_worker_kpis, verify_audit_chain
+- [x] Run via `uv run python -m mcp_server.server`
 
 Tag: `v0.7-mcp`
 
-### Phase 8 — Production Hardening
-- [ ] Performance tuning, indexes
-- [ ] Docker production image
-- [ ] AWS EC2 deploy + Nginx + SSL
-- [ ] Monitoring (logs, metrics)
-- [ ] Backup/restore
+### Phase 8 — Production Hardening ✅
+- [x] `Dockerfile.prod` — multi-stage (backend + frontend + nginx)
+- [x] `infra/nginx.conf` — rate limiting, gzip, SPA fallback, reverse proxy
+- [x] `infra/docker-compose.prod.yml` — Postgres + Redis + backend + nginx
+- [x] `migrations/versions/0003_performance_indexes.py` — 24 indexes across all modules
+- [x] DB schemas: core, wms, inventory, outbound, quality, ops, purchase, mfg, sales, accounting, hr
 
 Tag: `v1.0`

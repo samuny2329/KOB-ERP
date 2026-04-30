@@ -27,8 +27,10 @@ SCHEMAS = (
     "inventory",
     "outbound",
     "quality",
+    "ops",
     "purchase",
     "mfg",
+    "sales",
     "accounting",
     "hr",
 )
