@@ -1,6 +1,10 @@
 import { Navigate, Route, Routes } from "react-router-dom";
+import Layout from "@/components/Layout";
 import LoginPage from "@/pages/LoginPage";
 import DashboardPage from "@/pages/DashboardPage";
+import ProductsPage from "@/pages/ProductsPage";
+import WarehousesPage from "@/pages/WarehousesPage";
+import TransfersPage from "@/pages/TransfersPage";
 import { useAuth } from "@/lib/auth";
 
 function ProtectedRoute({ children }: { children: React.ReactElement }) {
@@ -19,13 +23,17 @@ export default function App() {
     <Routes>
       <Route path="/login" element={<LoginPage />} />
       <Route
-        path="/"
         element={
           <ProtectedRoute>
-            <DashboardPage />
+            <Layout />
           </ProtectedRoute>
         }
-      />
+      >
+        <Route path="/" element={<DashboardPage />} />
+        <Route path="/products" element={<ProductsPage />} />
+        <Route path="/warehouses" element={<WarehousesPage />} />
+        <Route path="/transfers" element={<TransfersPage />} />
+      </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

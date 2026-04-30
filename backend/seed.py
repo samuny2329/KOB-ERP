@@ -35,6 +35,26 @@ CORE_PERMISSIONS: list[_Perm] = [
     _Perm("core.group", "read", "List and view groups"),
     _Perm("core.group", "write", "Create and edit groups"),
     _Perm("core.audit", "read", "Read the audit log"),
+    # WMS master data
+    _Perm("wms.warehouse", "read", "View warehouses"),
+    _Perm("wms.warehouse", "write", "Create/edit warehouses"),
+    _Perm("wms.location", "read", "View locations"),
+    _Perm("wms.location", "write", "Create/edit locations"),
+    _Perm("wms.zone", "read", "View zones"),
+    _Perm("wms.zone", "write", "Create/edit zones"),
+    _Perm("wms.uom", "read", "View units of measure"),
+    _Perm("wms.uom", "write", "Create/edit units of measure"),
+    _Perm("wms.product", "read", "View products"),
+    _Perm("wms.product", "write", "Create/edit products"),
+    _Perm("wms.lot", "read", "View lots / serials"),
+    _Perm("wms.lot", "write", "Create/edit lots / serials"),
+    # Inventory operations
+    _Perm("inventory.quant", "read", "View on-hand stock"),
+    _Perm("inventory.transfer", "read", "View transfers"),
+    _Perm("inventory.transfer", "write", "Create/edit transfers"),
+    _Perm("inventory.transfer", "confirm", "Confirm transfers"),
+    _Perm("inventory.transfer", "done", "Validate (complete) transfers"),
+    _Perm("inventory.transfer", "cancel", "Cancel transfers"),
 ]
 
 

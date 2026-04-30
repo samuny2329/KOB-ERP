@@ -4,8 +4,8 @@ Source of truth for current phase and what comes next. Update as phases
 complete. Tag releases as `v0.<phase>-<name>` (e.g. `v0.1-core`).
 
 ## Current Status
-**Phase 1 — Core Engine** (complete, awaiting Postgres-backed integration test)
-Next: Phase 2 — WMS + Inventory port
+**Phase 2a — WMS Foundation** (complete, awaiting Postgres-backed integration test)
+Next: Phase 2b — KOB-WMS pick / pack / ship layer (zone, rack, pickface, courier, outbound order, dispatch batch, hash-chain activity log)
 
 ## Phases
 
@@ -34,16 +34,42 @@ Next: Phase 2 — WMS + Inventory port
 
 Tag: `v0.1-core`
 
-### Phase 2 — WMS + Inventory
-Port from `kob_wms` addon. See `docs/ODOO_MAPPING.md` for table list.
-- [ ] Models (warehouse, location, product, lot, uom, quant, transfer, transfer_line)
-- [ ] CRUD APIs
-- [ ] React pages (Warehouse list, Location tree, Product list, Transfer form/list)
-- [ ] Subcon recon (port from `kob_subcon_recon`)
-- [ ] Migration script from Odoo DB → KOB-ERP DB
-- [ ] Tests
+### Phase 2a — WMS foundation ✅
+- [x] WMS models: Warehouse, Zone, UomCategory, Uom, ProductCategory, Product, Location, Lot
+- [x] Inventory models: StockQuant, TransferType, Transfer (WorkflowMixin), TransferLine
+- [x] Pydantic schemas + REST CRUD routes (`/api/v1/wms/*`, `/api/v1/inventory/*`)
+- [x] Transfer service: create-with-lines, confirm/done/cancel, quant updates on done
+- [x] Permission catalogue extended (12 new perms across wms + inventory)
+- [x] 16 passing unit tests (added transfer state-machine spec test)
+- [x] Frontend: TanStack Query API client, Layout w/ nav, Products / Warehouses / Transfers pages, StateBadge component
 
-Tag: `v0.2-wms`
+Tag: `v0.2a-wms`
+
+### Phase 2b — KOB-WMS pick / pack / ship (next)
+Port the operational layer that sits on top of stock transfers.
+- [ ] `wms.rack`, `wms.pickface`, `wms.courier`
+- [ ] `outbound.order` + `outbound.order_line` (with state machine: pending → picking → picked → packing → packed → shipped/cancelled)
+- [ ] `outbound.dispatch_batch` + `outbound.scan_item` (courier handover w/ signature)
+- [ ] Activity log w/ SHA256 hash-chain audit
+- [ ] Frontend: Pick / Pack / Outbound / Dispatch screens (handheld-friendly)
+
+Tag: `v0.2b-outbound`
+
+### Phase 2c — Cycle counts + Quality
+- [ ] `inventory.count_session`, `count_task`, `count_entry`, `count_adjustment`, `count_snapshot`
+- [ ] `quality.check`, `quality.defect`
+- [ ] Variance reconciliation flow
+
+Tag: `v0.2c-counts`
+
+### Phase 2d — Operations / KPI / Boxes / Integrations
+- [ ] `wms.box.size` + box analytics (fill %, cost)
+- [ ] `wms.api.config` + `wms.platform.order` (Shopee/Lazada/TikTok ingest)
+- [ ] `wms.worker.performance` + KPI targets + alert rules + SLA config
+- [ ] Daily / monthly reports
+- [ ] Cross-company analytics (`wms.cc.*`)
+
+Tag: `v0.2d-ops`
 
 ### Phase 3 — Purchase + Manufacturing
 - [ ] Vendor, PO, Receipt, 3-way matching
