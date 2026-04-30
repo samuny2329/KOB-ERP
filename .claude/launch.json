@@ -1,0 +1,27 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "FastAPI Backend (KOB-ERP)",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "uvicorn", "backend.main:app", "--reload", "--port", "8000"],
+      "port": 8000
+    },
+    {
+      "name": "Vite Frontend (KOB-ERP)",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 5173
+    },
+    {
+      "name": "Odoo 18 (reference instance)",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "C:/Users/kobnb/Desktop/odoo-18.0/odoo-bin",
+        "-c",
+        "C:/Users/kobnb/Desktop/odoo-18.0/config/odoo18_local.conf"
+      ],
+      "port": 8018
+    }
+  ]
+}
