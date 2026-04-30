@@ -20,6 +20,12 @@ const MOCK_METRICS: Record<string, { primary: string | number; secondary: string
   counts: { primary: 4, secondary: "open sessions" },
   quality: { primary: 12, secondary: "pending checks" },
   audit: { primary: "1,840", secondary: "events · chain ✓" },
+  ops: { primary: 28, secondary: "platform orders" },
+  purchase: { primary: 14, secondary: "open POs" },
+  manufacturing: { primary: 7, secondary: "active MOs" },
+  sales: { primary: "฿ 1.2M", secondary: "this month" },
+  accounting: { primary: 342, secondary: "journal entries" },
+  hr: { primary: 67, secondary: "employees on shift" },
 };
 
 export default function PreviewHomePage() {
