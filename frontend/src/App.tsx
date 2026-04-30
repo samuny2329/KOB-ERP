@@ -11,6 +11,12 @@ import CouriersPage from "@/pages/CouriersPage";
 import CountsPage from "@/pages/CountsPage";
 import QualityPage from "@/pages/QualityPage";
 import ActivityLogPage from "@/pages/ActivityLogPage";
+import OpsPage from "@/pages/OpsPage";
+import PurchasePage from "@/pages/PurchasePage";
+import ManufacturingPage from "@/pages/ManufacturingPage";
+import SalesPage from "@/pages/SalesPage";
+import AccountingPage from "@/pages/AccountingPage";
+import HRPage from "@/pages/HRPage";
 import { useAuth } from "@/lib/auth";
 
 function ProtectedRoute({ children }: { children: React.ReactElement }) {
@@ -45,6 +51,12 @@ export default function App() {
         <Route path="/counts" element={<CountsPage />} />
         <Route path="/quality" element={<QualityPage />} />
         <Route path="/audit" element={<ActivityLogPage />} />
+        <Route path="/ops" element={<OpsPage />} />
+        <Route path="/purchase" element={<PurchasePage />} />
+        <Route path="/manufacturing" element={<ManufacturingPage />} />
+        <Route path="/sales" element={<SalesPage />} />
+        <Route path="/accounting" element={<AccountingPage />} />
+        <Route path="/hr" element={<HRPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

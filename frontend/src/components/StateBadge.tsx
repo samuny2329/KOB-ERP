@@ -1,13 +1,13 @@
 import { cn } from "@/lib/utils";
 
 const COLORS: Record<string, string> = {
-  // Transfer
+  // Shared
   draft: "bg-slate-100 text-slate-700",
   confirmed: "bg-amber-100 text-amber-800",
   done: "bg-emerald-100 text-emerald-800",
   cancelled: "bg-rose-100 text-rose-800",
-  // Outbound order
   pending: "bg-slate-100 text-slate-700",
+  // Outbound order
   picking: "bg-sky-100 text-sky-800",
   picked: "bg-cyan-100 text-cyan-800",
   packing: "bg-violet-100 text-violet-800",
@@ -24,11 +24,26 @@ const COLORS: Record<string, string> = {
   submitted: "bg-amber-100 text-amber-800",
   verified: "bg-cyan-100 text-cyan-800",
   approved: "bg-emerald-100 text-emerald-800",
+  rejected: "bg-rose-100 text-rose-800",
   // Quality
-  pending: "bg-slate-100 text-slate-700",
   passed: "bg-emerald-100 text-emerald-800",
   failed: "bg-rose-100 text-rose-800",
   skipped: "bg-slate-200 text-slate-600",
+  // Purchase / Sales
+  sent: "bg-sky-100 text-sky-800",
+  received: "bg-teal-100 text-teal-800",
+  closed: "bg-slate-200 text-slate-600",
+  invoiced: "bg-purple-100 text-purple-800",
+  // Accounting
+  posted: "bg-green-100 text-green-800",
+  // HR
+  paid: "bg-green-100 text-green-800",
+  // Platform
+  processing: "bg-sky-100 text-sky-800",
+  completed: "bg-emerald-100 text-emerald-800",
+  returned: "bg-amber-100 text-amber-800",
+  // Mfg
+  disputed: "bg-red-100 text-red-700",
 };
 
 export function StateBadge({ state }: { state: string }) {

@@ -5,12 +5,18 @@ import { cn } from "@/lib/utils";
 const NAV = [
   { to: "/", label: "Home" },
   { to: "/products", label: "Products" },
-  { to: "/warehouses", label: "Warehouses" },
+  { to: "/warehouses", label: "WMS" },
   { to: "/transfers", label: "Transfers" },
   { to: "/outbound", label: "Outbound" },
   { to: "/couriers", label: "Couriers" },
   { to: "/counts", label: "Counts" },
   { to: "/quality", label: "Quality" },
+  { to: "/ops", label: "Ops" },
+  { to: "/purchase", label: "Purchase" },
+  { to: "/manufacturing", label: "Mfg" },
+  { to: "/sales", label: "Sales" },
+  { to: "/accounting", label: "Accounting" },
+  { to: "/hr", label: "HR" },
   { to: "/audit", label: "Audit" },
 ];
 
