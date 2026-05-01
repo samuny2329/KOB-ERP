@@ -31,11 +31,14 @@ class KobWelcome extends Component {
     }
 
     _clearCurrentApp() {
+        // Odoo 19's menu service ignores `setCurrentMenu(undefined)` — so the
+        // closure-private currentAppId stays pinned on whatever module the
+        // user opened previously.  The actual hiding of the leftover submenu
+        // is done by a NavBar getter override (see kob_brand.js); here we
+        // just bus-trigger MENUS:APP-CHANGED so the navbar re-renders and
+        // re-reads our overridden `currentApp` getter.
         try {
-            // Odoo 19 menu service exposes setCurrentMenu(menu | undefined).
-            if (this.menuService.setCurrentMenu) {
-                this.menuService.setCurrentMenu(undefined);
-            }
+            this.env && this.env.bus && this.env.bus.trigger("MENUS:APP-CHANGED");
         } catch (_e) {
             /* best-effort; never block the welcome screen on this */
         }
