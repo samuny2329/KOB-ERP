@@ -24,9 +24,11 @@ patch(NavBar.prototype, {
         _delegated = true;
 
         const goWelcome = (ev) => {
-            const brand = ev.target.closest(".o_menu_brand");
-            if (!brand) return;
-            if (!document.body.contains(brand)) return;
+            // Treat both the desktop brand (.o_menu_brand) and the
+            // mobile/tablet burger toggle (.o_menu_toggle) as "go home".
+            const target = ev.target.closest(".o_menu_brand, .o_menu_toggle");
+            if (!target) return;
+            if (!document.body.contains(target)) return;
             // Kill the event for everyone — including the DropdownItem's
             // onSelected handler attached to this same element.
             ev.preventDefault();
