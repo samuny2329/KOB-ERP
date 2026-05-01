@@ -220,6 +220,78 @@ class KobWelcome extends Component {
                 glyph: "💬",
                 actionXmlId: "mail.action_discuss",
             },
+            {
+                key: "contacts",
+                name: _t("Contacts"),
+                description: _t(
+                    "Customers, vendors, address book — shared partner " +
+                    "directory used by every business module.",
+                ),
+                category: "sales_marketing",
+                color: "#5d9ff5",
+                glyph: "📇",
+                actionXmlId: "contacts.action_contacts",
+            },
+            {
+                key: "pos",
+                name: _t("Point of Sale"),
+                description: _t(
+                    "Retail POS — open shifts, scan barcodes, print receipts, " +
+                    "sync to inventory and accounting in real time.",
+                ),
+                category: "operations",
+                color: "#bb0000",
+                glyph: "🛒",
+                actionXmlId: "point_of_sale.action_pos_pos_form",
+            },
+            {
+                key: "invoicing",
+                name: _t("Invoicing"),
+                description: _t(
+                    "Customer invoices, vendor bills, payment matching, " +
+                    "Thai VAT (ภพ.30) and WHT (ภงด.3/53) certificates.",
+                ),
+                category: "finance",
+                color: "#0a6ed1",
+                glyph: "🧾",
+                actionXmlId: "account.action_move_out_invoice_type",
+            },
+            {
+                key: "dashboards",
+                name: _t("Dashboards"),
+                description: _t(
+                    "Spreadsheet-style dashboards — pivot, charts, KPIs, " +
+                    "with native Odoo data sources.",
+                ),
+                category: "productivity",
+                color: "#107e3e",
+                glyph: "📊",
+                actionXmlId: "spreadsheet_dashboard.action_dashboard_view",
+            },
+            {
+                key: "apps",
+                name: _t("Apps"),
+                description: _t(
+                    "Module manager — browse, install, upgrade or remove " +
+                    "Odoo + KOB addons for this database.",
+                ),
+                category: "admin",
+                color: "#354a5f",
+                glyph: "⊞",
+                actionXmlId: "base.open_module_tree",
+            },
+            {
+                key: "settings",
+                name: _t("Settings"),
+                description: _t(
+                    "System configuration — companies, users, languages, " +
+                    "permissions, multi-company group settings.",
+                ),
+                category: "admin",
+                color: "#6a6d70",
+                glyph: "⚙",
+                actionXmlId: "base.action_general_configuration",
+            },
         ];
     }
 
@@ -231,6 +303,7 @@ class KobWelcome extends Component {
             { id: "finance", label: _t("Finance"), color: "#354a5f" },
             { id: "people", label: _t("People"), color: "#e9730c" },
             { id: "productivity", label: _t("Productivity"), color: "#5d9ff5" },
+            { id: "admin", label: _t("Administration"), color: "#6a6d70" },
         ];
     }
 

@@ -16,6 +16,18 @@
     background: #354a5f !important;        // Belize Hole navy
     border-bottom: 1px solid #2c3e50 !important;
 
+    // KOB ERP convention: navigation lives on the Welcome dashboard, not in
+    // the navbar dropdown.  Hide the standard apps menu so users discover
+    // every module through the Welcome cards instead.
+    .o_navbar_apps_menu {
+        display: none !important;
+    }
+
+    // Brand mark takes you home (= the Welcome action).
+    .o_menu_brand {
+        cursor: pointer;
+    }
+
     // Brand block
     .o_menu_brand {
         font-weight: 600;
@@ -65,5 +77,116 @@
     &:hover {
         background-color: #075ba8;
         border-color: #075ba8;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// Buttons — force every primary/highlight to Fiori cobalt.
+//
+// Odoo 19 hard-codes the brand purple in many compiled SCSS rules even
+// after we override $o-community-color, so we explicitly re-state them.
+// All scoped under .o_web_client to keep emails & reports untouched.
+// ─────────────────────────────────────────────────────────────────────
+.o_web_client {
+
+    // Primary buttons (New / Save / Confirm / Apply ...)
+    .btn-primary {
+        background-color: #0a6ed1 !important;
+        border-color: #0a6ed1 !important;
+        color: #fff !important;
+
+        &:hover,
+        &:focus {
+            background-color: #075ba8 !important;
+            border-color: #075ba8 !important;
+        }
+        &:active,
+        &.active {
+            background-color: #054780 !important;
+            border-color: #054780 !important;
+        }
+    }
+
+    // Form-view "highlight" buttons in the header (e.g. Confirm, Validate)
+    button.oe_highlight,
+    .o_statusbar_buttons button.oe_highlight {
+        background-color: #0a6ed1 !important;
+        border-color: #0a6ed1 !important;
+        color: #fff !important;
+        &:hover { background-color: #075ba8 !important; border-color: #075ba8 !important; }
+    }
+
+    // Secondary / outline buttons that referenced brand purple
+    .btn-secondary {
+        color: #0a6ed1 !important;
+        border-color: #cde0f4 !important;
+        background-color: #fff !important;
+        &:hover { background-color: #e8f2fb !important; border-color: #0a6ed1 !important; }
+    }
+    .btn-outline-primary {
+        color: #0a6ed1 !important;
+        border-color: #0a6ed1 !important;
+        background-color: transparent !important;
+        &:hover {
+            background-color: #0a6ed1 !important;
+            color: #fff !important;
+        }
+    }
+
+    // Links
+    a, .o_form_view a, .text-primary {
+        color: #0a6ed1;
+    }
+
+    // Form inputs — focused border + selection accent
+    .o_input:focus,
+    input:focus,
+    textarea:focus,
+    select:focus,
+    .o_field_widget:focus-within {
+        border-color: #0a6ed1 !important;
+        box-shadow: 0 0 0 3px rgba(10, 110, 209, 0.18) !important;
+        outline: none;
+    }
+
+    // Checkboxes & radios — checked state
+    .form-check-input:checked,
+    input[type="checkbox"]:checked,
+    input[type="radio"]:checked {
+        background-color: #0a6ed1 !important;
+        border-color: #0a6ed1 !important;
+    }
+
+    // Selection highlights (kanban row hover, list row selected, ...)
+    .o_data_row.o_data_row_selected {
+        background-color: rgba(10, 110, 209, 0.08) !important;
+    }
+
+    // Search bar facets
+    .o_searchview .o_facet_values,
+    .o_search_panel_filter_value.active {
+        background-color: rgba(10, 110, 209, 0.10);
+        color: #0a6ed1;
+    }
+
+    // Active breadcrumb / view switcher
+    .o_breadcrumb .active,
+    .o_cp_switch_buttons .o_switch_view.active {
+        color: #0a6ed1 !important;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// Login page (loaded under web.assets_frontend, scoped via body class).
+// ─────────────────────────────────────────────────────────────────────
+.o_login_form .btn-primary,
+.oe_login_form .btn-primary,
+form.oe_login_form button[type="submit"] {
+    background-color: #0a6ed1 !important;
+    border-color: #0a6ed1 !important;
+    color: #fff !important;
+    &:hover {
+        background-color: #075ba8 !important;
+        border-color: #075ba8 !important;
     }
 }

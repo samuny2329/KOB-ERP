@@ -35,6 +35,9 @@ through Odoo's primary_variables hook.
         "web.assets_backend": [
             "kob_theme/static/src/scss/webclient.scss",
         ],
+        "web.assets_frontend": [
+            "kob_theme/static/src/scss/frontend.scss",
+        ],
     },
     "data": [],
     "installable": True,

@@ -1,0 +1,28 @@
+// KOB ERP — frontend (login page, public website chrome) overrides.
+//
+// `webclient.scss` covers /web (logged-in OWL).  This file covers
+// /web/login and any other pre-auth or website page where the backend
+// bundle isn't loaded but the user still sees branded buttons.
+
+.btn-primary,
+button[type="submit"].btn-primary,
+.oe_login_form .btn-primary,
+form.oe_login_form button[type="submit"] {
+    background-color: #0a6ed1 !important;
+    border-color: #0a6ed1 !important;
+    color: #fff !important;
+
+    &:hover,
+    &:focus {
+        background-color: #075ba8 !important;
+        border-color: #075ba8 !important;
+    }
+    &:active {
+        background-color: #054780 !important;
+        border-color: #054780 !important;
+    }
+}
+
+a, a:hover {
+    color: #0a6ed1;
+}
