@@ -21,8 +21,16 @@ Loaded first by every other ``kob_*`` addon.  Owns:
     "depends": ["base", "web"],
     "data": [
         "data/system_params.xml",
+        "data/welcome_action.xml",
         "views/menu.xml",
     ],
+    "assets": {
+        "web.assets_backend": [
+            "kob_base/static/src/welcome/kob_welcome.js",
+            "kob_base/static/src/welcome/kob_welcome.xml",
+            "kob_base/static/src/welcome/kob_welcome.scss",
+        ],
+    },
     "application": True,
     "installable": True,
     "auto_install": False,

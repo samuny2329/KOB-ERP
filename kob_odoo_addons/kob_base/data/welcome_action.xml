@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Client action that loads the OWL Welcome dashboard. -->
+        <record id="action_kob_welcome" model="ir.actions.client">
+            <field name="name">KOB ERP — Welcome</field>
+            <field name="tag">kob_base.welcome</field>
+            <field name="target">main</field>
+        </record>
+
+        <!-- Server action that points every existing user's default
+             landing to the welcome dashboard.  Triggered post-install. -->
+        <record id="action_set_welcome_landing" model="ir.actions.server">
+            <field name="name">KOB ERP: set welcome landing for all users</field>
+            <field name="model_id" ref="base.model_res_users"/>
+            <field name="state">code</field>
+            <field name="code">model._kob_set_welcome_landing()</field>
+        </record>
+    </data>
+
+    <!-- Run server action right after install so the very first login
+         lands on the welcome page. -->
+    <data noupdate="0">
+        <function model="res.users" name="_kob_set_welcome_landing"/>
+    </data>
+</odoo>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="kob_base.Welcome">
+        <div class="kob-welcome o_action_manager d-flex flex-column" style="height: 100%; overflow: auto;">
+
+            <!-- Hero -->
+            <div class="kob-welcome-hero px-4 py-4"
+                 style="background: linear-gradient(135deg, #354a5f 0%, #0a6ed1 100%); color: #fff;">
+                <div class="container">
+                    <div class="d-flex align-items-center gap-3">
+                        <div style="width: 56px; height: 56px; border-radius: 12px; background: rgba(255,255,255,0.18); display: grid; place-items: center; font-size: 28px; font-weight: 700;">K</div>
+                        <div>
+                            <h1 class="m-0" style="font-size: 22px; font-weight: 600;">KOB ERP</h1>
+                            <p class="m-0" style="opacity: 0.85; font-size: 13px;">
+                                Kiss of Beauty — Multi-company ERP · เลือกโหมดที่ต้องการ
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search + filter chips -->
+            <div class="px-4 py-3" style="background: #ffffff; border-bottom: 1px solid #e5e5e5;">
+                <div class="container d-flex flex-wrap gap-3 align-items-center">
+                    <div class="position-relative flex-grow-1" style="max-width: 360px;">
+                        <input type="search"
+                               class="form-control"
+                               style="padding-left: 36px;"
+                               placeholder="ค้นหาโหมด / Search modules"
+                               t-on-input="onSearchInput"
+                               t-att-value="state.search"/>
+                        <i class="oi oi-search position-absolute"
+                           style="left: 12px; top: 50%; transform: translateY(-50%); color: #6a6d70;"/>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2">
+                        <button type="button"
+                                class="btn btn-sm"
+                                t-att-class="{ 'btn-primary': !state.category, 'btn-outline-secondary': state.category }"
+                                t-on-click="() => this.onCategoryClick(null)">
+                            All / ทั้งหมด
+                        </button>
+                        <t t-foreach="categories" t-as="c" t-key="c.id">
+                            <button type="button"
+                                    class="btn btn-sm"
+                                    t-att-class="{ 'btn-primary': state.category === c.id, 'btn-outline-secondary': state.category !== c.id }"
+                                    t-on-click="() => this.onCategoryClick(c.id)">
+                                <t t-esc="c.label"/>
+                            </button>
+                        </t>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grouped sections -->
+            <div class="container py-4 flex-grow-1" style="background: #f5f6f7;">
+                <t t-foreach="grouped()" t-as="cat" t-key="cat.id">
+                    <div class="mb-4">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <span style="display: inline-block; width: 4px; height: 18px; border-radius: 2px;"
+                                  t-attf-style="background: {{cat.color}}; display: inline-block; width: 4px; height: 18px; border-radius: 2px;"/>
+                            <h2 class="m-0" style="font-size: 13px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #6a6d70;">
+                                <t t-esc="cat.label"/>
+                            </h2>
+                            <span class="flex-grow-1" style="height: 1px; background: #e5e5e5;"/>
+                            <span style="font-size: 11px; color: #6a6d70;">
+                                <t t-esc="cat.modules.length"/>
+                            </span>
+                        </div>
+
+                        <div class="row g-3">
+                            <t t-foreach="cat.modules" t-as="mod" t-key="mod.key">
+                                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                                    <button type="button"
+                                            class="kob-mod-card w-100 text-start p-3 d-flex flex-column gap-2 position-relative"
+                                            style="background: #ffffff; border: 1px solid #e5e5e5; border-radius: 8px; min-height: 150px; transition: all 160ms ease; cursor: pointer; box-shadow: 0 0 0 1px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);"
+                                            t-on-click="() => this.onCardClick(mod)">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div t-attf-style="width: 44px; height: 44px; border-radius: 10px; background: {{mod.color}}; color: #fff; display: grid; place-items: center; font-size: 20px; font-weight: 700;">
+                                                <t t-esc="mod.glyph"/>
+                                            </div>
+                                            <div class="flex-grow-1" style="min-width: 0;">
+                                                <div style="font-weight: 600; font-size: 14px; color: #32363a; line-height: 1.2;">
+                                                    <t t-esc="mod.name"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="m-0" style="font-size: 12px; color: #6a6d70; line-height: 1.5;">
+                                            <t t-esc="mod.description"/>
+                                        </p>
+                                    </button>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </t>
+
+                <t t-if="filteredModules.length === 0">
+                    <div class="text-center py-5" style="color: #6a6d70;">
+                        ไม่พบโหมดที่ค้นหา / No modules found
+                    </div>
+                </t>
+            </div>
+
+        </div>
+    </t>
+
+</templates>
