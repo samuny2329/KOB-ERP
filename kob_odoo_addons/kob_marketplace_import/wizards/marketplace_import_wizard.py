@@ -286,22 +286,29 @@ class MarketplaceImportWizard(models.TransientModel):
                 if self.auto_assign:
                     for picking in so.picking_ids:
                         picking.action_assign()
-                        # Manually stamp x_kob_* fields (in case _action_done
-                        # hasn't been called yet — we've not validated).
+                        # Stamp x_kob_* fields onto the picking.
                         picking.write({
                             "x_kob_source_ref":     source.id,
                             "x_kob_order_date_ref": so.date_order,
                             "x_kob_fake_order":     bool(tag_ids),
                         })
-                        # Copy brand from product → move so the
-                        # Print_Label-App can read it without joins.
+                        # Propagate brand product → move.
                         for move in picking.move_ids:
                             brand = (move.sale_line_id and
-                                     move.sale_line_id.x_kob_brand)
-                            if not brand:
-                                brand = move.product_id.x_kob_brand
+                                     move.sale_line_id.x_kob_brand) \
+                                    or move.product_id.x_kob_brand
                             if brand:
                                 move.write({"x_kob_brand": brand})
+                        # Bridge: create the wms.sales.order record so the
+                        # KOB WMS Orders list / Pick / Pack screens see it.
+                        if hasattr(picking, "action_create_wms_order"):
+                            try:
+                                picking.action_create_wms_order()
+                            except Exception as e:
+                                _logger.warning(
+                                    "WMS bridge failed for %s: %s",
+                                    picking.name, e,
+                                )
 
         self.write({
             "state":          "done",
