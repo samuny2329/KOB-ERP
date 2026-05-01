@@ -1,0 +1,69 @@
+// KOB ERP — web client polish.
+//
+// Targeted tweaks to make the Odoo 19 web client read more like a Fiori
+// launchpad / SAP HANA dashboard:
+//   - Slightly slimmer navbar (44px) matching the Fiori shellbar
+//   - Soft drop shadow on tile-like containers (kanban cards, dashboards)
+//   - Brand "K" badge replaces the default Odoo logo
+//
+// All selectors are scoped to .o_web_client / .o_main_navbar to avoid
+// leaking into emails or reports.
+
+.o_main_navbar {
+    min-height: 44px;
+    height: 44px;
+    --o-navbar-height: 44px;
+    background: #354a5f !important;        // Belize Hole navy
+    border-bottom: 1px solid #2c3e50 !important;
+
+    // Brand block
+    .o_menu_brand {
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        padding: 0 14px;
+        border-right: 1px solid rgba(#fff, 0.16);
+
+        &::before {
+            content: "K";
+            display: inline-grid;
+            place-items: center;
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+            border-radius: 4px;
+            background: #0a6ed1;
+            color: #fff;
+            font-weight: 700;
+            font-size: 12px;
+            box-shadow: 0 0 0 1px rgba(#fff, 0.12);
+        }
+    }
+}
+
+// Kanban + dashboard cards → Fiori tile feel
+.o_kanban_view .o_kanban_record,
+.o_dashboards .o_dashboard_action {
+    border-radius: 8px;
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.04),
+        0 1px 2px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 160ms ease, transform 160ms ease, border-color 160ms ease;
+
+    &:hover {
+        box-shadow:
+            0 0 0 1px rgba(0, 0, 0, 0.05),
+            0 4px 12px rgba(0, 0, 0, 0.08);
+        transform: translateY(-1px);
+    }
+}
+
+// Status bar pills — sharper Fiori vibe
+.o_statusbar_status > button.btn-primary {
+    background-color: #0a6ed1;
+    border-color: #0a6ed1;
+
+    &:hover {
+        background-color: #075ba8;
+        border-color: #075ba8;
+    }
+}

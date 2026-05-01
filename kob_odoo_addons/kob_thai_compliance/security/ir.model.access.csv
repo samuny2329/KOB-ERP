@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_kob_sso_registration_user,kob.sso.registration user,model_kob_sso_registration,hr.group_hr_user,1,1,1,0
+access_kob_sso_registration_manager,kob.sso.registration manager,model_kob_sso_registration,hr.group_hr_manager,1,1,1,1
+access_kob_sso_contribution_user,kob.sso.contribution user,model_kob_sso_contribution,hr.group_hr_user,1,1,1,0
+access_kob_sso_contribution_manager,kob.sso.contribution manager,model_kob_sso_contribution,hr.group_hr_manager,1,1,1,1
+access_kob_pnd_filing_user,kob.pnd.filing user,model_kob_pnd_filing,hr.group_hr_user,1,0,0,0
+access_kob_pnd_filing_manager,kob.pnd.filing manager,model_kob_pnd_filing,hr.group_hr_manager,1,1,1,1
+access_kob_pnd_filing_line_user,kob.pnd.filing.line user,model_kob_pnd_filing_line,hr.group_hr_user,1,0,0,0
+access_kob_pnd_filing_line_manager,kob.pnd.filing.line manager,model_kob_pnd_filing_line,hr.group_hr_manager,1,1,1,1
+access_kob_overtime_record_user,kob.overtime.record user,model_kob_overtime_record,hr.group_hr_user,1,1,1,0
+access_kob_overtime_record_manager,kob.overtime.record manager,model_kob_overtime_record,hr.group_hr_manager,1,1,1,1

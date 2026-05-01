@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_overtime_record_list" model="ir.ui.view">
+        <field name="name">kob.overtime.record.list</field>
+        <field name="model">kob.overtime.record</field>
+        <field name="arch" type="xml">
+            <list string="Overtime Records" decoration-success="state == 'paid'"
+                  decoration-info="state == 'approved'"
+                  decoration-muted="state in ('draft', 'cancelled')">
+                <field name="work_date"/>
+                <field name="employee_id"/>
+                <field name="ot_kind"/>
+                <field name="hours" sum="Hours"/>
+                <field name="base_hourly_rate"/>
+                <field name="rate_multiplier"/>
+                <field name="total_amount" sum="Total"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_kob_overtime_record_form" model="ir.ui.view">
+        <field name="name">kob.overtime.record.form</field>
+        <field name="model">kob.overtime.record</field>
+        <field name="arch" type="xml">
+            <form string="Overtime Record">
+                <header>
+                    <button name="action_approve" type="object"
+                            string="Approve" class="oe_highlight"
+                            invisible="state != 'draft'"/>
+                    <button name="action_pay" type="object"
+                            string="Mark Paid" class="oe_highlight"
+                            invisible="state != 'approved'"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel"
+                            invisible="state in ('paid', 'cancelled')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,approved,paid"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="work_date"/>
+                            <field name="ot_kind"/>
+                        </group>
+                        <group>
+                            <field name="hours"/>
+                            <field name="base_hourly_rate"/>
+                            <field name="rate_multiplier" readonly="1"/>
+                            <field name="total_amount" readonly="1"/>
+                        </group>
+                    </group>
+                    <field name="note" placeholder="Notes..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_kob_overtime_record" model="ir.actions.act_window">
+        <field name="name">Overtime Records</field>
+        <field name="res_model">kob.overtime.record</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+        id="menu_kob_overtime_record"
+        name="Overtime Records"
+        parent="kob_base.menu_kob_thai"
+        action="action_kob_overtime_record"
+        sequence="40"/>
+</odoo>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Top-level "KOB ERP" menu shared by every kob_* feature addon. -->
+        <menuitem
+            id="menu_kob_root"
+            name="KOB ERP"
+            sequence="3"
+            web_icon="kob_base,static/description/icon.png"/>
+
+        <menuitem
+            id="menu_kob_thai"
+            name="Thailand Compliance"
+            parent="menu_kob_root"
+            sequence="10"/>
+
+        <menuitem
+            id="menu_kob_group"
+            name="Group / Multi-company"
+            parent="menu_kob_root"
+            sequence="20"/>
+
+        <menuitem
+            id="menu_kob_marketplace"
+            name="Marketplace"
+            parent="menu_kob_root"
+            sequence="30"/>
+
+        <menuitem
+            id="menu_kob_wh_online_ecommerce"
+            name="WH-Online E-Commerce"
+            parent="menu_kob_root"
+            sequence="35"/>
+
+        <menuitem
+            id="menu_kob_kpi"
+            name="KPI &amp; Dashboards"
+            parent="menu_kob_root"
+            sequence="40"/>
+    </data>
+</odoo>

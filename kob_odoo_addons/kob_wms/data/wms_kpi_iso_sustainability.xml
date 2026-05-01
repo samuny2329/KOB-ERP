@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+
+    <!--
+    =====================================================================
+    ISO, GMP & Sustainability Pillar  — P9
+    เพิ่มใน KPI ทุกตำแหน่ง: รองรับ ISO 22716 (Cosmetic GMP),
+    ISO 9001 (Quality), OHSAS 45001 (Safety), ESG/Sustainability
+    =====================================================================
+    -->
+    <record id="pillar_iso_sustainability" model="wms.kpi.pillar">
+        <field name="name">ISO, GMP &amp; Sustainability</field>
+        <field name="icon">P9</field>
+        <field name="sequence">90</field>
+        <field name="dimension">strategic</field>
+        <field name="description">ISO 22716 Cosmetic GMP · ISO 9001 Quality · ISO 45001 Safety · ESG Green Operations</field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- PICKER  — P9  (weight=5)                                     -->
+    <!-- ============================================================ -->
+    <record id="tpl_picker_p9" model="wms.kpi.template.line">
+        <field name="template_id" ref="tpl_picker"/>
+        <field name="pillar_id" ref="pillar_iso_sustainability"/>
+        <field name="weight">5</field>
+    </record>
+    <record id="cr_picker_p9_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_picker_p9"/>
+        <field name="name">GMP Personal Hygiene &amp; Handling</field>
+        <field name="weight">50</field><field name="sequence">10</field>
+        <field name="kpi_type">qualitative</field>
+        <field name="description">ISO 22716 — สวม PPE, ล้างมือ, ไม่นำอาหาร/ของใช้ส่วนตัวเข้าพื้นที่ Pick</field>
+        <field name="score_1">ไม่สวม PPE, ไม่ล้างมือ, สัมผัสสินค้าโดยไม่ระวัง — GMP violation</field>
+        <field name="score_2">ปฏิบัติตาม GMP บางส่วน บางครั้งลืมสวม PPE หรือข้ามขั้นตอน hygiene</field>
+        <field name="score_3">ปฏิบัติตาม GMP ครบสม่ำเสมอ: PPE, ล้างมือ, ไม่นำของส่วนตัวเข้าโซน</field>
+        <field name="score_4">Zero GMP violation, รายงานจุดเสี่ยงด้าน hygiene ก่อนเกิดปัญหา</field>
+        <field name="score_5">GMP champion, ฝึก newcomer, Zero violation ตลอดรอบ, เสนอปรับปรุง SOP GMP</field>
+    </record>
+    <record id="cr_picker_p9_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_picker_p9"/>
+        <field name="name">Sustainability &amp; Waste Reduction</field>
+        <field name="weight">50</field><field name="sequence">20</field>
+        <field name="kpi_type">qualitative</field>
+        <field name="description">ESG — แยกขยะ, ประหยัดพลังงาน, ลด single-use materials ในพื้นที่ Pick</field>
+        <field name="score_1">ทิ้งขยะไม่แยกประเภท, เปิดไฟ/แอร์ทิ้งไว้, ใช้ทรัพยากรสิ้นเปลือง</field>
+        <field name="score_2">แยกขยะได้บ้าง แต่ไม่สม่ำเสมอ ยังต้องกระตุ้นบ่อย</field>
+        <field name="score_3">แยกขยะถูกต้องตลอด ปิดไฟ/ลมเมื่อไม่ใช้งาน ตาม Green SOP</field>
+        <field name="score_4">Actively ลด waste, ชวนทีมประหยัดพลังงาน, เสนอโครงการ Green เล็กๆ</field>
+        <field name="score_5">เสนอและ implement โครงการ Green ที่ measurable, ช่วยลด carbon footprint จริง</field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- PACKER  — P9  (weight=5)                                     -->
+    <!-- ============================================================ -->
+    <record id="tpl_packer_p9" model="wms.kpi.template.line">
+        <field name="template_id" ref="tpl_packer"/>
+        <field name="pillar_id" ref="pillar_iso_sustainability"/>
+        <field name="weight">5</field>
+    </record>
+    <record id="cr_packer_p9_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_packer_p9"/>
+        <field name="name">GMP &amp; Product Safety at Pack Station</field>
+        <field name="weight">50</field><field name="sequence">10</field>
+        <field name="kpi_type">qualitative</field>
+        <field name="description">ISO 22716 — ตรวจ Lot/Exp, ฉลาก, สภาพสินค้าก่อน pack ทุกครั้ง</field>
+        <field name="score_1">Pack สินค้า Expired / ฉลากผิด / บรรจุภัณฑ์เสียหาย โดยไม่ตรวจสอบ</field>
+        <field name="score_2">ตรวจ Lot/Exp บ้าง แต่ไม่ทุกกล่อง มีสินค้าหลุดรอด</field>
+        <field name="score_3">ตรวจ Lot/Exp/ฉลากทุกกล่อง ตาม GMP เสมอ — Zero expired shipped</field>
+        <field name="score_4">Zero contamination/Exp risk, ชี้ Expired product ก่อน ship, แจ้ง Supervisor ทันที</field>
+        <field name="score_5">GMP model packer, ป้องกัน recall risk ได้จริง, เสนอ checklist GMP ที่ถูก adopt</field>
+    </record>
+    <record id="cr_packer_p9_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_packer_p9"/>
+        <field name="name">Sustainable Packaging (Right-size &amp; Eco)</field>
+        <field name="weight">50</field><field name="sequence">20</field>
+        <field name="kpi_type">qualitative</field>
+        <field name="description">ESG — เลือกขนาดกล่องที่เหมาะสม, ลด filler, ใช้ eco-friendly materials</field>
+        <field name="score_1">ใช้กล่อง/bubble wrap มากเกินความจำเป็น ไม่คำนึงถึง eco impact</field>
+        <field name="score_2">พยายามลด packaging แต่ไม่สม่ำเสมอ</field>
+        <field name="score_3">เลือกขนาดกล่องที่พอดีสม่ำเสมอ ลด filler ไม่จำเป็น</field>
+        <field name="score_4">ลดบรรจุภัณฑ์ได้ measurable, เสนอ eco-friendly alternatives ที่ประหยัดต้นทุน</field>
+        <field name="score_5">Zero unnecessary packaging, ลดต้นทุน+carbon footprint ได้จริง, เป็น model station</field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- SHIPPER  — P9  (weight=5)                                    -->
+    <!-- ============================================================ -->
+    <record id="tpl_shipper_p9" model="wms.kpi.template.line">
+        <field name="template_id" ref="tpl_shipper"/>
+        <field name="pillar_id" ref="pillar_iso_sustainability"/>
+        <field name="weight">5</field>
+    </record>
+    <record id="cr_shipper_p9_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_shipper_p9"/>
+        <field name="name">GMP &amp; Dangerous Goods Compliance</field>
+        <field name="weight">50</field><field name="sequence">10</field>
+        <field name="kpi_type">qualitative</field>
+        <field name="description">ISO 22716 / IATA — จัดการผลิตภัณฑ์ที่มีแอลกอฮอล์/pressure spray ให้ถูกกฎ</field>
+        <field name="score_1">ส่งสินค้า dangerous goods โดยไม่ label/แยกตาม regulation</field>
+        <field name="score_2">ปฏิบัติตามบ้าง แต่ยังขาดความเข้าใจ dangerous goods classification</field>
+        <field name="score_3">จัดการ dangerous goods ถูกต้อง, เอกสาร DG declaration ครบ</field>
+        <field name="score_4">Zero DG violation, proactive แจ้ง Courier เรื่อง restriction ล่วงหน้า</field>
+        <field name="score_5">DG expert, ฝึกทีม, Zero violation, ลด return จาก Courier rejection ได้จริง</field>
+    </record>
+    <record id="cr_shipper_p9_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_shipper_p9"/>
+        <field name="name">Green Logistics &amp; Carbon Awareness</field>
+        <field name="weight">50</field><field name="sequence">20</field>
+        <field name="kpi_type">qualitative</field>
+        <field name="description">ESG — รวม shipment, เลือก Courier ที่ eco-friendly, ลด empty-run trips</field>
+        <field name="score_1">ไม่สนใจ eco impact ของ logistics เลย</field>
+        <field name="score_2">รับรู้แนวคิด Green Logistics แต่ไม่ได้ปรับพฤติกรรม</field>
+        <field name="score_3">รวม shipment ได้ดี ลดจำนวน trip ตาม guideline</field>
+        <field name="score_4">เสนอ Courier ที่มี EVlast-mile หรือ carbon neutral, ลดต้นทุน</field>
+        <field name="score_5">Implement Green Logistics initiative ที่ measurable, ลด CO2/order ได้จริง</field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- INVENTORY  — P9  (weight=5)                                  -->
+    <!-- ============================================================ -->
+    <record id="tpl_inventory_p9" model="wms.kpi.template.line">
+        <field name="template_id" ref="tpl_inventory"/>
+        <field name="pillar_id" ref="pillar_iso_sustainability"/>
+        <field name="weight">5</field>
+    </record>
+    <record id="cr_inv_p9_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_inventory_p9"/>
+        <field name="name">GMP Storage Compliance (FEFO/Lot/Exp)</field>
+        <field name="weight">50</field><field name="sequence">10</field>
+        <field name="kpi_type">qualitative</field>
+        <field name="description">ISO 22716 — FEFO principle, temp/humidity monitoring, Expired/Near-expiry alerts</field>
+        <field name="score_1">ไม่จัดเรียงตาม FEFO, ไม่ตรวจ Exp date, สินค้า Expired อยู่ใน active stock</field>
+        <field name="score_2">FEFO บางส่วน แต่ยังมี Expired หลุดอยู่ในระบบ</field>
+        <field name="score_3">FEFO สม่ำเสมอ, ตรวจ Exp ทุกรอบ Count, Near-expiry แจ้ง Supervisor</field>
+        <field name="score_4">Zero Expired in active stock, system alert ทุก near-expiry &lt; 90 days</field>
+        <field name="score_5">FEFO model, ป้องกัน Expired shipped ได้ 100%, เสนอระบบ auto-alert ที่ถูก implement</field>
+    </record>
+    <record id="cr_inv_p9_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_inventory_p9"/>
+        <field name="name">Inventory Waste &amp; Obsolete Stock Prevention</field>
+        <field name="weight">50</field><field name="sequence">20</field>
+        <field name="kpi_type">quantitative</field>
+        <field name="unit">% write-off value</field>
+        <field name="description">ESG + Finance — ลดสินค้า write-off, ลด overstock ที่นำไปสู่ waste</field>
+        <field name="score_1">Write-off value สูง ไม่มี action ป้องกัน obsolete stock</field>
+        <field name="score_2">รับรู้ปัญหา obsolete แต่ไม่มี proactive action</field>
+        <field name="score_3">รายงาน slow-moving + near-expiry ทุกเดือน ป้องกัน write-off</field>
+        <field name="score_4">ลด write-off value ได้จริง จาก early alert + escalation ทันเวลา</field>
+        <field name="score_5">Write-off ≈ 0%, เสนอ demand forecast ที่ช่วยลด overstock เชิงระบบ</field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- INBOUND  — P9  (weight=5)                                    -->
+    <!-- ============================================================ -->
+    <record id="tpl_inbound_p9" model="wms.kpi.template.line">
+        <field name="template_id" ref="tpl_inbound"/>
+        <field name="pillar_id" ref="pillar_iso_sustainability"/>
+        <field name="weight">5</field>
+    </record>
+    <record id="cr_inb_p9_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_inbound_p9"/>
+        <field name="name">GMP Receiving Standards (Lot/Exp/CoA)</field>
+        <field name="weight">50</field><field name="sequence">10</field>
+        <field name="kpi_type">qualitative</field>
+        <field name="description">ISO 22716 — ตรวจ Lot number, Exp date, CoA ทุก shipment ก่อน put-away</field>
+        <field name="score_1">รับสินค้าโดยไม่ตรวจ Lot/Exp/CoA — GMP non-conformance ร้ายแรง</field>
+        <field name="score_2">ตรวจบ้าง แต่ไม่ครบ บางครั้งข้ามขั้นตอนเมื่อ shipment ใหญ่</field>
+        <field name="score_3">ตรวจ Lot/Exp/CoA ทุก item ตาม Receiving SOP ทุกครั้ง</field>
+        <field name="score_4">Zero GMP receiving error, reject สินค้าที่ไม่ผ่านเกณฑ์ได้ถูกต้อง</field>
+        <field name="score_5">GMP receiving expert, ฝึกทีม, เสนอ digital receiving checklist ที่ช่วยลด manual error</field>
+    </record>
+    <record id="cr_inb_p9_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_inbound_p9"/>
+        <field name="name">Inbound Packaging Waste Reduction</field>
+        <field name="weight">50</field><field name="sequence">20</field>
+        <field name="kpi_type">qualitative</field>
+        <field name="description">ESG — คัดแยก/recycle บรรจุภัณฑ์ขาเข้า, ลด pallet wrap, cardboard waste</field>
+        <field name="score_1">ทิ้งกล่อง/pallet wrap ปะปนกัน ไม่แยก recycle</field>
+        <field name="score_2">แยกขยะบ้าง แต่ไม่ครบ ต้องกระตุ้นบ่อย</field>
+        <field name="score_3">แยก cardboard/plastic/wrap ถูกต้องทุก shipment ตาม Recycle SOP</field>
+        <field name="score_4">Actively compact + recycle, ลดพื้นที่ waste staging area</field>
+        <field name="score_5">เสนอโครงการ return-pallet หรือ recycle partnership, ลด waste cost จริง</field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- DRIVER  — P9  (weight=5)                                     -->
+    <!-- ============================================================ -->
+    <record id="tpl_driver_p9" model="wms.kpi.template.line">
+        <field name="template_id" ref="tpl_driver"/>
+        <field name="pillar_id" ref="pillar_iso_sustainability"/>
+        <field name="weight">5</field>
+    </record>
+    <record id="cr_drv_p9_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_driver_p9"/>
+        <field name="name">Vehicle GMP &amp; Product Integrity</field>
+        <field name="weight">50</field><field name="sequence">10</field>
+        <field name="kpi_type">qualitative</field>
+        <field name="description">ISO 22716 — ยานพาหนะสะอาด เหมาะกับการขนส่งเครื่องสำอาง ไม่ให้โดนความร้อน/ความชื้น</field>
+        <field name="score_1">ยานพาหนะสกปรก, สินค้าเสียหายจากความร้อน/ชื้น, ไม่ GMP-compliant</field>
+        <field name="score_2">ทำความสะอาดรถบ้าง แต่ไม่สม่ำเสมอ</field>
+        <field name="score_3">รถสะอาดตาม GMP standard ทุกครั้งก่อนออกงาน</field>
+        <field name="score_4">Zero product damage จากการขนส่ง, ตรวจ temp/humidity ก่อนออก</field>
+        <field name="score_5">Perfect vehicle GMP, เสนอปรับปรุง loading/unloading procedure ที่ลด damage</field>
+    </record>
+    <record id="cr_drv_p9_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_driver_p9"/>
+        <field name="name">Eco-Driving &amp; Fuel Efficiency</field>
+        <field name="weight">50</field><field name="sequence">20</field>
+        <field name="kpi_type">quantitative</field>
+        <field name="unit">km/L</field>
+        <field name="description">ESG — ขับรถประหยัดน้ำมัน, route planning ที่ลด km, ไม่จอดเดินเครื่องโดยไม่จำเป็น</field>
+        <field name="score_1">อัตราสิ้นเปลืองน้ำมันสูงกว่า baseline &gt; 20%, ไม่วางแผน route</field>
+        <field name="score_2">อัตราสิ้นเปลืองสูง 10-20%, วางแผน route บ้าง</field>
+        <field name="score_3">อัตราสิ้นเปลืองตาม target, วางแผน route ดี ไม่จอดทิ้งเดินเครื่อง</field>
+        <field name="score_4">อัตราสิ้นเปลืองต่ำกว่า target 5%, เสนอ route optimization</field>
+        <field name="score_5">ลดต้นทุนน้ำมัน measurable, เสนอ EV/Green fleet option ระยะยาว</field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- ADMIN ONLINE  — P9  (weight=10)                              -->
+    <!-- ============================================================ -->
+    <record id="tpl_admin_online_p9" model="wms.kpi.template.line">
+        <field name="template_id" ref="tpl_admin"/>
+        <field name="pillar_id" ref="pillar_iso_sustainability"/>
+        <field name="weight">10</field>
+    </record>
+    <record id="cr_adm_p9_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_admin_online_p9"/>
+        <field name="name">Product Regulatory &amp; Labeling Compliance</field>
+        <field name="weight">40</field><field name="sequence">10</field>
+        <field name="kpi_type">qualitative</field>
+        <field name="description">FDA/INCI/อย. — ข้อมูลสินค้า listing บน Platform ถูกต้อง ไม่โฆษณาเกินจริง</field>
+        <field name="score_1">โพสต์ข้อมูล/claim ที่ผิด FDA, อย. หรือโฆษณาเกินจริงซ้ำๆ</field>
+        <field name="score_2">มีข้อมูลผิด/claim เกินจริงบ้าง ต้องแก้เมื่อถูกชี้ให้เห็น</field>
+        <field name="score_3">Listing ถูกต้องตามกฎหมายทุก SKU ไม่มี regulatory flag</field>
+        <field name="score_4">Zero regulatory violation, proactive ตรวจ listing ทุกครั้งก่อน campaign</field>
+        <field name="score_5">ผู้เชี่ยวชาญ regulatory ของทีม, เสนอปรับปรุง product content template ที่ถูก adopt</field>
+    </record>
+    <record id="cr_adm_p9_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_admin_online_p9"/>
+        <field name="name">Sustainable Packaging Communication</field>
+        <field name="weight">30</field><field name="sequence">20</field>
+        <field name="kpi_type">qualitative</field>
+        <field name="description">ESG Marketing — สื่อสาร eco-friendly packaging, cruelty-free, sustainability story ต่อลูกค้า</field>
+        <field name="score_1">ไม่เคยกล่าวถึง sustainability/eco ในช่องทาง online เลย</field>
+        <field name="score_2">กล่าวถึงบ้าง แต่ไม่ consistent ไม่มี strategy</field>
+        <field name="score_3">สื่อสาร eco packaging/cruelty-free ใน listing/story สม่ำเสมอตาม brand guideline</field>
+        <field name="score_4">Sustainability content ช่วยเพิ่ม engagement measurable, เสนอ Green campaign</field>
+        <field name="score_5">Green campaign ที่ launch ได้จริง, ลูกค้า response ดี, เป็น ESG advocate ของ brand</field>
+    </record>
+    <record id="cr_adm_p9_3" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_admin_online_p9"/>
+        <field name="name">PDPA &amp; Data Privacy Compliance</field>
+        <field name="weight">30</field><field name="sequence">30</field>
+        <field name="kpi_type">qualitative</field>
+        <field name="description">ISO 27001 / PDPA — ไม่รั่วไหลข้อมูลลูกค้า, ปฏิบัติตาม PDPA ทุกช่องทาง</field>
+        <field name="score_1">รั่วไหลข้อมูลลูกค้า หรือละเมิด PDPA ร้ายแรง</field>
+        <field name="score_2">เข้าใจ PDPA บ้าง แต่บางครั้งจัดการข้อมูลโดยประมาท</field>
+        <field name="score_3">ปฏิบัติตาม PDPA ครบ, ข้อมูลลูกค้าเก็บถูก platform</field>
+        <field name="score_4">Zero data incident, proactive แจ้ง concern เรื่อง data security</field>
+        <field name="score_5">PDPA champion ของทีม, เสนอ process ที่ลด data exposure ได้จริง</field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- SUPERVISOR  — P9  (weight=10)                                -->
+    <!-- ============================================================ -->
+    <record id="tpl_supervisor_p9" model="wms.kpi.template.line">
+        <field name="template_id" ref="tpl_supervisor"/>
+        <field name="pillar_id" ref="pillar_iso_sustainability"/>
+        <field name="weight">10</field>
+    </record>
+    <record id="cr_sup_p9_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_supervisor_p9"/>
+        <field name="name">ISO/GMP Audit Readiness &amp; CAPA</field>
+        <field name="weight">40</field><field name="sequence">10</field>
+        <field name="kpi_type">qualitative</field>
+        <field name="description">ISO 22716 / 9001 — เอกสาร SOP ครบ, Corrective Actions ทันเวลา, พร้อม internal/external audit</field>
+        <field name="score_1">เอกสาร SOP ล้าสมัย ไม่อัพเดท, CAPA overdue, audit findings ซ้ำ</field>
+        <field name="score_2">เอกสารส่วนใหญ่ครบ แต่ CAPA บางส่วนไม่ทันเวลา</field>
+        <field name="score_3">เอกสาร audit-ready ครบ, CAPA ปิดทันทุก finding ใน 30 วัน</field>
+        <field name="score_4">Zero repeat finding, เสนอ preventive action ก่อน audit cycle</field>
+        <field name="score_5">ISO champion ของทีม, lead internal audit ได้, Zero non-conformance</field>
+    </record>
+    <record id="cr_sup_p9_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_supervisor_p9"/>
+        <field name="name">Green Team Training &amp; ESG Behavior Coaching</field>
+        <field name="weight">35</field><field name="sequence">20</field>
+        <field name="kpi_type">task</field>
+        <field name="unit">training sessions/quarter</field>
+        <field name="description">ESG People — จัดอบรม/coaching เรื่อง GMP, Green Operations, Waste Reduction ให้ทีม</field>
+        <field name="score_1">ไม่จัดอบรมด้าน ISO/GMP/Green เลย ทีมไม่มีความรู้เรื่อง sustainability</field>
+        <field name="score_2">จัดอบรมปีละ 1 ครั้ง เมื่อถูกกระตุ้นจาก manager</field>
+        <field name="score_3">จัดอบรม GMP/Green อย่างน้อย 1 ครั้ง/ไตรมาส มีหลักฐาน attendance</field>
+        <field name="score_4">อบรม ≥ 2 ครั้ง/ไตรมาส, วัด behavior change ได้จาก KPI ทีม</field>
+        <field name="score_5">Culture change ที่เห็นได้ชัด, ทีมผ่าน GMP audit ด้วยตนเอง, Zero violation ตลอดปี</field>
+    </record>
+    <record id="cr_sup_p9_3" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_supervisor_p9"/>
+        <field name="name">Sustainability KPI Tracking (Waste / Energy)</field>
+        <field name="weight">25</field><field name="sequence">30</field>
+        <field name="kpi_type">quantitative</field>
+        <field name="unit">% vs target</field>
+        <field name="description">ESG Metrics — ติดตาม waste, energy, water usage ของแผนกเทียบ target รายไตรมาส</field>
+        <field name="score_1">ไม่มี data sustainability, ไม่รายงาน waste/energy เลย</field>
+        <field name="score_2">มีข้อมูลบ้าง แต่ไม่ครบและไม่ตรงเวลา</field>
+        <field name="score_3">รายงาน waste/energy ทุกเดือน ตาม template ครบถ้วน</field>
+        <field name="score_4">ลด waste หรือ energy ได้ ≥ 5% vs target เชิงรุก</field>
+        <field name="score_5">ลด waste/energy ≥ 10% vs target, เสนอ Green initiative ที่ถูก implement ระดับบริษัท</field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- MANAGER  — P9  (weight=10)                                   -->
+    <!-- ============================================================ -->
+    <record id="tpl_manager_p9" model="wms.kpi.template.line">
+        <field name="template_id" ref="tpl_manager"/>
+        <field name="pillar_id" ref="pillar_iso_sustainability"/>
+        <field name="weight">10</field>
+    </record>
+    <record id="cr_mgr_p9_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_manager_p9"/>
+        <field name="name">ISO Certification Maintenance &amp; Upgrade</field>
+        <field name="weight">35</field><field name="sequence">10</field>
+        <field name="kpi_type">task</field>
+        <field name="description">ISO 22716, ISO 9001, ISO 45001 — รักษา/upgrade certification, Zero lapse</field>
+        <field name="score_1">ปล่อยให้ certification หมดอายุหรือ lapse, ไม่มี renewal plan</field>
+        <field name="score_2">ต่ออายุ certification ได้แต่ล่าช้า มี finding ซ้ำ</field>
+        <field name="score_3">ต่ออายุ certification ครบทุกใบ ไม่มี lapse, CAPA ทันเวลา</field>
+        <field name="score_4">ต่ออายุครบ + เพิ่ม scope หรือ upgrade certification ระหว่างปี</field>
+        <field name="score_5">นำบริษัท achieve ISO ใหม่ หรือ upgrade major version, Zero non-conformance ตลอดปี</field>
+    </record>
+    <record id="cr_mgr_p9_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_manager_p9"/>
+        <field name="name">ESG Strategy &amp; Target Achievement</field>
+        <field name="weight">40</field><field name="sequence">20</field>
+        <field name="kpi_type">quantitative</field>
+        <field name="unit">% vs annual ESG target</field>
+        <field name="description">ESG — ลด carbon footprint, packaging waste, น้ำ, พลังงาน ตาม company ESG roadmap</field>
+        <field name="score_1">ไม่มี ESG target ที่ชัดเจน ไม่มี action plan</field>
+        <field name="score_2">มี target แต่ achieve ได้ &lt; 50% ของ annual goal</field>
+        <field name="score_3">Achieve ESG targets ≥ 80%, รายงานผลต่อ director ทุกไตรมาส</field>
+        <field name="score_4">Achieve ≥ 100% ของ ESG targets, เสนอ targets ใหม่ที่ stretch</field>
+        <field name="score_5">Exceed ESG targets ≥ 120%, เป็น case study ให้ industry, ได้รับ recognition ภายนอก</field>
+    </record>
+    <record id="cr_mgr_p9_3" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_manager_p9"/>
+        <field name="name">Sustainability Governance &amp; Reporting</field>
+        <field name="weight">25</field><field name="sequence">30</field>
+        <field name="kpi_type">task</field>
+        <field name="description">ESG Governance — จัดทำ sustainability report, board visibility, stakeholder communication</field>
+        <field name="score_1">ไม่มี sustainability report, ไม่มี governance framework</field>
+        <field name="score_2">มีรายงานบ้างแต่ไม่สม่ำเสมอ ไม่ได้รับการรับรองจาก director</field>
+        <field name="score_3">Sustainability report ครบตาม schedule, board-approved ESG roadmap</field>
+        <field name="score_4">รายงานต่อ stakeholders (ลูกค้า, partner) ได้, เสนอ ESG certification pathway</field>
+        <field name="score_5">ได้รับ ESG certification/recognition ระดับประเทศ, เป็น transparent brand ที่ลูกค้าไว้วางใจ</field>
+    </record>
+
+</odoo>

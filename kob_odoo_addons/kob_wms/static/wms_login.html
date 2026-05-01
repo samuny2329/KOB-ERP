@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>KOB WMS | Warehouse Control Center</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+<link href="https://fonts.googleapis.com/css2?family=72:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        sap: {
+          blue:       '#0070F2',
+          'blue-dk':  '#0854A0',
+          'blue-lt':  '#EBF3FD',
+          shell:      '#354A5E',
+          'shell-dk': '#223548',
+          bg:         '#F5F6F7',
+          surface:    '#FFFFFF',
+          border:     '#89919A',
+          'border-lt':'#D9DBDD',
+          text:       '#32363A',
+          muted:      '#6A7288',
+          success:    '#107E3E',
+          'success-lt':'#F1FAF1',
+          warning:    '#E9730C',
+          'warning-lt':'#FEF7F1',
+          error:      '#BB0000',
+          'error-lt': '#FFEBEB',
+          accent:     '#0A6ED1',
+        }
+      },
+      fontFamily: {
+        ui: ['Inter', 'sans-serif'],
+      },
+      animation: {
+        'fade-up':   'fadeUp 0.45s ease-out both',
+        'scan-bar':  'scanBar 2.8s ease-in-out infinite',
+        'pulse-dot': 'pulseDot 1.8s ease-in-out infinite',
+        'slide-in':  'slideIn 0.3s ease-out both',
+      },
+      keyframes: {
+        fadeUp: {
+          from: { opacity:'0', transform:'translateY(16px)' },
+          to:   { opacity:'1', transform:'translateY(0)' },
+        },
+        scanBar: {
+          '0%,100%': { transform:'translateX(-100%)', opacity:'0' },
+          '20%':     { opacity:'1' },
+          '80%':     { opacity:'1' },
+          '100%':    { transform:'translateX(100%)', opacity:'0' },
+        },
+        pulseDot: {
+          '0%,100%': { opacity:'1', transform:'scale(1)' },
+          '50%':     { opacity:'0.4', transform:'scale(0.7)' },
+        },
+        slideIn: {
+          from: { opacity:'0', transform:'translateX(-8px)' },
+          to:   { opacity:'1', transform:'translateX(0)' },
+        },
+      }
+    }
+  }
+}
+</script>
+<style>
+  * { box-sizing: border-box; }
+  .material-symbols-outlined {
+    font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;
+    vertical-align: middle;
+  }
+  body { font-family: 'Inter', sans-serif; min-height:100dvh; }
+
+  /* SAP Shell bar */
+  .sap-shell {
+    background: linear-gradient(135deg, #354A5E 0%, #223548 100%);
+    box-shadow: 0 2px 8px rgba(0,0,0,.18);
+  }
+
+  /* SAP Card */
+  .sap-card {
+    background: #fff;
+    border: 1px solid #D9DBDD;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06), 0 0 0 0 transparent;
+    transition: box-shadow .2s;
+  }
+  .sap-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.1); }
+
+  /* SAP Input */
+  .sap-input {
+    border: 1px solid #89919A;
+    border-radius: 4px;
+    background: #fff;
+    color: #32363A;
+    font-size: 14px;
+    padding: 8px 12px;
+    width: 100%;
+    outline: none;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .sap-input:focus {
+    border-color: #0070F2;
+    box-shadow: 0 0 0 2px rgba(0,112,242,.15);
+  }
+  .sap-input::placeholder { color: #89919A; }
+
+  /* SAP Button */
+  .sap-btn-primary {
+    background: #0070F2;
+    color: #fff;
+    border: 1px solid #0070F2;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 24px;
+    cursor: pointer;
+    transition: background .15s, border-color .15s, transform .1s;
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .sap-btn-primary:hover  { background:#0854A0; border-color:#0854A0; }
+  .sap-btn-primary:active { transform:scale(.98); }
+  .sap-btn-primary:disabled { background:#BCC3CA; border-color:#BCC3CA; cursor:not-allowed; }
+
+  .sap-btn-ghost {
+    background: transparent;
+    color: #0070F2;
+    border: 1px solid #0070F2;
+    border-radius: 4px;
+    font-size:13px; font-weight:600;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background .15s;
+  }
+  .sap-btn-ghost:hover { background: #EBF3FD; }
+
+  /* Role tile */
+  .role-tile {
+    border: 2px solid #D9DBDD;
+    border-radius: 4px;
+    background: #fff;
+    cursor: pointer;
+    transition: border-color .15s, background .15s, box-shadow .15s;
+    padding: 14px 16px;
+    display:flex; align-items:center; gap:14px;
+  }
+  .role-tile:hover { border-color:#0070F2; background:#EBF3FD; }
+  .role-tile.active { border-color:#0070F2; background:#EBF3FD; box-shadow:0 0 0 1px #0070F2; }
+  .role-tile.active .role-check { display:flex; }
+  .role-check { display:none; }
+
+  /* Status pill */
+  .status-pill {
+    display:inline-flex; align-items:center; gap:5px;
+    font-size:11px; font-weight:600; letter-spacing:.04em;
+    padding:3px 10px; border-radius:100px;
+  }
+
+  /* Scan line anim */
+  .scan-track { overflow:hidden; position:relative; height:2px; border-radius:1px; }
+  .scan-line {
+    position:absolute; left:0; top:0; height:100%; width:60%;
+    background:linear-gradient(90deg,transparent,#0070F2,transparent);
+    animation: scanBar 2.8s ease-in-out infinite;
+  }
+
+  /* Stagger delays */
+  .d1{animation-delay:.05s} .d2{animation-delay:.12s}
+  .d3{animation-delay:.20s} .d4{animation-delay:.30s}
+  .d5{animation-delay:.40s}
+
+  /* Toggle switch */
+  .toggle { position:relative; width:36px; height:20px; }
+  .toggle input { opacity:0; width:0; height:0; }
+  .toggle-slider {
+    position:absolute; inset:0; border-radius:20px;
+    background:#BCC3CA; cursor:pointer;
+    transition:background .2s;
+  }
+  .toggle-slider:before {
+    content:''; position:absolute;
+    left:3px; top:3px; width:14px; height:14px;
+    border-radius:50%; background:#fff;
+    transition:transform .2s;
+  }
+  .toggle input:checked + .toggle-slider { background:#0070F2; }
+  .toggle input:checked + .toggle-slider:before { transform:translateX(16px); }
+
+  /* Fiori separator */
+  .sap-sep { height:1px; background:#D9DBDD; margin:0; }
+
+  /* Responsive layout bg */
+  .page-bg {
+    background-color: #F5F6F7;
+    background-image:
+      linear-gradient(rgba(0,112,242,.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,112,242,.03) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+</style>
+</head>
+
+<body class="page-bg text-sap-text">
+
+<!-- ══ SAP Shell Bar ══════════════════════════════════════════════════ -->
+<header class="sap-shell fixed top-0 w-full z-50 flex items-center justify-between px-5 h-[44px]">
+  <div class="flex items-center gap-3">
+    <button class="text-white/70 hover:text-white transition-colors p-1 rounded">
+      <span class="material-symbols-outlined text-[22px]">menu</span>
+    </button>
+    <div class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-[#4BA9F5] text-[20px]"
+            style="font-variation-settings:'FILL' 1,'wght' 500">warehouse</span>
+      <span class="text-white font-bold text-[15px] tracking-wide">KOB WMS</span>
+      <span class="text-white/30 text-[13px] font-normal hidden sm:inline">· Warehouse Control Center</span>
+    </div>
+  </div>
+
+  <div class="flex items-center gap-3">
+    <div class="status-pill bg-[#107E3E]/20 text-[#1A9B4B]">
+      <span class="w-1.5 h-1.5 rounded-full bg-[#1A9B4B] animate-pulse-dot inline-block"></span>
+      ONLINE
+    </div>
+    <!-- Theme toggle -->
+    <div class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-white/50 text-[16px]">light_mode</span>
+      <label class="toggle">
+        <input type="checkbox" id="themeToggle" onchange="toggleTheme(this)"/>
+        <span class="toggle-slider"></span>
+      </label>
+      <span class="material-symbols-outlined text-white/50 text-[16px]">dark_mode</span>
+    </div>
+    <button class="w-7 h-7 rounded-full bg-[#4BA9F5]/20 border border-[#4BA9F5]/30
+                   flex items-center justify-center text-white/80 hover:text-white transition-colors">
+      <span class="material-symbols-outlined text-[18px]">person</span>
+    </button>
+  </div>
+</header>
+
+<!-- ══ Main ══════════════════════════════════════════════════════════ -->
+<main class="min-h-screen pt-[44px] flex flex-col items-center justify-center px-4 py-10">
+
+  <!-- Breadcrumb -->
+  <div class="w-full max-w-[480px] mb-4 flex items-center gap-2 text-[12px] text-sap-muted animate-fade-up">
+    <span class="material-symbols-outlined text-[14px]">home</span>
+    <span>KOB WMS</span>
+    <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+    <span class="text-sap-blue font-medium">เข้าสู่ระบบ</span>
+  </div>
+
+  <!-- ── Page Title ── -->
+  <div class="w-full max-w-[480px] mb-5 animate-fade-up d1">
+    <h1 class="text-[22px] font-bold text-sap-text">Warehouse Login</h1>
+    <p class="text-[13px] text-sap-muted mt-0.5">เลือกบทบาทและกรอกข้อมูลเข้าสู่ระบบ WMS</p>
+  </div>
+
+  <!-- ── Role Selection ── -->
+  <div class="w-full max-w-[480px] mb-4 animate-fade-up d2">
+    <div class="sap-card overflow-hidden">
+      <div class="px-4 py-3 bg-sap-bg border-b border-sap-border-lt flex items-center justify-between">
+        <span class="text-[12px] font-semibold text-sap-muted uppercase tracking-wider">เลือกบทบาท (Role)</span>
+        <span class="text-[11px] text-sap-blue">3 บทบาท</span>
+      </div>
+      <div class="p-3 flex flex-col gap-2" id="roleList">
+
+        <!-- Manager -->
+        <div class="role-tile active" onclick="selectRole(this,'wm','Warehouse Manager · ระดับผู้จัดการ')" data-role="wm">
+          <div class="w-10 h-10 rounded bg-sap-blue/10 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-sap-blue text-[22px]"
+                  style="font-variation-settings:'FILL' 1">manage_accounts</span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-[13px] font-semibold text-sap-text">Warehouse Manager</p>
+            <p class="text-[11px] text-sap-muted">ควบคุมทั้งระบบ · สต็อก · รายงาน · อนุมัติ</p>
+          </div>
+          <div class="role-check w-5 h-5 rounded-full bg-sap-blue items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-white text-[14px]"
+                  style="font-variation-settings:'FILL' 1,'wght' 700">check</span>
+          </div>
+        </div>
+
+        <!-- Staff -->
+        <div class="role-tile" onclick="selectRole(this,'staff','Warehouse Staff · พนักงานคลัง')" data-role="staff">
+          <div class="w-10 h-10 rounded bg-sap-muted/10 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-sap-muted text-[22px]"
+                  style="font-variation-settings:'FILL' 1">person</span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-[13px] font-semibold text-sap-text">Warehouse Staff</p>
+            <p class="text-[11px] text-sap-muted">รับ-จ่ายสินค้า · สแกน · นับสต็อก</p>
+          </div>
+          <div class="role-check w-5 h-5 rounded-full bg-sap-blue items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-white text-[14px]"
+                  style="font-variation-settings:'FILL' 1,'wght' 700">check</span>
+          </div>
+        </div>
+
+        <!-- QA -->
+        <div class="role-tile" onclick="selectRole(this,'qa','QA / Verifier · ผู้ตรวจสอบ')" data-role="qa">
+          <div class="w-10 h-10 rounded bg-sap-success/10 flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-sap-success text-[22px]"
+                  style="font-variation-settings:'FILL' 1">fact_check</span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-[13px] font-semibold text-sap-text">QA / Verifier</p>
+            <p class="text-[11px] text-sap-muted">ตรวจนับ · อนุมัติ adjustment · รายงาน</p>
+          </div>
+          <div class="role-check w-5 h-5 rounded-full bg-sap-blue items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-white text-[14px]"
+                  style="font-variation-settings:'FILL' 1,'wght' 700">check</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Login Form Card ── -->
+  <div class="w-full max-w-[480px] animate-fade-up d3">
+    <div class="sap-card overflow-hidden">
+
+      <!-- Card header -->
+      <div class="px-4 py-3 border-b border-sap-border-lt flex items-center justify-between bg-sap-bg">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-sap-blue text-[18px]">lock</span>
+          <span class="text-[12px] font-semibold text-sap-muted uppercase tracking-wider">Secure Access</span>
+        </div>
+        <span id="roleLabel" class="text-[11px] text-sap-blue font-medium animate-slide-in">
+          Warehouse Manager · ระดับผู้จัดการ
+        </span>
+      </div>
+
+      <!-- Scan progress bar -->
+      <div class="scan-track bg-sap-blue/10">
+        <div class="scan-line"></div>
+      </div>
+
+      <div class="p-5">
+
+        <!-- Employee ID -->
+        <div class="mb-4">
+          <label class="block text-[12px] font-semibold text-sap-muted mb-1.5 uppercase tracking-wider">
+            รหัสพนักงาน / Employee ID
+          </label>
+          <div class="relative">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-sap-muted text-[18px]">badge</span>
+            <input id="username" type="text" placeholder="EMP001 หรือ username"
+                   class="sap-input pl-9"
+                   onkeydown="if(event.key==='Enter')document.getElementById('password').focus()"/>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-5">
+          <label class="block text-[12px] font-semibold text-sap-muted mb-1.5 uppercase tracking-wider">
+            รหัสผ่าน / PIN
+          </label>
+          <div class="relative">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-sap-muted text-[18px]">lock</span>
+            <input id="password" type="password" placeholder="••••••••"
+                   class="sap-input pl-9 pr-9 tracking-widest"
+                   onkeydown="if(event.key==='Enter')doLogin()"/>
+            <button onclick="togglePass()"
+                    class="absolute right-3 top-1/2 -translate-y-1/2 text-sap-muted hover:text-sap-blue transition-colors">
+              <span id="eyeIcon" class="material-symbols-outlined text-[18px]">visibility_off</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Remember + Forgot -->
+        <div class="flex items-center justify-between mb-5">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" class="w-3.5 h-3.5 rounded accent-sap-blue"/>
+            <span class="text-[12px] text-sap-muted">จำฉันไว้</span>
+          </label>
+          <a href="#" class="text-[12px] text-sap-blue hover:text-sap-blue-dk hover:underline">
+            ลืมรหัสผ่าน?
+          </a>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="flex gap-3">
+          <button onclick="doLogin()" id="loginBtn" class="sap-btn-primary flex-1 justify-center">
+            <span class="material-symbols-outlined text-[18px]">qr_code_scanner</span>
+            <span id="loginText">เข้าสู่ระบบ</span>
+          </button>
+          <button class="sap-btn-ghost flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[16px]">qr_code_2</span>
+            <span>QR</span>
+          </button>
+        </div>
+
+        <!-- Divider -->
+        <div class="sap-sep my-4"></div>
+
+        <!-- SSO / Odoo link -->
+        <div class="flex items-center justify-between">
+          <a href="http://localhost:8018/web" class="text-[12px] text-sap-blue hover:underline flex items-center gap-1">
+            <span class="material-symbols-outlined text-[14px]">open_in_new</span>
+            เข้าผ่าน Odoo Web
+          </a>
+          <div class="flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-sap-success animate-pulse-dot inline-block"></span>
+            <span class="text-[11px] text-sap-muted">TLS 1.3 Encrypted</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── KPI Stats ── -->
+  <div class="w-full max-w-[480px] mt-4 grid grid-cols-3 gap-3 animate-fade-up d4">
+    <div class="sap-card p-3 text-center">
+      <p class="text-[20px] font-bold text-sap-blue">247</p>
+      <p class="text-[11px] text-sap-muted mt-0.5 uppercase tracking-wide">SKU วันนี้</p>
+      <div class="mt-1.5 h-0.5 rounded-full bg-sap-blue/20">
+        <div class="h-full w-3/4 rounded-full bg-sap-blue"></div>
+      </div>
+    </div>
+    <div class="sap-card p-3 text-center">
+      <p class="text-[20px] font-bold text-sap-success">12</p>
+      <p class="text-[11px] text-sap-muted mt-0.5 uppercase tracking-wide">Sessions</p>
+      <div class="mt-1.5 h-0.5 rounded-full bg-sap-success/20">
+        <div class="h-full w-full rounded-full bg-sap-success"></div>
+      </div>
+    </div>
+    <div class="sap-card p-3 text-center">
+      <p class="text-[20px] font-bold text-[#E9730C]">98%</p>
+      <p class="text-[11px] text-sap-muted mt-0.5 uppercase tracking-wide">Accuracy</p>
+      <div class="mt-1.5 h-0.5 rounded-full bg-[#E9730C]/20">
+        <div class="h-full w-[98%] rounded-full bg-[#E9730C]"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Version tag -->
+  <p class="mt-5 text-[11px] text-sap-muted/60 animate-fade-up d5">
+    KOB WMS Pro · v18.0.2.11.0 · Odoo 18 Community
+  </p>
+
+</main>
+
+<!-- ══ SAP Footer ════════════════════════════════════════════════════ -->
+<footer class="border-t border-sap-border-lt bg-white px-8 py-4 flex flex-col sm:flex-row justify-between items-center gap-3">
+  <span class="text-[11px] text-sap-muted">© 2025 Kiss of Beauty Co., Ltd. · All rights reserved</span>
+  <div class="flex gap-5">
+    <a href="#" class="text-[11px] text-sap-muted hover:text-sap-blue transition-colors">Help</a>
+    <a href="#" class="text-[11px] text-sap-muted hover:text-sap-blue transition-colors">Privacy</a>
+    <a href="#" class="text-[11px] text-sap-muted hover:text-sap-blue transition-colors">Terms</a>
+    <a href="http://localhost:8018" class="text-[11px] text-sap-blue hover:text-sap-blue-dk font-medium transition-colors">→ Odoo 18</a>
+  </div>
+</footer>
+
+<!-- ══ Dark mode overlay (SAP Horizon Dark) ══════════════════════════ -->
+<style id="darkStyles" disabled>
+  body { background-color:#1C2228 !important; color:#E2EBF0 !important; }
+  .sap-card { background:#29313D !important; border-color:#3D4D5C !important; }
+  .sap-input { background:#1C2228 !important; border-color:#5B738B !important; color:#E2EBF0 !important; }
+  .role-tile { background:#29313D !important; border-color:#3D4D5C !important; }
+  .role-tile:hover, .role-tile.active { background:#233048 !important; border-color:#0070F2 !important; }
+  .page-bg { background-color:#1C2228 !important; background-image:linear-gradient(rgba(0,112,242,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,112,242,.05) 1px,transparent 1px) !important; background-size:32px 32px !important; }
+  footer { background:#29313D !important; border-color:#3D4D5C !important; }
+  .bg-sap-bg { background:#1C2228 !important; }
+  .text-sap-text { color:#E2EBF0 !important; }
+  .text-sap-muted { color:#8FA3B1 !important; }
+  .sap-sep { background:#3D4D5C !important; }
+</style>
+
+<script>
+/* ── Theme toggle ── */
+function toggleTheme(el) {
+  document.getElementById('darkStyles').disabled = !el.checked;
+}
+
+/* ── Role selection ── */
+function selectRole(el, role, label) {
+  document.querySelectorAll('.role-tile').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  const lbl = document.getElementById('roleLabel');
+  lbl.textContent = label;
+  lbl.classList.remove('animate-slide-in');
+  void lbl.offsetWidth;
+  lbl.classList.add('animate-slide-in');
+}
+
+/* ── Password toggle ── */
+function togglePass() {
+  const inp = document.getElementById('password');
+  const icon = document.getElementById('eyeIcon');
+  if (inp.type === 'password') { inp.type = 'text';     icon.textContent = 'visibility'; }
+  else                         { inp.type = 'password'; icon.textContent = 'visibility_off'; }
+}
+
+/* ── Login ── */
+function doLogin() {
+  const btn  = document.getElementById('loginBtn');
+  const text = document.getElementById('loginText');
+  btn.disabled = true;
+  text.textContent = 'กำลังตรวจสอบ...';
+  btn.querySelector('.material-symbols-outlined').textContent = 'sync';
+  btn.querySelector('.material-symbols-outlined').style.animation = 'spin 1s linear infinite';
+
+  const spinStyle = document.createElement('style');
+  spinStyle.textContent = '@keyframes spin{to{transform:rotate(360deg)}} .spin-icon{animation:spin 1s linear infinite;display:inline-block}';
+  document.head.appendChild(spinStyle);
+  btn.querySelector('.material-symbols-outlined').classList.add('spin-icon');
+
+  setTimeout(() => {
+    btn.querySelector('.material-symbols-outlined').classList.remove('spin-icon');
+    btn.querySelector('.material-symbols-outlined').textContent = 'check_circle';
+    text.textContent = 'สำเร็จ';
+    btn.style.background = '#107E3E';
+    btn.style.borderColor = '#107E3E';
+    setTimeout(() => { window.location.href = 'http://localhost:8018/web'; }, 700);
+  }, 1500);
+}
+</script>
+</body>
+</html>

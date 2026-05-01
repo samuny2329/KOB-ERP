@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_pnd_filing_list" model="ir.ui.view">
+        <field name="name">kob.pnd.filing.list</field>
+        <field name="model">kob.pnd.filing</field>
+        <field name="arch" type="xml">
+            <list string="PND Filings">
+                <field name="period_year"/>
+                <field name="period_month"/>
+                <field name="filing_type"/>
+                <field name="state" decoration-info="state == 'calculated'"
+                       decoration-success="state == 'submitted'"
+                       decoration-muted="state in ('draft', 'cancelled')"/>
+                <field name="total_gross_wage" sum="Total Gross"/>
+                <field name="total_wht" sum="Total WHT"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_kob_pnd_filing_form" model="ir.ui.view">
+        <field name="name">kob.pnd.filing.form</field>
+        <field name="model">kob.pnd.filing</field>
+        <field name="arch" type="xml">
+            <form string="PND Filing">
+                <header>
+                    <button name="action_calculate" type="object"
+                            string="Calculate" class="oe_highlight"
+                            invisible="state not in ('draft', 'calculated')"/>
+                    <button name="action_submit" type="object"
+                            string="Submit" class="oe_highlight"
+                            invisible="state != 'calculated'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,calculated,submitted"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="filing_type"/>
+                            <field name="period_year"/>
+                            <field name="period_month"/>
+                        </group>
+                        <group>
+                            <field name="total_gross_wage" readonly="1"/>
+                            <field name="total_wht" readonly="1"/>
+                            <field name="rd_receipt_number"/>
+                            <field name="submitted_at" readonly="1"/>
+                            <field name="submitted_by" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lines">
+                            <field name="line_ids" readonly="1">
+                                <list>
+                                    <field name="employee_name"/>
+                                    <field name="national_id"/>
+                                    <field name="gross_wage" sum="Gross"/>
+                                    <field name="deductions" sum="Deductions"/>
+                                    <field name="taxable_income" sum="Taxable"/>
+                                    <field name="wht_rate_pct"/>
+                                    <field name="wht_amount" sum="WHT"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="note"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_kob_pnd_filing" model="ir.actions.act_window">
+        <field name="name">PND Filings</field>
+        <field name="res_model">kob.pnd.filing</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+        id="menu_kob_pnd_filing"
+        name="PND Filings"
+        parent="kob_base.menu_kob_thai"
+        action="action_kob_pnd_filing"
+        sequence="30"/>
+</odoo>

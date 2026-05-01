@@ -1,0 +1,51 @@
+# Odoo 19 + KOB ERP custom addons.
+#
+# Uses the official odoo:19 image and mounts our kob_odoo_addons/ on top.
+# The local Odoo 19 source at C:\Users\kobnb\Desktop\odoo-19.0 is treated
+# as a reference / read-only template — we do not patch it; every
+# customisation lives in kob_odoo_addons/.
+#
+# Run:
+#   docker compose -f docker-compose.odoo.yml up -d
+#   open http://localhost:8069
+#   master pwd: kob-master
+#   create db → install kob_base + kob_theme + kob_thai_compliance
+
+services:
+  odoo-postgres:
+    image: postgres:16-alpine
+    container_name: kob-odoo-postgres
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: odoo
+    volumes:
+      - kob-odoo-pgdata:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"        # 5433 reserved for the FastAPI postgres
+    restart: unless-stopped
+
+  odoo:
+    image: odoo:19
+    container_name: kob-odoo-19
+    depends_on:
+      - odoo-postgres
+    environment:
+      HOST: odoo-postgres
+      PORT: "5432"
+      USER: odoo
+      PASSWORD: odoo
+    volumes:
+      - "./kob_odoo_addons:/mnt/extra-addons"
+      - kob-odoo-filestore:/var/lib/odoo
+      - "./scripts/odoo.conf:/etc/odoo/odoo.conf:ro"
+    ports:
+      - "8069:8069"
+      - "8072:8072"
+    command: >
+      odoo --config=/etc/odoo/odoo.conf
+    restart: unless-stopped
+
+volumes:
+  kob-odoo-pgdata:
+  kob-odoo-filestore:

@@ -1,0 +1,18 @@
+// KOB ERP — secondary palette overrides.
+//
+// Loaded BEFORE Odoo's secondary_variables.scss so derived shades pick up
+// our SAP Fiori cobalt instead of Odoo's purple.
+
+$o-navbar-background-color: #354a5f;          // Belize Hole navy
+$o-navbar-inverse-link-color: rgba(#fff, 0.92);
+$o-navbar-inverse-link-hover-color: #fff;
+$o-navbar-inverse-link-active-color: #fff;
+$o-navbar-inverse-link-active-bg: rgba(#fff, 0.18);
+$o-navbar-inverse-link-active-shadow: inset 0 -2px 0 #5d9ff5;
+
+// Buttons — Fiori-style emphasized blue
+$o-action: #0a6ed1;
+
+// Apps menu (launchpad) — square tiles on light grey
+$o-apps-menu-background-color: #f5f6f7;
+$o-apps-menu-text-color: #32363a;

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Registration list/form -->
+    <record id="view_kob_sso_registration_list" model="ir.ui.view">
+        <field name="name">kob.sso.registration.list</field>
+        <field name="model">kob.sso.registration</field>
+        <field name="arch" type="xml">
+            <list string="SSO Registrations">
+                <field name="employee_id"/>
+                <field name="ssn"/>
+                <field name="insured_type"/>
+                <field name="registered_date"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_kob_sso_registration_form" model="ir.ui.view">
+        <field name="name">kob.sso.registration.form</field>
+        <field name="model">kob.sso.registration</field>
+        <field name="arch" type="xml">
+            <form string="SSO Registration">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="ssn"/>
+                            <field name="insured_type"/>
+                        </group>
+                        <group>
+                            <field name="registered_date"/>
+                            <field name="branch_code"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_kob_sso_registration" model="ir.actions.act_window">
+        <field name="name">SSO Registrations</field>
+        <field name="res_model">kob.sso.registration</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Contribution list/form -->
+    <record id="view_kob_sso_contribution_list" model="ir.ui.view">
+        <field name="name">kob.sso.contribution.list</field>
+        <field name="model">kob.sso.contribution</field>
+        <field name="arch" type="xml">
+            <list string="SSO Contributions">
+                <field name="period_year"/>
+                <field name="period_month"/>
+                <field name="employee_id"/>
+                <field name="gross_wage"/>
+                <field name="employee_amount"/>
+                <field name="employer_amount"/>
+                <field name="paid_at"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_kob_sso_contribution" model="ir.actions.act_window">
+        <field name="name">SSO Contributions</field>
+        <field name="res_model">kob.sso.contribution</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menu entries under KOB ERP / Thailand Compliance -->
+    <menuitem
+        id="menu_kob_sso_registration"
+        name="SSO Registrations"
+        parent="kob_base.menu_kob_thai"
+        action="action_kob_sso_registration"
+        sequence="10"/>
+
+    <menuitem
+        id="menu_kob_sso_contribution"
+        name="SSO Contributions"
+        parent="kob_base.menu_kob_thai"
+        action="action_kob_sso_contribution"
+        sequence="20"/>
+</odoo>

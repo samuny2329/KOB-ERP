@@ -1,0 +1,1639 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+
+    <!-- ============================================================ -->
+    <!-- 8 Pillars  (dimension aligned to 5-dimension KPI framework) -->
+    <!-- ============================================================ -->
+    <record id="pillar_develop_people" model="wms.kpi.pillar">
+        <field name="name">Develop Our People</field><field name="icon">P1</field><field name="sequence">10</field>
+        <field name="dimension">people</field>
+    </record>
+    <record id="pillar_drive_value" model="wms.kpi.pillar">
+        <field name="name">Drive Value for Clients</field><field name="icon">P2</field><field name="sequence">20</field>
+        <field name="dimension">customer</field>
+    </record>
+    <record id="pillar_revenue" model="wms.kpi.pillar">
+        <field name="name">Make Revenue at Omnichannel &amp; Strategic Partnership</field><field name="icon">P3</field><field name="sequence">30</field>
+        <field name="dimension">finance</field>
+    </record>
+    <record id="pillar_digitization" model="wms.kpi.pillar">
+        <field name="name">Champion Progress &amp; Digitization</field><field name="icon">P4</field><field name="sequence">40</field>
+        <field name="dimension">strategic</field>
+    </record>
+    <record id="pillar_financial" model="wms.kpi.pillar">
+        <field name="name">Deliver Financial Results</field><field name="icon">P5</field><field name="sequence">50</field>
+        <field name="dimension">finance</field>
+    </record>
+    <record id="pillar_compliance" model="wms.kpi.pillar">
+        <field name="name">Manage Corporate &amp; Compliance Risk</field><field name="icon">P6</field><field name="sequence">60</field>
+        <field name="dimension">strategic</field>
+    </record>
+    <record id="pillar_values" model="wms.kpi.pillar">
+        <field name="name">Live Our Values</field><field name="icon">P7</field><field name="sequence">70</field>
+        <field name="dimension">people</field>
+    </record>
+    <record id="pillar_operations" model="wms.kpi.pillar">
+        <field name="name">Operational Excellence</field><field name="icon">P8</field><field name="sequence">80</field>
+        <field name="dimension">operations</field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- PICKER Template (45/10/0/10/10/10/10/5 = 100%)               -->
+    <!-- ============================================================ -->
+    <record id="tpl_picker" model="wms.kpi.template">
+        <field name="position">picker</field>
+    </record>
+    <record id="tpl_picker_p1" model="wms.kpi.template.line">
+        <field name="template_id" ref="tpl_picker"/>
+        <field name="pillar_id" ref="pillar_develop_people"/>
+        <field name="weight">45</field>
+    </record>
+    <record id="cr_picker_p1_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_picker_p1"/>
+        <field name="name">Attendance &amp; Punctuality</field><field name="weight">30</field><field name="sequence">10</field>
+        <field name="score_1">Absent > 3 days, frequently late</field>
+        <field name="score_2">Absent 2-3 days, late > 3 times</field>
+        <field name="score_3">No absent, late ≤ 2 times/month</field>
+        <field name="score_4">No absent, no late</field>
+        <field name="score_5">Perfect attendance, covers for others</field>
+    </record>
+    <record id="cr_picker_p1_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_picker_p1"/>
+        <field name="name">Picking Accuracy</field><field name="weight">40</field><field name="sequence">20</field>
+        <field name="kpi_type">quantitative</field><field name="unit">%</field>
+        <field name="score_1">Accuracy &lt; 95%</field>
+        <field name="score_2">Accuracy 95-97%</field>
+        <field name="score_3">Accuracy 97-99%</field>
+        <field name="score_4">Accuracy 99-99.5%</field>
+        <field name="score_5">Accuracy > 99.5%</field>
+    </record>
+    <record id="cr_picker_p1_3" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_picker_p1"/>
+        <field name="name">Picking Speed (UPH)</field><field name="weight">30</field><field name="sequence">30</field>
+        <field name="kpi_type">quantitative</field><field name="unit">units/hr</field>
+        <field name="score_1">UPH &lt; 10 — ต่ำกว่า baseline อย่างมีนัยสำคัญ</field>
+        <field name="score_2">UPH 10-14 — ต่ำกว่า target</field>
+        <field name="score_3">UPH 15-18 — ตาม standard (Committed Target)</field>
+        <field name="score_4">UPH 19-22 — เกิน target</field>
+        <field name="score_5">UPH > 22 — Outstanding, top performer</field>
+    </record>
+    <record id="tpl_picker_p2" model="wms.kpi.template.line"><field name="template_id" ref="tpl_picker"/><field name="pillar_id" ref="pillar_drive_value"/><field name="weight">10</field></record>
+    <record id="cr_picker_p2_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_picker_p2"/>
+        <field name="name">Customer Order Handling</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">หยิบสินค้าผิด SKU/จำนวน > 3 ครั้ง/เดือน</field>
+        <field name="score_2">มีข้อผิดพลาด 1-3 ครั้ง/เดือน</field>
+        <field name="score_3">หยิบสินค้าถูกต้องครบ ไม่มี complaint</field>
+        <field name="score_4">Zero error, แจ้งปัญหา Order เชิงรุกก่อนเกิดผล</field>
+        <field name="score_5">Zero error, ระบุ systemic issue และเสนอแก้ไขได้</field>
+    </record>
+    <record id="cr_picker_p2_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_picker_p2"/>
+        <field name="name">Teamwork &amp; Communication</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ไม่สื่อสาร, ทำงานโดดเดี่ยว, ไม่ช่วยทีม</field>
+        <field name="score_2">สื่อสารน้อย บางครั้งไม่แจ้งปัญหา</field>
+        <field name="score_3">สื่อสารปัญหาให้ทีมรับรู้ได้สม่ำเสมอ</field>
+        <field name="score_4">ช่วยเพื่อนร่วมงาน, แบ่งปันเทคนิค Pick</field>
+        <field name="score_5">Mentor น้องใหม่, เป็น team leader ด้านการสื่อสาร</field>
+    </record>
+    <record id="tpl_picker_p3" model="wms.kpi.template.line"><field name="template_id" ref="tpl_picker"/><field name="pillar_id" ref="pillar_revenue"/><field name="weight">0</field></record>
+    <record id="tpl_picker_p4" model="wms.kpi.template.line"><field name="template_id" ref="tpl_picker"/><field name="pillar_id" ref="pillar_digitization"/><field name="weight">10</field></record>
+    <record id="cr_picker_p4_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_picker_p4"/>
+        <field name="name">WMS System Usage</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ใช้ Scanner ผิด, ต้องแก้ไขซ้ำบ่อยครั้ง</field>
+        <field name="score_2">ใช้ได้แต่มีข้อผิดพลาด scan ผิด Mode บ้าง</field>
+        <field name="score_3">ใช้ Scanner/WMS workflow ได้ถูกต้องทุกขั้นตอน</field>
+        <field name="score_4">Power user, แก้ปัญหาระบบเบื้องต้นได้</field>
+        <field name="score_5">Expert user, ช่วยฝึกเพื่อน, เสนอ process improvement ที่ถูก implement</field>
+    </record>
+    <record id="cr_picker_p4_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_picker_p4"/>
+        <field name="name">Process Improvement Ideas</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ต่อต้านการเปลี่ยนแปลง, ไม่ร่วมมือ</field>
+        <field name="score_2">ยอมรับการเปลี่ยนแปลงเมื่อถูกกำชับ</field>
+        <field name="score_3">ยินดีรับ process ใหม่, ปรับตัวได้ดี</field>
+        <field name="score_4">เสนอแนวคิดปรับปรุง 1-2 ข้อ/ไตรมาส</field>
+        <field name="score_5">เสนอ improvement ที่ถูก adopt โดยทีม, ช่วย implement จริง</field>
+    </record>
+    <record id="tpl_picker_p5" model="wms.kpi.template.line"><field name="template_id" ref="tpl_picker"/><field name="pillar_id" ref="pillar_financial"/><field name="weight">10</field></record>
+    <record id="cr_picker_p5_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_picker_p5"/>
+        <field name="name">Damage Prevention</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">สินค้าเสียหายจากการ Pick > 3 ชิ้น/เดือน</field>
+        <field name="score_2">มีสินค้าเสียหาย 1-3 ชิ้น/เดือน</field>
+        <field name="score_3">ไม่มีสินค้าเสียหายจากการ Pick</field>
+        <field name="score_4">Zero damage, ระบุจุดเสี่ยงบนชั้นวางและแจ้ง Supervisor</field>
+        <field name="score_5">Zero damage, เสนอวิธีจัดเก็บที่ลด damage risk เชิงระบบ</field>
+    </record>
+    <record id="cr_picker_p5_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_picker_p5"/>
+        <field name="name">Resource Efficiency</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ใช้ supplies สิ้นเปลือง, ทิ้งขยะไม่ถูกที่</field>
+        <field name="score_2">ใช้ supplies มากเกินความจำเป็นบางครั้ง</field>
+        <field name="score_3">ใช้ supplies อย่างเหมาะสม ไม่สิ้นเปลือง</field>
+        <field name="score_4">ลดการใช้ supplies, แยกขยะถูกต้อง</field>
+        <field name="score_5">เสนอวิธีลด waste ที่ measurable, ช่วยลดต้นทุนได้จริง</field>
+    </record>
+    <record id="tpl_picker_p6" model="wms.kpi.template.line"><field name="template_id" ref="tpl_picker"/><field name="pillar_id" ref="pillar_compliance"/><field name="weight">10</field></record>
+    <record id="cr_picker_p6_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_picker_p6"/>
+        <field name="name">Safety Compliance</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ฝ่าฝืนกฎความปลอดภัย, มีเหตุการณ์เกิดขึ้น</field>
+        <field name="score_2">บางครั้งไม่ปฏิบัติตามเมื่อเร่งรีบ</field>
+        <field name="score_3">ปฏิบัติตามกฎความปลอดภัยสม่ำเสมอ</field>
+        <field name="score_4">Safety champion, รายงานจุดอันตรายก่อนเกิดเหตุ</field>
+        <field name="score_5">Safety ambassador, ฝึกสอนเพื่อน, ไม่มีอุบัติเหตุในทีม</field>
+    </record>
+    <record id="cr_picker_p6_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_picker_p6"/>
+        <field name="name">SOP Adherence</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ไม่ทำตาม SOP, ทำตามวิธีของตัวเอง</field>
+        <field name="score_2">ทำตาม SOP บางส่วน, ข้ามขั้นตอนบ้าง</field>
+        <field name="score_3">ทำตาม SOP ครบทุกขั้นตอนสม่ำเสมอ</field>
+        <field name="score_4">ทำตาม SOP ครบ + ชี้ปัญหา SOP ที่ควรปรับปรุง</field>
+        <field name="score_5">ปรับปรุง SOP อย่างน้อย 1 ข้อ/ปี, ช่วยฝึกผู้อื่น</field>
+    </record>
+    <record id="tpl_picker_p7" model="wms.kpi.template.line"><field name="template_id" ref="tpl_picker"/><field name="pillar_id" ref="pillar_values"/><field name="weight">10</field></record>
+    <record id="cr_picker_p7_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_picker_p7"/>
+        <field name="name">Integrity &amp; Honesty</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">มีพฤติกรรมไม่ซื่อสัตย์ หรือซ่อนความผิดพลาด</field>
+        <field name="score_2">ไม่ค่อยรายงานข้อผิดพลาด รอให้คนอื่นพบ</field>
+        <field name="score_3">ซื่อสัตย์ รายงานข้อผิดพลาดของตัวเองทันที</field>
+        <field name="score_4">Integrity สูง, เป็นตัวอย่างให้ทีม</field>
+        <field name="score_5">Role model ด้านความซื่อสัตย์, ส่งเสริมวัฒนธรรมโปร่งใส</field>
+    </record>
+    <record id="cr_picker_p7_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_picker_p7"/>
+        <field name="name">Respect &amp; Collaboration</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">มีความขัดแย้งกับเพื่อนร่วมงาน, ไม่ให้ความร่วมมือ</field>
+        <field name="score_2">เข้ากับทีมได้แต่ไม่กระตือรือร้น</field>
+        <field name="score_3">เคารพเพื่อนร่วมงาน ให้ความร่วมมือดี</field>
+        <field name="score_4">ช่วยสร้าง team spirit, ช่วยงานเพื่อนเมื่อต้องการ</field>
+        <field name="score_5">สร้างวัฒนธรรมทีมที่แข็งแกร่ง, เป็นที่รักของทีม</field>
+    </record>
+    <record id="tpl_picker_p8" model="wms.kpi.template.line"><field name="template_id" ref="tpl_picker"/><field name="pillar_id" ref="pillar_operations"/><field name="weight">5</field></record>
+    <record id="cr_picker_p8_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_picker_p8"/>
+        <field name="name">Equipment Care</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ใช้อุปกรณ์ประมาท, เกิดความเสียหายบ่อย</field>
+        <field name="score_2">บางครั้งไม่ดูแลอุปกรณ์อย่างเหมาะสม</field>
+        <field name="score_3">ดูแลรักษาอุปกรณ์ตามมาตรฐาน</field>
+        <field name="score_4">Proactive maintenance, แจ้ง Supervisor ก่อนอุปกรณ์เสีย</field>
+        <field name="score_5">Zero breakdown, ช่วยฝึกอบรม, จัดทำ maintenance checklist</field>
+    </record>
+    <record id="cr_picker_p8_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_picker_p8"/>
+        <field name="name">Workspace Organization (5S)</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">พื้นที่ทำงานรกเรื้อรัง, ไม่ทำความสะอาด</field>
+        <field name="score_2">ทำความสะอาดเมื่อถูกขอ, ไม่สม่ำเสมอ</field>
+        <field name="score_3">รักษาพื้นที่สะอาด จัดเป็นระเบียบสม่ำเสมอ</field>
+        <field name="score_4">5S ดีเยี่ยม, เสนอปรับปรุง layout</field>
+        <field name="score_5">5S champion, ปลูกฝังนิสัยให้ทีม, เป็น model area</field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- PACKER Template (40/15/0/10/10/10/10/5 = 100%)               -->
+    <!-- ============================================================ -->
+    <record id="tpl_packer" model="wms.kpi.template"><field name="position">packer</field></record>
+    <record id="tpl_packer_p1" model="wms.kpi.template.line"><field name="template_id" ref="tpl_packer"/><field name="pillar_id" ref="pillar_develop_people"/><field name="weight">40</field></record>
+    <record id="cr_packer_p1_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_packer_p1"/>
+        <field name="name">Attendance &amp; Punctuality</field><field name="weight">25</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ขาด > 3 วัน หรือ สาย > 5 ครั้ง/เดือน</field>
+        <field name="score_2">ขาด 2-3 วัน หรือ สาย 3-5 ครั้ง/เดือน</field>
+        <field name="score_3">ไม่ขาด, สาย ≤ 2 ครั้ง/เดือน</field>
+        <field name="score_4">ไม่ขาด, ไม่สาย</field>
+        <field name="score_5">ขยันครบทุกวัน, ช่วยเพื่อนร่วมงานได้</field>
+    </record>
+    <record id="cr_packer_p1_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_packer_p1"/>
+        <field name="name">Packing Accuracy</field><field name="weight">40</field><field name="kpi_type">quantitative</field><field name="unit">%</field>
+        <field name="score_1">Accuracy &lt; 95% — มี error บ่อย, label ผิด</field>
+        <field name="score_2">Accuracy 95-97% — มี error บ้าง ต้องแก้ไข</field>
+        <field name="score_3">Accuracy 97-99%, label ถูกต้องทุกกล่อง</field>
+        <field name="score_4">Accuracy 99-99.5%, zero label error</field>
+        <field name="score_5">Accuracy > 99.5%, zero mislabel ตลอดรอบ</field>
+    </record>
+    <record id="cr_packer_p1_3" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_packer_p1"/>
+        <field name="name">Packing Speed</field><field name="weight">35</field><field name="kpi_type">quantitative</field><field name="unit">orders/hr</field>
+        <field name="score_1">&lt; 80% ของ daily target</field>
+        <field name="score_2">80-90% ของ daily target</field>
+        <field name="score_3">ตาม daily target (Committed)</field>
+        <field name="score_4">เกิน target 10%</field>
+        <field name="score_5">เกิน target 20%+ โดยไม่ลด accuracy</field>
+    </record>
+    <record id="tpl_packer_p2" model="wms.kpi.template.line"><field name="template_id" ref="tpl_packer"/><field name="pillar_id" ref="pillar_drive_value"/><field name="weight">15</field></record>
+    <record id="cr_packer_p2_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_packer_p2"/>
+        <field name="name">Package Quality</field><field name="weight">60</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">สินค้าเสียหายจากการ Pack > 1% ของ Order</field>
+        <field name="score_2">มีสินค้าเสียหาย 0.5-1%, ลูกค้า complain</field>
+        <field name="score_3">สินค้าถึงมือลูกค้าสมบูรณ์, ไม่มี complaint</field>
+        <field name="score_4">Zero damage, packaging สวยงาม professional</field>
+        <field name="score_5">Zero damage, ลูกค้า positive review เรื่องบรรจุภัณฑ์</field>
+    </record>
+    <record id="cr_packer_p2_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_packer_p2"/>
+        <field name="name">Customer Satisfaction</field><field name="weight">40</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ลูกค้า complain เรื่อง packing > 3 ครั้ง/เดือน</field>
+        <field name="score_2">Complaint 1-3 ครั้ง/เดือน</field>
+        <field name="score_3">ไม่มี complaint เรื่อง packing</field>
+        <field name="score_4">ไม่มี complaint, ลูกค้า feedback ดี</field>
+        <field name="score_5">ลูกค้า review ชมเรื่อง packing/บรรจุภัณฑ์ > 5 ครั้ง</field>
+    </record>
+    <record id="tpl_packer_p3" model="wms.kpi.template.line"><field name="template_id" ref="tpl_packer"/><field name="pillar_id" ref="pillar_revenue"/><field name="weight">0</field></record>
+    <record id="tpl_packer_p4" model="wms.kpi.template.line"><field name="template_id" ref="tpl_packer"/><field name="pillar_id" ref="pillar_digitization"/><field name="weight">10</field></record>
+    <record id="cr_packer_p4_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_packer_p4"/>
+        <field name="name">WMS/Scanner Usage</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">สแกน barcode ผิดพลาดบ่อย ต้องแก้ซ้ำ</field>
+        <field name="score_2">ใช้ได้แต่มีข้อผิดพลาด scan ผิด Mode บ้าง</field>
+        <field name="score_3">ใช้ Scanner/WMS workflow ได้ถูกต้องทุกขั้นตอน</field>
+        <field name="score_4">Power user, แก้ปัญหาระบบเบื้องต้นได้</field>
+        <field name="score_5">Expert, ช่วยฝึกเพื่อน Pack, เสนอ system improvement</field>
+    </record>
+    <record id="tpl_packer_p5" model="wms.kpi.template.line"><field name="template_id" ref="tpl_packer"/><field name="pillar_id" ref="pillar_financial"/><field name="weight">10</field></record>
+    <record id="cr_packer_p5_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_packer_p5"/>
+        <field name="name">Material Waste Reduction</field><field name="weight">100</field><field name="kpi_type">quantitative</field><field name="unit">%</field>
+        <field name="score_1">ใช้กล่องผิดขนาด > 20% ของ orders, waste สูง</field>
+        <field name="score_2">ใช้กล่องผิดขนาด 10-20%, material เกินความจำเป็น</field>
+        <field name="score_3">เลือกขนาดกล่องถูกต้อง, ใช้วัสดุพอดีสม่ำเสมอ</field>
+        <field name="score_4">Waste &lt; 5%, เสนอวิธีลด material cost</field>
+        <field name="score_5">ลด waste measurable, ประหยัดต้นทุน pack/เดือนได้จริง</field>
+    </record>
+    <record id="tpl_packer_p6" model="wms.kpi.template.line"><field name="template_id" ref="tpl_packer"/><field name="pillar_id" ref="pillar_compliance"/><field name="weight">10</field></record>
+    <record id="cr_packer_p6_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_packer_p6"/>
+        <field name="name">Safety &amp; SOP</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ละเมิด SOP การ Pack, เกิดอุบัติเหตุจากงาน</field>
+        <field name="score_2">บางครั้งข้ามขั้นตอน SOP เมื่อเร่งรีบ</field>
+        <field name="score_3">ทำตาม Packing SOP ครบทุกขั้นตอนสม่ำเสมอ</field>
+        <field name="score_4">Zero safety incident, ชี้จุดเสี่ยงในสถานี Pack</field>
+        <field name="score_5">Zero incident, ปรับปรุง SOP, ฝึกความปลอดภัยให้ทีม</field>
+    </record>
+    <record id="tpl_packer_p7" model="wms.kpi.template.line"><field name="template_id" ref="tpl_packer"/><field name="pillar_id" ref="pillar_values"/><field name="weight">10</field></record>
+    <record id="cr_packer_p7_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_packer_p7"/>
+        <field name="name">Integrity &amp; Teamwork</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ซ่อนข้อผิดพลาด, ทำงานโดยไม่สนใจทีม</field>
+        <field name="score_2">ซื่อสัตย์พอสมควร แต่ไม่กระตือรือร้นช่วยทีม</field>
+        <field name="score_3">ซื่อสัตย์ ร่วมมือกับทีมได้ดี</field>
+        <field name="score_4">ช่วยเหลือทีม, รายงานปัญหาทันที, trust building</field>
+        <field name="score_5">Team leader, role model ด้าน integrity และ collaboration</field>
+    </record>
+    <record id="tpl_packer_p8" model="wms.kpi.template.line"><field name="template_id" ref="tpl_packer"/><field name="pillar_id" ref="pillar_operations"/><field name="weight">5</field></record>
+    <record id="cr_packer_p8_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_packer_p8"/>
+        <field name="name">Workspace &amp; Equipment</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">พื้นที่ Pack รก, อุปกรณ์ไม่เป็นระเบียบ</field>
+        <field name="score_2">ทำความสะอาดเมื่อถูกกำชับ</field>
+        <field name="score_3">รักษาพื้นที่สะอาด อุปกรณ์ดูแลดี</field>
+        <field name="score_4">5S excellent, เสนอ workspace improvement</field>
+        <field name="score_5">5S champion, ปลูกฝัง habit ให้ทีม Pack</field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- SHIPPER Template (35/15/0/10/15/10/10/5 = 100%)              -->
+    <!-- ============================================================ -->
+    <record id="tpl_shipper" model="wms.kpi.template"><field name="position">shipper</field></record>
+    <record id="tpl_shipper_p1" model="wms.kpi.template.line"><field name="template_id" ref="tpl_shipper"/><field name="pillar_id" ref="pillar_develop_people"/><field name="weight">35</field></record>
+    <record id="cr_shipper_p1_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_shipper_p1"/>
+        <field name="name">Attendance</field><field name="weight">30</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ขาด > 3 วัน หรือ สาย > 5 ครั้ง/เดือน</field>
+        <field name="score_2">ขาด 2-3 วัน หรือ สาย 3-5 ครั้ง/เดือน</field>
+        <field name="score_3">ไม่ขาด, สาย ≤ 2 ครั้ง/เดือน</field>
+        <field name="score_4">ไม่ขาด, ไม่สาย, พร้อมทำงานเต็มเวลา</field>
+        <field name="score_5">Perfect attendance, ช่วยครอบคลุมงานเมื่อทีมขาด</field>
+    </record>
+    <record id="cr_shipper_p1_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_shipper_p1"/>
+        <field name="name">Shipping Accuracy (AWB/Label)</field><field name="weight">40</field><field name="kpi_type">quantitative</field><field name="unit">%</field>
+        <field name="score_1">Label ผิด > 5 กล่อง/เดือน หรือ accuracy &lt; 95%</field>
+        <field name="score_2">Label ผิด 3-5 กล่อง/เดือน, accuracy 95-97%</field>
+        <field name="score_3">Accuracy 97-99%, label ถูกต้องเกือบทั้งหมด</field>
+        <field name="score_4">Accuracy 99-99.5%, zero critical mislabel</field>
+        <field name="score_5">Accuracy > 99.5%, zero label error ตลอดรอบ</field>
+    </record>
+    <record id="cr_shipper_p1_3" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_shipper_p1"/>
+        <field name="name">Shipping Speed</field><field name="weight">30</field><field name="kpi_type">quantitative</field><field name="unit">orders/day</field>
+        <field name="score_1">ส่งได้ &lt; 80% ของ daily ship target</field>
+        <field name="score_2">ส่งได้ 80-90% ของ daily target</field>
+        <field name="score_3">ส่งครบตาม daily target (Committed)</field>
+        <field name="score_4">ส่งเกิน target 10%</field>
+        <field name="score_5">ส่งเกิน target 20%+ โดยไม่มี error</field>
+    </record>
+    <record id="tpl_shipper_p2" model="wms.kpi.template.line"><field name="template_id" ref="tpl_shipper"/><field name="pillar_id" ref="pillar_drive_value"/><field name="weight">15</field></record>
+    <record id="cr_shipper_p2_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_shipper_p2"/>
+        <field name="name">Courier Coordination</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ส่งมอบ Courier ล่าช้าบ่อย, Courier พลาด pickup</field>
+        <field name="score_2">บางครั้ง handoff ล่าช้า ทำให้ SLA เสี่ยง</field>
+        <field name="score_3">Handoff Courier ตรงเวลาทุกครั้งตาม schedule</field>
+        <field name="score_4">Optimizes pickup schedule, ติดต่อ Courier เชิงรุก</field>
+        <field name="score_5">สร้าง strategic relationship กับ Courier, ลด lead time</field>
+    </record>
+    <record id="cr_shipper_p2_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_shipper_p2"/>
+        <field name="name">Delivery SLA Compliance</field><field name="weight">50</field><field name="kpi_type">quantitative</field><field name="unit">%</field>
+        <field name="score_1">SLA breach > 5% ของ orders</field>
+        <field name="score_2">SLA breach 2-5% ของ orders</field>
+        <field name="score_3">SLA compliance ≥ 95%, meets all deadlines</field>
+        <field name="score_4">SLA compliance ≥ 98%, แก้ปัญหาก่อน breach</field>
+        <field name="score_5">Zero SLA breach ตลอดรอบประเมิน</field>
+    </record>
+    <record id="tpl_shipper_p3" model="wms.kpi.template.line"><field name="template_id" ref="tpl_shipper"/><field name="pillar_id" ref="pillar_revenue"/><field name="weight">0</field></record>
+    <record id="tpl_shipper_p4" model="wms.kpi.template.line"><field name="template_id" ref="tpl_shipper"/><field name="pillar_id" ref="pillar_digitization"/><field name="weight">10</field></record>
+    <record id="cr_shipper_p4_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_shipper_p4"/>
+        <field name="name">System Usage &amp; Tracking</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ไม่อัพเดทสถานะ tracking, ข้อมูลระบบผิดพลาด</field>
+        <field name="score_2">อัพเดทได้แต่ไม่ครบถ้วน หรือล่าช้า</field>
+        <field name="score_3">อัพเดท tracking status ถูกต้องทุก shipment</field>
+        <field name="score_4">Real-time updates, ไม่มี backlog tracking</field>
+        <field name="score_5">Automates tracking, เสนอปรับปรุงระบบ Dispatch</field>
+    </record>
+    <record id="tpl_shipper_p5" model="wms.kpi.template.line"><field name="template_id" ref="tpl_shipper"/><field name="pillar_id" ref="pillar_financial"/><field name="weight">15</field></record>
+    <record id="cr_shipper_p5_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_shipper_p5"/>
+        <field name="name">Shipping Cost Optimization</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">เลือก Courier ราคาแพงกว่าที่ควรบ่อยครั้ง</field>
+        <field name="score_2">บางครั้งเลือก Courier ไม่ optimal</field>
+        <field name="score_3">ใช้ Courier/ขนาดกล่องที่ถูกต้องตาม guideline</field>
+        <field name="score_4">ลดต้นทุนขนส่งได้บ้างจากการจัดกลุ่มส่ง</field>
+        <field name="score_5">ลดค่าขนส่ง/order ได้ measurable ≥ 5%</field>
+    </record>
+    <record id="tpl_shipper_p6" model="wms.kpi.template.line"><field name="template_id" ref="tpl_shipper"/><field name="pillar_id" ref="pillar_compliance"/><field name="weight">10</field></record>
+    <record id="cr_shipper_p6_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_shipper_p6"/>
+        <field name="name">Compliance &amp; Documentation</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">เอกสารไม่ครบ, ไม่มี POD/handoff record บ่อยครั้ง</field>
+        <field name="score_2">เอกสารบางส่วนไม่ครบถ้วน</field>
+        <field name="score_3">เอกสารครบทุกชุด, paperwork ถูกต้อง</field>
+        <field name="score_4">Zero compliance issue, เอกสาร audit-ready</field>
+        <field name="score_5">Zero compliance, เสนอ digital documentation process</field>
+    </record>
+    <record id="tpl_shipper_p7" model="wms.kpi.template.line"><field name="template_id" ref="tpl_shipper"/><field name="pillar_id" ref="pillar_values"/><field name="weight">10</field></record>
+    <record id="cr_shipper_p7_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_shipper_p7"/>
+        <field name="name">Integrity &amp; Teamwork</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ซ่อนความผิดพลาด, ไม่รายงาน shipping incident</field>
+        <field name="score_2">รายงานข้อผิดพลาดเฉพาะเมื่อถูกถาม</field>
+        <field name="score_3">ซื่อสัตย์ รายงานทุก incident ทันที</field>
+        <field name="score_4">ช่วยทีม, role model ด้าน integrity</field>
+        <field name="score_5">Brand ambassador, สร้าง trust กับ Courier และ team</field>
+    </record>
+    <record id="tpl_shipper_p8" model="wms.kpi.template.line"><field name="template_id" ref="tpl_shipper"/><field name="pillar_id" ref="pillar_operations"/><field name="weight">5</field></record>
+    <record id="cr_shipper_p8_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_shipper_p8"/>
+        <field name="name">Loading Area Organization</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">Dock รก, กล่องวางสะเปะสะปะ ไม่เป็นระเบียบ</field>
+        <field name="score_2">ทำความสะอาดเมื่อถูกขอ ไม่สม่ำเสมอ</field>
+        <field name="score_3">Loading dock สะอาด, จัดตามลำดับ Courier</field>
+        <field name="score_4">Dock flow ดี, ลดเวลา loading/handoff</field>
+        <field name="score_5">Optimizes dock layout เชิงระบบ, เป็น model area</field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- INVENTORY Template (30/10/0/15/10/20/10/5 = 100%)            -->
+    <!-- ============================================================ -->
+    <record id="tpl_inventory" model="wms.kpi.template"><field name="position">inventory</field></record>
+    <record id="tpl_inv_p1" model="wms.kpi.template.line"><field name="template_id" ref="tpl_inventory"/><field name="pillar_id" ref="pillar_develop_people"/><field name="weight">30</field></record>
+    <record id="cr_inv_p1_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_inv_p1"/>
+        <field name="name">Attendance</field><field name="weight">30</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ขาด > 3 วัน หรือ สาย > 5 ครั้ง/เดือน</field>
+        <field name="score_2">ขาด 2-3 วัน หรือ สาย 3-5 ครั้ง/เดือน</field>
+        <field name="score_3">ไม่ขาด, สาย ≤ 2 ครั้ง/เดือน</field>
+        <field name="score_4">ไม่ขาด, ไม่สาย, พร้อม count ทุกวัน</field>
+        <field name="score_5">Perfect attendance, ช่วยครอบคลุมงาน count เมื่อทีมขาด</field>
+    </record>
+    <record id="cr_inv_p1_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_inv_p1"/>
+        <field name="name">Count Accuracy</field><field name="weight">40</field><field name="kpi_type">quantitative</field><field name="unit">%</field>
+        <field name="score_1">Count accuracy &lt; 95%, variance บ่อยครั้ง</field>
+        <field name="score_2">Count accuracy 95-97%</field>
+        <field name="score_3">Count accuracy 97-99%</field>
+        <field name="score_4">Count accuracy 99-99.5%</field>
+        <field name="score_5">Count accuracy > 99.5% ตลอดรอบ</field>
+    </record>
+    <record id="cr_inv_p1_3" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_inv_p1"/>
+        <field name="name">Count Speed (areas/day)</field><field name="weight">30</field><field name="kpi_type">quantitative</field><field name="unit">areas/day</field>
+        <field name="score_1">&lt; 80% ของ daily area target</field>
+        <field name="score_2">80-90% ของ daily area target</field>
+        <field name="score_3">ครบตาม daily area target (Committed)</field>
+        <field name="score_4">เกิน target 10%</field>
+        <field name="score_5">เกิน target 20%+ โดยไม่ลด accuracy</field>
+    </record>
+    <record id="tpl_inv_p2" model="wms.kpi.template.line"><field name="template_id" ref="tpl_inventory"/><field name="pillar_id" ref="pillar_drive_value"/><field name="weight">10</field></record>
+    <record id="cr_inv_p2_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_inv_p2"/>
+        <field name="name">Discrepancy Resolution</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">พบ discrepancy แต่ไม่รายงาน หรือรายงานล่าช้า</field>
+        <field name="score_2">รายงาน discrepancy แต่ข้อมูลไม่พอสำหรับการแก้ไข</field>
+        <field name="score_3">รายงาน discrepancy ครบถ้วนและทันเวลา</field>
+        <field name="score_4">รายงาน + วิเคราะห์สาเหตุเบื้องต้นด้วย</field>
+        <field name="score_5">Root-cause analysis, เสนอวิธีป้องกันซ้ำ ผล measurable</field>
+    </record>
+    <record id="tpl_inv_p3" model="wms.kpi.template.line"><field name="template_id" ref="tpl_inventory"/><field name="pillar_id" ref="pillar_revenue"/><field name="weight">0</field></record>
+    <record id="tpl_inv_p4" model="wms.kpi.template.line"><field name="template_id" ref="tpl_inventory"/><field name="pillar_id" ref="pillar_digitization"/><field name="weight">15</field></record>
+    <record id="cr_inv_p4_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_inv_p4"/>
+        <field name="name">WMS Count Module Usage</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">บันทึกข้อมูลผิดพลาดบ่อยใน Count Module</field>
+        <field name="score_2">ใช้ระบบได้แต่มีข้อผิดพลาดบ้าง</field>
+        <field name="score_3">ใช้ WMS Count Module ได้ถูกต้องครบทุกขั้นตอน</field>
+        <field name="score_4">Power user, เสนอ workflow improvement</field>
+        <field name="score_5">Expert, ช่วยพัฒนาระบบ Count, ฝึกทีม</field>
+    </record>
+    <record id="tpl_inv_p5" model="wms.kpi.template.line"><field name="template_id" ref="tpl_inventory"/><field name="pillar_id" ref="pillar_financial"/><field name="weight">10</field></record>
+    <record id="cr_inv_p5_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_inv_p5"/>
+        <field name="name">Shrinkage Reduction</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ไม่ระบุสาเหตุ shrinkage, ไม่รายงาน</field>
+        <field name="score_2">รายงาน shrinkage แต่ไม่วิเคราะห์สาเหตุ</field>
+        <field name="score_3">ระบุสาเหตุ shrinkage และรายงาน Supervisor</field>
+        <field name="score_4">วิเคราะห์ pattern, เสนอวิธีป้องกัน</field>
+        <field name="score_5">ลด shrinkage ได้ measurable ≥ 20% จากรอบก่อน</field>
+    </record>
+    <record id="tpl_inv_p6" model="wms.kpi.template.line"><field name="template_id" ref="tpl_inventory"/><field name="pillar_id" ref="pillar_compliance"/><field name="weight">20</field></record>
+    <record id="cr_inv_p6_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_inv_p6"/>
+        <field name="name">Lot/Expiry Compliance</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ไม่ตรวจ Lot/Expiry ระหว่าง count, พบหมดอายุทีหลัง</field>
+        <field name="score_2">ตรวจบางส่วน ไม่ครบ 100%</field>
+        <field name="score_3">ตรวจ Lot/Expiry ทุก SKU ระหว่าง count</field>
+        <field name="score_4">Zero compliance miss, ตรวจ FIFO ด้วย</field>
+        <field name="score_5">Zero miss, สร้าง checklist ปรับปรุง, แจ้ง near-expiry ล่วงหน้า</field>
+    </record>
+    <record id="cr_inv_p6_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_inv_p6"/>
+        <field name="name">Audit Trail Documentation</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">เอกสาร count ไม่ครบ, ไม่ sign, มี gap</field>
+        <field name="score_2">เอกสารครบบางส่วน ยังขาดบางจุด</field>
+        <field name="score_3">Count documentation ครบทุกชุด ถูกต้อง</field>
+        <field name="score_4">Audit-ready records, ระบบ filing ดี</field>
+        <field name="score_5">Perfect audit trail, เสนอปรับปรุง digital record</field>
+    </record>
+    <record id="tpl_inv_p7" model="wms.kpi.template.line"><field name="template_id" ref="tpl_inventory"/><field name="pillar_id" ref="pillar_values"/><field name="weight">10</field></record>
+    <record id="cr_inv_p7_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_inv_p7"/>
+        <field name="name">Integrity in Counting</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">มีหลักฐาน/ข้อสงสัยว่า manipulate count data</field>
+        <field name="score_2">รายงานผลไม่ตรงความเป็นจริงบ้างจากการเร่งรีบ</field>
+        <field name="score_3">นับและรายงานผลที่แท้จริงเสมอ</field>
+        <field name="score_4">Trusted counter, ข้อมูลน่าเชื่อถือ, ขอ recount เองเมื่อไม่แน่ใจ</field>
+        <field name="score_5">Trusted auditor, ทุกคนยอมรับผลนับ, เป็น benchmark integrity</field>
+    </record>
+    <record id="tpl_inv_p8" model="wms.kpi.template.line"><field name="template_id" ref="tpl_inventory"/><field name="pillar_id" ref="pillar_operations"/><field name="weight">5</field></record>
+    <record id="cr_inv_p8_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_inv_p8"/>
+        <field name="name">Zone Organization</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">Zone ไม่มี label, สินค้าปะปนกัน</field>
+        <field name="score_2">Label บางส่วน ยังมีสินค้าปะปน</field>
+        <field name="score_3">Zone labeled ถูกต้อง, สินค้าอยู่ถูกที่</field>
+        <field name="score_4">Zone สวยงาม, เข้าถึงง่าย, ง่ายต่อการ pick</field>
+        <field name="score_5">Optimizes zone layout, เสนอปรับปรุง rack/pickface เพิ่ม efficiency</field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- INBOUND Template (30/15/0/10/15/15/10/5 = 100%)              -->
+    <!-- ============================================================ -->
+    <record id="tpl_inbound" model="wms.kpi.template"><field name="position">inbound</field></record>
+    <record id="tpl_in_p1" model="wms.kpi.template.line"><field name="template_id" ref="tpl_inbound"/><field name="pillar_id" ref="pillar_develop_people"/><field name="weight">30</field></record>
+    <record id="cr_in_p1_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_in_p1"/>
+        <field name="name">Attendance</field><field name="weight">25</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ขาด > 3 วัน หรือ สาย > 5 ครั้ง/เดือน</field>
+        <field name="score_2">ขาด 2-3 วัน หรือ สาย 3-5 ครั้ง/เดือน</field>
+        <field name="score_3">ไม่ขาด, สาย ≤ 2 ครั้ง/เดือน</field>
+        <field name="score_4">ไม่ขาด, ไม่สาย, พร้อมรับของทุกวัน</field>
+        <field name="score_5">Perfect attendance, ช่วยงานเพื่อนเมื่อต้องการ</field>
+    </record>
+    <record id="cr_in_p1_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_in_p1"/>
+        <field name="name">Receiving Accuracy</field><field name="weight">40</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">รับสินค้าผิด SKU/จำนวน > 3 ครั้ง/เดือน</field>
+        <field name="score_2">มีข้อผิดพลาดการรับของ 1-3 ครั้ง/เดือน</field>
+        <field name="score_3">Zero error ในการรับสินค้า, ครบถ้วนทุกครั้ง</field>
+        <field name="score_4">Zero error + ตรวจจับข้อผิดพลาดของ Supplier ได้</field>
+        <field name="score_5">Zero error, ระบุ Supplier errors ก่อนเข้าระบบ, เสนอ improved process</field>
+    </record>
+    <record id="cr_in_p1_3" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_in_p1"/>
+        <field name="name">Putaway Speed</field><field name="weight">35</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">Putaway ใช้เวลา > 1 วัน หลัง receive</field>
+        <field name="score_2">Putaway เสร็จวันถัดไปจาก receive</field>
+        <field name="score_3">Putaway เสร็จภายในวันเดียวกัน (same day)</field>
+        <field name="score_4">Putaway เสร็จภายใน 4 ชั่วโมง หลัง receive</field>
+        <field name="score_5">Putaway เสร็จภายใน 2 ชั่วโมง, สินค้าพร้อม pick ทันที</field>
+    </record>
+    <record id="tpl_in_p2" model="wms.kpi.template.line"><field name="template_id" ref="tpl_inbound"/><field name="pillar_id" ref="pillar_drive_value"/><field name="weight">15</field></record>
+    <record id="cr_in_p2_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_in_p2"/>
+        <field name="name">Supplier Issue Handling</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ไม่รายงาน Supplier issues, ยอมรับสินค้าไม่ตรง spec</field>
+        <field name="score_2">รายงาน issues แต่ไม่ครบหรือล่าช้า</field>
+        <field name="score_3">รายงาน Supplier issues ทุกครั้งพร้อมรายละเอียด</field>
+        <field name="score_4">รายงาน + ติดตามการแก้ไขกับ Supplier</field>
+        <field name="score_5">Resolves proactively, สร้าง supplier quality record, ลด issue recurrence</field>
+    </record>
+    <record id="tpl_in_p3" model="wms.kpi.template.line"><field name="template_id" ref="tpl_inbound"/><field name="pillar_id" ref="pillar_revenue"/><field name="weight">0</field></record>
+    <record id="tpl_in_p4" model="wms.kpi.template.line"><field name="template_id" ref="tpl_inbound"/><field name="pillar_id" ref="pillar_digitization"/><field name="weight">10</field></record>
+    <record id="cr_in_p4_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_in_p4"/>
+        <field name="name">System Data Entry</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">GRN entry ผิดพลาดบ่อย, ข้อมูล backlog สะสม</field>
+        <field name="score_2">GRN entry ผิดพลาดบ้าง, มี minor backlog</field>
+        <field name="score_3">GRN entry ถูกต้องครบถ้วน, ไม่มี backlog</field>
+        <field name="score_4">Real-time entry, zero backlog ทุกวัน</field>
+        <field name="score_5">Real-time + เสนอ automation ปรับปรุงกระบวนการ</field>
+    </record>
+    <record id="tpl_in_p5" model="wms.kpi.template.line"><field name="template_id" ref="tpl_inbound"/><field name="pillar_id" ref="pillar_financial"/><field name="weight">15</field></record>
+    <record id="cr_in_p5_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_in_p5"/>
+        <field name="name">Quantity Verification</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">รับสินค้าโดยไม่ตรวจจำนวน, discrepancy ไม่ถูกจับ</field>
+        <field name="score_2">ตรวจจำนวนบางส่วน ไม่ครบ 100%</field>
+        <field name="score_3">ตรวจสอบจำนวนตรงกับ PO 100% ทุกครั้ง</field>
+        <field name="score_4">100% verify + catch over/under shipment แจ้งทันที</field>
+        <field name="score_5">Zero discrepancy slipthrough, เสนอ barcode verification process</field>
+    </record>
+    <record id="tpl_in_p6" model="wms.kpi.template.line"><field name="template_id" ref="tpl_inbound"/><field name="pillar_id" ref="pillar_compliance"/><field name="weight">15</field></record>
+    <record id="cr_in_p6_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_in_p6"/>
+        <field name="name">Lot/Expiry Recording</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ไม่บันทึก Lot/Expiry, เกิดปัญหาตามมา</field>
+        <field name="score_2">บันทึกบางส่วน ไม่ครบ 100%</field>
+        <field name="score_3">บันทึก Lot/Expiry ทุก SKU ที่รับเข้า</field>
+        <field name="score_4">บันทึกครบ + flag สินค้า near-expiry ทันที</field>
+        <field name="score_5">Zero miss, ตรวจจับสินค้า recall/near-expiry ก่อนเข้า stock</field>
+    </record>
+    <record id="cr_in_p6_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_in_p6"/>
+        <field name="name">Quality Inspection</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ไม่ inspect สินค้า, สินค้า defective เข้า stock</field>
+        <field name="score_2">Inspect บางส่วน ตาม spot-check เท่านั้น</field>
+        <field name="score_3">Inspect ตาม QC checklist ทุก shipment</field>
+        <field name="score_4">Zero defective items accepted, comprehensive inspection</field>
+        <field name="score_5">Zero defective, ชี้แจงปัญหา quality ให้ Supplier ปรับปรุง</field>
+    </record>
+    <record id="tpl_in_p7" model="wms.kpi.template.line"><field name="template_id" ref="tpl_inbound"/><field name="pillar_id" ref="pillar_values"/><field name="weight">10</field></record>
+    <record id="cr_in_p7_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_in_p7"/>
+        <field name="name">Integrity &amp; Teamwork</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ซ่อนข้อผิดพลาดการรับของ, ไม่ร่วมมือทีม</field>
+        <field name="score_2">ไม่ค่อยรายงานปัญหา, ทำงานแบบ individual</field>
+        <field name="score_3">ซื่อสัตย์ ร่วมมือกับทีม Inbound ได้ดี</field>
+        <field name="score_4">ช่วยทีม, รายงานปัญหาทันที, trust building</field>
+        <field name="score_5">Role model, ช่วยยกระดับวัฒนธรรมทีม Inbound</field>
+    </record>
+    <record id="tpl_in_p8" model="wms.kpi.template.line"><field name="template_id" ref="tpl_inbound"/><field name="pillar_id" ref="pillar_operations"/><field name="weight">5</field></record>
+    <record id="cr_in_p8_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_in_p8"/>
+        <field name="name">Receiving Dock Organization</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">Dock รก, สินค้าปะปนกัน ไม่มีระเบียบ</field>
+        <field name="score_2">ทำความสะอาดเมื่อถูกกำชับ</field>
+        <field name="score_3">Dock สะอาด, สินค้า staged ถูกต้องตาม flow</field>
+        <field name="score_4">Dock flow ดี, ลดเวลา receiving</field>
+        <field name="score_5">Optimizes dock flow เชิงระบบ, เสนอปรับปรุง layout</field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- DRIVER Template (20/20/0/5/20/20/10/5 = 100%)                -->
+    <!-- ============================================================ -->
+    <record id="tpl_driver" model="wms.kpi.template"><field name="position">driver</field></record>
+    <record id="tpl_dr_p1" model="wms.kpi.template.line"><field name="template_id" ref="tpl_driver"/><field name="pillar_id" ref="pillar_develop_people"/><field name="weight">20</field></record>
+    <record id="cr_dr_p1_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_dr_p1"/>
+        <field name="name">Attendance &amp; Punctuality</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ขาด > 2 วัน หรือ ออกรถสาย > 3 ครั้ง/เดือน</field>
+        <field name="score_2">ขาด 1-2 วัน หรือ สาย 1-3 ครั้ง/เดือน</field>
+        <field name="score_3">ไม่ขาด, ออกรถตรงเวลาทุกวัน</field>
+        <field name="score_4">ไม่ขาด, ไม่สาย, เตรียมรถพร้อมก่อนกำหนด</field>
+        <field name="score_5">Perfect, พร้อมเดินทางทันทีเมื่อต้องการ</field>
+    </record>
+    <record id="cr_dr_p1_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_dr_p1"/>
+        <field name="name">Delivery Accuracy</field><field name="weight">50</field><field name="kpi_type">quantitative</field><field name="unit">%</field>
+        <field name="score_1">ส่งผิดที่/ผิดสาขา > 3 ครั้ง/เดือน, accuracy &lt; 95%</field>
+        <field name="score_2">Accuracy 95-97%, มีข้อผิดพลาดบ้าง</field>
+        <field name="score_3">Delivery accuracy 97-99%, ส่งถูกที่ทุกสาขา</field>
+        <field name="score_4">Accuracy 99-99.9%, zero wrong delivery</field>
+        <field name="score_5">100% correct delivery ตลอดรอบ, zero complaint</field>
+    </record>
+    <record id="tpl_dr_p2" model="wms.kpi.template.line"><field name="template_id" ref="tpl_driver"/><field name="pillar_id" ref="pillar_drive_value"/><field name="weight">20</field></record>
+    <record id="cr_dr_p2_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_dr_p2"/>
+        <field name="name">Customer Service at Delivery</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ลูกค้า/พนักงานร้าน complain เรื่องพฤติกรรม</field>
+        <field name="score_2">Professional พอสมควร แต่ไม่ friendly</field>
+        <field name="score_3">Professional delivery, ลูกค้า/สาขาพอใจ</field>
+        <field name="score_4">Excellent service, ลูกค้า feedback positive</field>
+        <field name="score_5">Brand ambassador, ลูกค้าชื่นชม, สร้าง relationship กับ retail partner</field>
+    </record>
+    <record id="tpl_dr_p3" model="wms.kpi.template.line"><field name="template_id" ref="tpl_driver"/><field name="pillar_id" ref="pillar_revenue"/><field name="weight">0</field></record>
+    <record id="tpl_dr_p4" model="wms.kpi.template.line"><field name="template_id" ref="tpl_driver"/><field name="pillar_id" ref="pillar_digitization"/><field name="weight">5</field></record>
+    <record id="cr_dr_p4_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_dr_p4"/>
+        <field name="name">GPS/Tracking Compliance</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ไม่เปิด GPS, ระบบ tracking ว่าง > 50% เวลาทำงาน</field>
+        <field name="score_2">เปิด GPS ไม่สม่ำเสมอ, บางช่วงหาย</field>
+        <field name="score_3">GPS เปิดตลอดเวลาทำงาน, tracking active</field>
+        <field name="score_4">Real-time status updates, แจ้งล่าช้าก่อนกำหนด</field>
+        <field name="score_5">Zero tracking gap, เสนอปรับปรุง route tracking ที่ประหยัดเวลา</field>
+    </record>
+    <record id="tpl_dr_p5" model="wms.kpi.template.line"><field name="template_id" ref="tpl_driver"/><field name="pillar_id" ref="pillar_financial"/><field name="weight">20</field></record>
+    <record id="cr_dr_p5_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_dr_p5"/>
+        <field name="name">Fuel &amp; Route Efficiency</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">เบี่ยงเส้นทาง, ใช้น้ำมันเกินมาก</field>
+        <field name="score_2">บางครั้งไม่ทำตาม planned route</field>
+        <field name="score_3">ทำตาม planned route, ใช้น้ำมันตามงบ</field>
+        <field name="score_4">Route optimization, ลดระยะทางได้บ้าง</field>
+        <field name="score_5">ลดค่าน้ำมัน measurable ≥ 10%/เดือน, เสนอ route แบบ optimal ใหม่</field>
+    </record>
+    <record id="cr_dr_p5_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_dr_p5"/>
+        <field name="name">Vehicle Maintenance</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ไม่ดูแลรถ, เกิดการเสียระหว่างทางบ่อย</field>
+        <field name="score_2">ดูแลรถตามที่ถูกบอก ไม่ proactive</field>
+        <field name="score_3">ดูแลรถตามกำหนด maintenance, รายงานปัญหา</field>
+        <field name="score_4">Zero breakdown, proactive maintenance ก่อนครบกำหนด</field>
+        <field name="score_5">Zero breakdown ตลอดรอบ, สร้าง maintenance log, เสนอ preventive checklist</field>
+    </record>
+    <record id="tpl_dr_p6" model="wms.kpi.template.line"><field name="template_id" ref="tpl_driver"/><field name="pillar_id" ref="pillar_compliance"/><field name="weight">20</field></record>
+    <record id="cr_dr_p6_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_dr_p6"/>
+        <field name="name">Traffic &amp; Safety Rules</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">มีใบสั่ง/อุบัติเหตุจากการขับรถ</field>
+        <field name="score_2">บางครั้งขับเร็วเกินกำหนด, มีใบสั่งเล็กน้อย</field>
+        <field name="score_3">ไม่มี traffic violation, ขับรถปลอดภัย</field>
+        <field name="score_4">Defensive driving, ไม่มี incident ตลอดรอบ</field>
+        <field name="score_5">Safety champion, ไม่มี violation/incident ตลอดปี, ฝึกพนักงานใหม่</field>
+    </record>
+    <record id="cr_dr_p6_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_dr_p6"/>
+        <field name="name">Documentation (POD)</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ไม่มี POD หลายรายการ, เอกสารหาย</field>
+        <field name="score_2">POD ครบบางส่วน มี gap</field>
+        <field name="score_3">POD ครบทุก delivery ถูกต้อง</field>
+        <field name="score_4">Immediate POD upload หลัง delivery ทุกครั้ง</field>
+        <field name="score_5">Zero missing POD ตลอดรอบ, เสนอ digital POD process</field>
+    </record>
+    <record id="tpl_dr_p7" model="wms.kpi.template.line"><field name="template_id" ref="tpl_driver"/><field name="pillar_id" ref="pillar_values"/><field name="weight">10</field></record>
+    <record id="cr_dr_p7_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_dr_p7"/>
+        <field name="name">Integrity &amp; Professionalism</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">พฤติกรรมไม่เหมาะสม, ทำให้ KOB เสียภาพลักษณ์</field>
+        <field name="score_2">Professional ปานกลาง บางครั้งไม่ตรงตามมาตรฐาน</field>
+        <field name="score_3">ซื่อสัตย์ professional ตลอดเวลา</field>
+        <field name="score_4">Brand ambassador, สร้าง trust กับ retail partner</field>
+        <field name="score_5">KOB Ambassador ตัวจริง, ลูกค้า request ให้ใช้คนเดิม</field>
+    </record>
+    <record id="tpl_dr_p8" model="wms.kpi.template.line"><field name="template_id" ref="tpl_driver"/><field name="pillar_id" ref="pillar_operations"/><field name="weight">5</field></record>
+    <record id="cr_dr_p8_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_dr_p8"/>
+        <field name="name">Vehicle Cleanliness</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">รถสกปรก, ส่งผลต่อภาพลักษณ์ KOB</field>
+        <field name="score_2">ทำความสะอาดรถเมื่อถูกกำชับ</field>
+        <field name="score_3">รถสะอาด พร้อมใช้งานทุกวัน</field>
+        <field name="score_4">รถสะอาดมาก, จัดระเบียบของในรถดี</field>
+        <field name="score_5">Showroom condition ตลอดเวลา, รถเป็น brand image ของ KOB</field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- ADMIN ONLINE Template (10/20/15/15/15/10/10/5 = 100%)        -->
+    <!-- ============================================================ -->
+    <record id="tpl_admin" model="wms.kpi.template"><field name="position">admin_online</field></record>
+    <record id="tpl_ad_p1" model="wms.kpi.template.line"><field name="template_id" ref="tpl_admin"/><field name="pillar_id" ref="pillar_develop_people"/><field name="weight">10</field></record>
+    <record id="cr_ad_p1_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_ad_p1"/>
+        <field name="name">Attendance &amp; Responsiveness</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ไม่ online ตาม schedule, ตอบช้า > 2 ชั่วโมง</field>
+        <field name="score_2">Online ไม่สม่ำเสมอ, ตอบช้าบางครั้ง</field>
+        <field name="score_3">Online ตาม working hours, ตอบภายใน 30 นาที</field>
+        <field name="score_4">Responsive สูง, ตอบ &lt; 15 นาที ทุก channel</field>
+        <field name="score_5">24/7 availability เมื่อจำเป็น, zero response miss</field>
+    </record>
+    <record id="tpl_ad_p2" model="wms.kpi.template.line"><field name="template_id" ref="tpl_admin"/><field name="pillar_id" ref="pillar_drive_value"/><field name="weight">20</field></record>
+    <record id="cr_ad_p2_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_ad_p2"/>
+        <field name="name">Order Processing Speed</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">Process order ล่าช้า > 2 ชั่วโมง หรือ backlog > 20 orders</field>
+        <field name="score_2">บางครั้ง process ล่าช้า, backlog 10-20 orders</field>
+        <field name="score_3">Process orders ตาม SLA ทุก platform สม่ำเสมอ</field>
+        <field name="score_4">Real-time processing, backlog = 0 ทุกวัน</field>
+        <field name="score_5">Zero backlog ตลอดวัน, รับ peak order ได้โดยไม่ล่าช้า</field>
+    </record>
+    <record id="cr_ad_p2_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_ad_p2"/>
+        <field name="name">Customer Complaint Resolution</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ไม่ resolve complaint ภายใน 48 ชั่วโมง, ลูกค้า escalate</field>
+        <field name="score_2">Resolve ภายใน 48 ชั่วโมงบ้างครั้ง</field>
+        <field name="score_3">Resolve ทุก complaint ภายใน 24 ชั่วโมง</field>
+        <field name="score_4">Resolve &lt; 4 ชั่วโมง, ป้องกัน recurrence</field>
+        <field name="score_5">Same-hour resolution, zero escalation, สร้าง FAQ ลด complaint volume</field>
+    </record>
+    <record id="tpl_ad_p3" model="wms.kpi.template.line"><field name="template_id" ref="tpl_admin"/><field name="pillar_id" ref="pillar_revenue"/><field name="weight">15</field></record>
+    <record id="cr_ad_p3_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_ad_p3"/>
+        <field name="name">OOS (Out of Stock) Prevention</field><field name="weight">50</field><field name="kpi_type">quantitative</field><field name="unit">%</field>
+        <field name="score_1">OOS rate > 1% ของ active listings</field>
+        <field name="score_2">OOS rate 0.5-1%</field>
+        <field name="score_3">OOS rate &lt; 0.1%, แจ้ง Purchasing ทันเวลา</field>
+        <field name="score_4">Near-zero OOS, reorder point alert ทันที</field>
+        <field name="score_5">Zero OOS incidents ตลอดรอบ, สร้าง forecast model</field>
+    </record>
+    <record id="cr_ad_p3_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_ad_p3"/>
+        <field name="name">Return Rate Management</field><field name="weight">50</field><field name="kpi_type">quantitative</field><field name="unit">%</field>
+        <field name="score_1">Return rate เกิน target > 2%, ไม่วิเคราะห์สาเหตุ</field>
+        <field name="score_2">Return rate เกิน target บ้าง</field>
+        <field name="score_3">Return rate อยู่ในกรอบ target</field>
+        <field name="score_4">Return rate ลดลง, มีการวิเคราะห์สาเหตุ</field>
+        <field name="score_5">Return rate ลดได้ measurable ≥ 20% จากรอบก่อน</field>
+    </record>
+    <record id="tpl_ad_p4" model="wms.kpi.template.line"><field name="template_id" ref="tpl_admin"/><field name="pillar_id" ref="pillar_digitization"/><field name="weight">15</field></record>
+    <record id="cr_ad_p4_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_ad_p4"/>
+        <field name="name">Platform Management (Shopee/Lazada/TikTok)</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">Listing ข้อมูลผิดพลาดบ่อย, ถูก platform warning</field>
+        <field name="score_2">Listing ถูกต้องเป็นส่วนใหญ่ มีข้อผิดพลาดบ้าง</field>
+        <field name="score_3">จัดการ listing ถูกต้องครบทุก platform</field>
+        <field name="score_4">Optimize listing, เพิ่ม SEO/visibility</field>
+        <field name="score_5">Top performance, drives organic traffic, ได้รับยกย่องจาก platform</field>
+    </record>
+    <record id="cr_ad_p4_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_ad_p4"/>
+        <field name="name">System &amp; Data Analytics</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ไม่ใช้ analytics, ตัดสินใจจาก gut feeling</field>
+        <field name="score_2">ดูรายงานบ้างแต่ไม่ได้นำมาใช้ตัดสินใจ</field>
+        <field name="score_3">ใช้ analytics ประกอบการตัดสินใจสม่ำเสมอ</field>
+        <field name="score_4">สร้าง dashboard, รายงาน weekly/monthly</field>
+        <field name="score_5">Automated reporting, เสนอ data-driven strategy ที่ให้ผลจริง</field>
+    </record>
+    <record id="tpl_ad_p5" model="wms.kpi.template.line"><field name="template_id" ref="tpl_admin"/><field name="pillar_id" ref="pillar_financial"/><field name="weight">15</field></record>
+    <record id="cr_ad_p5_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_ad_p5"/>
+        <field name="name">Sales Target Achievement</field><field name="weight">100</field><field name="kpi_type">quantitative</field><field name="unit">%</field>
+        <field name="score_1">ยอดขาย &lt; 85% ของ target</field>
+        <field name="score_2">ยอดขาย 85-94% ของ target</field>
+        <field name="score_3">ยอดขาย ≥ 95% ของ target (Committed)</field>
+        <field name="score_4">ยอดขาย 100-120% ของ target</field>
+        <field name="score_5">ยอดขาย > 120% ของ target, outstanding performance</field>
+    </record>
+    <record id="tpl_ad_p6" model="wms.kpi.template.line"><field name="template_id" ref="tpl_admin"/><field name="pillar_id" ref="pillar_compliance"/><field name="weight">10</field></record>
+    <record id="cr_ad_p6_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_ad_p6"/>
+        <field name="name">Platform Policy Compliance</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ถูก penalty จาก platform > 2 ครั้ง/เดือน</field>
+        <field name="score_2">ถูก warning 1-2 ครั้ง/เดือน</field>
+        <field name="score_3">Zero policy violation, ปฏิบัติตาม policy ครบถ้วน</field>
+        <field name="score_4">Zero penalty, ติดตาม policy update เชิงรุก</field>
+        <field name="score_5">Zero penalty ตลอดปี, เสนอ compliance checklist ให้ทีม</field>
+    </record>
+    <record id="tpl_ad_p7" model="wms.kpi.template.line"><field name="template_id" ref="tpl_admin"/><field name="pillar_id" ref="pillar_values"/><field name="weight">10</field></record>
+    <record id="cr_ad_p7_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_ad_p7"/>
+        <field name="name">Integrity &amp; Communication</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">สื่อสารข้อมูลผิด, ซ่อนปัญหา</field>
+        <field name="score_2">สื่อสารครั้งคราว ไม่ครบถ้วน</field>
+        <field name="score_3">สื่อสารโปร่งใส ครบถ้วนสม่ำเสมอ</field>
+        <field name="score_4">Cross-team leader, สร้างความเชื่อมั่น</field>
+        <field name="score_5">สร้าง cross-functional communication culture, เป็น trusted voice</field>
+    </record>
+    <record id="tpl_ad_p8" model="wms.kpi.template.line"><field name="template_id" ref="tpl_admin"/><field name="pillar_id" ref="pillar_operations"/><field name="weight">5</field></record>
+    <record id="cr_ad_p8_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_ad_p8"/>
+        <field name="name">Process Documentation</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ไม่มี documentation, ต้องถามซ้ำทุกครั้ง</field>
+        <field name="score_2">มีเอกสารบ้าง ไม่ up-to-date</field>
+        <field name="score_3">รักษา process docs ให้ทันสมัยสม่ำเสมอ</field>
+        <field name="score_4">เอกสารครบถ้วน, สร้าง SOP ใหม่เมื่อจำเป็น</field>
+        <field name="score_5">สร้าง training materials ระดับมืออาชีพ, Knowledge base ที่ทีมใช้จริง</field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- SUPERVISOR Template (15/15/10/15/15/10/10/10 = 100%)         -->
+    <!-- ============================================================ -->
+    <record id="tpl_supervisor" model="wms.kpi.template"><field name="position">supervisor</field></record>
+    <record id="tpl_sv_p1" model="wms.kpi.template.line"><field name="template_id" ref="tpl_supervisor"/><field name="pillar_id" ref="pillar_develop_people"/><field name="weight">15</field></record>
+    <record id="cr_sv_p1_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_sv_p1"/>
+        <field name="name">Team Development &amp; Training</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ไม่จัดฝึกอบรม, ทีมมี skill gap ชัดเจน</field>
+        <field name="score_2">จัดฝึกอบรมบ้างแต่ไม่ครบตาม schedule</field>
+        <field name="score_3">ฝึกอบรมทีมตาม schedule ครบถ้วน</field>
+        <field name="score_4">Develops future supervisors, ทีม skill เพิ่มขึ้น measurable</field>
+        <field name="score_5">สร้าง successor pipeline, ทีม high-performance ติดต่อกัน 2 รอบ+</field>
+    </record>
+    <record id="cr_sv_p1_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_sv_p1"/>
+        <field name="name">Performance Management</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ไม่ให้ feedback, ปัญหาประสิทธิภาพสะสมโดยไม่แก้</field>
+        <field name="score_2">Feedback เฉพาะเมื่อมีปัญหาใหญ่</field>
+        <field name="score_3">Feedback สม่ำเสมอรายสัปดาห์, 1-on-1 รายเดือน</field>
+        <field name="score_4">Measurable team improvement จาก coaching</field>
+        <field name="score_5">ทีมทุกคน meet/exceed target ต่อเนื่อง, ไม่มี poor performer</field>
+    </record>
+    <record id="tpl_sv_p2" model="wms.kpi.template.line"><field name="template_id" ref="tpl_supervisor"/><field name="pillar_id" ref="pillar_drive_value"/><field name="weight">15</field></record>
+    <record id="cr_sv_p2_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_sv_p2"/>
+        <field name="name">SLA Achievement (team)</field><field name="weight">50</field><field name="kpi_type">quantitative</field><field name="unit">%</field>
+        <field name="score_1">Team SLA compliance &lt; 90%</field>
+        <field name="score_2">Team SLA compliance 90-95%</field>
+        <field name="score_3">Team meets SLA 95%+ สม่ำเสมอ</field>
+        <field name="score_4">Team SLA compliance 97-99%</field>
+        <field name="score_5">Team meets SLA 99%+, zero breach ตลอดรอบ</field>
+    </record>
+    <record id="cr_sv_p2_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_sv_p2"/>
+        <field name="name">Issue Escalation &amp; Resolution</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ปัญหาข้ามกะโดยไม่แก้ไข, ลูกค้าร้องเรียน</field>
+        <field name="score_2">แก้ปัญหาได้แต่ล่าช้า > 4 ชั่วโมง</field>
+        <field name="score_3">Resolves ทุกปัญหาภายใน shift เดียวกัน</field>
+        <field name="score_4">ป้องกันปัญหาก่อนเกิด, escalate อย่างเหมาะสม</field>
+        <field name="score_5">Proactive prevention, ปัญหาเดิมไม่เกิดซ้ำ, เสนอ systemic fix</field>
+    </record>
+    <record id="tpl_sv_p3" model="wms.kpi.template.line"><field name="template_id" ref="tpl_supervisor"/><field name="pillar_id" ref="pillar_revenue"/><field name="weight">10</field></record>
+    <record id="cr_sv_p3_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_sv_p3"/>
+        <field name="name">Throughput Optimization</field><field name="weight">100</field><field name="kpi_type">quantitative</field><field name="unit">orders/day</field>
+        <field name="score_1">Throughput &lt; 85% ของ target</field>
+        <field name="score_2">Throughput 85-95% ของ target</field>
+        <field name="score_3">Maintains target throughput สม่ำเสมอ</field>
+        <field name="score_4">เพิ่ม throughput 5-10% จาก baseline</field>
+        <field name="score_5">เพิ่ม throughput > 10% โดยไม่เพิ่มต้นทุน</field>
+    </record>
+    <record id="tpl_sv_p4" model="wms.kpi.template.line"><field name="template_id" ref="tpl_supervisor"/><field name="pillar_id" ref="pillar_digitization"/><field name="weight">15</field></record>
+    <record id="cr_sv_p4_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_sv_p4"/>
+        <field name="name">System Adoption Leadership</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ทีมไม่ใช้ WMS ถูกต้อง, ข้อผิดพลาดสูง</field>
+        <field name="score_2">ทีมใช้ WMS ได้บ้าง ยังมี gaps</field>
+        <field name="score_3">Ensures ทุกคนในทีมใช้ WMS ถูกต้อง</field>
+        <field name="score_4">Drives system compliance, ลด error rate ได้</field>
+        <field name="score_5">ทีม zero WMS error, เสนอ system improvement จริง</field>
+    </record>
+    <record id="cr_sv_p4_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_sv_p4"/>
+        <field name="name">Data-Driven Decision Making</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ตัดสินใจจากความรู้สึก, ไม่ใช้ data</field>
+        <field name="score_2">ดู report บ้างแต่ไม่ได้ขับเคลื่อนการตัดสินใจ</field>
+        <field name="score_3">ใช้ WMS reports ประกอบทุกการตัดสินใจ</field>
+        <field name="score_4">สร้าง actionable insight จาก analytics</field>
+        <field name="score_5">Creates dashboards ที่ทีมใช้จริง, เสนอ data-driven improvements ที่วัดผลได้</field>
+    </record>
+    <record id="tpl_sv_p5" model="wms.kpi.template.line"><field name="template_id" ref="tpl_supervisor"/><field name="pillar_id" ref="pillar_financial"/><field name="weight">15</field></record>
+    <record id="cr_sv_p5_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_sv_p5"/>
+        <field name="name">Cost Control (OT, supplies)</field><field name="weight">100</field><field name="kpi_type">quantitative</field><field name="unit">%</field>
+        <field name="score_1">OT เกิน budget > 20%, supplies สิ้นเปลือง</field>
+        <field name="score_2">OT เกิน budget 10-20%</field>
+        <field name="score_3">OT และ supplies อยู่ใน budget</field>
+        <field name="score_4">ลด OT ได้ 5-10%, ลด waste อย่างเป็นระบบ</field>
+        <field name="score_5">ลด OT/cost measurably > 10%, สร้าง efficiency improvements</field>
+    </record>
+    <record id="tpl_sv_p6" model="wms.kpi.template.line"><field name="template_id" ref="tpl_supervisor"/><field name="pillar_id" ref="pillar_compliance"/><field name="weight">10</field></record>
+    <record id="cr_sv_p6_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_sv_p6"/>
+        <field name="name">Team Compliance &amp; Safety</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">มีอุบัติเหตุในทีม, หลายคนละเมิด safety rules</field>
+        <field name="score_2">บาง safety rule ไม่ถูกปฏิบัติในทีม</field>
+        <field name="score_3">Zero safety incidents ในทีม</field>
+        <field name="score_4">Safety culture leader, ทีมทุกคน 100% compliant</field>
+        <field name="score_5">Safety champion, พัฒนา safety program, อบรมทีมอื่น</field>
+    </record>
+    <record id="tpl_sv_p7" model="wms.kpi.template.line"><field name="template_id" ref="tpl_supervisor"/><field name="pillar_id" ref="pillar_values"/><field name="weight">10</field></record>
+    <record id="cr_sv_p7_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_sv_p7"/>
+        <field name="name">Leadership &amp; Culture</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ทีมไม่ respect, มีความขัดแย้งบ่อย</field>
+        <field name="score_2">เป็นที่ยอมรับบ้าง แต่ยังมี tension ในทีม</field>
+        <field name="score_3">Respected leader, ทีม morale ดี</field>
+        <field name="score_4">Inspires team, สร้าง high-performance culture</field>
+        <field name="score_5">Transformational leader, ทีมเติบโตและขอเรียนรู้จากเธอ/เขา</field>
+    </record>
+    <record id="tpl_sv_p8" model="wms.kpi.template.line"><field name="template_id" ref="tpl_supervisor"/><field name="pillar_id" ref="pillar_operations"/><field name="weight">10</field></record>
+    <record id="cr_sv_p8_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_sv_p8"/>
+        <field name="name">Shift Planning &amp; Resource Allocation</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">Understaffed หลายครั้ง, OT สูงมาก</field>
+        <field name="score_2">Planning ไม่เหมาะสม, OT เกินบ้าง</field>
+        <field name="score_3">Adequate staffing ทุก shift ตาม workload</field>
+        <field name="score_4">Optimizes allocation, ลด OT ได้อย่างเป็นระบบ</field>
+        <field name="score_5">Labor optimization ระดับ excellent, ลด OT > 15% โดยไม่กระทบ throughput</field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- MANAGER Template (10/10/15/15/20/10/10/10 = 100%)            -->
+    <!-- ============================================================ -->
+    <record id="tpl_manager" model="wms.kpi.template"><field name="position">manager</field></record>
+    <record id="tpl_mg_p1" model="wms.kpi.template.line"><field name="template_id" ref="tpl_manager"/><field name="pillar_id" ref="pillar_develop_people"/><field name="weight">10</field></record>
+    <record id="cr_mg_p1_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_mg_p1"/>
+        <field name="name">Talent Development &amp; Retention</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">Turnover สูง, ไม่มี succession plan</field>
+        <field name="score_2">มี succession plan แต่ไม่ active develop</field>
+        <field name="score_3">มี succession plan + actively develops team</field>
+        <field name="score_4">Zero unwanted turnover, สร้าง internal promotion track</field>
+        <field name="score_5">Zero unwanted turnover ตลอดปี, สร้าง talent pipeline ที่แข็งแกร่ง</field>
+    </record>
+    <record id="cr_mg_p1_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_mg_p1"/>
+        <field name="name">KPI Review Execution</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ไม่ทำ KPI review หรือ review ล่าช้า > 1 เดือน</field>
+        <field name="score_2">KPI review เสร็จแต่ไม่ constructive</field>
+        <field name="score_3">KPI reviews ครบ on time, feedback ชัดเจน</field>
+        <field name="score_4">Reviews ครบ + follow-up IDP ทุกคนในทีม</field>
+        <field name="score_5">Drives performance culture, ทีมทุกคน own KPI ของตัวเอง</field>
+    </record>
+    <record id="tpl_mg_p2" model="wms.kpi.template.line"><field name="template_id" ref="tpl_manager"/><field name="pillar_id" ref="pillar_drive_value"/><field name="weight">10</field></record>
+    <record id="cr_mg_p2_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_mg_p2"/>
+        <field name="name">Client/Stakeholder Satisfaction</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">Stakeholders complain บ่อย, ไม่ responsive</field>
+        <field name="score_2">Meet expectations บ้างครั้ง</field>
+        <field name="score_3">Consistently meets stakeholder expectations</field>
+        <field name="score_4">Exceeds expectations, สร้าง strategic relationship</field>
+        <field name="score_5">Creates partnerships ที่ก่อให้เกิดรายได้ใหม่หรือ cost saving</field>
+    </record>
+    <record id="tpl_mg_p3" model="wms.kpi.template.line"><field name="template_id" ref="tpl_manager"/><field name="pillar_id" ref="pillar_revenue"/><field name="weight">15</field></record>
+    <record id="cr_mg_p3_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_mg_p3"/>
+        <field name="name">Revenue Growth</field><field name="weight">50</field><field name="kpi_type">quantitative</field><field name="unit">%</field>
+        <field name="score_1">Revenue &lt; 85% ของ target</field>
+        <field name="score_2">Revenue 85-94% ของ target</field>
+        <field name="score_3">Revenue ≥ 95% ของ target (Committed)</field>
+        <field name="score_4">Revenue 100-115% ของ target</field>
+        <field name="score_5">Revenue > 115% ของ target, exceptional performance</field>
+    </record>
+    <record id="cr_mg_p3_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_mg_p3"/>
+        <field name="name">New Business Development</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ไม่ได้ระบุหรือ pursue business opportunity ใดเลย</field>
+        <field name="score_2">Identifies โอกาสแต่ไม่ pursue</field>
+        <field name="score_3">Identifies + pursues อย่างน้อย 1 โอกาส/ไตรมาส</field>
+        <field name="score_4">Closes อย่างน้อย 1 new partnership/ปี</field>
+        <field name="score_5">Closes multiple partnerships, สร้าง revenue stream ใหม่</field>
+    </record>
+    <record id="tpl_mg_p4" model="wms.kpi.template.line"><field name="template_id" ref="tpl_manager"/><field name="pillar_id" ref="pillar_digitization"/><field name="weight">15</field></record>
+    <record id="cr_mg_p4_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_mg_p4"/>
+        <field name="name">Digital Transformation Leadership</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ต่อต้านหรือ passive ต่อ digital initiatives</field>
+        <field name="score_2">Support แบบ passive เมื่อถูกผลัก</field>
+        <field name="score_3">Supports system rollout, ensures team adoption</field>
+        <field name="score_4">Champions transformation, measurable ROI</field>
+        <field name="score_5">Leads multiple digital projects, ROI clear, สร้าง digital-first culture</field>
+    </record>
+    <record id="cr_mg_p4_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_mg_p4"/>
+        <field name="name">Innovation &amp; Automation</field><field name="weight">50</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ไม่มี automation/innovation initiative ใดเลย</field>
+        <field name="score_2">มี idea แต่ไม่ implement</field>
+        <field name="score_3">Implements 1 automation project ต่อรอบ</field>
+        <field name="score_4">2+ automation projects, saves significant labor/cost</field>
+        <field name="score_5">Multiple high-impact projects, สร้าง innovation culture ในองค์กร</field>
+    </record>
+    <record id="tpl_mg_p5" model="wms.kpi.template.line"><field name="template_id" ref="tpl_manager"/><field name="pillar_id" ref="pillar_financial"/><field name="weight">20</field></record>
+    <record id="cr_mg_p5_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_mg_p5"/>
+        <field name="name">P&amp;L Management</field><field name="weight">50</field><field name="kpi_type">quantitative</field><field name="unit">%</field>
+        <field name="score_1">ขาดทุน หรือ over budget > 15%</field>
+        <field name="score_2">Over budget 5-15%</field>
+        <field name="score_3">Within budget, P&amp;L ตรงตาม plan</field>
+        <field name="score_4">Under budget 5%, สร้าง profit improvement</field>
+        <field name="score_5">Exceeds profit target, สร้าง sustainable margin improvement</field>
+    </record>
+    <record id="cr_mg_p5_2" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_mg_p5"/>
+        <field name="name">Cost Reduction Initiatives</field><field name="weight">50</field><field name="kpi_type">quantitative</field><field name="unit">%</field>
+        <field name="score_1">ไม่มี cost reduction initiative ที่เป็น concrete</field>
+        <field name="score_2">Identifies savings แต่ไม่ implement</field>
+        <field name="score_3">Identifies + implements อย่างน้อย 1 initiative/รอบ</field>
+        <field name="score_4">Delivers 5-10% cost reduction จาก initiatives</field>
+        <field name="score_5">Delivers > 10% cost reduction, measurable ROI ชัดเจน</field>
+    </record>
+    <record id="tpl_mg_p6" model="wms.kpi.template.line"><field name="template_id" ref="tpl_manager"/><field name="pillar_id" ref="pillar_compliance"/><field name="weight">10</field></record>
+    <record id="cr_mg_p6_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_mg_p6"/>
+        <field name="name">Regulatory &amp; Audit Compliance</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">Failed audit / major compliance findings</field>
+        <field name="score_2">Minor findings แต่ต้องแก้ไขหลายจุด</field>
+        <field name="score_3">Passes all audits, zero major findings</field>
+        <field name="score_4">Zero findings, เตรียม audit readiness เชิงรุก</field>
+        <field name="score_5">Best practice, เป็น benchmark ให้ business unit อื่น</field>
+    </record>
+    <record id="tpl_mg_p7" model="wms.kpi.template.line"><field name="template_id" ref="tpl_manager"/><field name="pillar_id" ref="pillar_values"/><field name="weight">10</field></record>
+    <record id="cr_mg_p7_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_mg_p7"/>
+        <field name="name">Vision &amp; Culture Leadership</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">ทีมไม่ align กับ company values, culture toxic</field>
+        <field name="score_2">บางส่วน align แต่ยัง disconnected</field>
+        <field name="score_3">Aligns team to company values อย่างสม่ำเสมอ</field>
+        <field name="score_4">Shapes department culture, team proud of values</field>
+        <field name="score_5">Organizational culture shaper, recognized as culture leader</field>
+    </record>
+    <record id="tpl_mg_p8" model="wms.kpi.template.line"><field name="template_id" ref="tpl_manager"/><field name="pillar_id" ref="pillar_operations"/><field name="weight">10</field></record>
+    <record id="cr_mg_p8_1" model="wms.kpi.criterion">
+        <field name="template_line_id" ref="tpl_mg_p8"/>
+        <field name="name">Strategic Planning &amp; Execution</field><field name="weight">100</field><field name="kpi_type">qualitative</field>
+        <field name="score_1">Strategic plan ไม่มี หรือ เกือบไม่ได้ implement</field>
+        <field name="score_2">Plan มีแต่ execution poor</field>
+        <field name="score_3">Delivers strategic plan ตาม milestones</field>
+        <field name="score_4">Exceeds strategic goals, creates new opportunities</field>
+        <field name="score_5">Outstanding execution + strategic pivots ที่ประสบความสำเร็จ</field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- SOP Documents per Position                                   -->
+    <!-- ============================================================ -->
+
+    <!-- PICKER SOPs -->
+    <record id="sop_picker_01" model="wms.kpi.sop">
+        <field name="template_id" ref="tpl_picker"/>
+        <field name="name">SOP-PK-001: ขั้นตอนการ Pick สินค้า</field>
+        <field name="pillar_id" ref="pillar_develop_people"/>
+        <field name="version">2.0</field>
+        <field name="description"><![CDATA[
+<h3>ขั้นตอนการ Pick สินค้า (KOB WMS)</h3>
+<ol>
+<li><b>รับ Order:</b> เปิดหน้า Pick (F1) ใน WMS → สแกน Work Order barcode หรือเลือกจาก Queue</li>
+<li><b>ตรวจสอบ Order:</b> ดูรายการสินค้า SKU, จำนวน, ตำแหน่ง Rack/Pickface</li>
+<li><b>เดินไป Location:</b> ไปยัง Zone/Rack ที่ระบบแสดง (เรียงตาม optimal route)</li>
+<li><b>สแกน SKU:</b> สแกน barcode สินค้า — ระบบตรวจสอบว่าตรงกับ Order หรือไม่</li>
+<li><b>ตรวจสอบสภาพ:</b> ตรวจสินค้าไม่ชำรุด, Lot/Expiry ถูกต้อง, บรรจุภัณฑ์สมบูรณ์</li>
+<li><b>วางสินค้าลงถาด:</b> วางใน Pick Tote ตามหมายเลข Order</li>
+<li><b>ทำซ้ำ:</b> ดำเนินการจนครบทุก Line Item</li>
+<li><b>ส่งไป Pack:</b> เมื่อ Pick ครบ ระบบจะเปลี่ยนสถานะเป็น "Picked" → ส่งถาดไปสถานี Pack</li>
+</ol>
+<h4>ข้อควรระวัง</h4>
+<ul>
+<li>ห้ามหยิบสินค้าโดยไม่สแกน barcode</li>
+<li>สินค้า Lot tracking ต้องสแกน Lot Number ทุกครั้ง</li>
+<li>สินค้าเครื่องสำอาง (KOB/BTV/CMN) ต้องตรวจ Expiry Date ≥ 6 เดือน</li>
+<li>พบสินค้าชำรุด → แจ้ง Supervisor ทันที, ห้าม Pick</li>
+</ul>]]></field>
+    </record>
+    <record id="sop_picker_02" model="wms.kpi.sop">
+        <field name="template_id" ref="tpl_picker"/>
+        <field name="name">SOP-PK-002: การใช้ Scanner และ WMS</field>
+        <field name="pillar_id" ref="pillar_digitization"/>
+        <field name="version">1.0</field>
+        <field name="description"><![CDATA[
+<h3>การใช้ Scanner กับระบบ WMS</h3>
+<ol>
+<li>Login เข้า WMS ด้วย User/Password ของตัวเอง (ระบบบันทึก Activity Log)</li>
+<li>เลือก Mode: PICK (F1)</li>
+<li>สแกน Order barcode → ระบบแสดงรายการสินค้า</li>
+<li>สแกน SKU barcode แต่ละชิ้น → ระบบเช็ค match, อัพเดท picked_qty</li>
+<li>หากสแกนผิด SKU → ระบบแจ้ง Error "SKU ไม่ตรงกับ Order"</li>
+<li>เมื่อ Pick ครบ → กด Complete หรือระบบ auto-advance ไป Pack</li>
+</ol>
+<h4>การแก้ปัญหา</h4>
+<ul>
+<li>Scanner อ่าน barcode ไม่ได้ → ใช้ Manual input พิมพ์รหัส SKU</li>
+<li>สินค้าไม่มีใน Location → แจ้ง Supervisor เพื่อตรวจ Stock</li>
+</ul>]]></field>
+    </record>
+    <record id="sop_picker_03" model="wms.kpi.sop">
+        <field name="template_id" ref="tpl_picker"/>
+        <field name="name">SOP-PK-003: ความปลอดภัยในคลังสินค้า</field>
+        <field name="pillar_id" ref="pillar_compliance"/>
+        <field name="version">1.0</field>
+        <field name="description"><![CDATA[
+<h3>ข้อปฏิบัติด้านความปลอดภัย</h3>
+<ul>
+<li>สวมรองเท้าเซฟตี้ตลอดเวลาที่อยู่ในคลัง</li>
+<li>ห้ามวิ่งในคลังสินค้า</li>
+<li>ยกของหนักเกิน 15 kg ต้องใช้รถเข็น</li>
+<li>ชั้นวางสูง ≥ 1.8m ต้องใช้บันได ห้ามปีน Rack</li>
+<li>พบสิ่งผิดปกติ (พื้นเปียก, Rack เอียง, สินค้าหล่น) → แจ้ง Supervisor ทันที</li>
+<li>รู้ตำแหน่งถังดับเพลิงและทางออกฉุกเฉิน</li>
+</ul>]]></field>
+    </record>
+
+    <!-- PACKER SOPs -->
+    <record id="sop_packer_01" model="wms.kpi.sop">
+        <field name="template_id" ref="tpl_packer"/>
+        <field name="name">SOP-PA-001: ขั้นตอนการ Pack สินค้า</field>
+        <field name="pillar_id" ref="pillar_develop_people"/>
+        <field name="version">2.0</field>
+        <field name="description"><![CDATA[
+<h3>ขั้นตอนการ Pack สินค้า</h3>
+<ol>
+<li><b>รับถาด Pick:</b> รับ Pick Tote จากสถานี Pick → สแกน Order barcode</li>
+<li><b>เลือกกล่อง:</b> เลือกขนาดกล่องที่เหมาะสม (ประหยัดค่าส่ง, ปลอดภัยต่อสินค้า)</li>
+<li><b>ตรวจสอบ:</b> เทียบสินค้ากับ Packing List — ครบถ้วน, ถูก SKU, ถูกจำนวน</li>
+<li><b>ห่อสินค้า:</b> ห่อ Bubble wrap สินค้าแตกง่าย (ขวดแก้ว, กระจก, เครื่องสำอางแพง)</li>
+<li><b>ใส่เอกสาร:</b> ใส่ใบส่งสินค้า, ของแถม (ถ้ามี), Thank you card</li>
+<li><b>สแกน Pack:</b> สแกนแต่ละ SKU ใน Mode PACK (F2) → ระบบอัพเดท packed_qty</li>
+<li><b>ปิดกล่อง:</b> ปิดกล่อง, ติดเทปกาว, ติด Label (AWB/ที่อยู่)</li>
+<li><b>Close Box:</b> สแกน Box barcode ใน Mode BOX → ระบบเปลี่ยนสถานะเป็น Packed</li>
+</ol>
+<h4>มาตรฐานกล่อง</h4>
+<table border="1" cellpadding="4">
+<tr><th>ขนาด</th><th>ใช้กับ</th></tr>
+<tr><td>S (20x15x10)</td><td>1-2 ชิ้น เครื่องสำอางเล็ก</td></tr>
+<tr><td>M (30x25x15)</td><td>3-5 ชิ้น หรือสินค้าขนาดกลาง</td></tr>
+<tr><td>L (40x30x20)</td><td>6+ ชิ้น หรือสินค้าใหญ่</td></tr>
+</table>]]></field>
+    </record>
+    <record id="sop_packer_02" model="wms.kpi.sop">
+        <field name="template_id" ref="tpl_packer"/>
+        <field name="name">SOP-PA-002: มาตรฐาน QC ก่อนปิดกล่อง</field>
+        <field name="pillar_id" ref="pillar_drive_value"/>
+        <field name="version">1.0</field>
+        <field name="description"><![CDATA[
+<h3>Checklist QC ก่อนปิดกล่อง</h3>
+<ul>
+<li>☐ สินค้าครบตาม Packing List</li>
+<li>☐ SKU ถูกต้องทุกชิ้น (สแกนผ่านหมด)</li>
+<li>☐ สินค้าไม่ชำรุด, ไม่มีรอยขีดข่วน</li>
+<li>☐ Lot/Expiry ตรงตามที่ระบบบันทึก</li>
+<li>☐ Bubble wrap สินค้าแตกง่าย</li>
+<li>☐ ใบส่งสินค้าอยู่ในกล่อง</li>
+<li>☐ AWB Label ติดถูกต้อง, ไม่หลุด</li>
+<li>☐ ที่อยู่ผู้รับตรงกับ Order</li>
+</ul>]]></field>
+    </record>
+
+    <!-- SHIPPER SOPs -->
+    <record id="sop_shipper_01" model="wms.kpi.sop">
+        <field name="template_id" ref="tpl_shipper"/>
+        <field name="name">SOP-SH-001: ขั้นตอนการ Ship / Dispatch</field>
+        <field name="pillar_id" ref="pillar_develop_people"/>
+        <field name="version">2.0</field>
+        <field name="description"><![CDATA[
+<h3>ขั้นตอนการ Ship สินค้า</h3>
+<ol>
+<li><b>ตรวจสอบกล่อง:</b> กล่อง Packed แล้ว, มี AWB Label ครบ</li>
+<li><b>จัดกลุ่มตาม Courier:</b> แยกกล่องตาม Courier (Thailand Post, Flash, J&amp;T, Shopee Express)</li>
+<li><b>สร้าง Courier Batch:</b> ใน Dispatch (F4) → สร้าง Batch ใหม่ → เลือก Courier</li>
+<li><b>สแกนกล่องเข้า Batch:</b> สแกน AWB/Box barcode แต่ละกล่อง → ระบบเพิ่มเข้า Batch</li>
+<li><b>ตรวจจำนวน:</b> นับจำนวนกล่องใน Batch ตรงกับระบบ</li>
+<li><b>ส่งมอบ Courier:</b> Courier มารับ → ให้ Courier เซ็นรับ (Signature pad)</li>
+<li><b>ปิด Batch:</b> Confirm Batch → ระบบเปลี่ยนสถานะ Order เป็น Shipped</li>
+</ol>
+<h4>SLA ที่ต้องรักษา</h4>
+<ul>
+<li>Shopee: ส่ง Courier ภายใน 24 ชม. หลัง Order confirm</li>
+<li>Lazada: ส่ง Courier ภายใน 24 ชม.</li>
+<li>TikTok: ส่ง Courier ภายใน 48 ชม.</li>
+<li>POS/Walk-in: ส่งมอบทันที</li>
+</ul>]]></field>
+    </record>
+    <record id="sop_shipper_02" model="wms.kpi.sop">
+        <field name="template_id" ref="tpl_shipper"/>
+        <field name="name">SOP-SH-002: การติด AWB Label</field>
+        <field name="pillar_id" ref="pillar_compliance"/>
+        <field name="version">1.0</field>
+        <field name="description"><![CDATA[
+<h3>มาตรฐานการติด AWB Label</h3>
+<ul>
+<li>พิมพ์ AWB จากระบบ (Print AWB button ใน WMS)</li>
+<li>ติดบนฝากล่องด้านบน ตำแหน่งกลาง</li>
+<li>ห้ามติดบนรอยต่อกล่อง (หลุดง่าย)</li>
+<li>ตรวจ barcode สแกนได้ก่อนส่ง</li>
+<li>Shopee/Lazada/TikTok ใช้ AWB จาก Platform → ห้ามใช้ AWB ข้ามแพลตฟอร์ม</li>
+</ul>]]></field>
+    </record>
+
+    <!-- INVENTORY SOPs -->
+    <record id="sop_inv_01" model="wms.kpi.sop">
+        <field name="template_id" ref="tpl_inventory"/>
+        <field name="name">SOP-INV-001: Cycle Count ประจำวัน</field>
+        <field name="pillar_id" ref="pillar_develop_people"/>
+        <field name="version">1.0</field>
+        <field name="description"><![CDATA[
+<h3>ขั้นตอน Cycle Count</h3>
+<ol>
+<li><b>รับ Assignment:</b> ดู Count Task ที่ได้รับมอบหมาย (Inventory > Count Tasks)</li>
+<li><b>ไปยัง Zone/Rack:</b> ไปยังตำแหน่งที่ระบบกำหนด</li>
+<li><b>นับสินค้า:</b> นับจำนวน physical ทุก SKU ใน Location นั้น</li>
+<li><b>บันทึก:</b> กรอกจำนวนนับได้ใน Count Entry</li>
+<li><b>Variance:</b> ระบบคำนวณ variance (counted - expected) อัตโนมัติ</li>
+<li><b>Submit:</b> ส่ง Count Task → Supervisor ตรวจสอบและ Approve</li>
+</ol>
+<h4>กฎ Cycle Count</h4>
+<ul>
+<li>Pickface zones: นับทุกวัน</li>
+<li>Bulk storage: นับสัปดาห์ละครั้ง (หมุนเวียน Zone)</li>
+<li>Variance > 5% → นับซ้ำ (Recount)</li>
+<li>Variance > 10% → แจ้ง Manager ทันที</li>
+</ul>]]></field>
+    </record>
+    <record id="sop_inv_02" model="wms.kpi.sop">
+        <field name="template_id" ref="tpl_inventory"/>
+        <field name="name">SOP-INV-002: การตรวจ Lot/Expiry</field>
+        <field name="pillar_id" ref="pillar_compliance"/>
+        <field name="version">1.0</field>
+        <field name="description"><![CDATA[
+<h3>การตรวจ Lot/Expiry ระหว่าง Count</h3>
+<ul>
+<li>สินค้าเครื่องสำอาง KOB/BTV/CMN ต้องตรวจ Expiry ทุกครั้งที่นับ</li>
+<li>สินค้า Expiry ≤ 3 เดือน → ติด sticker "ใกล้หมดอายุ" สีแดง → แจ้ง Supervisor</li>
+<li>สินค้าหมดอายุแล้ว → แยกไว้ Zone "Not Available" → บันทึกใน Count Entry</li>
+<li>FIFO: สินค้า Lot เก่าต้องอยู่ด้านหน้า Rack/Pickface</li>
+</ul>]]></field>
+    </record>
+
+    <!-- INBOUND SOPs -->
+    <record id="sop_inbound_01" model="wms.kpi.sop">
+        <field name="template_id" ref="tpl_inbound"/>
+        <field name="name">SOP-IN-001: การรับสินค้าเข้าคลัง (Receiving)</field>
+        <field name="pillar_id" ref="pillar_develop_people"/>
+        <field name="version">2.0</field>
+        <field name="description"><![CDATA[
+<h3>ขั้นตอนรับสินค้าเข้าคลัง</h3>
+<ol>
+<li><b>ตรวจเอกสาร:</b> เทียบ Delivery Note / Invoice กับ Purchase Order ใน Odoo</li>
+<li><b>ตรวจสภาพ:</b> ตรวจกล่องภายนอกไม่ชำรุด, จำนวนกล่องตรง</li>
+<li><b>เปิดตรวจ:</b> สุ่มตรวจ 10% ของ shipment (หรือ 100% ถ้า Supplier ใหม่/มีประวัติปัญหา)</li>
+<li><b>บันทึก Lot:</b> สแกน/บันทึก Lot Number + Expiry Date ทุก SKU</li>
+<li><b>GRN:</b> Validate Receipt ใน Odoo (stock.picking) → สินค้าเข้า Input Location</li>
+<li><b>Putaway:</b> ย้ายสินค้าจาก Input → Stock/Rack/Pickface ตาม Putaway Rule</li>
+</ol>
+<h4>Rejection Criteria</h4>
+<ul>
+<li>สินค้าชำรุด/แตกหัก → Reject, ถ่ายรูปส่ง Supplier</li>
+<li>จำนวนไม่ตรง PO → รับเฉพาะจำนวนจริง, แจ้ง Purchasing</li>
+<li>Lot/Expiry ไม่ตรง Spec → Reject, แจ้ง QC</li>
+</ul>]]></field>
+    </record>
+    <record id="sop_inbound_02" model="wms.kpi.sop">
+        <field name="template_id" ref="tpl_inbound"/>
+        <field name="name">SOP-IN-002: Putaway &amp; Restock Pickface</field>
+        <field name="pillar_id" ref="pillar_operations"/>
+        <field name="version">1.0</field>
+        <field name="description"><![CDATA[
+<h3>Putaway &amp; Restock</h3>
+<ol>
+<li>สินค้า Received → ย้ายไป Bulk Storage (Rack) ตาม Zone ที่กำหนด</li>
+<li>ตรวจ Pickface Level: ถ้า qty ≤ min_level → Restock จาก Bulk</li>
+<li>สแกน Rack barcode → สแกน SKU → ยืนยัน Putaway ใน WMS</li>
+<li>FIFO: วาง Lot ใหม่ด้านหลัง, Lot เก่าด้านหน้า</li>
+</ol>]]></field>
+    </record>
+
+    <!-- DRIVER SOPs -->
+    <record id="sop_driver_01" model="wms.kpi.sop">
+        <field name="template_id" ref="tpl_driver"/>
+        <field name="name">SOP-DR-001: การส่งสินค้า Consignment</field>
+        <field name="pillar_id" ref="pillar_drive_value"/>
+        <field name="version">1.0</field>
+        <field name="description"><![CDATA[
+<h3>การส่งสินค้า Consignment (Watson/Beautrium/Boots/Eve&amp;Boy etc.)</h3>
+<ol>
+<li><b>รับ Picking List:</b> ตรวจรายการกล่อง + จุดหมาย (สาขาร้าน)</li>
+<li><b>ขึ้นรถ:</b> จัด FIFO — สาขาส่งก่อนอยู่ด้านท้ายรถ</li>
+<li><b>ส่งมอบ:</b> ส่งสินค้า, ให้พนักงานร้านเซ็น POD (Proof of Delivery)</li>
+<li><b>ถ่ายรูป:</b> ถ่ายรูป POD + สินค้าที่ส่ง</li>
+<li><b>อัพเดทระบบ:</b> อัพเดทสถานะ Delivered ใน WMS</li>
+</ol>
+<h4>ข้อห้าม</h4>
+<ul>
+<li>ห้ามส่งสินค้าโดยไม่มี POD</li>
+<li>ห้ามเปิดกล่องสินค้า</li>
+<li>ห้ามทิ้งสินค้าหน้าร้านโดยไม่มีคนรับ</li>
+</ul>]]></field>
+    </record>
+
+    <!-- ADMIN ONLINE SOPs -->
+    <record id="sop_admin_01" model="wms.kpi.sop">
+        <field name="template_id" ref="tpl_admin"/>
+        <field name="name">SOP-AO-001: การจัดการ Order จาก Marketplace</field>
+        <field name="pillar_id" ref="pillar_drive_value"/>
+        <field name="version">2.0</field>
+        <field name="description"><![CDATA[
+<h3>การจัดการ Order จาก Shopee/Lazada/TikTok</h3>
+<ol>
+<li><b>Sync Order:</b> ระบบ sync อัตโนมัติทุก 15 นาที → ตรวจ Order ใหม่ใน WMS</li>
+<li><b>ตรวจ OOS:</b> เช็ค Stock availability — ถ้า OOS แจ้ง Purchasing ทันที</li>
+<li><b>จัดคิว:</b> Order ที่ Stock พร้อม → เข้าคิว Pick อัตโนมัติ</li>
+<li><b>ติดตาม SLA:</b> ดู SLA Monitor (Reports > SLA Monitor) — แก้ไข Order at_risk/breached</li>
+<li><b>จัดการ Return:</b> Return order → ตรวจสินค้า → Restock หรือ Scrap</li>
+</ol>
+<h4>Platform SLA</h4>
+<table border="1" cellpadding="4">
+<tr><th>Platform</th><th>Ship by</th><th>Penalty</th></tr>
+<tr><td>Shopee</td><td>2 วัน</td><td>Late shipment rate → ลด visibility</td></tr>
+<tr><td>Lazada</td><td>2 วัน</td><td>Cancellation penalty</td></tr>
+<tr><td>TikTok</td><td>3 วัน</td><td>Shop score ลด</td></tr>
+</table>]]></field>
+    </record>
+    <record id="sop_admin_02" model="wms.kpi.sop">
+        <field name="template_id" ref="tpl_admin"/>
+        <field name="name">SOP-AO-002: การจัดการ OOS &amp; Return</field>
+        <field name="pillar_id" ref="pillar_revenue"/>
+        <field name="version">1.0</field>
+        <field name="description"><![CDATA[
+<h3>การจัดการ Out of Stock (OOS)</h3>
+<ul>
+<li>พบ OOS → แจ้ง Purchasing ทันทีผ่าน Line/Email</li>
+<li>อัพเดท Stock ใน Marketplace ภายใน 1 ชม.</li>
+<li>ปิด Listing ชั่วคราวถ้า OOS เกิน 3 วัน</li>
+</ul>
+<h3>การจัดการ Return</h3>
+<ul>
+<li>ตรวจสาเหตุ Return: สินค้าผิด/ชำรุด/ลูกค้าเปลี่ยนใจ</li>
+<li>สินค้า Restock ได้ → คืน Stock, อัพเดท WMS</li>
+<li>สินค้าชำรุด → Scrap, บันทึก Activity Log</li>
+</ul>]]></field>
+    </record>
+
+    <!-- SUPERVISOR SOPs -->
+    <record id="sop_supervisor_01" model="wms.kpi.sop">
+        <field name="template_id" ref="tpl_supervisor"/>
+        <field name="name">SOP-SV-001: การบริหารทีมประจำกะ</field>
+        <field name="pillar_id" ref="pillar_develop_people"/>
+        <field name="version">1.0</field>
+        <field name="description"><![CDATA[
+<h3>หน้าที่ Supervisor ประจำกะ</h3>
+<ol>
+<li><b>เช้า:</b> ตรวจ Attendance, แจก Assignment, Brief เป้ารายวัน</li>
+<li><b>ระหว่างวัน:</b> Monitor WMS Dashboard — ดู Queue, SLA status, Worker performance</li>
+<li><b>แก้ปัญหา:</b> จัดการ Escalation (สินค้าหาย, Scanner เสีย, Order ผิดพลาด)</li>
+<li><b>สิ้นกะ:</b> Review KPI ของทีม, บันทึก Issues, Handover กะถัดไป</li>
+</ol>
+<h4>KPI เป้าหมายรายวัน</h4>
+<ul>
+<li>Pick accuracy ≥ 99%</li>
+<li>SLA breach = 0</li>
+<li>ทุก Order ship ภายใน SLA deadline</li>
+</ul>]]></field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- Default KPI Season H1 2026                                   -->
+    <!-- ============================================================ -->
+    <record id="season_2026_h1" model="wms.kpi.season">
+        <field name="name">H1 2026 — KPI Assessment (Jan–Jun 2026)</field>
+        <field name="date_start">2026-01-01</field>
+        <field name="date_end">2026-06-30</field>
+    </record>
+
+    <!-- MANAGER SOPs -->
+    <record id="sop_manager_01" model="wms.kpi.sop">
+        <field name="template_id" ref="tpl_manager"/>
+        <field name="name">SOP-MG-001: การบริหารคลังสินค้ารายเดือน</field>
+        <field name="pillar_id" ref="pillar_financial"/>
+        <field name="version">1.0</field>
+        <field name="description"><![CDATA[
+<h3>หน้าที่ Manager รายเดือน</h3>
+<ol>
+<li><b>Review KPI:</b> วิเคราะห์ Worker Performance, SLA compliance, Error rate</li>
+<li><b>Cost Review:</b> ตรวจค่าขนส่ง, ค่า OT, วัสดุแพ็ค</li>
+<li><b>Inventory Review:</b> ตรวจ Shrinkage report, Dead stock, Near-expiry</li>
+<li><b>Process Improvement:</b> วางแผนปรับปรุง SOP, ระบบ, Layout</li>
+<li><b>HR:</b> KPI Assessment, Training plan, จัดกำลังคน</li>
+</ol>]]></field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- Default Goal Templates per Position (auto-copied to assessments) -->
+    <!-- ============================================================ -->
+
+    <!-- Picker -->
+    <record id="goal_tpl_picker_1" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_picker"/>
+        <field name="name">เพิ่ม Picking Accuracy ให้ถึง 99%+ ตลอดรอบประเมิน</field>
+        <field name="pillar_id" ref="pillar_drive_value"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+    <record id="goal_tpl_picker_2" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_picker"/>
+        <field name="name">ลด Pick Cycle Time ลง 10% จาก baseline ของ H2 2025</field>
+        <field name="pillar_id" ref="pillar_operations"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+    <record id="goal_tpl_picker_3" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_picker"/>
+        <field name="name">Zero damage report จากการหยิบสินค้าตลอดรอบ</field>
+        <field name="pillar_id" ref="pillar_compliance"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+    <record id="goal_tpl_picker_4" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_picker"/>
+        <field name="name">ผ่านการอบรม SOP Picking และ Scanner ครบ 100%</field>
+        <field name="pillar_id" ref="pillar_develop_people"/>
+        <field name="deadline">2026-03-31</field>
+    </record>
+
+    <!-- Packer -->
+    <record id="goal_tpl_packer_1" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_packer"/>
+        <field name="name">Pack Accuracy 99.5%+ ตลอดรอบประเมิน (zero wrong item, wrong label)</field>
+        <field name="pillar_id" ref="pillar_drive_value"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+    <record id="goal_tpl_packer_2" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_packer"/>
+        <field name="name">ลด Pack Cycle Time ลง 10% โดยใช้ Box Recommender ได้อย่างคล่องแคล่ว</field>
+        <field name="pillar_id" ref="pillar_operations"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+    <record id="goal_tpl_packer_3" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_packer"/>
+        <field name="name">Zero customer complaint จากการแพ็คสินค้า (สินค้าแตก, หาย, ผิด)</field>
+        <field name="pillar_id" ref="pillar_drive_value"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+    <record id="goal_tpl_packer_4" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_packer"/>
+        <field name="name">เลือกกล่องถูกต้องตาม Box Guide ทุก order ลด material cost 5%</field>
+        <field name="pillar_id" ref="pillar_financial"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+
+    <!-- Shipper -->
+    <record id="goal_tpl_shipper_1" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_shipper"/>
+        <field name="name">AWB / Label Accuracy 99%+ ตลอดรอบ (zero critical mislabel)</field>
+        <field name="pillar_id" ref="pillar_drive_value"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+    <record id="goal_tpl_shipper_2" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_shipper"/>
+        <field name="name">จัดส่งทันกำหนด SLA ทุก Platform ≥ 98% ของ orders รายเดือน</field>
+        <field name="pillar_id" ref="pillar_operations"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+    <record id="goal_tpl_shipper_3" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_shipper"/>
+        <field name="name">ลด return rate จากสินค้าส่งผิด address / ผิด AWB เหลือ 0</field>
+        <field name="pillar_id" ref="pillar_compliance"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+    <record id="goal_tpl_shipper_4" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_shipper"/>
+        <field name="name">ผ่านการฝึกระบบ Outbound Scan + Courier Batch ครบ 100%</field>
+        <field name="pillar_id" ref="pillar_develop_people"/>
+        <field name="deadline">2026-03-31</field>
+    </record>
+
+    <!-- Inventory -->
+    <record id="goal_tpl_inventory_1" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_inventory"/>
+        <field name="name">Cycle Count Accuracy ≥ 98% ทุก session</field>
+        <field name="pillar_id" ref="pillar_operations"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+    <record id="goal_tpl_inventory_2" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_inventory"/>
+        <field name="name">ดำเนินการนับสินค้าตามแผนครบ 100% ทุกเดือน (ไม่ข้ามงาน)</field>
+        <field name="pillar_id" ref="pillar_compliance"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+    <record id="goal_tpl_inventory_3" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_inventory"/>
+        <field name="name">รายงาน Discrepancy ภายใน 24 ชั่วโมง และส่งต่อ Supervisor ทุกครั้ง</field>
+        <field name="pillar_id" ref="pillar_drive_value"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+    <record id="goal_tpl_inventory_4" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_inventory"/>
+        <field name="name">ลดยอด Negative Stock ในระบบ Odoo เหลือ 0 ภายใน Q1 2026</field>
+        <field name="pillar_id" ref="pillar_financial"/>
+        <field name="deadline">2026-03-31</field>
+    </record>
+
+    <!-- Inbound -->
+    <record id="goal_tpl_inbound_1" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_inbound"/>
+        <field name="name">รับสินค้าตรงกับ PO 100% — ไม่มี under/over receive โดยไม่แจ้ง</field>
+        <field name="pillar_id" ref="pillar_compliance"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+    <record id="goal_tpl_inbound_2" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_inbound"/>
+        <field name="name">ลงทะเบียน Lot/Batch และ Expiry Date ถูกต้อง 100% ทุก GRN</field>
+        <field name="pillar_id" ref="pillar_operations"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+    <record id="goal_tpl_inbound_3" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_inbound"/>
+        <field name="name">ส่งต่อสินค้าเข้าตำแหน่งจัดเก็บภายใน 2 ชั่วโมงหลัง GRN</field>
+        <field name="pillar_id" ref="pillar_operations"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+    <record id="goal_tpl_inbound_4" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_inbound"/>
+        <field name="name">Zero missing document ใน Inbound process (GRN, PO, QC checklist)</field>
+        <field name="pillar_id" ref="pillar_compliance"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+
+    <!-- Driver -->
+    <record id="goal_tpl_driver_1" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_driver"/>
+        <field name="name">On-time delivery rate ≥ 95% ทุกเดือน</field>
+        <field name="pillar_id" ref="pillar_drive_value"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+    <record id="goal_tpl_driver_2" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_driver"/>
+        <field name="name">Zero damage report จากการขนส่ง ตลอดรอบประเมิน</field>
+        <field name="pillar_id" ref="pillar_compliance"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+    <record id="goal_tpl_driver_3" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_driver"/>
+        <field name="name">ส่งเอกสาร (ใบส่งของ, POD) ครบถ้วนทุก delivery ภายในวันเดียวกัน</field>
+        <field name="pillar_id" ref="pillar_operations"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+    <record id="goal_tpl_driver_4" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_driver"/>
+        <field name="name">ประหยัดน้ำมัน / ลด trip cost รวมลง 5% จาก H2 2025</field>
+        <field name="pillar_id" ref="pillar_financial"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+
+    <!-- Admin Online -->
+    <record id="goal_tpl_admin_1" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_admin"/>
+        <field name="name">ประมวลผล SO ครบภายใน SLA ทุก Platform ≥ 98% ทุกเดือน</field>
+        <field name="pillar_id" ref="pillar_operations"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+    <record id="goal_tpl_admin_2" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_admin"/>
+        <field name="name">ลด error rate ใน Order Entry เหลือ &lt; 0.5% ต่อเดือน</field>
+        <field name="pillar_id" ref="pillar_drive_value"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+    <record id="goal_tpl_admin_3" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_admin"/>
+        <field name="name">ตอบ Customer Inquiry ภายใน 2 ชั่วโมงในเวลาทำการ (response rate 100%)</field>
+        <field name="pillar_id" ref="pillar_drive_value"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+    <record id="goal_tpl_admin_4" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_admin"/>
+        <field name="name">เรียนรู้ feature ใหม่ของ Odoo / Platform ที่เกี่ยวข้องทุก Quarter (1 skill/quarter)</field>
+        <field name="pillar_id" ref="pillar_develop_people"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+
+    <!-- Supervisor -->
+    <record id="goal_tpl_supervisor_1" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_supervisor"/>
+        <field name="name">ทีม SLA Hit Rate ≥ 95% ทุกเดือน ตลอดรอบ H1 2026</field>
+        <field name="pillar_id" ref="pillar_operations"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+    <record id="goal_tpl_supervisor_2" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_supervisor"/>
+        <field name="name">ดำเนินการ 1-on-1 Coaching กับทุก Worker อย่างน้อย 1 ครั้ง/เดือน</field>
+        <field name="pillar_id" ref="pillar_develop_people"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+    <record id="goal_tpl_supervisor_3" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_supervisor"/>
+        <field name="name">ลด Error Rate ของทีมลง 20% จาก baseline H2 2025</field>
+        <field name="pillar_id" ref="pillar_drive_value"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+    <record id="goal_tpl_supervisor_4" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_supervisor"/>
+        <field name="name">Update SOP ที่รับผิดชอบ ≥ 1 ฉบับ พร้อมฝึก Team ให้ผ่าน 100%</field>
+        <field name="pillar_id" ref="pillar_compliance"/>
+        <field name="deadline">2026-04-30</field>
+    </record>
+
+    <!-- Manager -->
+    <record id="goal_tpl_manager_1" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_manager"/>
+        <field name="name">WMS Team KPI Overall Score ≥ 4.0 ใน H1 2026 Assessment</field>
+        <field name="pillar_id" ref="pillar_develop_people"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+    <record id="goal_tpl_manager_2" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_manager"/>
+        <field name="name">Zero critical WMS system downtime จาก process/human error</field>
+        <field name="pillar_id" ref="pillar_digitization"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+    <record id="goal_tpl_manager_3" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_manager"/>
+        <field name="name">พัฒนา Supervisor อย่างน้อย 1 คนให้สามารถ stand-in Manager ได้</field>
+        <field name="pillar_id" ref="pillar_develop_people"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+    <record id="goal_tpl_manager_4" model="wms.kpi.goal">
+        <field name="template_id" ref="tpl_manager"/>
+        <field name="name">ลด Cost per Order ลง 5% จาก H2 2025 baseline</field>
+        <field name="pillar_id" ref="pillar_financial"/>
+        <field name="deadline">2026-06-30</field>
+    </record>
+
+</odoo>

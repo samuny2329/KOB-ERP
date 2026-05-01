@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Branding -->
+        <record id="kob_brand_name" model="ir.config_parameter">
+            <field name="key">kob.brand.name</field>
+            <field name="value">KOB ERP</field>
+        </record>
+        <record id="kob_brand_tagline" model="ir.config_parameter">
+            <field name="key">kob.brand.tagline</field>
+            <field name="value">Kiss of Beauty — Multi-company ERP</field>
+        </record>
+        <record id="kob_brand_company" model="ir.config_parameter">
+            <field name="key">kob.brand.company_legal</field>
+            <field name="value">Kiss of Beauty Co., Ltd.</field>
+        </record>
+
+        <!-- Locale defaults -->
+        <record id="kob_locale_country" model="ir.config_parameter">
+            <field name="key">kob.locale.country</field>
+            <field name="value">TH</field>
+        </record>
+        <record id="kob_locale_currency" model="ir.config_parameter">
+            <field name="key">kob.locale.currency</field>
+            <field name="value">THB</field>
+        </record>
+    </data>
+</odoo>
