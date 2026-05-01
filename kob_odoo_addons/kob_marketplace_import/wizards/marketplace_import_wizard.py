@@ -104,6 +104,11 @@ class MarketplaceImportWizard(models.TransientModel):
     filename = fields.Char()
     auto_confirm = fields.Boolean("Confirm SOs", default=True)
     auto_assign = fields.Boolean("Reserve stock (assign)", default=True)
+    fbs_auto_route = fields.Boolean(
+        "FBS auto-route", default=True,
+        help="If the order_sn ends with -FBS (Shopee Fulfilled-By-Shopee), "
+             "route to the company's *-SHOPEE warehouse instead of *-Online.",
+    )
 
     # Results
     state = fields.Selection(
@@ -289,11 +294,24 @@ class MarketplaceImportWizard(models.TransientModel):
                 log_lines.append(f"SKIP {order_sn} — all lines unresolved")
                 continue
 
+            # FBS auto-routing: if order_sn ends with "-FBS", route to the
+            # company's *-SHOPEE warehouse (Shopee Fulfilled-By-Shopee).
+            target_wh = self.warehouse_id
+            if (self.fbs_auto_route
+                and self.platform == "shopee"
+                and order_sn.upper().endswith("-FBS")):
+                shopee_wh = self.env["stock.warehouse"].search([
+                    ("company_id", "=", self.company_id.id),
+                    ("name", "ilike", "SHOPEE"),
+                ], limit=1)
+                if shopee_wh:
+                    target_wh = shopee_wh
+
             so = SaleOrder.create({
                 "partner_id":       partner.id,
                 "client_order_ref": order_sn,
                 "company_id":       self.company_id.id,
-                "warehouse_id":     self.warehouse_id.id,
+                "warehouse_id":     target_wh.id,
                 "date_order":       self._normalize_date(head["order_date"]),
                 "source_id":        source.id,
                 "tag_ids":          tag_ids,
