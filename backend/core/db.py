@@ -33,6 +33,7 @@ SCHEMAS = (
     "sales",
     "accounting",
     "hr",
+    "grp",  # group / multi-company features (`group` is reserved in Postgres)
 )
 
 
