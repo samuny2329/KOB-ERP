@@ -20,8 +20,8 @@ fi
   git commit -m "auto: $(date -Iseconds) via Claude Code"
   if git remote get-url origin >/dev/null 2>&1; then
     branch=$(git symbolic-ref --short HEAD 2>/dev/null || echo main)
-    echo "[$(date -Iseconds)] pushing $branch"
-    git push origin "$branch" || echo "[$(date -Iseconds)] push failed (continuing)"
+    echo "[$(date -Iseconds)] pushing $branch (with tags)"
+    git push --follow-tags origin "$branch" || echo "[$(date -Iseconds)] push failed (continuing)"
   else
     echo "[$(date -Iseconds)] no remote 'origin' configured — skipping push"
   fi
