@@ -29,6 +29,8 @@ Loaded first by every other ``kob_*`` addon.  Owns:
             "kob_base/static/src/welcome/kob_welcome.js",
             "kob_base/static/src/welcome/kob_welcome.xml",
             "kob_base/static/src/welcome/kob_welcome.scss",
+            "kob_base/static/src/home_button/kob_home_button.js",
+            "kob_base/static/src/home_button/kob_home_button.xml",
         ],
     },
     "application": True,

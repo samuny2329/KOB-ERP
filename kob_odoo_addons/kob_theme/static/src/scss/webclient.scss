@@ -1,192 +1,276 @@
-// KOB ERP — web client polish.
+// KOB ERP — premium "Graphite + Champagne" web client polish.
 //
-// Targeted tweaks to make the Odoo 19 web client read more like a Fiori
-// launchpad / SAP HANA dashboard:
-//   - Slightly slimmer navbar (44px) matching the Fiori shellbar
-//   - Soft drop shadow on tile-like containers (kanban cards, dashboards)
-//   - Brand "K" badge replaces the default Odoo logo
+// Mature, business-formal palette inspired by SAP Fiori Horizon and
+// Workday's hi-end ERP shellbars:
+//   - Graphite #1a1f29 navbar (warmer than pure black, sober)
+//   - Champagne gold #c9a96e for the K mark + active underline
+//   - Royal cobalt #1d4ed8 for primary actions (deeper than Fiori cobalt)
+//   - Warm off-white #fafaf8 backgrounds
+//   - Soft graphite borders
 //
-// All selectors are scoped to .o_web_client / .o_main_navbar to avoid
-// leaking into emails or reports.
+// All selectors scoped to .o_web_client to avoid leaking into emails or
+// website pages.
 
+// ──────────────────────────────────────────────────────────────────
+// Shellbar — premium graphite with gold underline accent
+// ──────────────────────────────────────────────────────────────────
 .o_main_navbar {
-    min-height: 44px;
-    height: 44px;
-    --o-navbar-height: 44px;
-    background: #354a5f !important;        // Belize Hole navy
-    border-bottom: 1px solid #2c3e50 !important;
+    min-height: 46px;
+    height: 46px;
+    --o-navbar-height: 46px;
+    background:
+        linear-gradient(180deg, #1f2532 0%, #1a1f29 100%) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5) !important;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 1px 3px rgba(0, 0, 0, 0.18);
 
-    // KOB ERP convention: navigation lives on the Welcome dashboard, not in
-    // the navbar dropdown.  Hide the standard apps menu so users discover
-    // every module through the Welcome cards instead.
+    // Hide the default apps-menu dropdown — we replace it with the Home
+    // systray button (kob_base/static/src/home_button) so users get a
+    // clear "back to Welcome" affordance instead of a generic apps grid.
     .o_navbar_apps_menu {
         display: none !important;
     }
 
-    // Brand mark takes you home (= the Welcome action).
-    .o_menu_brand {
-        cursor: pointer;
+    // App submenus (Orders | To Invoice | Products etc.) MUST stay
+    // visible — they're the user's main navigation inside an app.
+    .o_menu_sections,
+    .o_menu_sections > * {
+        display: flex;
     }
 
-    // Brand block
+    // Brand block — premium "K" with champagne gold mark
     .o_menu_brand {
+        cursor: pointer;
         font-weight: 600;
-        letter-spacing: 0.01em;
-        padding: 0 14px;
-        border-right: 1px solid rgba(#fff, 0.16);
+        letter-spacing: 0.02em;
+        padding: 0 16px;
+        color: rgba(#fff, 0.95);
+        border-right: 1px solid rgba(#fff, 0.10);
 
         &::before {
             content: "K";
             display: inline-grid;
             place-items: center;
-            width: 24px;
-            height: 24px;
-            margin-right: 8px;
-            border-radius: 4px;
-            background: #0a6ed1;
-            color: #fff;
-            font-weight: 700;
-            font-size: 12px;
-            box-shadow: 0 0 0 1px rgba(#fff, 0.12);
+            width: 26px;
+            height: 26px;
+            margin-right: 10px;
+            border-radius: 5px;
+            background: linear-gradient(135deg, #d4b572 0%, #c9a96e 50%, #b8985f 100%);
+            color: #1a1f29;
+            font-weight: 800;
+            font-size: 13px;
+            box-shadow:
+                0 0 0 1px rgba(255, 255, 255, 0.10),
+                0 1px 2px rgba(0, 0, 0, 0.30);
         }
+
+        &:hover { background: rgba(#fff, 0.06); }
+    }
+
+    // Submenu links — refined hover/active states
+    .o_menu_sections .o_nav_entry,
+    .o_menu_sections .dropdown-toggle {
+        padding: 0 14px !important;
+        background: transparent !important;
+        color: rgba(#fff, 0.82) !important;
+        font-size: 13px !important;
+        font-weight: 400 !important;
+        letter-spacing: 0.005em;
+        border: 0 !important;
+        border-radius: 0 !important;
+        transition: background 140ms ease, color 140ms ease;
+
+        &:hover {
+            background: rgba(#fff, 0.06) !important;
+            color: #fff !important;
+        }
+        &.active,
+        &[aria-expanded="true"] {
+            background: rgba(#fff, 0.10) !important;
+            color: #fff !important;
+            box-shadow: inset 0 -2px 0 #c9a96e !important;
+            font-weight: 500 !important;
+        }
+    }
+
+    // Systray icons (chat, notifications, user) — refined
+    .o_menu_systray > * {
+        color: rgba(#fff, 0.85);
     }
 }
 
-// Kanban + dashboard cards → Fiori tile feel
-.o_kanban_view .o_kanban_record,
-.o_dashboards .o_dashboard_action {
-    border-radius: 8px;
-    box-shadow:
-        0 0 0 1px rgba(0, 0, 0, 0.04),
-        0 1px 2px rgba(0, 0, 0, 0.06);
-    transition: box-shadow 160ms ease, transform 160ms ease, border-color 160ms ease;
+// ──────────────────────────────────────────────────────────────────
+// Home systray button (replaces the apps-menu dropdown)
+// ──────────────────────────────────────────────────────────────────
+.kob-home-button-wrap {
+    display: inline-flex;
+    align-items: stretch;
+    height: 100%;
+}
+
+.kob-home-button {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 14px;
+    background: transparent;
+    border: 0;
+    color: rgba(#fff, 0.92);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 140ms ease;
+
+    .oi {
+        font-size: 15px;
+        color: #c9a96e;       // champagne gold icon
+    }
 
     &:hover {
+        background: rgba(#fff, 0.08);
+        color: #fff;
+    }
+    &:focus-visible {
+        outline: 2px solid #c9a96e;
+        outline-offset: -2px;
+    }
+}
+
+.kob-home-button-label {
+    @media (max-width: 575px) {
+        display: none;       // icon-only on phones
+    }
+}
+
+// ──────────────────────────────────────────────────────────────────
+// Page surfaces — warm off-white with soft borders
+// ──────────────────────────────────────────────────────────────────
+.o_web_client {
+    background-color: #fafaf8;
+}
+
+// Kanban + dashboard cards → premium tile feel
+.o_kanban_view .o_kanban_record,
+.o_dashboards .o_dashboard_action {
+    border-radius: 10px;
+    border: 1px solid #ebebe8 !important;
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.02),
+        0 1px 2px rgba(0, 0, 0, 0.04);
+    transition: box-shadow 180ms ease, transform 180ms ease, border-color 180ms ease;
+
+    &:hover {
+        border-color: #c9a96e !important;
         box-shadow:
-            0 0 0 1px rgba(0, 0, 0, 0.05),
-            0 4px 12px rgba(0, 0, 0, 0.08);
+            0 0 0 1px rgba(201, 169, 110, 0.20),
+            0 8px 20px rgba(0, 0, 0, 0.06);
         transform: translateY(-1px);
     }
 }
 
-// Status bar pills — sharper Fiori vibe
-.o_statusbar_status > button.btn-primary {
-    background-color: #0a6ed1;
-    border-color: #0a6ed1;
-
-    &:hover {
-        background-color: #075ba8;
-        border-color: #075ba8;
-    }
-}
-
-// ─────────────────────────────────────────────────────────────────────
-// Buttons — force every primary/highlight to Fiori cobalt.
-//
-// Odoo 19 hard-codes the brand purple in many compiled SCSS rules even
-// after we override $o-community-color, so we explicitly re-state them.
-// All scoped under .o_web_client to keep emails & reports untouched.
-// ─────────────────────────────────────────────────────────────────────
+// ──────────────────────────────────────────────────────────────────
+// Buttons — Royal cobalt + champagne gold accents.  Force-overrides
+// every place Odoo hardcoded the original purple.
+// ──────────────────────────────────────────────────────────────────
 .o_web_client {
 
     // Primary buttons (New / Save / Confirm / Apply ...)
-    .btn-primary {
-        background-color: #0a6ed1 !important;
-        border-color: #0a6ed1 !important;
+    .btn-primary,
+    button.btn-primary,
+    a.btn-primary {
+        background: #1d4ed8 !important;
+        border-color: #1d4ed8 !important;
         color: #fff !important;
+        font-weight: 500;
 
-        &:hover,
-        &:focus {
-            background-color: #075ba8 !important;
-            border-color: #075ba8 !important;
+        &:hover, &:focus {
+            background: #1e40af !important;
+            border-color: #1e40af !important;
         }
-        &:active,
-        &.active {
-            background-color: #054780 !important;
-            border-color: #054780 !important;
+        &:active, &.active {
+            background: #1e3a8a !important;
+            border-color: #1e3a8a !important;
         }
     }
 
-    // Form-view "highlight" buttons in the header (e.g. Confirm, Validate)
+    // Highlighted / form workflow buttons
     button.oe_highlight,
-    .o_statusbar_buttons button.oe_highlight {
-        background-color: #0a6ed1 !important;
-        border-color: #0a6ed1 !important;
+    .o_statusbar_buttons button.oe_highlight,
+    .o_statusbar_status > button.btn-primary {
+        background: #1d4ed8 !important;
+        border-color: #1d4ed8 !important;
         color: #fff !important;
-        &:hover { background-color: #075ba8 !important; border-color: #075ba8 !important; }
+        &:hover { background: #1e40af !important; border-color: #1e40af !important; }
     }
 
-    // Secondary / outline buttons that referenced brand purple
+    // Secondary / outline buttons
     .btn-secondary {
-        color: #0a6ed1 !important;
-        border-color: #cde0f4 !important;
-        background-color: #fff !important;
-        &:hover { background-color: #e8f2fb !important; border-color: #0a6ed1 !important; }
+        color: #1d4ed8 !important;
+        border-color: #d4d4d1 !important;
+        background: #fff !important;
+        font-weight: 500;
+        &:hover { background: #fafaf8 !important; border-color: #1d4ed8 !important; }
     }
     .btn-outline-primary {
-        color: #0a6ed1 !important;
-        border-color: #0a6ed1 !important;
-        background-color: transparent !important;
-        &:hover {
-            background-color: #0a6ed1 !important;
-            color: #fff !important;
-        }
+        color: #1d4ed8 !important;
+        border-color: #1d4ed8 !important;
+        background: transparent !important;
+        &:hover { background: #1d4ed8 !important; color: #fff !important; }
     }
 
     // Links
     a, .o_form_view a, .text-primary {
-        color: #0a6ed1;
+        color: #1d4ed8;
     }
 
-    // Form inputs — focused border + selection accent
+    // Form input focus
     .o_input:focus,
     input:focus,
     textarea:focus,
     select:focus,
     .o_field_widget:focus-within {
-        border-color: #0a6ed1 !important;
-        box-shadow: 0 0 0 3px rgba(10, 110, 209, 0.18) !important;
+        border-color: #1d4ed8 !important;
+        box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.15) !important;
         outline: none;
     }
 
-    // Checkboxes & radios — checked state
+    // Checkboxes & radios
     .form-check-input:checked,
     input[type="checkbox"]:checked,
     input[type="radio"]:checked {
-        background-color: #0a6ed1 !important;
-        border-color: #0a6ed1 !important;
+        background-color: #1d4ed8 !important;
+        border-color: #1d4ed8 !important;
     }
 
-    // Selection highlights (kanban row hover, list row selected, ...)
+    // Selected list rows + search facets
     .o_data_row.o_data_row_selected {
-        background-color: rgba(10, 110, 209, 0.08) !important;
+        background-color: rgba(29, 78, 216, 0.06) !important;
     }
-
-    // Search bar facets
     .o_searchview .o_facet_values,
     .o_search_panel_filter_value.active {
-        background-color: rgba(10, 110, 209, 0.10);
-        color: #0a6ed1;
+        background: rgba(29, 78, 216, 0.10);
+        color: #1d4ed8;
     }
 
     // Active breadcrumb / view switcher
     .o_breadcrumb .active,
     .o_cp_switch_buttons .o_switch_view.active {
-        color: #0a6ed1 !important;
+        color: #1d4ed8 !important;
     }
 }
 
-// ─────────────────────────────────────────────────────────────────────
-// Login page (loaded under web.assets_frontend, scoped via body class).
-// ─────────────────────────────────────────────────────────────────────
+// ──────────────────────────────────────────────────────────────────
+// Login page (frontend bundle override is also applied separately
+// in frontend.scss — this block keeps the bg-light backend-served
+// login form aligned).
+// ──────────────────────────────────────────────────────────────────
 .o_login_form .btn-primary,
 .oe_login_form .btn-primary,
 form.oe_login_form button[type="submit"] {
-    background-color: #0a6ed1 !important;
-    border-color: #0a6ed1 !important;
+    background: #1d4ed8 !important;
+    border-color: #1d4ed8 !important;
     color: #fff !important;
     &:hover {
-        background-color: #075ba8 !important;
-        border-color: #075ba8 !important;
+        background: #1e40af !important;
+        border-color: #1e40af !important;
     }
 }

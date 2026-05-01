@@ -3,15 +3,23 @@
 // Inspired by Odoo's Website "Landing Page" templates: tall hero, refined
 // typography, card grid with hover lift, gentle shadows, generous spacing.
 
-$kob-navy: #354a5f;
-$kob-blue: #0a6ed1;
-$kob-blue-dark: #075ba8;
-$kob-text: #32363a;
-$kob-muted: #6a6d70;
-$kob-subtle: #99a1b3;
-$kob-border: #e5e5e5;
-$kob-bg: #f5f6f7;
+$kob-graphite: #1a1f29;
+$kob-graphite-light: #2a3140;
+$kob-cobalt: #1d4ed8;
+$kob-cobalt-dark: #1e40af;
+$kob-gold: #c9a96e;
+$kob-gold-light: #d4b572;
+$kob-text: #1f2937;
+$kob-muted: #4b5563;
+$kob-subtle: #9ca3af;
+$kob-border: #ebebe8;
+$kob-bg: #fafaf8;
 $kob-surface: #ffffff;
+
+// Backwards-compat aliases used elsewhere in this file.
+$kob-navy: $kob-graphite;
+$kob-blue: $kob-cobalt;
+$kob-blue-dark: $kob-cobalt-dark;
 
 .kob-welcome {
     height: 100%;
@@ -30,13 +38,14 @@ $kob-surface: #ffffff;
     }
 
     // ── HERO ───────────────────────────────────────────────────────
+    // Premium "graphite + champagne" gradient — sober, hi-end feel.
     .kob-hero {
         position: relative;
         overflow: hidden;
         background:
-            radial-gradient(ellipse at 80% 0%, rgba(10, 110, 209, 0.45) 0%, transparent 50%),
-            radial-gradient(ellipse at 0% 80%, rgba(53, 74, 95, 0.6) 0%, transparent 50%),
-            linear-gradient(135deg, #1d2d3e 0%, $kob-navy 60%, $kob-blue 140%);
+            radial-gradient(ellipse at 75% 10%, rgba(201, 169, 110, 0.20) 0%, transparent 45%),
+            radial-gradient(ellipse at 5% 85%, rgba(29, 78, 216, 0.30) 0%, transparent 50%),
+            linear-gradient(135deg, #0f1419 0%, $kob-graphite 50%, #2a3140 100%);
         color: #fff;
         padding: 56px 0 72px;
 
@@ -65,7 +74,7 @@ $kob-surface: #ffffff;
         font-size: 11px;
         font-weight: 700;
         letter-spacing: 0.22em;
-        opacity: 0.75;
+        color: $kob-gold;
         margin-bottom: 14px;
     }
 
@@ -78,7 +87,7 @@ $kob-surface: #ffffff;
     }
 
     .kob-hero-accent {
-        background: linear-gradient(90deg, #ffffff 0%, #cde0f4 100%);
+        background: linear-gradient(90deg, #ffffff 0%, $kob-gold 100%);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
@@ -248,10 +257,10 @@ $kob-surface: #ffffff;
 
         &:hover {
             transform: translateY(-2px);
-            border-color: $kob-blue;
+            border-color: $kob-gold;
             box-shadow:
-                0 0 0 1px rgba(10, 110, 209, 0.15),
-                0 16px 36px rgba(10, 110, 209, 0.18);
+                0 0 0 1px rgba(201, 169, 110, 0.25),
+                0 16px 36px rgba(26, 31, 41, 0.10);
         }
 
         @media (max-width: 575px) {
@@ -282,7 +291,7 @@ $kob-surface: #ffffff;
         font-size: 11px;
         font-weight: 700;
         letter-spacing: 0.18em;
-        color: $kob-blue;
+        color: $kob-gold;
         margin-bottom: 6px;
         text-transform: uppercase;
     }
@@ -353,10 +362,10 @@ $kob-surface: #ffffff;
 
         &:hover {
             transform: translateY(-2px);
-            border-color: $kob-blue;
+            border-color: $kob-gold;
             box-shadow:
-                0 0 0 1px rgba(10, 110, 209, 0.15),
-                0 12px 24px rgba(10, 110, 209, 0.12);
+                0 0 0 1px rgba(201, 169, 110, 0.20),
+                0 10px 24px rgba(26, 31, 41, 0.08);
 
             .kob-card-cta > span {
                 transform: translateX(3px);
@@ -364,7 +373,7 @@ $kob-surface: #ffffff;
         }
 
         &:focus-visible {
-            outline: 2px solid $kob-blue;
+            outline: 2px solid $kob-gold;
             outline-offset: 2px;
         }
     }
@@ -462,10 +471,10 @@ $kob-surface: #ffffff;
         width: 28px;
         height: 28px;
         border-radius: 6px;
-        background: $kob-blue;
-        color: #fff;
+        background: linear-gradient(135deg, $kob-gold-light 0%, $kob-gold 100%);
+        color: $kob-graphite;
         font-size: 13px;
-        font-weight: 700;
+        font-weight: 800;
         box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15);
     }
 

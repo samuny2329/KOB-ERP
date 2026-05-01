@@ -327,30 +327,41 @@ class KobWelcome extends Component {
     }
 
     async onCardClick(mod) {
+        // Prefer selectMenu — it activates the menu (so the navbar
+        // submenus render) AND opens the action in one go.  Falls back
+        // to direct doAction for cards that only have an action xmlid.
         if (mod.menuXmlId) {
             try {
-                // Walk all menus, find by xmlid, open its action_id.
                 const all = this.menuService.getAll
                     ? this.menuService.getAll()
-                    : Object.values(this.menuService.getMenuAsTree?.("root") || {});
+                    : [];
                 const target = all.find((m) => m && m.xmlid === mod.menuXmlId);
-                if (target && target.actionID) {
-                    await this.action.doAction(target.actionID);
-                    return;
-                }
-                if (target && this.menuService.selectMenu) {
-                    this.menuService.selectMenu(target);
+                if (target) {
+                    if (this.menuService.selectMenu) {
+                        await this.menuService.selectMenu(target);
+                    } else if (target.actionID) {
+                        await this.action.doAction(target.actionID);
+                    }
                     return;
                 }
             } catch (_e) {
-                // fall through to action XML id below
+                // fall through
             }
         }
         if (mod.actionXmlId) {
             try {
+                // Find the menu that owns this action so submenus render.
+                const all = this.menuService.getAll
+                    ? this.menuService.getAll()
+                    : [];
+                const owner = all.find((m) => m && m.actionPath === mod.actionXmlId);
+                if (owner && this.menuService.selectMenu) {
+                    await this.menuService.selectMenu(owner);
+                    return;
+                }
                 await this.action.doAction(mod.actionXmlId);
             } catch (e) {
-                console.warn("[KobWelcome] action not available", mod.actionXmlId, e);
+                console.warn("[KobWelcome] action unavailable", mod.actionXmlId, e);
             }
         }
     }

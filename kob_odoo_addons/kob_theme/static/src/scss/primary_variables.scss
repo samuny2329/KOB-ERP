@@ -1,26 +1,27 @@
-// KOB ERP — primary palette overrides (loaded AFTER Odoo's primary_variables.scss).
+// KOB ERP — primary palette overrides (loaded BEFORE Odoo's primary_variables.scss).
 //
-// We re-target the SCSS knobs Odoo exposes for branding to a SAP Fiori
-// inspired palette.  Only variable values are written — the structural
-// SCSS in addons/web stays untouched.
+// Premium "graphite + champagne" theme — sober, hi-end, business-formal.
+// Inspired by SAP Fiori Horizon (deep grey-blue shellbar) plus a touch of
+// champagne gold for brand accents — mature alternative to bright cobalt.
+//
+// Only the variable VALUES are written here; we do not modify Odoo's SCSS
+// structure.  All values are non-default so subsequent `!default`
+// statements in Odoo's primary_variables.scss skip our overrides.
 
 // Brand
-$o-community-color: #0a6ed1;       // Fiori action blue
-$o-enterprise-color: #354a5f;      // Belize Hole navy → shellbar
+$o-community-color: #1d4ed8;       // Royal cobalt — primary actions
+$o-enterprise-color: #1a1f29;      // Graphite — shellbar bg
 $o-brand-primary: $o-community-color;
 
-// Status palette (SAP semantic)
-$o-success: #107e3e;
-$o-info: #0a6ed1;
-$o-warning: #e9730c;
-$o-danger: #bb0000;
+// Status palette
+$o-success: #047857;               // Pine green
+$o-info: #1d4ed8;
+$o-warning: #b45309;               // Amber-burnished
+$o-danger: #b91c1c;
 
-// Typography — keep Odoo's rem-based defaults (14px-equivalent already).
-// Overriding with literal px values triggers "Incompatible units" SCSS errors.
-
-// Greys — slightly cooler than Odoo's defaults so cards read like Fiori tiles
-$o-gray-100: #f5f6f7;
-$o-gray-200: #eef0f2;
-$o-gray-300: #e5e5e5;
-$o-gray-700: #6a6d70;
-$o-gray-900: #32363a;
+// Greys — slightly warmer/softer than Odoo defaults
+$o-gray-100: #fafaf8;              // App background — warm off-white
+$o-gray-200: #f1f1ef;
+$o-gray-300: #e6e6e3;
+$o-gray-700: #4b5563;
+$o-gray-900: #1f2937;
