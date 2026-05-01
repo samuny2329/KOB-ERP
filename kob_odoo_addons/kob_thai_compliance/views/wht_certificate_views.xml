@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_wht_certificate_list" model="ir.ui.view">
+        <field name="name">kob.wht.certificate.list</field>
+        <field name="model">kob.wht.certificate</field>
+        <field name="arch" type="xml">
+            <list string="WHT Certificates">
+                <field name="form_type"/>
+                <field name="period_year"/>
+                <field name="period_month"/>
+                <field name="sequence_number"/>
+                <field name="issue_date"/>
+                <field name="payee_name"/>
+                <field name="payee_tax_id"/>
+                <field name="income_type_code"/>
+                <field name="gross_amount" sum="Gross"/>
+                <field name="wht_rate_pct"/>
+                <field name="wht_amount" sum="WHT"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_kob_wht_certificate_form" model="ir.ui.view">
+        <field name="name">kob.wht.certificate.form</field>
+        <field name="model">kob.wht.certificate</field>
+        <field name="arch" type="xml">
+            <form string="WHT Certificate">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="form_type" readonly="1"
+                                   class="d-inline-block me-2"/>
+                            <span>/</span>
+                            <field name="period_year" readonly="1"
+                                   class="d-inline-block ms-2"/>
+                            <span>-</span>
+                            <field name="sequence_number" readonly="1"
+                                   class="d-inline-block"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Filing">
+                            <field name="form_type"/>
+                            <field name="period_year"/>
+                            <field name="period_month"/>
+                            <field name="issue_date"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Payee">
+                            <field name="payee_partner_id"/>
+                            <field name="payee_name"/>
+                            <field name="payee_tax_id"/>
+                            <field name="payee_address"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Income">
+                            <field name="income_type_code"/>
+                            <field name="income_description"/>
+                        </group>
+                        <group string="Amounts">
+                            <field name="gross_amount"/>
+                            <field name="wht_rate_pct"/>
+                            <field name="wht_amount"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <group string="Linked Documents">
+                        <field name="payment_id"/>
+                        <field name="move_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Notes">
+                            <field name="note"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_kob_wht_certificate_search" model="ir.ui.view">
+        <field name="name">kob.wht.certificate.search</field>
+        <field name="model">kob.wht.certificate</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="payee_name"/>
+                <field name="payee_tax_id"/>
+                <field name="period_year"/>
+                <filter string="PND3" name="f_pnd3"
+                        domain="[('form_type','=','pnd3')]"/>
+                <filter string="PND53" name="f_pnd53"
+                        domain="[('form_type','=','pnd53')]"/>
+                <separator/>
+                <filter string="By Form" name="g_form"
+                        context="{'group_by':'form_type'}"/>
+                <filter string="By Year" name="g_year"
+                        context="{'group_by':'period_year'}"/>
+                <filter string="By Month" name="g_month"
+                        context="{'group_by':'period_month'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_kob_wht_certificate" model="ir.actions.act_window">
+        <field name="name">WHT Certificates</field>
+        <field name="res_model">kob.wht.certificate</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+        id="menu_kob_wht_certificate"
+        name="WHT Certificates (ภงด.3 / ภงด.53)"
+        parent="kob_base.menu_kob_thai"
+        action="action_kob_wht_certificate"
+        sequence="40"/>
+</odoo>

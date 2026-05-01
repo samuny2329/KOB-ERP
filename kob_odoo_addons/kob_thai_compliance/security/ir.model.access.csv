@@ -9,3 +9,17 @@ access_kob_pnd_filing_line_user,kob.pnd.filing.line user,model_kob_pnd_filing_li
 access_kob_pnd_filing_line_manager,kob.pnd.filing.line manager,model_kob_pnd_filing_line,hr.group_hr_manager,1,1,1,1
 access_kob_overtime_record_user,kob.overtime.record user,model_kob_overtime_record,hr.group_hr_user,1,1,1,0
 access_kob_overtime_record_manager,kob.overtime.record manager,model_kob_overtime_record,hr.group_hr_manager,1,1,1,1
+access_kob_wht_certificate_user,kob.wht.certificate user,model_kob_wht_certificate,account.group_account_invoice,1,1,1,0
+access_kob_wht_certificate_manager,kob.wht.certificate manager,model_kob_wht_certificate,account.group_account_manager,1,1,1,1
+access_kob_vat_period_user,kob.vat.period user,model_kob_vat_period,account.group_account_invoice,1,0,0,0
+access_kob_vat_period_manager,kob.vat.period manager,model_kob_vat_period,account.group_account_manager,1,1,1,1
+access_kob_vat_line_user,kob.vat.line user,model_kob_vat_line,account.group_account_invoice,1,0,0,0
+access_kob_vat_line_manager,kob.vat.line manager,model_kob_vat_line,account.group_account_manager,1,1,1,1
+access_kob_fixed_asset_user,kob.fixed.asset user,model_kob_fixed_asset,account.group_account_invoice,1,0,0,0
+access_kob_fixed_asset_manager,kob.fixed.asset manager,model_kob_fixed_asset,account.group_account_manager,1,1,1,1
+access_kob_depreciation_entry_user,kob.depreciation.entry user,model_kob_depreciation_entry,account.group_account_invoice,1,0,0,0
+access_kob_depreciation_entry_manager,kob.depreciation.entry manager,model_kob_depreciation_entry,account.group_account_manager,1,1,1,1
+access_kob_fx_revaluation_user,kob.fx.revaluation user,model_kob_fx_revaluation,account.group_account_invoice,1,0,0,0
+access_kob_fx_revaluation_manager,kob.fx.revaluation manager,model_kob_fx_revaluation,account.group_account_manager,1,1,1,1
+access_kob_employee_transfer_user,kob.employee.transfer user,model_kob_employee_transfer,hr.group_hr_user,1,1,1,0
+access_kob_employee_transfer_manager,kob.employee.transfer manager,model_kob_employee_transfer,hr.group_hr_manager,1,1,1,1

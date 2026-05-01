@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_fx_revaluation_list" model="ir.ui.view">
+        <field name="name">kob.fx.revaluation.list</field>
+        <field name="model">kob.fx.revaluation</field>
+        <field name="arch" type="xml">
+            <list string="FX Revaluations">
+                <field name="period_year"/>
+                <field name="period_month"/>
+                <field name="currency"/>
+                <field name="period_end_rate"/>
+                <field name="booked_balance_fc" sum="FC Balance"/>
+                <field name="booked_balance_thb" sum="THB (booked)"/>
+                <field name="revalued_balance_thb" sum="THB (revalued)"/>
+                <field name="fx_gain_loss" sum="Gain / (Loss)"
+                       decoration-success="fx_gain_loss &gt; 0"
+                       decoration-danger="fx_gain_loss &lt; 0"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_kob_fx_revaluation_form" model="ir.ui.view">
+        <field name="name">kob.fx.revaluation.form</field>
+        <field name="model">kob.fx.revaluation</field>
+        <field name="arch" type="xml">
+            <form string="FX Revaluation">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                            <field name="currency"/>
+                            <field name="period_year"/>
+                            <field name="period_month"/>
+                            <field name="period_end_rate"/>
+                        </group>
+                        <group>
+                            <field name="booked_balance_fc"/>
+                            <field name="booked_balance_thb"/>
+                            <field name="revalued_balance_thb"/>
+                            <field name="fx_gain_loss" readonly="1"/>
+                            <field name="posted_at" readonly="1"/>
+                            <field name="move_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes"><field name="note"/></page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_kob_fx_revaluation" model="ir.actions.act_window">
+        <field name="name">FX Revaluations</field>
+        <field name="res_model">kob.fx.revaluation</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+        id="menu_kob_fx_revaluation"
+        name="FX Revaluation"
+        parent="kob_base.menu_kob_thai"
+        action="action_kob_fx_revaluation"
+        sequence="70"/>
+</odoo>

@@ -36,6 +36,13 @@ verbatim.
         "views/sso_views.xml",
         "views/pnd_views.xml",
         "views/overtime_views.xml",
+        # Phase 5-adv — Thai accounting compliance
+        "views/wht_certificate_views.xml",
+        "views/vat_period_views.xml",
+        "views/fixed_asset_views.xml",
+        "views/fx_revaluation_views.xml",
+        # Phase 6-adv — HR cross-company
+        "views/employee_transfer_views.xml",
     ],
     "installable": True,
     "auto_install": False,

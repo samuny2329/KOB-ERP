@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_fixed_asset_list" model="ir.ui.view">
+        <field name="name">kob.fixed.asset.list</field>
+        <field name="model">kob.fixed.asset</field>
+        <field name="arch" type="xml">
+            <list string="Fixed Assets">
+                <field name="asset_code"/>
+                <field name="name"/>
+                <field name="category"/>
+                <field name="state"
+                       decoration-info="state == 'pending'"
+                       decoration-success="state == 'in_use'"
+                       decoration-muted="state in ('fully_depreciated','disposed','cancelled')"/>
+                <field name="acquisition_date"/>
+                <field name="acquisition_cost" sum="Cost"/>
+                <field name="accumulated_depreciation" sum="Accum. Depr."/>
+                <field name="book_value" sum="Book Value"/>
+                <field name="depreciation_method"/>
+                <field name="useful_life_months"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_kob_fixed_asset_form" model="ir.ui.view">
+        <field name="name">kob.fixed.asset.form</field>
+        <field name="model">kob.fixed.asset</field>
+        <field name="arch" type="xml">
+            <form string="Fixed Asset">
+                <header>
+                    <button name="action_activate" type="object"
+                            string="Activate &amp; Generate Schedule"
+                            class="oe_highlight"
+                            invisible="state != 'pending'"/>
+                    <button name="action_dispose" type="object"
+                            string="Dispose"
+                            invisible="state != 'in_use'"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel"
+                            invisible="state != 'pending'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="pending,in_use,fully_depreciated"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="asset_code"/>
+                        <h1><field name="asset_code"/></h1>
+                        <field name="name" placeholder="Asset name"/>
+                    </div>
+                    <group>
+                        <group string="Identity">
+                            <field name="category"/>
+                            <field name="acquisition_date"/>
+                            <field name="acquisition_cost"/>
+                            <field name="salvage_value"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Depreciation">
+                            <field name="depreciation_method"/>
+                            <field name="useful_life_months"/>
+                            <field name="accumulated_depreciation" readonly="1"/>
+                            <field name="book_value" readonly="1"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="GL Accounts">
+                            <field name="asset_account_id"/>
+                            <field name="accumulated_depreciation_account_id"/>
+                            <field name="depreciation_expense_account_id"/>
+                        </group>
+                        <group string="Custody / Disposal">
+                            <field name="location"/>
+                            <field name="custodian_employee_id"/>
+                            <field name="disposal_date"/>
+                            <field name="disposal_proceeds"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Schedule">
+                            <field name="schedule_ids" readonly="1">
+                                <list>
+                                    <field name="period_year"/>
+                                    <field name="period_month"/>
+                                    <field name="depreciation_amount"
+                                           sum="Total"/>
+                                    <field name="accumulated_to_date"/>
+                                    <field name="book_value_after"/>
+                                    <field name="posted_at"/>
+                                    <field name="move_id"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="note"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_kob_fixed_asset" model="ir.actions.act_window">
+        <field name="name">Fixed Assets</field>
+        <field name="res_model">kob.fixed.asset</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+        id="menu_kob_fixed_asset"
+        name="Fixed Assets"
+        parent="kob_base.menu_kob_thai"
+        action="action_kob_fixed_asset"
+        sequence="60"/>
+</odoo>

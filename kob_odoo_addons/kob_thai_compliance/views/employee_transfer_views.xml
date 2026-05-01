@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_employee_transfer_list" model="ir.ui.view">
+        <field name="name">kob.employee.transfer.list</field>
+        <field name="model">kob.employee.transfer</field>
+        <field name="arch" type="xml">
+            <list string="Employee Transfers">
+                <field name="effective_date"/>
+                <field name="employee_id"/>
+                <field name="from_company_id"/>
+                <field name="to_company_id"/>
+                <field name="new_department_id"/>
+                <field name="new_position"/>
+                <field name="state"
+                       decoration-info="state == 'pending'"
+                       decoration-warning="state == 'approved'"
+                       decoration-success="state == 'completed'"
+                       decoration-muted="state == 'cancelled'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_kob_employee_transfer_form" model="ir.ui.view">
+        <field name="name">kob.employee.transfer.form</field>
+        <field name="model">kob.employee.transfer</field>
+        <field name="arch" type="xml">
+            <form string="Employee Transfer">
+                <header>
+                    <button name="action_approve" type="object"
+                            string="Approve" class="oe_highlight"
+                            invisible="state != 'pending'"/>
+                    <button name="action_complete" type="object"
+                            string="Complete &amp; Apply" class="oe_highlight"
+                            invisible="state != 'approved'"
+                            confirm="This will rewrite the employee's company. Continue?"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel"
+                            invisible="state in ('completed','cancelled')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="pending,approved,completed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Transfer">
+                            <field name="employee_id"/>
+                            <field name="from_company_id"/>
+                            <field name="to_company_id"/>
+                            <field name="effective_date"/>
+                        </group>
+                        <group string="New Assignment">
+                            <field name="new_department_id"/>
+                            <field name="new_position"/>
+                            <field name="salary_adjustment_pct"
+                                   widget="percentage"/>
+                        </group>
+                    </group>
+                    <group string="Continuity">
+                        <field name="keep_service_date"/>
+                        <field name="keep_leave_balance"/>
+                        <field name="completed_at" readonly="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Reason">
+                            <field name="reason"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_kob_employee_transfer" model="ir.actions.act_window">
+        <field name="name">Employee Transfers</field>
+        <field name="res_model">kob.employee.transfer</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+        id="menu_kob_employee_transfer"
+        name="Inter-Co Employee Transfers"
+        parent="kob_base.menu_kob_thai"
+        action="action_kob_employee_transfer"
+        sequence="80"/>
+</odoo>

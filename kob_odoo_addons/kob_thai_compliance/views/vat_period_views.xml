@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_vat_period_list" model="ir.ui.view">
+        <field name="name">kob.vat.period.list</field>
+        <field name="model">kob.vat.period</field>
+        <field name="arch" type="xml">
+            <list string="VAT Periods">
+                <field name="period_year"/>
+                <field name="period_month"/>
+                <field name="state"
+                       decoration-info="state == 'calculated'"
+                       decoration-success="state == 'submitted'"
+                       decoration-bf="state == 'settled'"
+                       decoration-muted="state in ('draft','cancelled')"/>
+                <field name="output_vat" sum="Output"/>
+                <field name="input_vat" sum="Input"/>
+                <field name="net_payable" sum="Net"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_kob_vat_period_form" model="ir.ui.view">
+        <field name="name">kob.vat.period.form</field>
+        <field name="model">kob.vat.period</field>
+        <field name="arch" type="xml">
+            <form string="VAT Period">
+                <header>
+                    <button name="action_calculate" type="object"
+                            string="Calculate" class="oe_highlight"
+                            invisible="state not in ('draft','calculated','amended')"/>
+                    <button name="action_submit" type="object"
+                            string="Submit" class="oe_highlight"
+                            invisible="state != 'calculated'"/>
+                    <button name="action_settle" type="object"
+                            string="Mark Settled"
+                            invisible="state != 'submitted'"/>
+                    <button name="action_amend" type="object"
+                            string="Amend"
+                            invisible="state != 'submitted'"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel"
+                            invisible="state in ('settled','cancelled')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,calculated,submitted,settled"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                            <field name="period_year"/>
+                            <field name="period_month"/>
+                        </group>
+                        <group>
+                            <field name="output_vat"/>
+                            <field name="input_vat"/>
+                            <field name="net_payable"/>
+                            <field name="credit_carried_forward"/>
+                            <field name="rd_receipt_number"/>
+                            <field name="submitted_at" readonly="1"/>
+                            <field name="submitted_by" readonly="1"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lines">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="direction"/>
+                                    <field name="document_date"/>
+                                    <field name="counterparty_name"/>
+                                    <field name="counterparty_tax_id"/>
+                                    <field name="invoice_number"/>
+                                    <field name="base_amount" sum="Base"/>
+                                    <field name="vat_amount" sum="VAT"/>
+                                    <field name="total_amount" sum="Total"/>
+                                    <field name="move_id"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="note"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_kob_vat_period" model="ir.actions.act_window">
+        <field name="name">VAT Periods (ภพ.30)</field>
+        <field name="res_model">kob.vat.period</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+        id="menu_kob_vat_period"
+        name="VAT Periods (ภพ.30)"
+        parent="kob_base.menu_kob_thai"
+        action="action_kob_vat_period"
+        sequence="50"/>
+</odoo>
