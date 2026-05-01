@@ -38,7 +38,19 @@ const WELCOME_TAG = "kob_base.welcome";
 let _delegated = false;
 
 patch(NavBar.prototype, {
-    /** Hide module submenus while the user sits on the Welcome page. */
+    /**
+     * Resolve the navbar's currentApp robustly.
+     *
+     *   1. Welcome page → null  (we don't want any submenu while at home).
+     *   2. Real currentApp from menu service → use it (normal navigation
+     *      via menu / Welcome cards goes through `selectMenu` which sets
+     *      the closure currentAppId).
+     *   3. Page reloaded directly to /odoo/action-NN → menu service has
+     *      no currentAppId (closure reset).  Walk the menu cache to find
+     *      the menu owning the running action and return its `appID`'s
+     *      menu — so the brand stays clickable and the submenu sections
+     *      render even after a hard refresh.
+     */
     get currentApp() {
         try {
             const ctrl = this.actionService && this.actionService.currentController;
@@ -46,8 +58,27 @@ patch(NavBar.prototype, {
             if (tag === WELCOME_TAG) {
                 return null;
             }
+            const real = super.currentApp;
+            if (real) {
+                return real;
+            }
+            // Closure currentAppId is unset (post-reload, direct URL).
+            // Derive from the running action.
+            const actionId = ctrl && ctrl.action && ctrl.action.id;
+            if (actionId && this.menuService.getAll) {
+                const all = this.menuService.getAll();
+                const owning = all.find(
+                    (m) => m && m.actionID === actionId,
+                );
+                if (owning && owning.appID && this.menuService.getMenu) {
+                    const app = this.menuService.getMenu(owning.appID);
+                    if (app) {
+                        return app;
+                    }
+                }
+            }
         } catch (_e) {
-            /* fall through to default */
+            /* fall through */
         }
         return super.currentApp;
     },
