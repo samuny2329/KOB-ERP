@@ -87,7 +87,8 @@ class KobWelcome extends Component {
                 category: "kob",
                 color: "#354a5f",
                 glyph: "W",
-                menuXmlId: "kob_base.menu_kob_wh_online_ecommerce",
+                // Direct to the kob_wms root menu installed by the WMS addon.
+                menuXmlId: "kob_wms.menu_kob_wms_root",
             },
             {
                 key: "kob_kpi",
