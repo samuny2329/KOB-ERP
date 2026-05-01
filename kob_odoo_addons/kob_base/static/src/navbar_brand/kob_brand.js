@@ -23,30 +23,32 @@ patch(NavBar.prototype, {
         if (_delegated) return;
         _delegated = true;
 
-        const goWelcome = async (ev) => {
+        const goWelcome = (ev) => {
             const brand = ev.target.closest(".o_menu_brand");
             if (!brand) return;
             if (!document.body.contains(brand)) return;
+            // Kill the event for everyone — including the DropdownItem's
+            // onSelected handler attached to this same element.
             ev.preventDefault();
             ev.stopPropagation();
-            try {
-                // 1. Open the Welcome dashboard.
-                await this.actionService.doAction(
-                    "kob_base.action_kob_welcome",
-                    { clearBreadcrumbs: true },
-                );
-                // 2. Now clear the active app so the lingering Sales > …
-                //    submenus disappear (the action above doesn't reset
-                //    currentMenu by itself).
-                if (this.menuService?.setCurrentMenu) {
-                    this.menuService.setCurrentMenu(null);
+            ev.stopImmediatePropagation();
+            // Hard reload to the welcome action.  We resolve its numeric
+            // id via the action service (synchronously through cache) and
+            // navigate to /odoo/action-<id> — bypasses Odoo's "last
+            // visited action" router which would otherwise send us back
+            // to whatever the user was looking at last.
+            const action = this.actionService;
+            (async () => {
+                try {
+                    const a = await action.loadAction(
+                        "kob_base.action_kob_welcome",
+                    );
+                    window.location.assign(`/odoo/action-${a.id}`);
+                } catch (e) {
+                    console.warn("[KobBrand] welcome action not found", e);
+                    window.location.assign("/odoo");
                 }
-                // 3. Force the navbar to re-render so the submenu strip
-                //    actually clears in the DOM.
-                this.env?.bus?.trigger("MENUS:APP-CHANGED");
-            } catch (e) {
-                console.warn("[KobBrand] welcome action unavailable", e);
-            }
+            })();
         };
 
         // Capture phase so we win over Odoo's own DropdownItem onSelected.
