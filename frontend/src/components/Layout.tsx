@@ -1,89 +1,84 @@
+/** Odoo 19-styled top bar for KOB-ERP.
+ *
+ * - 46px purple navbar (#714B67), white text, hover = darker overlay.
+ * - Brand block on the left ("KOB-ERP") separated by a vertical divider.
+ * - Active nav item gets an inset bottom underline (Odoo's accent).
+ * - Right cluster: company switcher · language · user · sign-out.
+ */
+
 import { NavLink, Outlet } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/lib/auth";
-import { cn } from "@/lib/utils";
 import { CompanySwitcher } from "@/components/CompanySwitcher";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
-const NAV: Array<{ to: string; key: string; group: "wms" | "ops" | "fin" | "core" }> = [
-  { to: "/", key: "nav.home", group: "wms" },
-  { to: "/products", key: "nav.products", group: "wms" },
-  { to: "/warehouses", key: "nav.warehouses", group: "wms" },
-  { to: "/transfers", key: "nav.transfers", group: "wms" },
-  { to: "/outbound", key: "nav.outbound", group: "ops" },
-  { to: "/couriers", key: "nav.couriers", group: "ops" },
-  { to: "/counts", key: "nav.counts", group: "ops" },
-  { to: "/quality", key: "nav.quality", group: "ops" },
-  { to: "/ops", key: "nav.ops", group: "ops" },
-  { to: "/purchase", key: "nav.purchase", group: "fin" },
-  { to: "/manufacturing", key: "nav.manufacturing", group: "fin" },
-  { to: "/sales", key: "nav.sales", group: "fin" },
-  { to: "/accounting", key: "nav.accounting", group: "fin" },
-  { to: "/hr", key: "nav.hr", group: "fin" },
-  { to: "/audit", key: "nav.audit", group: "fin" },
-  { to: "/users", key: "nav.users", group: "core" },
-  { to: "/group", key: "nav.group", group: "core" },
+const NAV: Array<{ to: string; key: string }> = [
+  { to: "/", key: "nav.home" },
+  { to: "/products", key: "nav.products" },
+  { to: "/warehouses", key: "nav.warehouses" },
+  { to: "/transfers", key: "nav.transfers" },
+  { to: "/outbound", key: "nav.outbound" },
+  { to: "/couriers", key: "nav.couriers" },
+  { to: "/counts", key: "nav.counts" },
+  { to: "/quality", key: "nav.quality" },
+  { to: "/ops", key: "nav.ops" },
+  { to: "/purchase", key: "nav.purchase" },
+  { to: "/manufacturing", key: "nav.manufacturing" },
+  { to: "/sales", key: "nav.sales" },
+  { to: "/accounting", key: "nav.accounting" },
+  { to: "/hr", key: "nav.hr" },
+  { to: "/audit", key: "nav.audit" },
+  { to: "/users", key: "nav.users" },
+  { to: "/group", key: "nav.group" },
 ];
-
-const GROUP_TONE: Record<string, string> = {
-  wms: "data-[active=true]:bg-sky-50 data-[active=true]:text-sky-700",
-  ops: "data-[active=true]:bg-violet-50 data-[active=true]:text-violet-700",
-  fin: "data-[active=true]:bg-emerald-50 data-[active=true]:text-emerald-700",
-  core: "data-[active=true]:bg-slate-100 data-[active=true]:text-slate-900",
-};
 
 export default function Layout() {
   const { user, logout } = useAuth();
   const { t } = useTranslation();
   return (
-    <div className="min-h-screen bg-slate-50">
-      <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur">
-        <div className="mx-auto flex max-w-[1400px] items-center gap-6 px-6 py-2.5">
-          <div className="flex shrink-0 items-center gap-2">
-            <div className="grid h-8 w-8 place-items-center rounded-md bg-brand-600 text-sm font-bold text-white">
-              K
-            </div>
-            <span className="whitespace-nowrap text-base font-semibold text-slate-900">
-              KOB-ERP
-            </span>
+    <div className="min-h-screen bg-odoo-appBg">
+      <header className="sticky top-0 z-30 kob-navbar">
+        <div className="mx-auto flex h-full w-full max-w-[1600px] items-stretch gap-1 px-3">
+          <div className="kob-brand">
+            <span className="kob-brand-mark">K</span>
+            <span className="whitespace-nowrap text-[15px]">KOB-ERP</span>
           </div>
 
-          <nav className="flex min-w-0 flex-1 items-center gap-0.5 overflow-x-auto">
+          <nav className="flex min-w-0 flex-1 items-stretch overflow-x-auto">
             {NAV.map((n) => (
               <NavLink
                 key={n.to}
                 to={n.to}
                 end={n.to === "/"}
-                className={({ isActive }) =>
-                  cn(
-                    "shrink-0 whitespace-nowrap rounded-md px-2.5 py-1.5 text-sm transition",
-                    isActive
-                      ? GROUP_TONE[n.group] + ' bg-slate-100 text-slate-900 font-medium'
-                      : "text-slate-600 hover:bg-slate-100",
-                  )
-                }
               >
-                {t(n.key)}
+                {({ isActive }) => (
+                  <span
+                    className="kob-navbar-link whitespace-nowrap"
+                    data-active={isActive ? "true" : "false"}
+                  >
+                    {t(n.key)}
+                  </span>
+                )}
               </NavLink>
             ))}
           </nav>
 
-          <div className="flex shrink-0 items-center gap-2">
+          <div className="flex shrink-0 items-center gap-1.5 pl-2">
             <CompanySwitcher />
             <LanguageSwitcher />
-            <span className="hidden whitespace-nowrap text-sm text-slate-600 lg:inline">
+            <span className="hidden whitespace-nowrap text-[13px] text-white/85 lg:inline">
               {user?.full_name}
             </span>
             <button
               onClick={logout}
-              className="whitespace-nowrap rounded-md border border-slate-300 px-3 py-1 text-xs text-slate-700 hover:bg-slate-50"
+              className="whitespace-nowrap rounded border border-white/30 px-2.5 py-1 text-[12px] text-white/95 hover:bg-black/20"
             >
               {t("action.signOut")}
             </button>
           </div>
         </div>
       </header>
-      <main className="mx-auto max-w-[1400px] px-6 py-8">
+      <main className="mx-auto max-w-[1600px] px-6 py-6">
         <Outlet />
       </main>
     </div>

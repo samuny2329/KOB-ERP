@@ -1,7 +1,9 @@
-/** Reimagined launcher — uniform app grid + dark mode + diagonal pattern.
+/** Odoo 19-style "Apps" launcher for KOB-ERP.
  *
- * Replaces the older bento layout.  Inspired by the Odoo Apps screen +
- * Studio's customise mode, but typographically cleaner and Thai-aware.
+ * - Light grey app background (matches Odoo's `o-bg-app`).
+ * - Square white tiles with rounded corners + subtle border (no heavy shadows).
+ * - Hover = purple border + slight lift, mirroring Odoo Apps card behaviour.
+ * - Search + category chips up top.  Dark mode preserved.
  */
 
 import { useEffect, useMemo, useState } from "react";
@@ -37,6 +39,10 @@ export default function HomePage() {
     if (typeof localStorage !== "undefined") {
       localStorage.setItem(THEME_STORAGE, theme);
     }
+    // Apply dark CSS-variable scope at document root so theme tokens flip too.
+    if (typeof document !== "undefined") {
+      document.documentElement.classList.toggle("kob-dark", theme === "dark");
+    }
   }, [theme]);
 
   const filtered = useMemo(() => {
@@ -63,45 +69,31 @@ export default function HomePage() {
   return (
     <div
       className={cn(
-        // Break out of Layout's max-w-[1400px] so the homepage spans the full
-        // viewport on every device (mobile / tablet / desktop / 4K).
-        "relative left-1/2 right-1/2 -mx-[50vw] -my-8 w-screen min-h-[calc(100vh-65px)] overflow-hidden px-4 py-10 transition-colors sm:px-8 lg:px-16",
-        dark
-          ? "bg-slate-950 text-slate-100"
-          : "bg-gradient-to-br from-slate-50 via-white to-slate-100 text-slate-900",
+        // Break out of Layout's max-width so the launcher spans the viewport.
+        "relative left-1/2 right-1/2 -mx-[50vw] -my-6 w-screen min-h-[calc(100vh-46px)] overflow-hidden px-4 py-8 transition-colors sm:px-8 lg:px-14",
+        dark ? "bg-slate-950 text-slate-100" : "kob-apps-bg",
       )}
     >
-      <div
-        aria-hidden
-        className={cn(
-          "pointer-events-none absolute inset-0 z-0 opacity-[0.07] transition-opacity",
-          dark ? "opacity-[0.15]" : "opacity-[0.06]",
-        )}
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(135deg, currentColor 0 1px, transparent 1px 18px)",
-        }}
-      />
-
-      <div className="relative z-10 mx-auto w-full max-w-7xl">
+      <div className="relative z-10 mx-auto w-full max-w-[1400px]">
         {/* Hero */}
-        <header className="mb-8 flex flex-wrap items-end justify-between gap-3">
+        <header className="mb-7 flex flex-wrap items-end justify-between gap-3">
           <div>
             <p
               className={cn(
-                "text-sm font-medium",
-                dark ? "text-slate-400" : "text-slate-500",
+                "text-[12px] font-medium uppercase tracking-[0.12em]",
+                dark ? "text-slate-400" : "text-odoo-textMuted",
               )}
             >
-              {t(greetingKey())}{user?.default_company ? ` · ${user.default_company.name}` : ""}
+              {t(greetingKey())}
+              {user?.default_company ? ` · ${user.default_company.name}` : ""}
             </p>
-            <h1 className="mt-1 text-4xl font-semibold tracking-tight">
+            <h1 className="mt-1 text-[28px] font-semibold tracking-tight">
               {firstName}
             </h1>
             <p
               className={cn(
-                "mt-1 max-w-md text-sm",
-                dark ? "text-slate-400" : "text-slate-500",
+                "mt-1 max-w-md text-[13px]",
+                dark ? "text-slate-400" : "text-odoo-textMuted",
               )}
             >
               {t("home.subtitle")}
@@ -114,7 +106,7 @@ export default function HomePage() {
         </header>
 
         {/* Search + filter chips */}
-        <div className="mb-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center">
           <div className="relative w-full sm:max-w-sm">
             <input
               type="search"
@@ -122,17 +114,17 @@ export default function HomePage() {
               onChange={(e) => setSearch(e.target.value)}
               placeholder={t("home.searchApps")}
               className={cn(
-                "w-full rounded-full border px-4 py-2 pl-10 text-sm shadow-sm transition",
+                "w-full rounded border px-3 py-1.5 pl-9 text-[13px] transition",
                 "focus:outline-none focus:ring-2",
                 dark
                   ? "border-slate-700 bg-slate-900/80 text-slate-100 placeholder-slate-500 focus:border-brand-500 focus:ring-brand-500/40"
-                  : "border-slate-300 bg-white text-slate-900 placeholder-slate-400 focus:border-brand-500 focus:ring-brand-500/30",
+                  : "border-odoo-border bg-white text-odoo-text placeholder-odoo-textMuted focus:border-brand-500 focus:ring-brand-500/30",
               )}
             />
             <svg
               className={cn(
-                "pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2",
-                dark ? "text-slate-500" : "text-slate-400",
+                "pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2",
+                dark ? "text-slate-500" : "text-odoo-textMuted",
               )}
               viewBox="0 0 20 20"
               fill="currentColor"
@@ -167,21 +159,22 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Sections */}
+        {/* Empty state */}
         {filtered.length === 0 && (
           <div
             className={cn(
-              "rounded-2xl border border-dashed px-6 py-16 text-center text-sm",
+              "rounded border border-dashed px-6 py-16 text-center text-[13px]",
               dark
                 ? "border-slate-700 text-slate-500"
-                : "border-slate-300 text-slate-400",
+                : "border-odoo-border text-odoo-textMuted",
             )}
           >
             {t("home.noResults")}
           </div>
         )}
 
-        <div className="space-y-10">
+        {/* Sections */}
+        <div className="space-y-9">
           {CATEGORIES.map((cat) => {
             const items = grouped[cat.id] ?? [];
             if (items.length === 0) return null;
@@ -190,8 +183,8 @@ export default function HomePage() {
                 <div className="mb-3 flex items-center gap-3">
                   <span
                     className={cn(
-                      "text-xs font-semibold uppercase tracking-[0.18em]",
-                      dark ? "text-slate-500" : "text-slate-400",
+                      "text-[11px] font-semibold uppercase tracking-[0.18em]",
+                      dark ? "text-slate-500" : "text-odoo-textMuted",
                     )}
                   >
                     {t(cat.labelKey)}
@@ -199,27 +192,27 @@ export default function HomePage() {
                   <span
                     className={cn(
                       "h-px flex-1",
-                      dark ? "bg-slate-800" : "bg-slate-200",
+                      dark ? "bg-slate-800" : "bg-odoo-border",
                     )}
                   />
                   <span
                     className={cn(
-                      "text-xs",
-                      dark ? "text-slate-500" : "text-slate-400",
+                      "text-[11px]",
+                      dark ? "text-slate-500" : "text-odoo-textMuted",
                     )}
                   >
                     {items.length}
                   </span>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 xl:grid-cols-8 2xl:grid-cols-9">
+                <div className="grid grid-cols-2 gap-3 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 2xl:grid-cols-8">
                   {items.map((m, i) => (
                     <AppTile
                       key={m.key}
                       module={m}
                       dark={dark}
                       onClick={() => m.enabled && navigate(m.route)}
-                      delayMs={i * 30}
+                      delayMs={i * 25}
                     />
                   ))}
                 </div>
@@ -230,8 +223,8 @@ export default function HomePage() {
 
         <div
           className={cn(
-            "mt-12 text-center text-[11px]",
-            dark ? "text-slate-600" : "text-slate-400",
+            "mt-10 text-center text-[11px]",
+            dark ? "text-slate-600" : "text-odoo-textMuted",
           )}
         >
           KOB-ERP · {new Date().toLocaleDateString(i18n.language)}
@@ -254,14 +247,14 @@ function Chip({ active, dark, onClick, children }: ChipProps) {
       type="button"
       onClick={onClick}
       className={cn(
-        "rounded-full border px-3 py-1 text-xs font-medium transition",
+        "rounded-full border px-2.5 py-0.5 text-[11px] font-medium transition",
         active
           ? dark
             ? "border-brand-500 bg-brand-500/20 text-brand-200"
             : "border-brand-500 bg-brand-50 text-brand-700"
           : dark
           ? "border-slate-700 bg-slate-900/80 text-slate-400 hover:bg-slate-800"
-          : "border-slate-300 bg-white text-slate-600 hover:bg-slate-50",
+          : "border-odoo-border bg-white text-odoo-textMuted hover:bg-odoo-mutedBg",
       )}
     >
       {children}
@@ -285,35 +278,34 @@ function AppTile({ module, dark, onClick, delayMs }: AppTileProps) {
       disabled={!module.enabled}
       style={{ animationDelay: `${delayMs}ms` }}
       className={cn(
-        "group relative flex animate-float-in flex-col items-center justify-end overflow-hidden rounded-2xl p-3 text-left transition",
+        "group relative flex animate-float-in flex-col items-center justify-end overflow-hidden p-3 text-left transition",
         "h-32 sm:h-36",
         module.enabled ? "cursor-pointer" : "cursor-not-allowed opacity-60",
         dark
-          ? "bg-slate-900/60 ring-1 ring-slate-800 hover:bg-slate-900 hover:ring-slate-700"
-          : "bg-white ring-1 ring-slate-200 hover:ring-brand-300",
-        "shadow-sm hover:-translate-y-0.5 hover:shadow-md",
+          ? "rounded-xl bg-slate-900/60 ring-1 ring-slate-800 hover:bg-slate-900 hover:ring-slate-700"
+          : "kob-app-tile",
       )}
     >
       <div
         className={cn(
-          "absolute left-1/2 top-3 grid h-14 w-14 -translate-x-1/2 place-items-center rounded-2xl bg-gradient-to-br shadow-md transition group-hover:scale-105",
+          "absolute left-1/2 top-3 grid h-12 w-12 -translate-x-1/2 place-items-center rounded-xl bg-gradient-to-br shadow-sm transition group-hover:scale-105",
           module.gradient,
         )}
       >
-        <span className="text-xl font-bold text-white drop-shadow-sm">{module.iconLabel}</span>
+        <span className="text-[18px] font-bold text-white">{module.iconLabel}</span>
       </div>
 
       <div
         className={cn(
           "mt-auto w-full text-center",
-          dark ? "text-slate-100" : "text-slate-900",
+          dark ? "text-slate-100" : "text-odoo-text",
         )}
       >
-        <div className="truncate text-sm font-semibold">{module.name}</div>
+        <div className="truncate text-[13px] font-semibold">{module.name}</div>
         <div
           className={cn(
             "mt-0.5 truncate text-[10px]",
-            dark ? "text-slate-500" : "text-slate-500",
+            dark ? "text-slate-500" : "text-odoo-textMuted",
           )}
         >
           {module.enabled ? `Phase ${module.phase}` : t("home.comingSoon")}
@@ -336,7 +328,7 @@ function ThemeToggle({ theme, onChange }: ThemeToggleProps) {
         "inline-flex rounded-full border p-0.5 text-[11px] font-medium",
         theme === "dark"
           ? "border-slate-700 bg-slate-900/80 text-slate-300"
-          : "border-slate-300 bg-white text-slate-600",
+          : "border-odoo-border bg-white text-odoo-textMuted",
       )}
     >
       {(["light", "dark"] as Theme[]).map((mode) => (
@@ -345,12 +337,12 @@ function ThemeToggle({ theme, onChange }: ThemeToggleProps) {
           type="button"
           onClick={() => onChange(mode)}
           className={cn(
-            "rounded-full px-3 py-1 transition",
+            "rounded-full px-2.5 py-0.5 transition",
             theme === mode
               ? mode === "dark"
                 ? "bg-slate-700 text-white"
-                : "bg-slate-900 text-white shadow-sm"
-              : "hover:bg-slate-100/40",
+                : "bg-brand-500 text-white"
+              : "hover:bg-odoo-mutedBg",
           )}
         >
           {mode === "dark" ? "🌙" : "☀️"} {t(`home.theme.${mode}`)}
