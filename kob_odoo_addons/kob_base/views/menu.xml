@@ -20,6 +20,15 @@
             parent="menu_kob_root"
             sequence="20"/>
 
+        <!-- Companies list under the Group/Multi-company parent so the
+             card on the Welcome dashboard is actionable instead of dead. -->
+        <menuitem
+            id="menu_kob_group_companies"
+            name="Companies"
+            parent="menu_kob_group"
+            action="base.action_res_company_form"
+            sequence="10"/>
+
         <menuitem
             id="menu_kob_marketplace"
             name="Marketplace"

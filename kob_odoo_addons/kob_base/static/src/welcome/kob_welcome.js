@@ -9,7 +9,7 @@
  * Clicking a card opens the corresponding Odoo action.
  */
 
-import { Component, useState } from "@odoo/owl";
+import { Component, onMounted, useState } from "@odoo/owl";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
@@ -21,7 +21,24 @@ class KobWelcome extends Component {
     setup() {
         this.action = useService("action");
         this.menuService = useService("menu");
+        this.notification = useService("notification");
         this.state = useState({ search: "", category: null });
+
+        // Welcome is the start screen — clear any leftover currentApp /
+        // currentMenu so the navbar doesn't keep showing submenus from the
+        // module the user just came back from.
+        onMounted(() => this._clearCurrentApp());
+    }
+
+    _clearCurrentApp() {
+        try {
+            // Odoo 19 menu service exposes setCurrentMenu(menu | undefined).
+            if (this.menuService.setCurrentMenu) {
+                this.menuService.setCurrentMenu(undefined);
+            }
+        } catch (_e) {
+            /* best-effort; never block the welcome screen on this */
+        }
     }
 
     /** Static catalogue — module key → metadata. */
@@ -246,18 +263,6 @@ class KobWelcome extends Component {
                 menuXmlId: "point_of_sale.menu_point_root",
             },
             {
-                key: "invoicing",
-                name: _t("Invoicing"),
-                description: _t(
-                    "Customer invoices, vendor bills, payment matching, " +
-                    "Thai VAT (ภพ.30) and WHT (ภงด.3/53) certificates.",
-                ),
-                category: "finance",
-                color: "#0a6ed1",
-                glyph: "🧾",
-                menuXmlId: "account.menu_finance",
-            },
-            {
                 key: "dashboards",
                 name: _t("Dashboards"),
                 description: _t(
@@ -364,6 +369,12 @@ class KobWelcome extends Component {
                         return;
                     }
                 }
+                // Menu exists but has no actionable descendant (placeholder).
+                this._notifyMissing(mod, _t(
+                    "Menu has no actionable child. Install a sub-module " +
+                    "or add a view under this menu first."
+                ));
+                return;
             }
         }
 
@@ -383,14 +394,36 @@ class KobWelcome extends Component {
                 }
                 // Fallback: just open the action without setting currentApp.
                 await this.action.doAction(mod.actionXmlId);
+                return;
             } catch (e) {
                 console.warn(
                     "[KobWelcome] action unavailable",
                     mod.actionXmlId,
                     e,
                 );
+                this._notifyMissing(mod, _t(
+                    "Action not available. The module providing this " +
+                    "feature may not be installed."
+                ));
+                return;
             }
         }
+
+        // 3. Neither menu nor action could resolve.
+        this._notifyMissing(mod, _t(
+            "Module not installed. Open the Apps screen to install it."
+        ));
+    }
+
+    _notifyMissing(mod, hint) {
+        if (!this.notification) {
+            return;
+        }
+        this.notification.add(hint, {
+            title: mod.name,
+            type: "warning",
+            sticky: false,
+        });
     }
 
     onSearchInput(ev) {
