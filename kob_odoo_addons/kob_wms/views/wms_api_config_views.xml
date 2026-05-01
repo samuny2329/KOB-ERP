@@ -194,7 +194,7 @@
                         domain="[('state','=','mapped')]"/>
                 <filter string="Errors" name="f_error"
                         domain="[('state','=','error')]"/>
-                <group expand="1" string="Group By">
+                <group>
                     <filter string="Platform" name="g_platform"
                             context="{'group_by': 'platform'}"/>
                     <filter string="State" name="g_state"

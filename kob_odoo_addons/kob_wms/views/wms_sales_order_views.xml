@@ -244,7 +244,7 @@
         <field name="binding_view_types">list</field>
         <field name="state">code</field>
         <field name="code">action = records.action_print_picklist()</field>
-        <field name="groups_id" eval="[(4, ref('group_wms_manager')), (4, ref('group_wms_supervisor'))]"/>
+        <field name="group_ids" eval="[(4, ref('group_wms_manager')), (4, ref('group_wms_supervisor'))]"/>
     </record>
 
     <!-- Fix packed status (bulk: sync WMS status when picking was validated manually in Inventory) -->
@@ -255,7 +255,7 @@
         <field name="binding_view_types">list</field>
         <field name="state">code</field>
         <field name="code">action = records.action_fix_packed_status()</field>
-        <field name="groups_id" eval="[(4, ref('group_wms_manager'))]"/>
+        <field name="group_ids" eval="[(4, ref('group_wms_manager'))]"/>
     </record>
 
     <!-- Print AWB Labels 100×150 for selected orders -->
@@ -269,7 +269,7 @@
 report = env.ref('kob_wms.action_report_wms_awb_label')
 action = report.report_action(records)
         </field>
-        <field name="groups_id" eval="[(4, ref('group_wms_manager')), (4, ref('group_wms_supervisor'))]"/>
+        <field name="group_ids" eval="[(4, ref('group_wms_manager')), (4, ref('group_wms_supervisor'))]"/>
     </record>
 
     <!-- ═══════════════════════════════════════════════════════════ -->
@@ -291,7 +291,7 @@ action = report.report_action(records)
                 <filter string="SLA Breached"  name="sla_breach"
                         domain="[('sla_status','=','breached')]"/>
                 <separator/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Platform" name="by_platform"
                             context="{'group_by':'platform'}"/>
                     <filter string="Courier"  name="by_courier"
@@ -409,7 +409,7 @@ action = report.report_action(records)
         <field name="binding_view_types">list</field>
         <field name="state">code</field>
         <field name="code">action = model.action_seed_demo_workers()</field>
-        <field name="groups_id" eval="[(4, ref('group_wms_manager'))]"/>
+        <field name="group_ids" eval="[(4, ref('group_wms_manager'))]"/>
     </record>
 
 </odoo>

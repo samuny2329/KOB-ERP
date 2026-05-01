@@ -132,7 +132,7 @@
                 <filter name="inactive" string="Inactive" domain="[('is_active','=',False)]"/>
                 <filter name="locked"   string="Locked"   domain="[('locked_until','!=',False)]"/>
                 <separator/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter name="group_role"     string="System Role" context="{'group_by':'role'}"/>
                     <filter name="group_position" string="Position"    context="{'group_by':'position'}"/>
                 </group>
@@ -148,7 +148,7 @@
         <field name="binding_view_types">list</field>
         <field name="state">code</field>
         <field name="code">model._init_default_pins()</field>
-        <field name="groups_id" eval="[(4, ref('group_wms_manager'))]"/>
+        <field name="group_ids" eval="[(4, ref('group_wms_manager'))]"/>
     </record>
 
     <!-- ── Action ── -->

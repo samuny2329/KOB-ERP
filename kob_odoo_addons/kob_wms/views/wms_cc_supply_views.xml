@@ -39,7 +39,7 @@
                         domain="[('severity','=','shortage')]"/>
                 <filter string="Needs Reorder" name="f_reorder"
                         domain="[('need_reorder','=',True)]"/>
-                <group expand="1" string="Group By">
+                <group>
                     <filter string="Warehouse" name="g_wh"
                             context="{'group_by':'warehouse_id'}"/>
                     <filter string="Severity" name="g_sev"
@@ -95,7 +95,7 @@
                         domain="[('trend_pct','&gt;',10)]"/>
                 <filter string="📉 Trending down (-10%)" name="f_down"
                         domain="[('trend_pct','&lt;',-10)]"/>
-                <group expand="1" string="Group By">
+                <group>
                     <filter string="Company" name="g_co"
                             context="{'group_by':'company_id'}"/>
                 </group>

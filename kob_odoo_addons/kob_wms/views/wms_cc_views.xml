@@ -41,7 +41,7 @@
                         domain="[('others_qty','>',0)]"/>
                 <filter string="Has Reserved" name="f_reserved"
                         domain="[('reserved_qty','>',0)]"/>
-                <group expand="1" string="Group By">
+                <group>
                     <filter string="Product" name="g_product"
                             context="{'group_by':'product_id'}"/>
                     <filter string="Company" name="g_company"
@@ -109,7 +109,7 @@
                         domain="[('state','in',['assigned','confirmed','waiting'])]"/>
                 <filter string="This Month" name="f_month"
                         domain="[('scheduled_date', '&gt;=', (context_today() - datetime.timedelta(days=30)).strftime('%Y-%m-%d'))]"/>
-                <group expand="1" string="Group By">
+                <group>
                     <filter string="Source Company" name="g_src"
                             context="{'group_by':'src_company_id'}"/>
                     <filter string="Destination Company" name="g_dst"

@@ -126,7 +126,7 @@
                 <filter string="High Variance (&gt;5%)" name="high_variance"
                         domain="['|',('variance_pct','&gt;',5),('variance_pct','&lt;',-5)]"/>
                 <separator/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Session" name="g_session"
                             context="{'group_by':'session_id'}"/>
                     <filter string="Product" name="g_product"

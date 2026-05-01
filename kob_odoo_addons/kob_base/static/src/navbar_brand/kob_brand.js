@@ -30,10 +30,20 @@ patch(NavBar.prototype, {
             ev.preventDefault();
             ev.stopPropagation();
             try {
+                // 1. Open the Welcome dashboard.
                 await this.actionService.doAction(
                     "kob_base.action_kob_welcome",
                     { clearBreadcrumbs: true },
                 );
+                // 2. Now clear the active app so the lingering Sales > …
+                //    submenus disappear (the action above doesn't reset
+                //    currentMenu by itself).
+                if (this.menuService?.setCurrentMenu) {
+                    this.menuService.setCurrentMenu(null);
+                }
+                // 3. Force the navbar to re-render so the submenu strip
+                //    actually clears in the DOM.
+                this.env?.bus?.trigger("MENUS:APP-CHANGED");
             } catch (e) {
                 console.warn("[KobBrand] welcome action unavailable", e);
             }

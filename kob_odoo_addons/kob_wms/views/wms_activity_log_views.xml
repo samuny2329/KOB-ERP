@@ -40,7 +40,7 @@
                 <filter string="Return"    name="return" domain="[('action','=','return')]"/>
                 <filter string="Errors"    name="errors"
                         domain="[('action','in',['error_pick','error_pack'])]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Employee" name="group_employee"
                             context="{'group_by':'kob_user_id'}"/>
                     <filter string="Action"   name="group_action"

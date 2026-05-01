@@ -145,7 +145,7 @@
                 <field name="courier_id"/>
                 <filter string="Today" name="today"
                         domain="[('scanned_at', '&gt;=', context_today().strftime('%Y-%m-%d'))]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Courier" name="group_courier"
                             context="{'group_by': 'courier_id'}"/>
                     <filter string="Batch" name="group_batch"

@@ -95,7 +95,7 @@
                         domain="[('avg_bubble_cost', '&gt;', 0)]"/>
                 <separator/>
                 <!-- Group By -->
-                <group expand="1" string="Group By">
+                <group>
                     <filter string="Product"  name="g_product" context="{'group_by': 'product_id'}"/>
                     <filter string="Box"      name="g_box"     context="{'group_by': 'actual_box_id'}"/>
                     <filter string="Platform" name="g_platform" context="{'group_by': 'platform'}"/>

@@ -48,7 +48,7 @@
                 <field name="period_month"/>
                 <field name="account_code"/>
                 <field name="account_name"/>
-                <group expand="1" string="Group By">
+                <group>
                     <filter string="Month" name="g_month"
                             context="{'group_by':'period_month'}"/>
                     <filter string="Account" name="g_acc"
@@ -225,7 +225,7 @@
                 <field name="name"/>
                 <filter string="Last 30 days" name="f_30d"
                         domain="[('training_date', '&gt;=', (context_today() - datetime.timedelta(days=30)).strftime('%Y-%m-%d'))]"/>
-                <group expand="1" string="Group By">
+                <group>
                     <filter string="Employee" name="g_emp"
                             context="{'group_by':'employee_id'}"/>
                     <filter string="Department" name="g_dept"

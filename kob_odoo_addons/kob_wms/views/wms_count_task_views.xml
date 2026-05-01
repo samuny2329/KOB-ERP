@@ -172,24 +172,6 @@
         </field>
     </record>
 
-    <record id="action_wms_count_monitor" model="ir.actions.act_window">
-        <field name="name">🔴 Count Monitor</field>
-        <field name="res_model">wms.count.task</field>
-        <field name="view_mode">list,form</field>
-        <field name="view_id" ref="view_wms_count_monitor_list"/>
-        <field name="domain">[('session_id.state', '=', 'in_progress')]</field>
-        <field name="context">{
-            'search_default_g_state': 1,
-            'search_default_counting': 1
-        }</field>
-        <field name="search_view_id" ref="view_wms_count_task_search"/>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">ไม่มี Task ที่กำลังนับอยู่</p>
-            <p>หน้านี้แสดงเฉพาะ Task ใน Session ที่กำลัง In Progress<br/>
-               Refresh หน้าเพื่อดูสถานะล่าสุด</p>
-        </field>
-    </record>
-
     <record id="view_wms_count_task_search" model="ir.ui.view">
         <field name="name">wms.count.task.search</field>
         <field name="model">wms.count.task</field>
@@ -212,7 +194,7 @@
                 <filter string="Active Session" name="active_session"
                         domain="[('session_id.state','=','in_progress')]"/>
                 <separator/>
-                <group expand="1" string="Group By">
+                <group>
                     <filter string="State" name="g_state"
                             context="{'group_by':'state'}"/>
                     <filter string="Worker" name="g_worker"
@@ -231,6 +213,24 @@
         <field name="res_model">wms.count.task</field>
         <field name="view_mode">list,form</field>
         <field name="search_view_id" ref="view_wms_count_task_search"/>
+    </record>
+
+    <record id="action_wms_count_monitor" model="ir.actions.act_window">
+        <field name="name">🔴 Count Monitor</field>
+        <field name="res_model">wms.count.task</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_wms_count_monitor_list"/>
+        <field name="domain">[('session_id.state', '=', 'in_progress')]</field>
+        <field name="context">{
+            'search_default_g_state': 1,
+            'search_default_counting': 1
+        }</field>
+        <field name="search_view_id" ref="view_wms_count_task_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">ไม่มี Task ที่กำลังนับอยู่</p>
+            <p>หน้านี้แสดงเฉพาะ Task ใน Session ที่กำลัง In Progress<br/>
+               Refresh หน้าเพื่อดูสถานะล่าสุด</p>
+        </field>
     </record>
 
 </odoo>

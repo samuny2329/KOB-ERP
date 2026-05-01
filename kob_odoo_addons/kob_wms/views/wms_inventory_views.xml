@@ -50,7 +50,7 @@
                 <filter string="≤ 90 days" name="90days"
                         domain="[('expiration_date', '&lt;=', (context_today() + datetime.timedelta(days=90)).strftime('%Y-%m-%d')),
                                  ('expiration_date', '&gt;=', context_today().strftime('%Y-%m-%d'))]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Product" name="group_product" context="{'group_by': 'product_id'}"/>
                 </group>
             </search>

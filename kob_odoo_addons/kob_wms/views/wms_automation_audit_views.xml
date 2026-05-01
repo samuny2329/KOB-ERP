@@ -160,7 +160,7 @@
                 <separator/>
                 <filter string="Last 90 days" name="last_90"
                         domain="[('audit_date', '&gt;=', (context_today() - datetime.timedelta(days=90)).strftime('%Y-%m-%d'))]"/>
-                <group expand="1" string="Group By">
+                <group>
                     <filter string="Status" name="group_status"
                             context="{'group_by': 'status'}"/>
                     <filter string="Month" name="group_month"

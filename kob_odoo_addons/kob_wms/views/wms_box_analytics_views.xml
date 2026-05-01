@@ -99,7 +99,7 @@
                 <separator/>
 
                 <!-- Group By -->
-                <group expand="0" string="Group By">
+                <group>
                     <filter string="Box Size"  name="g_box"     context="{'group_by':'actual_box_id'}"/>
                     <filter string="Month"     name="g_month"   context="{'group_by':'month'}"/>
                     <filter string="Platform"  name="g_platform" context="{'group_by':'platform'}"/>
