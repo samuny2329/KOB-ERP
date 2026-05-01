@@ -19,6 +19,9 @@ from backend.core.db import SCHEMAS, Base
 from backend.core import models, models_audit  # noqa: F401
 from backend.modules.accounting import models as accounting_models  # noqa: F401
 from backend.modules.group import models as group_models  # noqa: F401
+from backend.modules.group import models_finance as group_finance_models  # noqa: F401
+from backend.modules.group import models_governance as group_governance_models  # noqa: F401
+from backend.modules.group import models_partner as group_partner_models  # noqa: F401
 from backend.modules.hr import models as hr_models  # noqa: F401
 from backend.modules.inventory import models as inventory_models  # noqa: F401
 from backend.modules.inventory import models_advanced as inventory_advanced_models  # noqa: F401

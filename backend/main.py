@@ -14,6 +14,8 @@ from backend.config import get_settings
 from backend.core.audit import register_audit_hooks, request_id_middleware
 from backend.core.routes import router as core_router
 from backend.modules.accounting.routes import router as accounting_router
+from backend.modules.group.routes import router as group_router
+from backend.modules.group.routes_extra import router as group_extra_router
 from backend.modules.hr.routes import router as hr_router
 from backend.modules.inventory.routes import router as inventory_router
 from backend.modules.inventory.routes_advanced import router as inventory_advanced_router
@@ -93,6 +95,8 @@ def create_app() -> FastAPI:
     app.include_router(sales_router, prefix="/api/v1")
     app.include_router(sales_advanced_router, prefix="/api/v1")
     app.include_router(accounting_router, prefix="/api/v1")
+    app.include_router(group_router, prefix="/api/v1")
+    app.include_router(group_extra_router, prefix="/api/v1")
     app.include_router(hr_router, prefix="/api/v1")
 
     return app
