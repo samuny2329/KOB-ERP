@@ -141,6 +141,23 @@ class Permission(BaseModel):
         return f"{self.model}:{self.action}"
 
 
+class Company(BaseModel):
+    """Legal entity / company — foundation of multi-company setup."""
+
+    __tablename__ = "company"
+    __table_args__ = ({"schema": "grp"},)
+
+    code: Mapped[str] = mapped_column(String(20), unique=True, nullable=False)
+    name: Mapped[str] = mapped_column(String(240), nullable=False)
+    tax_id: Mapped[str | None] = mapped_column(String(30), nullable=True)
+    country: Mapped[str] = mapped_column(String(3), default="THA", nullable=False)
+    currency: Mapped[str] = mapped_column(String(10), default="THB", nullable=False)
+    parent_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("grp.company.id", ondelete="SET NULL"), nullable=True
+    )
+    active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
+
+
 class AuditLog(CoreModel):
     """Append-only log of write operations.
 

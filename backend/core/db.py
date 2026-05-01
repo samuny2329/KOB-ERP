@@ -23,6 +23,7 @@ from backend.config import get_settings
 # Schema names — single source of truth, referenced by every module.
 SCHEMAS = (
     "core",
+    "grp",
     "wms",
     "inventory",
     "outbound",

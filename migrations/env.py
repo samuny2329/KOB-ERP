@@ -24,12 +24,17 @@ from backend.modules.inventory import models_advanced as inventory_advanced_mode
 from backend.modules.inventory import models_count as inventory_count_models  # noqa: F401
 from backend.modules.mfg import models as mfg_models  # noqa: F401
 from backend.modules.mfg import models_advanced as mfg_advanced_models  # noqa: F401
+from backend.modules.group import models as group_models  # noqa: F401
+from backend.modules.group import models_partner as group_partner_models  # noqa: F401
+from backend.modules.group import models_finance as group_finance_models  # noqa: F401
+from backend.modules.group import models_governance as group_governance_models  # noqa: F401
 from backend.modules.ops import models as ops_models  # noqa: F401
 from backend.modules.outbound import models as outbound_models  # noqa: F401
 from backend.modules.purchase import models as purchase_models  # noqa: F401
 from backend.modules.purchase import models_advanced as purchase_advanced_models  # noqa: F401
 from backend.modules.quality import models as quality_models  # noqa: F401
 from backend.modules.sales import models as sales_models  # noqa: F401
+from backend.modules.sales import models_advanced as sales_advanced_models  # noqa: F401
 from backend.modules.wms import models as wms_models  # noqa: F401
 from backend.modules.wms import models_outbound as wms_outbound_models  # noqa: F401
 

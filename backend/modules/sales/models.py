@@ -26,11 +26,24 @@ class Customer(BaseModel):
     credit_limit: Mapped[float] = mapped_column(Numeric(14, 2), default=0)
     payment_term_days: Mapped[int] = mapped_column(Integer, default=30)
     active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
+    salesperson_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("core.user.id", ondelete="SET NULL"), nullable=True
+    )
+    payment_term_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("purchase.payment_term.id", ondelete="SET NULL"), nullable=True
+    )
+    fiscal_position: Mapped[str | None] = mapped_column(String(40), nullable=True)
+    company_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("grp.company.id", ondelete="SET NULL"), nullable=True
+    )
+    group_customer_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("grp.group_customer_profile.id", ondelete="SET NULL"), nullable=True
+    )
 
     orders: Mapped[list["SalesOrder"]] = relationship(back_populates="customer", lazy="select")
 
 
-SO_STATES = ["draft", "confirmed", "picking", "shipped", "invoiced", "cancelled"]
+SO_STATES = ["draft", "sent", "confirmed", "picking", "shipped", "invoiced", "cancelled"]
 
 
 class SalesOrder(BaseModel, WorkflowMixin):
@@ -38,6 +51,16 @@ class SalesOrder(BaseModel, WorkflowMixin):
 
     __tablename__ = "sales_order"
     __table_args__ = ({"schema": "sales"},)
+
+    allowed_transitions: dict = {
+        "draft": {"sent", "confirmed", "cancelled"},
+        "sent": {"confirmed", "cancelled"},
+        "confirmed": {"picking", "cancelled"},
+        "picking": {"shipped"},
+        "shipped": {"invoiced"},
+        "invoiced": set(),
+        "cancelled": set(),
+    }
 
     number: Mapped[str] = mapped_column(String(60), unique=True, nullable=False)
     customer_id: Mapped[int] = mapped_column(
@@ -54,11 +77,32 @@ class SalesOrder(BaseModel, WorkflowMixin):
     shipping_address: Mapped[str | None] = mapped_column(Text)
     notes: Mapped[str | None] = mapped_column(Text)
     confirmed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    sent_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     warehouse_id: Mapped[int | None] = mapped_column(
         BigInteger, ForeignKey("wms.warehouse.id", ondelete="SET NULL")
     )
     platform_order_id: Mapped[int | None] = mapped_column(
         BigInteger, ForeignKey("ops.platform_order.id", ondelete="SET NULL")
+    )
+    salesperson_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("core.user.id", ondelete="SET NULL"), nullable=True
+    )
+    sales_team_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("sales.sales_team.id", ondelete="SET NULL"), nullable=True
+    )
+    payment_term_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("purchase.payment_term.id", ondelete="SET NULL"), nullable=True
+    )
+    incoterms: Mapped[str | None] = mapped_column(String(10), nullable=True)
+    invoicing_policy: Mapped[str] = mapped_column(String(20), default="order", nullable=False)
+    pricelist_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("sales.sales_pricelist.id", ondelete="SET NULL"), nullable=True
+    )
+    company_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("grp.company.id", ondelete="SET NULL"), nullable=True
+    )
+    ic_po_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("purchase.purchase_order.id", ondelete="SET NULL"), nullable=True
     )
 
     customer: Mapped[Customer] = relationship(back_populates="orders", lazy="select")
@@ -86,6 +130,14 @@ class SoLine(BaseModel):
     discount_pct: Mapped[float] = mapped_column(Numeric(5, 2), default=0)
     uom_id: Mapped[int | None] = mapped_column(BigInteger, ForeignKey("wms.uom.id"))
     subtotal: Mapped[float] = mapped_column(Numeric(16, 2), default=0)
+    tax_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("accounting.tax_rate.id", ondelete="SET NULL"), nullable=True
+    )
+    tax_rate: Mapped[float] = mapped_column(Numeric(5, 2), default=7.0, nullable=False)
+    tax_amount: Mapped[float] = mapped_column(Numeric(16, 2), default=0, nullable=False)
+    margin_amount: Mapped[float] = mapped_column(Numeric(16, 2), default=0, nullable=False)
+    platform_fee_amount: Mapped[float] = mapped_column(Numeric(16, 2), default=0, nullable=False)
+    true_margin: Mapped[float] = mapped_column(Numeric(16, 2), default=0, nullable=False)
 
     order: Mapped[SalesOrder] = relationship(back_populates="lines", lazy="select")
 
