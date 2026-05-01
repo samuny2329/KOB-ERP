@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="product_template_form_view_kob" model="ir.ui.view">
+            <field name="name">product.template.form.kob</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='general_information']" position="inside">
+                    <group string="KOB Marketplace">
+                        <field name="x_kob_brand"
+                               placeholder="e.g. KISS-MY-BODY, SKINOXY"/>
+                        <field name="x_kob_sku_code"
+                               placeholder="e.g. KHKB038, DUT300"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_template_search_view_kob" model="ir.ui.view">
+            <field name="name">product.template.search.kob</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="x_kob_sku_code" string="KOB SKU"/>
+                    <field name="x_kob_brand" string="KOB Brand"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Per-shop UTM sources used as x_kob_source_ref on the
+             stock.picking.  Naming convention: `Platform_ShopName`. -->
+        <record id="src_shopee_kissofbeauty" model="utm.source">
+            <field name="name">Shopee_KissOfBeauty</field>
+        </record>
+        <record id="src_shopee_kissmybody" model="utm.source">
+            <field name="name">Shopee_KissMyBody</field>
+        </record>
+        <record id="src_shopee_skinoxy" model="utm.source">
+            <field name="name">Shopee_Skinoxy</field>
+        </record>
+        <record id="src_shopee_daenggimeori" model="utm.source">
+            <field name="name">Shopee_DaengGiMeoRi</field>
+        </record>
+
+        <record id="src_tiktok_kissofbeauty" model="utm.source">
+            <field name="name">TikTok_KissOfBeauty</field>
+        </record>
+        <record id="src_tiktok_kissmybody" model="utm.source">
+            <field name="name">TikTok_KissMyBody</field>
+        </record>
+        <record id="src_tiktok_skinoxy" model="utm.source">
+            <field name="name">TikTok_Skinoxy</field>
+        </record>
+
+        <record id="src_lazada_kissofbeauty" model="utm.source">
+            <field name="name">Lazada_KissOfBeauty</field>
+        </record>
+        <record id="src_lazada_kissmybody" model="utm.source">
+            <field name="name">Lazada_KissMyBody</field>
+        </record>
+        <record id="src_lazada_skinoxy" model="utm.source">
+            <field name="name">Lazada_Skinoxy</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="stock_picking_form_view_kob" model="ir.ui.view">
+            <field name="name">stock.picking.form.kob</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='note']" position="before">
+                    <group string="KOB Marketplace">
+                        <field name="x_kob_source_ref"/>
+                        <field name="x_kob_order_date_ref"/>
+                        <field name="x_kob_products_availability"/>
+                        <field name="x_kob_fake_order"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="stock_picking_list_view_kob" model="ir.ui.view">
+            <field name="name">stock.picking.list.kob</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+                <field name="state" position="after">
+                    <field name="x_kob_source_ref" optional="show"/>
+                    <field name="x_kob_products_availability" optional="show"/>
+                    <field name="x_kob_fake_order" optional="hide"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

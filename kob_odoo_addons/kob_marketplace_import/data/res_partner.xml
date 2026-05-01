@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Marketplace partners — must match the names that
+             Print_Label-App filters on (`partner_id.name`). -->
+        <record id="partner_ecommerce_shopee" model="res.partner">
+            <field name="name">ECOMMERCE : SHOPEE</field>
+            <field name="is_company">True</field>
+            <field name="customer_rank">1</field>
+            <field name="comment">Marketplace partner used for all Shopee orders across every shop.  Individual shops are tracked through utm.source on the SO.</field>
+        </record>
+        <record id="partner_ecommerce_tiktok" model="res.partner">
+            <field name="name">ECOMMERCE : TIKTOK</field>
+            <field name="is_company">True</field>
+            <field name="customer_rank">1</field>
+            <field name="comment">Marketplace partner used for all TikTok Shop orders.</field>
+        </record>
+        <record id="partner_ecommerce_lazada" model="res.partner">
+            <field name="name">ECOMMERCE : LAZADA</field>
+            <field name="is_company">True</field>
+            <field name="customer_rank">1</field>
+            <field name="comment">Marketplace partner used for all Lazada orders.</field>
+        </record>
+    </data>
+</odoo>

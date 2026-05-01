@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- The "fake_order" tag — applied to test/sample SOs, propagated
+             onto the stock.picking as `x_kob_fake_order=True`. -->
+        <record id="tag_fake_order" model="crm.tag">
+            <field name="name">fake_order</field>
+            <field name="color">2</field>
+        </record>
+    </data>
+</odoo>

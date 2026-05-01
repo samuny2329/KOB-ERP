@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_marketplace_import_wizard_form" model="ir.ui.view">
+            <field name="name">kob.marketplace.import.wizard.form</field>
+            <field name="model">kob.marketplace.import.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Import Marketplace Orders">
+                    <sheet>
+                        <h1 invisible="state == 'done'">Import Marketplace Orders</h1>
+                        <h1 invisible="state != 'done'">Import — Result</h1>
+                        <group invisible="state == 'done'">
+                            <group>
+                                <field name="platform" widget="radio"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                                <field name="warehouse_id"/>
+                            </group>
+                            <group>
+                                <field name="auto_confirm"/>
+                                <field name="auto_assign" invisible="not auto_confirm"/>
+                            </group>
+                        </group>
+                        <group invisible="state == 'done'" string="Source File">
+                            <field name="filename" invisible="1"/>
+                            <field name="file_data" filename="filename" widget="binary"/>
+                            <p class="text-muted" colspan="2">
+                                Excel/CSV with columns: <b>order_sn</b>, <b>shop</b>,
+                                <b>order_date</b>, <b>sku</b>, <b>qty</b>, <b>brand</b>,
+                                <b>fake</b> (Y/N), [optional] <b>price</b>.
+                                Multiple lines per order_sn are grouped into one Sale Order.
+                            </p>
+                        </group>
+                        <group invisible="state != 'done'" string="Result">
+                            <field name="log" nolabel="1" readonly="1" widget="text"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="action_import"
+                                type="object"
+                                string="Import"
+                                class="oe_highlight"
+                                invisible="state == 'done'"/>
+                        <button name="action_open_orders"
+                                type="object"
+                                string="Open Imported Orders"
+                                class="oe_highlight"
+                                invisible="state != 'done'"/>
+                        <button string="Close"
+                                special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_marketplace_import_wizard" model="ir.actions.act_window">
+            <field name="name">Import Marketplace Orders</field>
+            <field name="res_model">kob.marketplace.import.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_marketplace_import"
+                  name="Import Orders"
+                  parent="kob_base.menu_kob_marketplace"
+                  action="action_marketplace_import_wizard"
+                  sequence="10"/>
+    </data>
+</odoo>
