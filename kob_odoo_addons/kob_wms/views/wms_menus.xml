@@ -27,12 +27,10 @@
               action="spreadsheet_dashboard.ir_actions_dashboard_action"
               sequence="10"/>
 
-    <menuitem id="menu_wms_login_screen"
-              name="Worker Login"
-              parent="menu_kob_wms_root"
-              action="action_wms_login_screen"
-              sequence="15"
-              groups="group_wms_supervisor"/>
+    <!-- Worker Login submenu removed — KOB ERP integration uses Odoo's
+         own session (admin already authenticated through Welcome).  The
+         `kob.wms.user` records still exist for terminal/PIN use cases
+         but the menu entry is hidden. -->
 
     <menuitem id="menu_wms_pick"
               name="Pick (F1)"
