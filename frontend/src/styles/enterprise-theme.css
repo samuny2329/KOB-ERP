@@ -1,0 +1,190 @@
+/* SAP Fiori-style enterprise theme tokens for KOB-ERP.
+ *
+ * Visual reference: SAP Fiori 3 / Horizon — flat tiles, blue primary,
+ * white surfaces, slim 44px shellbar.  No code copied — only the design
+ * intent (palette mood, scale, spacing) which is industry-standard for
+ * enterprise SaaS dashboards.
+ *
+ * The CSS-variable names are kept generic (--o-* prefix retained for
+ * backward compat with components written under Phase 15) so swapping
+ * themes again later only requires editing this file.
+ */
+
+:root {
+  /* Brand — SAP Fiori cobalt */
+  --o-brand-primary: #0a6ed1;          /* Fiori action blue */
+  --o-brand-primary-darker: #075ba8;
+  --o-brand-secondary: #354a5f;        /* Belize Hole — shellbar fallback */
+  --o-brand-accent: #5d9ff5;           /* hover/secondary fill */
+  --o-brand-on-primary: #ffffff;
+
+  /* Status palette (SAP semantic colours) */
+  --o-success: #107e3e;
+  --o-info: #0a6ed1;
+  --o-warning: #e9730c;
+  --o-danger: #b00;
+
+  /* Surfaces — white on cool grey, like Fiori launchpad */
+  --o-bg-app: #f5f6f7;
+  --o-bg-surface: #ffffff;
+  --o-bg-muted: #eef0f2;
+  --o-bg-hover: rgba(10, 110, 209, 0.06);
+  --o-border: #e5e5e5;
+  --o-border-strong: #cbcdd1;
+
+  /* Text */
+  --o-text: #32363a;
+  --o-text-muted: #6a6d70;
+  --o-text-subtle: #89919a;
+
+  /* Layout — Fiori shellbar is 44px, control bar 44-48px */
+  --o-navbar-height: 44px;
+  --o-control-panel-height: 44px;
+  --o-radius-sm: 4px;
+  --o-radius: 6px;
+  --o-radius-lg: 8px;       /* tiles are slightly less rounded than Odoo */
+
+  /* Typography */
+  --o-font-base: 14px;
+  --o-font-family:
+    "72", "Inter", "Segoe UI", "Helvetica Neue", Arial,
+    "Noto Sans Thai", "IBM Plex Sans Thai", system-ui, sans-serif;
+
+  /* Elevation — SAP Fiori uses soft layered shadows on tiles */
+  --o-shadow-1: 0 0 0 1px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --o-shadow-2: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Dark variant — close to SAP Horizon dark */
+.kob-dark {
+  --o-brand-primary: #4ea2ec;
+  --o-brand-primary-darker: #1e7fcb;
+  --o-brand-on-primary: #ffffff;
+  --o-bg-app: #1d232a;
+  --o-bg-surface: #29313a;
+  --o-bg-muted: #232a32;
+  --o-bg-hover: rgba(78, 162, 236, 0.10);
+  --o-border: #3b434d;
+  --o-border-strong: #4d5663;
+  --o-text: #e6e8ec;
+  --o-text-muted: #a8adb6;
+  --o-text-subtle: #7a818c;
+}
+
+/* ── Shellbar (SAP Fiori top bar) ─────────────────────────────────────── */
+.kob-navbar {
+  height: var(--o-navbar-height);
+  background-color: var(--o-brand-secondary);   /* Belize navy */
+  color: rgba(255, 255, 255, 0.94);
+  display: flex;
+  align-items: stretch;
+  padding: 0 8px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+}
+
+.kob-navbar a,
+.kob-navbar button {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.kob-navbar-link {
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 10px;
+  font-size: 13px;
+  border-radius: 0;
+  transition: background-color 120ms ease;
+}
+.kob-navbar-link:hover {
+  background-color: rgba(255, 255, 255, 0.10);
+  color: #fff;
+}
+.kob-navbar-link[data-active="true"] {
+  background-color: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  box-shadow: inset 0 -2px 0 var(--o-brand-accent);
+  font-weight: 500;
+}
+
+.kob-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding-right: 12px;
+  margin-right: 4px;
+  border-right: 1px solid rgba(255, 255, 255, 0.16);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.kob-brand-mark {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  background: var(--o-brand-primary);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+/* ── Launchpad (Fiori tile area) ──────────────────────────────────────── */
+.kob-apps-bg {
+  background-color: var(--o-bg-app);
+  color: var(--o-text);
+}
+
+.kob-app-tile {
+  background: var(--o-bg-surface);
+  border: 1px solid var(--o-border);
+  border-radius: var(--o-radius-lg);
+  box-shadow: var(--o-shadow-1);
+  transition: box-shadow 160ms ease, transform 160ms ease,
+    border-color 160ms ease;
+}
+.kob-app-tile:hover {
+  box-shadow: var(--o-shadow-2);
+  border-color: var(--o-brand-primary);
+  transform: translateY(-1px);
+}
+
+/* ── Buttons (Fiori btn-emphasized) ───────────────────────────────────── */
+.kob-btn-primary {
+  background-color: var(--o-brand-primary);
+  color: var(--o-brand-on-primary);
+  border: 1px solid var(--o-brand-primary);
+  padding: 5px 12px;
+  border-radius: var(--o-radius-sm);
+  font-size: 13px;
+  line-height: 1.4;
+  font-weight: 500;
+}
+.kob-btn-primary:hover {
+  background-color: var(--o-brand-primary-darker);
+  border-color: var(--o-brand-primary-darker);
+}
+
+.kob-btn-secondary {
+  background: var(--o-bg-surface);
+  color: var(--o-brand-primary);
+  border: 1px solid var(--o-border-strong);
+  padding: 5px 12px;
+  border-radius: var(--o-radius-sm);
+  font-size: 13px;
+}
+.kob-btn-secondary:hover {
+  background: var(--o-bg-hover);
+  border-color: var(--o-brand-primary);
+}
+
+/* ── Sheet (Fiori object page section) ────────────────────────────────── */
+.kob-sheet {
+  background: var(--o-bg-surface);
+  border: 1px solid var(--o-border);
+  border-radius: var(--o-radius-lg);
+  padding: 16px 20px;
+  box-shadow: var(--o-shadow-1);
+}

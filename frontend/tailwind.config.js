@@ -12,38 +12,53 @@ export default {
     },
     extend: {
       colors: {
-        // Brand → Odoo 19 enterprise purple #714B67.  Reused as `brand-*`
-        // so existing className references keep working but render with the
-        // new theme.
+        // Brand → SAP Fiori "action blue" #0a6ed1.  Kept under `brand-*` so
+        // every component already referencing brand-500/600/etc. re-skins
+        // automatically when we swap themes.
         brand: {
-          50: "#f6f1f4",
-          100: "#ead9e3",
-          200: "#d2b3c7",
-          300: "#b58aa6",
-          400: "#956b89",
-          500: "#714b67",
-          600: "#5a3a52",
-          700: "#432c3d",
-          800: "#2c1d29",
-          900: "#160e14",
+          50: "#e8f2fb",
+          100: "#cde0f4",
+          200: "#9cc1ea",
+          300: "#6ba1e0",
+          400: "#3b82d6",
+          500: "#0a6ed1", // Fiori action blue
+          600: "#075ba8",
+          700: "#054780",
+          800: "#033358",
+          900: "#021e35",
         },
-        odoo: {
-          primary: "#714b67",
-          secondary: "#71639e",
-          success: "#28a745",
-          info: "#17a2b8",
-          warning: "#ffac00",
-          danger: "#dc3545",
+        // Fiori semantic palette + Belize Hole navy for the shellbar.
+        sap: {
+          primary: "#0a6ed1",
+          shellbar: "#354a5f", // Belize Hole — top bar bg
+          accent: "#5d9ff5",
+          success: "#107e3e",
+          info: "#0a6ed1",
+          warning: "#e9730c",
+          danger: "#bb0000",
           surface: "#ffffff",
-          appBg: "#f6f6f6",
-          mutedBg: "#f2f2f2",
-          border: "#d9d9d9",
-          text: "#212529",
-          textMuted: "#6c757d",
+          appBg: "#f5f6f7",
+          mutedBg: "#eef0f2",
+          border: "#e5e5e5",
+          text: "#32363a",
+          textMuted: "#6a6d70",
+        },
+        // Backwards-compat alias — old code references `odoo-*` classes but
+        // resolves to SAP tokens now.  Will be removed once every page is
+        // migrated.
+        odoo: {
+          primary: "#0a6ed1",
+          surface: "#ffffff",
+          appBg: "#f5f6f7",
+          mutedBg: "#eef0f2",
+          border: "#e5e5e5",
+          text: "#32363a",
+          textMuted: "#6a6d70",
         },
       },
       fontFamily: {
         sans: [
+          "72", // SAP's house typeface
           "Inter",
           "Segoe UI",
           "Helvetica Neue",
@@ -55,11 +70,11 @@ export default {
         ],
       },
       fontSize: {
-        // Odoo 19 base is 14px — keep Tailwind's `text-base` aligned.
+        // Fiori uses 14px as the base for content density "Cozy".
         base: ["14px", "1.5"],
       },
       spacing: {
-        navbar: "46px",
+        navbar: "44px",
       },
       keyframes: {
         shimmer: {
