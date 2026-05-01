@@ -326,42 +326,68 @@ class KobWelcome extends Component {
             .filter((c) => c.modules.length > 0);
     }
 
+    /** Walk a menu and its descendants until we find one with an
+     *  actionID; selectMenu on that one sets the navbar's currentApp
+     *  correctly so submenus render. */
+    _firstActionableDescendant(menu, all) {
+        if (menu.actionID) return menu;
+        const byId = new Map(all.map((m) => [m.id, m]));
+        const stack = [...(menu.children || [])];
+        while (stack.length) {
+            const childId = stack.shift();
+            const child = byId.get(childId);
+            if (!child) continue;
+            if (child.actionID) return child;
+            stack.push(...(child.children || []));
+        }
+        return null;
+    }
+
     async onCardClick(mod) {
-        // Prefer selectMenu — it activates the menu (so the navbar
-        // submenus render) AND opens the action in one go.  Falls back
-        // to direct doAction for cards that only have an action xmlid.
+        const all = this.menuService.getAll ? this.menuService.getAll() : [];
+
+        // 1. Direct menu lookup by xmlid.
         if (mod.menuXmlId) {
-            try {
-                const all = this.menuService.getAll
-                    ? this.menuService.getAll()
-                    : [];
-                const target = all.find((m) => m && m.xmlid === mod.menuXmlId);
-                if (target) {
-                    if (this.menuService.selectMenu) {
-                        await this.menuService.selectMenu(target);
-                    } else if (target.actionID) {
-                        await this.action.doAction(target.actionID);
-                    }
+            const menu = all.find((m) => m && m.xmlid === mod.menuXmlId);
+            if (menu) {
+                const actionable = this._firstActionableDescendant(menu, all);
+                if (actionable && this.menuService.selectMenu) {
+                    await this.menuService.selectMenu(actionable);
                     return;
                 }
-            } catch (_e) {
-                // fall through
+                if (menu.appID && this.menuService.selectMenu) {
+                    // App-only menu with no children — open the app itself.
+                    const app = all.find((m) => m.id === menu.appID);
+                    if (app && app.actionID) {
+                        await this.menuService.selectMenu(app);
+                        return;
+                    }
+                }
             }
         }
+
+        // 2. Action xmlid → resolve to action_id → find owning menu.
         if (mod.actionXmlId) {
             try {
-                // Find the menu that owns this action so submenus render.
-                const all = this.menuService.getAll
-                    ? this.menuService.getAll()
-                    : [];
-                const owner = all.find((m) => m && m.actionPath === mod.actionXmlId);
-                if (owner && this.menuService.selectMenu) {
-                    await this.menuService.selectMenu(owner);
-                    return;
+                const resolved = await this.action.loadAction(mod.actionXmlId);
+                const actionId = resolved && resolved.id;
+                if (actionId) {
+                    const owner = all.find(
+                        (m) => m && m.actionID === actionId,
+                    );
+                    if (owner && this.menuService.selectMenu) {
+                        await this.menuService.selectMenu(owner);
+                        return;
+                    }
                 }
+                // Fallback: just open the action without setting currentApp.
                 await this.action.doAction(mod.actionXmlId);
             } catch (e) {
-                console.warn("[KobWelcome] action unavailable", mod.actionXmlId, e);
+                console.warn(
+                    "[KobWelcome] action unavailable",
+                    mod.actionXmlId,
+                    e,
+                );
             }
         }
     }
