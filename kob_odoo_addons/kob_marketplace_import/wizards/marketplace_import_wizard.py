@@ -78,7 +78,28 @@ class MarketplaceImportWizard(models.TransientModel):
     warehouse_id = fields.Many2one(
         "stock.warehouse", required=True,
         domain="[('company_id', '=', company_id)]",
+        compute="_compute_default_warehouse",
+        store=True, readonly=False,
     )
+
+    @api.depends("company_id", "platform")
+    def _compute_default_warehouse(self):
+        # Convention: marketplace orders default to the company's
+        # "Online" warehouse — name contains "Online" — fallback to
+        # the first warehouse of that company.
+        for w in self:
+            if not w.company_id:
+                w.warehouse_id = False
+                continue
+            online = self.env["stock.warehouse"].search([
+                ("company_id", "=", w.company_id.id),
+                ("name", "ilike", "Online"),
+            ], limit=1)
+            if not online:
+                online = self.env["stock.warehouse"].search([
+                    ("company_id", "=", w.company_id.id),
+                ], limit=1)
+            w.warehouse_id = online.id if online else False
     file_data = fields.Binary("Excel/CSV File", required=True)
     filename = fields.Char()
     auto_confirm = fields.Boolean("Confirm SOs", default=True)
