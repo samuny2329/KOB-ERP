@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sequence for RMA reference -->
+    <record id="seq_kob_return_order" model="ir.sequence">
+        <field name="name">KOB Return Order</field>
+        <field name="code">kob.return.order</field>
+        <field name="prefix">RMA/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="number_increment">1</field>
+        <field name="number_next">1</field>
+    </record>
+
+    <!-- Top-level group under Sales -->
+    <menuitem
+        id="menu_kob_sales_pro_root"
+        name="KOB Sales Pro"
+        parent="sale.sale_menu_root"
+        sequence="50"/>
+</odoo>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_customer_ltv_list" model="ir.ui.view">
+        <field name="name">kob.customer.ltv.snapshot.list</field>
+        <field name="model">kob.customer.ltv.snapshot</field>
+        <field name="arch" type="xml">
+            <list string="Customer LTV Snapshots">
+                <field name="snapshot_date"/>
+                <field name="partner_id"/>
+                <field name="revenue_90d" sum="Revenue 90d"/>
+                <field name="order_count_90d"/>
+                <field name="avg_order_value"/>
+                <field name="repeat_rate"/>
+                <field name="return_rate"/>
+                <field name="score"
+                       decoration-success="score &gt; 0"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_kob_customer_ltv" model="ir.actions.act_window">
+        <field name="name">Customer LTV</field>
+        <field name="res_model">kob.customer.ltv.snapshot</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+        id="menu_kob_customer_ltv"
+        name="Customer LTV"
+        parent="menu_kob_sales_pro_root"
+        action="action_kob_customer_ltv"
+        sequence="40"/>
+</odoo>

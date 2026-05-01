@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_volume_rebate_tier_list" model="ir.ui.view">
+        <field name="name">kob.volume.rebate.tier.list</field>
+        <field name="model">kob.volume.rebate.tier</field>
+        <field name="arch" type="xml">
+            <list editable="bottom" string="Volume Rebate Tiers">
+                <field name="vendor_id"/>
+                <field name="period_kind"/>
+                <field name="threshold_min"/>
+                <field name="threshold_max"/>
+                <field name="rebate_pct"/>
+                <field name="active"/>
+                <field name="note"/>
+            </list>
+        </field>
+    </record>
+    <record id="action_kob_volume_rebate_tier" model="ir.actions.act_window">
+        <field name="name">Volume Rebate Tiers</field>
+        <field name="res_model">kob.volume.rebate.tier</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem
+        id="menu_kob_volume_rebate_tier"
+        name="Volume Rebate Tiers"
+        parent="menu_kob_group_root"
+        action="action_kob_volume_rebate_tier"
+        sequence="60"/>
+
+    <record id="view_kob_volume_rebate_accrual_list" model="ir.ui.view">
+        <field name="name">kob.volume.rebate.accrual.list</field>
+        <field name="model">kob.volume.rebate.accrual</field>
+        <field name="arch" type="xml">
+            <list string="Volume Rebate Accruals">
+                <field name="period_start"/>
+                <field name="period_end"/>
+                <field name="period_kind"/>
+                <field name="vendor_id"/>
+                <field name="total_group_spend" sum="Group Spend"/>
+                <field name="matched_tier_id"/>
+                <field name="rebate_pct"/>
+                <field name="rebate_amount" sum="Rebate"/>
+                <field name="accrued_at"/>
+            </list>
+        </field>
+    </record>
+    <record id="action_kob_volume_rebate_accrual" model="ir.actions.act_window">
+        <field name="name">Volume Rebate Accruals</field>
+        <field name="res_model">kob.volume.rebate.accrual</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem
+        id="menu_kob_volume_rebate_accrual"
+        name="Volume Rebate Accruals"
+        parent="menu_kob_group_root"
+        action="action_kob_volume_rebate_accrual"
+        sequence="70"/>
+</odoo>

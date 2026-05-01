@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_cost_allocation_list" model="ir.ui.view">
+        <field name="name">kob.cost.allocation.list</field>
+        <field name="model">kob.cost.allocation</field>
+        <field name="arch" type="xml">
+            <list string="Cost Allocations">
+                <field name="name"/>
+                <field name="period_year"/>
+                <field name="period_month"/>
+                <field name="basis"/>
+                <field name="total_amount" sum="Total"/>
+                <field name="state"
+                       decoration-info="state == 'draft'"
+                       decoration-warning="state == 'calculated'"
+                       decoration-success="state == 'posted'"
+                       decoration-muted="state == 'cancelled'"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_kob_cost_allocation_form" model="ir.ui.view">
+        <field name="name">kob.cost.allocation.form</field>
+        <field name="model">kob.cost.allocation</field>
+        <field name="arch" type="xml">
+            <form string="Cost Allocation">
+                <header>
+                    <button name="action_calculate" type="object"
+                            string="Calculate" class="oe_highlight"
+                            invisible="state not in ('draft','calculated')"/>
+                    <button name="action_post" type="object"
+                            string="Post" class="oe_highlight"
+                            invisible="state != 'calculated'"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel"
+                            invisible="state in ('posted','cancelled')"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="parent_company_id"/>
+                            <field name="period_year"/>
+                            <field name="period_month"/>
+                        </group>
+                        <group>
+                            <field name="total_amount"/>
+                            <field name="basis"/>
+                            <field name="posted_at" readonly="1"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lines">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="company_id"/>
+                                    <field name="share_pct"/>
+                                    <field name="amount" readonly="1"/>
+                                    <field name="move_id"/>
+                                    <field name="currency_id" invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes"><field name="note"/></page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_kob_cost_allocation" model="ir.actions.act_window">
+        <field name="name">Cost Allocations</field>
+        <field name="res_model">kob.cost.allocation</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem
+        id="menu_kob_cost_allocation"
+        name="Cost Allocations"
+        parent="menu_kob_group_root"
+        action="action_kob_cost_allocation"
+        sequence="30"/>
+</odoo>

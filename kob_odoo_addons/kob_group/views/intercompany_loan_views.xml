@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_intercompany_loan_list" model="ir.ui.view">
+        <field name="name">kob.intercompany.loan.list</field>
+        <field name="model">kob.intercompany.loan</field>
+        <field name="arch" type="xml">
+            <list string="Intercompany Loans">
+                <field name="name"/>
+                <field name="lender_company_id"/>
+                <field name="borrower_company_id"/>
+                <field name="issue_date"/>
+                <field name="principal" sum="Principal"/>
+                <field name="interest_rate_pct"/>
+                <field name="outstanding_balance"/>
+                <field name="state"
+                       decoration-info="state == 'draft'"
+                       decoration-success="state == 'active'"
+                       decoration-muted="state in ('settled','cancelled')"
+                       decoration-danger="state == 'defaulted'"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_kob_intercompany_loan_form" model="ir.ui.view">
+        <field name="name">kob.intercompany.loan.form</field>
+        <field name="model">kob.intercompany.loan</field>
+        <field name="arch" type="xml">
+            <form string="Intercompany Loan">
+                <header>
+                    <button name="action_activate" type="object"
+                            string="Activate" class="oe_highlight"
+                            invisible="state != 'draft'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="lender_company_id"/>
+                            <field name="borrower_company_id"/>
+                            <field name="issue_date"/>
+                            <field name="maturity_date"/>
+                        </group>
+                        <group>
+                            <field name="principal"/>
+                            <field name="interest_rate_pct"/>
+                            <field name="term_months"/>
+                            <field name="installments_count"/>
+                            <field name="outstanding_balance" readonly="1"/>
+                            <field name="currency_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Schedule">
+                            <field name="installment_ids">
+                                <list editable="bottom">
+                                    <field name="due_date"/>
+                                    <field name="principal_due"/>
+                                    <field name="interest_due"/>
+                                    <field name="paid_amount"/>
+                                    <field name="paid_date"/>
+                                    <field name="state"/>
+                                    <field name="currency_id" invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_kob_intercompany_loan" model="ir.actions.act_window">
+        <field name="name">Intercompany Loans</field>
+        <field name="res_model">kob.intercompany.loan</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem
+        id="menu_kob_intercompany_loan"
+        name="Intercompany Loans"
+        parent="menu_kob_group_root"
+        action="action_kob_intercompany_loan"
+        sequence="40"/>
+</odoo>

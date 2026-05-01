@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_approval_matrix_list" model="ir.ui.view">
+        <field name="name">kob.approval.matrix.list</field>
+        <field name="model">kob.approval.matrix</field>
+        <field name="arch" type="xml">
+            <list string="Approval Matrices">
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="document_type"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_kob_approval_matrix_form" model="ir.ui.view">
+        <field name="name">kob.approval.matrix.form</field>
+        <field name="model">kob.approval.matrix</field>
+        <field name="arch" type="xml">
+            <form string="Approval Matrix">
+                <sheet>
+                    <group>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                        <field name="document_type"/>
+                        <field name="active"/>
+                        <field name="currency_id" invisible="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Rules">
+                            <field name="rule_ids">
+                                <list editable="bottom">
+                                    <field name="threshold_min"/>
+                                    <field name="threshold_max"/>
+                                    <field name="approver_user_id"/>
+                                    <field name="approver_group_id"/>
+                                    <field name="require_unanimous"/>
+                                    <field name="note"/>
+                                    <field name="currency_id" invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_kob_approval_matrix" model="ir.actions.act_window">
+        <field name="name">Approval Matrices</field>
+        <field name="res_model">kob.approval.matrix</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem
+        id="menu_kob_approval_matrix"
+        name="Approval Matrix"
+        parent="menu_kob_group_root"
+        action="action_kob_approval_matrix"
+        sequence="20"/>
+</odoo>

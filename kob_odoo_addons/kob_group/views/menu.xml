@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Top-level Group menu under the existing kob_base.menu_kob_group placeholder -->
+    <menuitem
+        id="menu_kob_group_root"
+        name="Multi-Company / Group"
+        parent="kob_base.menu_kob_root"
+        sequence="22"/>
+</odoo>

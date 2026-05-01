@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Top-level group under the Purchase root menu -->
+    <menuitem
+        id="menu_kob_purchase_pro_root"
+        name="KOB Purchase Pro"
+        parent="purchase.menu_purchase_root"
+        sequence="50"/>
+</odoo>

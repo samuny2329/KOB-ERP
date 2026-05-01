@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_platform_bridge_list" model="ir.ui.view">
+        <field name="name">kob.platform.order.bridge.list</field>
+        <field name="model">kob.platform.order.bridge</field>
+        <field name="arch" type="xml">
+            <list string="SO Platform Bridges">
+                <field name="sale_order_id"/>
+                <field name="platform"/>
+                <field name="platform_order_ref"/>
+                <field name="commission_pct"/>
+                <field name="commission_deducted" sum="Commission"/>
+                <field name="shipping_subsidy" sum="Subsidy"/>
+                <field name="currency_id" invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_kob_platform_bridge" model="ir.actions.act_window">
+        <field name="name">SO Platform Bridges</field>
+        <field name="res_model">kob.platform.order.bridge</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+        id="menu_kob_platform_bridge"
+        name="Platform Order Bridges"
+        parent="menu_kob_sales_pro_root"
+        action="action_kob_platform_bridge"
+        sequence="20"/>
+</odoo>

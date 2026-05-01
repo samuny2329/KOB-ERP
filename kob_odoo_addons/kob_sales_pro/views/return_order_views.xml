@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_return_order_list" model="ir.ui.view">
+        <field name="name">kob.return.order.list</field>
+        <field name="model">kob.return.order</field>
+        <field name="arch" type="xml">
+            <list string="Return Orders">
+                <field name="name"/>
+                <field name="sales_order_id"/>
+                <field name="requested_at"/>
+                <field name="state"
+                       decoration-info="state == 'draft'"
+                       decoration-warning="state == 'received'"
+                       decoration-success="state == 'restocked'"
+                       decoration-muted="state in ('cancelled','scrapped')"/>
+                <field name="refund_amount" sum="Refund"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_kob_return_order_form" model="ir.ui.view">
+        <field name="name">kob.return.order.form</field>
+        <field name="model">kob.return.order</field>
+        <field name="arch" type="xml">
+            <form string="Return Order">
+                <header>
+                    <button name="action_receive" type="object"
+                            string="Mark Received" class="oe_highlight"
+                            invisible="state != 'draft'"/>
+                    <button name="action_restock" type="object"
+                            string="Restock" class="oe_highlight"
+                            invisible="state != 'received'"/>
+                    <button name="action_scrap" type="object"
+                            string="Scrap"
+                            invisible="state != 'received'"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel"
+                            invisible="state in ('restocked','scrapped','cancelled')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,received,restocked"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="sales_order_id"/>
+                            <field name="requested_at"/>
+                            <field name="received_at" readonly="1"/>
+                            <field name="completed_at" readonly="1"/>
+                            <field name="receipt_location_id"/>
+                        </group>
+                        <group>
+                            <field name="refund_amount"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lines">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="lot_id"/>
+                                    <field name="qty_returned"/>
+                                    <field name="qty_restocked"/>
+                                    <field name="qty_scrapped"/>
+                                    <field name="reason_code"/>
+                                    <field name="reason_note"/>
+                                    <field name="refund_amount" sum="Refund"/>
+                                    <field name="currency_id" invisible="1"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes"><field name="note"/></page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_kob_return_order" model="ir.actions.act_window">
+        <field name="name">Return Orders (RMA)</field>
+        <field name="res_model">kob.return.order</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+        id="menu_kob_return_order"
+        name="Returns / RMA"
+        parent="menu_kob_sales_pro_root"
+        action="action_kob_return_order"
+        sequence="10"/>
+</odoo>

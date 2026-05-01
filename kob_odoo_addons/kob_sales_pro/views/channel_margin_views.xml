@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_channel_margin_list" model="ir.ui.view">
+        <field name="name">kob.channel.margin.list</field>
+        <field name="model">kob.channel.margin</field>
+        <field name="arch" type="xml">
+            <list string="Channel Margin">
+                <field name="period_start"/>
+                <field name="period_end"/>
+                <field name="channel"/>
+                <field name="order_count"/>
+                <field name="gross_revenue" sum="Gross"/>
+                <field name="cogs" sum="COGS"/>
+                <field name="platform_fees" sum="Fees"/>
+                <field name="shipping_cost" sum="Shipping"/>
+                <field name="return_amount" sum="Returns"/>
+                <field name="net_margin" sum="Net"
+                       decoration-success="net_margin &gt; 0"
+                       decoration-danger="net_margin &lt; 0"/>
+                <field name="margin_pct"/>
+                <field name="refreshed_at"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_kob_channel_margin" model="ir.actions.act_window">
+        <field name="name">Channel Margin</field>
+        <field name="res_model">kob.channel.margin</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+        id="menu_kob_channel_margin"
+        name="Channel Margin"
+        parent="menu_kob_sales_pro_root"
+        action="action_kob_channel_margin"
+        sequence="30"/>
+</odoo>

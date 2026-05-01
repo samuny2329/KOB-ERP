@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_kob_vendor_document_user,kob.vendor.document user,model_kob_vendor_document,purchase.group_purchase_user,1,1,1,0
+access_kob_vendor_document_manager,kob.vendor.document manager,model_kob_vendor_document,purchase.group_purchase_manager,1,1,1,1
+access_kob_vendor_performance_user,kob.vendor.performance user,model_kob_vendor_performance,purchase.group_purchase_user,1,0,0,0
+access_kob_vendor_performance_manager,kob.vendor.performance manager,model_kob_vendor_performance,purchase.group_purchase_manager,1,1,1,1
+access_kob_procurement_budget_user,kob.procurement.budget user,model_kob_procurement_budget,purchase.group_purchase_user,1,0,0,0
+access_kob_procurement_budget_manager,kob.procurement.budget manager,model_kob_procurement_budget,purchase.group_purchase_manager,1,1,1,1
+access_kob_demand_signal_user,kob.demand.signal user,model_kob_demand_signal,purchase.group_purchase_user,1,1,1,0
+access_kob_demand_signal_manager,kob.demand.signal manager,model_kob_demand_signal,purchase.group_purchase_manager,1,1,1,1
+access_kob_po_consolidation_proposal_user,kob.po.consolidation.proposal user,model_kob_po_consolidation_proposal,purchase.group_purchase_user,1,0,0,0
+access_kob_po_consolidation_proposal_manager,kob.po.consolidation.proposal manager,model_kob_po_consolidation_proposal,purchase.group_purchase_manager,1,1,1,1
+access_kob_po_consolidation_item_user,kob.po.consolidation.item user,model_kob_po_consolidation_item,purchase.group_purchase_user,1,0,0,0
+access_kob_po_consolidation_item_manager,kob.po.consolidation.item manager,model_kob_po_consolidation_item,purchase.group_purchase_manager,1,1,1,1

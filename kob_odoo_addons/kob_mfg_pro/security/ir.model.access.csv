@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mfg_production_shift_user,mfg.production.shift user,model_mfg_production_shift,mrp.group_mrp_user,1,1,1,0
+access_mfg_production_shift_manager,mfg.production.shift manager,model_mfg_production_shift,mrp.group_mrp_manager,1,1,1,1
+access_mfg_workcenter_oee_user,mfg.workcenter.oee user,model_mfg_workcenter_oee,mrp.group_mrp_user,1,1,1,0
+access_mfg_workcenter_oee_manager,mfg.workcenter.oee manager,model_mfg_workcenter_oee,mrp.group_mrp_manager,1,1,1,1
+access_mfg_production_signal_user,mfg.production.signal user,model_mfg_production_signal,mrp.group_mrp_user,1,1,1,0
+access_mfg_production_signal_manager,mfg.production.signal manager,model_mfg_production_signal,mrp.group_mrp_manager,1,1,1,1
+access_mfg_batch_consolidation_user,mfg.batch.consolidation user,model_mfg_batch_consolidation,mrp.group_mrp_user,1,0,0,0
+access_mfg_batch_consolidation_manager,mfg.batch.consolidation manager,model_mfg_batch_consolidation,mrp.group_mrp_manager,1,1,1,1
+access_mfg_batch_consolidation_item_user,mfg.batch.consolidation.item user,model_mfg_batch_consolidation_item,mrp.group_mrp_user,1,0,0,0
+access_mfg_batch_consolidation_item_manager,mfg.batch.consolidation.item manager,model_mfg_batch_consolidation_item,mrp.group_mrp_manager,1,1,1,1

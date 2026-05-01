@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_kob_return_order_user,kob.return.order user,model_kob_return_order,sales_team.group_sale_salesman,1,1,1,0
+access_kob_return_order_manager,kob.return.order manager,model_kob_return_order,sales_team.group_sale_manager,1,1,1,1
+access_kob_return_order_line_user,kob.return.order.line user,model_kob_return_order_line,sales_team.group_sale_salesman,1,1,1,0
+access_kob_return_order_line_manager,kob.return.order.line manager,model_kob_return_order_line,sales_team.group_sale_manager,1,1,1,1
+access_kob_platform_bridge_user,kob.platform.order.bridge user,model_kob_platform_order_bridge,sales_team.group_sale_salesman,1,1,1,0
+access_kob_platform_bridge_manager,kob.platform.order.bridge manager,model_kob_platform_order_bridge,sales_team.group_sale_manager,1,1,1,1
+access_kob_channel_margin_user,kob.channel.margin user,model_kob_channel_margin,sales_team.group_sale_salesman,1,0,0,0
+access_kob_channel_margin_manager,kob.channel.margin manager,model_kob_channel_margin,sales_team.group_sale_manager,1,1,1,1
+access_kob_customer_ltv_user,kob.customer.ltv.snapshot user,model_kob_customer_ltv_snapshot,sales_team.group_sale_salesman,1,0,0,0
+access_kob_customer_ltv_manager,kob.customer.ltv.snapshot manager,model_kob_customer_ltv_snapshot,sales_team.group_sale_manager,1,1,1,1
+access_kob_intercompany_transfer_user,kob.intercompany.transfer user,model_kob_intercompany_transfer,sales_team.group_sale_salesman,1,0,0,0
+access_kob_intercompany_transfer_manager,kob.intercompany.transfer manager,model_kob_intercompany_transfer,sales_team.group_sale_manager,1,1,1,1

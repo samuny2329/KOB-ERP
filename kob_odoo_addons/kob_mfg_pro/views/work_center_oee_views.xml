@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mfg_workcenter_oee_list" model="ir.ui.view">
+        <field name="name">mfg.workcenter.oee.list</field>
+        <field name="model">mfg.workcenter.oee</field>
+        <field name="arch" type="xml">
+            <list string="Work-Centre OEE">
+                <field name="oee_date"/>
+                <field name="workcenter_id"/>
+                <field name="shift_id"/>
+                <field name="planned_time"/>
+                <field name="available_time"/>
+                <field name="run_time"/>
+                <field name="ideal_cycle_time"/>
+                <field name="total_units"/>
+                <field name="good_units"/>
+                <field name="availability"/>
+                <field name="performance"/>
+                <field name="quality"/>
+                <field name="oee"
+                       decoration-success="oee &gt;= 85"
+                       decoration-warning="oee &lt; 85 and oee &gt;= 65"
+                       decoration-danger="oee &lt; 65"/>
+            </list>
+        </field>
+    </record>
+    <record id="action_mfg_workcenter_oee" model="ir.actions.act_window">
+        <field name="name">Work-Centre OEE</field>
+        <field name="res_model">mfg.workcenter.oee</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem
+        id="menu_mfg_workcenter_oee"
+        name="Work-Centre OEE"
+        parent="menu_kob_mfg_pro_root"
+        action="action_mfg_workcenter_oee"
+        sequence="20"/>
+</odoo>

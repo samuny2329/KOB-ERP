@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mfg_production_shift_list" model="ir.ui.view">
+        <field name="name">mfg.production.shift.list</field>
+        <field name="model">mfg.production.shift</field>
+        <field name="arch" type="xml">
+            <list editable="bottom" string="Production Shifts">
+                <field name="warehouse_id"/>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="start_hour"/>
+                <field name="end_hour"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+    <record id="action_mfg_production_shift" model="ir.actions.act_window">
+        <field name="name">Production Shifts</field>
+        <field name="res_model">mfg.production.shift</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem
+        id="menu_mfg_production_shift"
+        name="Production Shifts"
+        parent="menu_kob_mfg_pro_root"
+        action="action_mfg_production_shift"
+        sequence="10"/>
+</odoo>
