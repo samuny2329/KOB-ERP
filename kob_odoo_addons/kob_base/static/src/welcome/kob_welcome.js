@@ -137,7 +137,7 @@ class KobWelcome extends Component {
                 category: "operations",
                 color: "#5d9ff5",
                 glyph: "📦",
-                actionXmlId: "stock.action_picking_tree_all",
+                menuXmlId: "stock.menu_stock_root",
             },
             {
                 key: "mrp",
@@ -149,7 +149,7 @@ class KobWelcome extends Component {
                 category: "operations",
                 color: "#e9730c",
                 glyph: "⚙",
-                actionXmlId: "mrp.mrp_production_action",
+                menuXmlId: "mrp.menu_mrp_root",
             },
             {
                 key: "crm",
@@ -161,7 +161,7 @@ class KobWelcome extends Component {
                 category: "sales_marketing",
                 color: "#bb0000",
                 glyph: "♥",
-                actionXmlId: "crm.crm_lead_action_pipeline",
+                menuXmlId: "crm.crm_menu_root",
             },
             {
                 key: "website",
@@ -173,7 +173,7 @@ class KobWelcome extends Component {
                 category: "sales_marketing",
                 color: "#0a6ed1",
                 glyph: "🌐",
-                actionXmlId: "website.action_website",
+                menuXmlId: "website.menu_website_configuration",
             },
             {
                 key: "accounting",
@@ -185,7 +185,7 @@ class KobWelcome extends Component {
                 category: "finance",
                 color: "#354a5f",
                 glyph: "₿",
-                actionXmlId: "account.action_account_moves_all",
+                menuXmlId: "account.menu_finance",
             },
             {
                 key: "hr",
@@ -197,7 +197,7 @@ class KobWelcome extends Component {
                 category: "people",
                 color: "#107e3e",
                 glyph: "👤",
-                actionXmlId: "hr.open_view_employee_list_my",
+                menuXmlId: "hr.menu_hr_root",
             },
             {
                 key: "calendar",
@@ -208,7 +208,7 @@ class KobWelcome extends Component {
                 category: "productivity",
                 color: "#e9730c",
                 glyph: "📅",
-                actionXmlId: "calendar.action_calendar_event",
+                menuXmlId: "calendar.mail_menu_calendar",
             },
             {
                 key: "discuss",
@@ -219,7 +219,7 @@ class KobWelcome extends Component {
                 category: "productivity",
                 color: "#5d9ff5",
                 glyph: "💬",
-                actionXmlId: "mail.action_discuss",
+                menuXmlId: "mail.menu_root_discuss",
             },
             {
                 key: "contacts",
@@ -231,7 +231,7 @@ class KobWelcome extends Component {
                 category: "sales_marketing",
                 color: "#5d9ff5",
                 glyph: "📇",
-                actionXmlId: "contacts.action_contacts",
+                menuXmlId: "contacts.menu_contacts",
             },
             {
                 key: "pos",
@@ -243,7 +243,7 @@ class KobWelcome extends Component {
                 category: "operations",
                 color: "#bb0000",
                 glyph: "🛒",
-                actionXmlId: "point_of_sale.action_pos_pos_form",
+                menuXmlId: "point_of_sale.menu_point_root",
             },
             {
                 key: "invoicing",
@@ -255,7 +255,7 @@ class KobWelcome extends Component {
                 category: "finance",
                 color: "#0a6ed1",
                 glyph: "🧾",
-                actionXmlId: "account.action_move_out_invoice_type",
+                menuXmlId: "account.menu_finance",
             },
             {
                 key: "dashboards",
@@ -267,7 +267,7 @@ class KobWelcome extends Component {
                 category: "productivity",
                 color: "#107e3e",
                 glyph: "📊",
-                actionXmlId: "spreadsheet_dashboard.action_dashboard_view",
+                menuXmlId: "spreadsheet_dashboard.spreadsheet_dashboard_menu_root",
             },
             {
                 key: "apps",
@@ -279,7 +279,7 @@ class KobWelcome extends Component {
                 category: "admin",
                 color: "#354a5f",
                 glyph: "⊞",
-                actionXmlId: "base.open_module_tree",
+                menuXmlId: "base.menu_management",
             },
             {
                 key: "settings",
@@ -291,7 +291,7 @@ class KobWelcome extends Component {
                 category: "admin",
                 color: "#6a6d70",
                 glyph: "⚙",
-                actionXmlId: "base.action_general_configuration",
+                menuXmlId: "base.menu_administration",
             },
         ];
     }
