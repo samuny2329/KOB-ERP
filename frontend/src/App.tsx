@@ -18,6 +18,12 @@ import SalesPage from "@/pages/SalesPage";
 import AccountingPage from "@/pages/AccountingPage";
 import HRPage from "@/pages/HRPage";
 import UsersPage from "@/pages/UsersPage";
+import GroupHubPage from "@/pages/group/GroupHubPage";
+import CrossCompanyCustomersPage from "@/pages/group/CrossCompanyCustomersPage";
+import CrossCompanyVendorsPage from "@/pages/group/CrossCompanyVendorsPage";
+import TreasuryPage from "@/pages/group/TreasuryPage";
+import CompliancePage from "@/pages/group/CompliancePage";
+import ApprovalsPage from "@/pages/group/ApprovalsPage";
 import { useAuth } from "@/lib/auth";
 
 function ProtectedRoute({ children }: { children: React.ReactElement }) {
@@ -59,6 +65,12 @@ export default function App() {
         <Route path="/accounting" element={<AccountingPage />} />
         <Route path="/hr" element={<HRPage />} />
         <Route path="/users" element={<UsersPage />} />
+        <Route path="/group" element={<GroupHubPage />} />
+        <Route path="/group/customers" element={<CrossCompanyCustomersPage />} />
+        <Route path="/group/vendors" element={<CrossCompanyVendorsPage />} />
+        <Route path="/group/treasury" element={<TreasuryPage />} />
+        <Route path="/group/compliance" element={<CompliancePage />} />
+        <Route path="/group/approvals" element={<ApprovalsPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

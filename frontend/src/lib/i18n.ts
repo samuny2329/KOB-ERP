@@ -91,6 +91,11 @@ const TH = {
   "category.finance": "การเงิน",
   "category.people": "บุคคล",
 
+  // Group module
+  "nav.group": "กลุ่ม",
+  "group.hub.title": "Group Hub",
+  "group.hub.subtitle": "ศูนย์ควบคุมข้ามบริษัท — KPI · ปฏิบัติตาม · กระแสเงินสด · พาร์ทเนอร์",
+
   // Home / launcher
   "home.greeting.morning": "สวัสดีตอนเช้า",
   "home.greeting.afternoon": "สวัสดีตอนบ่าย",
@@ -184,6 +189,10 @@ const EN = {
   "category.ops": "Operations",
   "category.finance": "Finance",
   "category.people": "People",
+
+  "nav.group": "Group",
+  "group.hub.title": "Group Hub",
+  "group.hub.subtitle": "Multi-company command centre — KPIs, compliance, treasury, partners",
 
   "home.greeting.morning": "Good morning",
   "home.greeting.afternoon": "Good afternoon",

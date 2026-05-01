@@ -22,6 +22,7 @@ const NAV: Array<{ to: string; key: string; group: "wms" | "ops" | "fin" | "core
   { to: "/hr", key: "nav.hr", group: "fin" },
   { to: "/audit", key: "nav.audit", group: "fin" },
   { to: "/users", key: "nav.users", group: "core" },
+  { to: "/group", key: "nav.group", group: "core" },
 ];
 
 const GROUP_TONE: Record<string, string> = {
