@@ -8,13 +8,13 @@
                   + 7 separate category tabs with their own subtabs
     ══════════════════════════════════════════════════════════════════ -->
 
-    <!-- Root app — lands on All Orders list (admins / Odoo users skip the
-         PIN profile picker; standalone shared terminals can still reach it
-         via "Worker Login" submenu below). -->
+    <!-- Root app — lands on Worker Login screen.  Picks Profile + enters
+         PIN to set the WMS session (kob.wms.user) which gates Pick/Pack/
+         Outbound screens.  Odoo res.users session is independent. -->
     <menuitem id="menu_kob_wms_root"
               name="KOB WMS"
               sequence="10"
-              action="action_wms_sales_order_all"
+              action="action_wms_login_screen"
               groups="group_wms_worker"/>
 
     <!-- ══════════════════════════════════════════════════════════════
