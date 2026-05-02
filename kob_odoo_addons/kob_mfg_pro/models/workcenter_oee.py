@@ -26,27 +26,58 @@ class MfgWorkcenterOee(models.Model):
     shift_id = fields.Many2one(
         "mfg.production.shift", ondelete="set null",
     )
-    oee_date = fields.Date(required=True, default=fields.Date.context_today)
-    planned_time = fields.Integer(help="Minutes scheduled.")
-    available_time = fields.Integer(help="Minutes machine actually ran.")
-    run_time = fields.Integer(help="Minutes producing parts.")
+    oee_date = fields.Date(
+        required=True, default=fields.Date.context_today,
+        help="Production date for which OEE is being computed. Usually 1 row "
+             "per (workcenter, shift, date).",
+    )
+    planned_time = fields.Integer(
+        help="Minutes scheduled for production in this shift "
+             "(e.g. 8-hour shift = 480 min).",
+    )
+    available_time = fields.Integer(
+        help="Minutes machine was actually available (planned − unplanned "
+             "downtime). Used to compute Availability %.",
+    )
+    run_time = fields.Integer(
+        help="Minutes the machine was producing (available − idle/setup time). "
+             "Used to compute Performance %.",
+    )
     ideal_cycle_time = fields.Float(
         digits=(8, 4),
-        help="Ideal minutes per unit.",
+        help="Ideal minutes per unit at design speed (theoretical maximum). "
+             "Used to compute Performance % vs actual cycle time.",
     )
-    total_units = fields.Integer()
-    good_units = fields.Integer()
+    total_units = fields.Integer(
+        help="All units produced in the shift (good + reject + rework). "
+             "Numerator for Performance and denominator for Quality.",
+    )
+    good_units = fields.Integer(
+        help="First-pass-yield units that passed QC. Numerator for Quality %. "
+             "Diff vs total_units = scrap/rework count.",
+    )
     availability = fields.Float(
         digits=(5, 2), compute="_compute_oee", store=True,
+        help="Availability % = (available_time / planned_time) × 100. "
+             "Measures uptime vs schedule. World-class: ≥90%. "
+             "🟢 ≥85% · 🟡 70–85% · 🔴 <70% breakdowns/changeovers issue.",
     )
     performance = fields.Float(
         digits=(5, 2), compute="_compute_oee", store=True,
+        help="Performance % = (ideal_cycle × total_units) / run_time × 100. "
+             "Measures speed vs design. World-class: ≥95%. "
+             "🟢 ≥90% · 🟡 75–90% · 🔴 <75% — slow running, micro-stops.",
     )
     quality = fields.Float(
         digits=(5, 2), compute="_compute_oee", store=True,
+        help="Quality % = (good_units / total_units) × 100. First-pass yield. "
+             "World-class: ≥99.9%. 🟢 ≥98% · 🟡 95–98% · 🔴 <95%.",
     )
     oee = fields.Float(
         digits=(5, 2), compute="_compute_oee", store=True,
+        help="OEE = Availability × Performance × Quality / 10,000. "
+             "Industry benchmarks: World-class ≥85%, Excellent 75–85%, "
+             "Average 60–75%, Low <60%. KOB cosmetics target: 70%+.",
     )
     company_id = fields.Many2one(
         "res.company", default=lambda s: s.env.company,
