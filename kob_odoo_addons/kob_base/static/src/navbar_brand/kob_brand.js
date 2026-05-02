@@ -1,47 +1,80 @@
 /** @odoo-module **/
 
 /**
- * KOB ERP — guarantee a clickable "KOB ERP" brand on every backend page.
+ * KOB ERP — guarantee a working `< AppName | submenu items` navbar.
  *
- * Why DOM injection instead of OWL patching:
- *   The original NavBar template only renders the `.o_menu_brand`
- *   DropdownItem when ``currentApp`` is truthy:
+ * Strategy:
+ *   1. **Service that auto-syncs currentMenu**.  After every
+ *      ACTION_MANAGER:UI-UPDATED event we check whether
+ *      ``menuService.getCurrentApp()`` is set.  If not (typical post-
+ *      reload state — closure ``currentAppId`` is unset) we walk the
+ *      menu cache, find the menu owning the running action, and call
+ *      ``menuService.setCurrentMenu(menu)``.  This restores the
+ *      native Odoo navbar render (brand + sections) without any
+ *      template patching.
  *
- *       <DropdownItem t-if="!env.isSmall and currentApp" .../>
+ *   2. **Welcome page brand suppression**.  On the welcome client
+ *      action we want NO brand and NO submenu (the user is already
+ *      home).  We hide them via CSS scoped to the welcome action.
  *
- *   ``currentApp`` is computed from a closure variable in
- *   ``menuService`` (``currentAppId``) that is NEVER persisted.  On
- *   page reload (direct URL like /odoo/action-NN, or any non-menu
- *   navigation) it stays unset and the brand vanishes — taking the
- *   "back to Welcome" button with it.
+ *   3. **Brand-as-back-button**.  Capture-phase click delegate on
+ *      ``.o_menu_brand``: any click on it routes to /odoo (welcome).
  *
- *   We tried ``patch(NavBar.prototype, { get currentApp() {...} })`` —
- *   it works in some browser/cache states but observed to be ignored in
- *   others (Odoo 19 patch utility's super-via-getter chain has edge
- *   cases).  The robust fix is to bypass OWL entirely: a
- *   MutationObserver watches every navbar mount and injects a fallback
- *   brand whenever the real one is absent.
+ *   4. **DOM-injection fallback**.  If for some reason setCurrentMenu
+ *      didn't set an app (e.g. action not owned by any menu the user
+ *      has access to), inject a minimal "KOB ERP" anchor so the user
+ *      always has a back-button.
  */
 
-// Path Odoo uses for the welcome action — used in the "we're on welcome"
-// short-circuit to suppress the fallback brand.
-const WELCOME_ACTION_PATTERN = "kob_base.welcome";
+import { registry } from "@web/core/registry";
+
+const WELCOME_TAG = "kob_base.welcome";
 const FALLBACK_CLASS = "kob_fallback_brand";
 
-console.log("[KobBrand] DOM-injection brand bootstrap loaded");
+console.log("[KobBrand] auto-sync + back-button bootstrap loaded");
 
-/** True if the user is currently on the Welcome client action. */
-function isOnWelcome() {
-    // Match via URL — we route to it as /odoo/action-<id>, but the
-    // action *path* in the location may also be 'kob_base.welcome'.
+// ── 1. Service: auto-sync currentMenu after every action change ──
+const kobAutoCurrentMenuService = {
+    dependencies: ["action", "menu"],
+    start(env, { action, menu }) {
+        const sync = () => {
+            try {
+                if (menu.getCurrentApp()) {
+                    return;
+                }
+                const ctrl = action.currentController;
+                const actionId = ctrl && ctrl.action && ctrl.action.id;
+                if (!actionId || !menu.getAll) {
+                    return;
+                }
+                const all = menu.getAll();
+                const owning = all.find(
+                    (m) => m && m.actionID === actionId,
+                );
+                if (owning) {
+                    menu.setCurrentMenu(owning);
+                }
+            } catch (e) {
+                console.warn("[KobBrand] auto-sync failed", e);
+            }
+        };
+        env.bus.addEventListener("ACTION_MANAGER:UI-UPDATED", sync);
+        // First-load case: sync immediately too.
+        Promise.resolve().then(sync);
+    },
+};
+registry
+    .category("services")
+    .add("kob_auto_current_menu", kobAutoCurrentMenuService);
+
+// ── 2. Brand-as-back-button + DOM fallback (capture-phase click) ──
+function isOnWelcomeAction(actionId) {
     try {
-        const path = window.location.pathname || "";
-        if (path.includes(WELCOME_ACTION_PATTERN)) {
-            return true;
-        }
-        // Heuristic: the welcome page has the .kob-welcome-root element
-        // (defined in the XML template).
-        if (document.querySelector(".kob-welcome-root, [data-kob-welcome]")) {
+        // The action service exposes `currentController` on the global
+        // odoo env.  We don't have a clean import here so we rely on
+        // a tiny heuristic: the welcome client action renders an
+        // element with class .kob-welcome.
+        if (document.querySelector(".kob-welcome, [data-kob-welcome]")) {
             return true;
         }
     } catch (_e) {
@@ -50,18 +83,13 @@ function isOnWelcome() {
     return false;
 }
 
-/** Inject the fallback brand into a navbar element if it doesn't already
- *  have a real or fallback brand. */
-function ensureBrand(navbar) {
+function ensureFallbackBrand(navbar) {
     if (!navbar) return;
-    if (isOnWelcome()) {
-        // Welcome page — remove any leftover fallback brand so the
-        // home screen stays clean.
-        const existing = navbar.querySelector("." + FALLBACK_CLASS);
-        if (existing) existing.remove();
+    if (isOnWelcomeAction()) {
+        const stale = navbar.querySelector("." + FALLBACK_CLASS);
+        if (stale) stale.remove();
         return;
     }
-    // Already has a real brand or our fallback? Nothing to do.
     if (navbar.querySelector(".o_menu_brand:not(." + FALLBACK_CLASS + ")")) {
         return;
     }
@@ -71,7 +99,11 @@ function ensureBrand(navbar) {
     const a = document.createElement("a");
     a.className = "o_menu_brand d-flex align-items-center " + FALLBACK_CLASS;
     a.href = "/odoo";
-    a.textContent = "KOB ERP";
+    // Chevron-left + label so it reads "< KOB ERP".
+    a.innerHTML = (
+        '<i class="oi oi-arrow-left me-1" aria-hidden="true"></i>'
+        + '<span>KOB ERP</span>'
+    );
     a.style.cssText = (
         "color: inherit; font-weight: 600; padding: 0 0.75rem; "
         + "text-decoration: none; cursor: pointer;"
@@ -81,9 +113,8 @@ function ensureBrand(navbar) {
         ev.stopPropagation();
         window.location.assign("/odoo");
     });
-    // Insert AFTER the apps-menu button, BEFORE the breadcrumbs slot.
-    const appsMenu = navbar.querySelector(".o_navbar_apps_menu");
     const breadcrumbs = navbar.querySelector(".o_navbar_breadcrumbs");
+    const appsMenu = navbar.querySelector(".o_navbar_apps_menu");
     if (breadcrumbs) {
         navbar.insertBefore(a, breadcrumbs);
     } else if (appsMenu && appsMenu.nextSibling) {
@@ -93,22 +124,32 @@ function ensureBrand(navbar) {
     }
 }
 
-/** Run ensureBrand on every navbar in the document. */
 function pass() {
     const navbars = document.querySelectorAll(".o_main_navbar");
-    navbars.forEach(ensureBrand);
+    navbars.forEach(ensureFallbackBrand);
 }
 
-// Watch the entire body for any DOM mutation — cheap operation, this
-// only inserts when the navbar lacks a brand.
-const observer = new MutationObserver(pass);
-observer.observe(document.body || document.documentElement, {
+// Capture-phase click on ANY .o_menu_brand → go home.
+document.addEventListener(
+    "click",
+    (ev) => {
+        const target = ev.target.closest(".o_menu_brand, .o_menu_toggle");
+        if (!target) return;
+        if (!document.body.contains(target)) return;
+        ev.preventDefault();
+        ev.stopPropagation();
+        ev.stopImmediatePropagation();
+        window.location.assign("/odoo");
+    },
+    true,
+);
+
+// Watch the body for navbar mounts and run our fallback pass.
+new MutationObserver(pass).observe(document.body || document.documentElement, {
     childList: true,
     subtree: true,
 });
-// Initial pass in case navbar is already mounted.
 pass();
-// And one more after the next tick to catch race-with-OWL-mount.
 setTimeout(pass, 100);
 setTimeout(pass, 500);
 setTimeout(pass, 1500);
