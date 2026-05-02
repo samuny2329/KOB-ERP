@@ -78,25 +78,28 @@ registry
 
 function ensureFallbackBrand(navbar) {
     if (!navbar) return;
-    // We do NOT suppress the brand or submenu on Welcome any more —
-    // every prior attempt either caused the brand to stay missing on
-    // module pages (manual refresh required) or interfered with OWL's
-    // re-render path.  Better behaviour is to always show whatever
-    // brand the user last visited; clicking it always returns home.
-    if (navbar.querySelector(".o_menu_brand:not(." + FALLBACK_CLASS + ")")) {
+
+    const realBrand = navbar.querySelector(
+        ".o_menu_brand:not(." + FALLBACK_CLASS + ")",
+    );
+    if (realBrand) {
+        // OWL rendered a real app brand.  Remove any stale fallback so
+        // we don't end up with TWO back-buttons in the navbar.
+        navbar
+            .querySelectorAll("." + FALLBACK_CLASS)
+            .forEach((el) => el.remove());
+        // Mark it so kob_brand.scss can prepend the animated chevron.
+        realBrand.classList.add("kob-real-brand");
         return;
     }
+
     if (navbar.querySelector("." + FALLBACK_CLASS)) {
         return;
     }
     const a = document.createElement("a");
     a.className = "o_menu_brand d-flex align-items-center " + FALLBACK_CLASS;
     a.href = "/odoo";
-    // Chevron-left + label so it reads "< KOB ERP".
-    a.innerHTML = (
-        '<i class="oi oi-arrow-left me-1" aria-hidden="true"></i>'
-        + '<span>KOB ERP</span>'
-    );
+    a.textContent = "KOB ERP";
     a.style.cssText = (
         "color: inherit; font-weight: 600; padding: 0 0.75rem; "
         + "text-decoration: none; cursor: pointer;"

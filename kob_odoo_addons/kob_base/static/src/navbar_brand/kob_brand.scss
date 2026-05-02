@@ -1,0 +1,52 @@
+// KOB ERP — animated back-chevron on the navbar brand.
+//
+// Both the OWL-native brand (e.g. "Inventory") and our DOM-injected
+// fallback ("KOB ERP") share the .o_menu_brand class.  We prepend a
+// gently-animated left-arrow via a CSS pseudo-element so the user
+// has a single, consistent back-button.
+
+@keyframes kob-back-pulse {
+    0%,
+    100% {
+        transform: translateX(0);
+        opacity: 0.85;
+    }
+    50% {
+        transform: translateX(-3px);
+        opacity: 1;
+    }
+}
+
+.o_main_navbar .o_menu_brand {
+    position: relative;
+    cursor: pointer;
+    // Reserve space for the chevron so clicking it works.
+    padding-left: 1.6rem !important;
+
+    &::before {
+        content: "‹";
+        position: absolute;
+        left: 0.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1.4em;
+        font-weight: 700;
+        line-height: 1;
+        opacity: 0.85;
+        animation: kob-back-pulse 2.4s ease-in-out infinite;
+        // Keep the arrow inheriting the brand's text color.
+        color: inherit;
+    }
+
+    &:hover {
+        &::before {
+            opacity: 1;
+            animation-duration: 0.8s;
+        }
+    }
+}
+
+.kob_fallback_brand {
+    // Slightly subdued so it doesn't compete with real brands.
+    opacity: 0.92;
+}

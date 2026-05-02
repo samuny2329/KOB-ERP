@@ -57,12 +57,14 @@
         <field name="view_mode">list,form</field>
     </record>
 
+    <!-- Sequence=5 makes Vendor Performance the first (= default) entry
+         under the KOB Purchase Pro menu. -->
     <menuitem
         id="menu_kob_vendor_performance"
         name="Vendor Performance"
         parent="menu_kob_purchase_pro_root"
         action="action_kob_vendor_performance"
-        sequence="10"/>
+        sequence="5"/>
 
     <!-- Vendor compliance docs -->
     <record id="view_kob_vendor_document_list" model="ir.ui.view">

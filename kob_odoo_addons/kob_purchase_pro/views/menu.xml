@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Top-level group under the Purchase root menu -->
+    <!-- Top-level group under the Purchase root menu.
+         Default landing page = Vendor Performance (most KPI-relevant). -->
     <menuitem
         id="menu_kob_purchase_pro_root"
         name="KOB Purchase Pro"
