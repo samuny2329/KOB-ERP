@@ -6,7 +6,8 @@
         <field name="model">account.account</field>
         <field name="type">form</field>
         <field name="arch" type="xml">
-            <field name="deprecated" position="after">
+            <!-- Odoo 19: anchor on 'account_type' which always exists in the form -->
+            <field name="account_type" position="after">
                 <field name="centralized" />
             </field>
         </field>
