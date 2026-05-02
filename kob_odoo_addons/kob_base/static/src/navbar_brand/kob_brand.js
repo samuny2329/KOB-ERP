@@ -127,11 +127,16 @@ function ensureFallbackBrand(navbar) {
 }
 
 function pass() {
+    // Backend asset bundles can load before <body> is parsed, so guard.
+    const body = document.body;
+    if (!body) {
+        return;
+    }
     // Add / remove a body class so we can use CSS to hide brand +
     // sections on welcome (more robust than just DOM removal because
     // OWL may re-render).
     const onWelcome = isOnWelcomeAction();
-    document.body.classList.toggle("kob-on-welcome", onWelcome);
+    body.classList.toggle("kob-on-welcome", onWelcome);
     const navbars = document.querySelectorAll(".o_main_navbar");
     navbars.forEach(ensureFallbackBrand);
 }
@@ -152,11 +157,26 @@ document.addEventListener(
 );
 
 // Watch the body for navbar mounts and run our fallback pass.
-new MutationObserver(pass).observe(document.body || document.documentElement, {
-    childList: true,
-    subtree: true,
-});
-pass();
+function bootstrapObserver() {
+    const target = document.body;
+    if (!target) {
+        // <body> not parsed yet — try again after the next event loop.
+        setTimeout(bootstrapObserver, 50);
+        return;
+    }
+    new MutationObserver(pass).observe(target, {
+        childList: true,
+        subtree: true,
+    });
+    pass();
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bootstrapObserver);
+} else {
+    bootstrapObserver();
+}
+// Belt-and-braces — re-run after typical OWL mount latencies.
 setTimeout(pass, 100);
 setTimeout(pass, 500);
 setTimeout(pass, 1500);
