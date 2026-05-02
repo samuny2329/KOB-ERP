@@ -1,490 +1,624 @@
-// KOB ERP — Welcome dashboard styling.
+// KOB ERP — AI-era Welcome dashboard
 //
-// Inspired by Odoo's Website "Landing Page" templates: tall hero, refined
-// typography, card grid with hover lift, gentle shadows, generous spacing.
+// Design language: dark glassmorphism, animated neural-mesh background,
+// gradient text, glowing icons, AI prompt bar with subtle breathing pulse.
 
-$kob-graphite: #1a1f29;
-$kob-graphite-light: #2a3140;
-$kob-cobalt: #1d4ed8;
-$kob-cobalt-dark: #1e40af;
-$kob-gold: #c9a96e;
-$kob-gold-light: #d4b572;
-$kob-text: #1f2937;
-$kob-muted: #4b5563;
-$kob-subtle: #9ca3af;
-$kob-border: #ebebe8;
-$kob-bg: #fafaf8;
-$kob-surface: #ffffff;
+$kob-bg-deep:      #07090f;
+$kob-bg-mid:       #0d1220;
+$kob-bg-soft:      #131a2c;
+$kob-glass:        rgba(255, 255, 255, 0.035);
+$kob-glass-border: rgba(255, 255, 255, 0.08);
+$kob-text:         #e8ecf3;
+$kob-muted:        #8a93a8;
+$kob-subtle:       #5b6582;
 
-// Backwards-compat aliases used elsewhere in this file.
-$kob-navy: $kob-graphite;
-$kob-blue: $kob-cobalt;
-$kob-blue-dark: $kob-cobalt-dark;
+$kob-violet:  #a855f7;
+$kob-cyan:    #06b6d4;
+$kob-emerald: #10b981;
+$kob-amber:   #f59e0b;
+$kob-pink:    #ec4899;
 
-.kob-welcome {
+// Backwards-compat (some places may still reference)
+$kob-graphite:      $kob-bg-mid;
+$kob-graphite-light:#1f2940;
+$kob-cobalt:        #6366f1;
+$kob-cobalt-dark:   #4f46e5;
+$kob-gold:          #d4b572;
+$kob-navy:          $kob-bg-deep;
+$kob-blue:          $kob-cobalt;
+$kob-blue-dark:     $kob-cobalt-dark;
+$kob-border:        $kob-glass-border;
+$kob-bg:            $kob-bg-deep;
+$kob-surface:       rgba(255, 255, 255, 0.04);
+
+@keyframes kob-orb-float {
+    0%   { transform: translate(0, 0) scale(1); }
+    50%  { transform: translate(40px, -25px) scale(1.08); }
+    100% { transform: translate(0, 0) scale(1); }
+}
+@keyframes kob-pulse {
+    0%, 100% { transform: scale(1);   opacity: 1;   }
+    50%      { transform: scale(1.6); opacity: 0.4; }
+}
+@keyframes kob-shimmer {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+@keyframes kob-breathe {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.35); }
+    50%      { box-shadow: 0 0 0 16px rgba(168, 85, 247, 0); }
+}
+
+.kob-welcome.kob-welcome--ai {
     height: 100%;
     overflow: auto;
-    background: $kob-bg;
+    background: $kob-bg-deep;
     color: $kob-text;
-    font-family: "72", "Inter", "Segoe UI", "Helvetica Neue", Arial, "Noto Sans Thai", sans-serif;
+    font-family: "Inter", "72", "Segoe UI", -apple-system, "Helvetica Neue", "Noto Sans Thai", sans-serif;
+    position: relative;
 
     .kob-container {
-        max-width: 1240px;
+        max-width: 1280px;
         margin: 0 auto;
         padding: 0 24px;
+        position: relative;
+        z-index: 2;
         @media (min-width: 768px) {
             padding: 0 40px;
         }
     }
 
-    // ── HERO ───────────────────────────────────────────────────────
-    // Premium "graphite + champagne" gradient — sober, hi-end feel.
-    .kob-hero {
-        position: relative;
-        overflow: hidden;
-        background:
-            radial-gradient(ellipse at 75% 10%, rgba(201, 169, 110, 0.20) 0%, transparent 45%),
-            radial-gradient(ellipse at 5% 85%, rgba(29, 78, 216, 0.30) 0%, transparent 50%),
-            linear-gradient(135deg, #0f1419 0%, $kob-graphite 50%, #2a3140 100%);
-        color: #fff;
-        padding: 56px 0 72px;
-
-        @media (max-width: 767px) {
-            padding: 40px 0 48px;
-        }
-    }
-
-    .kob-hero-grid {
-        position: absolute;
+    // ── Animated neural-mesh background ────────────────────────────
+    .kob-mesh {
+        position: fixed;
         inset: 0;
-        background-image:
-            linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-        background-size: 64px 64px;
+        z-index: 0;
+        overflow: hidden;
         pointer-events: none;
-        opacity: 0.6;
-    }
 
-    .kob-hero-inner {
-        position: relative;
-        z-index: 2;
-    }
+        .kob-mesh-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(110px);
+            opacity: 0.45;
+            animation: kob-orb-float 18s ease-in-out infinite;
 
-    .kob-hero-eyebrow {
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 0.22em;
-        color: $kob-gold;
-        margin-bottom: 14px;
-    }
+            &--a {
+                width: 520px; height: 520px;
+                background: radial-gradient(circle, $kob-violet 0%, transparent 70%);
+                top: -120px; left: -100px;
+            }
+            &--b {
+                width: 480px; height: 480px;
+                background: radial-gradient(circle, $kob-cyan 0%, transparent 70%);
+                top: 30%; right: -100px;
+                animation-delay: -6s;
+            }
+            &--c {
+                width: 420px; height: 420px;
+                background: radial-gradient(circle, $kob-emerald 0%, transparent 70%);
+                bottom: -100px; left: 25%;
+                animation-delay: -12s;
+            }
+        }
 
-    .kob-hero-title {
-        font-size: clamp(34px, 5vw, 56px);
-        font-weight: 700;
-        line-height: 1.05;
-        margin: 0 0 16px;
-        max-width: 800px;
-    }
-
-    .kob-hero-accent {
-        background: linear-gradient(90deg, #ffffff 0%, $kob-gold 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-    }
-
-    .kob-hero-sub {
-        font-size: 15px;
-        line-height: 1.65;
-        max-width: 720px;
-        margin: 0 0 28px;
-        opacity: 0.9;
-    }
-
-    .kob-hero-search {
-        position: relative;
-        max-width: 520px;
-        margin-bottom: 16px;
-    }
-
-    .kob-hero-search-icon {
-        position: absolute;
-        left: 18px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: $kob-muted;
-        font-size: 16px;
-    }
-
-    .kob-hero-search-input {
-        width: 100%;
-        padding: 14px 16px 14px 46px;
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        border-radius: 8px;
-        background: rgba(255, 255, 255, 0.96);
-        color: $kob-text;
-        font-size: 14px;
-        outline: none;
-        transition: box-shadow 160ms ease, border-color 160ms ease;
-
-        &:focus {
-            border-color: $kob-blue;
-            box-shadow: 0 0 0 3px rgba(10, 110, 209, 0.25);
+        .kob-mesh-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+            background-size: 48px 48px;
+            mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
         }
     }
 
+    // ── HERO ─────────────────────────────────────────────────────
+    .kob-hero--ai {
+        position: relative;
+        padding: 64px 0 48px;
+
+        .kob-hero-meta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 28px;
+
+            .kob-pulse {
+                width: 8px; height: 8px;
+                background: $kob-emerald;
+                border-radius: 50%;
+                box-shadow: 0 0 12px $kob-emerald;
+                position: relative;
+
+                &::after {
+                    content: "";
+                    position: absolute;
+                    inset: 0;
+                    border-radius: 50%;
+                    background: $kob-emerald;
+                    animation: kob-pulse 2s ease-out infinite;
+                }
+            }
+            .kob-eyebrow {
+                font-size: 11px;
+                letter-spacing: 0.18em;
+                font-weight: 600;
+                color: $kob-muted;
+                text-transform: uppercase;
+            }
+        }
+
+        .kob-hero-title {
+            font-size: 56px;
+            line-height: 1.05;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin: 0 0 16px;
+            @media (max-width: 768px) {
+                font-size: 36px;
+            }
+        }
+
+        .kob-grad-text {
+            background: linear-gradient(120deg, $kob-violet 0%, $kob-cyan 50%, $kob-emerald 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            animation: kob-shimmer 8s linear infinite;
+        }
+
+        .kob-hero-sub {
+            font-size: 17px;
+            color: $kob-muted;
+            margin: 0 0 32px;
+            max-width: 640px;
+        }
+    }
+
+    // ── AI PROMPT BAR ────────────────────────────────────────────
+    .kob-prompt {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 18px;
+        background: $kob-glass;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid $kob-glass-border;
+        border-radius: 16px;
+        max-width: 760px;
+        animation: kob-breathe 4s ease-in-out infinite;
+        transition: border-color 200ms;
+
+        &:focus-within {
+            border-color: rgba(168, 85, 247, 0.5);
+            box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.12);
+            animation: none;
+        }
+
+        .kob-prompt-icon {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        .kob-prompt-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: $kob-text;
+            font-size: 16px;
+            font-weight: 400;
+            font-family: inherit;
+
+            &::placeholder {
+                color: $kob-subtle;
+            }
+        }
+        .kob-prompt-kbd {
+            font-family: "SF Mono", "Menlo", monospace;
+            font-size: 11px;
+            color: $kob-muted;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 4px 8px;
+            border-radius: 6px;
+            border: 1px solid $kob-glass-border;
+        }
+    }
+
+    // ── SMART SUGGESTIONS ────────────────────────────────────────
+    .kob-suggestions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+
+        .kob-suggestions-label {
+            font-size: 10px;
+            letter-spacing: 0.18em;
+            font-weight: 600;
+            color: $kob-subtle;
+            text-transform: uppercase;
+            margin-right: 4px;
+        }
+        .kob-sugg {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid $kob-glass-border;
+            border-radius: 999px;
+            padding: 7px 14px;
+            font-size: 13px;
+            color: $kob-text;
+            cursor: pointer;
+            transition: all 150ms;
+
+            &:hover {
+                background: rgba(168, 85, 247, 0.12);
+                border-color: rgba(168, 85, 247, 0.4);
+                transform: translateY(-1px);
+            }
+            .kob-sugg-emoji { font-size: 14px; }
+        }
+    }
+
+    // ── CATEGORY CHIPS ───────────────────────────────────────────
     .kob-hero-chips {
+        margin-top: 28px;
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
+
+        .kob-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid $kob-glass-border;
+            color: $kob-muted;
+            padding: 7px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 150ms;
+
+            &:hover {
+                background: rgba(255,255,255,0.06);
+                color: $kob-text;
+            }
+            &--active {
+                background: rgba(255,255,255,0.10);
+                color: #fff;
+                border-color: rgba(255,255,255,0.25);
+            }
+            .kob-chip-glyph { font-size: 16px; opacity: 0.7; }
+            .kob-chip-dot {
+                width: 7px; height: 7px;
+                border-radius: 50%;
+                box-shadow: 0 0 8px currentColor;
+            }
+        }
     }
 
-    .kob-chip {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 6px 12px;
-        background: rgba(255, 255, 255, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        border-radius: 999px;
-        font-size: 12px;
-        font-weight: 500;
-        color: rgba(255, 255, 255, 0.92);
-        cursor: pointer;
-        transition: background 140ms ease, border-color 140ms ease;
+    // ── KPI ORBS ─────────────────────────────────────────────────
+    .kob-orbs {
+        padding: 24px 0 16px;
+
+        .kob-orbs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+        }
+        .kob-orb {
+            background: $kob-glass;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid $kob-glass-border;
+            border-radius: 14px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+
+            &::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(135deg, rgba(168, 85, 247, 0.08) 0%, transparent 60%);
+                pointer-events: none;
+            }
+
+            .kob-orb-label {
+                font-size: 11px;
+                letter-spacing: 0.16em;
+                color: $kob-subtle;
+                text-transform: uppercase;
+                font-weight: 600;
+                margin-bottom: 10px;
+            }
+            .kob-orb-value {
+                font-size: 32px;
+                font-weight: 700;
+                color: $kob-text;
+                letter-spacing: -0.02em;
+                line-height: 1;
+
+                .kob-orb-unit {
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: $kob-muted;
+                    margin-left: 4px;
+                }
+            }
+            .kob-orb-trend {
+                margin-top: 10px;
+                font-size: 12px;
+                color: $kob-muted;
+            }
+        }
+    }
+
+    // ── GLASS CARD COMMON ────────────────────────────────────────
+    .kob-glass {
+        background: $kob-glass;
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border: 1px solid $kob-glass-border;
+        transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
 
         &:hover {
-            background: rgba(255, 255, 255, 0.16);
-        }
-
-        &--active {
-            background: #fff;
-            color: $kob-navy;
-            border-color: #fff;
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.14);
+            transform: translateY(-3px);
         }
     }
 
-    .kob-chip-dot {
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-    }
-
-    // ── SECTION HEADERS ───────────────────────────────────────────
+    // ── SECTION HEAD ─────────────────────────────────────────────
     .kob-section-head {
         display: flex;
         align-items: center;
         gap: 14px;
-        margin-bottom: 24px;
-    }
+        margin: 32px 0 20px;
 
-    .kob-section-rule {
-        height: 1px;
-        background: $kob-border;
-        flex: 0 0 36px;
-    }
+        .kob-section-rule {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, $kob-glass-border 50%, transparent 100%);
 
-    .kob-section-rule-r {
-        flex: 1 1 auto;
-    }
-
-    .kob-section-label {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-        color: $kob-muted;
-    }
-
-    .kob-section-dot {
-        display: inline-block;
-        width: 10px;
-        height: 10px;
-        border-radius: 3px;
-    }
-
-    .kob-section-count {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 24px;
-        height: 22px;
-        padding: 0 8px;
-        background: $kob-surface;
-        border: 1px solid $kob-border;
-        border-radius: 11px;
-        font-size: 11px;
-        font-weight: 600;
-        color: $kob-muted;
-    }
-
-    // ── FEATURED ──────────────────────────────────────────────────
-    .kob-featured {
-        padding: 56px 0 12px;
-        background: $kob-bg;
-    }
-
-    .kob-featured-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 20px;
-
-        @media (min-width: 992px) {
-            grid-template-columns: 1fr 1fr;
+            &-r { transform: scaleX(-1); }
+        }
+        .kob-section-label {
+            font-size: 11px;
+            letter-spacing: 0.22em;
+            color: $kob-muted;
+            text-transform: uppercase;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .kob-section-dot {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            box-shadow: 0 0 8px currentColor;
+        }
+        .kob-section-count {
+            background: rgba(255,255,255,0.06);
+            color: $kob-muted;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 999px;
+            font-weight: 600;
         }
     }
 
-    .kob-featured-card {
-        position: relative;
-        display: flex;
-        flex-direction: row;
-        gap: 24px;
-        padding: 28px;
-        background: $kob-surface;
-        border: 1px solid $kob-border;
-        border-radius: 14px;
-        text-align: left;
-        cursor: pointer;
-        overflow: hidden;
-        transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
-        box-shadow:
-            0 0 0 1px rgba(0, 0, 0, 0.03),
-            0 1px 2px rgba(0, 0, 0, 0.04);
+    // ── FEATURED ─────────────────────────────────────────────────
+    .kob-featured--ai {
+        padding: 24px 0 16px;
 
-        &:hover {
-            transform: translateY(-2px);
-            border-color: $kob-gold;
-            box-shadow:
-                0 0 0 1px rgba(201, 169, 110, 0.25),
-                0 16px 36px rgba(26, 31, 41, 0.10);
+        .kob-featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 18px;
         }
+        .kob-featured-card {
+            display: flex;
+            gap: 18px;
+            text-align: left;
+            background: $kob-glass;
+            border: 1px solid $kob-glass-border;
+            border-radius: 18px;
+            padding: 24px;
+            cursor: pointer;
+            color: $kob-text;
+            position: relative;
+            overflow: hidden;
 
-        @media (max-width: 575px) {
-            flex-direction: column;
-            padding: 22px;
-        }
-    }
+            &::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(ellipse at top right, rgba(168, 85, 247, 0.06) 0%, transparent 60%);
+                pointer-events: none;
+                transition: opacity 200ms;
+            }
+            &:hover::after {
+                background: radial-gradient(ellipse at top right, rgba(168, 85, 247, 0.12) 0%, transparent 60%);
+            }
 
-    .kob-featured-icon {
-        flex-shrink: 0;
-        width: 64px;
-        height: 64px;
-        border-radius: 14px;
-        display: grid;
-        place-items: center;
-        font-size: 28px;
-        font-weight: 700;
-        color: #fff;
-        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
-    }
-
-    .kob-featured-body {
-        min-width: 0;
-        flex: 1;
-    }
-
-    .kob-featured-eyebrow {
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 0.18em;
-        color: $kob-gold;
-        margin-bottom: 6px;
-        text-transform: uppercase;
-    }
-
-    .kob-featured-title {
-        font-size: 22px;
-        font-weight: 700;
-        margin: 0 0 10px;
-        color: $kob-text;
-        line-height: 1.2;
-    }
-
-    .kob-featured-desc {
-        font-size: 13.5px;
-        line-height: 1.65;
-        color: $kob-muted;
-        margin: 0 0 16px;
-    }
-
-    .kob-featured-cta {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        font-size: 13px;
-        font-weight: 600;
-        color: $kob-blue;
-
-        > span {
-            transition: transform 160ms ease;
-        }
-    }
-
-    .kob-featured-card:hover .kob-featured-cta > span {
-        transform: translateX(3px);
-    }
-
-    // ── MODULE GRID ───────────────────────────────────────────────
-    .kob-modules {
-        padding: 40px 0 56px;
-    }
-
-    .kob-cat {
-        margin-bottom: 36px;
-    }
-
-    .kob-cards {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-        gap: 16px;
-    }
-
-    .kob-card {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-        padding: 20px;
-        background: $kob-surface;
-        border: 1px solid $kob-border;
-        border-radius: 12px;
-        text-align: left;
-        cursor: pointer;
-        min-height: 184px;
-        transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
-        box-shadow:
-            0 0 0 1px rgba(0, 0, 0, 0.02),
-            0 1px 1px rgba(0, 0, 0, 0.03);
-
-        &:hover {
-            transform: translateY(-2px);
-            border-color: $kob-gold;
-            box-shadow:
-                0 0 0 1px rgba(201, 169, 110, 0.20),
-                0 10px 24px rgba(26, 31, 41, 0.08);
-
-            .kob-card-cta > span {
-                transform: translateX(3px);
+            .kob-featured-icon {
+                width: 56px; height: 56px;
+                border-radius: 14px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 24px;
+                font-weight: 700;
+                color: #fff;
+                flex-shrink: 0;
+            }
+            .kob-featured-eyebrow {
+                font-size: 10px;
+                letter-spacing: 0.2em;
+                color: $kob-muted;
+                text-transform: uppercase;
+                font-weight: 600;
+                margin-bottom: 6px;
+            }
+            .kob-featured-title {
+                font-size: 22px;
+                font-weight: 700;
+                margin: 0 0 10px;
+                letter-spacing: -0.01em;
+            }
+            .kob-featured-desc {
+                font-size: 14px;
+                color: $kob-muted;
+                line-height: 1.55;
+                margin: 0 0 14px;
+            }
+            .kob-featured-cta {
+                font-size: 13px;
+                font-weight: 600;
+                color: $kob-violet;
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
             }
         }
+    }
 
-        &:focus-visible {
-            outline: 2px solid $kob-gold;
-            outline-offset: 2px;
+    // ── ICON GLOW ────────────────────────────────────────────────
+    .kob-icon-glow {
+        box-shadow:
+            0 0 0 1px rgba(255,255,255,0.10) inset,
+            0 4px 20px var(--glow, rgba(168, 85, 247, 0.4));
+    }
+
+    // ── MODULE GRID ──────────────────────────────────────────────
+    .kob-modules {
+        padding: 8px 0 56px;
+
+        .kob-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 14px;
+        }
+        .kob-card {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            text-align: left;
+            background: $kob-glass;
+            border: 1px solid $kob-glass-border;
+            border-radius: 14px;
+            padding: 20px;
+            color: $kob-text;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+
+            .kob-card-icon {
+                width: 42px; height: 42px;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 20px;
+                font-weight: 700;
+                color: #fff;
+                margin-bottom: 4px;
+            }
+            .kob-card-title {
+                font-size: 15px;
+                font-weight: 600;
+                margin: 0;
+                letter-spacing: -0.005em;
+            }
+            .kob-card-desc {
+                font-size: 12.5px;
+                color: $kob-muted;
+                line-height: 1.5;
+                margin: 0;
+                flex: 1;
+            }
+            .kob-card-cta {
+                font-size: 12px;
+                font-weight: 600;
+                color: $kob-cyan;
+                margin-top: auto;
+            }
         }
     }
 
-    .kob-card-icon {
-        width: 44px;
-        height: 44px;
-        border-radius: 10px;
-        display: grid;
-        place-items: center;
-        font-size: 20px;
-        font-weight: 700;
-        color: #fff;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
-    }
-
-    .kob-card-title {
-        font-size: 15px;
-        font-weight: 600;
-        margin: 0;
-        color: $kob-text;
-        line-height: 1.3;
-    }
-
-    .kob-card-desc {
-        font-size: 12.5px;
-        line-height: 1.6;
-        color: $kob-muted;
-        margin: 0;
-        flex-grow: 1;
-    }
-
-    .kob-card-cta {
-        display: inline-flex;
-        align-items: center;
-        gap: 4px;
-        margin-top: 4px;
-        font-size: 12px;
-        font-weight: 600;
-        color: $kob-blue;
-
-        > span {
-            transition: transform 160ms ease;
-        }
-    }
-
-    // ── EMPTY STATE ───────────────────────────────────────────────
+    // ── EMPTY ────────────────────────────────────────────────────
     .kob-empty {
         text-align: center;
-        padding: 64px 24px;
-        color: $kob-muted;
-        background: $kob-surface;
-        border: 1px dashed $kob-border;
-        border-radius: 12px;
+        padding: 80px 20px;
+
+        .kob-empty-icon {
+            font-size: 56px;
+            color: $kob-subtle;
+            margin-bottom: 12px;
+        }
+        .kob-empty-text {
+            color: $kob-muted;
+            font-size: 14px;
+        }
     }
 
-    .kob-empty-icon {
-        font-size: 32px;
-        margin-bottom: 8px;
-    }
+    // ── FOOTER ───────────────────────────────────────────────────
+    .kob-foot--ai {
+        padding: 24px 0 36px;
+        border-top: 1px solid $kob-glass-border;
+        margin-top: 32px;
 
-    .kob-empty-text {
-        font-size: 13px;
-        margin: 0;
-    }
+        .kob-foot-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .kob-foot-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: $kob-muted;
+            font-size: 13px;
 
-    // ── FOOTER ────────────────────────────────────────────────────
-    .kob-foot {
-        background: $kob-navy;
-        color: rgba(255, 255, 255, 0.78);
-        padding: 24px 0;
-        margin-top: 24px;
-    }
+            .kob-foot-mark {
+                width: 26px; height: 26px;
+                border-radius: 7px;
+                background: linear-gradient(135deg, $kob-violet 0%, $kob-cyan 100%);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 700;
+                color: #fff;
+            }
+        }
+        .kob-foot-meta {
+            display: inline-flex;
+            gap: 8px;
 
-    .kob-foot-inner {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .kob-foot-brand {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        font-weight: 600;
-        color: #fff;
-        font-size: 13px;
-    }
-
-    .kob-foot-mark {
-        display: grid;
-        place-items: center;
-        width: 28px;
-        height: 28px;
-        border-radius: 6px;
-        background: linear-gradient(135deg, $kob-gold-light 0%, $kob-gold 100%);
-        color: $kob-graphite;
-        font-size: 13px;
-        font-weight: 800;
-        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15);
-    }
-
-    .kob-foot-meta {
-        font-size: 12px;
-        opacity: 0.7;
+            .kob-foot-pill {
+                font-size: 11px;
+                letter-spacing: 0.1em;
+                font-weight: 600;
+                color: $kob-muted;
+                background: rgba(255,255,255,0.04);
+                border: 1px solid $kob-glass-border;
+                padding: 4px 10px;
+                border-radius: 999px;
+                text-transform: uppercase;
+            }
+        }
     }
 }
-
-// (Welcome-page navbar suppression was attempted here but removed —
-// it caused the brand+submenu to remain hidden on subsequent module
-// navigation until a manual refresh.  We now keep whatever brand the
-// user last visited; clicking it always returns home.)

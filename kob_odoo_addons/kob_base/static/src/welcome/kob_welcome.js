@@ -523,6 +523,12 @@ class KobWelcome extends Component {
     onCategoryClick(catId) {
         this.state.category = this.state.category === catId ? null : catId;
     }
+
+    /** AI suggestion chip click — pre-fill the prompt and clear category. */
+    applySuggest(query) {
+        this.state.search = query;
+        this.state.category = null;
+    }
 }
 
 registry.category("actions").add("kob_base.welcome", KobWelcome);

@@ -1,47 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
 
-    <!-- ─────────────────────────────────────────────────────────────────
-         KOB ERP — Welcome dashboard
-
-         Style cues taken from Odoo 19's "New Page" templates: a tall
-         gradient hero with strong typography, a "Featured" row of two
-         oversized cards on a coloured panel, then a clean tile grid by
-         category, and a subtle footer.
-         ──────────────────────────────────────────────────────────────── -->
+    <!-- KOB ERP — AI-era Welcome dashboard
+         Style: dark glassmorphism, neural-mesh hero, AI prompt bar,
+         smart suggestion chips, KPI orbs, animated module grid. -->
 
     <t t-name="kob_base.Welcome">
-        <div class="kob-welcome o_action_manager">
+        <div class="kob-welcome kob-welcome--ai o_action_manager">
 
-            <!-- ── HERO ─────────────────────────────────────────────── -->
-            <section class="kob-hero">
-                <div class="kob-hero-grid"/>
+            <!-- ── ANIMATED NEURAL MESH BACKGROUND ──────────────────── -->
+            <div class="kob-mesh">
+                <div class="kob-mesh-orb kob-mesh-orb--a"/>
+                <div class="kob-mesh-orb kob-mesh-orb--b"/>
+                <div class="kob-mesh-orb kob-mesh-orb--c"/>
+                <div class="kob-mesh-grid"/>
+            </div>
+
+            <!-- ── HERO + AI PROMPT ─────────────────────────────────── -->
+            <section class="kob-hero kob-hero--ai">
                 <div class="kob-container kob-hero-inner">
-                    <div class="kob-hero-eyebrow">KISS OF BEAUTY · ENTERPRISE ERP</div>
+
+                    <div class="kob-hero-meta">
+                        <span class="kob-pulse"/>
+                        <span class="kob-eyebrow">KISS OF BEAUTY · AI-NATIVE ERP · v19</span>
+                    </div>
+
                     <h1 class="kob-hero-title">
-                        Welcome to <span class="kob-hero-accent">KOB ERP</span>
+                        Hello,
+                        <span class="kob-grad-text">what shall we build today?</span>
                     </h1>
                     <p class="kob-hero-sub">
-                        ระบบ ERP รวมศูนย์สำหรับธุรกิจกลุ่ม Kiss of Beauty —
-                        คลังสินค้า, ขาย, ซื้อ, ผลิต, บัญชี, HR และ Thai compliance
-                        ทั้งหมดในที่เดียว.
-                        <br/>
-                        <span class="opacity-75">Pick a module below to get started.</span>
+                        AI-augmented enterprise OS — บอกสิ่งที่อยากทำ ระบบจะพาไปถึงที่
                     </p>
-                    <div class="kob-hero-search">
-                        <i class="oi oi-search kob-hero-search-icon"/>
+
+                    <!-- AI PROMPT BAR -->
+                    <div class="kob-prompt">
+                        <div class="kob-prompt-icon">
+                            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                                <defs>
+                                    <linearGradient id="kob-spark-grad" x1="0" y1="0" x2="1" y2="1">
+                                        <stop offset="0%" stop-color="#7c3aed"/>
+                                        <stop offset="100%" stop-color="#06b6d4"/>
+                                    </linearGradient>
+                                </defs>
+                                <path fill="url(#kob-spark-grad)" d="M12 2l1.6 4.6L18 8l-4.4 1.4L12 14l-1.6-4.6L6 8l4.4-1.4L12 2zm6 11l.9 2.6L21 16.5l-2.1.9L18 20l-.9-2.6L15 16.5l2.1-.9L18 13zM6 14l.7 2 2 .7-2 .7L6 19.4l-.7-2-2-.7 2-.7L6 14z"/>
+                            </svg>
+                        </div>
                         <input type="search"
-                               class="kob-hero-search-input"
-                               placeholder="ค้นหาโหมด · Search modules (e.g. Sales, SSO, OEE)"
+                               class="kob-prompt-input"
+                               placeholder="ค้นหา / ถาม AI: 'แสดงยอดขาย 30 วันล่าสุด' · 'เปิด PND filing' · 'Sales' · 'WMS'"
                                t-on-input="onSearchInput"
                                t-att-value="state.search"/>
+                        <kbd class="kob-prompt-kbd">⌘K</kbd>
                     </div>
+
+                    <!-- SMART SUGGESTIONS -->
+                    <div class="kob-suggestions">
+                        <span class="kob-suggestions-label">SUGGESTED ·</span>
+                        <button type="button" class="kob-sugg" t-on-click="() => this.applySuggest('sales 30 days')">
+                            <span class="kob-sugg-emoji">📈</span> Sales 30d
+                        </button>
+                        <button type="button" class="kob-sugg" t-on-click="() => this.applySuggest('SSO PND payroll')">
+                            <span class="kob-sugg-emoji">ภ</span> Run payroll
+                        </button>
+                        <button type="button" class="kob-sugg" t-on-click="() => this.applySuggest('warehouse pick pack outbound')">
+                            <span class="kob-sugg-emoji">📦</span> WMS workflow
+                        </button>
+                        <button type="button" class="kob-sugg" t-on-click="() => this.applySuggest('demand forecast')">
+                            <span class="kob-sugg-emoji">🔮</span> Forecast
+                        </button>
+                        <button type="button" class="kob-sugg" t-on-click="() => this.applySuggest('coupon campaign segment')">
+                            <span class="kob-sugg-emoji">🎯</span> Marketing
+                        </button>
+                    </div>
+
+                    <!-- CATEGORY CHIPS -->
                     <div class="kob-hero-chips">
                         <button type="button"
                                 class="kob-chip"
                                 t-att-class="{ 'kob-chip--active': !state.category }"
                                 t-on-click="() => this.onCategoryClick(null)">
-                            All / ทั้งหมด
+                            <span class="kob-chip-glyph">∗</span> All
                         </button>
                         <t t-foreach="categories" t-as="c" t-key="c.id">
                             <button type="button"
@@ -56,51 +95,93 @@
                 </div>
             </section>
 
-            <!-- ── FEATURED (top KOB ERP-only highlights) ───────────── -->
-            <section class="kob-featured" t-if="!state.category and !state.search">
+            <!-- ── KPI ORBS ────────────────────────────────────────── -->
+            <section class="kob-orbs" t-if="!state.category and !state.search">
+                <div class="kob-container">
+                    <div class="kob-orbs-grid">
+                        <div class="kob-orb">
+                            <div class="kob-orb-label">Modules</div>
+                            <div class="kob-orb-value">22<span class="kob-orb-unit"> KOB</span></div>
+                            <div class="kob-orb-trend">+ Logistics &amp; Marketing</div>
+                        </div>
+                        <div class="kob-orb">
+                            <div class="kob-orb-label">AI Agents</div>
+                            <div class="kob-orb-value">7<span class="kob-orb-unit"> active</span></div>
+                            <div class="kob-orb-trend">forecast · scorecard · OCR · attribution</div>
+                        </div>
+                        <div class="kob-orb">
+                            <div class="kob-orb-label">Integrations</div>
+                            <div class="kob-orb-value">11</div>
+                            <div class="kob-orb-trend">Shopee · Lazada · Kerry · Flash · DHL · J&amp;T</div>
+                        </div>
+                        <div class="kob-orb">
+                            <div class="kob-orb-label">Compliance</div>
+                            <div class="kob-orb-value">100<span class="kob-orb-unit">%</span></div>
+                            <div class="kob-orb-trend">Thai SSO · PND · ภพ.30 · ภงด.91</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ── FEATURED ────────────────────────────────────────── -->
+            <section class="kob-featured kob-featured--ai" t-if="!state.category and !state.search">
                 <div class="kob-container">
                     <div class="kob-section-head">
                         <span class="kob-section-rule"/>
-                        <span class="kob-section-label">FEATURED · ฟีเจอร์เด่น</span>
+                        <span class="kob-section-label">FEATURED · AI-POWERED</span>
                         <span class="kob-section-rule kob-section-rule-r"/>
                     </div>
                     <div class="kob-featured-grid">
                         <button type="button"
-                                class="kob-featured-card kob-featured-card--lg"
+                                class="kob-featured-card kob-featured-card--lg kob-glass"
                                 t-on-click="() => this.onCardClick(modules.find(m => m.key === 'kob_thai_compliance'))">
-                            <div class="kob-featured-icon" style="background: #107e3e;">ภ</div>
+                            <div class="kob-featured-icon kob-icon-glow" style="--glow:#10b981;">ภ</div>
                             <div class="kob-featured-body">
-                                <div class="kob-featured-eyebrow">ความเฉพาะของ KOB ERP</div>
+                                <div class="kob-featured-eyebrow">SOVEREIGN COMPLIANCE</div>
                                 <h3 class="kob-featured-title">Thailand Compliance</h3>
                                 <p class="kob-featured-desc">
-                                    SSO 5%+5% (capped 750฿) · PND withholding tax brackets ·
-                                    Thai LPA overtime (1.5×/3×) · annual leave entitlement ·
+                                    SSO 5%+5% · PND brackets · Thai LPA OT · ภงด.91 annual cert ·
                                     fixed-asset depreciation · period-end FX revaluation —
-                                    ครบทุก compliance ที่ SME ไทยต้องการ.
+                                    AI-validated, audit-ready.
                                 </p>
-                                <span class="kob-featured-cta">เปิดโหมด <span aria-hidden="true">→</span></span>
+                                <span class="kob-featured-cta">Open module <span aria-hidden="true">→</span></span>
                             </div>
                         </button>
                         <button type="button"
-                                class="kob-featured-card kob-featured-card--lg"
+                                class="kob-featured-card kob-featured-card--lg kob-glass"
                                 t-on-click="() => this.onCardClick(modules.find(m => m.key === 'kob_wh_online'))">
-                            <div class="kob-featured-icon" style="background: #354a5f;">W</div>
+                            <div class="kob-featured-icon kob-icon-glow" style="--glow:#06b6d4;">W</div>
                             <div class="kob-featured-body">
                                 <div class="kob-featured-eyebrow">CORE OPERATION</div>
                                 <h3 class="kob-featured-title">WH-Online E-Commerce</h3>
                                 <p class="kob-featured-desc">
-                                    Pick · Pack · Outbound · Dispatch fullscreen scan-driven
-                                    workflow ที่เชื่อม Shopee · Lazada · TikTok · POS เข้ากับ
-                                    Odoo stock — ตัด stock อัตโนมัติเมื่อ pack เสร็จ.
+                                    Pick · Pack · Outbound · Dispatch — scan-driven workflow
+                                    integrating Shopee/Lazada/TikTok with AI-suggested
+                                    bin allocation and demand sensing.
                                 </p>
-                                <span class="kob-featured-cta">เปิดโหมด <span aria-hidden="true">→</span></span>
+                                <span class="kob-featured-cta">Open module <span aria-hidden="true">→</span></span>
+                            </div>
+                        </button>
+                        <button type="button"
+                                class="kob-featured-card kob-featured-card--lg kob-glass"
+                                t-on-click="() => this.onCardClick(modules.find(m => m.key === 'kob_tools'))">
+                            <div class="kob-featured-icon kob-icon-glow" style="--glow:#a855f7;">🧰</div>
+                            <div class="kob-featured-body">
+                                <div class="kob-featured-eyebrow">AI ASSISTANT TOOLKIT</div>
+                                <h3 class="kob-featured-title">KOB Tools</h3>
+                                <p class="kob-featured-desc">
+                                    Demand forecast · vendor scorecard · invoice OCR ·
+                                    bulk import · kiosk · approval workflow · ESG ·
+                                    AI suggestions · API console.
+                                </p>
+                                <span class="kob-featured-cta">Open toolkit <span aria-hidden="true">→</span></span>
                             </div>
                         </button>
                     </div>
                 </div>
             </section>
 
-            <!-- ── ALL MODULES BY CATEGORY ──────────────────────────── -->
+            <!-- ── ALL MODULES BY CATEGORY ────────────────────────── -->
             <section class="kob-modules">
                 <div class="kob-container">
                     <t t-foreach="grouped()" t-as="cat" t-key="cat.id">
@@ -119,9 +200,11 @@
                             <div class="kob-cards">
                                 <t t-foreach="cat.modules" t-as="mod" t-key="mod.key">
                                     <button type="button"
-                                            class="kob-card"
+                                            class="kob-card kob-glass"
+                                            t-att-data-key="mod.key"
                                             t-on-click="() => this.onCardClick(mod)">
-                                        <div class="kob-card-icon" t-attf-style="background: {{mod.color}};">
+                                        <div class="kob-card-icon kob-icon-glow"
+                                             t-attf-style="background: {{mod.color}}; --glow: {{mod.color}};">
                                             <t t-esc="mod.glyph"/>
                                         </div>
                                         <h3 class="kob-card-title">
@@ -139,22 +222,24 @@
 
                     <t t-if="filteredModules.length === 0">
                         <div class="kob-empty">
-                            <div class="kob-empty-icon">🔍</div>
-                            <p class="kob-empty-text">ไม่พบโหมดที่ค้นหา · No modules match your filter</p>
+                            <div class="kob-empty-icon">∅</div>
+                            <p class="kob-empty-text">No modules match — try a different prompt</p>
                         </div>
                     </t>
                 </div>
             </section>
 
-            <!-- ── FOOTER ───────────────────────────────────────────── -->
-            <footer class="kob-foot">
+            <!-- ── FOOTER ─────────────────────────────────────────── -->
+            <footer class="kob-foot kob-foot--ai">
                 <div class="kob-container kob-foot-inner">
                     <div class="kob-foot-brand">
                         <span class="kob-foot-mark">K</span>
                         <span>KOB ERP · Kiss of Beauty Co., Ltd.</span>
                     </div>
                     <div class="kob-foot-meta">
-                        KOB #KK
+                        <span class="kob-foot-pill">AI-native</span>
+                        <span class="kob-foot-pill">Odoo 19</span>
+                        <span class="kob-foot-pill">Thai-first</span>
                     </div>
                 </div>
             </footer>
