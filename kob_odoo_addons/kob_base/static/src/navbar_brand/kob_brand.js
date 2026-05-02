@@ -35,6 +35,19 @@ import { NavBar } from "@web/webclient/navbar/navbar";
 
 const WELCOME_TAG = "kob_base.welcome";
 
+// Synthetic fallback so the brand stays clickable even when no real
+// app could be resolved (e.g. the user landed on a menu whose action_id
+// does not correspond to any cached menu, like Odoo Settings on a
+// post-reload state).
+const SYNTHETIC_BRAND = Object.freeze({
+    id: -1,
+    name: "KOB ERP",
+    xmlid: "kob_base.menu_kob_root",
+    appID: -1,
+    actionID: false,
+    children: [],
+});
+
 let _delegated = false;
 
 patch(NavBar.prototype, {
@@ -48,8 +61,10 @@ patch(NavBar.prototype, {
      *   3. Page reloaded directly to /odoo/action-NN → menu service has
      *      no currentAppId (closure reset).  Walk the menu cache to find
      *      the menu owning the running action and return its `appID`'s
-     *      menu — so the brand stays clickable and the submenu sections
-     *      render even after a hard refresh.
+     *      menu.
+     *   4. Still nothing → return SYNTHETIC_BRAND so the brand stays
+     *      clickable (kob_brand.js's click delegate redirects to Welcome
+     *      regardless of what the brand thinks it represents).
      */
     get currentApp() {
         try {
@@ -80,7 +95,19 @@ patch(NavBar.prototype, {
         } catch (_e) {
             /* fall through */
         }
-        return super.currentApp;
+        // Fallback — never let the brand disappear.
+        return SYNTHETIC_BRAND;
+    },
+
+    /** Skip section enumeration when we're on the synthetic brand —
+     *  there are no real children for id=-1, and getMenuAsTree would
+     *  throw. */
+    get currentAppSections() {
+        const app = this.currentApp;
+        if (!app || app.id === -1) {
+            return [];
+        }
+        return super.currentAppSections;
     },
 
     setup() {
