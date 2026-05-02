@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_backup_config_list" model="ir.ui.view">
+        <field name="name">kob.backup.config.list</field>
+        <field name="model">kob.backup.config</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="backup_dir"/>
+                <field name="retention_days"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_kob_backup_config_form" model="ir.ui.view">
+        <field name="name">kob.backup.config.form</field>
+        <field name="model">kob.backup.config</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_do_backup" type="object" string="Backup Now"
+                            class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="backup_dir"/>
+                        <field name="retention_days"/>
+                        <field name="active"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_kob_backup_config" model="ir.actions.act_window">
+        <field name="name">Backup Config</field>
+        <field name="res_model">kob.backup.config</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="view_kob_backup_log_list" model="ir.ui.view">
+        <field name="name">kob.backup.log.list</field>
+        <field name="model">kob.backup.log</field>
+        <field name="arch" type="xml">
+            <list create="0" edit="0" delete="0">
+                <field name="create_date"/>
+                <field name="config_id"/>
+                <field name="filename"/>
+                <field name="size_mb"/>
+                <field name="success" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_kob_backup_log" model="ir.actions.act_window">
+        <field name="name">Backup Logs</field>
+        <field name="res_model">kob.backup.log</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_kob_backup_root" name="Backup &amp; DR"
+              parent="kob_base.menu_kob_root" sequence="95"/>
+    <menuitem id="menu_kob_backup_config" name="Backup Config"
+              parent="menu_kob_backup_root"
+              action="action_kob_backup_config" sequence="10"/>
+    <menuitem id="menu_kob_backup_log" name="Backup Logs"
+              parent="menu_kob_backup_root"
+              action="action_kob_backup_log" sequence="20"/>
+</odoo>

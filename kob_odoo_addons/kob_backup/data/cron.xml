@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ir_cron_kob_backup_daily" model="ir.cron">
+        <field name="name">KOB: Daily Database Backup</field>
+        <field name="model_id" ref="model_kob_backup_config"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_run_backup()</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active">True</field>
+    </record>
+    <record id="default_backup_config" model="kob.backup.config">
+        <field name="name">Default</field>
+        <field name="backup_dir">/var/lib/odoo/backups</field>
+        <field name="retention_days">14</field>
+    </record>
+</odoo>

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ──────────── Approval Workflow ──────────── -->
+    <record id="view_kob_approval_request_list" model="ir.ui.view">
+        <field name="name">kob.approval.request.list</field>
+        <field name="model">kob.approval.request</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="request_type"/>
+                <field name="requester_id"/>
+                <field name="amount"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_kob_approval_request_form" model="ir.ui.view">
+        <field name="name">kob.approval.request.form</field>
+        <field name="model">kob.approval.request</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_submit" type="object" string="Submit"
+                            class="oe_highlight" invisible="state != 'draft'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="request_type"/>
+                            <field name="requester_id"/>
+                        </group>
+                        <group>
+                            <field name="amount"/>
+                            <field name="currency_id"/>
+                            <field name="current_step"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description"><field name="description"/></page>
+                        <page string="Approval Steps">
+                            <field name="step_ids">
+                                <list editable="bottom">
+                                    <field name="sequence"/>
+                                    <field name="approver_id"/>
+                                    <field name="state"/>
+                                    <field name="decided_at"/>
+                                    <field name="note"/>
+                                    <button name="action_approve" type="object"
+                                            string="Approve" class="btn-success"
+                                            invisible="state != 'pending'"/>
+                                    <button name="action_reject" type="object"
+                                            string="Reject" class="btn-danger"
+                                            invisible="state != 'pending'"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="action_kob_approval_request" model="ir.actions.act_window">
+        <field name="name">Approval Requests</field>
+        <field name="res_model">kob.approval.request</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ──────────── Notifications ──────────── -->
+    <record id="view_kob_notification_channel_list" model="ir.ui.view">
+        <field name="name">kob.notification.channel.list</field>
+        <field name="model">kob.notification.channel</field>
+        <field name="arch" type="xml">
+            <list><field name="name"/><field name="channel_type"/><field name="active"/></list>
+        </field>
+    </record>
+    <record id="action_kob_notification_channel" model="ir.actions.act_window">
+        <field name="name">Notification Channels</field>
+        <field name="res_model">kob.notification.channel</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="action_kob_notification_log" model="ir.actions.act_window">
+        <field name="name">Notification Logs</field>
+        <field name="res_model">kob.notification.log</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ──────────── Field Service ──────────── -->
+    <record id="view_kob_field_service_list" model="ir.ui.view">
+        <field name="name">kob.field.service.task.list</field>
+        <field name="model">kob.field.service.task</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="technician_id"/>
+                <field name="schedule_date"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+    <record id="action_kob_field_service" model="ir.actions.act_window">
+        <field name="name">Field Service Tasks</field>
+        <field name="res_model">kob.field.service.task</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ──────────── ESG ──────────── -->
+    <record id="view_kob_esg_metric_list" model="ir.ui.view">
+        <field name="name">kob.esg.metric.list</field>
+        <field name="model">kob.esg.metric</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="period_year"/>
+                <field name="period_month"/>
+                <field name="metric_type"/>
+                <field name="value" sum="Total"/>
+                <field name="target"/>
+                <field name="variance_pct"/>
+            </list>
+        </field>
+    </record>
+    <record id="action_kob_esg_metric" model="ir.actions.act_window">
+        <field name="name">ESG Metrics</field>
+        <field name="res_model">kob.esg.metric</field>
+        <field name="view_mode">list,form,graph,pivot</field>
+    </record>
+
+    <!-- ──────────── AI Suggestions ──────────── -->
+    <record id="view_kob_ai_suggestion_list" model="ir.ui.view">
+        <field name="name">kob.ai.suggestion.list</field>
+        <field name="model">kob.ai.suggestion</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="title"/>
+                <field name="category"/>
+                <field name="priority" widget="priority"/>
+                <field name="confidence_pct"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+    <record id="action_kob_ai_suggestion" model="ir.actions.act_window">
+        <field name="name">AI Suggestions</field>
+        <field name="res_model">kob.ai.suggestion</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ──────────── Rebalance Proposals ──────────── -->
+    <record id="view_kob_rebalance_list" model="ir.ui.view">
+        <field name="name">kob.rebalance.proposal.list</field>
+        <field name="model">kob.rebalance.proposal</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="product_id"/>
+                <field name="source_location_id"/>
+                <field name="dest_location_id"/>
+                <field name="qty_proposed"/>
+                <field name="reason"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+    <record id="action_kob_rebalance" model="ir.actions.act_window">
+        <field name="name">Rebalance Proposals</field>
+        <field name="res_model">kob.rebalance.proposal</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ──────────── Menu structure ──────────── -->
+    <menuitem id="menu_kob_extras_root" name="Extras"
+              parent="kob_base.menu_kob_root" sequence="100"/>
+    <menuitem id="menu_kob_approval" name="Approvals"
+              parent="menu_kob_extras_root"
+              action="action_kob_approval_request" sequence="10"/>
+    <menuitem id="menu_kob_field_service" name="Field Service"
+              parent="menu_kob_extras_root"
+              action="action_kob_field_service" sequence="20"/>
+    <menuitem id="menu_kob_esg" name="ESG Metrics"
+              parent="menu_kob_extras_root"
+              action="action_kob_esg_metric" sequence="30"/>
+    <menuitem id="menu_kob_ai_suggestion" name="AI Suggestions"
+              parent="menu_kob_extras_root"
+              action="action_kob_ai_suggestion" sequence="40"/>
+    <menuitem id="menu_kob_rebalance" name="Rebalance Proposals"
+              parent="menu_kob_extras_root"
+              action="action_kob_rebalance" sequence="50"/>
+    <menuitem id="menu_kob_notification" name="Notifications"
+              parent="menu_kob_extras_root" sequence="60"/>
+    <menuitem id="menu_kob_notification_channel" name="Channels"
+              parent="menu_kob_notification"
+              action="action_kob_notification_channel" sequence="10"/>
+    <menuitem id="menu_kob_notification_log" name="Logs"
+              parent="menu_kob_notification"
+              action="action_kob_notification_log" sequence="20"/>
+</odoo>

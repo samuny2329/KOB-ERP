@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_kpi_dashboard_form" model="ir.ui.view">
+        <field name="name">kob.kpi.dashboard.form</field>
+        <field name="model">kob.kpi.dashboard</field>
+        <field name="arch" type="xml">
+            <form create="0" edit="0" delete="0" string="KOB KPI Dashboard">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>📊 KOB Live KPI Dashboard</h1>
+                        <p>Last 30 days metrics + open balances + pending actions</p>
+                    </div>
+                    <group string="💰 Sales (last 30 days)">
+                        <group>
+                            <field name="sales_revenue_30d" widget="monetary"
+                                   options="{'currency_field': False}"/>
+                            <field name="sales_orders_30d"/>
+                            <field name="sales_avg_30d"/>
+                        </group>
+                        <group string="🛒 Purchase (last 30 days)">
+                            <field name="purchase_total_30d"/>
+                            <field name="purchase_orders_30d"/>
+                        </group>
+                    </group>
+                    <group string="📦 Inventory">
+                        <group>
+                            <field name="inventory_value" string="Total On-Hand Qty"/>
+                            <field name="inventory_lots"/>
+                        </group>
+                        <group string="💵 AR / AP">
+                            <field name="ar_outstanding"/>
+                            <field name="ap_outstanding"/>
+                        </group>
+                    </group>
+                    <group string="🚨 Operations">
+                        <group>
+                            <field name="helpdesk_open" string="Open Tickets"/>
+                            <field name="helpdesk_urgent" string="Urgent Tickets"/>
+                        </group>
+                        <group>
+                            <field name="maintenance_pending" string="Maintenance Pending"/>
+                            <field name="cycle_count_due" string="Cycle Counts Due"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_kob_kpi_dashboard" model="ir.actions.act_window">
+        <field name="name">📊 Live KPI Dashboard</field>
+        <field name="res_model">kob.kpi.dashboard</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+    </record>
+
+    <menuitem id="menu_kob_kpi_dashboard" name="📊 Live KPI Dashboard"
+              parent="kob_base.menu_kob_root"
+              action="action_kob_kpi_dashboard" sequence="3"/>
+</odoo>

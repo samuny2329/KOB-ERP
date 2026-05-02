@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_kob_approval_request,kob.approval.request,model_kob_approval_request,base.group_user,1,1,1,0
+access_kob_approval_request_admin,kob.approval.request admin,model_kob_approval_request,base.group_system,1,1,1,1
+access_kob_approval_step,kob.approval.step,model_kob_approval_step,base.group_user,1,1,1,0
+access_kob_approval_step_admin,kob.approval.step admin,model_kob_approval_step,base.group_system,1,1,1,1
+access_kob_notification_channel,kob.notification.channel,model_kob_notification_channel,base.group_system,1,1,1,1
+access_kob_notification_log,kob.notification.log user,model_kob_notification_log,base.group_user,1,0,0,0
+access_kob_notification_log_admin,kob.notification.log admin,model_kob_notification_log,base.group_system,1,1,1,1
+access_kob_field_service_task,kob.field.service.task,model_kob_field_service_task,base.group_user,1,1,1,0
+access_kob_field_service_task_admin,kob.field.service.task admin,model_kob_field_service_task,base.group_system,1,1,1,1
+access_kob_esg_metric,kob.esg.metric,model_kob_esg_metric,base.group_user,1,1,1,0
+access_kob_esg_metric_admin,kob.esg.metric admin,model_kob_esg_metric,base.group_system,1,1,1,1
+access_kob_ai_suggestion,kob.ai.suggestion,model_kob_ai_suggestion,base.group_user,1,1,1,0
+access_kob_ai_suggestion_admin,kob.ai.suggestion admin,model_kob_ai_suggestion,base.group_system,1,1,1,1
+access_kob_rebalance_proposal,kob.rebalance.proposal,model_kob_rebalance_proposal,base.group_user,1,1,1,0
+access_kob_rebalance_proposal_admin,kob.rebalance.proposal admin,model_kob_rebalance_proposal,base.group_system,1,1,1,1
