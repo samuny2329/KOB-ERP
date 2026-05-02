@@ -12,6 +12,69 @@
                 <xpath expr="//field[@name='order_line']/list/field[@name='product_template_id']" position="after">
                     <field name="x_kob_brand" optional="show"/>
                 </xpath>
+
+                <!-- Top-of-form quick info: marketplace order ref + source -->
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="client_order_ref"
+                           string="Marketplace Order #"
+                           placeholder="Shopee / Lazada / TikTok order_sn"/>
+                    <field name="source_id"
+                           string="Source / Shop"
+                           options="{'no_create_edit': True}"/>
+                    <field name="tag_ids" widget="many2many_tags"
+                           options="{'color_field': 'color'}"/>
+                </xpath>
+
+                <!-- Dedicated KOB Marketplace tab -->
+                <xpath expr="//notebook" position="inside">
+                    <page string="KOB Marketplace" name="kob_marketplace">
+                        <group>
+                            <group string="Identity">
+                                <field name="client_order_ref"
+                                       readonly="1"
+                                       string="Original order #"/>
+                                <field name="source_id" readonly="1"
+                                       string="Source / Shop"/>
+                                <field name="campaign_id" readonly="1"
+                                       string="Campaign"/>
+                                <field name="medium_id" readonly="1"
+                                       string="Medium"/>
+                            </group>
+                            <group string="Routing">
+                                <field name="warehouse_id" readonly="1"/>
+                                <field name="company_id" readonly="1"
+                                       groups="base.group_multi_company"/>
+                                <field name="user_id" readonly="1"/>
+                                <field name="team_id" readonly="1"
+                                       options="{'no_create_edit': True}"/>
+                            </group>
+                        </group>
+                        <separator string="Brand &amp; Lines"/>
+                        <field name="order_line" readonly="1" nolabel="1">
+                            <list>
+                                <field name="x_kob_brand" string="Brand"/>
+                                <field name="product_id"/>
+                                <field name="product_uom_qty"
+                                       string="Qty"/>
+                                <field name="price_unit"/>
+                                <field name="price_subtotal"
+                                       string="Subtotal"/>
+                            </list>
+                        </field>
+                        <separator string="Linked Pickings"/>
+                        <field name="picking_ids" readonly="1" nolabel="1">
+                            <list>
+                                <field name="name"/>
+                                <field name="state"/>
+                                <field name="scheduled_date"/>
+                                <field name="x_kob_products_availability"
+                                       string="Availability"/>
+                                <field name="x_kob_fake_order"
+                                       string="Fake?"/>
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
             </field>
         </record>
     </data>
