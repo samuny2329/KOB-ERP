@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_kob_webhook_config_admin,kob.webhook.config admin,model_kob_webhook_config,base.group_system,1,1,1,1
+access_kob_webhook_log_admin,kob.webhook.log admin,model_kob_webhook_log,base.group_system,1,1,1,1
+access_kob_webhook_log_user,kob.webhook.log user,model_kob_webhook_log,base.group_user,1,0,0,0

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_kob_helpdesk_category_user,kob.helpdesk.category user,model_kob_helpdesk_category,base.group_user,1,1,1,0
+access_kob_helpdesk_category_admin,kob.helpdesk.category admin,model_kob_helpdesk_category,base.group_system,1,1,1,1
+access_kob_helpdesk_ticket_user,kob.helpdesk.ticket user,model_kob_helpdesk_ticket,base.group_user,1,1,1,0
+access_kob_helpdesk_ticket_admin,kob.helpdesk.ticket admin,model_kob_helpdesk_ticket,base.group_system,1,1,1,1

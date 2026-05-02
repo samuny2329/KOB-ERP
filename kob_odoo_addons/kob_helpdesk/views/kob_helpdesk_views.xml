@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_kob_helpdesk_ticket" model="ir.sequence">
+        <field name="name">KOB Helpdesk Ticket</field>
+        <field name="code">kob.helpdesk.ticket</field>
+        <field name="prefix">TKT/%(year)s/</field>
+        <field name="padding">5</field>
+    </record>
+
+    <record id="view_kob_helpdesk_category_list" model="ir.ui.view">
+        <field name="name">kob.helpdesk.category.list</field>
+        <field name="model">kob.helpdesk.category</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_kob_helpdesk_category" model="ir.actions.act_window">
+        <field name="name">Helpdesk Categories</field>
+        <field name="res_model">kob.helpdesk.category</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="view_kob_helpdesk_ticket_list" model="ir.ui.view">
+        <field name="name">kob.helpdesk.ticket.list</field>
+        <field name="model">kob.helpdesk.ticket</field>
+        <field name="arch" type="xml">
+            <list string="Tickets">
+                <field name="number"/>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="category_id"/>
+                <field name="priority" widget="priority"/>
+                <field name="assignee_id"/>
+                <field name="state"/>
+                <field name="date_open"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_kob_helpdesk_ticket_form" model="ir.ui.view">
+        <field name="name">kob.helpdesk.ticket.form</field>
+        <field name="model">kob.helpdesk.ticket</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_start" type="object" string="Start"
+                            class="oe_highlight"
+                            invisible="state != 'new'"/>
+                    <button name="action_resolve" type="object" string="Resolve"
+                            class="oe_highlight"
+                            invisible="state in ('resolved','closed','cancelled')"/>
+                    <button name="action_close" type="object" string="Close"
+                            invisible="state != 'resolved'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="number"/>
+                        <h1><field name="number" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" placeholder="Subject"/>
+                            <field name="partner_id"/>
+                            <field name="category_id"/>
+                            <field name="priority" widget="priority"/>
+                        </group>
+                        <group>
+                            <field name="assignee_id"/>
+                            <field name="sale_order_id"/>
+                            <field name="invoice_id"/>
+                            <field name="date_open" readonly="1"/>
+                            <field name="date_resolved" readonly="1"/>
+                            <field name="duration_hours" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+                        <page string="Resolution">
+                            <field name="resolution"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_kob_helpdesk_ticket" model="ir.actions.act_window">
+        <field name="name">Tickets</field>
+        <field name="res_model">kob.helpdesk.ticket</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_kob_helpdesk_root" name="Helpdesk"
+              parent="kob_base.menu_kob_root" sequence="80"/>
+    <menuitem id="menu_kob_helpdesk_ticket" name="Tickets"
+              parent="menu_kob_helpdesk_root"
+              action="action_kob_helpdesk_ticket" sequence="10"/>
+    <menuitem id="menu_kob_helpdesk_category" name="Categories"
+              parent="menu_kob_helpdesk_root"
+              action="action_kob_helpdesk_category" sequence="20"/>
+</odoo>
