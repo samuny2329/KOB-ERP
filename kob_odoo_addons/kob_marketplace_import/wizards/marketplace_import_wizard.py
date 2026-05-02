@@ -359,16 +359,22 @@ class MarketplaceImportWizard(models.TransientModel):
             name = "[%s] %s — auto-imported" % (sku, brand)
         else:
             name = "[%s] auto-imported" % sku
-        new_prod = self.env["product.product"].sudo().create({
+        # Odoo 19 split product.template.type — 'product' is no longer
+        # accepted.  We use type='consu' + is_storable=True for the
+        # stockable + lot-tracked variant.
+        new_prod_vals = {
             "name":           name,
             "default_code":   sku,
             "x_kob_sku_code": sku,
             "x_kob_brand":    brand or "",
-            "type":           "product",   # storable
+            "type":           "consu",
             "tracking":       "lot",
             "sale_ok":        True,
             "purchase_ok":    False,
-        })
+        }
+        if "is_storable" in self.env["product.template"]._fields:
+            new_prod_vals["is_storable"] = True
+        new_prod = self.env["product.product"].sudo().create(new_prod_vals)
         _logger.info(
             "Auto-created lot-tracked product %s (%s) for marketplace import",
             new_prod.id, sku,
