@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Purchase Order — Documents smart button -->
+    <record id="view_purchase_order_form_dms" model="ir.ui.view">
+        <field name="name">purchase.order.form.dms</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_open_dms_folder" type="object"
+                        class="oe_stat_button" icon="fa-folder-open">
+                    <field name="dms_file_count" widget="statinfo"
+                           string="Documents"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Sale Order -->
+    <record id="view_sale_order_form_dms" model="ir.ui.view">
+        <field name="name">sale.order.form.dms</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_open_dms_folder" type="object"
+                        class="oe_stat_button" icon="fa-folder-open">
+                    <field name="dms_file_count" widget="statinfo"
+                           string="Documents"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- HR Employee -->
+    <record id="view_hr_employee_form_dms" model="ir.ui.view">
+        <field name="name">hr.employee.form.dms</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_open_dms_folder" type="object"
+                        class="oe_stat_button" icon="fa-folder-open">
+                    <field name="dms_file_count" widget="statinfo"
+                           string="Documents"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- KOB Fixed Asset -->
+    <record id="view_kob_fixed_asset_form_dms" model="ir.ui.view">
+        <field name="name">kob.fixed.asset.form.dms</field>
+        <field name="model">kob.fixed.asset</field>
+        <field name="inherit_id" ref="kob_thai_compliance.view_kob_fixed_asset_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="after">
+                <div class="oe_button_box" name="button_box">
+                    <button name="action_open_dms_folder" type="object"
+                            class="oe_stat_button" icon="fa-folder-open">
+                        <field name="dms_file_count" widget="statinfo"
+                               string="Documents"/>
+                    </button>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Account Move (invoice / bill / journal entry) -->
+    <record id="view_account_move_form_dms" model="ir.ui.view">
+        <field name="name">account.move.form.dms</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_open_dms_folder" type="object"
+                        class="oe_stat_button" icon="fa-folder-open">
+                    <field name="dms_file_count" widget="statinfo"
+                           string="Documents"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
