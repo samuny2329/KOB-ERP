@@ -18,16 +18,29 @@
                             <group>
                                 <field name="auto_confirm"/>
                                 <field name="auto_assign" invisible="not auto_confirm"/>
+                                <field name="auto_create_product"/>
                             </group>
                         </group>
-                        <group invisible="state == 'done'" string="Source File">
+                        <group invisible="state == 'done'" string="Source Files">
                             <field name="filename" invisible="1"/>
-                            <field name="file_data" filename="filename" widget="binary"/>
+                            <label for="file_data" string="Single file"/>
+                            <div>
+                                <field name="file_data" filename="filename" widget="binary"/>
+                                <span class="text-muted small">— or use the batch field below.</span>
+                            </div>
+                            <field name="attachment_ids"
+                                   string="Batch (drop folder here)"
+                                   widget="many2many_binary"/>
                             <p class="text-muted" colspan="2">
-                                Excel/CSV with columns: <b>order_sn</b>, <b>shop</b>,
-                                <b>order_date</b>, <b>sku</b>, <b>qty</b>, <b>brand</b>,
-                                <b>fake</b> (Y/N), [optional] <b>price</b>.
-                                Multiple lines per order_sn are grouped into one Sale Order.
+                                Each file must include columns:
+                                <b>Order ID</b> (or order_sn / order_no / order_number),
+                                <b>SKU</b>, <b>Quantity</b>, [optional]
+                                <b>Order Date</b>, <b>Unit Price</b>.
+                                Brand + shop are auto-derived from the filename
+                                (e.g. <code>Shopee_KissMyBody&#8230;.xlsx</code>).
+                                Platform per file is auto-detected (Shopee /
+                                Lazada / TikTok); the Platform radio above is
+                                the fallback only.
                             </p>
                         </group>
                         <group invisible="state != 'done'" string="Result">

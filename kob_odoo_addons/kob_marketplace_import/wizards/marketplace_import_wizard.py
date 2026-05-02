@@ -148,10 +148,37 @@ class MarketplaceImportWizard(models.TransientModel):
                     ("company_id", "=", w.company_id.id),
                 ], limit=1)
             w.warehouse_id = online.id if online else False
-    file_data = fields.Binary("Excel/CSV File", required=True)
+    file_data = fields.Binary("Excel/CSV File")
     filename = fields.Char()
+    # Multi-file mode — drag-and-drop the whole folder at once.  Each
+    # ir.attachment is one xlsx/csv file.  Platform is auto-detected
+    # from the filename's first underscore-separated token (Shopee /
+    # Lazada / TikTok).
+    attachment_ids = fields.Many2many(
+        "ir.attachment",
+        string="Excel/CSV Files (batch)",
+        help="Drop the whole folder here — each file is processed in "
+             "turn.  Platform is auto-detected from the filename "
+             "(Shopee_… / Lazada_… / Tiktok_…).",
+    )
     auto_confirm = fields.Boolean("Confirm SOs", default=True)
     auto_assign = fields.Boolean("Reserve stock (assign)", default=True)
+    auto_create_product = fields.Boolean(
+        "Auto-create missing products",
+        default=True,
+        help="If a SKU in the file is not in product.product, create a "
+             "lot-tracked storable product on the fly with default_code "
+             "= SKU and x_kob_brand auto-derived from the filename.",
+    )
+    auto_adjust_lot = fields.Boolean(
+        "Adjust stock (create lot + qty)",
+        default=True,
+        help="After auto-creating a product (or for any imported line "
+             "where on-hand qty is insufficient), generate a stock.lot "
+             "and post an inventory adjustment so the Sale Order can be "
+             "reserved at confirmation time.  Lot name = "
+             "AUTO-<YYYYMMDD>-<SKU>.",
+    )
     fbs_auto_route = fields.Boolean(
         "FBS auto-route", default=True,
         help="If the order_sn ends with -FBS (Shopee Fulfilled-By-Shopee), "
@@ -166,26 +193,43 @@ class MarketplaceImportWizard(models.TransientModel):
     sale_order_ids = fields.Many2many("sale.order", readonly=True)
 
     # ── Parsing ────────────────────────────────────────────────────
-    def _parse_file(self):
-        if not self.file_data:
-            raise UserError(_("Please upload an Excel or CSV file."))
-        raw = base64.b64decode(self.file_data)
-        name = (self.filename or "").lower()
+    @staticmethod
+    def _detect_platform(filename):
+        """Return one of 'shopee'|'lazada'|'tiktok' based on the
+        filename's first token, or None if undetectable."""
+        if not filename:
+            return None
+        stem = filename.rsplit(".", 1)[0]
+        first = stem.split(" ", 1)[0].split("_", 1)[0].lower()
+        if first.startswith("shopee"):
+            return "shopee"
+        if first.startswith("lazada"):
+            return "lazada"
+        if first.startswith("tiktok") or first.startswith("tikt"):
+            return "tiktok"
+        return None
 
-        # Auto-derive brand + shop from a filename of the shape
-        # "<Platform>_<Brand>[_<Word>...] <Date> <Shift> Automation.xlsx".
-        # Real Shopee/Lazada/TikTok exports don't carry a brand column,
-        # but our internal naming convention encodes it in the filename.
-        derived_brand = None
-        derived_shop = None
-        if self.filename:
-            # Tokenise on whitespace — first token holds platform_brand.
-            stem = self.filename.rsplit(".", 1)[0]
-            head = stem.split(" ", 1)[0]
-            parts = head.split("_")
-            if len(parts) >= 2:
-                derived_shop = "_".join(parts[1:])
-                derived_brand = derived_shop  # often equal — UI can override
+    @staticmethod
+    def _derive_brand_shop(filename):
+        """Pull brand/shop from filename pattern
+        ``<Platform>_<Brand>[_<Word>...] <Date> <Shift>...``."""
+        if not filename:
+            return (None, None)
+        stem = filename.rsplit(".", 1)[0]
+        head = stem.split(" ", 1)[0]
+        parts = head.split("_")
+        if len(parts) >= 2:
+            shop = "_".join(parts[1:])
+            return (shop, shop)
+        return (None, None)
+
+    def _parse_blob(self, raw, filename):
+        """Parse one (raw bytes, filename) pair into a list of
+        record dicts.  Replaces the previous instance-bound
+        ``_parse_file`` so we can iterate over multiple files in a
+        single import run."""
+        name = (filename or "").lower()
+        derived_brand, derived_shop = self._derive_brand_shop(filename)
 
         if name.endswith(".csv"):
             text = raw.decode("utf-8-sig")
@@ -286,7 +330,11 @@ class MarketplaceImportWizard(models.TransientModel):
             s = self.env["utm.source"].create({"name": full})
         return s
 
-    def _resolve_product(self, sku):
+    def _resolve_product(self, sku, brand=None):
+        """Find the product.product matching ``sku`` (default_code OR
+        x_kob_sku_code OR ``[SKU]`` prefix in name).  If ``self.
+        auto_create_product`` is set and nothing matches, create a
+        new product on the fly so the import can proceed."""
         prod = self.env["product.product"].search(
             [("default_code", "=", sku)], limit=1,
         )
@@ -299,7 +347,99 @@ class MarketplaceImportWizard(models.TransientModel):
             prod = self.env["product.product"].search(
                 [("name", "=ilike", f"[{sku}]%")], limit=1,
             )
-        return prod
+        if prod:
+            return prod
+        if not self.auto_create_product:
+            return prod
+        # Auto-create — storable + lot-tracked so the WMS pipeline can
+        # reserve / pick / pack.  Stock is seeded later via the
+        # `_adjust_lot` helper triggered for each order line.
+        name = sku
+        if brand:
+            name = "[%s] %s — auto-imported" % (sku, brand)
+        else:
+            name = "[%s] auto-imported" % sku
+        new_prod = self.env["product.product"].sudo().create({
+            "name":           name,
+            "default_code":   sku,
+            "x_kob_sku_code": sku,
+            "x_kob_brand":    brand or "",
+            "type":           "product",   # storable
+            "tracking":       "lot",
+            "sale_ok":        True,
+            "purchase_ok":    False,
+        })
+        _logger.info(
+            "Auto-created lot-tracked product %s (%s) for marketplace import",
+            new_prod.id, sku,
+        )
+        return new_prod
+
+    def _ensure_stock_with_lot(self, product, qty, warehouse, unit_cost=0.0):
+        """Create a stock.lot for ``product`` (if needed) and post an
+        inventory adjustment so ``qty`` is available in
+        ``warehouse``'s stock location.  Returns the lot.
+
+        ``unit_cost`` is stored on stock.lot.x_kob_cost_per_unit so
+        per-lot valuation reports get the right basis.
+
+        Idempotent: if a lot named AUTO-<YYYYMMDD>-<SKU> already
+        exists with enough quantity, just top it up.
+        """
+        from datetime import date as _date
+
+        if not product or qty <= 0 or not warehouse:
+            return self.env["stock.lot"]
+
+        loc = warehouse.lot_stock_id
+        if not loc:
+            return self.env["stock.lot"]
+
+        sku = product.default_code or str(product.id)
+        lot_name = "AUTO-%s-%s" % (_date.today().strftime("%Y%m%d"), sku)
+        Lot = self.env["stock.lot"].sudo()
+        lot = Lot.search([
+            ("name", "=", lot_name),
+            ("product_id", "=", product.id),
+        ], limit=1)
+        if not lot:
+            lot = Lot.create({
+                "name":               lot_name,
+                "product_id":         product.id,
+                "company_id":         warehouse.company_id.id,
+                "x_kob_cost_per_unit": (
+                    unit_cost or float(product.standard_price or 0)
+                ),
+            })
+        elif unit_cost and not lot.x_kob_cost_per_unit:
+            # First time we're seeing a meaningful cost — record it.
+            lot.x_kob_cost_per_unit = unit_cost
+
+        # Read the current on-hand for this lot at the warehouse stock
+        # location.  Top up to (current + qty) via stock.quant
+        # `inventory_quantity` field — this is Odoo's idiomatic
+        # inventory-adjustment write path.
+        Quant = self.env["stock.quant"].sudo()
+        quant = Quant.search([
+            ("product_id",  "=", product.id),
+            ("location_id", "=", loc.id),
+            ("lot_id",      "=", lot.id),
+        ], limit=1)
+        if quant:
+            new_qty = (quant.quantity or 0) + qty
+            quant.with_context(inventory_mode=True).write({
+                "inventory_quantity": new_qty,
+            })
+            quant.action_apply_inventory()
+        else:
+            quant = Quant.with_context(inventory_mode=True).create({
+                "product_id":         product.id,
+                "location_id":        loc.id,
+                "lot_id":             lot.id,
+                "inventory_quantity": qty,
+            })
+            quant.action_apply_inventory()
+        return lot
 
     def _normalize_date(self, value):
         if not value:
@@ -318,24 +458,98 @@ class MarketplaceImportWizard(models.TransientModel):
         return fields.Datetime.now()
 
     # ── Main ──────────────────────────────────────────────────────
+    def _collect_files(self):
+        """Yield (filename, raw bytes, platform) tuples for every input
+        file — single Excel/CSV via ``file_data`` AND the multi-file
+        batch via ``attachment_ids``.  Platform is auto-detected from
+        the filename; if it can't be detected we fall back to whatever
+        is selected on the wizard."""
+        if self.file_data:
+            yield (
+                self.filename or "upload.xlsx",
+                base64.b64decode(self.file_data),
+                self._detect_platform(self.filename) or self.platform,
+            )
+        for att in self.attachment_ids:
+            raw = att.raw if att.raw else (
+                base64.b64decode(att.datas) if att.datas else b""
+            )
+            if not raw:
+                continue
+            yield (
+                att.name or "attachment.xlsx",
+                raw,
+                self._detect_platform(att.name) or self.platform,
+            )
+
     def action_import(self):
         self.ensure_one()
-        records = self._parse_file()
-        if not records:
-            raise UserError(_("No order rows found in the file."))
+        if not self.file_data and not self.attachment_ids:
+            raise UserError(_(
+                "Please upload at least one Excel/CSV file (single or "
+                "drop the whole folder into 'Excel/CSV Files (batch)')."
+            ))
 
-        # Group rows by order_sn.
+        # Parse every input file.  Each row remembers its platform so
+        # we use the right partner / source / warehouse.
+        records = []
+        per_file_log = []
+        for filename, raw, platform in self._collect_files():
+            try:
+                file_records = self._parse_blob(raw, filename)
+            except UserError as e:
+                per_file_log.append("FAIL %s — %s" % (filename, e.args[0]))
+                continue
+            for r in file_records:
+                r["__platform"] = platform
+                r["__source_file"] = filename
+            per_file_log.append(
+                "READ %s — %d rows (%s)"
+                % (filename, len(file_records), platform),
+            )
+            records.extend(file_records)
+
+        if not records:
+            raise UserError(_(
+                "No order rows could be parsed.\n\n%s"
+            ) % "\n".join(per_file_log))
+
+        # Group rows by (platform, order_sn) — a single order_sn could
+        # legally appear under different platforms.
         by_order = {}
         for r in records:
-            by_order.setdefault(r["order_sn"], []).append(r)
+            key = (r["__platform"], r["order_sn"])
+            by_order.setdefault(key, []).append(r)
 
-        partner = self._get_partner()
         fake_tag = self.env.ref("kob_marketplace_import.tag_fake_order")
         SaleOrder = self.env["sale.order"].with_company(self.company_id)
-        log_lines = []
+        log_lines = list(per_file_log)
         sales = self.env["sale.order"]
 
-        for order_sn, lines in by_order.items():
+        # Cache partner per platform to avoid repeated searches.
+        partner_cache = {}
+
+        def _partner_for(platform):
+            if platform in partner_cache:
+                return partner_cache[platform]
+            name = _PARTNER_BY_PLATFORM[platform]
+            partner = self.env["res.partner"].search([("name", "=", name)],
+                                                     limit=1)
+            if not partner:
+                partner = self.env["res.partner"].create({
+                    "name": name, "is_company": True, "customer_rank": 1,
+                })
+            partner_cache[platform] = partner
+            return partner
+
+        def _source_for(platform, shop_name):
+            full = "%s_%s" % (_PRETTY[platform], shop_name)
+            s = self.env["utm.source"].search([("name", "=", full)], limit=1)
+            if not s:
+                s = self.env["utm.source"].create({"name": full})
+            return s
+
+        for (platform, order_sn), lines in by_order.items():
             existing = SaleOrder.search([("client_order_ref", "=", order_sn)],
                                         limit=1)
             if existing:
@@ -343,21 +557,33 @@ class MarketplaceImportWizard(models.TransientModel):
                                  f"({existing.name})")
                 continue
 
+            partner = _partner_for(platform)
             head = lines[0]
             shop = head["shop"] or "Unknown"
-            source = self._get_source(shop)
+            source = _source_for(platform, shop)
             tag_ids = [(4, fake_tag.id)] if any(l["fake"] for l in lines) \
                       else []
 
             order_lines_vals = []
             for ln in lines:
-                product = self._resolve_product(ln["sku"])
+                product = self._resolve_product(ln["sku"], ln.get("brand"))
                 if not product:
                     log_lines.append(
                         f"WARN {order_sn} — SKU '{ln['sku']}' not found, "
-                        f"line skipped",
+                        f"line skipped (toggle 'Auto-create missing "
+                        f"products' to import it anyway)",
                     )
                     continue
+                # Adj. Lot — make sure stock + a lot exists so the SO
+                # can reserve at confirmation.  Cost basis = the price
+                # captured from the Excel row, fallback to standard_price.
+                if self.auto_adjust_lot:
+                    self._ensure_stock_with_lot(
+                        product,
+                        float(ln.get("qty") or 0),
+                        self.warehouse_id,
+                        unit_cost=float(ln.get("price") or 0),
+                    )
                 vals = {
                     "product_id": product.id,
                     "product_uom_qty": ln["qty"],
@@ -374,7 +600,7 @@ class MarketplaceImportWizard(models.TransientModel):
             # company's *-SHOPEE warehouse (Shopee Fulfilled-By-Shopee).
             target_wh = self.warehouse_id
             if (self.fbs_auto_route
-                and self.platform == "shopee"
+                and platform == "shopee"
                 and order_sn.upper().endswith("-FBS")):
                 shopee_wh = self.env["stock.warehouse"].search([
                     ("company_id", "=", self.company_id.id),
