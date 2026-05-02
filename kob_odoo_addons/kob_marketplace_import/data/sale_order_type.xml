@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Mirror UAT (kissgroupdatacenter.com) — same names + ids 1-5 + 8/9.
+             Sequence chosen so "Normal Order" lands at the top of the
+             dropdown (sequence=10). -->
+        <record id="sale_order_type_normal" model="sale.order.type">
+            <field name="name">Normal Order</field>
+            <field name="sequence">10</field>
+        </record>
+        <record id="sale_order_type_sampling" model="sale.order.type">
+            <field name="name">Sampling Order</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="sale_order_type_return" model="sale.order.type">
+            <field name="name">Return Order</field>
+            <field name="sequence">30</field>
+        </record>
+        <record id="sale_order_type_direct_return" model="sale.order.type">
+            <field name="name">Direct Return Order</field>
+            <field name="sequence">40</field>
+        </record>
+        <record id="sale_order_type_consignment" model="sale.order.type">
+            <field name="name">Consignment Order</field>
+            <field name="sequence">50</field>
+        </record>
+        <record id="sale_order_type_adj_inventory" model="sale.order.type">
+            <field name="name">Adj Inventory</field>
+            <field name="sequence">60</field>
+        </record>
+        <record id="sale_order_type_assets" model="sale.order.type">
+            <field name="name">Assets</field>
+            <field name="sequence">70</field>
+        </record>
+    </data>
+</odoo>
