@@ -1,330 +1,133 @@
-// KOB ERP — Welcome dashboard styled like the Accounting Journal Audit
-// report: white background, light-gray section bands, simple toolbar.
+// KOB ERP — Welcome (Odoo 19 enterprise home-menu clone)
+// Diagonal-stripe light background, plain centered app grid, draggable tiles.
 
-$o-purple:        #714B67;
-$o-purple-dark:   #5d3a55;
-$o-text-strong:   #2c2c2c;
-$o-text:          #4c4c4c;
-$o-muted:         #6c757d;
-$o-subtle:        #adb5bd;
-$o-border:        #d8d8d8;
-$o-border-light:  #ececec;
-$o-band-bg:       #ededed;
-$o-bg:            #ffffff;
-$o-toolbar-bg:    #f8f8f8;
-$o-link:          #017e84;
-$o-hover:         #f5f5f5;
+$o-purple:       #714B67;
+$o-text-strong:  #2c2c2c;
+$o-bg-grad-from: #c4c2ce;
+$o-bg-grad-to:   #e7e6ea;
+$o-tile-bg:      #ffffff;
+$o-border:       #e0e0e0;
 
-// Backwards-compat aliases
-$kob-graphite:       $o-text-strong;
-$kob-graphite-light: $o-text;
-$kob-cobalt:         $o-purple;
-$kob-cobalt-dark:    $o-purple-dark;
-$kob-gold:           #c9a96e;
-$kob-gold-light:     #d4b572;
-$kob-text:           $o-text;
-$kob-muted:          $o-muted;
-$kob-subtle:         $o-subtle;
-$kob-border:         $o-border;
-$kob-bg:             $o-bg;
-$kob-surface:        $o-bg;
-$kob-navy:           $o-text-strong;
-$kob-blue:           $o-purple;
-$kob-blue-dark:      $o-purple-dark;
+// Backwards-compat
+$kob-graphite:       $o-text-strong; $kob-graphite-light: #4c4c4c;
+$kob-cobalt:         $o-purple;      $kob-cobalt-dark:    #5d3a55;
+$kob-gold:           #c9a96e;        $kob-gold-light:     #d4b572;
+$kob-text:           #4c4c4c;        $kob-muted:          #6c757d;
+$kob-subtle:         #adb5bd;        $kob-border:         $o-border;
+$kob-bg:             $o-bg-grad-to;  $kob-surface:        $o-tile-bg;
+$kob-navy:           $o-text-strong; $kob-blue:           $o-purple;
+$kob-blue-dark:      #5d3a55;
 
 .kob-welcome {
     height: 100%;
     overflow: auto;
-    background: $o-bg;
-    color: $o-text;
+    color: $o-text-strong;
     font-family: "Inter", "Roboto", "Segoe UI", -apple-system, "Helvetica Neue", Arial, "Noto Sans Thai", sans-serif;
-    font-size: 13px;
 
-    .kob-container {
-        max-width: 1480px;
-        margin: 0 auto;
-        padding: 0 24px;
+    // Diagonal-stripe background (matches Odoo 19 home)
+    background:
+        linear-gradient(115deg,
+            rgba(255, 255, 255, 0)   0%,
+            rgba(255, 255, 255, 0.45) 48%,
+            rgba(255, 255, 255, 0)   52%,
+            rgba(255, 255, 255, 0)  100%),
+        linear-gradient(180deg, $o-bg-grad-from 0%, $o-bg-grad-to 65%);
+
+    .kob-grid-wrap {
+        display: flex;
+        justify-content: center;
+        padding: 56px 24px 64px;
     }
 
-    // ── TOOLBAR ──────────────────────────────────────────────────
-    .kob-toolbar {
-        background: $o-bg;
-        border-bottom: 1px solid $o-border-light;
-        padding: 12px 0;
-
-        .kob-toolbar-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .kob-toolbar-left {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .kob-toolbar-right {
-            margin-left: auto;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-
-        .kob-tool-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: $o-bg;
-            border: 1px solid $o-border;
-            color: $o-text;
-            font-size: 12px;
-            font-weight: 500;
-            padding: 5px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 100ms;
-
-            &:hover {
-                background: $o-hover;
-                border-color: $o-text-strong;
-                color: $o-text-strong;
-            }
-            &--ghost {
-                color: $o-muted;
-            }
-        }
-
-        .kob-toolbar-title {
-            font-size: 16px;
-            font-weight: 500;
-            color: $o-text-strong;
-            margin: 0 0 0 8px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-
-            .kob-toolbar-cog {
-                color: $o-subtle;
-                font-size: 12px;
-                cursor: pointer;
-
-                &:hover { color: $o-purple; }
-            }
-        }
-
-        .kob-tool-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: $o-bg;
-            border: 1px solid $o-border;
-            color: $o-text;
-            font-size: 12px;
-            padding: 5px 12px;
-            border-radius: 4px;
-
-            i { color: $o-muted; font-size: 11px; }
-
-            .kob-tool-search {
-                background: transparent;
-                border: none;
-                outline: none;
-                color: $o-text-strong;
-                font-size: 12px;
-                font-family: inherit;
-                width: 200px;
-                padding: 0;
-
-                &::placeholder { color: $o-subtle; }
-            }
-
-            &--btn {
-                cursor: pointer;
-                transition: all 100ms;
-
-                &:hover {
-                    background: $o-hover;
-                    border-color: $o-text-strong;
-                    color: $o-text-strong;
-                }
-            }
-            &--active {
-                background: $o-purple !important;
-                color: #fff !important;
-                border-color: $o-purple !important;
-
-                i { color: rgba(255, 255, 255, 0.85); }
-                &:hover {
-                    background: $o-purple-dark !important;
-                    color: #fff !important;
-                }
-            }
-        }
-    }
-
-    // ── REPORT FRAME ─────────────────────────────────────────────
-    .kob-report {
-        padding: 16px 0 32px;
-
-        .kob-report-frame {
-            border: 1px solid $o-border-light;
-        }
-
-        // Column header
-        .kob-col-head {
-            display: grid;
-            grid-template-columns: 2fr 4fr 1.5fr 0.5fr;
-            background: $o-toolbar-bg;
-            border-bottom: 1px solid $o-border-light;
-            padding: 10px 18px;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: $o-muted;
-
-            .kob-col-name   { text-align: left; }
-            .kob-col-desc   { text-align: left; }
-            .kob-col-cat    { text-align: right; }
-            .kob-col-action { }
-        }
-
-        // Section band
-        .kob-band {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: $o-band-bg;
-            border-top: 1px solid $o-border-light;
-            border-bottom: 1px solid $o-border-light;
-            padding: 8px 18px;
-            font-size: 13px;
-            font-weight: 600;
-            color: $o-text-strong;
-
-            .kob-band-dot {
-                width: 8px;
-                height: 8px;
-                border-radius: 50%;
-            }
-            .kob-band-label { flex: 1; }
-            .kob-band-count {
-                font-size: 11px;
-                font-weight: 500;
-                color: $o-muted;
-                background: $o-bg;
-                padding: 1px 8px;
-                border-radius: 999px;
-                border: 1px solid $o-border-light;
-            }
-        }
-    }
-
-    // ── APP TILE GRID ────────────────────────────────────────────
-    .kob-cards {
+    .kob-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-        gap: 12px;
-        padding: 16px 18px;
-        background: $o-bg;
+        grid-template-columns: repeat(6, 110px);
+        gap: 28px 32px;
+
+        @media (max-width: 880px) {
+            grid-template-columns: repeat(4, 110px);
+        }
+        @media (max-width: 600px) {
+            grid-template-columns: repeat(3, 100px);
+            gap: 20px;
+        }
     }
 
-    .kob-card {
+    .kob-app {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        text-align: center;
-        background: $o-bg;
-        border: 1px solid $o-border-light;
-        border-radius: 6px;
-        padding: 18px 10px 14px;
+        background: transparent;
+        border: 0;
+        padding: 0;
         cursor: grab;
-        transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
-        min-height: 120px;
         user-select: none;
+        transition: transform 120ms ease;
 
         &:hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            border-color: $o-purple;
             transform: translateY(-2px);
+
+            .kob-app-icon {
+                box-shadow:
+                    0 1px 0 rgba(255, 255, 255, 0.5) inset,
+                    0 8px 18px rgba(0, 0, 0, 0.14);
+            }
         }
         &:active { cursor: grabbing; }
+
         &--dragging {
-            opacity: 0.4;
-            transform: scale(0.97);
-            box-shadow: none;
+            opacity: 0.35;
+            transform: scale(0.95);
         }
-        &--dragover {
-            border-color: $o-purple;
-            background: rgba(113, 75, 103, 0.04);
-            box-shadow: 0 0 0 2px rgba(113, 75, 103, 0.15);
+        &--dragover .kob-app-icon {
+            box-shadow:
+                0 0 0 3px rgba(113, 75, 103, 0.45),
+                0 8px 18px rgba(0, 0, 0, 0.14);
         }
 
-        .kob-card-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: 12px;
+        .kob-app-icon {
+            width: 86px;
+            height: 86px;
+            border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 12px;
+            background: $o-tile-bg;
             box-shadow:
-                0 1px 0 rgba(255,255,255,0.4) inset,
-                0 2px 6px rgba(0, 0, 0, 0.10);
+                0 1px 0 rgba(255, 255, 255, 0.5) inset,
+                0 4px 10px rgba(0, 0, 0, 0.10);
+            transition: box-shadow 120ms ease;
+            margin-bottom: 10px;
+            position: relative;
+            overflow: hidden;
         }
-        .kob-card-glyph {
-            font-size: 24px;
-            font-weight: 600;
+
+        // The glyph sits inside a colored rounded panel inside the white tile,
+        // so each app feels like a distinct icon rather than a flat color block.
+        .kob-app-glyph {
+            width: 60px;
+            height: 60px;
+            border-radius: 14px;
+            background: var(--kob-app-color, $o-purple);
             color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
             line-height: 1;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.10);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.10);
         }
-        .kob-card-title {
-            font-size: 12.5px;
+
+        .kob-app-title {
+            font-size: 13px;
             font-weight: 500;
             color: $o-text-strong;
             margin: 0;
-            line-height: 1.3;
+            text-align: center;
+            line-height: 1.2;
+            max-width: 110px;
             word-break: break-word;
         }
-    }
-
-    // ── EMPTY ────────────────────────────────────────────────────
-    .kob-empty {
-        text-align: center;
-        padding: 48px 20px;
-        background: $o-bg;
-
-        .kob-empty-icon {
-            font-size: 32px;
-            color: $o-subtle;
-            margin-bottom: 10px;
-            display: block;
-        }
-        .kob-empty-text {
-            color: $o-muted;
-            font-size: 13px;
-            margin: 0;
-        }
-    }
-
-    // ── FOOTER ───────────────────────────────────────────────────
-    .kob-foot {
-        background: $o-toolbar-bg;
-        border-top: 1px solid $o-border-light;
-        padding: 12px 0;
-
-        .kob-foot-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 8px;
-            font-size: 11px;
-            color: $o-muted;
-        }
-        .kob-foot-version { color: $o-subtle; }
     }
 }

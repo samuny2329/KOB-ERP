@@ -1,123 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
 
-    <!-- KOB ERP — Welcome dashboard
-         Style: matches the Accounting "Journal Audit" report — white,
-         export-style buttons + filter chips on top, light-gray section
-         bands per category, draggable app tiles below each band. -->
+    <!-- KOB ERP — Welcome
+         Odoo 19 enterprise-style home menu: diagonal stripe background,
+         plain centered app grid, draggable tiles. No toolbar, no chips. -->
 
     <t t-name="kob_base.Welcome">
         <div class="kob-welcome o_action_manager">
 
-            <!-- ── TOOLBAR (Journal Audit style) ──────────────────── -->
-            <section class="kob-toolbar">
-                <div class="kob-container kob-toolbar-row">
-                    <div class="kob-toolbar-left">
-                        <span class="kob-tool-btn kob-tool-btn--ghost">PDF</span>
-                        <span class="kob-tool-btn kob-tool-btn--ghost">XLSX</span>
-                        <h1 class="kob-toolbar-title">
-                            Welcome
-                            <span class="kob-toolbar-cog" title="Settings">
-                                <i class="fa fa-cog" aria-hidden="true"/>
-                            </span>
-                        </h1>
-                    </div>
-                    <div class="kob-toolbar-right">
-                        <span class="kob-tool-chip">
-                            <i class="fa fa-search" aria-hidden="true"/>
-                            <input type="search"
-                                   class="kob-tool-search"
-                                   placeholder="Search apps..."
-                                   t-on-input="onSearchInput"
-                                   t-att-value="state.search"/>
-                        </span>
-                        <span class="kob-tool-chip kob-tool-chip--btn"
-                              t-att-class="{ 'kob-tool-chip--active': !state.category }"
-                              t-on-click="() => this.onCategoryClick(null)">
-                            All
-                        </span>
-                        <t t-foreach="categories" t-as="c" t-key="c.id">
-                            <span class="kob-tool-chip kob-tool-chip--btn"
-                                  t-att-class="{ 'kob-tool-chip--active': state.category === c.id }"
-                                  t-on-click="() => this.onCategoryClick(c.id)">
-                                <t t-esc="c.label"/>
-                            </span>
-                        </t>
-                        <span class="kob-tool-chip kob-tool-chip--btn"
-                              t-on-click="() => this.resetOrder()"
-                              title="Reset order">
-                            <i class="fa fa-undo" aria-hidden="true"/> Reset
-                        </span>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ── REPORT BODY ────────────────────────────────────── -->
-            <section class="kob-report">
-                <div class="kob-container kob-report-frame">
-
-                    <!-- Column header row -->
-                    <div class="kob-col-head">
-                        <div class="kob-col kob-col-name">Apps</div>
-                        <div class="kob-col kob-col-desc">Description</div>
-                        <div class="kob-col kob-col-cat">Category</div>
-                        <div class="kob-col kob-col-action"></div>
-                    </div>
-
-                    <!-- Per-category band + tile grid -->
-                    <t t-foreach="grouped()" t-as="cat" t-key="cat.id">
-                        <div class="kob-band">
-                            <span class="kob-band-dot" t-attf-style="background: {{cat.color}};"/>
-                            <span class="kob-band-label"><t t-esc="cat.label"/></span>
-                            <span class="kob-band-count"><t t-esc="cat.modules.length"/></span>
-                        </div>
-
-                        <div class="kob-cards">
-                            <t t-foreach="cat.modules" t-as="mod" t-key="mod.key">
-                                <button type="button"
-                                        class="kob-card"
-                                        draggable="true"
-                                        t-att-data-key="mod.key"
-                                        t-att-title="mod.description"
-                                        t-att-class="{
-                                            'kob-card--dragging': state.draggingKey === mod.key,
-                                            'kob-card--dragover': state.dragOverKey === mod.key and state.draggingKey !== mod.key,
-                                        }"
-                                        t-on-click="() => this.onCardClick(mod)"
-                                        t-on-dragstart="(ev) => this.onDragStart(ev, mod.key)"
-                                        t-on-dragover="(ev) => this.onDragOver(ev, mod.key)"
-                                        t-on-dragleave="(ev) => this.onDragLeave(ev, mod.key)"
-                                        t-on-drop="(ev) => this.onDrop(ev, mod.key)"
-                                        t-on-dragend="() => this.onDragEnd()">
-                                    <div class="kob-card-icon"
-                                         t-attf-style="background: {{mod.color}};">
-                                        <span class="kob-card-glyph">
-                                            <t t-esc="mod.glyph"/>
-                                        </span>
-                                    </div>
-                                    <h3 class="kob-card-title">
-                                        <t t-esc="mod.name"/>
-                                    </h3>
-                                </button>
-                            </t>
-                        </div>
-                    </t>
-
-                    <t t-if="filteredModules.length === 0">
-                        <div class="kob-empty">
-                            <i class="fa fa-search-minus kob-empty-icon" aria-hidden="true"/>
-                            <p class="kob-empty-text">No apps match your search</p>
-                        </div>
+            <div class="kob-grid-wrap">
+                <div class="kob-grid">
+                    <t t-foreach="filteredModules" t-as="mod" t-key="mod.key">
+                        <button type="button"
+                                class="kob-app"
+                                draggable="true"
+                                t-att-data-key="mod.key"
+                                t-att-title="mod.description"
+                                t-att-class="{
+                                    'kob-app--dragging': state.draggingKey === mod.key,
+                                    'kob-app--dragover': state.dragOverKey === mod.key and state.draggingKey !== mod.key,
+                                }"
+                                t-on-click="() => this.onCardClick(mod)"
+                                t-on-dragstart="(ev) => this.onDragStart(ev, mod.key)"
+                                t-on-dragover="(ev) => this.onDragOver(ev, mod.key)"
+                                t-on-dragleave="(ev) => this.onDragLeave(ev, mod.key)"
+                                t-on-drop="(ev) => this.onDrop(ev, mod.key)"
+                                t-on-dragend="() => this.onDragEnd()">
+                            <div class="kob-app-icon">
+                                <span class="kob-app-glyph"
+                                      t-attf-style="--kob-app-color: {{mod.color}}; background: {{mod.color}};">
+                                    <t t-esc="mod.glyph"/>
+                                </span>
+                            </div>
+                            <h3 class="kob-app-title">
+                                <t t-esc="mod.name"/>
+                            </h3>
+                        </button>
                     </t>
                 </div>
-            </section>
-
-            <footer class="kob-foot">
-                <div class="kob-container kob-foot-inner">
-                    <span class="kob-foot-brand">KOB ERP · Kiss of Beauty Co., Ltd.</span>
-                    <span class="kob-foot-version">Powered by Odoo 19</span>
-                </div>
-            </footer>
+            </div>
 
         </div>
     </t>
