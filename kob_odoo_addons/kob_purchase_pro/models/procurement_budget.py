@@ -13,6 +13,47 @@ class KobProcurementBudget(models.Model):
     name = fields.Char(required=True)
     department = fields.Char()
     project_code = fields.Char(index=True)
+    project_id = fields.Many2one(
+        "project.project", string="Project",
+        help="Link this budget to an Odoo Project. Useful for tracking "
+             "spending against a specific initiative (campaign, R&D, etc).",
+    )
+    expenditure_type = fields.Selection(
+        [
+            ("capex", "CapEx (Capital Expenditure)"),
+            ("opex", "OpEx (Operating Expenditure)"),
+        ],
+        string="Type",
+        default="opex",
+        required=True,
+        help="CapEx = long-life assets (equipment, building, perpetual "
+             "software, vehicle). OpEx = recurring operating costs "
+             "(salaries, rent, marketing, subscriptions).",
+    )
+    category = fields.Selection(
+        [
+            # CapEx
+            ("capex_equipment", "Equipment & Machinery"),
+            ("capex_building", "Building & Office Improvements"),
+            ("capex_software", "Software License (Perpetual)"),
+            ("capex_vehicle", "Vehicle Purchase"),
+            ("capex_it", "IT Hardware"),
+            # OpEx
+            ("opex_salaries", "Salaries & Wages"),
+            ("opex_rent", "Rent & Utilities"),
+            ("opex_marketing", "Marketing & Advertising"),
+            ("opex_travel", "Travel & Entertainment"),
+            ("opex_training", "Training & Development"),
+            ("opex_subscription", "Software Subscriptions"),
+            ("opex_maintenance", "Maintenance & Repair"),
+            ("opex_supplies", "Office Supplies"),
+            ("opex_professional", "Professional Services"),
+            ("opex_other", "Other Operating"),
+        ],
+        string="Category",
+        help="Granular bucket within CapEx/OpEx. Maps 1:1 with KOB "
+             "Notion category list.",
+    )
     fiscal_year = fields.Integer(required=True)
     period_from = fields.Date(required=True)
     period_to = fields.Date(required=True)

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "KOB ERP — Purchase Pro",
-    "version": "19.0.1.1.0",
+    "version": "19.0.1.2.0",
     "category": "KOB ERP/Purchase",
     "summary": "Vendor performance scoring, procurement budget gating, "
                "demand signal, PO consolidation, Thai WHT integration.",
@@ -30,6 +30,7 @@ beyond what stock Odoo ships:
         "purchase",
         "account",
         "kob_thai_compliance",
+        "project",
     ],
     "data": [
         "security/ir.model.access.csv",
