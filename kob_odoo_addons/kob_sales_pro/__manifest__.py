@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "KOB ERP — Sales Pro",
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.1.0",
     "category": "KOB ERP/Sales",
     "summary": "RMA returns, multi-platform order linkage, channel margin, "
                "customer LTV snapshots, intercompany SO mirror.",
@@ -41,6 +41,8 @@ Phase 4-adv port — KOB-exclusive on top of Odoo's stock ``sale``:
         "views/channel_margin_views.xml",
         "views/ltv_snapshot_views.xml",
         "views/intercompany_transfer_views.xml",
+        # QWeb PDF reports
+        "report/sales_pro_reports.xml",
     ],
     "installable": True,
     "auto_install": False,

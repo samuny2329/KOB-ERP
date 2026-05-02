@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "KOB ERP — Manufacturing Pro",
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.1.0",
     "category": "KOB ERP/Manufacturing",
     "summary": "Work-center OEE, production shifts, MO production signal, "
                "batch consolidation, BOM versioning.",
@@ -37,6 +37,8 @@ Phase 8-adv port — KOB-exclusive layer on Odoo ``mrp``:
         "views/production_signal_views.xml",
         "views/batch_consolidation_views.xml",
         "views/bom_version_views.xml",
+        # QWeb PDF reports
+        "report/mfg_pro_reports.xml",
     ],
     "installable": True,
     "auto_install": False,

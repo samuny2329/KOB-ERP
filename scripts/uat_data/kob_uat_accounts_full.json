@@ -1,0 +1,8228 @@
+﻿[
+ {
+  "c": "101101",
+  "n": "Petty Cash",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101101",
+  "n": "Petty Cash",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101102",
+  "n": "Cash",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "101102",
+  "n": "Cash",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "101201",
+  "n": "KOB SA SCB 078-2-36509-3",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "101202",
+  "n": "KOB SA KBANK #770-2-24065-9",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "101203",
+  "n": "KOB SA BAY #474-1-10780-3",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "101204",
+  "n": "KOB SA BBL #063-0-40384-8",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "101216",
+  "n": "BTV SA SCB #089-2-75084-5",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "101217",
+  "n": "BTV SA KBANK #010-1-53637-8",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "101218",
+  "n": "BTV SA GSB #020-2-56027-754",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "101219",
+  "n": "BTV SA KBANK #032-1-87225-5",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "101220",
+  "n": "BTV SA EXIM #201-2-00200-1",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "101221",
+  "n": "BTV SA BBL #063-0-47566-3",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "101251",
+  "n": "KOB CA SCB #078-3-02268-0",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "101252",
+  "n": "KOB CA KBANK #770-1-00355-6",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "101253",
+  "n": "KOB CA BAY #474-0-00428-2",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "101254",
+  "n": "KOB CA BBL #063-3-02189-4",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "101255",
+  "n": "KOB CA EXIM BANK #201-1-00929-299",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "101266",
+  "n": "BTV CA SCB #089-3-02190-6",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "101267",
+  "n": "BTV CA KBANK #010-1-53893-1",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "101268",
+  "n": "BTV CA KBANK #xxx-x-xx853-7",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "101269",
+  "n": "BTV CA EXIM BANK #201-1-01086-2",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "101275",
+  "n": "BTV CA KBANK #032-1-87353-7",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "101276",
+  "n": "BTV CA BBL #063-3-02614-1",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "101277",
+  "n": "BTV CA UOB #916-3-63586-7",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "101278",
+  "n": "BTV SA UOB #916-1-67917-4",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "101298",
+  "n": "Suspend bank account",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101298",
+  "n": "Suspend bank account",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101299",
+  "n": "Bank Suspense",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101299",
+  "n": "Bank Suspense",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101301",
+  "n": "Trade Receivable - Local",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": "101301",
+  "n": "Trade Receivable - Local",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": "101302",
+  "n": "Trade Receivable - Oversea",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": "101302",
+  "n": "Trade Receivable - Oversea",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": "101303",
+  "n": "Trade Receivable - Related Companies",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": "101303",
+  "n": "Trade Receivable - Related Companies",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": "101304",
+  "n": "Trade Receivable - Consignment Local",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": "101304",
+  "n": "Trade Receivable - Consignment Local",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": "101305",
+  "n": "Trade Receivable - Consignment Oversea",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": "101305",
+  "n": "Trade Receivable - Consignment Oversea",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": "101306",
+  "n": "Trade Receivable - Other",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": "101306",
+  "n": "Trade Receivable - Other",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": "101307",
+  "n": "Post Date Cheque",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": "101307",
+  "n": "Post Date Cheque",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": "101308",
+  "n": "AR Credit Card - Related Company - BTV",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": "101308",
+  "n": "AR Credit Card - Related Company - KOB",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": "101309",
+  "n": "Trade Receivable - Temporary",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101400",
+  "n": "Inventories",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101400",
+  "n": "Inventories",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101401",
+  "n": "Finished Goods",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101401",
+  "n": "Finished Goods",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101402",
+  "n": "Raw Material",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101402",
+  "n": "Raw Material",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101403",
+  "n": "Packaging",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101403",
+  "n": "Packaging",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101404",
+  "n": "Bulk / Semi goods",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101404",
+  "n": "Bulk / Semi goods",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101405",
+  "n": "Semi Bulk",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101405",
+  "n": "Semi Bulk",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101406",
+  "n": "Work in process",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101406",
+  "n": "Work in process",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101407",
+  "n": "Goods In transit",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101407",
+  "n": "Goods In transit",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101408",
+  "n": "Inventory Out Transit",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101408",
+  "n": "Inventory Out Transit",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101409",
+  "n": "Packaging Transit",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101410",
+  "n": "Production Account",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101411",
+  "n": "FG-Consignment WATSON",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101411",
+  "n": "FG-Consignment WATSON",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101412",
+  "n": "FG-Consignment EVEANDBOY",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101412",
+  "n": "FG-Consignment EVEANDBOY",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101413",
+  "n": "FG-Consignment BEAUTRIUM",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101413",
+  "n": "FG-Consignment BEAUTRIUM",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101414",
+  "n": "FG-Consignment BOOTS",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101414",
+  "n": "FG-Consignment BOOTS",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101415",
+  "n": "FG-Consignment MULTY BEAUTY",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101415",
+  "n": "FG-Consignment MULTY BEAUTY",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101416",
+  "n": "FG-Consignment KONVY",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101416",
+  "n": "FG-Consignment KONVY",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101417",
+  "n": "FG-Consignment COSMEI",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101417",
+  "n": "FG-Consignment COSMEI",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101418",
+  "n": "FG-Consignment BEAUTYCOOL",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101418",
+  "n": "FG-Consignment BEAUTYCOOL",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101419",
+  "n": "FG-Consignment SC INFINIT",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101419",
+  "n": "FG-Consignment SC INFINIT",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101420",
+  "n": "FG-Consignment BETTERWAY",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101420",
+  "n": "FG-Consignment BETTERWAY",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101421",
+  "n": "FG-Consignment SCOMMERSE",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101421",
+  "n": "FG-Consignment SCOMMERSE",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101495",
+  "n": "FG-Reclassify",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101495",
+  "n": "FG-Reclassify",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101496",
+  "n": "PK-Reclassify",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101496",
+  "n": "PK-Reclassify",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101497",
+  "n": "Provision for loss on declining of value of inventories",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101497",
+  "n": "Provision for loss on declining of value of inventories",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101498",
+  "n": "Suspense for OB Inventory",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101498",
+  "n": "Suspense for OB Inventory",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101501",
+  "n": "Short Term Loan to Shareholders",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101501",
+  "n": "Short Term Loan to Shareholders",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101502",
+  "n": "Short Term Loan to Directors",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101502",
+  "n": "Short Term Loan to Directors",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101503",
+  "n": "Short Term Loan to Related Companies - KOB",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101503",
+  "n": "Short Term Loan to Related Companies",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101504",
+  "n": "Short Term Loan to Related Companies - KOB",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101504",
+  "n": "Short Term Loan to Related Companies - BTV",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101505",
+  "n": "Short Term Loan to Related Companies - NGB",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101505",
+  "n": "Short Term Loan to Related Companies - NGB",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101506",
+  "n": "Short Term Loan to Related Companies - BGV",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101506",
+  "n": "Short Term Loan to Related Companies - BGV",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101507",
+  "n": "Short Term Loan to Related Companies - KV",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101507",
+  "n": "Short Term Loan to Related Companies - KV",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101508",
+  "n": "Short Term Loan to Related Companies - B&B",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101508",
+  "n": "Short Term Loan to Related Companies - B&B",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101509",
+  "n": "Short Term Loan to Related Companies - BSL",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101509",
+  "n": "Short Term Loan to Related Companies - BSL",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101510",
+  "n": "Short Term Loan to Related Companies - YM",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101511",
+  "n": "Short Term Loan to Related Companies - KOL",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101701",
+  "n": "Accrued Revenue",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101701",
+  "n": "Accrued Revenue",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101702",
+  "n": "Accrued interest income",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101702",
+  "n": "Accrued interest income",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101703",
+  "n": "Other accrued income",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101703",
+  "n": "Other accrued income",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101704",
+  "n": "Prepaid insurance",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101704",
+  "n": "Prepaid insurance",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101705",
+  "n": "Prepaid expenses-Others",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101705",
+  "n": "Prepaid expenses-Others",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101706",
+  "n": "Advance for goods",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101706",
+  "n": "Advance for goods",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101707",
+  "n": "Advance payment-Others",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101707",
+  "n": "Advance payment-Others",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101708",
+  "n": "Input VAT",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101708",
+  "n": "Input VAT",
+  "t": "off_balance",
+  "r": false
+ },
+ {
+  "c": "101709",
+  "n": "Undue Input VAT",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101709",
+  "n": "Undue Input VAT",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101710",
+  "n": "AR Revenue Department",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101710",
+  "n": "AR Revenue Department",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "101711",
+  "n": "Prepaid withholding tax",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101711",
+  "n": "Prepaid withholding tax",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101712",
+  "n": "Prepaid income tax (51)",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101712",
+  "n": "Prepaid income tax (51)",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101713",
+  "n": "Cash advance",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101713",
+  "n": "Cash advance",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101714",
+  "n": "Suspend account",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101714",
+  "n": "Suspend account",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101715",
+  "n": "VAT/WHT Receivable",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101715",
+  "n": "VAT/WHT Receivable",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101716",
+  "n": "Purchase tax Pending deduction",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101998",
+  "n": "Trade Receivable - Other Suspense",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101998",
+  "n": "Trade Receivable - Other Suspense",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101999",
+  "n": "Trade Receivable - Related Companies Suspense",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "101999",
+  "n": "Trade Receivable - Related Companies Suspense",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "102000",
+  "n": "Trade Receivable - LOCAL Companies Suspense",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "102000",
+  "n": "Trade Receivable - LOCAL Companies Suspense",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "102001",
+  "n": "Trade Receivable - OVERSEA Companies Suspense",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "102002",
+  "n": "Trade Receivable - CONSIGNMENT Companies Suspense",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "102002",
+  "n": "Trade Receivable - CONSIGNMENT Companies Suspense",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "102101",
+  "n": "Long Term Loan to Shareholders",
+  "t": "asset_non_current",
+  "r": true
+ },
+ {
+  "c": "102101",
+  "n": "Long Term Loan to Shareholders",
+  "t": "asset_non_current",
+  "r": true
+ },
+ {
+  "c": "102102",
+  "n": "Long Term Loan to Directors",
+  "t": "asset_non_current",
+  "r": true
+ },
+ {
+  "c": "102102",
+  "n": "Long Term Loan to Directors",
+  "t": "asset_non_current",
+  "r": true
+ },
+ {
+  "c": "102103",
+  "n": "Long Term Loan to Related Companies",
+  "t": "asset_non_current",
+  "r": true
+ },
+ {
+  "c": "102103",
+  "n": "Long Term Loan to Related Companies - KOB",
+  "t": "asset_non_current",
+  "r": true
+ },
+ {
+  "c": "102104",
+  "n": "Long Term Loan to Related Companies - KOB",
+  "t": "asset_non_current",
+  "r": true
+ },
+ {
+  "c": "102104",
+  "n": "Long Term Loan to Related Companies - BTV",
+  "t": "asset_non_current",
+  "r": true
+ },
+ {
+  "c": "102105",
+  "n": "Long Term Loan to Related Companies - BDD",
+  "t": "asset_non_current",
+  "r": true
+ },
+ {
+  "c": "102105",
+  "n": "Long Term Loan to Related Companies - BDD",
+  "t": "asset_non_current",
+  "r": true
+ },
+ {
+  "c": "102106",
+  "n": "Long Term Loan to Related Companies - BGV",
+  "t": "asset_non_current",
+  "r": true
+ },
+ {
+  "c": "102106",
+  "n": "Long Term Loan to Related Companies - BGV",
+  "t": "asset_non_current",
+  "r": true
+ },
+ {
+  "c": "102107",
+  "n": "Long Term Loan to Related Companies - KV",
+  "t": "asset_non_current",
+  "r": true
+ },
+ {
+  "c": "102107",
+  "n": "Long Term Loan to Related Companies - KV",
+  "t": "asset_non_current",
+  "r": true
+ },
+ {
+  "c": "102108",
+  "n": "Long Term Loan to Related Companies - B&B",
+  "t": "asset_non_current",
+  "r": true
+ },
+ {
+  "c": "102108",
+  "n": "Long Term Loan to Related Companies - B&B",
+  "t": "asset_non_current",
+  "r": true
+ },
+ {
+  "c": "102109",
+  "n": "Long Term Loan to Related Companies - BSL",
+  "t": "asset_non_current",
+  "r": true
+ },
+ {
+  "c": "102109",
+  "n": "Long Term Loan to Related Companies - BSL",
+  "t": "asset_non_current",
+  "r": true
+ },
+ {
+  "c": "102201",
+  "n": "Land",
+  "t": "asset_fixed",
+  "r": true
+ },
+ {
+  "c": "102201",
+  "n": "Land",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": "102202",
+  "n": "Building",
+  "t": "asset_fixed",
+  "r": true
+ },
+ {
+  "c": "102202",
+  "n": "Building",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": "102203",
+  "n": "Building Improvement",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": "102203",
+  "n": "Building Improvement",
+  "t": "asset_fixed",
+  "r": true
+ },
+ {
+  "c": "102204",
+  "n": "Office Equipment",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": "102204",
+  "n": "Office Equipment",
+  "t": "asset_fixed",
+  "r": true
+ },
+ {
+  "c": "102205",
+  "n": "Computer",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": "102205",
+  "n": "Computer",
+  "t": "asset_fixed",
+  "r": true
+ },
+ {
+  "c": "102206",
+  "n": "Furniture and Fixture",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": "102206",
+  "n": "Furniture and Fixture",
+  "t": "asset_fixed",
+  "r": true
+ },
+ {
+  "c": "102207",
+  "n": "Tool & Equipment",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": "102207",
+  "n": "Tool & Equipment",
+  "t": "asset_fixed",
+  "r": true
+ },
+ {
+  "c": "102208",
+  "n": "Vehicles",
+  "t": "asset_fixed",
+  "r": true
+ },
+ {
+  "c": "102208",
+  "n": "Vehicles",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": "102209",
+  "n": "Software",
+  "t": "asset_fixed",
+  "r": true
+ },
+ {
+  "c": "102209",
+  "n": "Software",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": "102302",
+  "n": "Accumulated Depre - Building",
+  "t": "asset_fixed",
+  "r": true
+ },
+ {
+  "c": "102302",
+  "n": "Accumulated Depre - Building",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": "102303",
+  "n": "Accumulated Depre - Building improvement",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": "102303",
+  "n": "Accumulated Depre - Building improvement",
+  "t": "asset_fixed",
+  "r": true
+ },
+ {
+  "c": "102304",
+  "n": "Accumulated Depre - Office Equipment",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": "102304",
+  "n": "Accumulated Depre - Office Equipment",
+  "t": "asset_fixed",
+  "r": true
+ },
+ {
+  "c": "102305",
+  "n": "Accumulated Depre - Computer",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": "102305",
+  "n": "Accumulated Depre - Computer",
+  "t": "asset_fixed",
+  "r": true
+ },
+ {
+  "c": "102306",
+  "n": "Accumulated Depre - Furniture and Fixture",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": "102306",
+  "n": "Accumulated Depre - Furniture and Fixture",
+  "t": "asset_fixed",
+  "r": true
+ },
+ {
+  "c": "102307",
+  "n": "Accumulated Depre - Tool & Equipment",
+  "t": "asset_fixed",
+  "r": true
+ },
+ {
+  "c": "102307",
+  "n": "Accumulated Depre - Tool & Equipment",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": "102308",
+  "n": "Accumulated Depre - Vehicle",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": "102308",
+  "n": "Accumulated Depre - Vehicle",
+  "t": "asset_fixed",
+  "r": true
+ },
+ {
+  "c": "102309",
+  "n": "Amortization - Software",
+  "t": "asset_fixed",
+  "r": true
+ },
+ {
+  "c": "102309",
+  "n": "Amortization - Software",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": "102310",
+  "n": "Accumulated Depre Suspense",
+  "t": "asset_fixed",
+  "r": true
+ },
+ {
+  "c": "103001",
+  "n": "Investment in subsidiaries",
+  "t": "asset_non_current",
+  "r": false
+ },
+ {
+  "c": "103001",
+  "n": "Investment in subsidiaries",
+  "t": "asset_non_current",
+  "r": true
+ },
+ {
+  "c": "104101",
+  "n": "Deposit - Building",
+  "t": "asset_non_current",
+  "r": false
+ },
+ {
+  "c": "104101",
+  "n": "Deposit - Building",
+  "t": "asset_non_current",
+  "r": true
+ },
+ {
+  "c": "104102",
+  "n": "Other deposits",
+  "t": "asset_non_current",
+  "r": false
+ },
+ {
+  "c": "104102",
+  "n": "Other deposits",
+  "t": "asset_non_current",
+  "r": true
+ },
+ {
+  "c": "104103",
+  "n": "Other assets",
+  "t": "asset_non_current",
+  "r": false
+ },
+ {
+  "c": "104103",
+  "n": "Other assets",
+  "t": "asset_non_current",
+  "r": true
+ },
+ {
+  "c": "104104",
+  "n": "Retention",
+  "t": "asset_non_current",
+  "r": true
+ },
+ {
+  "c": "104104",
+  "n": "Retention",
+  "t": "asset_non_current",
+  "r": false
+ },
+ {
+  "c": "104105",
+  "n": "Deferred Interest expense",
+  "t": "asset_non_current",
+  "r": true
+ },
+ {
+  "c": "104105",
+  "n": "Deferred Interest expense",
+  "t": "asset_non_current",
+  "r": false
+ },
+ {
+  "c": "104106",
+  "n": "Deferred expense",
+  "t": "asset_non_current",
+  "r": true
+ },
+ {
+  "c": "104106",
+  "n": "Deferred expense",
+  "t": "asset_non_current",
+  "r": false
+ },
+ {
+  "c": "110001",
+  "n": "Cash",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "110001",
+  "n": "Cash",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "111001",
+  "n": "Bank",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "111001",
+  "n": "Bank",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "1110016",
+  "n": "Suspense Account",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "111002",
+  "n": "Bank Suspense Account",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "111002",
+  "n": "Bank Suspense Account",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "111003",
+  "n": "Outstanding Receipts",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "111003",
+  "n": "Outstanding Receipts",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "111004",
+  "n": "Outstanding Payments Local",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "111004",
+  "n": "Outstanding Payments Local",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "111005",
+  "n": "Advance payment-Others (copy)",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "111006",
+  "n": "101201 KOB SA SCB 0782365093 (copy)",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": "111014",
+  "n": "Outstanding Payments Oversea",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "111014",
+  "n": "Outstanding Payments Oversea",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "120000",
+  "n": "Account Receivable",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": "120000",
+  "n": "Account Receivable",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": "120100",
+  "n": "Outstanding Cheques",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "120100",
+  "n": "Outstanding Cheques",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "121000",
+  "n": "Account Receivable (PoS)",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": "121000",
+  "n": "Account Receivable (PoS)",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": "130000",
+  "n": "Inventory",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "130000",
+  "n": "Inventory",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "141100",
+  "n": "Accumulated Depreciation - Building",
+  "t": "expense_depreciation",
+  "r": true
+ },
+ {
+  "c": "141100",
+  "n": "Accumulated Depreciation - Building",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": "142100",
+  "n": "Accumulated Depreciation - Equipment",
+  "t": "expense_depreciation",
+  "r": true
+ },
+ {
+  "c": "142100",
+  "n": "Accumulated Depreciation - Equipment",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": "151000",
+  "n": "Input VAT",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "151000",
+  "n": "Input VAT",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "152000",
+  "n": "Withholding Income Tax",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "152000",
+  "n": "Withholding Income Tax",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": "160001",
+  "n": "Liquidity Transfer",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "160001",
+  "n": "Liquidity Transfer",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "201100",
+  "n": "Accounts Payable-Trade",
+  "t": "liability_payable",
+  "r": true
+ },
+ {
+  "c": "201100",
+  "n": "Accounts Payable-Trade",
+  "t": "liability_payable",
+  "r": true
+ },
+ {
+  "c": "201101",
+  "n": "Trade Accounts Payable-Local",
+  "t": "liability_payable",
+  "r": true
+ },
+ {
+  "c": "201101",
+  "n": "Trade Accounts Payable-Local",
+  "t": "liability_payable",
+  "r": true
+ },
+ {
+  "c": "201102",
+  "n": "Trade Accounts Payable-Oversea",
+  "t": "liability_payable",
+  "r": true
+ },
+ {
+  "c": "201102",
+  "n": "Trade Accounts Payable-Oversea",
+  "t": "liability_payable",
+  "r": true
+ },
+ {
+  "c": "201103",
+  "n": "Trade Accounts Payable-Related Companies",
+  "t": "liability_payable",
+  "r": true
+ },
+ {
+  "c": "201103",
+  "n": "Trade Accounts Payable-Related Companies",
+  "t": "liability_payable",
+  "r": true
+ },
+ {
+  "c": "201104",
+  "n": "Trade Accounts Payable-Consignment Local",
+  "t": "liability_payable",
+  "r": true
+ },
+ {
+  "c": "201104",
+  "n": "Trade Accounts Payable-Consignment Local",
+  "t": "liability_payable",
+  "r": true
+ },
+ {
+  "c": "201105",
+  "n": "Trade Accounts Payable-Consignment Oversea",
+  "t": "liability_payable",
+  "r": true
+ },
+ {
+  "c": "201105",
+  "n": "Trade Accounts Payable-Consignment Oversea",
+  "t": "liability_payable",
+  "r": true
+ },
+ {
+  "c": "201106",
+  "n": "Trade Accounts Payable-Other",
+  "t": "liability_payable",
+  "r": true
+ },
+ {
+  "c": "201106",
+  "n": "Trade Accounts Payable-Other",
+  "t": "liability_payable",
+  "r": true
+ },
+ {
+  "c": "201107",
+  "n": "KOB Credit Card KBANK Payable  4652 5042 9133 4112",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201108",
+  "n": "KOB Credit Card KBANK Payable 4652 5042 9133 4005",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201109",
+  "n": "KOB Credit Card BBL Payable 4546 2900 3809 3126",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201201",
+  "n": "Withholding tax payable (PND.1)",
+  "t": "liability_current",
+  "r": false
+ },
+ {
+  "c": "201201",
+  "n": "Withholding tax payable (PND.1)",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201202",
+  "n": "Withholding tax payable (PND.3)",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201202",
+  "n": "Withholding tax payable (PND.3)",
+  "t": "liability_current",
+  "r": false
+ },
+ {
+  "c": "201203",
+  "n": "Withholding tax payable (PND.53)",
+  "t": "liability_current",
+  "r": false
+ },
+ {
+  "c": "201203",
+  "n": "Withholding tax payable (PND.53)",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201204",
+  "n": "Withholding tax payable (PND.54)",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201204",
+  "n": "Withholding tax payable (PND.54)",
+  "t": "liability_current",
+  "r": false
+ },
+ {
+  "c": "201205",
+  "n": "Withholding tax payable (PP.36)",
+  "t": "liability_current",
+  "r": false
+ },
+ {
+  "c": "201205",
+  "n": "Withholding tax payable (PP.36)",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201206",
+  "n": "AP Revenue Department",
+  "t": "liability_payable",
+  "r": true
+ },
+ {
+  "c": "201206",
+  "n": "AP Revenue Department",
+  "t": "liability_current",
+  "r": false
+ },
+ {
+  "c": "201207",
+  "n": "Accrued Social  Security",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201207",
+  "n": "Accrued Social  Security",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201208",
+  "n": "Accrued Income Tax (50)",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201208",
+  "n": "Accrued Income Tax (50)",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201209",
+  "n": "Output VAT",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201209",
+  "n": "Output VAT",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201210",
+  "n": "Undue output VAT",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201210",
+  "n": "Undue output VAT",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201211",
+  "n": "Accrued Purchases",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201211",
+  "n": "Accrued Purchases",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201301",
+  "n": "Promissory Notes : KOB : SCB 15M P/N 90Days MLR",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201302",
+  "n": "Promissory Notes : KOB : SCB 12M P/N 90Days MLR-0.25%",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201311",
+  "n": "Promissory Notes : BTV : SCB 5M P/N 150Days MLR",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201401",
+  "n": "Short term loans from shareholder",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201401",
+  "n": "Short term loans from shareholder",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201402",
+  "n": "Short term loans from directors",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201402",
+  "n": "Short term loans from directors",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201403",
+  "n": "Short term loans from Related Companies - KOB",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201403",
+  "n": "Short term loans from Related Companies",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201404",
+  "n": "Short term loans from Related Companies - BTV",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201404",
+  "n": "Short term loans from Related Companies - KOB",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201405",
+  "n": "Short term loans from Related Companies - NGB",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201405",
+  "n": "Short term loans from Related Companies - NGB",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201406",
+  "n": "Short term loans from Related Companies - BGV",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201406",
+  "n": "Short term loans from Related Companies - BGV",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201407",
+  "n": "Short term loans from Related Companies - KV",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201407",
+  "n": "Short term loans from Related Companies - KV",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201408",
+  "n": "Short term loans from Related Companies - B&B",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201408",
+  "n": "Short term loans from Related Companies - B&B",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201409",
+  "n": "Short term loans from Related Companies - BSL",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201409",
+  "n": "Short term loans from Related Companies - BSL",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201501",
+  "n": "Long Term Loans Due Within 1 Year",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201501",
+  "n": "Long Term Loans Due Within 1 Year",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201601",
+  "n": "LC / TR : KOB : SCB 12M LC/TR 150 Days",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201602",
+  "n": "LC / TR : KOB : KBANK 12M LC/TR 150 Days",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201611",
+  "n": "LC / TR : BTV : SCB 5M LC/TR 150 Days",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201612",
+  "n": "LC / TR : BTV : KBANK 18M LC/TR 180 Days",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201613",
+  "n": "LC / TR : BTV : UOB 3M LC/TR 180 Days",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201701",
+  "n": "Accrued expense-Others",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201701",
+  "n": "Accrued expense-Others",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201702",
+  "n": "Prepaid Cheque",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201702",
+  "n": "Prepaid Cheque",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201703",
+  "n": "Accrued royalty fee",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201703",
+  "n": "Accrued royalty fee",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201704",
+  "n": "Accrued interest expense",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201704",
+  "n": "Accrued interest expense",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201705",
+  "n": "Other payables-Local",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201705",
+  "n": "Other payables-Local",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201706",
+  "n": "Other payables-Oversea",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201706",
+  "n": "Other payables-Oversea",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201707",
+  "n": "Other Accounts Payable-Employees",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201707",
+  "n": "Other Accounts Payable-Employees",
+  "t": "liability_payable",
+  "r": true
+ },
+ {
+  "c": "201708",
+  "n": "Deposit Received from customers",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201708",
+  "n": "Deposit Received from customers",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201709",
+  "n": "Provident fund payable",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201709",
+  "n": "Provident fund payable",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201710",
+  "n": "Deferred Revenue - Customers",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201710",
+  "n": "Deferred Revenue - Customers",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201711",
+  "n": "Deferred Revenue - Related Companies",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201711",
+  "n": "Deferred Revenue - Related Companies",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201712",
+  "n": "AP Credit Card",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201712",
+  "n": "AP Credit Card",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201713",
+  "n": "AP Credit Card - Related Companies - BTV",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201713",
+  "n": "AP Credit Card - Related Companies - KOB",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201993",
+  "n": "AP Revenue Department Suspense",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201993",
+  "n": "AP Revenue Department Suspense",
+  "t": "liability_current",
+  "r": false
+ },
+ {
+  "c": "201994",
+  "n": "Trade Accounts Payable-Related Companies Suspense",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201994",
+  "n": "Trade Accounts Payable-Related Companies Suspense",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201995",
+  "n": "Trade Accounts Payable-Other Suspense",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201995",
+  "n": "Trade Accounts Payable-Other Suspense",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201996",
+  "n": "Trade Accounts Payable-Director Suspense",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201996",
+  "n": "Trade Accounts Payable-Director Suspense",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201997",
+  "n": "Trade Accounts payable-Advance Suspense",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201997",
+  "n": "Trade Accounts payable-Advance Suspense",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201998",
+  "n": "Trade Accounts Payable-Oversea Suspense",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201998",
+  "n": "Trade Accounts Payable-Oversea Suspense",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201999",
+  "n": "Trade Accounts Payable-Local Suspense",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "201999",
+  "n": "Trade Accounts Payable-Local Suspense",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "202101",
+  "n": "Long- term loans from shareholder",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": "202101",
+  "n": "Long- term loans from shareholder",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": "202102",
+  "n": "Long Term Loan from director",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": "202102",
+  "n": "Long Term Loan from director",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": "202103",
+  "n": "Long- term loans from Related Companies - KOB",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": "202103",
+  "n": "Long- term loans from Related Companies",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": "202104",
+  "n": "Long- term loans from Related Companies - BTV",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": "202104",
+  "n": "Long- term loans from Related Companies - KOB",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": "202105",
+  "n": "Long- term loans from Related Companies - BDD",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": "202105",
+  "n": "Long- term loans from Related Companies - BDD",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": "202106",
+  "n": "Long- term loans from Related Companies - BGV",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": "202106",
+  "n": "Long- term loans from Related Companies - BGV",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": "202107",
+  "n": "Long- term loans from Related Companies - KV",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": "202107",
+  "n": "Long- term loans from Related Companies - KV",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": "202108",
+  "n": "Long- term loans from Related Companies - B&B",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": "202108",
+  "n": "Long- term loans from Related Companies - B&B",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": "202109",
+  "n": "Long- term loans from Related Companies - BSL",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": "202109",
+  "n": "Long- term loans from Related Companies - BSL",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": "202207",
+  "n": "Long-term loans from financial institutes : KOB : KBANK 6.5M JUL20 2Y MLR-1.60%+3Y MLR-1.00%",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": "202209",
+  "n": "Long-term loans from financial institutes : KOB : EXIM 24.12.20 3M",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": "202210",
+  "n": "Long-term loans from financial institutes : KOB : SCB 13.24M BOT JUN14-21 2.00%",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": "202211",
+  "n": "Long-term loans from financial institutes : KOB : KIATNAKIN 5M Mar-23 1%",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": "202212",
+  "n": "Long-term loans from financial institutes : KOB : SCB 15M BOT 7year MRL-6.35%",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": "202213",
+  "n": "Long-term loans from financial institutes : KOB : THAI CREDIT 7.453M",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": "202221",
+  "n": "Long-term loans from financial institutes : BTV : SCB 0.3M 5Yrs Credit Insurance MLR+0.75% 6,200PMT",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": "202222",
+  "n": "Long-term loans from financial institutes : BTV : EXIM 24.12.20 3M",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": "202223",
+  "n": "Long-term loans from financial institutes : BTV : SCB 7.59M BOT JUN14-21 - 2.00%",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": "202224",
+  "n": "Long-term loans from financial institutes : BTV : THAI CREDIT 10.336M BOT",
+  "t": "liability_non_current",
+  "r": false
+ },
+ {
+  "c": "202225",
+  "n": "Long-term loans from financial institutes : BTV : EXIM 0.6 M",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "202226",
+  "n": "Long-term loans from financial institutes : BTV : THAI CREDIT 1.5M",
+  "t": "liability_non_current",
+  "r": false
+ },
+ {
+  "c": "202301",
+  "n": "AP Leasing",
+  "t": "liability_payable",
+  "r": true
+ },
+ {
+  "c": "202301",
+  "n": "AP Leasing",
+  "t": "liability_payable",
+  "r": true
+ },
+ {
+  "c": "203001",
+  "n": "Provisions : Employee benefits",
+  "t": "liability_non_current",
+  "r": false
+ },
+ {
+  "c": "203001",
+  "n": "Provisions : Employee benefits",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": "210100",
+  "n": "Account Payable",
+  "t": "liability_payable",
+  "r": true
+ },
+ {
+  "c": "210100",
+  "n": "Account Payable",
+  "t": "liability_payable",
+  "r": true
+ },
+ {
+  "c": "210200",
+  "n": "Accrued Expenses",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "210200",
+  "n": "Accrued Expenses",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "210300",
+  "n": "Uninvoiced Receipts",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "210300",
+  "n": "Uninvoiced Receipts",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "220000",
+  "n": "Loans",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "220000",
+  "n": "Loans",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "231000",
+  "n": "Output VAT",
+  "t": "liability_current",
+  "r": false
+ },
+ {
+  "c": "231000",
+  "n": "Output VAT",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": "2310001",
+  "n": "VAT/WHT Payable",
+  "t": "liability_current",
+  "r": false
+ },
+ {
+  "c": "231001",
+  "n": "VAT/WHT Payable",
+  "t": "liability_current",
+  "r": false
+ },
+ {
+  "c": "232000",
+  "n": "Withholding Tax",
+  "t": "liability_current",
+  "r": false
+ },
+ {
+  "c": "232000",
+  "n": "Withholding Tax",
+  "t": "liability_current",
+  "r": false
+ },
+ {
+  "c": "300101",
+  "n": "Authorized Share Capital",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": "300101",
+  "n": "Authorized Share Capital",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": "300102",
+  "n": "Issued and Paid-up Share Capital",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": "300102",
+  "n": "Issued and Paid-up Share Capital",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": "300103",
+  "n": "Premium on Share Capital",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": "300103",
+  "n": "Premium on Share Capital",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": "300201",
+  "n": "Retained Earnings(Deficit)",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": "300201",
+  "n": "Retained Earnings(Deficit)",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": "300202",
+  "n": "Net Profit (Loss)",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": "300202",
+  "n": "Net Profit (Loss)",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": "300203",
+  "n": "Dividend",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": "300203",
+  "n": "Dividend",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": "300204",
+  "n": "Legal Reserved",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": "300204",
+  "n": "Legal Reserved",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": "310000",
+  "n": "Capital Stock",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": "310000",
+  "n": "Capital Stock",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": "320000",
+  "n": "Retained Earnings",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": "320000",
+  "n": "Retained Earnings",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": "330000",
+  "n": "Dividends",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": "330000",
+  "n": "Dividends",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": "340000",
+  "n": "Income Summary",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": "340000",
+  "n": "Income Summary",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": "401101",
+  "n": "Sale Domestics",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": "401101",
+  "n": "Sale Domestics",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": "401102",
+  "n": "Sale Overseas",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": "401102",
+  "n": "Sale Overseas",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": "401104",
+  "n": "Sales Return",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": "401104",
+  "n": "Sales Return",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": "401105",
+  "n": "Sales Discount",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": "401105",
+  "n": "Sales Discount",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": "401109",
+  "n": "Sales Adjusment Ekachai",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": "401109",
+  "n": "Sales Adjusment Ekachai",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": "401111",
+  "n": "Sales - Related Companies",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": "401111",
+  "n": "Sales - Related Companies",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": "401112",
+  "n": "Sales Service - Related Companies",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": "401112",
+  "n": "Sales Service - Related Companies",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": "401113",
+  "n": "Sales Return - Related Companies",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": "401113",
+  "n": "Sales Return - Related Companies",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": "401121",
+  "n": "Sales Consignment",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": "401121",
+  "n": "Sales Consignment",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": "405101",
+  "n": "Service Fees",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "405101",
+  "n": "Service Fees",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "405102",
+  "n": "Logistics Fees",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "405102",
+  "n": "Logistics Fees",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "405103",
+  "n": "Operating Fees",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "405103",
+  "n": "Operating Fees",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "405104",
+  "n": "Repacking",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "405104",
+  "n": "Repacking",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "405105",
+  "n": "Other service revenues",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "405105",
+  "n": "Platform Commission",
+  "t": "income_other",
+  "r": true
+ },
+ {
+  "c": "405106",
+  "n": "Social Partner (Bonus)",
+  "t": "income_other",
+  "r": true
+ },
+ {
+  "c": "405106",
+  "n": "Scrap Sales",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "405107",
+  "n": "Rental income",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "405107",
+  "n": "Rental income",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "405108",
+  "n": "Returns from investment",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "405108",
+  "n": "Returns from investment",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "405109",
+  "n": "Management & Consulting Fees",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "405109",
+  "n": "Management & Consulting Fees",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "405110",
+  "n": "Other Income",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "405110",
+  "n": "Other Income",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "405111",
+  "n": "Interest income",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "405111",
+  "n": "Interest income",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "405112",
+  "n": "Interest income - Related Companies",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "405112",
+  "n": "Interest income - Related Companies",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "405113",
+  "n": "Gain(loss) from sale fixed assets",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "405113",
+  "n": "Gain(loss) from sale fixed assets",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "405114",
+  "n": "Gain(loss) from foreign exchange rate",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "405114",
+  "n": "Gain(loss) from foreign exchange rate",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "405115",
+  "n": "Unrealized Gain(loss) from foreign exchange rate ",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "405115",
+  "n": "Unrealized Gain(loss) from foreign exchange rate ",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "405198",
+  "n": "Other Income - Related Companies",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "405198",
+  "n": "Other Income - Related Companies",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "410000",
+  "n": "Income",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": "410000",
+  "n": "Income",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": "420000",
+  "n": "Gain Account",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "420000",
+  "n": "Gain Account",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "501101",
+  "n": "Cost of sales - External",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "501101",
+  "n": "Cost of sales - External",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "501102",
+  "n": "Cost of sales - Related Companies",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "501102",
+  "n": "Cost of sales - Related Companies",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "501103",
+  "n": "Cost of sales - Consignment",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "501103",
+  "n": "Cost of sales - Consignment",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "501111",
+  "n": "Cost of sales - Consignment WATSON",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "501111",
+  "n": "Cost of sales - Consignment WATSON",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "501112",
+  "n": "Cost of sales - Consignment EVEANDBOY",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "501112",
+  "n": "Cost of sales - Consignment EVEANDBOY",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "501113",
+  "n": "Cost of sales - Consignment BEAUTRIUM",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "501113",
+  "n": "Cost of sales - Consignment BEAUTRIUM",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "501114",
+  "n": "Cost of sales - Consignment BOOTS",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "501114",
+  "n": "Cost of sales - Consignment BOOTS",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "501115",
+  "n": "Cost of sales - Consignment MULTY BEAUTY",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "501115",
+  "n": "Cost of sales - Consignment MULTY BEAUTY",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "501116",
+  "n": "Cost of sales - Consignment KONVY",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "501116",
+  "n": "Cost of sales - Consignment KONVY",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "501117",
+  "n": "Cost of sales - Consignment COSMEI",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "501117",
+  "n": "Cost of sales - Consignment COSMEI",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "501118",
+  "n": "Cost of sales - Consignment BEAUTYCOOL",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "501118",
+  "n": "Cost of sales - Consignment BEAUTYCOOL",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "501119",
+  "n": "Cost of sales - Consignment SC INFINIT",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "501119",
+  "n": "Cost of sales - Consignment SC INFINIT",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "501120",
+  "n": "Cost of sales - Consignment BETTERWAY",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "501120",
+  "n": "Cost of sales - Consignment BETTERWAY",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "501121",
+  "n": "Cost of sales - Consignment SCOMMERSE",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "501121",
+  "n": "Cost of sales - Consignment SCOMMERSE",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "501199",
+  "n": "Inventory - Applied",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "501199",
+  "n": "Inventory - Applied",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "510000",
+  "n": "Cost of Revenue",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "510000",
+  "n": "Cost of Revenue",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": "520100",
+  "n": "Salary",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "520100",
+  "n": "Salary",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "520200",
+  "n": "Rent",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "520200",
+  "n": "Rent",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "520300",
+  "n": "Office Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "520300",
+  "n": "Office Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "530000",
+  "n": "Interest expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "530000",
+  "n": "Interest expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "540000",
+  "n": "Income tax expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "540000",
+  "n": "Income tax expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "550000",
+  "n": "Loss Account",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "550000",
+  "n": "Loss Account",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602101",
+  "n": "MKT - Advertising & Media Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602101",
+  "n": "MKT - Advertising & Media Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602102",
+  "n": "MKT - Production Cost",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602102",
+  "n": "MKT - Production Cost",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602103",
+  "n": "MKT - Events",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602103",
+  "n": "MKT - Events",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602104",
+  "n": "MKT - Research & Reports",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602104",
+  "n": "MKT - Research & Reports",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602105",
+  "n": "MKT - Manpower / Outsource / Agency",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602105",
+  "n": "MKT - Manpower / Outsource / Agency",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602106",
+  "n": "MKT - Merchandise and Gifts with Purchase",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602106",
+  "n": "MKT - Merchandise and Gifts with Purchase",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602107",
+  "n": "MKT - Public Relations",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602107",
+  "n": "MKT - Public Relations",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602108",
+  "n": "MKT - Logistics & In-land Fee / Postage",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602108",
+  "n": "MKT - Logistics & In-land Fee / Postage",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602109",
+  "n": "MKT - Below The Line Materials",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602109",
+  "n": "MKT - Below The Line Materials",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602110",
+  "n": "MKT - Customer Service",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602110",
+  "n": "MKT - Customer Service",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602111",
+  "n": "MKT - KOL / Influencer / Blogger",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602111",
+  "n": "MKT - KOL / Influencer / Blogger",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602112",
+  "n": "MKT - Softwares & Service Subscription",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602112",
+  "n": "MKT - Softwares & Service Subscription",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602113",
+  "n": "MKT - Content Creation Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602113",
+  "n": "MKT - Content Creation Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602114",
+  "n": "MKT - Creative Production Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602114",
+  "n": "MKT - Creative Production Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602115",
+  "n": "MKT - Graphic Designing Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602115",
+  "n": "MKT - Graphic Designing Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602998",
+  "n": "MKT - Other MKT Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "602998",
+  "n": "MKT - Other MKT Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603101",
+  "n": "ECM - Platform Commission & Transaction Fees & Service Fees",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603101",
+  "n": "ECM - Platform Commission & Transaction Fees & Service Fees",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603102",
+  "n": "ECM - Media Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603102",
+  "n": "ECM - Media Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603103",
+  "n": "ECM - Softwares & Service Subscription",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603103",
+  "n": "ECM - Softwares & Service Subscription",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603104",
+  "n": "ECM - Online Packaging Materials",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603104",
+  "n": "ECM - Online Packaging Materials",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603105",
+  "n": "ECM - Logistics & In-land Fee / Postage",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603105",
+  "n": "ECM - Logistics & In-land Fee / Postage",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603106",
+  "n": "ECM - Influencer and Affiliate's Commission",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603106",
+  "n": "ECM - Influencer and Affiliate's Commission",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603107",
+  "n": "ECM - Influencer and Affiliate's Promotion",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603107",
+  "n": "ECM - Influencer and Affiliate's Promotion",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603108",
+  "n": "ECM - Live streaming KOL/MC Booking Expense",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603108",
+  "n": "ECM - Live streaming KOL/MC Booking Expense",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603109",
+  "n": "ECM - Online Manpower / Outsource / Agency Fees",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603109",
+  "n": "ECM - Online Manpower / Outsource / Agency Fees",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603110",
+  "n": "ECM - Online Sales Promotion",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603110",
+  "n": "ECM - Online Sales Promotion",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603111",
+  "n": "ECM - Web / App Maintenance Expense",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603111",
+  "n": "ECM - Web / App Maintenance Expense",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603112",
+  "n": "ECM - Sales Discount Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603112",
+  "n": "ECM - Sales Discount Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603113",
+  "n": "ECM - Entertainment Expense ",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603113",
+  "n": "ECM - Entertainment Expense ",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603114",
+  "n": "ECM - Events & Exhibitions",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603114",
+  "n": "ECM - Events & Exhibitions",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603115",
+  "n": "ECM - Refund After  Release",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603115",
+  "n": "ECM - Refund After  Release",
+  "t": "expense",
+  "r": true
+ },
+ {
+  "c": "603116",
+  "n": "ECM - Platform Package Fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603117",
+  "n": "ECM - Fake Order",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603117",
+  "n": "ECM - Fake Order",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603118",
+  "n": "ECM - Outsource service",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603119",
+  "n": "ECM - Affiliate reward program",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603119",
+  "n": "ECM - Affiliate reward program",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603197",
+  "n": "ECM - Sampled Goods",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603198",
+  "n": "ECM - Other Ecommerce Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603198",
+  "n": "ECM - Other Ecommerce Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603199",
+  "n": "EV - Events & Exhibitions",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603201",
+  "n": "SAL - Store and Shelf Rental Expense",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603201",
+  "n": "SAL - Store and Shelf Rental Expense",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603202",
+  "n": "SAL - Trade Marketing Materials & POSM",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603202",
+  "n": "SAL - Trade Marketing Materials & POSM",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603203",
+  "n": "SAL - Conditional Rebates",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603203",
+  "n": "SAL - Conditional Rebates",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603204",
+  "n": "SAL - Price Discount Compensation",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603204",
+  "n": "SAL - Price Discount Compensation",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603205",
+  "n": "SAL - Sampled Goods",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603205",
+  "n": "SAL - Sampled Goods",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603206",
+  "n": "SAL - DC Allowance",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603206",
+  "n": "SAL - DC Allowance",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603207",
+  "n": "SAL - Listing Fees",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603207",
+  "n": "SAL - Listing Fees",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603208",
+  "n": "SAL - Service Subscription",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603208",
+  "n": "SAL - Service Subscription",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603209",
+  "n": "SAL - Traveling & Accomodation Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603209",
+  "n": "SAL - Traveling & Accomodation Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603210",
+  "n": "SAL - Entertainment & Gifts",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603210",
+  "n": "SAL - Entertainment & Gifts",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603211",
+  "n": "SAL - Exporting Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603211",
+  "n": "SAL - Exporting Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603212",
+  "n": "SAL - Logistics & In-land Fee / Postage",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603212",
+  "n": "SAL - Logistics & In-land Fee / Postage",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603213",
+  "n": "SAL - Warehouse Rental Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603213",
+  "n": "SAL - Warehouse Rental Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603214",
+  "n": "SAL - Warehouse insurance expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603214",
+  "n": "SAL - Warehouse insurance expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603215",
+  "n": "SAL - Warehouse Electricity",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603215",
+  "n": "SAL - Warehouse Electricity",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603216",
+  "n": "SAL - Warehouse Telephone",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603216",
+  "n": "SAL - Warehouse Telephone",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603217",
+  "n": "SAL - Warehouse Water Supply",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603217",
+  "n": "SAL - Warehouse Water Supply",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603218",
+  "n": "SAL - Warehouse Internet Fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603218",
+  "n": "SAL - Warehouse Internet Fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603219",
+  "n": "SAL - Warehouse Cleaning Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603219",
+  "n": "SAL - Warehouse Cleaning Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603220",
+  "n": "SAL - Warehouse Repair and Maintenance",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603220",
+  "n": "SAL - Warehouse Repair and Maintenance",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603221",
+  "n": "SAL - Warehouse Security Guard Expense",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603221",
+  "n": "SAL - Warehouse Security Guard Expense",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603222",
+  "n": "SAL - Vehicle Rental Services",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603222",
+  "n": "SAL - Vehicle Rental Services",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603223",
+  "n": "SAL - QC Sampling & Inspection Expense",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603223",
+  "n": "SAL - QC Sampling & Inspection Expense",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603224",
+  "n": "SAL - Penalty Expense",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603224",
+  "n": "SAL - Penalty Expense",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603225",
+  "n": "SAL - Warehouse Vehicle Maintenance Expense",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603225",
+  "n": "SAL - Warehouse Vehicle Maintenance Expense",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603226",
+  "n": "SAL - Warehouse Vehicle Fuel Expense & Express Way/Parking Fee/Taxi",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603226",
+  "n": "SAL - Warehouse Vehicle Fuel Expense & Express Way/Parking Fee/Taxi",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603227",
+  "n": "SAL - Warehouse Packing Materials",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603227",
+  "n": "SAL - Warehouse Packing Materials",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603228",
+  "n": "SAL - Events & Exhibitions",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603228",
+  "n": "SAL - Events & Exhibitions",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603229",
+  "n": "SAL - Commercial Support (TTA)",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603229",
+  "n": "SAL - Commercial Support (TTA)",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603296",
+  "n": "SAL - Inventory Write Off",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603296",
+  "n": "SAL - Inventory Write Off",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603297",
+  "n": "SAL - Gain/Loss Return Inventory",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603297",
+  "n": "SAL - Gain/Loss Return Inventory",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603301",
+  "n": "SAL - Salary & Wages",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603301",
+  "n": "SAL - Salary & Wages",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603302",
+  "n": "SAL - Staff Allowance",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603302",
+  "n": "SAL - Staff Allowance",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603303",
+  "n": "SAL - Overtime",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603303",
+  "n": "SAL - Overtime",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603304",
+  "n": "SAL - Staff Comission & Incentive",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603304",
+  "n": "SAL - Staff Comission & Incentive",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603305",
+  "n": "SAL - Worker Compensation and Social Security",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603305",
+  "n": "SAL - Worker Compensation and Social Security",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603306",
+  "n": "SAL - Contribution to Provident Funds",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603306",
+  "n": "SAL - Contribution to Provident Funds",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603307",
+  "n": "SAL - Per Diem and Temporary wages",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603307",
+  "n": "SAL - Per Diem and Temporary wages",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603308",
+  "n": "SAL - Bonus",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603308",
+  "n": "SAL - Bonus",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603309",
+  "n": "SAL - Employee Benefits & Insurance",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603309",
+  "n": "SAL - Employee Benefits & Insurance",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603310",
+  "n": "SAL - Entertainment for Employees",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603310",
+  "n": "SAL - Entertainment for Employees",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603311",
+  "n": "SAL - Training and Seminar",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603311",
+  "n": "SAL - Training and Seminar",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603312",
+  "n": "SAL - Employee Uniforms",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603312",
+  "n": "SAL - Employee Uniforms",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603313",
+  "n": "SAL - Warehouse Rental Service",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "603313",
+  "n": "SAL - Warehouse Rental Service",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604102",
+  "n": "GAE - Office Rental Fees",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604102",
+  "n": "GAE - Office Rental Fees",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604115",
+  "n": "GAE - Importing Charges",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604115",
+  "n": "GAE - Importing Charges",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604127",
+  "n": "GAE - Tools & Equipment",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604127",
+  "n": "GAE - Tools & Equipment",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604128",
+  "n": "GAE - Entertainment and Gifts",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604128",
+  "n": "GAE - Entertainment and Gifts",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604129",
+  "n": "GAE - Management Fees",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604129",
+  "n": "GAE - Management Fees",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604130",
+  "n": "GAE - Consulting and Professional Fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604130",
+  "n": "GAE - Consulting and Professional Fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604131",
+  "n": "GAE - Legal Fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604131",
+  "n": "GAE - Legal Fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604132",
+  "n": "GAE - Accounting Audit Fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604132",
+  "n": "GAE - Accounting Audit Fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604133",
+  "n": "GAE - Other Fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604133",
+  "n": "GAE - Other Fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604134",
+  "n": "GAE - Other service fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604134",
+  "n": "GAE - Other service fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604135",
+  "n": "GAE - Bank Charges",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604135",
+  "n": "GAE - Bank Charges",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604136",
+  "n": "GAE - Stationery and pre-printing",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604136",
+  "n": "GAE - Stationery and pre-printing",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604137",
+  "n": "GAE - Electricity",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604137",
+  "n": "GAE - Electricity",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604138",
+  "n": "GAE - Telephone",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604138",
+  "n": "GAE - Telephone",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604139",
+  "n": "GAE - Water Supply",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604139",
+  "n": "GAE - Water Supply",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604140",
+  "n": "GAE - Internet Fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604140",
+  "n": "GAE - Internet Fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604141",
+  "n": "GAE - Medical Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604141",
+  "n": "GAE - Medical Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604142",
+  "n": "GAE - Transportation/Fuel/Express Way/Parking Fee/Taxi",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604142",
+  "n": "GAE - Transportation/Fuel/Express Way/Parking Fee/Taxi",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604143",
+  "n": "GAE - Express Way/Parking Fee/Taxi",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604143",
+  "n": "GAE - Express Way/Parking Fee/Taxi",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604144",
+  "n": "GAE - Office Supplies & Other consumables",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604144",
+  "n": "GAE - Office Supplies & Other consumables",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604145",
+  "n": "GAE - Cleaning Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604145",
+  "n": "GAE - Cleaning Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604146",
+  "n": "GAE - Repair and Maintenance",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604146",
+  "n": "GAE - Repair and Maintenance",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604147",
+  "n": "GAE - Security Guard Expense",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604147",
+  "n": "GAE - Security Guard Expense",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604148",
+  "n": "GAE - Royalty fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604148",
+  "n": "GAE - Royalty fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604149",
+  "n": "GAE - Donation",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "604149",
+  "n": "GAE - Donation",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604150",
+  "n": "GAE - Property and Equipment Insurance Expense",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604150",
+  "n": "GAE - Property and Equipment Insurance Expense",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604151",
+  "n": "GAE - Property Tax",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604151",
+  "n": "GAE - Property Tax",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604152",
+  "n": "GAE - Signboard Tax/Other Tax/Tax Subsidy",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604152",
+  "n": "GAE - Signboard Tax/Other Tax/Tax Subsidy",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604153",
+  "n": "GAE - Postage & Courier&Messenger",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604153",
+  "n": "GAE - Postage & Courier&Messenger",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604154",
+  "n": "GAE - Space Rental Services",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604154",
+  "n": "GAE - Space Rental Services",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604155",
+  "n": "GAE - Vehicle Rental Services",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604155",
+  "n": "GAE - Vehicle Rental Services",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604156",
+  "n": "GAE - Photocopy Machine Rental & Services",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604156",
+  "n": "GAE - Photocopy Machine Rental & Services",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604158",
+  "n": "GAE - Copy Machines",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604158",
+  "n": "GAE - Copy Machines",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604159",
+  "n": "GAE - IT Related Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604159",
+  "n": "GAE - IT Related Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604160",
+  "n": "GAE - Welfare",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604160",
+  "n": "GAE - Welfare",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604161",
+  "n": "GAE - Government Registration & License Fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604161",
+  "n": "GAE - Government Registration & License Fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604162",
+  "n": "GAE - Membership Fee for Organizations",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604162",
+  "n": "GAE - Membership Fee for Organizations",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604163",
+  "n": "GAE - Bank Loan Related Fees",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604163",
+  "n": "GAE - Bank Loan Related Fees",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604164",
+  "n": "GAE - Loan Payment Protection Insurance ",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604164",
+  "n": "GAE - Loan Payment Protection Insurance ",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604165",
+  "n": "GAE - Penalty fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604165",
+  "n": "GAE - Penalty fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604166",
+  "n": "GAE - Unclaimed input VAT",
+  "t": "expense",
+  "r": true
+ },
+ {
+  "c": "604166",
+  "n": "GAE - Unclaimed input VAT",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604167",
+  "n": "GAE - Undeductible Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604167",
+  "n": "GAE - Undeductible Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604168",
+  "n": "GAE - Assets write off",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604168",
+  "n": "GAE - Assets write off",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604169",
+  "n": "GAE - Sundry Income/Loss",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604169",
+  "n": "GAE - Sundry Income/Loss",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604170",
+  "n": "GAE - Gain(Loss) from foreign exchange rate",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604170",
+  "n": "GAE - Gain(Loss) from foreign exchange rate",
+  "t": "expense",
+  "r": true
+ },
+ {
+  "c": "604171",
+  "n": "GAE -Trade Discount",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": "604201",
+  "n": "GAS - Salary & Wages",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604201",
+  "n": "GAS - Salary & Wages",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604202",
+  "n": "GAS - Perdium And Temporary Wages",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604202",
+  "n": "GAS - Perdium And Temporary Wages",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604203",
+  "n": "GAS - Staff Comission & Incentive",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604203",
+  "n": "GAS - Staff Comission & Incentive",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604204",
+  "n": "GAS - Overtime",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604204",
+  "n": "GAS - Overtime",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604205",
+  "n": "GAS - Staff Allowance",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604205",
+  "n": "GAS - Staff Allowance",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604206",
+  "n": "GAS - Workers Compensation And Social Security",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604206",
+  "n": "GAS - Workers Compensation And Social Security",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604207",
+  "n": "GAS - Contribution To Provident Fund",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604207",
+  "n": "GAS - Contribution To Provident Fund",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604208",
+  "n": "GAS - Bonus",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604208",
+  "n": "GAS - Bonus",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604209",
+  "n": "GAS - Employee Insurance",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604209",
+  "n": "GAS - Employee Insurance",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604210",
+  "n": "GAS - Traveling & Accomodation Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604210",
+  "n": "GAS - Traveling & Accomodation Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604212",
+  "n": "GAS - Entertainment for Employees",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604212",
+  "n": "GAS - Entertainment for Employees",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604213",
+  "n": "GAS - Training And Seminar",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604213",
+  "n": "GAS - Training And Seminar",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604214",
+  "n": "GAS - Recruitment Fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604214",
+  "n": "GAS - Recruitment Fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604215",
+  "n": "GAS - Employee Welfares ",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604215",
+  "n": "GAS - Employee Welfares ",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604216",
+  "n": "GAS - Employee Benefits",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604216",
+  "n": "GAS - Employee Benefits",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604217",
+  "n": "GAS - Uniform Employee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604217",
+  "n": "GAS - Uniform Employee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604218",
+  "n": "GAS - Softwares & Service Subscription",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604501",
+  "n": "GRD - RD Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604501",
+  "n": "GRD - RD Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604502",
+  "n": "GRD - Product Prototypes , Mockups, & Moulds",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604502",
+  "n": "GRD - Product Prototypes , Mockups, & Moulds",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604503",
+  "n": "GRD - Product Testing & Certificates",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604503",
+  "n": "GRD - Product Testing & Certificates",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604504",
+  "n": "GRD - Finished Goods Used & Sampled Goods",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604504",
+  "n": "GRD - Finished Goods Used & Sampled Goods",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604505",
+  "n": "GRD - FDA Registration and License Fees",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604505",
+  "n": "GRD - FDA Registration and License Fees",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604506",
+  "n": "GRD - Logistics & In-Land Fee/ Postage",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604506",
+  "n": "GRD - Logistics & In-Land Fee/ Postage",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604801",
+  "n": "GMN - Compensations",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604801",
+  "n": "GMN - Compensations",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604802",
+  "n": "GMN - Perdium and temporary wages",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604802",
+  "n": "GMN - Perdium and temporary wages",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604803",
+  "n": "GMN - Benefits & Insurances",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604803",
+  "n": "GMN - Benefits & Insurances",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604804",
+  "n": "GMN - Contribution to provident fund",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604804",
+  "n": "GMN - Contribution to provident fund",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604805",
+  "n": "GMN - Bonus",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604805",
+  "n": "GMN - Bonus",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604806",
+  "n": "GMN - Transportation/Fuel/Express Way/Parking Fee/Taxi",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604806",
+  "n": "GMN - Transportation/Fuel/Express Way/Parking Fee/Taxi",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604807",
+  "n": "GMN - Travelling & Accomodation Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604807",
+  "n": "GMN - Travelling & Accomodation Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604809",
+  "n": "GMN - Entertainment & Gifts",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604809",
+  "n": "GMN - Entertainment & Gifts",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604810",
+  "n": "GMN - Training and Seminar",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604810",
+  "n": "GMN - Training and Seminar",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604898",
+  "n": "GMN - Other Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "604898",
+  "n": "GMN - Other Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "605102",
+  "n": "DEP - Building",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": "605102",
+  "n": "DEP - Building",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": "605103",
+  "n": "DEP - Building Improvement",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": "605103",
+  "n": "DEP - Building Improvement",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": "605104",
+  "n": "DEP - Office Equipment",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": "605104",
+  "n": "DEP - Office Equipment",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": "605105",
+  "n": "DEP - Computer",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": "605105",
+  "n": "DEP - Computer",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": "605106",
+  "n": "DEP - Furniture and Fixture",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": "605106",
+  "n": "DEP - Furniture and Fixture",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": "605107",
+  "n": "DEP - Tool & Equipment",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": "605107",
+  "n": "DEP - Tool & Equipment",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": "605108",
+  "n": "DEP - Vehicles",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": "605108",
+  "n": "DEP - Vehicles",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": "605109",
+  "n": "DEP - Software",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": "605109",
+  "n": "DEP - Software",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": "700001",
+  "n": "FNE - Interest Expenses: Short-term loan from Shareholders",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "700001",
+  "n": "FNE - Interest Expenses: Short-term loan from Shareholders",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "700002",
+  "n": "FNE - Interest Expenses: Long-term loan from Shareholders",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "700002",
+  "n": "FNE - Interest Expenses: Long-term loan from Shareholders",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "700003",
+  "n": "FNE - Interest Expenses: Financial Lease",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "700003",
+  "n": "FNE - Interest Expenses: Financial Lease",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "700004",
+  "n": "FNE - Interest Expenses: Overdraft",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "700004",
+  "n": "FNE - Interest Expenses: Overdraft",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "700005",
+  "n": "FNE - Interest Expenses: LC/TR",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "700005",
+  "n": "FNE - Interest Expenses: LC/TR",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "700006",
+  "n": "FNE - Interest Expenses: Credit Cards",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "700006",
+  "n": "FNE - Interest Expenses: Credit Cards",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "700007",
+  "n": "FNE - Interest Expenses: Promissory Notes",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "700007",
+  "n": "FNE - Interest Expenses: Promissory Notes",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "700008",
+  "n": "FNE - Interest Expenses: Bank & Institutional Term Loan",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "700008",
+  "n": "FNE - Interest Expenses: Bank & Institutional Term Loan",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "700009",
+  "n": "FNE - Interest Expense - Related Companies",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "700009",
+  "n": "FNE - Interest Expense - Related Companies",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "700010",
+  "n": "FNE - Other Interest Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "700010",
+  "n": "FNE - Other Interest Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "800001",
+  "n": "TAX - Corporate Income tax",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "800001",
+  "n": "TAX - Corporate Income tax",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "999001",
+  "n": "Cash Difference Gain",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "999001",
+  "n": "Cash Difference Gain",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "999002",
+  "n": "Cash Difference Loss",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "999002",
+  "n": "Cash Difference Loss",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "999997",
+  "n": "Cash Discount Gain",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "999997",
+  "n": "Cash Discount Gain",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": "999998",
+  "n": "Cash Discount Loss",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "999998",
+  "n": "Cash Discount Loss",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": "999999",
+  "n": "Undistributed Profits/Losses",
+  "t": "equity_unaffected",
+  "r": false
+ },
+ {
+  "c": "999999",
+  "n": "Undistributed Profits/Losses",
+  "t": "equity_unaffected",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Accumulated Depre - FCTY - Furniture and Fixture",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Accumulated Depre - FCTY - Tool & Equipment",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Accumulated Depre - FCTY - Vehicles",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Accumulated Depre - FCTY - Machinery and Equipment",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Investment in subsidiaries",
+  "t": "asset_non_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Deposit - Building",
+  "t": "asset_non_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Other deposits",
+  "t": "asset_non_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Other assets",
+  "t": "asset_non_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Retention",
+  "t": "asset_non_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Deferred Interest expense",
+  "t": "asset_non_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Deferred expense",
+  "t": "asset_non_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Trade Accounts Payable-Local",
+  "t": "liability_payable",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Trade Accounts Payable-Oversea",
+  "t": "liability_payable",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Trade Accounts Payable-Related Companies",
+  "t": "liability_payable",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Trade Accounts Payable-Director",
+  "t": "liability_payable",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Trade Accounts Payable-Consignment Oversea",
+  "t": "liability_payable",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Trade Accounts Payable-Other",
+  "t": "liability_payable",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "AP-Reclassify",
+  "t": "liability_payable",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Withholding tax payable (PND.1)",
+  "t": "liability_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Withholding tax payable (PND.3)",
+  "t": "liability_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Withholding tax payable (PND.53)",
+  "t": "liability_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Withholding tax payable (PND.54)",
+  "t": "liability_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Withholding tax payable (PP.36)",
+  "t": "liability_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "AP Revenue Department",
+  "t": "liability_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Accrued Social  Security",
+  "t": "liability_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Accrued Income Tax (50)",
+  "t": "liability_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Output VAT",
+  "t": "liability_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Undue output VAT",
+  "t": "liability_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Promissory Notes : KOB : SCB 15M P/N 90Days MLR",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Promissory Notes : KOB : SCB 12M P/N 90Days MLR-0.25%",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Promissory Notes : KOB : SCB 4M P/N 24Mo APR20-22 2.00%",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Promissory Notes : KOB : SCB 15M P/N 24Mo APR20-22 2.00%",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Promissory Notes : KOB : KBANK 10M P/N (Multiple Sellers) 120Days MLR-0.5%",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Promissory Notes: KOB:SCB 15M P/N BOT 7Year MRL-6.35%",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Promissory Notes : BTV : SCB 5M P/N 150Days MLR",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Promissory Notes : BTV : SCB 8M P/N 24Mo JAN20-22 2.00%",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Short term loans from shareholder",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Short term loans from directors",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Short term loans from Related Companies",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "LC / TR : KOB : SCB 12M LC/TR 150 Days",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "LC / TR : KOB : KBANK 12M LC/TR 150 Days",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "LC / TR : KOB : EXIM 2M PACKING CREDIT 5.0%",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "LC / TR : BTV : SCB 5M LC/TR 150 Days",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Accrued expense-Others",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Prepaid Cheque",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Accrued royalty fee",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Accrued interest expense",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Other payables-Local",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Other payables-Oversea",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Other Accounts Payable-Employees/Director",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Deposit Received from customers",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Provident fund payable",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Deferred Revenue - Customers",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Deferred Revenue - Related Companies",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Other accrued expenses-Related Companies",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Long- term loans from shareholder",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Long Term Loan from director",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Long- term loans from Related Companies",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Long-term loans from financial institutes : KOB : SCB 0.3M 7Yrs Credit Insurance MLR+0.75%",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Long-term loans from financial institutes : KOB : SCB 0.3M 5Yrs Credit Insurance MLR",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Long-term loans from financial institutes : KOB : SCB 6.2M BOT 24Mo JUL20-22 2.00%",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Long-term loans from financial institutes : KOB : KBANK 0.139M 60Mo FEB17-22 Credit Insurance MLR",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Long-term loans from financial institutes : KOB : KBANK 0.099M 60Mo AUG17-22 Credit Insur. MLR-0.50%",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Long-term loans from financial institutes : KOB : KBANK 0.145M 60Mo JAN18-23 Credit Insurance MLR",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Long-term loans from financial institutes : KOB : KBANK 6.5M JUL20 2Y MLR-1.60%+3Y MLR-1.00%",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Long-term loans from financial institutes : KOB : SME 5M FIXED LOAN 4.00%",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Long-term loans from financial institutes : KOB : EXIM 24.12.20 3M",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Long-term loans from financial institutes : KOB : SCB 13.24M BOT JUN14-21 2.00%",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Long-term loans from financial institutes : BTV : SCB 0.3M 5Yrs Credit Insurance MLR+0.75% 6,200PMT",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Long-term loans from financial institutes : BTV : EXIM 24.12.20 3M",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Long-term loans from financial institutes : BTV : SCB 7.59M BOT JUN14-21 - 2.00%",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Provisions : Employee benefits",
+  "t": "liability_non_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Issued and Paid-up Share Capital",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Premium on Share Capital",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Retained Earnings(Deficit)",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Net Profit (Loss)",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Dividend",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Legal Reserved",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Sale External",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Sale Overseas",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Sales Return-External",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Sales Discount-External",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Sale Service-External",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Sales Packaging",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Sales Bulk",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Sales Adjusment Ekachai",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Sales Raw Material ",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Sales - Related Companies",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Sales Service - Related Companies",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Sales Return - Related Companies",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Sales Packaging-Related Companies",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Sales Consignment",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Service Fees",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Logistics Fees",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Operating Fees",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Repacking",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Other service revenues",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Scrap Sales",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Rental income",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Returns from investment",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Management & Consulting Fees",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Other Income",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Interest income",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Interest income - Related Companies",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Gain(loss) from sale fixed assets",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Gain(loss) from foreign exchange rate",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Unrealized Gain(loss) from foreign exchange rate ",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Other Income - Related Companies",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Cost of sales - External",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Cost of sales - Related Companies",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Cost of sales - Consignment",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Cost of Damage",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Cost of sales - Semi Finished",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Cost of sales - Raw Material",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Cost of sales - Packaging",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Inventory - Applied",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Wages & Salaries",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Overtime",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Bonuses",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Allowance",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Social Security Fund Contribution",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Provident Fund Contribution",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Workmen’s compensation fund",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Retirement benefit expenses",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Direct Labour Applied",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Electricity",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Water supplies",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Factory Supplies & Other consumables",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Repair & Maintenance",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Excise and Local Government Taxes",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Laboratory and/or external test",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Tools & Equipment",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Stationary Expenses",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Cost of energy",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Rental expenses : Space",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Machinery and Equipment rental services",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Consulting fees / ISO fees",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Traveling expenses",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Transportation /  Import / Postage",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Insurance for Employees",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Insurance Premiums",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Service charges",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Raw materials used for QC",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Packaging material used for QC",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Supplies used for QC",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Finish Goods used for QC",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Seminar",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Sundry Income/Loss",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Miscellaneous/Guard Expense",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Other Expense / Cleaning Expenses / Photocopy services",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Welfare-Factory",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Overhead Applied",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Depre - FCTY - Building",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Depre - FCTY - Building Improvement",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Depre - FCTY - Office Equipment",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Depre - FCTY - Computer",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Depre - FCTY - Furniture and Fixture",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Depre - FCTY - Tool & Equipment",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Depre - FCTY - Vehicles",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Depre - FCTY - Machinery and Equipment",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Total Depre - FCTY",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Salary & wages",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Perdium and temporary wages",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Staff comission & Incentive",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Overtime",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Staff allowance",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Workers compensation and social security",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Social Security Fund Contribution",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Bonus",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Employee benefit",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Traveling expenses (Selling Expense)",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Accommodation",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Entertainment (Selling Expense)",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Training and seminar",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Recruitment Fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Employee benefit",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Uniform Employee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Contribution to provident fund",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Salary & wages (Selling Expense)",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Perdium and temporary wages(Selling Expense)",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Staff comission & Incentive(Selling Expense)",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Overtime(Selling Expense)",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Staff allowance(Selling Expense)",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Workers compensation and social security(Selling Expense)",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Social Security Fund Contribution(Selling Expense)",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Bonus(Selling Expense)",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Employee benefit(Selling Expense)",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "MKT - Advertising & Media Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "MKT - Production Cost",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "MKT - Events",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "MKT - Research & Reports",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "MKT - Manpower / Outsource / Agency",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "MKT - Merchandise and Gifts with Purchase",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "MKT - Public Relations",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "MKT - Logistics & In-land Fee / Postage",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "MKT - Below The Line Materials",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "MKT - Customer Service",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "MKT - KOL / Influencer / Blogger",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Accumulated Depre - Building",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "ECM - Platform Commission & Transaction Fees",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "ECM - Media Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "ECM - Softwares & Service Subscription",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "ECM - Online Packaging Materials",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Showroom rent and fixture rent",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Office Rental Fees",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Selling and material",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Rebates",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Compensation",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Compensation Adjustment Ekachai",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Sampled Goods (Selling Expense)",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "POSM",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "DC Allowance",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Listing Fees",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Store expenses/Service expense",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "CRM",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Price Difference (ส่วนต่างราคา)",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Discount Paid (ส่วนลดจ่าย)",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Importing Charges",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Traveling expenses -Domestics",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Traveling expenses -Oversea",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Accommodation-Domestics",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Accommodation-Oversea",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Raw materials used for RD",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Packaging material used for RD",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Supplies used for RD",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Finish Goods used for RD",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Gain/Loss Return Inventory",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Logistics & In-land transportation /  Package (Selling Expense)",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Export expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Tools & Equipment",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Entertainment and Gifts",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Management Fees",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Consulting and Professional Fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Legal Fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Accounting Audit Fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Other Fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Other service fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Bank Charges",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Stationery and pre-printing",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Electricity",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Telephone",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Water Supply",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Internet Fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Medical Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Transportation/Fuel/Express Way/Parking Fee/Taxi",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Express Way/Parking Fee/Taxi",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "FCTY - Machinery and Equipment",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Office Supplies & Other consumables",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "FCTY - Vehicles",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Cleaning Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Repair and Maintenance",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Security Guard Expense",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Royalty fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Donation",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Property and Equipment Insurance Expense",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Property Tax",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Signboard Tax/Other Tax/Tax Subsidy",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Postage & Courier&Messenger",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Space Rental Services",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Vehicle Rental Services",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Photocopy Machine Rental & Services",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Program Development and Service",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Copy Machines",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - IT Related Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Welfare",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Government Registration & License Fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "GAE - Membership Fee for Organizations",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Other Expense",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Penalty fee",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Unclaimed input VAT",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Undeductible Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Assets write off",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Loss from Stock Count",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Inventory Write Off",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Miscellaneous expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Sundry Income/Loss",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "DEP - Building",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "DEP - Building Improvement",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "DEP - Office Equipment",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "DEP - Computer",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "DEP - Furniture and Fixture",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "DEP - Tool & Equipment",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "DEP - Vehicles",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "DEP - Software",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "FNE - Interest Expenses: Short-term loan from Shareholders",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "FNE - Interest Expenses: Long-term loan from Shareholders",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "FNE - Interest Expenses: Financial Lease",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "FNE - Interest Expenses: Overdraft",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "FNE - Interest Expenses: LC/TR",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "FNE - Interest Expenses: Credit Cards",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "FNE - Interest Expenses: Promissory Notes",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "FNE - Interest Expenses: Bank & Institutional Term Loan",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "FNE - Interest Expense - Related Companies",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "TAX - Corporate Income tax",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "FCTY - Tool & Equipment",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "FCTY - Furniture and Fixture",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "FCTY - Computer",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Hire purchase interest expense",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "FCTY - Office Equipment",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "FCTY - Building Improvement",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "FCTY - Building",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Fixed assets in transit",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Software in progress",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Construction in progress",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Software",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Vehicles",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Tool & Equipment",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Furniture and Fixture",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Computer",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Office Equipment",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Building Improvement",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Building",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "SCB C/A 078-302269-8",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "KB C/A 002-8-56000-1",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "KB S/A 002-8-55140-1",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "K.BO-Aeon-5506(For Shopee)",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "K.BO-UOB-6852(For Lazada)",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "K.BO-UOB-9477(For General)",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Land",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Long Term Loan to Related Companies",
+  "t": "asset_non_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Long Term Loan to Directors",
+  "t": "asset_non_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Long Term Loan to Shareholders",
+  "t": "asset_non_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Suspend account",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Cash advance",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Prepaid income tax (51)",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Prepaid withholding tax",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "AR Revenue Department",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Undue Input VAT",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Input VAT",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Advance payment-Others",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Advance for goods",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Prepaid expenses-Others",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Prepaid insurance",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Other accrued income",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Asset Expense",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Accrued interest income",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Test 001",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Accrued Revenue",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Short Term Loan to Related Companies",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Short Term Loan to Directors",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Short Term Loan to Shareholders",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Suspense for OB Inventory",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Billing Statements",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Provision for loss on declining of value of inventories",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "PK-Reclassify",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "FG-Reclassify",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Inventory In Transit",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Goods In transit",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Work in process",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Semi Bulk",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Bulk / Semi goods",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Packaging",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Raw Material",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Finished Goods",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Allowance for Doubtful Accounts",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "AR-Reclassify",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Post Date Cheque",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Trade Receivable - Other",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Trade Receivable - Consignment Oversea",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Trade Receivable - Consignment Local",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Trade Receivable - Related Companies",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Trade Receivable - Oversea",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Trade Receivable - Local",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Suspend bank account",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "KT CA KBANK 490-1-02156-8",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "KT CA SCB 215-3-00287-2",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "CMN CA SCB #078-302269-8",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "CMN CA KBANK 002-8-56000-1",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Other Income-(Uniform)",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "BTV CA BBL #063-3-02614-1",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "BTV CA KBANK #032-1-87353-7",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "BTV CA TIKTOK",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "BTV CA JD CENTRAL",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "BTV CA SHOPEE",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "BTV CA LAZADA",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "BTV CA 2C2P",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "BTV CA EXIM BANK #201-1-01086-2",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "BTV CA KBANK #xxx-x-xx853-7",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "BTV CA KBANK #010-1-53893-1",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "BTV CA SCB #089-3-02190-6",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "KOB CA TIKTOK",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "KOB CA JD CENTRAL",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "KOB CA SHOPEE",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "KOB CA LAZADA",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "KOB CA 2C2P",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "KOB CA EXIM BANK #201-1-00929-299",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "KOB CA BBL #063-3-02189-4",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "KOB CA BAY #474-0-00428-2",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "KOB CA KBANK #770-1-00355-6",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "KOB CA SCB #078-3-02268-0",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "KT SA Kbank 070-3-94433-7",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "KT SA SCB 215-2-59288-2",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "CMN SA SCB 078-236510-8",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "CMN SA KBank 002-8-55140-1",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "BTV SA BBL #063-0-47566-3",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "BTV SA EXIM #201-2-00200-1",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "BTV SA KBANK #032-1-87225-5",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "BTV SA GSB #020-2-56027-754",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "BTV SA KBANK #010-1-53637-8",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "BTV SA SCB #089-2-75084-5",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "KOB SA EXIM #201-2-00201-9",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "KOB SA BBL #063-0-40384-8",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "KOB SA BAY #474-1-10780-3",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "KOB SA KBANK #770-2-24065-9",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "KOB SA SCB 078-2-36509-3",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Petty Cash",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Cost of sales - Oversee",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Liquidity Transfer",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Trade Accounts Payable-Related Companies Suspense",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Trade Receivable - Related Companies Suspense",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Trade Receivable - Other Suspense",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "GAE -Trade Discount",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Trade Accounts Payable-Local Suspense",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "AP Leasing",
+  "t": "liability_payable",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Loss Account",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Income tax expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Trade Receivable - Temporary",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Interest expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Office Expenses",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Rent",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Salary",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Cost of Revenue",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Trade Accounts Payable-Oversea Suspense",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Car Insurance Premium",
+  "t": "expense_direct_cost",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Gain Account",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Income",
+  "t": "income",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Income Summary",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Dividends",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Retained Earnings",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "ECM - Sampled Goods",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "BTV Credit Card BBL Payable 4546 2900 3809 1112",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "BTV Credit Card KBANK Payable 4652 5042 9116 4162",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Trade Accounts Payable-Director Suspense",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Capital Stock",
+  "t": "equity",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Withholding Tax",
+  "t": "liability_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "BTV Credit Card KBANK Payable 4652 5042 9133 4013",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Output VAT",
+  "t": "liability_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Bank",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Cash",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Bank Suspense Account",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Outstanding Receipts",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Outstanding Payments",
+  "t": "asset_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Cash Discount Loss",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Cash Discount Gain",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Cash Difference Gain",
+  "t": "income_other",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Cash Difference Loss",
+  "t": "expense",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Undistributed Profits/Losses",
+  "t": "equity_unaffected",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Loans",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Uninvoiced Receipts",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Accrued Expenses",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Account Payable",
+  "t": "liability_payable",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Withholding Income Tax",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Input VAT",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Cash",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Accumulated Depreciation - Equipment",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Accumulated Depreciation - Building",
+  "t": "expense_depreciation",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Inventory",
+  "t": "asset_current",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Outstanding Cheques",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Account Receivable (PoS)",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Account Receivable",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Trade Accounts Payable-Other Suspense",
+  "t": "liability_current",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Bank Suspense",
+  "t": "asset_cash",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Credit Card",
+  "t": "asset_receivable",
+  "r": true
+ },
+ {
+  "c": false,
+  "n": "Accumulated Depre - Office Equipment",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Accumulated Depre - Building improvement",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Accumulated Depre - Computer",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Accumulated Depre - Furniture and Fixture",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Accumulated Depre - Tool & Equipment",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Accumulated Depre - Vehicle",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Amortization - Software",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Accumulated Depre - FCTY - Building",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Accumulated Depre - FCTY - Building Improvement",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Accumulated Depre - FCTY - Office Equipment",
+  "t": "asset_fixed",
+  "r": false
+ },
+ {
+  "c": false,
+  "n": "Accumulated Depre - FCTY - Computer",
+  "t": "asset_fixed",
+  "r": false
+ }
+]

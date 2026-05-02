@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "KOB ERP — Marketplace Import",
-    "version": "19.0.2.1.1",
+    "version": "19.0.2.2.0",
     "category": "KOB ERP/Marketplace",
     "summary": "Import Shopee / TikTok / Lazada orders into Odoo as Sale "
                "Orders + Delivery Orders, with the x_kob_* custom fields "
@@ -42,6 +42,8 @@ Adds:
         "views/account_move_views.xml",
         "views/filter_views.xml",
         "wizards/marketplace_import_wizard_views.xml",
+        # QWeb PDF reports (Tax Invoice / Proforma / Credit Note / Commercial Invoice / Journal Voucher)
+        "report/account_move_reports.xml",
     ],
     "installable": True,
     "auto_install": False,

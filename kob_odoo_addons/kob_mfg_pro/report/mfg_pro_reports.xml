@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- OEE per shift -->
+    <record id="action_report_workcenter_oee" model="ir.actions.report">
+        <field name="name">Work-Centre OEE</field>
+        <field name="model">mfg.workcenter.oee</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kob_mfg_pro.report_workcenter_oee</field>
+        <field name="report_file">kob_mfg_pro.report_workcenter_oee</field>
+        <field name="binding_model_id" ref="model_mfg_workcenter_oee"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_workcenter_oee">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Work-Centre OEE — <span t-field="o.workcenter_id.name"/></h2>
+                        <p>
+                            <strong>Date:</strong> <span t-field="o.oee_date"/><br/>
+                            <strong>Shift:</strong> <span t-field="o.shift_id.name"/>
+                        </p>
+                        <table class="table table-bordered">
+                            <tr><th>Planned Time (min)</th>
+                                <td class="text-end"><span t-field="o.planned_time"/></td></tr>
+                            <tr><th>Available Time</th>
+                                <td class="text-end"><span t-field="o.available_time"/></td></tr>
+                            <tr><th>Run Time</th>
+                                <td class="text-end"><span t-field="o.run_time"/></td></tr>
+                            <tr><th>Total Units</th>
+                                <td class="text-end"><span t-field="o.total_units"/></td></tr>
+                            <tr><th>Good Units</th>
+                                <td class="text-end"><span t-field="o.good_units"/></td></tr>
+                            <tr><th>Availability</th>
+                                <td class="text-end"><span t-field="o.availability"/>%</td></tr>
+                            <tr><th>Performance</th>
+                                <td class="text-end"><span t-field="o.performance"/>%</td></tr>
+                            <tr><th>Quality</th>
+                                <td class="text-end"><span t-field="o.quality"/>%</td></tr>
+                            <tr class="table-warning"><th>OEE</th>
+                                <td class="text-end">
+                                    <strong><span t-field="o.oee"/>%</strong>
+                                </td></tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

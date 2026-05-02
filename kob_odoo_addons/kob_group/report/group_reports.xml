@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inter-Company Loan Schedule -->
+    <record id="action_report_intercompany_loan" model="ir.actions.report">
+        <field name="name">Inter-Company Loan Agreement</field>
+        <field name="model">kob.intercompany.loan</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kob_group.report_intercompany_loan</field>
+        <field name="report_file">kob_group.report_intercompany_loan</field>
+        <field name="binding_model_id" ref="model_kob_intercompany_loan"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_intercompany_loan">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Inter-Company Loan Agreement</h2>
+                        <p>
+                            <strong>Loan #:</strong> <span t-field="o.name"/><br/>
+                            <strong>Lender:</strong> <span t-field="o.lender_company_id.name"/><br/>
+                            <strong>Borrower:</strong> <span t-field="o.borrower_company_id.name"/><br/>
+                            <strong>Issue Date:</strong> <span t-field="o.issue_date"/><br/>
+                            <strong>Maturity:</strong> <span t-field="o.maturity_date"/>
+                        </p>
+                        <table class="table table-bordered">
+                            <tr><th>Principal</th>
+                                <td class="text-end">
+                                    <span t-field="o.principal"
+                                          t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                </td></tr>
+                            <tr><th>Interest Rate</th>
+                                <td class="text-end"><span t-field="o.interest_rate_pct"/>%</td></tr>
+                            <tr><th>Term (months)</th>
+                                <td class="text-end"><span t-field="o.term_months"/></td></tr>
+                            <tr><th>Outstanding</th>
+                                <td class="text-end">
+                                    <span t-field="o.outstanding_balance"
+                                          t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                </td></tr>
+                        </table>
+
+                        <h4 class="mt-4">Repayment Schedule</h4>
+                        <table class="table table-sm table-bordered">
+                            <thead class="table-secondary">
+                                <tr><th>Due Date</th><th class="text-end">Principal</th>
+                                    <th class="text-end">Interest</th>
+                                    <th class="text-end">Paid</th><th>State</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.installment_ids" t-as="ins">
+                                    <td><span t-field="ins.due_date"/></td>
+                                    <td class="text-end">
+                                        <span t-field="ins.principal_due"
+                                              t-options='{"widget":"monetary","display_currency":ins.currency_id}'/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-field="ins.interest_due"
+                                              t-options='{"widget":"monetary","display_currency":ins.currency_id}'/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-field="ins.paid_amount"
+                                              t-options='{"widget":"monetary","display_currency":ins.currency_id}'/>
+                                    </td>
+                                    <td><span t-field="ins.state"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="row mt-5">
+                            <div class="col-6 text-center">
+                                <p>______________________________</p>
+                                <p><span t-field="o.lender_company_id.name"/></p>
+                                <p>Lender Authorised Signature</p>
+                            </div>
+                            <div class="col-6 text-center">
+                                <p>______________________________</p>
+                                <p><span t-field="o.borrower_company_id.name"/></p>
+                                <p>Borrower Authorised Signature</p>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- Cost Allocation Voucher -->
+    <record id="action_report_cost_allocation" model="ir.actions.report">
+        <field name="name">Cost Allocation Voucher</field>
+        <field name="model">kob.cost.allocation</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kob_group.report_cost_allocation</field>
+        <field name="report_file">kob_group.report_cost_allocation</field>
+        <field name="binding_model_id" ref="model_kob_cost_allocation"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Loans Analysis — multi-loan summary report -->
+    <record id="action_report_loans_analysis" model="ir.actions.report">
+        <field name="name">Loans Analysis</field>
+        <field name="model">kob.intercompany.loan</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kob_group.report_loans_analysis</field>
+        <field name="report_file">kob_group.report_loans_analysis</field>
+        <field name="binding_model_id" ref="model_kob_intercompany_loan"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_loans_analysis">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>Loans Analysis</h2>
+                    <table class="table table-sm table-bordered">
+                        <thead class="table-secondary">
+                            <tr>
+                                <th>Loan</th>
+                                <th>Lender</th><th>Borrower</th>
+                                <th>Issue Date</th><th>Maturity</th>
+                                <th class="text-end">Principal</th>
+                                <th class="text-end">Outstanding</th>
+                                <th class="text-end">Rate %</th>
+                                <th>State</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="docs" t-as="o">
+                                <td><span t-field="o.name"/></td>
+                                <td><span t-field="o.lender_company_id.name"/></td>
+                                <td><span t-field="o.borrower_company_id.name"/></td>
+                                <td><span t-field="o.issue_date"/></td>
+                                <td><span t-field="o.maturity_date"/></td>
+                                <td class="text-end">
+                                    <span t-field="o.principal"
+                                          t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                </td>
+                                <td class="text-end">
+                                    <span t-field="o.outstanding_balance"
+                                          t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                </td>
+                                <td class="text-end"><span t-field="o.interest_rate_pct"/></td>
+                                <td><span t-field="o.state"/></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="table-warning">
+                                <td colspan="6"><strong>Total Outstanding</strong></td>
+                                <td class="text-end">
+                                    <strong><span t-esc="sum(docs.mapped('outstanding_balance'))"/></strong>
+                                </td>
+                                <td colspan="2"/>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <h4 class="mt-4">Status Summary</h4>
+                    <table class="table table-sm table-bordered">
+                        <thead class="table-secondary">
+                            <tr><th>State</th>
+                                <th class="text-end">Count</th>
+                                <th class="text-end">Total Outstanding</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="['draft','active','settled','defaulted','cancelled']" t-as="st">
+                                <td><span t-esc="st"/></td>
+                                <td class="text-end">
+                                    <span t-esc="len(docs.filtered(lambda l, s=st: l.state == s))"/>
+                                </td>
+                                <td class="text-end">
+                                    <span t-esc="sum(docs.filtered(lambda l, s=st: l.state == s).mapped('outstanding_balance'))"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_cost_allocation">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Cost Allocation Voucher</h2>
+                        <p>
+                            <strong><span t-field="o.name"/></strong> ·
+                            <span t-field="o.period_month"/>/<span t-field="o.period_year"/>
+                            · Basis: <span t-field="o.basis"/>
+                        </p>
+                        <table class="table table-bordered">
+                            <thead class="table-secondary">
+                                <tr><th>Company</th><th class="text-end">Share %</th>
+                                    <th class="text-end">Amount</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.line_ids" t-as="line">
+                                    <td><span t-field="line.company_id.name"/></td>
+                                    <td class="text-end"><span t-field="line.share_pct"/>%</td>
+                                    <td class="text-end">
+                                        <span t-field="line.amount"
+                                              t-options='{"widget":"monetary","display_currency":line.currency_id}'/>
+                                    </td>
+                                </tr>
+                                <tr class="table-warning">
+                                    <td colspan="2" class="text-end"><strong>Total</strong></td>
+                                    <td class="text-end">
+                                        <strong>
+                                            <span t-field="o.total_amount"
+                                                  t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                        </strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

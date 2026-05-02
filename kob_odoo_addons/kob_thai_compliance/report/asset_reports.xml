@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============================================================
+         Asset Register — single-asset summary PDF
+         ============================================================ -->
+    <record id="action_report_asset_register" model="ir.actions.report">
+        <field name="name">Asset Register Card</field>
+        <field name="model">kob.fixed.asset</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kob_thai_compliance.report_asset_register</field>
+        <field name="report_file">kob_thai_compliance.report_asset_register</field>
+        <field name="binding_model_id" ref="model_kob_fixed_asset"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_asset_register">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Asset Register Card</h2>
+                        <h4 t-field="o.company_id.name"/>
+                        <table class="table table-bordered">
+                            <tr>
+                                <th style="width: 25%">Asset Code</th>
+                                <td><span t-field="o.asset_code"/></td>
+                                <th style="width: 25%">Category</th>
+                                <td><span t-field="o.category"/></td>
+                            </tr>
+                            <tr>
+                                <th>Asset Name</th>
+                                <td colspan="3"><span t-field="o.name"/></td>
+                            </tr>
+                            <tr>
+                                <th>Acquisition Date</th>
+                                <td><span t-field="o.acquisition_date"/></td>
+                                <th>State</th>
+                                <td><span t-field="o.state"/></td>
+                            </tr>
+                            <tr>
+                                <th>Acquisition Cost</th>
+                                <td>
+                                    <span t-field="o.acquisition_cost"
+                                          t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                </td>
+                                <th>Salvage Value</th>
+                                <td>
+                                    <span t-field="o.salvage_value"
+                                          t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Depreciation Method</th>
+                                <td><span t-field="o.depreciation_method"/></td>
+                                <th>Useful Life (months)</th>
+                                <td><span t-field="o.useful_life_months"/></td>
+                            </tr>
+                            <tr class="table-warning">
+                                <th>Accumulated Depreciation</th>
+                                <td>
+                                    <span t-field="o.accumulated_depreciation"
+                                          t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                </td>
+                                <th>Book Value</th>
+                                <td>
+                                    <strong>
+                                        <span t-field="o.book_value"
+                                              t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Custodian</th>
+                                <td><span t-field="o.custodian_employee_id.name"/></td>
+                                <th>Location</th>
+                                <td><span t-field="o.location"/></td>
+                            </tr>
+                        </table>
+
+                        <h4 class="mt-4">GL Account Setup</h4>
+                        <table class="table table-sm table-bordered">
+                            <tr><th>Asset Account</th>
+                                <td><span t-field="o.asset_account_id.display_name"/></td></tr>
+                            <tr><th>Accumulated Depreciation Account</th>
+                                <td><span t-field="o.accumulated_depreciation_account_id.display_name"/></td></tr>
+                            <tr><th>Depreciation Expense Account</th>
+                                <td><span t-field="o.depreciation_expense_account_id.display_name"/></td></tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- ============================================================
+         Depreciation Schedule — full month-by-month breakdown
+         ============================================================ -->
+    <record id="action_report_depreciation_schedule" model="ir.actions.report">
+        <field name="name">Depreciation Schedule</field>
+        <field name="model">kob.fixed.asset</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kob_thai_compliance.report_depreciation_schedule</field>
+        <field name="report_file">kob_thai_compliance.report_depreciation_schedule</field>
+        <field name="binding_model_id" ref="model_kob_fixed_asset"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_depreciation_schedule">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Depreciation Schedule</h2>
+                        <p>
+                            <strong>Asset:</strong>
+                            <span t-field="o.asset_code"/> — <span t-field="o.name"/><br/>
+                            <strong>Method:</strong>
+                            <span t-field="o.depreciation_method"/> /
+                            <span t-field="o.useful_life_months"/> months<br/>
+                            <strong>Cost:</strong>
+                            <span t-field="o.acquisition_cost"
+                                  t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                            · <strong>Salvage:</strong>
+                            <span t-field="o.salvage_value"
+                                  t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                        </p>
+                        <table class="table table-sm table-bordered">
+                            <thead class="table-secondary">
+                                <tr>
+                                    <th>Year</th><th>Month</th>
+                                    <th class="text-end">Depreciation</th>
+                                    <th class="text-end">Accumulated</th>
+                                    <th class="text-end">Book Value</th>
+                                    <th>Posted At</th>
+                                    <th>Journal Entry</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.schedule_ids" t-as="ent">
+                                    <td><span t-field="ent.period_year"/></td>
+                                    <td><span t-field="ent.period_month"/></td>
+                                    <td class="text-end">
+                                        <span t-field="ent.depreciation_amount"
+                                              t-options='{"widget":"monetary","display_currency":ent.currency_id}'/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-field="ent.accumulated_to_date"
+                                              t-options='{"widget":"monetary","display_currency":ent.currency_id}'/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-field="ent.book_value_after"
+                                              t-options='{"widget":"monetary","display_currency":ent.currency_id}'/>
+                                    </td>
+                                    <td><span t-field="ent.posted_at"/></td>
+                                    <td><span t-field="ent.move_id.name"/></td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr class="table-warning">
+                                    <td colspan="2"><strong>Total</strong></td>
+                                    <td class="text-end">
+                                        <strong>
+                                            <span t-esc="sum(o.schedule_ids.mapped('depreciation_amount'))"
+                                                  t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                        </strong>
+                                    </td>
+                                    <td colspan="4"/>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

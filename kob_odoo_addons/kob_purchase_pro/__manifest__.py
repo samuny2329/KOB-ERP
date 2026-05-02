@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "KOB ERP — Purchase Pro",
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.1.0",
     "category": "KOB ERP/Purchase",
     "summary": "Vendor performance scoring, procurement budget gating, "
                "demand signal, PO consolidation, Thai WHT integration.",
@@ -38,6 +38,8 @@ beyond what stock Odoo ships:
         "views/procurement_budget_views.xml",
         "views/demand_signal_views.xml",
         "views/po_consolidation_views.xml",
+        # QWeb PDF reports
+        "report/purchase_pro_reports.xml",
     ],
     "installable": True,
     "auto_install": False,

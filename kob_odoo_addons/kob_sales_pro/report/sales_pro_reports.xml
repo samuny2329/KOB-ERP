@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- RMA / Return Order print -->
+    <record id="action_report_return_order" model="ir.actions.report">
+        <field name="name">Return Order (RMA)</field>
+        <field name="model">kob.return.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kob_sales_pro.report_return_order</field>
+        <field name="report_file">kob_sales_pro.report_return_order</field>
+        <field name="binding_model_id" ref="model_kob_return_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_return_order">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Return Authorisation (RMA)</h2>
+                        <p>
+                            <strong>RMA #:</strong> <span t-field="o.name"/><br/>
+                            <strong>Original SO:</strong> <span t-field="o.sales_order_id.name"/><br/>
+                            <strong>Requested:</strong> <span t-field="o.requested_at"/><br/>
+                            <strong>State:</strong> <span t-field="o.state"/>
+                        </p>
+                        <table class="table table-bordered">
+                            <thead class="table-secondary">
+                                <tr><th>Product</th><th>Lot</th>
+                                    <th class="text-end">Qty Returned</th>
+                                    <th>Reason</th><th class="text-end">Refund</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.line_ids" t-as="line">
+                                    <td><span t-field="line.product_id.display_name"/></td>
+                                    <td><span t-field="line.lot_id.name"/></td>
+                                    <td class="text-end"><span t-field="line.qty_returned"/></td>
+                                    <td>
+                                        <span t-field="line.reason_code"/><br/>
+                                        <small t-field="line.reason_note"/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-field="line.refund_amount"
+                                              t-options='{"widget":"monetary","display_currency":line.currency_id}'/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- Customer LTV Snapshot -->
+    <record id="action_report_customer_ltv" model="ir.actions.report">
+        <field name="name">Customer LTV Snapshot</field>
+        <field name="model">kob.customer.ltv.snapshot</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kob_sales_pro.report_customer_ltv</field>
+        <field name="report_file">kob_sales_pro.report_customer_ltv</field>
+        <field name="binding_model_id" ref="model_kob_customer_ltv_snapshot"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_customer_ltv">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Customer LTV Snapshot</h2>
+                        <p>
+                            <strong>Customer:</strong> <span t-field="o.partner_id.name"/><br/>
+                            <strong>Snapshot Date:</strong> <span t-field="o.snapshot_date"/>
+                        </p>
+                        <table class="table table-bordered">
+                            <tr><th>Revenue (90d)</th>
+                                <td class="text-end">
+                                    <span t-field="o.revenue_90d"
+                                          t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                </td></tr>
+                            <tr><th>Order Count (90d)</th>
+                                <td class="text-end"><span t-field="o.order_count_90d"/></td></tr>
+                            <tr><th>Avg Order Value</th>
+                                <td class="text-end">
+                                    <span t-field="o.avg_order_value"
+                                          t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                </td></tr>
+                            <tr><th>Repeat Rate</th>
+                                <td class="text-end"><span t-field="o.repeat_rate"/>%</td></tr>
+                            <tr><th>Return Rate</th>
+                                <td class="text-end"><span t-field="o.return_rate"/>%</td></tr>
+                            <tr class="table-success"><th>LTV Score</th>
+                                <td class="text-end">
+                                    <strong>
+                                        <span t-field="o.score"
+                                              t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                    </strong>
+                                </td></tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

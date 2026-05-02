@@ -114,4 +114,61 @@
         parent="kob_base.menu_kob_thai"
         action="action_kob_fixed_asset"
         sequence="60"/>
+
+    <!-- ============================================================
+         Depreciation Schedule — flat list across all assets
+         ============================================================ -->
+    <record id="view_kob_depreciation_entry_list" model="ir.ui.view">
+        <field name="name">kob.depreciation.entry.list</field>
+        <field name="model">kob.depreciation.entry</field>
+        <field name="arch" type="xml">
+            <list string="Depreciation Schedule" create="false" edit="false">
+                <field name="asset_id"/>
+                <field name="period_year"/>
+                <field name="period_month"/>
+                <field name="depreciation_amount" sum="Total"/>
+                <field name="accumulated_to_date"/>
+                <field name="book_value_after"/>
+                <field name="posted_at"/>
+                <field name="move_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_kob_depreciation_entry_search" model="ir.ui.view">
+        <field name="name">kob.depreciation.entry.search</field>
+        <field name="model">kob.depreciation.entry</field>
+        <field name="arch" type="xml">
+            <search string="Depreciation Schedule">
+                <field name="asset_id"/>
+                <field name="period_year"/>
+                <field name="period_month"/>
+                <filter name="posted" string="Posted"
+                        domain="[('posted_at', '!=', False)]"/>
+                <filter name="not_posted" string="Not Posted"
+                        domain="[('posted_at', '=', False)]"/>
+                <separator/>
+                <filter name="group_asset" string="By Asset"
+                        context="{'group_by': 'asset_id'}"/>
+                <filter name="group_year" string="By Year"
+                        context="{'group_by': 'period_year'}"/>
+                <filter name="group_month" string="By Month"
+                        context="{'group_by': 'period_month'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_kob_depreciation_schedule" model="ir.actions.act_window">
+        <field name="name">Depreciation Schedule</field>
+        <field name="res_model">kob.depreciation.entry</field>
+        <field name="view_mode">list</field>
+        <field name="search_view_id" ref="view_kob_depreciation_entry_search"/>
+    </record>
+
+    <menuitem
+        id="menu_kob_depreciation_schedule"
+        name="Depreciation Schedule"
+        parent="kob_base.menu_kob_thai"
+        action="action_kob_depreciation_schedule"
+        sequence="61"/>
 </odoo>

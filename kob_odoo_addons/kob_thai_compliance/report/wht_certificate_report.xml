@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- WHT Certificate (ภงด.3 / ภงด.53) printable per company -->
+    <record id="action_report_wht_certificate" model="ir.actions.report">
+        <field name="name">WHT Certificate (ภงด.3 / ภงด.53)</field>
+        <field name="model">kob.wht.certificate</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kob_thai_compliance.report_wht_certificate</field>
+        <field name="report_file">kob_thai_compliance.report_wht_certificate</field>
+        <field name="binding_model_id" ref="model_kob_wht_certificate"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_wht_certificate">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h3 class="text-center">หนังสือรับรองการหักภาษี ณ ที่จ่าย</h3>
+                        <h4 class="text-center">Withholding Tax Certificate</h4>
+                        <p class="text-center">
+                            <span t-field="o.form_type"/>
+                            ฉบับที่ <span t-field="o.sequence_number"/> /
+                            <span t-field="o.period_year"/>
+                        </p>
+
+                        <div class="row mt-3">
+                            <div class="col-6">
+                                <strong>ผู้จ่าย / Payer:</strong><br/>
+                                <span t-field="o.company_id.name"/><br/>
+                                <span t-field="o.company_id.street"/><br/>
+                                <strong>TIN:</strong>
+                                <span t-field="o.company_id.vat"/>
+                            </div>
+                            <div class="col-6">
+                                <strong>ผู้ถูกหัก / Payee:</strong><br/>
+                                <span t-field="o.payee_name"/><br/>
+                                <span t-field="o.payee_address"/><br/>
+                                <strong>TIN:</strong>
+                                <span t-field="o.payee_tax_id"/>
+                            </div>
+                        </div>
+
+                        <table class="table table-bordered mt-4">
+                            <thead class="table-secondary">
+                                <tr>
+                                    <th>ประเภทเงินได้ / Income Type</th>
+                                    <th>วันที่จ่าย / Date</th>
+                                    <th class="text-end">ยอดเงิน / Gross</th>
+                                    <th class="text-end">อัตรา / Rate</th>
+                                    <th class="text-end">ภาษีหัก / WHT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <span t-field="o.income_type_code"/><br/>
+                                        <small t-field="o.income_description"/>
+                                    </td>
+                                    <td><span t-field="o.issue_date"/></td>
+                                    <td class="text-end">
+                                        <span t-field="o.gross_amount"
+                                              t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-field="o.wht_rate_pct"/>%
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-field="o.wht_amount"
+                                              t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p class="mt-4"><span t-field="o.note"/></p>
+
+                        <div class="row mt-5">
+                            <div class="col-6 text-center">
+                                <p>______________________________</p>
+                                <p>ผู้จ่ายเงิน / Payer</p>
+                                <p>วันที่ <span t-field="o.issue_date"/></p>
+                            </div>
+                            <div class="col-6 text-center">
+                                <p>______________________________</p>
+                                <p>ผู้รับเงิน / Payee</p>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

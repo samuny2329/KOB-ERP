@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vendor Performance Scorecard PDF -->
+    <record id="action_report_vendor_performance" model="ir.actions.report">
+        <field name="name">Vendor Performance Scorecard</field>
+        <field name="model">kob.vendor.performance</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kob_purchase_pro.report_vendor_performance</field>
+        <field name="report_file">kob_purchase_pro.report_vendor_performance</field>
+        <field name="binding_model_id" ref="model_kob_vendor_performance"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_vendor_performance">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Vendor Performance Scorecard</h2>
+                        <p>
+                            <strong>Vendor:</strong> <span t-field="o.vendor_id.name"/><br/>
+                            <strong>Period:</strong>
+                            <span t-field="o.period_month"/>/<span t-field="o.period_year"/><br/>
+                            <strong>Computed at:</strong> <span t-field="o.computed_at"/>
+                        </p>
+                        <table class="table table-bordered">
+                            <thead class="table-secondary">
+                                <tr><th>Metric</th><th class="text-end">Score</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>On-Time Delivery</td>
+                                    <td class="text-end"><span t-field="o.on_time_rate"/>%</td></tr>
+                                <tr><td>Fill Rate</td>
+                                    <td class="text-end"><span t-field="o.fill_rate"/>%</td></tr>
+                                <tr><td>Quality Rate</td>
+                                    <td class="text-end"><span t-field="o.quality_rate"/>%</td></tr>
+                                <tr><td>Price Stability</td>
+                                    <td class="text-end"><span t-field="o.price_stability"/>%</td></tr>
+                                <tr class="table-warning">
+                                    <td><strong>Overall Score</strong></td>
+                                    <td class="text-end">
+                                        <strong><span t-field="o.overall_score"/>%</strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>
+                            POs in window: <span t-field="o.po_count"/> ·
+                            Receipts: <span t-field="o.receipt_count"/>
+                        </p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- Procurement Budget Statement -->
+    <record id="action_report_procurement_budget" model="ir.actions.report">
+        <field name="name">Procurement Budget Statement</field>
+        <field name="model">kob.procurement.budget</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kob_purchase_pro.report_procurement_budget</field>
+        <field name="report_file">kob_purchase_pro.report_procurement_budget</field>
+        <field name="binding_model_id" ref="model_kob_procurement_budget"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_procurement_budget">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Procurement Budget Statement</h2>
+                        <p>
+                            <strong>Budget:</strong> <span t-field="o.name"/><br/>
+                            <strong>FY <span t-field="o.fiscal_year"/></strong> ·
+                            <span t-field="o.period_from"/> to <span t-field="o.period_to"/><br/>
+                            <strong>Department:</strong> <span t-field="o.department"/> /
+                            <span t-field="o.project_code"/><br/>
+                            <strong>State:</strong> <span t-field="o.state"/>
+                        </p>
+                        <table class="table table-bordered">
+                            <tr><th>Total Budget</th>
+                                <td class="text-end">
+                                    <span t-field="o.total_budget"
+                                          t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                </td></tr>
+                            <tr><th>Committed</th>
+                                <td class="text-end">
+                                    <span t-field="o.committed_amount"
+                                          t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                </td></tr>
+                            <tr><th>Spent</th>
+                                <td class="text-end">
+                                    <span t-field="o.spent_amount"
+                                          t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                </td></tr>
+                            <tr class="table-success"><th>Remaining</th>
+                                <td class="text-end">
+                                    <strong>
+                                        <span t-field="o.remaining_amount"
+                                              t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                    </strong>
+                                </td></tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ========================================================
+         Custom QWeb reports on account.move that mirror UAT's
+         print menu:
+           * Tax Invoice (ใบกำกับภาษี / receipt)
+           * Tax Invoice / Commercial Invoice (export — USD/THB)
+           * Credit Note - Customization
+           * PDF without Payment (proforma)
+           * Journal Voucher
+         New ir.actions.report bound to account.move with
+         binding_type='report' so they appear in the Print menu.
+         ======================================================== -->
+
+    <!-- ── 1. Tax Invoice (ใบกำกับภาษี) ─────────────────────── -->
+    <record id="action_report_tax_invoice_kob" model="ir.actions.report">
+        <field name="name">Tax Invoice - KOB</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kob_marketplace_import.report_tax_invoice_kob</field>
+        <field name="report_file">kob_marketplace_import.report_tax_invoice_kob</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="base.paperformat_us"/>
+    </record>
+
+    <template id="report_tax_invoice_kob">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="row">
+                            <div class="col-7">
+                                <h2>
+                                    <t t-if="o.move_type == 'out_invoice' and o.state == 'posted'">
+                                        ใบกำกับภาษี / Tax Invoice
+                                    </t>
+                                    <t t-elif="o.move_type == 'out_invoice'">
+                                        Draft Invoice
+                                    </t>
+                                    <t t-elif="o.move_type == 'out_refund'">
+                                        ใบลดหนี้ / Credit Note
+                                    </t>
+                                </h2>
+                            </div>
+                            <div class="col-5 text-end">
+                                <strong>เลขที่ / No.: </strong>
+                                <span t-field="o.name"/><br/>
+                                <strong>วันที่ / Date: </strong>
+                                <span t-field="o.invoice_date"/><br/>
+                                <strong>เลขครบกำหนด / Due: </strong>
+                                <span t-field="o.invoice_date_due"/><br/>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-6">
+                                <strong>ผู้ขาย / Seller</strong><br/>
+                                <span t-field="o.company_id.name"/><br/>
+                                <span t-field="o.company_id.street"/><br/>
+                                <strong>เลขที่ผู้เสียภาษี / TIN: </strong>
+                                <span t-field="o.company_id.vat"/><br/>
+                                <strong>สาขา / Branch: </strong>
+                                <span t-field="o.company_id.company_registry"/>
+                            </div>
+                            <div class="col-6">
+                                <strong>ลูกค้า / Customer</strong><br/>
+                                <span t-field="o.partner_id.name"/><br/>
+                                <span t-field="o.partner_id.street"/><br/>
+                                <strong>TIN: </strong>
+                                <span t-field="o.partner_id.vat"/><br/>
+                                <strong>Order Type: </strong>
+                                <span t-field="o.sale_order_type_id.name"/>
+                            </div>
+                        </div>
+
+                        <table class="table table-sm mt-4 table-bordered">
+                            <thead class="table-secondary">
+                                <tr>
+                                    <th>SKU</th>
+                                    <th>รายการ / Description</th>
+                                    <th class="text-end">จำนวน / Qty</th>
+                                    <th class="text-end">ราคา/หน่วย / Unit Price</th>
+                                    <th class="text-end">ส่วนลด / Disc.</th>
+                                    <th class="text-end">มูลค่า / Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.invoice_line_ids" t-as="line">
+                                    <td><span t-field="line.product_id.default_code"/></td>
+                                    <td><span t-field="line.name"/></td>
+                                    <td class="text-end"><span t-field="line.quantity"/></td>
+                                    <td class="text-end"><span t-field="line.price_unit"/></td>
+                                    <td class="text-end"><span t-field="line.discount"/>%</td>
+                                    <td class="text-end">
+                                        <span t-field="line.price_subtotal"
+                                              t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="row mt-3">
+                            <div class="col-7"></div>
+                            <div class="col-5">
+                                <table class="table table-sm">
+                                    <tr>
+                                        <td>มูลค่าก่อนภาษี / Untaxed:</td>
+                                        <td class="text-end">
+                                            <span t-field="o.amount_untaxed"
+                                                  t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>ภาษีมูลค่าเพิ่ม / VAT 7%:</td>
+                                        <td class="text-end">
+                                            <span t-field="o.amount_tax"
+                                                  t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-top">
+                                        <td><strong>ยอดรวมสุทธิ / Total:</strong></td>
+                                        <td class="text-end">
+                                            <strong>
+                                                <span t-field="o.amount_total"
+                                                      t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="row mt-5">
+                            <div class="col-6 text-center">
+                                <p>______________________________</p>
+                                <p>ผู้รับสินค้า / Received by</p>
+                            </div>
+                            <div class="col-6 text-center">
+                                <p>______________________________</p>
+                                <p>ผู้มีอำนาจลงนาม / Authorised Signature</p>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- ── 2. PDF without Payment (Proforma) ───────────────── -->
+    <record id="action_report_proforma_kob" model="ir.actions.report">
+        <field name="name">PDF without Payment</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kob_marketplace_import.report_proforma_kob</field>
+        <field name="report_file">kob_marketplace_import.report_proforma_kob</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_proforma_kob" inherit_id="kob_marketplace_import.report_tax_invoice_kob"
+              primary="True">
+        <xpath expr="//h2" position="replace">
+            <h2>เอกสารตั้งหนี้ (ไม่ใช่ใบเสร็จรับเงิน) / Proforma Invoice</h2>
+        </xpath>
+    </template>
+
+    <!-- ── 3. Credit Note customization ─────────────────────── -->
+    <record id="action_report_credit_note_kob" model="ir.actions.report">
+        <field name="name">Credit Note - Customization</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kob_marketplace_import.report_credit_note_kob</field>
+        <field name="report_file">kob_marketplace_import.report_credit_note_kob</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_credit_note_kob"
+              inherit_id="kob_marketplace_import.report_tax_invoice_kob"
+              primary="True">
+        <xpath expr="//h2" position="replace">
+            <h2>ใบลดหนี้ / Credit Note</h2>
+        </xpath>
+    </template>
+
+    <!-- ── 4. Commercial Invoice (export) ──────────────────── -->
+    <record id="action_report_commercial_invoice_kob" model="ir.actions.report">
+        <field name="name">Commercial Invoice</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kob_marketplace_import.report_commercial_invoice_kob</field>
+        <field name="report_file">kob_marketplace_import.report_commercial_invoice_kob</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_commercial_invoice_kob"
+              inherit_id="kob_marketplace_import.report_tax_invoice_kob"
+              primary="True">
+        <xpath expr="//h2" position="replace">
+            <h2>Commercial Invoice (Export)</h2>
+        </xpath>
+    </template>
+
+    <!-- ── 5. Journal Voucher ──────────────────────────────── -->
+    <record id="action_report_journal_voucher_kob" model="ir.actions.report">
+        <field name="name">Journal Voucher</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kob_marketplace_import.report_journal_voucher_kob</field>
+        <field name="report_file">kob_marketplace_import.report_journal_voucher_kob</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_journal_voucher_kob">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2 class="text-center">Journal Voucher / ใบสำคัญลงบัญชี</h2>
+                        <div class="row mt-3">
+                            <div class="col-6">
+                                <strong>JV No.: </strong><span t-field="o.name"/><br/>
+                                <strong>Date: </strong><span t-field="o.date"/><br/>
+                                <strong>Reference: </strong><span t-field="o.ref"/>
+                            </div>
+                            <div class="col-6 text-end">
+                                <strong>Company: </strong><span t-field="o.company_id.name"/><br/>
+                                <strong>Journal: </strong><span t-field="o.journal_id.name"/>
+                            </div>
+                        </div>
+
+                        <table class="table table-sm table-bordered mt-4">
+                            <thead class="table-secondary">
+                                <tr>
+                                    <th>Account</th>
+                                    <th>Label</th>
+                                    <th>Partner</th>
+                                    <th class="text-end">Debit</th>
+                                    <th class="text-end">Credit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.line_ids" t-as="line">
+                                    <td>
+                                        <span t-field="line.account_id.code"/>
+                                        <span t-field="line.account_id.name"/>
+                                    </td>
+                                    <td><span t-field="line.name"/></td>
+                                    <td><span t-field="line.partner_id.name"/></td>
+                                    <td class="text-end">
+                                        <span t-field="line.debit"
+                                              t-options='{"widget":"monetary","display_currency":o.company_id.currency_id}'/>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-field="line.credit"
+                                              t-options='{"widget":"monetary","display_currency":o.company_id.currency_id}'/>
+                                    </td>
+                                </tr>
+                                <tr class="table-secondary">
+                                    <td colspan="3" class="text-end"><strong>Total</strong></td>
+                                    <td class="text-end">
+                                        <strong>
+                                            <span t-esc="sum(o.line_ids.mapped('debit'))"
+                                                  t-options='{"widget":"monetary","display_currency":o.company_id.currency_id}'/>
+                                        </strong>
+                                    </td>
+                                    <td class="text-end">
+                                        <strong>
+                                            <span t-esc="sum(o.line_ids.mapped('credit'))"
+                                                  t-options='{"widget":"monetary","display_currency":o.company_id.currency_id}'/>
+                                        </strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="row mt-5">
+                            <div class="col-3 text-center">
+                                <p>______________________</p>Prepared by
+                            </div>
+                            <div class="col-3 text-center">
+                                <p>______________________</p>Checked by
+                            </div>
+                            <div class="col-3 text-center">
+                                <p>______________________</p>Approved by
+                            </div>
+                            <div class="col-3 text-center">
+                                <p>______________________</p>Authorised
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
