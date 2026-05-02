@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_kob_kiosk_session_user,kob.kiosk.session user,model_kob_kiosk_session,base.group_user,1,1,1,0
+access_kob_kiosk_session_manager,kob.kiosk.session manager,model_kob_kiosk_session,base.group_system,1,1,1,1
+access_kob_demand_forecast_user,kob.demand.forecast user,model_kob_demand_forecast,base.group_user,1,1,1,0
+access_kob_demand_forecast_manager,kob.demand.forecast manager,model_kob_demand_forecast,base.group_system,1,1,1,1
+access_kob_vendor_scorecard_user,kob.vendor.scorecard user,model_kob_vendor_scorecard,base.group_user,1,0,0,0
+access_kob_vendor_scorecard_manager,kob.vendor.scorecard manager,model_kob_vendor_scorecard,base.group_system,1,1,1,1
+access_kob_invoice_ocr_queue_user,kob.invoice.ocr.queue user,model_kob_invoice_ocr_queue,base.group_user,1,1,1,0
+access_kob_invoice_ocr_queue_manager,kob.invoice.ocr.queue manager,model_kob_invoice_ocr_queue,base.group_system,1,1,1,1
+access_kob_api_key_user,kob.api.key user,model_kob_api_key,base.group_user,1,1,1,0
+access_kob_api_key_manager,kob.api.key manager,model_kob_api_key,base.group_system,1,1,1,1
+access_kob_api_call_log_user,kob.api.call.log user,model_kob_api_call_log,base.group_user,1,0,0,0
+access_kob_api_call_log_manager,kob.api.call.log manager,model_kob_api_call_log,base.group_system,1,1,1,1
+access_kob_api_rate_limit_manager,kob.api.rate.limit manager,model_kob_api_rate_limit,base.group_system,1,1,1,1

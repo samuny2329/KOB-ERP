@@ -1,0 +1,41 @@
+{
+    "name": "KOB ERP — Extras v4 (Phases 41-47)",
+    "version": "19.0.1.0.0",
+    "summary": "i18n, kiosk, demand forecast, vendor scorecard, invoice OCR, B2B portal, API rate-limit",
+    "author": "KOB Engineering",
+    "license": "LGPL-3",
+    "depends": [
+        "base",
+        "mail",
+        "web",
+        "portal",
+        "sale_management",
+        "purchase",
+        "account",
+        "stock",
+    ],
+    "data": [
+        "security/ir.model.access.csv",
+        "security/api_security.xml",
+        "data/cron_data.xml",
+        "data/i18n_seed_data.xml",
+        "views/kiosk_views.xml",
+        "views/demand_forecast_views.xml",
+        "views/vendor_scorecard_views.xml",
+        "views/invoice_ocr_views.xml",
+        "views/api_rate_limit_views.xml",
+        "views/menus.xml",
+        "report/portal_templates.xml",
+    ],
+    "assets": {
+        "web.assets_backend": [
+            "kob_extras_v4/static/src/kiosk.css",
+        ],
+        "web.assets_frontend": [
+            "kob_extras_v4/static/src/portal.css",
+        ],
+    },
+    "application": False,
+    "installable": True,
+    "auto_install": False,
+}

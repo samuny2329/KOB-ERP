@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- API key sequence -->
+    <record id="seq_kob_kiosk_session" model="ir.sequence">
+        <field name="name">KOB Kiosk Session</field>
+        <field name="code">kob.kiosk.session</field>
+        <field name="prefix">%(year)s</field>
+        <field name="padding">5</field>
+    </record>
+    <record id="seq_kob_invoice_ocr" model="ir.sequence">
+        <field name="name">KOB Invoice OCR</field>
+        <field name="code">kob.invoice.ocr.queue</field>
+        <field name="prefix">%(year)s</field>
+        <field name="padding">6</field>
+    </record>
+</odoo>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_api_key_list" model="ir.ui.view">
+        <field name="name">kob.api.key.list</field>
+        <field name="model">kob.api.key</field>
+        <field name="arch" type="xml">
+            <list string="API Keys"
+                  decoration-muted="not active">
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="rate_limit_rpm"/>
+                <field name="rate_limit_rpd"/>
+                <field name="last_used_at"/>
+                <field name="call_count"/>
+                <field name="expires_at"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_kob_api_key_form" model="ir.ui.view">
+        <field name="name">kob.api.key.form</field>
+        <field name="model">kob.api.key</field>
+        <field name="arch" type="xml">
+            <form string="API Key">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="key" password="True"/>
+                            <field name="user_id"/>
+                            <field name="active" widget="boolean_toggle"/>
+                            <field name="expires_at"/>
+                        </group>
+                        <group>
+                            <field name="rate_limit_rpm"/>
+                            <field name="rate_limit_rpd"/>
+                            <field name="last_used_at"/>
+                            <field name="call_count"/>
+                        </group>
+                    </group>
+                    <field name="notes"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_kob_api_key" model="ir.actions.act_window">
+        <field name="name">API Keys</field>
+        <field name="res_model">kob.api.key</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="view_kob_api_call_log_list" model="ir.ui.view">
+        <field name="name">kob.api.call.log.list</field>
+        <field name="model">kob.api.call.log</field>
+        <field name="arch" type="xml">
+            <list string="API Call Log" create="0" edit="0"
+                  decoration-success="status_code &lt; 300"
+                  decoration-warning="status_code &gt;= 400 and status_code &lt; 500"
+                  decoration-danger="status_code &gt;= 500">
+                <field name="create_date"/>
+                <field name="api_key_id"/>
+                <field name="user_id"/>
+                <field name="endpoint"/>
+                <field name="method"/>
+                <field name="status_code"/>
+                <field name="duration_ms"/>
+                <field name="ip_address"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_kob_api_call_log" model="ir.actions.act_window">
+        <field name="name">API Call Log</field>
+        <field name="res_model">kob.api.call.log</field>
+        <field name="view_mode">list</field>
+    </record>
+</odoo>

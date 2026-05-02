@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- KOB Extras parent menu -->
+    <menuitem id="menu_kob_extras_root" name="KOB Tools" sequence="200"
+              web_icon="kob_extras_v4,static/description/icon.png"
+              groups="base.group_user"/>
+
+    <!-- Phase 42 Kiosk -->
+    <menuitem id="menu_kob_kiosk" name="Kiosk Sessions"
+              parent="menu_kob_extras_root"
+              action="action_kob_kiosk_session" sequence="10"/>
+
+    <!-- Phase 43 Forecast -->
+    <menuitem id="menu_kob_demand_forecast" name="Demand Forecast"
+              parent="menu_kob_extras_root"
+              action="action_kob_demand_forecast" sequence="20"/>
+
+    <!-- Phase 44 Vendor Scorecard -->
+    <menuitem id="menu_kob_vendor_scorecard" name="Vendor Scorecard"
+              parent="menu_kob_extras_root"
+              action="action_kob_vendor_scorecard" sequence="30"/>
+
+    <!-- Phase 45 Invoice OCR -->
+    <menuitem id="menu_kob_invoice_ocr" name="Invoice OCR Queue"
+              parent="menu_kob_extras_root"
+              action="action_kob_invoice_ocr" sequence="40"/>
+
+    <!-- Phase 47 API -->
+    <menuitem id="menu_kob_api_root" name="API Console"
+              parent="menu_kob_extras_root" sequence="50"
+              groups="base.group_system"/>
+    <menuitem id="menu_kob_api_keys" name="API Keys"
+              parent="menu_kob_api_root"
+              action="action_kob_api_key" sequence="10"/>
+    <menuitem id="menu_kob_api_logs" name="Call Log"
+              parent="menu_kob_api_root"
+              action="action_kob_api_call_log" sequence="20"/>
+</odoo>

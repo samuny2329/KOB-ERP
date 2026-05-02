@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_invoice_ocr_list" model="ir.ui.view">
+        <field name="name">kob.invoice.ocr.queue.list</field>
+        <field name="model">kob.invoice.ocr.queue</field>
+        <field name="arch" type="xml">
+            <list string="Invoice OCR Queue"
+                  decoration-success="state == 'done'"
+                  decoration-warning="state == 'review'"
+                  decoration-danger="state == 'failed'"
+                  decoration-info="state == 'processing'">
+                <field name="name"/>
+                <field name="file_name"/>
+                <field name="extracted_partner_id"/>
+                <field name="extracted_invoice_number"/>
+                <field name="extracted_date"/>
+                <field name="extracted_amount"/>
+                <field name="confidence" widget="percentage"/>
+                <field name="state"/>
+                <field name="bill_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_kob_invoice_ocr_form" model="ir.ui.view">
+        <field name="name">kob.invoice.ocr.queue.form</field>
+        <field name="model">kob.invoice.ocr.queue</field>
+        <field name="arch" type="xml">
+            <form string="Invoice OCR">
+                <header>
+                    <button name="action_process" type="object"
+                            string="Run OCR" class="oe_highlight"
+                            invisible="state not in ['queued', 'failed']"/>
+                    <button name="action_create_bill" type="object"
+                            string="Create Bill" class="oe_highlight"
+                            invisible="state != 'done' or bill_id"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="attachment_id"/>
+                            <field name="file_name"/>
+                            <field name="backend"/>
+                        </group>
+                        <group>
+                            <field name="confidence" widget="percentage"/>
+                            <field name="bill_id"/>
+                        </group>
+                    </group>
+                    <group string="Extracted Fields">
+                        <group>
+                            <field name="extracted_partner_name"/>
+                            <field name="extracted_partner_id"/>
+                            <field name="extracted_vat"/>
+                        </group>
+                        <group>
+                            <field name="extracted_invoice_number"/>
+                            <field name="extracted_date"/>
+                            <field name="extracted_amount"/>
+                            <field name="extracted_currency"/>
+                        </group>
+                    </group>
+                    <field name="error_message" invisible="not error_message"/>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_kob_invoice_ocr" model="ir.actions.act_window">
+        <field name="name">Invoice OCR Queue</field>
+        <field name="res_model">kob.invoice.ocr.queue</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_vendor_scorecard_list" model="ir.ui.view">
+        <field name="name">kob.vendor.scorecard.list</field>
+        <field name="model">kob.vendor.scorecard</field>
+        <field name="arch" type="xml">
+            <list string="Vendor Scorecard"
+                  decoration-success="grade == 'A'"
+                  decoration-info="grade == 'B'"
+                  decoration-warning="grade == 'C'"
+                  decoration-danger="grade == 'D'">
+                <field name="period_start"/>
+                <field name="period_end"/>
+                <field name="partner_id"/>
+                <field name="po_count"/>
+                <field name="po_total" sum="Total"/>
+                <field name="on_time_pct" widget="percentage"/>
+                <field name="quality_pct" widget="percentage"/>
+                <field name="price_variance_pct"/>
+                <field name="overall_score"/>
+                <field name="grade"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_kob_vendor_scorecard_form" model="ir.ui.view">
+        <field name="name">kob.vendor.scorecard.form</field>
+        <field name="model">kob.vendor.scorecard</field>
+        <field name="arch" type="xml">
+            <form string="Vendor Scorecard">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="display_name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="period_start"/>
+                            <field name="period_end"/>
+                            <field name="po_count"/>
+                            <field name="po_total"/>
+                        </group>
+                        <group>
+                            <field name="on_time_pct" widget="percentage"/>
+                            <field name="quality_pct" widget="percentage"/>
+                            <field name="price_variance_pct"/>
+                            <field name="avg_response_hours"/>
+                            <field name="overall_score"/>
+                            <field name="grade"/>
+                        </group>
+                    </group>
+                    <field name="notes"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_kob_vendor_scorecard" model="ir.actions.act_window">
+        <field name="name">Vendor Scorecard</field>
+        <field name="res_model">kob.vendor.scorecard</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

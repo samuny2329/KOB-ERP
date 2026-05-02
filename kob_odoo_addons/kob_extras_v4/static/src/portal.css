@@ -1,0 +1,13 @@
+/* Phase 46 — B2B portal polish */
+.o_portal_my_home_kob .btn {
+    background-color: #00A99D;
+    border-color: #00A99D;
+    color: #fff;
+}
+.o_portal_my_home_kob .btn:hover {
+    background-color: #008F86;
+    border-color: #008F86;
+}
+.o_portal .card-title {
+    color: #00A99D;
+}

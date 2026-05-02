@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Phase 46 — B2B portal dashboard -->
+    <template id="portal_b2b_dashboard" name="KOB B2B Dashboard">
+        <t t-call="portal.portal_layout">
+            <t t-set="page_name" t-value="'kob_b2b_dashboard'"/>
+            <div class="o_portal_my_home">
+                <h2>KOB B2B Dashboard</h2>
+                <p class="text-muted">
+                    Welcome, <t t-out="partner.name"/>
+                </p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Year-to-Date Orders</h5>
+                                <p class="card-text">
+                                    <span class="h2"><t t-out="ytd_count"/></span>
+                                    orders, total
+                                    <span class="h4">฿<t t-out="'{:,.2f}'.format(ytd_total)"/></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="mt-4">Recent Invoices</h3>
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Number</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="recent_invoices" t-as="inv">
+                            <td><t t-out="inv.invoice_date"/></td>
+                            <td><t t-out="inv.name"/></td>
+                            <td>฿<t t-out="'{:,.2f}'.format(inv.amount_total)"/></td>
+                            <td><t t-out="inv.payment_state"/></td>
+                            <td>
+                                <a t-att-href="'/my/invoices/%d' % inv.id" class="btn btn-sm btn-link">View</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+
+    <!-- Add link to portal home -->
+    <template id="portal_my_home_kob" name="KOB B2B link"
+              inherit_id="portal.portal_my_home" priority="50">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="before">
+            <div class="o_portal_my_home_kob mb-3">
+                <a href="/my/kob/dashboard" class="btn btn-primary">
+                    <i class="fa fa-tachometer"/> KOB B2B Dashboard
+                </a>
+            </div>
+        </xpath>
+    </template>
+</odoo>

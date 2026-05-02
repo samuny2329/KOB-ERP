@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Phase 41 — Thai locale config (lang activation done via UI/CLI) -->
+
+    <function model="ir.config_parameter" name="set_param">
+        <value>kob.default_locale</value>
+        <value>th_TH</value>
+    </function>
+
+    <function model="ir.config_parameter" name="set_param">
+        <value>kob.date_format</value>
+        <value>%d/%m/%Y</value>
+    </function>
+</odoo>

@@ -1,0 +1,84 @@
+# Thai translations for KOB Extras v4
+# Phase 41 — i18n
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kob_extras_v4 19.0.1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Language: th\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: kob_extras_v4
+msgid "KOB Kiosk Session"
+msgstr "เซสชันคีออสก์ KOB"
+
+#. module: kob_extras_v4
+msgid "Demand Forecast"
+msgstr "พยากรณ์ความต้องการ"
+
+#. module: kob_extras_v4
+msgid "Vendor Scorecard"
+msgstr "คะแนนผู้ขาย"
+
+#. module: kob_extras_v4
+msgid "Invoice OCR Queue"
+msgstr "คิวอ่าน OCR ใบกำกับ"
+
+#. module: kob_extras_v4
+msgid "API Key"
+msgstr "คีย์ API"
+
+#. module: kob_extras_v4
+msgid "API Call Log"
+msgstr "บันทึกการเรียก API"
+
+#. module: kob_extras_v4
+msgid "On-Time Delivery %"
+msgstr "อัตราส่งตรงเวลา %"
+
+#. module: kob_extras_v4
+msgid "Quality Acceptance %"
+msgstr "อัตรายอมรับคุณภาพ %"
+
+#. module: kob_extras_v4
+msgid "Forecast Qty"
+msgstr "ปริมาณคาดการณ์"
+
+#. module: kob_extras_v4
+msgid "Actual Sold"
+msgstr "ยอดขายจริง"
+
+#. module: kob_extras_v4
+msgid "Browse Catalog"
+msgstr "ดูแคตตาล็อก"
+
+#. module: kob_extras_v4
+msgid "Check-in / Loyalty"
+msgstr "เช็คอิน / สมาชิก"
+
+#. module: kob_extras_v4
+msgid "Place Order"
+msgstr "สั่งซื้อ"
+
+#. module: kob_extras_v4
+msgid "Support Request"
+msgstr "ขอความช่วยเหลือ"
+
+#. module: kob_extras_v4
+msgid "Strategic"
+msgstr "พันธมิตรเชิงกลยุทธ์"
+
+#. module: kob_extras_v4
+msgid "Preferred"
+msgstr "ผู้ขายที่แนะนำ"
+
+#. module: kob_extras_v4
+msgid "Conditional"
+msgstr "มีเงื่อนไข"
+
+#. module: kob_extras_v4
+msgid "At Risk"
+msgstr "เสี่ยง"

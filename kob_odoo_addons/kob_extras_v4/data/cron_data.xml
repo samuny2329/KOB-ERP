@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Phase 43 — monthly demand forecast generation -->
+    <record id="cron_demand_forecast" model="ir.cron">
+        <field name="name">KOB: Generate Monthly Demand Forecast</field>
+        <field name="model_id" ref="model_kob_demand_forecast"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_generate_monthly_forecast()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">months</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Phase 44 — monthly vendor scorecard -->
+    <record id="cron_vendor_scorecard" model="ir.cron">
+        <field name="name">KOB: Generate Vendor Scorecard</field>
+        <field name="model_id" ref="model_kob_vendor_scorecard"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_generate_monthly_scorecard()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">months</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Phase 45 — process OCR queue every 10 min -->
+    <record id="cron_invoice_ocr" model="ir.cron">
+        <field name="name">KOB: Process Invoice OCR Queue</field>
+        <field name="model_id" ref="model_kob_invoice_ocr_queue"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_process_queue()</field>
+        <field name="interval_number">10</field>
+        <field name="interval_type">minutes</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Phase 47 — purge old rate-limit buckets daily -->
+    <record id="cron_purge_rate_limit" model="ir.cron">
+        <field name="name">KOB: Purge Old Rate-Limit Buckets</field>
+        <field name="model_id" ref="model_kob_api_rate_limit"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_purge_old_buckets()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active" eval="True"/>
+    </record>
+</odoo>

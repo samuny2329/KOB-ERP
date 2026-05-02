@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_demand_forecast_list" model="ir.ui.view">
+        <field name="name">kob.demand.forecast.list</field>
+        <field name="model">kob.demand.forecast</field>
+        <field name="arch" type="xml">
+            <list string="Demand Forecast" editable="bottom">
+                <field name="period_start"/>
+                <field name="period_end"/>
+                <field name="product_id"/>
+                <field name="baseline_qty"/>
+                <field name="seasonal_factor"/>
+                <field name="forecast_qty"/>
+                <field name="actual_qty"/>
+                <field name="accuracy_pct" widget="percentage"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_kob_demand_forecast_form" model="ir.ui.view">
+        <field name="name">kob.demand.forecast.form</field>
+        <field name="model">kob.demand.forecast</field>
+        <field name="arch" type="xml">
+            <form string="Demand Forecast">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="product_id"/>
+                            <field name="period_start"/>
+                            <field name="period_end"/>
+                            <field name="horizon_months"/>
+                        </group>
+                        <group>
+                            <field name="baseline_qty"/>
+                            <field name="seasonal_factor"/>
+                            <field name="forecast_qty"/>
+                            <field name="actual_qty"/>
+                            <field name="accuracy_pct" widget="percentage"/>
+                        </group>
+                    </group>
+                    <field name="notes"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_kob_demand_forecast" model="ir.actions.act_window">
+        <field name="name">Demand Forecast</field>
+        <field name="res_model">kob.demand.forecast</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

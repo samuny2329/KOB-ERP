@@ -1,0 +1,18 @@
+/* Phase 42 — Kiosk touch-friendly UI */
+.o_kiosk_mode .btn {
+    min-height: 60px;
+    font-size: 18px;
+    padding: 16px 24px;
+}
+.o_kiosk_mode .o_field_widget input,
+.o_kiosk_mode .o_field_widget select {
+    font-size: 20px !important;
+    padding: 12px !important;
+    min-height: 56px;
+}
+.o_kiosk_mode .o_form_view .o_inner_group {
+    gap: 16px;
+}
+.o_kiosk_mode .o_statusbar_buttons .btn {
+    min-width: 180px;
+}

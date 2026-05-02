@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_kiosk_session_list" model="ir.ui.view">
+        <field name="name">kob.kiosk.session.list</field>
+        <field name="model">kob.kiosk.session</field>
+        <field name="arch" type="xml">
+            <list string="Kiosk Sessions" decoration-info="state == 'active'"
+                  decoration-success="state == 'ordered'"
+                  decoration-muted="state == 'closed'">
+                <field name="name"/>
+                <field name="started_at"/>
+                <field name="partner_id"/>
+                <field name="phone"/>
+                <field name="purpose"/>
+                <field name="sale_order_id"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_kob_kiosk_session_form" model="ir.ui.view">
+        <field name="name">kob.kiosk.session.form</field>
+        <field name="model">kob.kiosk.session</field>
+        <field name="arch" type="xml">
+            <form string="Kiosk Session">
+                <header>
+                    <button name="action_create_order" type="object"
+                            string="Create Order" class="oe_highlight"
+                            invisible="state != 'active'"/>
+                    <button name="action_close" type="object"
+                            string="Close Session"
+                            invisible="state == 'closed'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="phone"/>
+                            <field name="purpose"/>
+                        </group>
+                        <group>
+                            <field name="started_at"/>
+                            <field name="ended_at"/>
+                            <field name="sale_order_id"/>
+                            <field name="device_id"/>
+                        </group>
+                    </group>
+                    <field name="note" placeholder="Notes..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_kob_kiosk_session" model="ir.actions.act_window">
+        <field name="name">Kiosk Sessions</field>
+        <field name="res_model">kob.kiosk.session</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
