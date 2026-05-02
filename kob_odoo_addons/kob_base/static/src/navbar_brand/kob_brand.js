@@ -34,6 +34,13 @@ const FALLBACK_CLASS = "kob_fallback_brand";
 console.log("[KobBrand] auto-sync + back-button bootstrap loaded");
 
 // ── 1. Service: auto-sync currentMenu after every action change ──
+//
+// On a hard refresh, ``menuService``'s closure ``currentAppId`` is
+// reset.  The NavBar's brand template only renders when ``currentApp``
+// is truthy, so without this we'd land on a module page with no
+// brand.  Each action change → walk the menu cache for one that owns
+// the running action → ``setCurrentMenu`` → MENUS:APP-CHANGED →
+// NavBar re-renders brand + sections natively.
 const kobAutoCurrentMenuService = {
     dependencies: ["action", "menu"],
     start(env, { action, menu }) {
@@ -68,30 +75,14 @@ registry
     .add("kob_auto_current_menu", kobAutoCurrentMenuService);
 
 // ── 2. Brand-as-back-button + DOM fallback (capture-phase click) ──
-function isOnWelcomeAction(actionId) {
-    try {
-        // The action service exposes `currentController` on the global
-        // odoo env.  We don't have a clean import here so we rely on
-        // a tiny heuristic: the welcome client action renders an
-        // element with class .kob-welcome.
-        if (document.querySelector(".kob-welcome, [data-kob-welcome]")) {
-            return true;
-        }
-    } catch (_e) {
-        /* ignore */
-    }
-    return false;
-}
 
 function ensureFallbackBrand(navbar) {
     if (!navbar) return;
-    if (isOnWelcomeAction()) {
-        // Welcome page — strip ANY brand (real or fallback) AND the
-        // sections submenu so the user sees a clean home screen.
-        navbar.querySelectorAll(".o_menu_brand").forEach((el) => el.remove());
-        navbar.querySelectorAll(".o_menu_sections").forEach((el) => el.remove());
-        return;
-    }
+    // We do NOT suppress the brand or submenu on Welcome any more —
+    // every prior attempt either caused the brand to stay missing on
+    // module pages (manual refresh required) or interfered with OWL's
+    // re-render path.  Better behaviour is to always show whatever
+    // brand the user last visited; clicking it always returns home.
     if (navbar.querySelector(".o_menu_brand:not(." + FALLBACK_CLASS + ")")) {
         return;
     }
@@ -128,15 +119,9 @@ function ensureFallbackBrand(navbar) {
 
 function pass() {
     // Backend asset bundles can load before <body> is parsed, so guard.
-    const body = document.body;
-    if (!body) {
+    if (!document.body) {
         return;
     }
-    // Add / remove a body class so we can use CSS to hide brand +
-    // sections on welcome (more robust than just DOM removal because
-    // OWL may re-render).
-    const onWelcome = isOnWelcomeAction();
-    body.classList.toggle("kob-on-welcome", onWelcome);
     const navbars = document.querySelectorAll(".o_main_navbar");
     navbars.forEach(ensureFallbackBrand);
 }

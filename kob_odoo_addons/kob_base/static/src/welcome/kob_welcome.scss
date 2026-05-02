@@ -484,19 +484,7 @@ $kob-blue-dark: $kob-cobalt-dark;
     }
 }
 
-// ── Welcome-page navbar suppression ──
-//
-// Odoo's menuService does not let us clear `currentAppId` once it's
-// set (the closure variable persists across actions).  When a user
-// returns to the welcome page from a module page, OWL would still
-// render that module's brand + sections menu.  Belt and braces: a
-// body class toggled by kob_brand.js + this CSS hides them.
-body.kob-on-welcome {
-    .o_main_navbar {
-        .o_menu_brand,
-        .o_menu_sections,
-        .o_navbar_breadcrumbs {
-            display: none !important;
-        }
-    }
-}
+// (Welcome-page navbar suppression was attempted here but removed —
+// it caused the brand+submenu to remain hidden on subsequent module
+// navigation until a manual refresh.  We now keep whatever brand the
+// user last visited; clicking it always returns home.)
