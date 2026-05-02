@@ -6,6 +6,13 @@
             <field name="model">stock.picking</field>
             <field name="inherit_id" ref="stock.view_picking_form"/>
             <field name="arch" type="xml">
+                <!-- Always-visible "Check Availability" button — UAT parity.
+                     Stock Odoo hides it once state == 'assigned'; we want
+                     it visible until state in ('done', 'cancel') so users
+                     can re-trigger reservation against newly arrived stock. -->
+                <xpath expr="//button[@name='action_assign']" position="attributes">
+                    <attribute name="invisible">state in ('done', 'cancel', 'draft')</attribute>
+                </xpath>
                 <!-- Order Type — surface near the top, right after the
                      scheduled date so it sits where UAT shows it. -->
                 <xpath expr="//field[@name='scheduled_date']" position="before">
