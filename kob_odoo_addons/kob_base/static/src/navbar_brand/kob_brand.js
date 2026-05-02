@@ -73,7 +73,11 @@ patch(NavBar.prototype, {
             if (tag === WELCOME_TAG) {
                 return null;
             }
-            const real = super.currentApp;
+            // Resolve directly via menuService (don't use `super` — Odoo's
+            // patch utility's super-via-getter chain has been observed to
+            // break silently after first patch in some browsers/cache
+            // states).
+            const real = this.menuService.getCurrentApp();
             if (real) {
                 return real;
             }
@@ -92,8 +96,8 @@ patch(NavBar.prototype, {
                     }
                 }
             }
-        } catch (_e) {
-            /* fall through */
+        } catch (e) {
+            console.warn("[KobBrand] currentApp resolve failed", e);
         }
         // Fallback — never let the brand disappear.
         return SYNTHETIC_BRAND;
@@ -103,11 +107,17 @@ patch(NavBar.prototype, {
      *  there are no real children for id=-1, and getMenuAsTree would
      *  throw. */
     get currentAppSections() {
-        const app = this.currentApp;
-        if (!app || app.id === -1) {
+        try {
+            const app = this.currentApp;
+            if (!app || app.id === -1) {
+                return [];
+            }
+            const tree = this.menuService.getMenuAsTree(app.id);
+            return (tree && tree.childrenTree) || [];
+        } catch (e) {
+            console.warn("[KobBrand] currentAppSections failed", e);
             return [];
         }
-        return super.currentAppSections;
     },
 
     setup() {
