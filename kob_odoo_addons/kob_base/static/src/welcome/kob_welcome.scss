@@ -102,8 +102,15 @@ $kob-blue-dark:      #5d3a55;
             overflow: hidden;
         }
 
-        // The glyph sits inside a colored rounded panel inside the white tile,
-        // so each app feels like a distinct icon rather than a flat color block.
+        // Real Odoo app icon (PNG/data-URL).
+        .kob-app-img {
+            width: 64px;
+            height: 64px;
+            object-fit: contain;
+            display: block;
+        }
+
+        // Glyph fallback for apps without a registered web_icon.
         .kob-app-glyph {
             width: 60px;
             height: 60px;

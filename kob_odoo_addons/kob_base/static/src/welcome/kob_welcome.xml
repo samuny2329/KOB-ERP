@@ -27,10 +27,17 @@
                                 t-on-drop="(ev) => this.onDrop(ev, mod.key)"
                                 t-on-dragend="() => this.onDragEnd()">
                             <div class="kob-app-icon">
-                                <span class="kob-app-glyph"
-                                      t-attf-style="--kob-app-color: {{mod.color}}; background: {{mod.color}};">
-                                    <t t-esc="mod.glyph"/>
-                                </span>
+                                <t t-if="mod.iconUrl">
+                                    <img class="kob-app-img"
+                                         t-att-src="mod.iconUrl"
+                                         t-att-alt="mod.name"/>
+                                </t>
+                                <t t-else="">
+                                    <span class="kob-app-glyph"
+                                          t-attf-style="--kob-app-color: {{mod.color}}; background: {{mod.color}};">
+                                        <t t-esc="mod.glyph"/>
+                                    </span>
+                                </t>
                             </div>
                             <h3 class="kob-app-title">
                                 <t t-esc="mod.name"/>

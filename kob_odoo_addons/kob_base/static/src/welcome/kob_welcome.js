@@ -226,6 +226,27 @@ class KobWelcome extends Component {
         };
     }
 
+    /** Resolve an app's icon to either a data-URL or a static asset path. */
+    _iconFor(app) {
+        // Odoo 19 menuService exposes web_icon_data (base64 PNG) and webIcon
+        // (e.g. "module_name,static/description/icon.png" or "fa fa-cogs")
+        const dataB64 =
+            app.webIconData || app.web_icon_data || app.icon_data || null;
+        if (dataB64) {
+            // Already a data URL?
+            if (/^data:/.test(dataB64)) return dataB64;
+            return `data:image/png;base64,${dataB64.replace(/^\s+|\s+$/g, "")}`;
+        }
+        const wi = app.webIcon || app.web_icon || "";
+        if (wi && wi.includes(",")) {
+            const [mod, path] = wi.split(",", 2);
+            if (mod && path) {
+                return `/${mod.trim()}/${path.trim().replace(/^\/+/, "")}`;
+            }
+        }
+        return null;
+    }
+
     /** Build the modules array dynamically from the menu service. */
     get modules() {
         const apps = (this.menuService.getApps && this.menuService.getApps()) || [];
@@ -246,6 +267,7 @@ class KobWelcome extends Component {
                 category: this._categoryFor(xmlid, name),
                 color: c.color || this._colorFor(xmlid),
                 glyph: c.glyph || this._glyphFor(name),
+                iconUrl: this._iconFor(app),
                 menuXmlId: app.xmlid || null,
                 appId: app.id,
             });

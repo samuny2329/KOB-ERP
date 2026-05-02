@@ -127,4 +127,34 @@
     <record id="kob_extras_v4.menu_kob_api_root" model="ir.ui.menu">
         <field name="active" eval="False"/>
     </record>
+
+    <!-- ============================================================ -->
+    <!-- 5. CONSOLIDATE duplicate report menus into "Official" sections -->
+    <!--                                                                -->
+    <!-- "OCA accounting reports" duplicates "Audit Reports". Keep      -->
+    <!-- Audit Reports (matches Odoo Enterprise UAT layout) and hide    -->
+    <!-- the entire OCA accounting reports section.                     -->
+    <!-- ============================================================ -->
+    <record id="account_financial_report.menu_oca_reports" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="account_financial_report.menu_general_ledger_wizard" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="account_financial_report.menu_journal_ledger_wizard" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="account_financial_report.menu_trial_balance_wizard" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="account_financial_report.menu_open_items_wizard" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="account_financial_report.menu_aged_partner_balance_wizard" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="account_financial_report.menu_vat_report_wizard" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+
 </odoo>
