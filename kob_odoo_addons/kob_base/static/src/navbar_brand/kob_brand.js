@@ -86,8 +86,10 @@ function isOnWelcomeAction(actionId) {
 function ensureFallbackBrand(navbar) {
     if (!navbar) return;
     if (isOnWelcomeAction()) {
-        const stale = navbar.querySelector("." + FALLBACK_CLASS);
-        if (stale) stale.remove();
+        // Welcome page — strip ANY brand (real or fallback) AND the
+        // sections submenu so the user sees a clean home screen.
+        navbar.querySelectorAll(".o_menu_brand").forEach((el) => el.remove());
+        navbar.querySelectorAll(".o_menu_sections").forEach((el) => el.remove());
         return;
     }
     if (navbar.querySelector(".o_menu_brand:not(." + FALLBACK_CLASS + ")")) {
@@ -125,6 +127,11 @@ function ensureFallbackBrand(navbar) {
 }
 
 function pass() {
+    // Add / remove a body class so we can use CSS to hide brand +
+    // sections on welcome (more robust than just DOM removal because
+    // OWL may re-render).
+    const onWelcome = isOnWelcomeAction();
+    document.body.classList.toggle("kob-on-welcome", onWelcome);
     const navbars = document.querySelectorAll(".o_main_navbar");
     navbars.forEach(ensureFallbackBrand);
 }

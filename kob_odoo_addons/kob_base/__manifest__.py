@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "KOB ERP — Base",
-    "version": "19.0.1.0.4",
+    "version": "19.0.1.0.5",
     "category": "KOB ERP/Foundation",
     "summary": "KOB ERP foundation: branding, system params, dependency hub.",
     "description": """
