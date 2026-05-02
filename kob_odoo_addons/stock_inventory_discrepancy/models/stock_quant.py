@@ -73,11 +73,13 @@ class StockQuant(models.Model):
                 rec.discrepancy_percent > rec.discrepancy_threshold
             )
 
-    def action_apply_inventory(self):
+    def action_apply_inventory(self, counting_date=None):
+        # Odoo 19: native action_apply_inventory accepts an optional
+        # counting_date arg passed by stock.inventory.adjustment.name wizard.
         if self.env.context.get("skip_exceeded_discrepancy", False):
-            return super().action_apply_inventory()
+            return super().action_apply_inventory(counting_date)
         if not self.env.company.inventory_discrepancy_enable:
-            return super().action_apply_inventory()
+            return super().action_apply_inventory(counting_date)
         over_discrepancy = self.filtered(lambda r: r.has_over_discrepancy)
         if over_discrepancy:
             action = self.env["ir.actions.act_window"]._for_xml_id(
@@ -87,9 +89,10 @@ class StockQuant(models.Model):
                 self._context.copy(),
                 discrepancy_quant_ids=over_discrepancy.ids,
                 active_ids=self.ids,
+                counting_date=counting_date,
             )
             return action
-        return super().action_apply_inventory()
+        return super().action_apply_inventory(counting_date)
 
     def _apply_inventory(self):
         if (
