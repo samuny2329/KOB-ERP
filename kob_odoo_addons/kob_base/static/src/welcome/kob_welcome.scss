@@ -1,4 +1,5 @@
-// KOB ERP — Welcome dashboard, Odoo-native draggable grid
+// KOB ERP — Welcome dashboard styled like the Accounting Journal Audit
+// report: white background, light-gray section bands, simple toolbar.
 
 $o-purple:        #714B67;
 $o-purple-dark:   #5d3a55;
@@ -6,11 +7,12 @@ $o-text-strong:   #2c2c2c;
 $o-text:          #4c4c4c;
 $o-muted:         #6c757d;
 $o-subtle:        #adb5bd;
-$o-border:        #e0e0e0;
+$o-border:        #d8d8d8;
 $o-border-light:  #ececec;
-$o-bg-grad-from:  #c4c2ce;
-$o-bg-grad-to:    #e7e6ea;
-$o-surface:       #ffffff;
+$o-band-bg:       #ededed;
+$o-bg:            #ffffff;
+$o-toolbar-bg:    #f8f8f8;
+$o-link:          #017e84;
 $o-hover:         #f5f5f5;
 
 // Backwards-compat aliases
@@ -24,8 +26,8 @@ $kob-text:           $o-text;
 $kob-muted:          $o-muted;
 $kob-subtle:         $o-subtle;
 $kob-border:         $o-border;
-$kob-bg:             $o-bg-grad-to;
-$kob-surface:        $o-surface;
+$kob-bg:             $o-bg;
+$kob-surface:        $o-bg;
 $kob-navy:           $o-text-strong;
 $kob-blue:           $o-purple;
 $kob-blue-dark:      $o-purple-dark;
@@ -33,239 +35,286 @@ $kob-blue-dark:      $o-purple-dark;
 .kob-welcome {
     height: 100%;
     overflow: auto;
+    background: $o-bg;
     color: $o-text;
     font-family: "Inter", "Roboto", "Segoe UI", -apple-system, "Helvetica Neue", Arial, "Noto Sans Thai", sans-serif;
-    font-size: 14px;
-    background:
-        linear-gradient(115deg,
-            rgba(255, 255, 255, 0) 0%,
-            rgba(255, 255, 255, 0.40) 48%,
-            rgba(255, 255, 255, 0) 52%,
-            rgba(255, 255, 255, 0) 100%),
-        linear-gradient(180deg, $o-bg-grad-from 0%, $o-bg-grad-to 60%);
+    font-size: 13px;
 
     .kob-container {
         max-width: 1480px;
         margin: 0 auto;
-        padding: 0 32px;
+        padding: 0 24px;
     }
 
-    // ── HERO ─────────────────────────────────────────────────────
-    .kob-hero {
-        padding: 28px 0 16px;
+    // ── TOOLBAR ──────────────────────────────────────────────────
+    .kob-toolbar {
+        background: $o-bg;
+        border-bottom: 1px solid $o-border-light;
+        padding: 12px 0;
 
-        .kob-hero-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin-bottom: 16px;
-        }
-        .kob-hero-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: $o-text-strong;
-            margin: 0 0 2px;
-            letter-spacing: -0.005em;
-        }
-        .kob-hero-sub {
-            font-size: 13px;
-            color: $o-muted;
-            margin: 0;
-        }
-
-        .kob-hero-actions {
+        .kob-toolbar-row {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .kob-toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .kob-toolbar-right {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
         }
 
-        .kob-hero-search {
-            position: relative;
-            min-width: 280px;
-
-            .kob-hero-search-icon {
-                position: absolute;
-                left: 12px;
-                top: 50%;
-                transform: translateY(-50%);
-                color: $o-subtle;
-                font-size: 13px;
-                pointer-events: none;
-            }
-            .kob-hero-search-input {
-                width: 100%;
-                height: 36px;
-                padding: 0 12px 0 36px;
-                background: rgba(255, 255, 255, 0.85);
-                border: 1px solid rgba(0, 0, 0, 0.08);
-                border-radius: 6px;
-                color: $o-text-strong;
-                font-size: 13px;
-                outline: none;
-
-                &::placeholder { color: $o-subtle; }
-                &:focus {
-                    background: $o-surface;
-                    border-color: $o-purple;
-                    box-shadow: 0 0 0 3px rgba(113, 75, 103, 0.10);
-                }
-            }
-        }
-
-        .kob-reset-btn {
-            background: rgba(255, 255, 255, 0.85);
-            border: 1px solid rgba(0, 0, 0, 0.08);
-            color: $o-text-strong;
+        .kob-tool-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: $o-bg;
+            border: 1px solid $o-border;
+            color: $o-text;
             font-size: 12px;
             font-weight: 500;
-            padding: 0 14px;
-            height: 36px;
-            border-radius: 6px;
+            padding: 5px 12px;
+            border-radius: 4px;
             cursor: pointer;
+            transition: all 100ms;
+
+            &:hover {
+                background: $o-hover;
+                border-color: $o-text-strong;
+                color: $o-text-strong;
+            }
+            &--ghost {
+                color: $o-muted;
+            }
+        }
+
+        .kob-toolbar-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: $o-text-strong;
+            margin: 0 0 0 8px;
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            transition: all 120ms;
 
-            &:hover {
-                background: $o-surface;
-                border-color: $o-purple;
-                color: $o-purple;
+            .kob-toolbar-cog {
+                color: $o-subtle;
+                font-size: 12px;
+                cursor: pointer;
+
+                &:hover { color: $o-purple; }
             }
         }
 
-        .kob-hero-chips {
-            display: flex;
-            flex-wrap: wrap;
+        .kob-tool-chip {
+            display: inline-flex;
+            align-items: center;
             gap: 6px;
+            background: $o-bg;
+            border: 1px solid $o-border;
+            color: $o-text;
+            font-size: 12px;
+            padding: 5px 12px;
+            border-radius: 4px;
 
-            .kob-chip {
-                background: rgba(255, 255, 255, 0.55);
-                border: 1px solid rgba(0, 0, 0, 0.06);
-                color: $o-text;
-                padding: 4px 12px;
-                border-radius: 4px;
+            i { color: $o-muted; font-size: 11px; }
+
+            .kob-tool-search {
+                background: transparent;
+                border: none;
+                outline: none;
+                color: $o-text-strong;
                 font-size: 12px;
-                font-weight: 500;
+                font-family: inherit;
+                width: 200px;
+                padding: 0;
+
+                &::placeholder { color: $o-subtle; }
+            }
+
+            &--btn {
                 cursor: pointer;
-                transition: all 120ms;
+                transition: all 100ms;
 
                 &:hover {
-                    background: $o-surface;
+                    background: $o-hover;
+                    border-color: $o-text-strong;
                     color: $o-text-strong;
                 }
-                &--active {
-                    background: $o-purple;
-                    color: #fff;
-                    border-color: $o-purple;
-                    &:hover { background: $o-purple-dark; color: #fff; }
+            }
+            &--active {
+                background: $o-purple !important;
+                color: #fff !important;
+                border-color: $o-purple !important;
+
+                i { color: rgba(255, 255, 255, 0.85); }
+                &:hover {
+                    background: $o-purple-dark !important;
+                    color: #fff !important;
                 }
             }
         }
     }
 
-    // ── APP GRID ────────────────────────────────────────────────
-    .kob-modules {
-        padding: 16px 0 56px;
+    // ── REPORT FRAME ─────────────────────────────────────────────
+    .kob-report {
+        padding: 16px 0 32px;
 
-        .kob-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 16px;
+        .kob-report-frame {
+            border: 1px solid $o-border-light;
         }
 
-        .kob-card {
+        // Column header
+        .kob-col-head {
+            display: grid;
+            grid-template-columns: 2fr 4fr 1.5fr 0.5fr;
+            background: $o-toolbar-bg;
+            border-bottom: 1px solid $o-border-light;
+            padding: 10px 18px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: $o-muted;
+
+            .kob-col-name   { text-align: left; }
+            .kob-col-desc   { text-align: left; }
+            .kob-col-cat    { text-align: right; }
+            .kob-col-action { }
+        }
+
+        // Section band
+        .kob-band {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            background: $o-band-bg;
+            border-top: 1px solid $o-border-light;
+            border-bottom: 1px solid $o-border-light;
+            padding: 8px 18px;
+            font-size: 13px;
+            font-weight: 600;
+            color: $o-text-strong;
+
+            .kob-band-dot {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+            }
+            .kob-band-label { flex: 1; }
+            .kob-band-count {
+                font-size: 11px;
+                font-weight: 500;
+                color: $o-muted;
+                background: $o-bg;
+                padding: 1px 8px;
+                border-radius: 999px;
+                border: 1px solid $o-border-light;
+            }
+        }
+    }
+
+    // ── APP TILE GRID ────────────────────────────────────────────
+    .kob-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 12px;
+        padding: 16px 18px;
+        background: $o-bg;
+    }
+
+    .kob-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background: $o-bg;
+        border: 1px solid $o-border-light;
+        border-radius: 6px;
+        padding: 18px 10px 14px;
+        cursor: grab;
+        transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
+        min-height: 120px;
+        user-select: none;
+
+        &:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-color: $o-purple;
+            transform: translateY(-2px);
+        }
+        &:active { cursor: grabbing; }
+        &--dragging {
+            opacity: 0.4;
+            transform: scale(0.97);
+            box-shadow: none;
+        }
+        &--dragover {
+            border-color: $o-purple;
+            background: rgba(113, 75, 103, 0.04);
+            box-shadow: 0 0 0 2px rgba(113, 75, 103, 0.15);
+        }
+
+        .kob-card-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            background: $o-surface;
-            border: 1px solid transparent;
-            border-radius: 8px;
-            padding: 22px 12px 18px;
-            cursor: grab;
-            transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
-            min-height: 130px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-            user-select: none;
-
-            &:hover {
-                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.10);
-                transform: translateY(-2px);
-            }
-            &:active {
-                cursor: grabbing;
-            }
-            &--dragging {
-                opacity: 0.4;
-                transform: scale(0.97);
-                box-shadow: none;
-            }
-            &--dragover {
-                border-color: $o-purple;
-                box-shadow: 0 0 0 3px rgba(113, 75, 103, 0.15),
-                            0 6px 16px rgba(0, 0, 0, 0.10);
-                transform: translateY(-2px);
-            }
-
-            .kob-card-icon {
-                width: 60px;
-                height: 60px;
-                border-radius: 14px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin-bottom: 14px;
-                box-shadow:
-                    0 1px 0 rgba(255,255,255,0.4) inset,
-                    0 4px 10px rgba(0, 0, 0, 0.08);
-            }
-            .kob-card-glyph {
-                font-size: 28px;
-                font-weight: 600;
-                color: #fff;
-                line-height: 1;
-                text-shadow: 0 1px 2px rgba(0,0,0,0.10);
-            }
-            .kob-card-title {
-                font-size: 13px;
-                font-weight: 500;
-                color: $o-text-strong;
-                margin: 0;
-                line-height: 1.3;
-                word-break: break-word;
-            }
+            margin-bottom: 12px;
+            box-shadow:
+                0 1px 0 rgba(255,255,255,0.4) inset,
+                0 2px 6px rgba(0, 0, 0, 0.10);
+        }
+        .kob-card-glyph {
+            font-size: 24px;
+            font-weight: 600;
+            color: #fff;
+            line-height: 1;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.10);
+        }
+        .kob-card-title {
+            font-size: 12.5px;
+            font-weight: 500;
+            color: $o-text-strong;
+            margin: 0;
+            line-height: 1.3;
+            word-break: break-word;
         }
     }
 
     // ── EMPTY ────────────────────────────────────────────────────
     .kob-empty {
         text-align: center;
-        padding: 64px 20px;
-        background: rgba(255, 255, 255, 0.5);
-        border-radius: 8px;
+        padding: 48px 20px;
+        background: $o-bg;
 
         .kob-empty-icon {
-            font-size: 36px;
+            font-size: 32px;
             color: $o-subtle;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             display: block;
         }
         .kob-empty-text {
             color: $o-muted;
-            font-size: 14px;
+            font-size: 13px;
             margin: 0;
         }
     }
 
     // ── FOOTER ───────────────────────────────────────────────────
     .kob-foot {
-        background: rgba(255, 255, 255, 0.55);
-        border-top: 1px solid rgba(0, 0, 0, 0.06);
-        padding: 14px 0;
+        background: $o-toolbar-bg;
+        border-top: 1px solid $o-border-light;
+        padding: 12px 0;
 
         .kob-foot-inner {
             display: flex;
@@ -273,11 +322,9 @@ $kob-blue-dark:      $o-purple-dark;
             align-items: center;
             flex-wrap: wrap;
             gap: 8px;
-            font-size: 12px;
+            font-size: 11px;
             color: $o-muted;
         }
-        .kob-foot-version {
-            color: $o-subtle;
-        }
+        .kob-foot-version { color: $o-subtle; }
     }
 }
