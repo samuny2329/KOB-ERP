@@ -652,7 +652,7 @@ class MarketplaceImportWizard(models.TransientModel):
             # ``client_order_ref`` populated for backwards-compatible
             # reporting.
             so_name = str(order_sn).strip() or False
-            so = SaleOrder.create({
+            so_vals = {
                 "name":             so_name,
                 "partner_id":       partner.id,
                 "client_order_ref": order_sn,
@@ -662,7 +662,16 @@ class MarketplaceImportWizard(models.TransientModel):
                 "source_id":        source.id,
                 "tag_ids":          tag_ids,
                 "order_line":       order_lines_vals,
-            })
+            }
+            # Default Order Type = "Normal Order" so the picking
+            # downstream shows it (mirrors UAT behaviour).
+            normal_type = self.env.ref(
+                "kob_marketplace_import.sale_order_type_normal",
+                raise_if_not_found=False,
+            )
+            if normal_type:
+                so_vals["sale_order_type_id"] = normal_type.id
+            so = SaleOrder.create(so_vals)
             sales |= so
             log_lines.append(f"OK   {order_sn} → {so.name} ({len(so.order_line)} lines)")
 

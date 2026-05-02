@@ -6,6 +6,13 @@
             <field name="model">stock.picking</field>
             <field name="inherit_id" ref="stock.view_picking_form"/>
             <field name="arch" type="xml">
+                <!-- Order Type — surface near the top, right after the
+                     scheduled date so it sits where UAT shows it. -->
+                <xpath expr="//field[@name='scheduled_date']" position="before">
+                    <field name="sale_order_type_id"
+                           string="Order Type"
+                           options="{'no_create_edit': True}"/>
+                </xpath>
                 <xpath expr="//field[@name='note']" position="before">
                     <group string="KOB Marketplace">
                         <field name="x_kob_source_ref"/>
