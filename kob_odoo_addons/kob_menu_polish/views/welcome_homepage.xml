@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Welcome page is provided by kob_base.action_kob_welcome.
+         This module only patches the modules list (in kob_welcome.js)
+         and adds a small CSS overlay so cards reflow nicely on mobile. -->
+</odoo>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_carrier_list" model="ir.ui.view">
+        <field name="name">kob.shipping.carrier.list</field>
+        <field name="model">kob.shipping.carrier</field>
+        <field name="arch" type="xml">
+            <list string="Carriers" decoration-muted="not active">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="average_lead_time_days"/>
+                <field name="supports_cod" widget="boolean_toggle"/>
+                <field name="is_test_mode" widget="boolean_toggle"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_carrier_form" model="ir.ui.view">
+        <field name="name">kob.shipping.carrier.form</field>
+        <field name="model">kob.shipping.carrier</field>
+        <field name="arch" type="xml">
+            <form string="Shipping Carrier">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="sequence"/>
+                            <field name="average_lead_time_days"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                        <group>
+                            <field name="api_endpoint"/>
+                            <field name="api_key" password="True"/>
+                            <field name="api_secret" password="True"/>
+                            <field name="is_test_mode" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                    <group string="Capabilities">
+                        <field name="supports_cod"/>
+                        <field name="supports_pickup"/>
+                        <field name="supports_dropoff"/>
+                    </group>
+                    <notebook>
+                        <page string="Rate Cards">
+                            <field name="rate_card_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="weight_min"/>
+                                    <field name="weight_max"/>
+                                    <field name="base_price"/>
+                                    <field name="per_kg_above"/>
+                                    <field name="fuel_surcharge_pct"/>
+                                    <field name="cod_fee_pct"/>
+                                    <field name="estimated_days"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_carrier" model="ir.actions.act_window">
+        <field name="name">Carriers</field>
+        <field name="res_model">kob.shipping.carrier</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Rate Shop Wizard -->
+    <record id="view_rate_shop_form" model="ir.ui.view">
+        <field name="name">kob.rate.shop.wizard.form</field>
+        <field name="model">kob.rate.shop.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Shop Shipping Rate">
+                <group>
+                    <group>
+                        <field name="origin_postal"/>
+                        <field name="dest_postal"/>
+                    </group>
+                    <group>
+                        <field name="weight_kg"/>
+                        <field name="cod_amount"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_shop" type="object"
+                            string="Get Quotes" class="btn-primary"/>
+                    <button special="cancel" string="Close"/>
+                </footer>
+                <field name="quote_ids" readonly="1">
+                    <list>
+                        <field name="rank"/>
+                        <field name="carrier_id"/>
+                        <field name="service"/>
+                        <field name="estimated_days"/>
+                        <field name="price"/>
+                    </list>
+                </field>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_rate_shop" model="ir.actions.act_window">
+        <field name="name">Rate Shop</field>
+        <field name="res_model">kob.rate.shop.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

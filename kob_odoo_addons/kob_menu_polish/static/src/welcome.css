@@ -1,0 +1,20 @@
+/* KOB Menu Polish — Welcome page mobile reflow + section spacing */
+
+@media (max-width: 768px) {
+    .kob-welcome .kob-cards {
+        grid-template-columns: 1fr !important;
+    }
+    .kob-welcome .kob-featured-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* Tighter spacing between category sections */
+.kob-welcome .kob-cat {
+    margin-bottom: 1.5rem;
+}
+
+/* Distinct accent for KOB Tools (purple) */
+.kob-welcome .kob-card[data-key="kob_tools"] {
+    border-left: 3px solid #9f4ee0;
+}

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_return_list" model="ir.ui.view">
+        <field name="name">kob.return.request.list</field>
+        <field name="model">kob.return.request</field>
+        <field name="arch" type="xml">
+            <list string="Return Requests"
+                  decoration-info="state in ('submitted','approved','picked_up','received','inspected')"
+                  decoration-success="state in ('restocked','refunded')"
+                  decoration-danger="state == 'rejected'">
+                <field name="name"/>
+                <field name="create_date"/>
+                <field name="sale_order_id"/>
+                <field name="partner_id"/>
+                <field name="reason_code"/>
+                <field name="refund_method"/>
+                <field name="refund_amount" sum="Total"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_return_form" model="ir.ui.view">
+        <field name="name">kob.return.request.form</field>
+        <field name="model">kob.return.request</field>
+        <field name="arch" type="xml">
+            <form string="Return Request">
+                <header>
+                    <button name="action_submit" type="object"
+                            string="Submit" class="oe_highlight"
+                            invisible="state != 'draft'"/>
+                    <button name="action_approve" type="object"
+                            string="Approve" class="oe_highlight"
+                            invisible="state != 'submitted'"/>
+                    <button name="action_picked_up" type="object"
+                            string="Mark Picked Up"
+                            invisible="state != 'approved'"/>
+                    <button name="action_received" type="object"
+                            string="Mark Received"
+                            invisible="state != 'picked_up'"/>
+                    <button name="action_inspect" type="object"
+                            string="Mark Inspected"
+                            invisible="state != 'received'"/>
+                    <button name="action_restock" type="object"
+                            string="Restock" class="oe_highlight"
+                            invisible="state != 'inspected'"/>
+                    <button name="action_refund" type="object"
+                            string="Refund" class="oe_highlight"
+                            invisible="state not in ('inspected','restocked')"/>
+                    <button name="action_reject" type="object"
+                            string="Reject"
+                            invisible="state in ('rejected','restocked','refunded')"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="sale_order_id"/>
+                            <field name="partner_id"/>
+                            <field name="reason_code"/>
+                        </group>
+                        <group>
+                            <field name="refund_method"/>
+                            <field name="refund_amount"/>
+                            <field name="pickup_carrier_id"/>
+                            <field name="pickup_shipment_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lines">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="sale_order_line_id"/>
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="unit_price"/>
+                                    <field name="refund_subtotal"/>
+                                    <field name="condition"/>
+                                    <field name="return_to_location_id"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Customer Description">
+                            <field name="description"/>
+                        </page>
+                        <page string="Inspection Notes">
+                            <field name="inspection_notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_return" model="ir.actions.act_window">
+        <field name="name">Return Requests</field>
+        <field name="res_model">kob.return.request</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Seed Thai carriers -->
+    <record id="carrier_kerry" model="kob.shipping.carrier">
+        <field name="name">Kerry Express</field>
+        <field name="code">kerry</field>
+        <field name="sequence">10</field>
+        <field name="average_lead_time_days">2</field>
+    </record>
+    <record id="carrier_flash" model="kob.shipping.carrier">
+        <field name="name">Flash Express</field>
+        <field name="code">flash</field>
+        <field name="sequence">20</field>
+        <field name="average_lead_time_days">2</field>
+    </record>
+    <record id="carrier_jt" model="kob.shipping.carrier">
+        <field name="name">J&amp;T Express</field>
+        <field name="code">jt</field>
+        <field name="sequence">30</field>
+        <field name="average_lead_time_days">2</field>
+    </record>
+    <record id="carrier_ninja" model="kob.shipping.carrier">
+        <field name="name">Ninja Van</field>
+        <field name="code">ninja</field>
+        <field name="sequence">40</field>
+        <field name="average_lead_time_days">3</field>
+    </record>
+    <record id="carrier_thp" model="kob.shipping.carrier">
+        <field name="name">Thailand Post EMS</field>
+        <field name="code">thp</field>
+        <field name="sequence">50</field>
+        <field name="average_lead_time_days">3</field>
+    </record>
+    <record id="carrier_dhl" model="kob.shipping.carrier">
+        <field name="name">DHL Express</field>
+        <field name="code">dhl</field>
+        <field name="sequence">60</field>
+        <field name="average_lead_time_days">1</field>
+    </record>
+
+    <!-- Default rate cards (sample) -->
+    <record id="rate_kerry_std" model="kob.shipping.rate">
+        <field name="carrier_id" ref="carrier_kerry"/>
+        <field name="name">Standard</field>
+        <field name="weight_min">0</field>
+        <field name="weight_max">5</field>
+        <field name="base_price">45</field>
+        <field name="per_kg_above">15</field>
+        <field name="estimated_days">2</field>
+    </record>
+    <record id="rate_flash_std" model="kob.shipping.rate">
+        <field name="carrier_id" ref="carrier_flash"/>
+        <field name="name">Standard</field>
+        <field name="weight_min">0</field>
+        <field name="weight_max">5</field>
+        <field name="base_price">35</field>
+        <field name="per_kg_above">10</field>
+        <field name="estimated_days">2</field>
+    </record>
+    <record id="rate_jt_std" model="kob.shipping.rate">
+        <field name="carrier_id" ref="carrier_jt"/>
+        <field name="name">Standard</field>
+        <field name="weight_min">0</field>
+        <field name="weight_max">5</field>
+        <field name="base_price">40</field>
+        <field name="per_kg_above">12</field>
+        <field name="estimated_days">2</field>
+    </record>
+    <record id="rate_thp_std" model="kob.shipping.rate">
+        <field name="carrier_id" ref="carrier_thp"/>
+        <field name="name">EMS</field>
+        <field name="weight_min">0</field>
+        <field name="weight_max">5</field>
+        <field name="base_price">32</field>
+        <field name="per_kg_above">8</field>
+        <field name="estimated_days">3</field>
+    </record>
+</odoo>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ============================================================ -->
+    <!-- 1. HIDE duplicate menus                                       -->
+    <!-- ============================================================ -->
+
+    <!-- Duplicate: kob_base "Group / Multi-company" → keep kob_group's "Multi-Company / Group" -->
+    <record id="kob_base.menu_kob_group" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+
+    <!-- Duplicate: kob_base "KPI & Dashboards" → keep kob_kpi_tiles -->
+    <record id="kob_base.menu_kob_kpi" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- 2. RE-ORDER root "KOB ERP" sub-menus                          -->
+    <!-- ============================================================ -->
+
+    <record id="kob_kpi_tiles.menu_kob_kpi_dashboard" model="ir.ui.menu">
+        <field name="sequence">5</field>
+    </record>
+
+    <record id="kob_base.menu_kob_thai" model="ir.ui.menu">
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="kob_group.menu_kob_group_root" model="ir.ui.menu">
+        <field name="sequence">20</field>
+    </record>
+
+    <record id="kob_base.menu_kob_marketplace" model="ir.ui.menu">
+        <field name="sequence">30</field>
+    </record>
+
+    <record id="kob_base.menu_kob_wh_online_ecommerce" model="ir.ui.menu">
+        <field name="sequence">35</field>
+    </record>
+
+    <record id="kob_helpdesk.menu_kob_helpdesk_root" model="ir.ui.menu">
+        <field name="sequence">80</field>
+    </record>
+
+    <record id="kob_webhooks.menu_kob_webhooks_root" model="ir.ui.menu">
+        <field name="sequence">90</field>
+    </record>
+
+    <record id="kob_backup.menu_kob_backup_root" model="ir.ui.menu">
+        <field name="sequence">95</field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- 3. RE-ORDER Thailand Compliance sub-menus                    -->
+    <!-- ============================================================ -->
+
+    <record id="kob_thai_compliance.menu_kob_sso_registration" model="ir.ui.menu">
+        <field name="sequence">10</field>
+    </record>
+    <record id="kob_thai_compliance.menu_kob_sso_contribution" model="ir.ui.menu">
+        <field name="sequence">20</field>
+    </record>
+    <record id="kob_thai_compliance.menu_kob_pnd_filing" model="ir.ui.menu">
+        <field name="sequence">30</field>
+    </record>
+    <record id="kob_thai_compliance.menu_kob_overtime_record" model="ir.ui.menu">
+        <field name="sequence">35</field>
+    </record>
+    <record id="kob_thai_compliance.menu_kob_wht_certificate" model="ir.ui.menu">
+        <field name="sequence">40</field>
+    </record>
+    <record id="kob_thai_compliance.menu_kob_vat_period" model="ir.ui.menu">
+        <field name="sequence">50</field>
+    </record>
+    <record id="kob_thai_compliance.menu_kob_fixed_asset" model="ir.ui.menu">
+        <field name="sequence">60</field>
+    </record>
+    <record id="kob_thai_compliance.menu_kob_depreciation_schedule" model="ir.ui.menu">
+        <field name="sequence">61</field>
+    </record>
+    <record id="kob_thai_compliance.menu_kob_payroll_batch" model="ir.ui.menu">
+        <field name="sequence">65</field>
+    </record>
+    <record id="kob_thai_compliance.menu_kob_payslip" model="ir.ui.menu">
+        <field name="sequence">66</field>
+    </record>
+    <record id="kob_thai_compliance.menu_kob_tax_cert_annual" model="ir.ui.menu">
+        <field name="sequence">67</field>
+    </record>
+    <record id="kob_thai_compliance.menu_kob_fx_revaluation" model="ir.ui.menu">
+        <field name="sequence">70</field>
+    </record>
+    <record id="kob_thai_compliance.menu_kob_employee_transfer" model="ir.ui.menu">
+        <field name="sequence">80</field>
+    </record>
+
+    <!-- ============================================================ -->
+    <!-- 4. HIDE clutter from KOB ERP root (move under KOB Tools app)  -->
+    <!-- ============================================================ -->
+
+    <record id="kob_extras_v3.menu_kob_onboarding" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="kob_extras_v3.menu_kob_bulk_import" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="kob_extras_v3.menu_kob_cron_dashboard" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="kob_extras_v2.menu_kob_extras_root" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+
+    <!-- Hide old direct children of KOB Tools (now reorganized into sections) -->
+    <record id="kob_extras_v4.menu_kob_kiosk" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="kob_extras_v4.menu_kob_demand_forecast" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="kob_extras_v4.menu_kob_vendor_scorecard" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="kob_extras_v4.menu_kob_invoice_ocr" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    <record id="kob_extras_v4.menu_kob_api_root" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+</odoo>

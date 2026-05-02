@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ============================================================ -->
+    <!-- KOB Tools — separate App icon (clutter offload destination)   -->
+    <!-- The kob_extras_v4 module already created menu_kob_extras_root -->
+    <!-- We re-purpose it as the master "KOB Tools" App, sequence-200  -->
+    <!-- ============================================================ -->
+
+    <record id="kob_extras_v4.menu_kob_extras_root" model="ir.ui.menu">
+        <field name="name">KOB Tools</field>
+        <field name="sequence">200</field>
+    </record>
+
+    <!-- == Section: Setup == -->
+    <menuitem id="menu_tools_setup"
+              name="Setup &amp; Onboarding"
+              parent="kob_extras_v4.menu_kob_extras_root"
+              sequence="5"/>
+
+    <menuitem id="menu_tools_onboarding"
+              name="Onboarding Wizard"
+              parent="menu_tools_setup"
+              action="kob_extras_v3.action_kob_onboarding_wizard"
+              sequence="10"/>
+
+    <menuitem id="menu_tools_bulk_import"
+              name="Bulk CSV Import"
+              parent="menu_tools_setup"
+              action="kob_extras_v3.action_kob_bulk_import_wizard"
+              sequence="20"/>
+
+    <!-- == Section: Customer-Facing == -->
+    <menuitem id="menu_tools_cx"
+              name="Customer-Facing"
+              parent="kob_extras_v4.menu_kob_extras_root"
+              sequence="10"/>
+
+    <menuitem id="menu_tools_kiosk"
+              name="Kiosk Sessions"
+              parent="menu_tools_cx"
+              action="kob_extras_v4.action_kob_kiosk_session"
+              sequence="10"/>
+
+    <!-- == Section: Operations == -->
+    <menuitem id="menu_tools_ops"
+              name="Operations"
+              parent="kob_extras_v4.menu_kob_extras_root"
+              sequence="20"/>
+
+    <menuitem id="menu_tools_demand_forecast"
+              name="Demand Forecast"
+              parent="menu_tools_ops"
+              action="kob_extras_v4.action_kob_demand_forecast"
+              sequence="10"/>
+
+    <menuitem id="menu_tools_vendor_scorecard"
+              name="Vendor Scorecard"
+              parent="menu_tools_ops"
+              action="kob_extras_v4.action_kob_vendor_scorecard"
+              sequence="20"/>
+
+    <menuitem id="menu_tools_invoice_ocr"
+              name="Invoice OCR Queue"
+              parent="menu_tools_ops"
+              action="kob_extras_v4.action_kob_invoice_ocr"
+              sequence="30"/>
+
+    <!-- == Section: Workflow & Approvals (from extras_v2) == -->
+    <menuitem id="menu_tools_workflow"
+              name="Workflow &amp; Approvals"
+              parent="kob_extras_v4.menu_kob_extras_root"
+              sequence="30"/>
+
+    <menuitem id="menu_tools_approval"
+              name="Approval Requests"
+              parent="menu_tools_workflow"
+              action="kob_extras_v2.action_kob_approval_request"
+              sequence="10"/>
+
+    <menuitem id="menu_tools_field_service"
+              name="Field Service Tasks"
+              parent="menu_tools_workflow"
+              action="kob_extras_v2.action_kob_field_service"
+              sequence="20"/>
+
+    <menuitem id="menu_tools_rebalance"
+              name="Rebalance Proposals"
+              parent="menu_tools_workflow"
+              action="kob_extras_v2.action_kob_rebalance"
+              sequence="30"/>
+
+    <!-- == Section: Insights == -->
+    <menuitem id="menu_tools_insights"
+              name="Insights"
+              parent="kob_extras_v4.menu_kob_extras_root"
+              sequence="40"/>
+
+    <menuitem id="menu_tools_esg"
+              name="ESG Metrics"
+              parent="menu_tools_insights"
+              action="kob_extras_v2.action_kob_esg_metric"
+              sequence="10"/>
+
+    <menuitem id="menu_tools_ai_suggestion"
+              name="AI Suggestions"
+              parent="menu_tools_insights"
+              action="kob_extras_v2.action_kob_ai_suggestion"
+              sequence="20"/>
+
+    <!-- == Section: Notifications == -->
+    <menuitem id="menu_tools_notif"
+              name="Notifications"
+              parent="kob_extras_v4.menu_kob_extras_root"
+              sequence="50"/>
+
+    <menuitem id="menu_tools_notif_channel"
+              name="Channels"
+              parent="menu_tools_notif"
+              action="kob_extras_v2.action_kob_notification_channel"
+              sequence="10"/>
+
+    <menuitem id="menu_tools_notif_log"
+              name="Delivery Log"
+              parent="menu_tools_notif"
+              action="kob_extras_v2.action_kob_notification_log"
+              sequence="20"/>
+
+    <!-- == Section: System == -->
+    <menuitem id="menu_tools_system"
+              name="System"
+              parent="kob_extras_v4.menu_kob_extras_root"
+              sequence="60"
+              groups="base.group_system"/>
+
+    <menuitem id="menu_tools_cron_dashboard"
+              name="Cron Dashboard"
+              parent="menu_tools_system"
+              action="kob_extras_v3.action_kob_cron_dashboard"
+              sequence="10"/>
+
+    <menuitem id="menu_tools_api_keys"
+              name="API Keys"
+              parent="menu_tools_system"
+              action="kob_extras_v4.action_kob_api_key"
+              sequence="20"/>
+
+    <menuitem id="menu_tools_api_logs"
+              name="API Call Log"
+              parent="menu_tools_system"
+              action="kob_extras_v4.action_kob_api_call_log"
+              sequence="30"/>
+</odoo>

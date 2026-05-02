@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mkt_touch_list" model="ir.ui.view">
+        <field name="name">kob.marketing.touch.list</field>
+        <field name="model">kob.marketing.touch</field>
+        <field name="arch" type="xml">
+            <list string="Marketing Touchpoints"
+                  decoration-success="converted">
+                <field name="touch_at"/>
+                <field name="partner_id"/>
+                <field name="channel"/>
+                <field name="campaign_id"/>
+                <field name="source"/>
+                <field name="medium"/>
+                <field name="cost"/>
+                <field name="converted" widget="boolean_toggle"/>
+                <field name="conversion_value" sum="Total"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_mkt_touch" model="ir.actions.act_window">
+        <field name="name">Marketing Touchpoints</field>
+        <field name="res_model">kob.marketing.touch</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="view_attr_report_list" model="ir.ui.view">
+        <field name="name">kob.attribution.report.list</field>
+        <field name="model">kob.attribution.report</field>
+        <field name="arch" type="xml">
+            <list string="Attribution Report" create="0"
+                  decoration-success="roi_pct > 100"
+                  decoration-warning="roi_pct &lt; 0">
+                <field name="period_start"/>
+                <field name="channel"/>
+                <field name="touch_count"/>
+                <field name="conversion_count"/>
+                <field name="conversion_rate" widget="percentage"/>
+                <field name="cost" sum="Total Cost"/>
+                <field name="revenue" sum="Total Revenue"/>
+                <field name="roi_pct"/>
+                <field name="cac"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_attr_report_pivot" model="ir.ui.view">
+        <field name="name">kob.attribution.report.pivot</field>
+        <field name="model">kob.attribution.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Attribution Pivot">
+                <field name="channel" type="row"/>
+                <field name="period_start" type="col"/>
+                <field name="conversion_count" type="measure"/>
+                <field name="revenue" type="measure"/>
+                <field name="cost" type="measure"/>
+                <field name="roi_pct" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_attr_report" model="ir.actions.act_window">
+        <field name="name">Attribution Report</field>
+        <field name="res_model">kob.attribution.report</field>
+        <field name="view_mode">list,pivot,form</field>
+    </record>
+</odoo>

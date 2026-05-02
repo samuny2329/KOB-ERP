@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_shipment_list" model="ir.ui.view">
+        <field name="name">kob.shipment.list</field>
+        <field name="model">kob.shipment</field>
+        <field name="arch" type="xml">
+            <list string="Shipments"
+                  decoration-info="state in ('ready','picked_up','in_transit')"
+                  decoration-success="state == 'delivered'"
+                  decoration-danger="state in ('failed','returned')">
+                <field name="name"/>
+                <field name="create_date"/>
+                <field name="picking_id"/>
+                <field name="partner_id"/>
+                <field name="carrier_id"/>
+                <field name="tracking_number"/>
+                <field name="weight_kg"/>
+                <field name="cod_amount"/>
+                <field name="state"/>
+                <field name="estimated_delivery_date"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_shipment_form" model="ir.ui.view">
+        <field name="name">kob.shipment.form</field>
+        <field name="model">kob.shipment</field>
+        <field name="arch" type="xml">
+            <form string="Shipment">
+                <header>
+                    <button name="action_request_label" type="object"
+                            string="Request Label" class="oe_highlight"
+                            invisible="state != 'draft'"/>
+                    <button name="action_track" type="object"
+                            string="Track Now"
+                            invisible="state in ('draft','delivered','returned','failed')"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="picking_id"/>
+                            <field name="sale_order_id"/>
+                            <field name="partner_id"/>
+                            <field name="carrier_id"/>
+                            <field name="rate_id"/>
+                            <field name="service"/>
+                        </group>
+                        <group>
+                            <field name="tracking_number"/>
+                            <field name="weight_kg"/>
+                            <field name="declared_value"/>
+                            <field name="cod_amount"/>
+                            <field name="is_cod"/>
+                            <field name="estimated_delivery_date"/>
+                            <field name="actual_delivery_date"/>
+                            <field name="last_tracked_at"/>
+                        </group>
+                    </group>
+                    <group string="Label">
+                        <field name="label_data" filename="label_filename"/>
+                        <field name="label_filename" invisible="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Tracking Events">
+                            <field name="event_ids" readonly="1">
+                                <list>
+                                    <field name="event_at"/>
+                                    <field name="status"/>
+                                    <field name="location"/>
+                                    <field name="description"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_shipment" model="ir.actions.act_window">
+        <field name="name">Shipments</field>
+        <field name="res_model">kob.shipment</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

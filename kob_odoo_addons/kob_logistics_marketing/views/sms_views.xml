@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- SMS Gateways -->
+    <record id="view_sms_gw_list" model="ir.ui.view">
+        <field name="name">kob.sms.gateway.list</field>
+        <field name="model">kob.sms.gateway</field>
+        <field name="arch" type="xml">
+            <list string="SMS Gateways" decoration-muted="not active">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="sender_id"/>
+                <field name="cost_per_msg"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_sms_gw_form" model="ir.ui.view">
+        <field name="name">kob.sms.gateway.form</field>
+        <field name="model">kob.sms.gateway</field>
+        <field name="arch" type="xml">
+            <form string="SMS Gateway">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="sender_id"/>
+                            <field name="cost_per_msg"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                        <group>
+                            <field name="api_endpoint"/>
+                            <field name="api_key" password="True"/>
+                            <field name="api_secret" password="True"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sms_gw" model="ir.actions.act_window">
+        <field name="name">SMS Gateways</field>
+        <field name="res_model">kob.sms.gateway</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- SMS Blast -->
+    <record id="view_sms_blast_list" model="ir.ui.view">
+        <field name="name">kob.sms.blast.list</field>
+        <field name="model">kob.sms.blast</field>
+        <field name="arch" type="xml">
+            <list string="SMS Blasts"
+                  decoration-success="state == 'sent'"
+                  decoration-info="state == 'scheduled'">
+                <field name="name"/>
+                <field name="gateway_id"/>
+                <field name="segment_id"/>
+                <field name="scheduled_at"/>
+                <field name="estimated_cost"/>
+                <field name="sent_count"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_sms_blast_form" model="ir.ui.view">
+        <field name="name">kob.sms.blast.form</field>
+        <field name="model">kob.sms.blast</field>
+        <field name="arch" type="xml">
+            <form string="SMS Blast">
+                <header>
+                    <button name="action_send" type="object"
+                            string="Send" class="oe_highlight"
+                            invisible="state not in ('draft','scheduled')"
+                            confirm="Send this SMS blast now?"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="gateway_id"/>
+                            <field name="segment_id"/>
+                            <field name="scheduled_at"/>
+                        </group>
+                        <group>
+                            <field name="estimated_cost"/>
+                            <field name="sent_count"/>
+                            <field name="failed_count"/>
+                        </group>
+                    </group>
+                    <field name="body" placeholder="Use {name} {first_name} placeholders"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sms_blast" model="ir.actions.act_window">
+        <field name="name">SMS Blasts</field>
+        <field name="res_model">kob.sms.blast</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="view_sms_log_list" model="ir.ui.view">
+        <field name="name">kob.sms.log.list</field>
+        <field name="model">kob.sms.log</field>
+        <field name="arch" type="xml">
+            <list string="SMS Log" create="0" edit="0"
+                  decoration-success="status == 'delivered'"
+                  decoration-danger="status == 'failed'">
+                <field name="create_date"/>
+                <field name="blast_id"/>
+                <field name="partner_id"/>
+                <field name="phone"/>
+                <field name="status"/>
+                <field name="cost"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_sms_log" model="ir.actions.act_window">
+        <field name="name">SMS Log</field>
+        <field name="res_model">kob.sms.log</field>
+        <field name="view_mode">list</field>
+    </record>
+</odoo>

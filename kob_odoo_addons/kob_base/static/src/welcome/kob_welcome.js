@@ -74,18 +74,6 @@ class KobWelcome extends Component {
                 menuXmlId: "kob_base.menu_kob_thai",
             },
             {
-                key: "kob_group",
-                name: _t("Group / Multi-company"),
-                description: _t(
-                    "Multi-company KPI snapshots, group treasury, " +
-                    "intercompany transfers, consolidated reports.",
-                ),
-                category: "kob",
-                color: "#5d9ff5",
-                glyph: "Σ",
-                menuXmlId: "kob_base.menu_kob_group",
-            },
-            {
                 key: "kob_marketplace",
                 name: _t("Marketplace"),
                 description: _t(
@@ -111,16 +99,65 @@ class KobWelcome extends Component {
                 menuXmlId: "kob_wms.menu_kob_wms_root",
             },
             {
-                key: "kob_kpi",
-                name: _t("KPI & Dashboards"),
+                key: "kob_kpi_live",
+                name: _t("Live KPI Dashboard"),
                 description: _t(
-                    "Worker performance, OEE, quality scorecards, " +
-                    "consolidated executive dashboards.",
+                    "Real-time KPI tiles: Sales 30d, AR/AP outstanding, " +
+                    "inventory value, helpdesk load, top movers.",
                 ),
                 category: "kob",
                 color: "#bb0000",
                 glyph: "📊",
-                menuXmlId: "kob_base.menu_kob_kpi",
+                menuXmlId: "kob_kpi_tiles.menu_kob_kpi_dashboard",
+            },
+            {
+                key: "kob_tools",
+                name: _t("KOB Tools"),
+                description: _t(
+                    "Onboarding wizard, bulk import, kiosk sessions, " +
+                    "demand forecast, vendor scorecard, invoice OCR, " +
+                    "approval workflow, ESG, AI suggestions, API console.",
+                ),
+                category: "kob",
+                color: "#9f4ee0",
+                glyph: "🧰",
+                menuXmlId: "kob_extras_v4.menu_kob_extras_root",
+            },
+            {
+                key: "kob_helpdesk",
+                name: _t("Helpdesk"),
+                description: _t(
+                    "Ticket queue with categories, state machine, " +
+                    "auto-sequence numbering, internal SLA.",
+                ),
+                category: "kob",
+                color: "#0a6ed1",
+                glyph: "🎫",
+                menuXmlId: "kob_helpdesk.menu_kob_helpdesk_root",
+            },
+            {
+                key: "kob_backup",
+                name: _t("Backup &amp; DR"),
+                description: _t(
+                    "Scheduled DB backup with 14-day retention; " +
+                    "log of every snapshot for audit & disaster recovery.",
+                ),
+                category: "kob",
+                color: "#354a5f",
+                glyph: "💾",
+                menuXmlId: "kob_backup.menu_kob_backup_root",
+            },
+            {
+                key: "kob_webhooks",
+                name: _t("Webhooks"),
+                description: _t(
+                    "Outbound HTTP webhooks fired on configurable model " +
+                    "events; delivery log with retry tracking.",
+                ),
+                category: "kob",
+                color: "#107e3e",
+                glyph: "🔗",
+                menuXmlId: "kob_webhooks.menu_kob_webhooks_root",
             },
             // ── Phase-3/4/8 advanced + Phase-11/12/13 group ──────
             {

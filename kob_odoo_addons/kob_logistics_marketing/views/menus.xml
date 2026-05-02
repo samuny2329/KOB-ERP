@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ============================================================ -->
+    <!-- KOB Logistics & Marketing — separate App icon                 -->
+    <!-- ============================================================ -->
+    <menuitem id="menu_kob_lgm_root"
+              name="KOB Logistics &amp; Marketing"
+              sequence="180"
+              web_icon="kob_logistics_marketing,static/description/icon.png"
+              groups="base.group_user"/>
+
+    <!-- ── Section: Logistics ── -->
+    <menuitem id="menu_lgm_logistics"
+              name="Logistics"
+              parent="menu_kob_lgm_root"
+              sequence="10"/>
+
+    <menuitem id="menu_lgm_shipments"
+              name="Shipments"
+              parent="menu_lgm_logistics"
+              action="action_shipment"
+              sequence="10"/>
+
+    <menuitem id="menu_lgm_returns"
+              name="Returns (RMA)"
+              parent="menu_lgm_logistics"
+              action="action_return"
+              sequence="20"/>
+
+    <menuitem id="menu_lgm_rate_shop"
+              name="Rate Shop"
+              parent="menu_lgm_logistics"
+              action="action_rate_shop"
+              sequence="30"/>
+
+    <!-- ── Section: Marketing ── -->
+    <menuitem id="menu_lgm_marketing"
+              name="Marketing"
+              parent="menu_kob_lgm_root"
+              sequence="20"/>
+
+    <menuitem id="menu_lgm_email"
+              name="Email Campaigns"
+              parent="menu_lgm_marketing"
+              action="action_email_campaign"
+              sequence="10"/>
+
+    <menuitem id="menu_lgm_sms"
+              name="SMS Blasts"
+              parent="menu_lgm_marketing"
+              action="action_sms_blast"
+              sequence="20"/>
+
+    <menuitem id="menu_lgm_segments"
+              name="Customer Segments"
+              parent="menu_lgm_marketing"
+              action="action_segment"
+              sequence="30"/>
+
+    <menuitem id="menu_lgm_coupons"
+              name="Coupons"
+              parent="menu_lgm_marketing"
+              action="action_coupon_program"
+              sequence="40"/>
+
+    <menuitem id="menu_lgm_ab_tests"
+              name="A/B Tests"
+              parent="menu_lgm_marketing"
+              action="action_ab_test"
+              sequence="50"/>
+
+    <!-- ── Section: Analytics ── -->
+    <menuitem id="menu_lgm_analytics"
+              name="Analytics"
+              parent="menu_kob_lgm_root"
+              sequence="30"/>
+
+    <menuitem id="menu_lgm_attribution"
+              name="Attribution Report"
+              parent="menu_lgm_analytics"
+              action="action_attr_report"
+              sequence="10"/>
+
+    <menuitem id="menu_lgm_touchpoints"
+              name="Touchpoints"
+              parent="menu_lgm_analytics"
+              action="action_mkt_touch"
+              sequence="20"/>
+
+    <!-- ── Section: Configuration ── -->
+    <menuitem id="menu_lgm_config"
+              name="Configuration"
+              parent="menu_kob_lgm_root"
+              sequence="90"
+              groups="base.group_system"/>
+
+    <menuitem id="menu_lgm_carriers"
+              name="Carriers"
+              parent="menu_lgm_config"
+              action="action_carrier"
+              sequence="10"/>
+
+    <menuitem id="menu_lgm_sms_gw"
+              name="SMS Gateways"
+              parent="menu_lgm_config"
+              action="action_sms_gw"
+              sequence="20"/>
+
+    <menuitem id="menu_lgm_sms_log"
+              name="SMS Log"
+              parent="menu_lgm_config"
+              action="action_sms_log"
+              sequence="30"/>
+
+    <menuitem id="menu_lgm_coupons_individual"
+              name="All Coupons"
+              parent="menu_lgm_config"
+              action="action_coupon"
+              sequence="40"/>
+</odoo>

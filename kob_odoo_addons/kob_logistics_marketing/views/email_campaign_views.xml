@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Customer Segments -->
+    <record id="view_segment_list" model="ir.ui.view">
+        <field name="name">kob.customer.segment.list</field>
+        <field name="model">kob.customer.segment</field>
+        <field name="arch" type="xml">
+            <list string="Segments">
+                <field name="name"/>
+                <field name="description"/>
+                <field name="member_count"/>
+                <field name="use_domain"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_segment_form" model="ir.ui.view">
+        <field name="name">kob.customer.segment.form</field>
+        <field name="model">kob.customer.segment</field>
+        <field name="arch" type="xml">
+            <form string="Segment">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <field name="description"/>
+                        <field name="use_domain" widget="boolean_toggle"/>
+                        <field name="domain" widget="char"
+                               invisible="not use_domain"
+                               help="Odoo domain on res.partner, e.g. [('customer_rank','>',0)]"/>
+                        <field name="member_count" readonly="1"/>
+                    </group>
+                    <field name="static_partner_ids" invisible="use_domain"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_segment" model="ir.actions.act_window">
+        <field name="name">Customer Segments</field>
+        <field name="res_model">kob.customer.segment</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Email Campaigns -->
+    <record id="view_email_campaign_list" model="ir.ui.view">
+        <field name="name">kob.email.campaign.list</field>
+        <field name="model">kob.email.campaign</field>
+        <field name="arch" type="xml">
+            <list string="Email Campaigns"
+                  decoration-info="state == 'scheduled'"
+                  decoration-success="state == 'sent'"
+                  decoration-muted="state == 'cancelled'">
+                <field name="name"/>
+                <field name="subject"/>
+                <field name="segment_id"/>
+                <field name="scheduled_at"/>
+                <field name="sent_count"/>
+                <field name="open_rate" widget="percentage"/>
+                <field name="click_rate" widget="percentage"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_email_campaign_form" model="ir.ui.view">
+        <field name="name">kob.email.campaign.form</field>
+        <field name="model">kob.email.campaign</field>
+        <field name="arch" type="xml">
+            <form string="Email Campaign">
+                <header>
+                    <button name="action_schedule" type="object"
+                            string="Schedule" class="oe_highlight"
+                            invisible="state != 'draft'"/>
+                    <button name="action_send_now" type="object"
+                            string="Send Now"
+                            invisible="state not in ('draft','scheduled','paused')"
+                            confirm="Send this campaign now?"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="subject"/>
+                            <field name="from_name"/>
+                            <field name="from_email"/>
+                        </group>
+                        <group>
+                            <field name="segment_id"/>
+                            <field name="scheduled_at"/>
+                            <field name="ab_test"/>
+                            <field name="ab_split_pct" invisible="not ab_test"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Body (Variant A)">
+                            <field name="body_html" widget="html"/>
+                        </page>
+                        <page string="Variant B" invisible="not ab_test">
+                            <group>
+                                <field name="ab_variant_b_subject"/>
+                            </group>
+                            <field name="ab_variant_b_body" widget="html"/>
+                        </page>
+                        <page string="Stats">
+                            <group>
+                                <field name="sent_count"/>
+                                <field name="open_count"/>
+                                <field name="click_count"/>
+                                <field name="unsubscribe_count"/>
+                                <field name="bounce_count"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_email_campaign" model="ir.actions.act_window">
+        <field name="name">Email Campaigns</field>
+        <field name="res_model">kob.email.campaign</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

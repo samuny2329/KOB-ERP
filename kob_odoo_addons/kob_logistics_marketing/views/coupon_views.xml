@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Coupon Programs -->
+    <record id="view_coupon_program_list" model="ir.ui.view">
+        <field name="name">kob.coupon.program.list</field>
+        <field name="model">kob.coupon.program</field>
+        <field name="arch" type="xml">
+            <list string="Coupon Programs"
+                  decoration-success="state == 'active'"
+                  decoration-muted="state in ('paused','expired')">
+                <field name="name"/>
+                <field name="discount_type"/>
+                <field name="discount_value"/>
+                <field name="valid_from"/>
+                <field name="valid_to"/>
+                <field name="coupon_count"/>
+                <field name="redeemed_count"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_coupon_program_form" model="ir.ui.view">
+        <field name="name">kob.coupon.program.form</field>
+        <field name="model">kob.coupon.program</field>
+        <field name="arch" type="xml">
+            <form string="Coupon Program">
+                <header>
+                    <button name="action_activate" type="object"
+                            string="Activate" class="oe_highlight"
+                            invisible="state != 'draft'"/>
+                    <button name="action_generate_codes" type="object"
+                            string="Generate 100 Codes"
+                            context="{'count': 100}"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code_prefix"/>
+                            <field name="discount_type"/>
+                            <field name="discount_value"/>
+                            <field name="min_order_value"/>
+                        </group>
+                        <group>
+                            <field name="valid_from"/>
+                            <field name="valid_to"/>
+                            <field name="max_uses"/>
+                            <field name="max_uses_per_customer"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Applicability">
+                            <group>
+                                <field name="applicable_product_ids"
+                                       widget="many2many_tags"/>
+                                <field name="applicable_category_ids"
+                                       widget="many2many_tags"/>
+                            </group>
+                        </page>
+                        <page string="Coupons">
+                            <field name="coupon_ids" readonly="1">
+                                <list>
+                                    <field name="code"/>
+                                    <field name="state"/>
+                                    <field name="used_by_partner_id"/>
+                                    <field name="used_at"/>
+                                    <field name="discount_applied"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_coupon_program" model="ir.actions.act_window">
+        <field name="name">Coupon Programs</field>
+        <field name="res_model">kob.coupon.program</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="view_coupon_list" model="ir.ui.view">
+        <field name="name">kob.coupon.list</field>
+        <field name="model">kob.coupon</field>
+        <field name="arch" type="xml">
+            <list string="Coupons" create="0"
+                  decoration-success="state == 'active'"
+                  decoration-info="state == 'redeemed'"
+                  decoration-muted="state in ('expired','voided')">
+                <field name="code"/>
+                <field name="program_id"/>
+                <field name="state"/>
+                <field name="used_by_partner_id"/>
+                <field name="used_at"/>
+                <field name="discount_applied"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_coupon" model="ir.actions.act_window">
+        <field name="name">Coupons</field>
+        <field name="res_model">kob.coupon</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- A/B Test -->
+    <record id="view_ab_test_list" model="ir.ui.view">
+        <field name="name">kob.ab.test.list</field>
+        <field name="model">kob.ab.test</field>
+        <field name="arch" type="xml">
+            <list string="A/B Tests">
+                <field name="name"/>
+                <field name="target_metric"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="a_rate" widget="percentage"/>
+                <field name="b_rate" widget="percentage"/>
+                <field name="lift_pct"/>
+                <field name="winner"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ab_test_form" model="ir.ui.view">
+        <field name="name">kob.ab.test.form</field>
+        <field name="model">kob.ab.test</field>
+        <field name="arch" type="xml">
+            <form string="A/B Test">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <field name="hypothesis" placeholder="State your hypothesis..."/>
+                    <group>
+                        <group>
+                            <field name="variant_a_label"/>
+                            <field name="variant_b_label"/>
+                            <field name="target_metric"/>
+                            <field name="sample_size_target"/>
+                        </group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="state"/>
+                        </group>
+                    </group>
+                    <group string="Results">
+                        <group>
+                            <field name="a_sample_count"/>
+                            <field name="a_conversion_count"/>
+                            <field name="a_rate" widget="percentage"/>
+                        </group>
+                        <group>
+                            <field name="b_sample_count"/>
+                            <field name="b_conversion_count"/>
+                            <field name="b_rate" widget="percentage"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="lift_pct"/>
+                        <field name="winner"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ab_test" model="ir.actions.act_window">
+        <field name="name">A/B Tests</field>
+        <field name="res_model">kob.ab.test</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
