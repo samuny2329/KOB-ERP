@@ -22,12 +22,116 @@ class KobWelcome extends Component {
         this.action = useService("action");
         this.menuService = useService("menu");
         this.notification = useService("notification");
-        this.state = useState({ search: "", category: null });
+        this.state = useState({
+            search: "",
+            category: null,
+            order: this._loadOrder(),
+            draggingKey: null,
+            dragOverKey: null,
+        });
 
         // Welcome is the start screen — clear any leftover currentApp /
         // currentMenu so the navbar doesn't keep showing submenus from the
         // module the user just came back from.
         onMounted(() => this._clearCurrentApp());
+    }
+
+    // ── DRAG-AND-DROP REORDER ──────────────────────────────────────
+    _orderKey() {
+        return "kob_welcome_app_order_v1";
+    }
+    _loadOrder() {
+        try {
+            const raw = window.localStorage.getItem(this._orderKey());
+            return raw ? JSON.parse(raw) : [];
+        } catch (_e) {
+            return [];
+        }
+    }
+    _saveOrder(order) {
+        try {
+            window.localStorage.setItem(this._orderKey(), JSON.stringify(order));
+        } catch (_e) {
+            /* quota exceeded — ignore */
+        }
+    }
+
+    /** Apply the saved order to a list of modules. Unknown keys keep
+     *  their original relative order at the end. */
+    _applyOrder(mods) {
+        if (!this.state.order || !this.state.order.length) {
+            return mods;
+        }
+        const indexOf = new Map(this.state.order.map((k, i) => [k, i]));
+        return [...mods].sort((a, b) => {
+            const ai = indexOf.has(a.key) ? indexOf.get(a.key) : 1e6;
+            const bi = indexOf.has(b.key) ? indexOf.get(b.key) : 1e6;
+            return ai - bi;
+        });
+    }
+
+    onDragStart(ev, key) {
+        this.state.draggingKey = key;
+        try {
+            ev.dataTransfer.effectAllowed = "move";
+            ev.dataTransfer.setData("text/plain", key);
+        } catch (_e) {/* */}
+    }
+    onDragOver(ev, key) {
+        ev.preventDefault();
+        try { ev.dataTransfer.dropEffect = "move"; } catch (_e) {/* */}
+        if (this.state.dragOverKey !== key) {
+            this.state.dragOverKey = key;
+        }
+    }
+    onDragLeave(ev, key) {
+        if (this.state.dragOverKey === key) {
+            this.state.dragOverKey = null;
+        }
+    }
+    onDrop(ev, dropKey) {
+        ev.preventDefault();
+        const dragKey = this.state.draggingKey;
+        this.state.draggingKey = null;
+        this.state.dragOverKey = null;
+        if (!dragKey || dragKey === dropKey) {
+            return;
+        }
+        // Build current effective order from filteredModules (matches what user sees).
+        const visible = this.filteredModules.map((m) => m.key);
+        const fromIdx = visible.indexOf(dragKey);
+        const toIdx = visible.indexOf(dropKey);
+        if (fromIdx < 0 || toIdx < 0) {
+            return;
+        }
+        visible.splice(toIdx, 0, visible.splice(fromIdx, 1)[0]);
+
+        // Merge the reordered visible keys back into the full order list.
+        const allKeys = this.modules.map((m) => m.key);
+        const fullOrder = this.state.order && this.state.order.length
+            ? [...this.state.order]
+            : [...allKeys];
+        // Remove visible keys from fullOrder, then re-insert in new order at the
+        // position of the first removed one.
+        const visibleSet = new Set(visible);
+        const firstPos = fullOrder.findIndex((k) => visibleSet.has(k));
+        const cleaned = fullOrder.filter((k) => !visibleSet.has(k));
+        const insertAt = firstPos < 0 ? cleaned.length : firstPos;
+        cleaned.splice(insertAt, 0, ...visible);
+        // Append any keys never seen.
+        for (const k of allKeys) {
+            if (!cleaned.includes(k)) cleaned.push(k);
+        }
+        this.state.order = cleaned;
+        this._saveOrder(cleaned);
+    }
+    onDragEnd() {
+        this.state.draggingKey = null;
+        this.state.dragOverKey = null;
+    }
+    resetOrder() {
+        this.state.order = [];
+        this._saveOrder([]);
     }
 
     _clearCurrentApp() {
@@ -405,11 +509,12 @@ class KobWelcome extends Component {
 
     get filteredModules() {
         const q = this.state.search.trim().toLowerCase();
-        return this.modules.filter((m) => {
+        const filtered = this.modules.filter((m) => {
             if (this.state.category && m.category !== this.state.category) return false;
             if (q && !`${m.name} ${m.description}`.toLowerCase().includes(q)) return false;
             return true;
         });
+        return this._applyOrder(filtered);
     }
 
     grouped() {

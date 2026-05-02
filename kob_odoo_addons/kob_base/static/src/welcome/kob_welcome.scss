@@ -1,558 +1,242 @@
-// KOB ERP — AI-era Welcome dashboard
-//
-// Design language: dark glassmorphism, animated neural-mesh background,
-// gradient text, glowing icons, AI prompt bar with subtle breathing pulse.
+// KOB ERP — Welcome dashboard, Odoo-native draggable grid
 
-$kob-bg-deep:      #07090f;
-$kob-bg-mid:       #0d1220;
-$kob-bg-soft:      #131a2c;
-$kob-glass:        rgba(255, 255, 255, 0.035);
-$kob-glass-border: rgba(255, 255, 255, 0.08);
-$kob-text:         #e8ecf3;
-$kob-muted:        #8a93a8;
-$kob-subtle:       #5b6582;
+$o-purple:        #714B67;
+$o-purple-dark:   #5d3a55;
+$o-text-strong:   #2c2c2c;
+$o-text:          #4c4c4c;
+$o-muted:         #6c757d;
+$o-subtle:        #adb5bd;
+$o-border:        #e0e0e0;
+$o-border-light:  #ececec;
+$o-bg-grad-from:  #c4c2ce;
+$o-bg-grad-to:    #e7e6ea;
+$o-surface:       #ffffff;
+$o-hover:         #f5f5f5;
 
-$kob-violet:  #a855f7;
-$kob-cyan:    #06b6d4;
-$kob-emerald: #10b981;
-$kob-amber:   #f59e0b;
-$kob-pink:    #ec4899;
+// Backwards-compat aliases
+$kob-graphite:       $o-text-strong;
+$kob-graphite-light: $o-text;
+$kob-cobalt:         $o-purple;
+$kob-cobalt-dark:    $o-purple-dark;
+$kob-gold:           #c9a96e;
+$kob-gold-light:     #d4b572;
+$kob-text:           $o-text;
+$kob-muted:          $o-muted;
+$kob-subtle:         $o-subtle;
+$kob-border:         $o-border;
+$kob-bg:             $o-bg-grad-to;
+$kob-surface:        $o-surface;
+$kob-navy:           $o-text-strong;
+$kob-blue:           $o-purple;
+$kob-blue-dark:      $o-purple-dark;
 
-// Backwards-compat (some places may still reference)
-$kob-graphite:      $kob-bg-mid;
-$kob-graphite-light:#1f2940;
-$kob-cobalt:        #6366f1;
-$kob-cobalt-dark:   #4f46e5;
-$kob-gold:          #d4b572;
-$kob-navy:          $kob-bg-deep;
-$kob-blue:          $kob-cobalt;
-$kob-blue-dark:     $kob-cobalt-dark;
-$kob-border:        $kob-glass-border;
-$kob-bg:            $kob-bg-deep;
-$kob-surface:       rgba(255, 255, 255, 0.04);
-
-@keyframes kob-orb-float {
-    0%   { transform: translate(0, 0) scale(1); }
-    50%  { transform: translate(40px, -25px) scale(1.08); }
-    100% { transform: translate(0, 0) scale(1); }
-}
-@keyframes kob-pulse {
-    0%, 100% { transform: scale(1);   opacity: 1;   }
-    50%      { transform: scale(1.6); opacity: 0.4; }
-}
-@keyframes kob-shimmer {
-    0%   { background-position: 0% 50%; }
-    50%  { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-@keyframes kob-breathe {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.35); }
-    50%      { box-shadow: 0 0 0 16px rgba(168, 85, 247, 0); }
-}
-
-.kob-welcome.kob-welcome--ai {
+.kob-welcome {
     height: 100%;
     overflow: auto;
-    background: $kob-bg-deep;
-    color: $kob-text;
-    font-family: "Inter", "72", "Segoe UI", -apple-system, "Helvetica Neue", "Noto Sans Thai", sans-serif;
-    position: relative;
+    color: $o-text;
+    font-family: "Inter", "Roboto", "Segoe UI", -apple-system, "Helvetica Neue", Arial, "Noto Sans Thai", sans-serif;
+    font-size: 14px;
+    background:
+        linear-gradient(115deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.40) 48%,
+            rgba(255, 255, 255, 0) 52%,
+            rgba(255, 255, 255, 0) 100%),
+        linear-gradient(180deg, $o-bg-grad-from 0%, $o-bg-grad-to 60%);
 
     .kob-container {
-        max-width: 1280px;
+        max-width: 1480px;
         margin: 0 auto;
-        padding: 0 24px;
-        position: relative;
-        z-index: 2;
-        @media (min-width: 768px) {
-            padding: 0 40px;
-        }
-    }
-
-    // ── Animated neural-mesh background ────────────────────────────
-    .kob-mesh {
-        position: fixed;
-        inset: 0;
-        z-index: 0;
-        overflow: hidden;
-        pointer-events: none;
-
-        .kob-mesh-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(110px);
-            opacity: 0.45;
-            animation: kob-orb-float 18s ease-in-out infinite;
-
-            &--a {
-                width: 520px; height: 520px;
-                background: radial-gradient(circle, $kob-violet 0%, transparent 70%);
-                top: -120px; left: -100px;
-            }
-            &--b {
-                width: 480px; height: 480px;
-                background: radial-gradient(circle, $kob-cyan 0%, transparent 70%);
-                top: 30%; right: -100px;
-                animation-delay: -6s;
-            }
-            &--c {
-                width: 420px; height: 420px;
-                background: radial-gradient(circle, $kob-emerald 0%, transparent 70%);
-                bottom: -100px; left: 25%;
-                animation-delay: -12s;
-            }
-        }
-
-        .kob-mesh-grid {
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-            background-size: 48px 48px;
-            mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
-        }
+        padding: 0 32px;
     }
 
     // ── HERO ─────────────────────────────────────────────────────
-    .kob-hero--ai {
-        position: relative;
-        padding: 64px 0 48px;
+    .kob-hero {
+        padding: 28px 0 16px;
 
-        .kob-hero-meta {
-            display: inline-flex;
+        .kob-hero-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .kob-hero-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: $o-text-strong;
+            margin: 0 0 2px;
+            letter-spacing: -0.005em;
+        }
+        .kob-hero-sub {
+            font-size: 13px;
+            color: $o-muted;
+            margin: 0;
+        }
+
+        .kob-hero-actions {
+            display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 28px;
+        }
 
-            .kob-pulse {
-                width: 8px; height: 8px;
-                background: $kob-emerald;
-                border-radius: 50%;
-                box-shadow: 0 0 12px $kob-emerald;
-                position: relative;
+        .kob-hero-search {
+            position: relative;
+            min-width: 280px;
 
-                &::after {
-                    content: "";
-                    position: absolute;
-                    inset: 0;
-                    border-radius: 50%;
-                    background: $kob-emerald;
-                    animation: kob-pulse 2s ease-out infinite;
+            .kob-hero-search-icon {
+                position: absolute;
+                left: 12px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: $o-subtle;
+                font-size: 13px;
+                pointer-events: none;
+            }
+            .kob-hero-search-input {
+                width: 100%;
+                height: 36px;
+                padding: 0 12px 0 36px;
+                background: rgba(255, 255, 255, 0.85);
+                border: 1px solid rgba(0, 0, 0, 0.08);
+                border-radius: 6px;
+                color: $o-text-strong;
+                font-size: 13px;
+                outline: none;
+
+                &::placeholder { color: $o-subtle; }
+                &:focus {
+                    background: $o-surface;
+                    border-color: $o-purple;
+                    box-shadow: 0 0 0 3px rgba(113, 75, 103, 0.10);
                 }
             }
-            .kob-eyebrow {
-                font-size: 11px;
-                letter-spacing: 0.18em;
-                font-weight: 600;
-                color: $kob-muted;
-                text-transform: uppercase;
-            }
         }
 
-        .kob-hero-title {
-            font-size: 56px;
-            line-height: 1.05;
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            margin: 0 0 16px;
-            @media (max-width: 768px) {
-                font-size: 36px;
-            }
-        }
-
-        .kob-grad-text {
-            background: linear-gradient(120deg, $kob-violet 0%, $kob-cyan 50%, $kob-emerald 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            color: transparent;
-            animation: kob-shimmer 8s linear infinite;
-        }
-
-        .kob-hero-sub {
-            font-size: 17px;
-            color: $kob-muted;
-            margin: 0 0 32px;
-            max-width: 640px;
-        }
-    }
-
-    // ── AI PROMPT BAR ────────────────────────────────────────────
-    .kob-prompt {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        padding: 14px 18px;
-        background: $kob-glass;
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid $kob-glass-border;
-        border-radius: 16px;
-        max-width: 760px;
-        animation: kob-breathe 4s ease-in-out infinite;
-        transition: border-color 200ms;
-
-        &:focus-within {
-            border-color: rgba(168, 85, 247, 0.5);
-            box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.12);
-            animation: none;
-        }
-
-        .kob-prompt-icon {
-            display: flex;
-            align-items: center;
-            flex-shrink: 0;
-        }
-        .kob-prompt-input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            outline: none;
-            color: $kob-text;
-            font-size: 16px;
-            font-weight: 400;
-            font-family: inherit;
-
-            &::placeholder {
-                color: $kob-subtle;
-            }
-        }
-        .kob-prompt-kbd {
-            font-family: "SF Mono", "Menlo", monospace;
-            font-size: 11px;
-            color: $kob-muted;
-            background: rgba(255, 255, 255, 0.06);
-            padding: 4px 8px;
-            border-radius: 6px;
-            border: 1px solid $kob-glass-border;
-        }
-    }
-
-    // ── SMART SUGGESTIONS ────────────────────────────────────────
-    .kob-suggestions {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        flex-wrap: wrap;
-        margin-top: 20px;
-
-        .kob-suggestions-label {
-            font-size: 10px;
-            letter-spacing: 0.18em;
-            font-weight: 600;
-            color: $kob-subtle;
-            text-transform: uppercase;
-            margin-right: 4px;
-        }
-        .kob-sugg {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid $kob-glass-border;
-            border-radius: 999px;
-            padding: 7px 14px;
-            font-size: 13px;
-            color: $kob-text;
-            cursor: pointer;
-            transition: all 150ms;
-
-            &:hover {
-                background: rgba(168, 85, 247, 0.12);
-                border-color: rgba(168, 85, 247, 0.4);
-                transform: translateY(-1px);
-            }
-            .kob-sugg-emoji { font-size: 14px; }
-        }
-    }
-
-    // ── CATEGORY CHIPS ───────────────────────────────────────────
-    .kob-hero-chips {
-        margin-top: 28px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-
-        .kob-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid $kob-glass-border;
-            color: $kob-muted;
-            padding: 7px 14px;
-            border-radius: 8px;
-            font-size: 13px;
+        .kob-reset-btn {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            color: $o-text-strong;
+            font-size: 12px;
             font-weight: 500;
+            padding: 0 14px;
+            height: 36px;
+            border-radius: 6px;
             cursor: pointer;
-            transition: all 150ms;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 120ms;
 
             &:hover {
-                background: rgba(255,255,255,0.06);
-                color: $kob-text;
+                background: $o-surface;
+                border-color: $o-purple;
+                color: $o-purple;
             }
-            &--active {
-                background: rgba(255,255,255,0.10);
-                color: #fff;
-                border-color: rgba(255,255,255,0.25);
-            }
-            .kob-chip-glyph { font-size: 16px; opacity: 0.7; }
-            .kob-chip-dot {
-                width: 7px; height: 7px;
-                border-radius: 50%;
-                box-shadow: 0 0 8px currentColor;
+        }
+
+        .kob-hero-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+
+            .kob-chip {
+                background: rgba(255, 255, 255, 0.55);
+                border: 1px solid rgba(0, 0, 0, 0.06);
+                color: $o-text;
+                padding: 4px 12px;
+                border-radius: 4px;
+                font-size: 12px;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 120ms;
+
+                &:hover {
+                    background: $o-surface;
+                    color: $o-text-strong;
+                }
+                &--active {
+                    background: $o-purple;
+                    color: #fff;
+                    border-color: $o-purple;
+                    &:hover { background: $o-purple-dark; color: #fff; }
+                }
             }
         }
     }
 
-    // ── KPI ORBS ─────────────────────────────────────────────────
-    .kob-orbs {
-        padding: 24px 0 16px;
+    // ── APP GRID ────────────────────────────────────────────────
+    .kob-modules {
+        padding: 16px 0 56px;
 
-        .kob-orbs-grid {
+        .kob-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
             gap: 16px;
         }
-        .kob-orb {
-            background: $kob-glass;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid $kob-glass-border;
-            border-radius: 14px;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
 
-            &::before {
-                content: "";
-                position: absolute;
-                inset: 0;
-                background: linear-gradient(135deg, rgba(168, 85, 247, 0.08) 0%, transparent 60%);
-                pointer-events: none;
-            }
-
-            .kob-orb-label {
-                font-size: 11px;
-                letter-spacing: 0.16em;
-                color: $kob-subtle;
-                text-transform: uppercase;
-                font-weight: 600;
-                margin-bottom: 10px;
-            }
-            .kob-orb-value {
-                font-size: 32px;
-                font-weight: 700;
-                color: $kob-text;
-                letter-spacing: -0.02em;
-                line-height: 1;
-
-                .kob-orb-unit {
-                    font-size: 14px;
-                    font-weight: 500;
-                    color: $kob-muted;
-                    margin-left: 4px;
-                }
-            }
-            .kob-orb-trend {
-                margin-top: 10px;
-                font-size: 12px;
-                color: $kob-muted;
-            }
-        }
-    }
-
-    // ── GLASS CARD COMMON ────────────────────────────────────────
-    .kob-glass {
-        background: $kob-glass;
-        backdrop-filter: blur(18px);
-        -webkit-backdrop-filter: blur(18px);
-        border: 1px solid $kob-glass-border;
-        transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
-
-        &:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(255, 255, 255, 0.14);
-            transform: translateY(-3px);
-        }
-    }
-
-    // ── SECTION HEAD ─────────────────────────────────────────────
-    .kob-section-head {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        margin: 32px 0 20px;
-
-        .kob-section-rule {
-            flex: 1;
-            height: 1px;
-            background: linear-gradient(90deg, transparent 0%, $kob-glass-border 50%, transparent 100%);
-
-            &-r { transform: scaleX(-1); }
-        }
-        .kob-section-label {
-            font-size: 11px;
-            letter-spacing: 0.22em;
-            color: $kob-muted;
-            text-transform: uppercase;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .kob-section-dot {
-            width: 7px; height: 7px;
-            border-radius: 50%;
-            box-shadow: 0 0 8px currentColor;
-        }
-        .kob-section-count {
-            background: rgba(255,255,255,0.06);
-            color: $kob-muted;
-            font-size: 11px;
-            padding: 2px 8px;
-            border-radius: 999px;
-            font-weight: 600;
-        }
-    }
-
-    // ── FEATURED ─────────────────────────────────────────────────
-    .kob-featured--ai {
-        padding: 24px 0 16px;
-
-        .kob-featured-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 18px;
-        }
-        .kob-featured-card {
+        .kob-card {
             display: flex;
-            gap: 18px;
-            text-align: left;
-            background: $kob-glass;
-            border: 1px solid $kob-glass-border;
-            border-radius: 18px;
-            padding: 24px;
-            cursor: pointer;
-            color: $kob-text;
-            position: relative;
-            overflow: hidden;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: $o-surface;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            padding: 22px 12px 18px;
+            cursor: grab;
+            transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
+            min-height: 130px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+            user-select: none;
 
-            &::after {
-                content: "";
-                position: absolute;
-                inset: 0;
-                background: radial-gradient(ellipse at top right, rgba(168, 85, 247, 0.06) 0%, transparent 60%);
-                pointer-events: none;
-                transition: opacity 200ms;
+            &:hover {
+                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.10);
+                transform: translateY(-2px);
             }
-            &:hover::after {
-                background: radial-gradient(ellipse at top right, rgba(168, 85, 247, 0.12) 0%, transparent 60%);
+            &:active {
+                cursor: grabbing;
+            }
+            &--dragging {
+                opacity: 0.4;
+                transform: scale(0.97);
+                box-shadow: none;
+            }
+            &--dragover {
+                border-color: $o-purple;
+                box-shadow: 0 0 0 3px rgba(113, 75, 103, 0.15),
+                            0 6px 16px rgba(0, 0, 0, 0.10);
+                transform: translateY(-2px);
             }
 
-            .kob-featured-icon {
-                width: 56px; height: 56px;
+            .kob-card-icon {
+                width: 60px;
+                height: 60px;
                 border-radius: 14px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                font-size: 24px;
-                font-weight: 700;
-                color: #fff;
-                flex-shrink: 0;
+                margin-bottom: 14px;
+                box-shadow:
+                    0 1px 0 rgba(255,255,255,0.4) inset,
+                    0 4px 10px rgba(0, 0, 0, 0.08);
             }
-            .kob-featured-eyebrow {
-                font-size: 10px;
-                letter-spacing: 0.2em;
-                color: $kob-muted;
-                text-transform: uppercase;
+            .kob-card-glyph {
+                font-size: 28px;
                 font-weight: 600;
-                margin-bottom: 6px;
-            }
-            .kob-featured-title {
-                font-size: 22px;
-                font-weight: 700;
-                margin: 0 0 10px;
-                letter-spacing: -0.01em;
-            }
-            .kob-featured-desc {
-                font-size: 14px;
-                color: $kob-muted;
-                line-height: 1.55;
-                margin: 0 0 14px;
-            }
-            .kob-featured-cta {
-                font-size: 13px;
-                font-weight: 600;
-                color: $kob-violet;
-                display: inline-flex;
-                align-items: center;
-                gap: 4px;
-            }
-        }
-    }
-
-    // ── ICON GLOW ────────────────────────────────────────────────
-    .kob-icon-glow {
-        box-shadow:
-            0 0 0 1px rgba(255,255,255,0.10) inset,
-            0 4px 20px var(--glow, rgba(168, 85, 247, 0.4));
-    }
-
-    // ── MODULE GRID ──────────────────────────────────────────────
-    .kob-modules {
-        padding: 8px 0 56px;
-
-        .kob-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 14px;
-        }
-        .kob-card {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            text-align: left;
-            background: $kob-glass;
-            border: 1px solid $kob-glass-border;
-            border-radius: 14px;
-            padding: 20px;
-            color: $kob-text;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-
-            .kob-card-icon {
-                width: 42px; height: 42px;
-                border-radius: 10px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 20px;
-                font-weight: 700;
                 color: #fff;
-                margin-bottom: 4px;
+                line-height: 1;
+                text-shadow: 0 1px 2px rgba(0,0,0,0.10);
             }
             .kob-card-title {
-                font-size: 15px;
-                font-weight: 600;
+                font-size: 13px;
+                font-weight: 500;
+                color: $o-text-strong;
                 margin: 0;
-                letter-spacing: -0.005em;
-            }
-            .kob-card-desc {
-                font-size: 12.5px;
-                color: $kob-muted;
-                line-height: 1.5;
-                margin: 0;
-                flex: 1;
-            }
-            .kob-card-cta {
-                font-size: 12px;
-                font-weight: 600;
-                color: $kob-cyan;
-                margin-top: auto;
+                line-height: 1.3;
+                word-break: break-word;
             }
         }
     }
@@ -560,65 +244,40 @@ $kob-surface:       rgba(255, 255, 255, 0.04);
     // ── EMPTY ────────────────────────────────────────────────────
     .kob-empty {
         text-align: center;
-        padding: 80px 20px;
+        padding: 64px 20px;
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 8px;
 
         .kob-empty-icon {
-            font-size: 56px;
-            color: $kob-subtle;
+            font-size: 36px;
+            color: $o-subtle;
             margin-bottom: 12px;
+            display: block;
         }
         .kob-empty-text {
-            color: $kob-muted;
+            color: $o-muted;
             font-size: 14px;
+            margin: 0;
         }
     }
 
     // ── FOOTER ───────────────────────────────────────────────────
-    .kob-foot--ai {
-        padding: 24px 0 36px;
-        border-top: 1px solid $kob-glass-border;
-        margin-top: 32px;
+    .kob-foot {
+        background: rgba(255, 255, 255, 0.55);
+        border-top: 1px solid rgba(0, 0, 0, 0.06);
+        padding: 14px 0;
 
         .kob-foot-inner {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 12px;
-        }
-        .kob-foot-brand {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            color: $kob-muted;
-            font-size: 13px;
-
-            .kob-foot-mark {
-                width: 26px; height: 26px;
-                border-radius: 7px;
-                background: linear-gradient(135deg, $kob-violet 0%, $kob-cyan 100%);
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                font-weight: 700;
-                color: #fff;
-            }
-        }
-        .kob-foot-meta {
-            display: inline-flex;
             gap: 8px;
-
-            .kob-foot-pill {
-                font-size: 11px;
-                letter-spacing: 0.1em;
-                font-weight: 600;
-                color: $kob-muted;
-                background: rgba(255,255,255,0.04);
-                border: 1px solid $kob-glass-border;
-                padding: 4px 10px;
-                border-radius: 999px;
-                text-transform: uppercase;
-            }
+            font-size: 12px;
+            color: $o-muted;
+        }
+        .kob-foot-version {
+            color: $o-subtle;
         }
     }
 }
