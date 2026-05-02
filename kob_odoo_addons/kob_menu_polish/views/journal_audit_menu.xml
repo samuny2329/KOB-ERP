@@ -13,7 +13,7 @@
         <field name="model_id" ref="account_financial_report.model_journal_ledger_report_wizard"/>
         <field name="state">code</field>
         <field name="code"><![CDATA[
-today = fields.Date.context_today(env.user)
+today = datetime.date.today()
 fy_start = today.replace(month=1, day=1)
 wiz = env["journal.ledger.report.wizard"].create({
     "company_id": env.company.id,
@@ -30,7 +30,7 @@ action = wiz.button_export_html()
         <field name="model_id" ref="account_financial_report.model_general_ledger_report_wizard"/>
         <field name="state">code</field>
         <field name="code"><![CDATA[
-today = fields.Date.context_today(env.user)
+today = datetime.date.today()
 fy_start = today.replace(month=1, day=1)
 wiz = env["general.ledger.report.wizard"].create({
     "company_id": env.company.id,
@@ -47,7 +47,7 @@ action = wiz.button_export_html()
         <field name="model_id" ref="account_financial_report.model_trial_balance_report_wizard"/>
         <field name="state">code</field>
         <field name="code"><![CDATA[
-today = fields.Date.context_today(env.user)
+today = datetime.date.today()
 fy_start = today.replace(month=1, day=1)
 wiz = env["trial.balance.report.wizard"].create({
     "company_id": env.company.id,
@@ -64,7 +64,7 @@ action = wiz.button_export_html()
         <field name="model_id" ref="account_financial_report.model_open_items_report_wizard"/>
         <field name="state">code</field>
         <field name="code"><![CDATA[
-today = fields.Date.context_today(env.user)
+today = datetime.date.today()
 wiz = env["open.items.report.wizard"].create({
     "company_id": env.company.id,
     "date_at": today,
@@ -79,7 +79,7 @@ action = wiz.button_export_html()
         <field name="model_id" ref="account_financial_report.model_aged_partner_balance_report_wizard"/>
         <field name="state">code</field>
         <field name="code"><![CDATA[
-today = fields.Date.context_today(env.user)
+today = datetime.date.today()
 wiz = env["aged.partner.balance.report.wizard"].create({
     "company_id": env.company.id,
     "date_at": today,
@@ -95,7 +95,7 @@ action = wiz.button_export_html()
         <field name="model_id" ref="account_financial_report.model_vat_report_wizard"/>
         <field name="state">code</field>
         <field name="code"><![CDATA[
-today = fields.Date.context_today(env.user)
+today = datetime.date.today()
 fy_start = today.replace(month=1, day=1)
 wiz = env["vat.report.wizard"].create({
     "company_id": env.company.id,
@@ -113,12 +113,12 @@ action = wiz.button_export_html()
         <field name="model_id" ref="account_financial_report.model_aged_partner_balance_report_wizard"/>
         <field name="state">code</field>
         <field name="code"><![CDATA[
-today = fields.Date.context_today(env.user)
+today = datetime.date.today()
 wiz = env["aged.partner.balance.report.wizard"].create({
     "company_id": env.company.id,
     "date_at": today,
     "target_move": "posted",
-    "account_type": "receivable",
+    "receivable_accounts_only": True,
 })
 action = wiz.button_export_html()
 ]]></field>
@@ -130,12 +130,12 @@ action = wiz.button_export_html()
         <field name="model_id" ref="account_financial_report.model_aged_partner_balance_report_wizard"/>
         <field name="state">code</field>
         <field name="code"><![CDATA[
-today = fields.Date.context_today(env.user)
+today = datetime.date.today()
 wiz = env["aged.partner.balance.report.wizard"].create({
     "company_id": env.company.id,
     "date_at": today,
     "target_move": "posted",
-    "account_type": "payable",
+    "payable_accounts_only": True,
 })
 action = wiz.button_export_html()
 ]]></field>
