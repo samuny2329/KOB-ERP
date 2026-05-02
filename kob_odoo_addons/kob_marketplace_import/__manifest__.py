@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "KOB ERP — Marketplace Import",
-    "version": "19.0.2.0.2",
+    "version": "19.0.2.1.0",
     "category": "KOB ERP/Marketplace",
     "summary": "Import Shopee / TikTok / Lazada orders into Odoo as Sale "
                "Orders + Delivery Orders, with the x_kob_* custom fields "
@@ -25,6 +25,7 @@ Adds:
         "kob_base",
         "sale_management",
         "stock",
+        "account",
         "utm",
         "crm",
         "product",
@@ -38,6 +39,7 @@ Adds:
         "views/product_template_views.xml",
         "views/stock_picking_views.xml",
         "views/sale_order_views.xml",
+        "views/account_move_views.xml",
         "views/filter_views.xml",
         "wizards/marketplace_import_wizard_views.xml",
     ],
