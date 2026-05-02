@@ -18,8 +18,9 @@ class StockQuant(models.Model):
         store=True,
     )
 
-    def _apply_inventory(self):
-        res = super()._apply_inventory()
+    def _apply_inventory(self, date=None):
+        # Odoo 19: native _apply_inventory accepts optional date arg
+        res = super()._apply_inventory(date) if date is not None else super()._apply_inventory()
         record_moves = self.env["stock.move.line"]
         adjustments_to_process = self.env["stock.inventory"]
 

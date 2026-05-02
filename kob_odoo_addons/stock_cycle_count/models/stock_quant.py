@@ -8,7 +8,8 @@ class StockQuant(models.Model):
     _inherit = "stock.quant"
 
     # pylint: disable=W8110
-    def _apply_inventory(self):
+    def _apply_inventory(self, date=None):
+        # Odoo 19: native _apply_inventory accepts optional date arg
         accuracy_dict = {}
         theoretical_dict = {}
         counted_dict = {}
@@ -22,7 +23,10 @@ class StockQuant(models.Model):
             accuracy_dict[quant.id] = line_accuracy
             theoretical_dict[quant.id] = quant.quantity
             counted_dict[quant.id] = quant.inventory_quantity
-        super()._apply_inventory()
+        if date is not None:
+            super()._apply_inventory(date)
+        else:
+            super()._apply_inventory()
         for quant in self:
             domain = [
                 ("product_id", "=", quant.product_id.id),

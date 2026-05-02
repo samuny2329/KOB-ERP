@@ -57,9 +57,13 @@ class StockQuantPickface(models.Model):
     """Auto-create pickface when product enters PICKFACE location."""
     _inherit = 'stock.quant'
 
-    def _apply_inventory(self):
-        """Override to auto-create pickface after inventory adjustment."""
-        res = super()._apply_inventory()
+    def _apply_inventory(self, date=None):
+        """Override to auto-create pickface after inventory adjustment.
+
+        Odoo 19: native _apply_inventory accepts an optional `date` arg
+        passed by stock.inventory.adjustment.name wizard's counting_date.
+        """
+        res = super()._apply_inventory(date) if date is not None else super()._apply_inventory()
         for quant in self:
             if quant.location_id and 'PICKFACE' in (quant.location_id.complete_name or ''):
                 self.env['wms.pickface']._auto_register_product(

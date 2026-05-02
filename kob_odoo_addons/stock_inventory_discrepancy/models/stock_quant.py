@@ -94,7 +94,8 @@ class StockQuant(models.Model):
             return action
         return super().action_apply_inventory(counting_date)
 
-    def _apply_inventory(self):
+    def _apply_inventory(self, date=None):
+        # Odoo 19: native _apply_inventory accepts an optional date arg.
         if (
             not self.env.user.has_group("stock.group_stock_manager")
             and not self.env.user.has_group(
@@ -109,4 +110,4 @@ class StockQuant(models.Model):
             )
         # Allow to write last_inventory_date on stock.location
         self = self.sudo().with_context(from_apply_inventory=True)
-        return super()._apply_inventory()
+        return super()._apply_inventory(date) if date is not None else super()._apply_inventory()
