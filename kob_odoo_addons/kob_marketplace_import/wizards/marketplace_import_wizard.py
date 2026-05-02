@@ -353,12 +353,17 @@ class MarketplaceImportWizard(models.TransientModel):
             return prod
         # Auto-create — storable + lot-tracked so the WMS pipeline can
         # reserve / pick / pack.  Stock is seeded later via the
-        # `_adjust_lot` helper triggered for each order line.
-        name = sku
+        # ``_ensure_stock_with_lot`` helper triggered for each order
+        # line.
+        #
+        # Odoo's display_name already prepends ``[default_code]`` so
+        # we leave the ``name`` field free of the SKU prefix — that's
+        # what was producing the duplicated ``[SWB700] [SWB700]`` you'd
+        # see in SO line displays.
         if brand:
-            name = "[%s] %s — auto-imported" % (sku, brand)
+            name = "%s — auto-imported" % brand
         else:
-            name = "[%s] auto-imported" % sku
+            name = "auto-imported"
         # Odoo 19 split product.template.type — 'product' is no longer
         # accepted.  We use type='consu' + is_storable=True for the
         # stockable + lot-tracked variant.
@@ -381,7 +386,8 @@ class MarketplaceImportWizard(models.TransientModel):
         )
         return new_prod
 
-    def _ensure_stock_with_lot(self, product, qty, warehouse, unit_cost=0.0):
+    def _ensure_stock_with_lot(self, product, qty, warehouse, unit_cost=0.0,
+                               order_sn=None):
         """Create a stock.lot for ``product`` (if needed) and post an
         inventory adjustment so ``qty`` is available in
         ``warehouse``'s stock location.  Returns the lot.
@@ -402,7 +408,14 @@ class MarketplaceImportWizard(models.TransientModel):
             return self.env["stock.lot"]
 
         sku = product.default_code or str(product.id)
-        lot_name = "AUTO-%s-%s" % (_date.today().strftime("%Y%m%d"), sku)
+        # Lot name traceability: prefer the marketplace order # so each
+        # imported order's stock has a clean audit trail back to the
+        # platform's order_sn.  Fall back to AUTO-<date>-<sku> when no
+        # order_sn is available (e.g. manual top-ups).
+        if order_sn:
+            lot_name = "%s-%s" % (str(order_sn).strip(), sku)
+        else:
+            lot_name = "AUTO-%s-%s" % (_date.today().strftime("%Y%m%d"), sku)
         Lot = self.env["stock.lot"].sudo()
         lot = Lot.search([
             ("name", "=", lot_name),
@@ -585,12 +598,14 @@ class MarketplaceImportWizard(models.TransientModel):
                 # Adj. Lot — make sure stock + a lot exists so the SO
                 # can reserve at confirmation.  Cost basis = the price
                 # captured from the Excel row, fallback to standard_price.
+                # Lot name carries the marketplace order_sn for trace.
                 if self.auto_adjust_lot:
                     self._ensure_stock_with_lot(
                         product,
                         float(ln.get("qty") or 0),
                         self.warehouse_id,
                         unit_cost=float(ln.get("price") or 0),
+                        order_sn=order_sn,
                     )
                 vals = {
                     "product_id": product.id,
@@ -617,7 +632,16 @@ class MarketplaceImportWizard(models.TransientModel):
                 if shopee_wh:
                     target_wh = shopee_wh
 
+            # Use the platform order number as the SO reference so the
+            # operations team scans / searches the same identifier
+            # everywhere (Excel, label, picking, accounting).  Odoo
+            # accepts an explicit ``name`` value at create time and
+            # skips the ir.sequence generation.  We still keep
+            # ``client_order_ref`` populated for backwards-compatible
+            # reporting.
+            so_name = str(order_sn).strip() or False
             so = SaleOrder.create({
+                "name":             so_name,
                 "partner_id":       partner.id,
                 "client_order_ref": order_sn,
                 "company_id":       self.company_id.id,
