@@ -19,7 +19,7 @@ wiz = env["journal.ledger.report.wizard"].create({
     "company_id": env.company.id,
     "date_from": fy_start,
     "date_to": today,
-    "target_move": "posted",
+    "move_target": "posted",
 })
 action = wiz.button_export_html()
 ]]></field>
