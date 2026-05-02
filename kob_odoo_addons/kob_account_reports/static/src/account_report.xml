@@ -77,12 +77,13 @@
                                     </span>
                                 </td>
                                 <t t-foreach="columns" t-as="col" t-key="col_index">
-                                    <td t-attf-class="kob-acct-cell kob-acct-cell--{{col.align || 'right'}}">
+                                    <td t-attf-class="kob-acct-cell kob-acct-cell--{{col.align || 'right'}}
+                                                      {{ (col.key ? row[col.key] : row.balance) &lt; 0 ? 'kob-acct-negative' : '' }}">
                                         <t t-if="col.key">
-                                            <t t-if="['debit','credit','balance'].includes(col.key)">
+                                            <t t-if="['debit','credit','balance','base','tax','count','cost','book','principal','rate','current','b30','b60','b90','b120','older','total'].includes(col.key)">
                                                 <t t-if="row[col.key] !== undefined and row[col.key] !== null">
                                                     <t t-esc="fmt(row[col.key])"/>
-                                                    <span class="kob-acct-currency"> <t t-esc="currency"/></span>
+                                                    <span class="kob-acct-currency" t-if="!['count','rate'].includes(col.key)"> <t t-esc="currency"/></span>
                                                 </t>
                                             </t>
                                             <t t-else="">

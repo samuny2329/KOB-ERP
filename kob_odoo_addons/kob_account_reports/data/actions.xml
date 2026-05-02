@@ -1,32 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- Profit and Loss -->
-    <record id="action_profit_loss" model="ir.actions.client">
-        <field name="name">Profit and Loss</field>
-        <field name="tag">kob_account_report</field>
-        <field name="context">{"report_type": "profit_loss"}</field>
-    </record>
-
-    <!-- Balance Sheet -->
+    <!-- ── Statement Reports ─────────────────────────────────────── -->
     <record id="action_balance_sheet" model="ir.actions.client">
         <field name="name">Balance Sheet</field>
         <field name="tag">kob_account_report</field>
         <field name="context">{"report_type": "balance_sheet"}</field>
     </record>
 
-    <!-- Journal Audit -->
+    <record id="action_profit_loss" model="ir.actions.client">
+        <field name="name">Profit and Loss</field>
+        <field name="tag">kob_account_report</field>
+        <field name="context">{"report_type": "profit_loss"}</field>
+    </record>
+
+    <record id="action_cash_flow" model="ir.actions.client">
+        <field name="name">Cash Flow Statement</field>
+        <field name="tag">kob_account_report</field>
+        <field name="context">{"report_type": "cash_flow"}</field>
+    </record>
+
+    <record id="action_executive_summary" model="ir.actions.client">
+        <field name="name">Executive Summary</field>
+        <field name="tag">kob_account_report</field>
+        <field name="context">{"report_type": "executive_summary"}</field>
+    </record>
+
+    <record id="action_tax_return" model="ir.actions.client">
+        <field name="name">Tax Return</field>
+        <field name="tag">kob_account_report</field>
+        <field name="context">{"report_type": "tax_return"}</field>
+    </record>
+
+    <!-- ── Audit Reports ─────────────────────────────────────────── -->
+    <record id="action_general_ledger" model="ir.actions.client">
+        <field name="name">General Ledger</field>
+        <field name="tag">kob_account_report</field>
+        <field name="context">{"report_type": "general_ledger"}</field>
+    </record>
+
+    <record id="action_trial_balance" model="ir.actions.client">
+        <field name="name">Trial Balance</field>
+        <field name="tag">kob_account_report</field>
+        <field name="context">{"report_type": "trial_balance"}</field>
+    </record>
+
     <record id="action_journal_audit" model="ir.actions.client">
         <field name="name">Journal Audit</field>
         <field name="tag">kob_account_report</field>
         <field name="context">{"report_type": "journal_audit"}</field>
     </record>
 
-    <!-- Trial Balance -->
-    <record id="action_trial_balance" model="ir.actions.client">
-        <field name="name">Trial Balance</field>
+    <!-- ── Partner Reports ───────────────────────────────────────── -->
+    <record id="action_partner_ledger" model="ir.actions.client">
+        <field name="name">Partner Ledger</field>
         <field name="tag">kob_account_report</field>
-        <field name="context">{"report_type": "trial_balance"}</field>
+        <field name="context">{"report_type": "partner_ledger"}</field>
+    </record>
+
+    <record id="action_aged_receivable" model="ir.actions.client">
+        <field name="name">Aged Receivable</field>
+        <field name="tag">kob_account_report</field>
+        <field name="context">{"report_type": "aged_receivable"}</field>
+    </record>
+
+    <record id="action_aged_payable" model="ir.actions.client">
+        <field name="name">Aged Payable</field>
+        <field name="tag">kob_account_report</field>
+        <field name="context">{"report_type": "aged_payable"}</field>
+    </record>
+
+    <!-- ── Management ────────────────────────────────────────────── -->
+    <record id="action_invoice_analysis" model="ir.actions.client">
+        <field name="name">Invoice Analysis</field>
+        <field name="tag">kob_account_report</field>
+        <field name="context">{"report_type": "invoice_analysis"}</field>
+    </record>
+
+    <record id="action_analytic_report" model="ir.actions.client">
+        <field name="name">Analytic Report</field>
+        <field name="tag">kob_account_report</field>
+        <field name="context">{"report_type": "analytic_report"}</field>
+    </record>
+
+    <record id="action_unrealized_fx" model="ir.actions.client">
+        <field name="name">Unrealized Currency Gains/Losses</field>
+        <field name="tag">kob_account_report</field>
+        <field name="context">{"report_type": "unrealized_fx"}</field>
+    </record>
+
+    <record id="action_deferred_expense" model="ir.actions.client">
+        <field name="name">Deferred Expense</field>
+        <field name="tag">kob_account_report</field>
+        <field name="context">{"report_type": "deferred_expense"}</field>
+    </record>
+
+    <record id="action_deferred_revenue" model="ir.actions.client">
+        <field name="name">Deferred Revenue</field>
+        <field name="tag">kob_account_report</field>
+        <field name="context">{"report_type": "deferred_revenue"}</field>
+    </record>
+
+    <record id="action_depreciation_schedule" model="ir.actions.client">
+        <field name="name">Depreciation Schedule</field>
+        <field name="tag">kob_account_report</field>
+        <field name="context">{"report_type": "depreciation_schedule"}</field>
+    </record>
+
+    <record id="action_disallowed_expenses" model="ir.actions.client">
+        <field name="name">Disallowed Expenses</field>
+        <field name="tag">kob_account_report</field>
+        <field name="context">{"report_type": "disallowed_expenses"}</field>
+    </record>
+
+    <record id="action_budget_report" model="ir.actions.client">
+        <field name="name">Budget Report</field>
+        <field name="tag">kob_account_report</field>
+        <field name="context">{"report_type": "budget_report"}</field>
+    </record>
+
+    <record id="action_loans_analysis" model="ir.actions.client">
+        <field name="name">Loans Analysis</field>
+        <field name="tag">kob_account_report</field>
+        <field name="context">{"report_type": "loans_analysis"}</field>
     </record>
 
 </odoo>

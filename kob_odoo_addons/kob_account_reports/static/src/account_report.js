@@ -94,22 +94,30 @@ class KobAccountReport extends Component {
 }
 
 const REPORTS = {
-    profit_loss: {
-        title: "Profit and Loss",
-        method: "get_profit_loss",
-    },
-    balance_sheet: {
-        title: "Balance Sheet",
-        method: "get_balance_sheet",
-    },
-    journal_audit: {
-        title: "Journal Audit",
-        method: "get_journal_audit",
-    },
-    trial_balance: {
-        title: "Trial Balance",
-        method: "get_trial_balance",
-    },
+    // Statement
+    profit_loss:           { title: "Profit and Loss",                method: "get_profit_loss" },
+    balance_sheet:         { title: "Balance Sheet",                  method: "get_balance_sheet" },
+    cash_flow:             { title: "Cash Flow Statement",            method: "get_cash_flow" },
+    executive_summary:     { title: "Executive Summary",              method: "get_executive_summary" },
+    tax_return:            { title: "Tax Return",                     method: "get_tax_return" },
+    // Audit
+    journal_audit:         { title: "Journal Audit",                  method: "get_journal_audit" },
+    trial_balance:         { title: "Trial Balance",                  method: "get_trial_balance" },
+    general_ledger:        { title: "General Ledger",                 method: "get_general_ledger" },
+    // Partner
+    partner_ledger:        { title: "Partner Ledger",                 method: "get_partner_ledger" },
+    aged_receivable:       { title: "Aged Receivable",                method: "get_aged_receivable" },
+    aged_payable:          { title: "Aged Payable",                   method: "get_aged_payable" },
+    // Management
+    invoice_analysis:      { title: "Invoice Analysis",               method: "get_invoice_analysis" },
+    analytic_report:       { title: "Analytic Report",                method: "get_analytic_report" },
+    unrealized_fx:         { title: "Unrealized Currency Gains/Losses", method: "get_unrealized_fx" },
+    deferred_expense:      { title: "Deferred Expense",               method: "get_deferred_expense" },
+    deferred_revenue:      { title: "Deferred Revenue",               method: "get_deferred_revenue" },
+    depreciation_schedule: { title: "Depreciation Schedule",          method: "get_depreciation_schedule" },
+    disallowed_expenses:   { title: "Disallowed Expenses",            method: "get_disallowed_expenses" },
+    budget_report:         { title: "Budget Report",                  method: "get_budget_report" },
+    loans_analysis:        { title: "Loans Analysis",                 method: "get_loans_analysis" },
 };
 
 registry.category("actions").add("kob_account_report", KobAccountReport);

@@ -156,7 +156,7 @@ action = wiz.button_export_html()
     <menuitem id="menu_audit_general_ledger"
               name="General Ledger"
               parent="menu_account_audit_reports"
-              action="server_open_general_ledger"
+              action="kob_account_reports.action_general_ledger"
               sequence="20"/>
 
     <menuitem id="menu_audit_trial_balance"
@@ -208,15 +208,35 @@ action = wiz.button_export_html()
         <field name="state">code</field>
         <field name="code"><![CDATA[
 mapping = {
-    # name: (action_xmlid, action_model)
-    "Balance Sheet":           ("kob_account_reports.action_balance_sheet", "ir.actions.client"),
-    "Profit and Loss":         ("kob_account_reports.action_profit_loss",   "ir.actions.client"),
-    "Profit and Loss Default": ("kob_account_reports.action_profit_loss",   "ir.actions.client"),
-    "Tax Return":              ("kob_menu_polish.server_open_vat_report",   "ir.actions.server"),
-    "Purchase Tax Report":     ("kob_menu_polish.server_open_vat_report",   "ir.actions.server"),
-    "Sale Tax Report":         ("kob_menu_polish.server_open_vat_report",   "ir.actions.server"),
-    "Aged Receivable":         ("kob_menu_polish.server_open_aged_receivable", "ir.actions.server"),
-    "Aged Payable":            ("kob_menu_polish.server_open_aged_payable", "ir.actions.server"),
+    # Statement Reports
+    "Balance Sheet":           ("kob_account_reports.action_balance_sheet",       "ir.actions.client"),
+    "Profit and Loss":         ("kob_account_reports.action_profit_loss",         "ir.actions.client"),
+    "Profit and Loss Default": ("kob_account_reports.action_profit_loss",         "ir.actions.client"),
+    "Cash Flow Statement":     ("kob_account_reports.action_cash_flow",           "ir.actions.client"),
+    "Executive Summary":       ("kob_account_reports.action_executive_summary",   "ir.actions.client"),
+    "Tax Return":              ("kob_account_reports.action_tax_return",          "ir.actions.client"),
+    # Audit
+    "Journal Audit":           ("kob_account_reports.action_journal_audit",       "ir.actions.client"),
+    "General Ledger":          ("kob_account_reports.action_general_ledger",      "ir.actions.client"),
+    "Trial Balance":           ("kob_account_reports.action_trial_balance",       "ir.actions.client"),
+    # Partner
+    "Partner Ledger":          ("kob_account_reports.action_partner_ledger",      "ir.actions.client"),
+    "Aged Receivable":         ("kob_account_reports.action_aged_receivable",     "ir.actions.client"),
+    "Aged Payable":            ("kob_account_reports.action_aged_payable",        "ir.actions.client"),
+    # Management
+    "Invoice Analysis":        ("kob_account_reports.action_invoice_analysis",    "ir.actions.client"),
+    "Analytic Report":         ("kob_account_reports.action_analytic_report",     "ir.actions.client"),
+    "Unrealized Currency Gains/Losses": ("kob_account_reports.action_unrealized_fx", "ir.actions.client"),
+    "Deferred Expense":        ("kob_account_reports.action_deferred_expense",    "ir.actions.client"),
+    "Deferred Revenue":        ("kob_account_reports.action_deferred_revenue",    "ir.actions.client"),
+    "Depreciation Schedule":   ("kob_account_reports.action_depreciation_schedule", "ir.actions.client"),
+    "Disallowed Expenses":     ("kob_account_reports.action_disallowed_expenses", "ir.actions.client"),
+    "Budget Report":           ("kob_account_reports.action_budget_report",       "ir.actions.client"),
+    "Loans Analysis":          ("kob_account_reports.action_loans_analysis",      "ir.actions.client"),
+    # VAT report aliases
+    "Purchase Tax Report":     ("kob_account_reports.action_tax_return",          "ir.actions.client"),
+    "Sale Tax Report":         ("kob_account_reports.action_tax_return",          "ir.actions.client"),
+    "VAT Report":              ("kob_account_reports.action_tax_return",          "ir.actions.client"),
 }
 for menu_name, (xmlid, model) in mapping.items():
     rec = env.ref(xmlid, raise_if_not_found=False)

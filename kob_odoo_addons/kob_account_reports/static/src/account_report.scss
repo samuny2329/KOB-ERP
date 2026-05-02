@@ -238,6 +238,7 @@ $o-card:          #ffffff;
         &--right { text-align: right; }
         &--left { text-align: left; }
         &--center { text-align: center; }
+        &.kob-acct-negative { color: #d32f2f; }
     }
     .kob-acct-currency {
         color: $o-muted;
