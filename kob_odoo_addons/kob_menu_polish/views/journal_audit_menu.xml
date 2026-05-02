@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ============================================================ -->
+    <!-- Journal Audit                                                  -->
+    <!--                                                                -->
+    <!-- Odoo Enterprise has account_reports.action_account_report_     -->
+    <!-- journal which is the "Journal Audit" report. Community         -->
+    <!-- doesn't ship that; the closest equivalent is OCA's             -->
+    <!-- account_financial_report Journal Ledger wizard. We expose it   -->
+    <!-- under Accounting → Reporting → Audit Reports → Journal Audit   -->
+    <!-- so users coming from UAT find it where they expect.            -->
+    <!-- ============================================================ -->
+
+    <!-- New "Audit Reports" section under Accounting → Reporting -->
+    <menuitem id="menu_account_audit_reports"
+              name="Audit Reports"
+              parent="account.menu_finance_reports"
+              sequence="35"/>
+
+    <!-- Journal Audit (alias of OCA Journal Ledger wizard) -->
+    <menuitem id="menu_journal_audit"
+              name="Journal Audit"
+              parent="menu_account_audit_reports"
+              action="account_financial_report.action_journal_ledger_wizard"
+              sequence="10"/>
+
+    <!-- General Ledger and Trial Balance also belong in Audit -->
+    <menuitem id="menu_audit_general_ledger"
+              name="General Ledger"
+              parent="menu_account_audit_reports"
+              action="account_financial_report.action_general_ledger_wizard"
+              sequence="20"/>
+
+    <menuitem id="menu_audit_trial_balance"
+              name="Trial Balance"
+              parent="menu_account_audit_reports"
+              action="account_financial_report.action_trial_balance_wizard"
+              sequence="30"/>
+
+    <menuitem id="menu_audit_open_items"
+              name="Open Items"
+              parent="menu_account_audit_reports"
+              action="account_financial_report.action_open_items_wizard"
+              sequence="40"/>
+
+    <menuitem id="menu_audit_aged_partner"
+              name="Aged Partner Balance"
+              parent="menu_account_audit_reports"
+              action="account_financial_report.action_aged_partner_balance_wizard"
+              sequence="50"/>
+
+    <!-- Also rename the original OCA "Journal Ledger" menu to "Journal Audit"
+         so the legacy entry under "OCA accounting reports" matches -->
+    <record id="account_financial_report.menu_journal_ledger_wizard" model="ir.ui.menu">
+        <field name="name">Journal Audit</field>
+    </record>
+</odoo>
