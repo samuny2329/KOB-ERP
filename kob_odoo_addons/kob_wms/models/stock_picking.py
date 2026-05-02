@@ -118,11 +118,39 @@ class StockPicking(models.Model):
 
     def action_create_wms_order(self):
         self.ensure_one()
+        # Pull data from the linked sale.order so the WMS row carries
+        # the marketplace order_sn + platform + sale_order_id, not just
+        # the picking name.  Falls back gracefully when the picking has
+        # no linked SO (e.g. internal transfers).
+        so = self.sale_id
+        # Derive platform from the SO's utm.source name (Shopee_X /
+        # Lazada_Y / TikTok_Z → 'shopee'/'lazada'/'tiktok').
+        platform = 'manual'
+        src_name = (so.source_id.name if so and so.source_id else '') or ''
+        sn_lower = src_name.lower()
+        if sn_lower.startswith('shopee'):
+            platform = 'shopee'
+        elif sn_lower.startswith('lazada'):
+            platform = 'lazada'
+        elif sn_lower.startswith('tiktok'):
+            platform = 'tiktok'
+        elif sn_lower.startswith('pos'):
+            platform = 'pos'
+        elif sn_lower.startswith('odoo'):
+            platform = 'odoo'
+
+        # Use marketplace order_sn as the WMS ref when available so
+        # ops staff scan / search the same identifier everywhere.
+        ref = (so.client_order_ref if so and so.client_order_ref
+               else self.name)
+
         wms_order = self.env['wms.sales.order'].create({
-            'picking_id': self.id,
-            'ref': self.name,
-            'partner_id': self.partner_id.id if self.partner_id else False,
-            'customer': self.partner_id.name if self.partner_id else '',
+            'picking_id':    self.id,
+            'sale_order_id': so.id if so else False,
+            'ref':           ref,
+            'platform':      platform,
+            'partner_id':    self.partner_id.id if self.partner_id else False,
+            'customer':      self.partner_id.name if self.partner_id else '',
         })
         wms_order.action_import_from_sale_order()
         return {
