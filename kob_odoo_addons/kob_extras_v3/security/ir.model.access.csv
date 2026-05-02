@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_kob_bulk_import_wizard_admin,kob.bulk.import.wizard admin,model_kob_bulk_import_wizard,base.group_system,1,1,1,1
+access_kob_onboarding_wizard_admin,kob.onboarding.wizard admin,model_kob_onboarding_wizard,base.group_system,1,1,1,1

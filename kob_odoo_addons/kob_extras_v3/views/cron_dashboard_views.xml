@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_cron_dashboard_list" model="ir.ui.view">
+        <field name="name">ir.cron.list.kob</field>
+        <field name="model">ir.cron</field>
+        <field name="arch" type="xml">
+            <list string="Scheduled Tasks">
+                <field name="cron_name"/>
+                <field name="active" widget="boolean_toggle"/>
+                <field name="interval_number"/>
+                <field name="interval_type"/>
+                <field name="nextcall"/>
+                <field name="lastcall"/>
+                <field name="failure_count"/>
+                <field name="last_run_status"
+                       decoration-success="last_run_status == 'success'"
+                       decoration-danger="last_run_status == 'failed'"
+                       decoration-muted="last_run_status == 'never'"/>
+                <button name="action_run_now" type="object" string="Run Now"
+                        class="btn-primary"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_kob_cron_dashboard" model="ir.actions.act_window">
+        <field name="name">Scheduled Tasks (Cron Dashboard)</field>
+        <field name="res_model">ir.cron</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_kob_cron_dashboard_list"/>
+    </record>
+
+    <menuitem id="menu_kob_cron_dashboard" name="Cron Dashboard"
+              parent="kob_base.menu_kob_root"
+              action="action_kob_cron_dashboard" sequence="115"/>
+</odoo>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_onboarding_wizard_form" model="ir.ui.view">
+        <field name="name">kob.onboarding.wizard.form</field>
+        <field name="model">kob.onboarding.wizard</field>
+        <field name="arch" type="xml">
+            <form string="KOB ERP Onboarding">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>🚀 Welcome to KOB ERP</h1>
+                        <p>Let's set up your company in 3 steps.</p>
+                    </div>
+                    <group>
+                        <group string="1. Company Identity">
+                            <field name="company_name"/>
+                            <field name="vat" placeholder="0123456789012"/>
+                            <field name="phone"/>
+                            <field name="email"/>
+                            <field name="address_street"/>
+                            <field name="address_city"/>
+                        </group>
+                        <group string="2. Financial">
+                            <field name="base_currency"/>
+                            <field name="fiscal_year_start_month"/>
+                        </group>
+                    </group>
+                    <group string="3. Initial Setup">
+                        <field name="setup_default_journals"/>
+                        <field name="setup_default_taxes"/>
+                        <field name="setup_sample_warehouse"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_run" type="object" string="Run Setup"
+                            class="oe_highlight"/>
+                    <button special="cancel" string="Skip"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_kob_onboarding_wizard" model="ir.actions.act_window">
+        <field name="name">🚀 KOB ERP Onboarding</field>
+        <field name="res_model">kob.onboarding.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_kob_onboarding" name="🚀 Onboarding Wizard"
+              parent="kob_base.menu_kob_root"
+              action="action_kob_onboarding_wizard" sequence="2"/>
+</odoo>

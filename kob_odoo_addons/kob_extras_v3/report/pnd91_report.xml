@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Phase 36 — ภงด.91 (Annual Personal Income Tax Cert) QWeb PDF -->
+    <record id="action_report_pnd91" model="ir.actions.report">
+        <field name="name">ภงด.91 — Annual Personal Income Tax Cert</field>
+        <field name="model">kob.tax.cert.annual</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">kob_extras_v3.report_pnd91</field>
+        <field name="report_file">kob_extras_v3.report_pnd91</field>
+        <field name="binding_model_id" ref="kob_thai_compliance.model_kob_tax_cert_annual"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_pnd91">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>ภ.ง.ด.91 — Annual Personal Income Tax Certificate</h2>
+                        <p>หนังสือรับรองการหักภาษี ณ ที่จ่าย / Annual Tax Cert</p>
+                        <hr/>
+                        <table class="table table-sm table-bordered">
+                            <tr>
+                                <th style="width: 35%">Employee / ผู้มีเงินได้</th>
+                                <td><span t-field="o.employee_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <th>Tax Year / ปีภาษี</th>
+                                <td><span t-field="o.tax_year"/></td>
+                            </tr>
+                            <tr>
+                                <th>Company / บริษัท (ผู้จ่าย)</th>
+                                <td><span t-field="o.company_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <th>Company TIN / เลขประจำตัวผู้เสียภาษี</th>
+                                <td><span t-field="o.company_id.vat"/></td>
+                            </tr>
+                        </table>
+
+                        <h4>1. Income / รายได้</h4>
+                        <table class="table table-sm table-bordered">
+                            <tr>
+                                <th>Annual Gross Income / เงินได้พึงประเมินทั้งปี</th>
+                                <td class="text-end">
+                                    <span t-field="o.annual_gross"
+                                          t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h4>2. Deductions / ค่าลดหย่อน</h4>
+                        <table class="table table-sm table-bordered">
+                            <tr>
+                                <th>Personal Deduction / หักเงินได้พึงประเมิน 60,000 ฿</th>
+                                <td class="text-end">
+                                    <span t-field="o.deduction_personal"
+                                          t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>SSO / กองทุนประกันสังคม (สูงสุด 9,000)</th>
+                                <td class="text-end">
+                                    <span t-field="o.deduction_sso"
+                                          t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Other / ลดหย่อนอื่น (RMF/SSF/ประกันชีวิต/บริจาค)</th>
+                                <td class="text-end">
+                                    <span t-field="o.deduction_other"
+                                          t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <h4>3. Tax Computation / การคำนวณภาษี</h4>
+                        <table class="table table-sm table-bordered">
+                            <tr>
+                                <th>Taxable Income / เงินได้สุทธิ</th>
+                                <td class="text-end">
+                                    <span t-field="o.taxable_income"
+                                          t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Tax Payable / ภาษีที่ต้องชำระ</th>
+                                <td class="text-end">
+                                    <strong>
+                                        <span t-field="o.tax_payable"
+                                              t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                    </strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Tax Withheld / ภาษีที่หักไว้แล้ว</th>
+                                <td class="text-end">
+                                    <span t-field="o.tax_withheld"
+                                          t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                </td>
+                            </tr>
+                            <tr class="table-warning">
+                                <th>Refund / Due / คืน-ค้าง</th>
+                                <td class="text-end">
+                                    <strong>
+                                        <span t-field="o.refund_or_due"
+                                              t-options='{"widget":"monetary","display_currency":o.currency_id}'/>
+                                    </strong>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="row mt-5">
+                            <div class="col-6 text-center">
+                                <p>______________________________</p>
+                                <p>Authorised Signature / ผู้มีอำนาจลงนาม</p>
+                                <p><span t-field="o.company_id.name"/></p>
+                            </div>
+                            <div class="col-6 text-center">
+                                <p>______________________________</p>
+                                <p>Issue Date / วันที่ออก</p>
+                                <p t-esc="time.strftime('%d/%m/%Y')"/>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

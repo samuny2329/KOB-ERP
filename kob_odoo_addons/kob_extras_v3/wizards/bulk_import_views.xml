@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_bulk_import_wizard_form" model="ir.ui.view">
+        <field name="name">kob.bulk.import.wizard.form</field>
+        <field name="model">kob.bulk.import.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Bulk CSV Import">
+                <sheet>
+                    <group>
+                        <field name="target"/>
+                        <field name="file_data" filename="file_name"/>
+                        <field name="file_name" invisible="1"/>
+                        <field name="skip_header"/>
+                        <field name="delimiter"/>
+                    </group>
+                    <group string="Result" invisible="rows_processed == 0">
+                        <field name="rows_processed" readonly="1"/>
+                        <field name="rows_created" readonly="1"/>
+                        <field name="rows_updated" readonly="1"/>
+                        <field name="rows_failed" readonly="1"/>
+                    </group>
+                    <field name="log" readonly="1" invisible="not log"/>
+                </sheet>
+                <footer>
+                    <button name="action_import" type="object" string="Import"
+                            class="oe_highlight"/>
+                    <button special="cancel" string="Close"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_kob_bulk_import_wizard" model="ir.actions.act_window">
+        <field name="name">Bulk CSV Import</field>
+        <field name="res_model">kob.bulk.import.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_kob_bulk_import" name="Bulk CSV Import"
+              parent="kob_base.menu_kob_root"
+              action="action_kob_bulk_import_wizard" sequence="110"/>
+</odoo>

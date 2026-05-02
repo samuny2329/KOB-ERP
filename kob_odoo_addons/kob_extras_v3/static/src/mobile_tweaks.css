@@ -1,0 +1,78 @@
+/* Phase 39 — Mobile-friendly UI tweaks for KOB ERP */
+
+@media (max-width: 768px) {
+    /* Wider tap targets for buttons */
+    .btn {
+        min-height: 44px;
+        font-size: 16px;
+    }
+
+    /* Larger form labels for readability */
+    .o_form_view .o_field_widget label,
+    .o_form_view .o_label {
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    /* Stack groups vertically on narrow screens */
+    .o_form_view .o_inner_group {
+        flex-direction: column;
+    }
+
+    /* Bigger smart buttons */
+    .oe_button_box .oe_stat_button {
+        min-width: 130px;
+        min-height: 60px;
+    }
+
+    /* List view: hide low-priority columns */
+    .o_list_view td.o_optional,
+    .o_list_view th.o_optional {
+        display: none;
+    }
+
+    /* Sticky header on scroll */
+    .o_form_view .o_form_statusbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: #fff;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    /* KPI tiles — single column */
+    .kob-kpi-tile {
+        width: 100% !important;
+        margin-bottom: 1rem;
+    }
+}
+
+/* All screen sizes — KOB brand polish */
+.o_form_view .oe_title h1 {
+    color: #00A99D; /* KOB teal */
+    font-weight: 600;
+}
+
+.btn-primary,
+.oe_highlight {
+    background-color: #00A99D !important;
+    border-color: #00A99D !important;
+}
+
+.btn-primary:hover,
+.oe_highlight:hover {
+    background-color: #008F86 !important;
+    border-color: #008F86 !important;
+}
+
+/* Status statusbar — use KOB teal for active step */
+.o_form_statusbar .o_arrow_button.btn-primary,
+.o_statusbar_status .btn-primary {
+    background-color: #00A99D !important;
+    border-color: #00A99D !important;
+}
+
+/* Smart buttons icon color */
+.oe_stat_button i {
+    color: #00A99D;
+}
