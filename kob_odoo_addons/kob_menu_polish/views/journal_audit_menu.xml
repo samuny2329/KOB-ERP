@@ -1,15 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- ============================================================ -->
-    <!-- Journal Audit                                                  -->
+    <!-- Journal Audit & friends — open instantly, no wizard popup     -->
     <!--                                                                -->
-    <!-- Odoo Enterprise has account_reports.action_account_report_     -->
-    <!-- journal which is the "Journal Audit" report. Community         -->
-    <!-- doesn't ship that; the closest equivalent is OCA's             -->
-    <!-- account_financial_report Journal Ledger wizard. We expose it   -->
-    <!-- under Accounting → Reporting → Audit Reports → Journal Audit   -->
-    <!-- so users coming from UAT find it where they expect.            -->
+    <!-- OCA wizards require date_from/date_to. We auto-fill            -->
+    <!-- (current FY start → today) via server actions and immediately  -->
+    <!-- call button_export_html() so the user lands on the report.     -->
     <!-- ============================================================ -->
+
+    <record id="server_open_journal_audit" model="ir.actions.server">
+        <field name="name">Journal Audit (auto)</field>
+        <field name="model_id" ref="account_financial_report.model_journal_ledger_report_wizard"/>
+        <field name="state">code</field>
+        <field name="code"><![CDATA[
+today = fields.Date.context_today(env.user)
+fy_start = today.replace(month=1, day=1)
+wiz = env["journal.ledger.report.wizard"].create({
+    "company_id": env.company.id,
+    "date_from": fy_start,
+    "date_to": today,
+    "target_move": "posted",
+})
+action = wiz.button_export_html()
+]]></field>
+    </record>
+
+    <record id="server_open_general_ledger" model="ir.actions.server">
+        <field name="name">General Ledger (auto)</field>
+        <field name="model_id" ref="account_financial_report.model_general_ledger_report_wizard"/>
+        <field name="state">code</field>
+        <field name="code"><![CDATA[
+today = fields.Date.context_today(env.user)
+fy_start = today.replace(month=1, day=1)
+wiz = env["general.ledger.report.wizard"].create({
+    "company_id": env.company.id,
+    "date_from": fy_start,
+    "date_to": today,
+    "target_move": "posted",
+})
+action = wiz.button_export_html()
+]]></field>
+    </record>
+
+    <record id="server_open_trial_balance" model="ir.actions.server">
+        <field name="name">Trial Balance (auto)</field>
+        <field name="model_id" ref="account_financial_report.model_trial_balance_report_wizard"/>
+        <field name="state">code</field>
+        <field name="code"><![CDATA[
+today = fields.Date.context_today(env.user)
+fy_start = today.replace(month=1, day=1)
+wiz = env["trial.balance.report.wizard"].create({
+    "company_id": env.company.id,
+    "date_from": fy_start,
+    "date_to": today,
+    "target_move": "posted",
+})
+action = wiz.button_export_html()
+]]></field>
+    </record>
+
+    <record id="server_open_open_items" model="ir.actions.server">
+        <field name="name">Open Items (auto)</field>
+        <field name="model_id" ref="account_financial_report.model_open_items_report_wizard"/>
+        <field name="state">code</field>
+        <field name="code"><![CDATA[
+today = fields.Date.context_today(env.user)
+wiz = env["open.items.report.wizard"].create({
+    "company_id": env.company.id,
+    "date_at": today,
+    "target_move": "posted",
+})
+action = wiz.button_export_html()
+]]></field>
+    </record>
+
+    <record id="server_open_aged_partner" model="ir.actions.server">
+        <field name="name">Aged Partner Balance (auto)</field>
+        <field name="model_id" ref="account_financial_report.model_aged_partner_balance_report_wizard"/>
+        <field name="state">code</field>
+        <field name="code"><![CDATA[
+today = fields.Date.context_today(env.user)
+wiz = env["aged.partner.balance.report.wizard"].create({
+    "company_id": env.company.id,
+    "date_at": today,
+    "target_move": "posted",
+})
+action = wiz.button_export_html()
+]]></field>
+    </record>
+
+    <!-- VAT Report (auto) -->
+    <record id="server_open_vat_report" model="ir.actions.server">
+        <field name="name">VAT Report (auto)</field>
+        <field name="model_id" ref="account_financial_report.model_vat_report_wizard"/>
+        <field name="state">code</field>
+        <field name="code"><![CDATA[
+today = fields.Date.context_today(env.user)
+fy_start = today.replace(month=1, day=1)
+wiz = env["vat.report.wizard"].create({
+    "company_id": env.company.id,
+    "date_from": fy_start,
+    "date_to": today,
+    "target_move": "posted",
+})
+action = wiz.button_export_html()
+]]></field>
+    </record>
+
+    <!-- Aged Receivable (Customers only) -->
+    <record id="server_open_aged_receivable" model="ir.actions.server">
+        <field name="name">Aged Receivable (auto)</field>
+        <field name="model_id" ref="account_financial_report.model_aged_partner_balance_report_wizard"/>
+        <field name="state">code</field>
+        <field name="code"><![CDATA[
+today = fields.Date.context_today(env.user)
+wiz = env["aged.partner.balance.report.wizard"].create({
+    "company_id": env.company.id,
+    "date_at": today,
+    "target_move": "posted",
+    "account_type": "receivable",
+})
+action = wiz.button_export_html()
+]]></field>
+    </record>
+
+    <!-- Aged Payable (Vendors only) -->
+    <record id="server_open_aged_payable" model="ir.actions.server">
+        <field name="name">Aged Payable (auto)</field>
+        <field name="model_id" ref="account_financial_report.model_aged_partner_balance_report_wizard"/>
+        <field name="state">code</field>
+        <field name="code"><![CDATA[
+today = fields.Date.context_today(env.user)
+wiz = env["aged.partner.balance.report.wizard"].create({
+    "company_id": env.company.id,
+    "date_at": today,
+    "target_move": "posted",
+    "account_type": "payable",
+})
+action = wiz.button_export_html()
+]]></field>
+    </record>
 
     <!-- New "Audit Reports" section under Accounting → Reporting -->
     <menuitem id="menu_account_audit_reports"
@@ -17,41 +147,88 @@
               parent="account.menu_finance_reports"
               sequence="35"/>
 
-    <!-- Journal Audit (alias of OCA Journal Ledger wizard) -->
     <menuitem id="menu_journal_audit"
               name="Journal Audit"
               parent="menu_account_audit_reports"
-              action="account_financial_report.action_journal_ledger_wizard"
+              action="server_open_journal_audit"
               sequence="10"/>
 
-    <!-- General Ledger and Trial Balance also belong in Audit -->
     <menuitem id="menu_audit_general_ledger"
               name="General Ledger"
               parent="menu_account_audit_reports"
-              action="account_financial_report.action_general_ledger_wizard"
+              action="server_open_general_ledger"
               sequence="20"/>
 
     <menuitem id="menu_audit_trial_balance"
               name="Trial Balance"
               parent="menu_account_audit_reports"
-              action="account_financial_report.action_trial_balance_wizard"
+              action="server_open_trial_balance"
               sequence="30"/>
 
     <menuitem id="menu_audit_open_items"
               name="Open Items"
               parent="menu_account_audit_reports"
-              action="account_financial_report.action_open_items_wizard"
+              action="server_open_open_items"
               sequence="40"/>
 
     <menuitem id="menu_audit_aged_partner"
               name="Aged Partner Balance"
               parent="menu_account_audit_reports"
-              action="account_financial_report.action_aged_partner_balance_wizard"
+              action="server_open_aged_partner"
               sequence="50"/>
 
-    <!-- Also rename the original OCA "Journal Ledger" menu to "Journal Audit"
-         so the legacy entry under "OCA accounting reports" matches -->
+    <!-- Replace OCA report wizard menus with auto-open server actions -->
     <record id="account_financial_report.menu_journal_ledger_wizard" model="ir.ui.menu">
         <field name="name">Journal Audit</field>
+        <field name="action" ref="server_open_journal_audit"/>
     </record>
+    <record id="account_financial_report.menu_general_ledger_wizard" model="ir.ui.menu">
+        <field name="action" ref="server_open_general_ledger"/>
+    </record>
+    <record id="account_financial_report.menu_trial_balance_wizard" model="ir.ui.menu">
+        <field name="action" ref="server_open_trial_balance"/>
+    </record>
+    <record id="account_financial_report.menu_open_items_wizard" model="ir.ui.menu">
+        <field name="action" ref="server_open_open_items"/>
+    </record>
+    <record id="account_financial_report.menu_aged_partner_balance_wizard" model="ir.ui.menu">
+        <field name="action" ref="server_open_aged_partner"/>
+    </record>
+    <record id="account_financial_report.menu_vat_report_wizard" model="ir.ui.menu">
+        <field name="action" ref="server_open_vat_report"/>
+    </record>
+
+    <!-- UAT-style report menus (Balance Sheet / P&L / Tax Return / Aged
+         Receivable / Aged Payable / Purchase & Sale Tax Report) were
+         created without XML IDs. Re-point them to auto-open server actions
+         by name. -->
+    <record id="server_repoint_uat_menus" model="ir.actions.server">
+        <field name="name">KOB: re-point UAT report menus to auto-open</field>
+        <field name="model_id" ref="base.model_ir_ui_menu"/>
+        <field name="state">code</field>
+        <field name="code"><![CDATA[
+mapping = {
+    "Balance Sheet":        "kob_menu_polish.server_open_general_ledger",
+    "Profit and Loss":      "kob_menu_polish.server_open_trial_balance",
+    "Profit and Loss Default": "kob_menu_polish.server_open_trial_balance",
+    "Tax Return":           "kob_menu_polish.server_open_vat_report",
+    "Purchase Tax Report":  "kob_menu_polish.server_open_vat_report",
+    "Sale Tax Report":      "kob_menu_polish.server_open_vat_report",
+    "Aged Receivable":      "kob_menu_polish.server_open_aged_receivable",
+    "Aged Payable":         "kob_menu_polish.server_open_aged_payable",
+}
+for menu_name, xmlid in mapping.items():
+    server = env.ref(xmlid, raise_if_not_found=False)
+    if not server:
+        continue
+    target_action = "ir.actions.server,%d" % server.id
+    menus = env["ir.ui.menu"].search([("name", "=", menu_name)])
+    if menus:
+        menus.write({"action": target_action})
+]]></field>
+    </record>
+
+    <function model="ir.actions.server" name="run">
+        <value model="ir.actions.server" eval="[ref('server_repoint_uat_menus')]"/>
+    </function>
 </odoo>
