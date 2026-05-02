@@ -127,36 +127,67 @@ class WmsPickface(models.Model):
 
     @api.model
     def _auto_register_product(self, product, location, qty):
-        """Auto-create pickface record when product enters PICKFACE location."""
-        if not product or not location:
-            return
-        existing = self.search([
-            ('product_id', '=', product.id),
-            ('location_id', '=', location.id),
-        ], limit=1)
-        if existing:
-            return existing
+        """Auto-create pickface record when product enters PICKFACE location.
 
-        # Find zone from location's warehouse
-        zone = False
-        if location.warehouse_id:
-            zone = self.env['wms.zone'].search([
-                ('warehouse_id', '=', location.warehouse_id.id),
+        If no wms.zone exists for the warehouse, auto-create a "Default"
+        one so the pickface insert doesn't violate the required FK.
+        Failures are caught and logged silently so they never break the
+        underlying inventory adjustment.
+        """
+        try:
+            if not product or not location:
+                return
+            existing = self.search([
+                ('product_id', '=', product.id),
+                ('location_id', '=', location.id),
             ], limit=1)
+            if existing:
+                return existing
 
-        code = product.default_code or str(product.id)
-        min_qty = max(int(qty * 0.2), 1)
-        max_qty = max(int(qty * 1.5), 10)
+            # Find or auto-create zone for this warehouse
+            wh = location.warehouse_id
+            if not wh:
+                # Walk up parent_path to find a stock.location.warehouse_id
+                parent = location.location_id
+                while parent and not wh:
+                    wh = parent.warehouse_id
+                    parent = parent.location_id
+            zone = False
+            if wh:
+                zone = self.env['wms.zone'].search([
+                    ('warehouse_id', '=', wh.id),
+                ], limit=1)
+                if not zone:
+                    zone = self.env['wms.zone'].create({
+                        'name': f"{wh.name} Default Zone",
+                        'code': f"{wh.code}-DEF",
+                        'warehouse_id': wh.id,
+                    })
 
-        return self.create({
-            'name': 'Pickface %s' % code,
-            'code': 'PF-%s' % code,
-            'zone_id': zone.id if zone else False,
-            'product_id': product.id,
-            'location_id': location.id,
-            'min_qty': min_qty,
-            'max_qty': max_qty,
-        })
+            if not zone:
+                # No warehouse on the location chain — silently skip
+                return
+
+            code = product.default_code or str(product.id)
+            min_qty = max(int(qty * 0.2), 1)
+            max_qty = max(int(qty * 1.5), 10)
+
+            return self.create({
+                'name': 'Pickface %s' % code,
+                'code': 'PF-%s' % code,
+                'zone_id': zone.id,
+                'product_id': product.id,
+                'location_id': location.id,
+                'min_qty': min_qty,
+                'max_qty': max_qty,
+            })
+        except Exception as e:
+            import logging
+            _logger = logging.getLogger(__name__)
+            _logger.warning(
+                "wms.pickface._auto_register_product skipped: %s", e,
+            )
+            return
 
     def action_bulk_restock(self):
         """Create restock transfers for all pickfaces that need it."""
