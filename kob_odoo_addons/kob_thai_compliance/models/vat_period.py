@@ -20,8 +20,8 @@ class KobVatPeriod(models.Model):
     _sql_constraints = [
         (
             "uniq_vat_period",
-            "unique(company_id, period_year, period_month)",
-            "VAT period already exists for this company / month.",
+            "unique(company_id, period_year, period_month, form_type)",
+            "VAT period already exists for this company / month / form type.",
         ),
     ]
 
@@ -34,6 +34,18 @@ class KobVatPeriod(models.Model):
     )
     period_year = fields.Integer(required=True)
     period_month = fields.Integer(required=True)
+    form_type = fields.Selection(
+        [
+            ("pp30", "ภ.พ.30 — Domestic VAT return"),
+            ("pp36", "ภ.พ.36 — Reverse-charge / foreign VAT"),
+        ],
+        default="pp30",
+        required=True,
+        string="Form Type",
+        help="ภ.พ.30 covers domestic output/input VAT. "
+             "ภ.พ.36 covers reverse-charge VAT on services from "
+             "non-resident vendors (paid before remittance abroad).",
+    )
     state = fields.Selection(
         [
             ("draft", "Draft"),

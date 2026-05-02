@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ============================================================
+         CUSTOMERS  ▸  Billing Note + Withholding Taxes
+         ============================================================ -->
+    <record id="action_billing_note" model="ir.actions.act_window">
+        <field name="name">Billing Note</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('move_type','=','out_invoice'),('state','=','draft')]</field>
+        <field name="context">{'default_move_type': 'out_invoice', 'view_type': 'billing_note'}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Draft customer invoices used as Billing Notes (ใบวางบิล).
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_billing_note"
+        name="Billing Note"
+        parent="account.menu_finance_receivables"
+        action="action_billing_note"
+        sequence="11"/>
+
+    <!-- WHT Certificates surfaced under Customers -->
+    <menuitem
+        id="menu_customers_withholding_taxes"
+        name="Withholding Taxes"
+        parent="account.menu_finance_receivables"
+        action="action_kob_wht_certificate"
+        sequence="55"/>
+
+    <!-- ============================================================
+         ACCOUNTING  ▸  Journal Items + PND submenu + Assets + PP30/PP36
+         ============================================================ -->
+    <menuitem
+        id="menu_journal_items"
+        name="Journal Items"
+        parent="account.account_transactions_menu"
+        action="account.action_move_line_form"
+        sequence="2"/>
+
+    <!-- PND submenu under Accounting → Transactions -->
+    <menuitem
+        id="menu_pnd_root"
+        name="PND"
+        parent="account.account_transactions_menu"
+        sequence="20"/>
+
+    <record id="action_kob_pnd2" model="ir.actions.act_window">
+        <field name="name">PND 2</field>
+        <field name="res_model">kob.pnd.filing</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('filing_type','=','pnd2')]</field>
+        <field name="context">{'default_filing_type': 'pnd2'}</field>
+    </record>
+    <menuitem id="menu_pnd2" name="PND 2" parent="menu_pnd_root"
+              action="action_kob_pnd2" sequence="2"/>
+
+    <record id="action_kob_pnd3" model="ir.actions.act_window">
+        <field name="name">PND 3</field>
+        <field name="res_model">kob.pnd.filing</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('filing_type','=','pnd3')]</field>
+        <field name="context">{'default_filing_type': 'pnd3'}</field>
+    </record>
+    <menuitem id="menu_pnd3" name="PND 3" parent="menu_pnd_root"
+              action="action_kob_pnd3" sequence="3"/>
+
+    <record id="action_kob_pnd53" model="ir.actions.act_window">
+        <field name="name">PND 53</field>
+        <field name="res_model">kob.pnd.filing</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('filing_type','=','pnd53')]</field>
+        <field name="context">{'default_filing_type': 'pnd53'}</field>
+    </record>
+    <menuitem id="menu_pnd53" name="PND 53" parent="menu_pnd_root"
+              action="action_kob_pnd53" sequence="53"/>
+
+    <record id="action_kob_pnd54" model="ir.actions.act_window">
+        <field name="name">PND 54</field>
+        <field name="res_model">kob.pnd.filing</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('filing_type','=','pnd54')]</field>
+        <field name="context">{'default_filing_type': 'pnd54'}</field>
+    </record>
+    <menuitem id="menu_pnd54" name="PND 54" parent="menu_pnd_root"
+              action="action_kob_pnd54" sequence="54"/>
+
+    <!-- Assets under Accounting → Transactions -->
+    <menuitem
+        id="menu_accounting_assets"
+        name="Assets"
+        parent="account.account_transactions_menu"
+        action="action_kob_fixed_asset"
+        sequence="30"/>
+
+    <!-- PP 30 / PP 36 under Accounting → Transactions -->
+    <record id="action_kob_pp30" model="ir.actions.act_window">
+        <field name="name">PP 30</field>
+        <field name="res_model">kob.vat.period</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('form_type','=','pp30')]</field>
+        <field name="context">{'default_form_type': 'pp30'}</field>
+    </record>
+    <menuitem id="menu_pp30" name="PP 30"
+              parent="account.account_transactions_menu"
+              action="action_kob_pp30" sequence="40"/>
+
+    <record id="action_kob_pp36" model="ir.actions.act_window">
+        <field name="name">PP 36</field>
+        <field name="res_model">kob.vat.period</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('form_type','=','pp36')]</field>
+        <field name="context">{'default_form_type': 'pp36'}</field>
+    </record>
+    <menuitem id="menu_pp36" name="PP 36"
+              parent="account.account_transactions_menu"
+              action="action_kob_pp36" sequence="41"/>
+
+    <!-- ============================================================
+         REPORTING  ▸  Management ▸  Depreciation Schedule + Loans Analysis
+         ============================================================ -->
+    <menuitem
+        id="menu_reporting_depreciation_schedule"
+        name="Depreciation Schedule"
+        parent="account.account_reports_management_menu"
+        action="action_kob_depreciation_schedule"
+        sequence="20"/>
+
+</odoo>

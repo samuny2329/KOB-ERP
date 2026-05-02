@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Loans Analysis under Accounting → Reporting → Management -->
+    <menuitem
+        id="menu_reporting_loans_analysis"
+        name="Loans Analysis"
+        parent="account.account_reports_management_menu"
+        action="action_kob_intercompany_loan"
+        sequence="21"/>
+</odoo>

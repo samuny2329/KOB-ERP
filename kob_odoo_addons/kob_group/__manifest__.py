@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "KOB ERP — Group / Multi-Company",
-    "version": "19.0.1.1.0",
+    "version": "19.0.1.2.0",
     "category": "KOB ERP/Group",
     "summary": "Inventory pooling, cost allocation, intercompany loan, "
                "approval matrix, cash pool, transfer pricing, volume rebate.",
@@ -45,6 +45,8 @@ Sub-areas:
         "views/volume_rebate_views.xml",
         # Group v2 — extra models
         "views/group_v2_views.xml",
+        # UAT-style menu extensions
+        "views/uat_menu_extension.xml",
         # QWeb PDF reports
         "report/group_reports.xml",
     ],

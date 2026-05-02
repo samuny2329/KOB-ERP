@@ -29,6 +29,7 @@ class KobPndFiling(models.Model):
             ("pnd2", "PND2 — Investment income"),
             ("pnd3", "PND3 — Service WHT"),
             ("pnd53", "PND53 — Corporate WHT"),
+            ("pnd54", "PND54 — Foreign service / interest WHT"),
         ],
         default="pnd1",
         required=True,
