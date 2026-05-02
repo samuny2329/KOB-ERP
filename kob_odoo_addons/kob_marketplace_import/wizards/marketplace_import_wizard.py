@@ -421,30 +421,32 @@ class MarketplaceImportWizard(models.TransientModel):
             # First time we're seeing a meaningful cost — record it.
             lot.x_kob_cost_per_unit = unit_cost
 
-        # Read the current on-hand for this lot at the warehouse stock
-        # location.  Top up to (current + qty) via stock.quant
-        # `inventory_quantity` field — this is Odoo's idiomatic
-        # inventory-adjustment write path.
-        Quant = self.env["stock.quant"].sudo()
+        # Top up the lot quantity at the warehouse stock location.
+        #
+        # We avoid ``action_apply_inventory()`` because the kob_wms
+        # addon overrides ``_apply_inventory()`` with a no-arg
+        # signature that crashes against Odoo 19's date-aware caller.
+        # Instead, write ``quantity`` directly with the inventory_mode
+        # context — the same path Odoo's own bulk-update wizards use
+        # under the hood.
+        Quant = self.env["stock.quant"].sudo().with_context(
+            inventory_mode=True,
+        )
         quant = Quant.search([
             ("product_id",  "=", product.id),
             ("location_id", "=", loc.id),
             ("lot_id",      "=", lot.id),
         ], limit=1)
+        target_qty = float(quant.quantity or 0) + qty if quant else qty
         if quant:
-            new_qty = (quant.quantity or 0) + qty
-            quant.with_context(inventory_mode=True).write({
-                "inventory_quantity": new_qty,
-            })
-            quant.action_apply_inventory()
+            quant.write({"quantity": target_qty})
         else:
-            quant = Quant.with_context(inventory_mode=True).create({
-                "product_id":         product.id,
-                "location_id":        loc.id,
-                "lot_id":             lot.id,
-                "inventory_quantity": qty,
+            quant = Quant.create({
+                "product_id":  product.id,
+                "location_id": loc.id,
+                "lot_id":      lot.id,
+                "quantity":    target_qty,
             })
-            quant.action_apply_inventory()
         return lot
 
     def _normalize_date(self, value):
