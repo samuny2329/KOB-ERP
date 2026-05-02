@@ -150,7 +150,7 @@ action = wiz.button_export_html()
     <menuitem id="menu_journal_audit"
               name="Journal Audit"
               parent="menu_account_audit_reports"
-              action="server_open_journal_audit"
+              action="kob_account_reports.action_journal_audit"
               sequence="10"/>
 
     <menuitem id="menu_audit_general_ledger"
@@ -162,7 +162,7 @@ action = wiz.button_export_html()
     <menuitem id="menu_audit_trial_balance"
               name="Trial Balance"
               parent="menu_account_audit_reports"
-              action="server_open_trial_balance"
+              action="kob_account_reports.action_trial_balance"
               sequence="30"/>
 
     <menuitem id="menu_audit_open_items"
@@ -208,20 +208,21 @@ action = wiz.button_export_html()
         <field name="state">code</field>
         <field name="code"><![CDATA[
 mapping = {
-    "Balance Sheet":        "kob_menu_polish.server_open_general_ledger",
-    "Profit and Loss":      "kob_menu_polish.server_open_trial_balance",
-    "Profit and Loss Default": "kob_menu_polish.server_open_trial_balance",
-    "Tax Return":           "kob_menu_polish.server_open_vat_report",
-    "Purchase Tax Report":  "kob_menu_polish.server_open_vat_report",
-    "Sale Tax Report":      "kob_menu_polish.server_open_vat_report",
-    "Aged Receivable":      "kob_menu_polish.server_open_aged_receivable",
-    "Aged Payable":         "kob_menu_polish.server_open_aged_payable",
+    # name: (action_xmlid, action_model)
+    "Balance Sheet":           ("kob_account_reports.action_balance_sheet", "ir.actions.client"),
+    "Profit and Loss":         ("kob_account_reports.action_profit_loss",   "ir.actions.client"),
+    "Profit and Loss Default": ("kob_account_reports.action_profit_loss",   "ir.actions.client"),
+    "Tax Return":              ("kob_menu_polish.server_open_vat_report",   "ir.actions.server"),
+    "Purchase Tax Report":     ("kob_menu_polish.server_open_vat_report",   "ir.actions.server"),
+    "Sale Tax Report":         ("kob_menu_polish.server_open_vat_report",   "ir.actions.server"),
+    "Aged Receivable":         ("kob_menu_polish.server_open_aged_receivable", "ir.actions.server"),
+    "Aged Payable":            ("kob_menu_polish.server_open_aged_payable", "ir.actions.server"),
 }
-for menu_name, xmlid in mapping.items():
-    server = env.ref(xmlid, raise_if_not_found=False)
-    if not server:
+for menu_name, (xmlid, model) in mapping.items():
+    rec = env.ref(xmlid, raise_if_not_found=False)
+    if not rec:
         continue
-    target_action = "ir.actions.server,%d" % server.id
+    target_action = "%s,%d" % (model, rec.id)
     menus = env["ir.ui.menu"].search([("name", "=", menu_name)])
     if menus:
         menus.write({"action": target_action})

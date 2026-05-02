@@ -10,6 +10,7 @@
         "kob_kpi_tiles", "kob_helpdesk", "kob_webhooks", "kob_backup",
         "kob_extras_v2", "kob_extras_v3", "kob_extras_v4",
         "account", "account_financial_report",
+        "kob_account_reports",
     ],
     "data": [
         "views/menu_consolidation.xml",

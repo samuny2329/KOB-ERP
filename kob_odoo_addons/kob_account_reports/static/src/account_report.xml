@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!-- KOB Account Report — minimal Enterprise-style table -->
+    <t t-name="kob_account_reports.AccountReport">
+        <div class="kob-acct-report o_action_manager">
+
+            <!-- Toolbar -->
+            <div class="kob-acct-toolbar">
+                <button class="kob-acct-btn kob-acct-btn--ghost" type="button">PDF</button>
+                <button class="kob-acct-btn kob-acct-btn--ghost" type="button">XLSX</button>
+                <h1 class="kob-acct-title">
+                    <t t-esc="title"/>
+                    <i class="fa fa-cog kob-acct-cog"/>
+                </h1>
+                <div class="kob-acct-toolbar-spacer"/>
+                <button class="kob-acct-chip" type="button" t-on-click="() => this.onYearChange(-1)">
+                    <i class="fa fa-calendar"/> <t t-esc="state.year"/> <i class="fa fa-caret-down"/>
+                </button>
+                <button class="kob-acct-chip" type="button" t-on-click="() => this.togglePosted()">
+                    <i class="fa fa-check-circle" t-if="state.postedOnly"/>
+                    <i class="fa fa-circle-o" t-if="!state.postedOnly"/>
+                    <t t-if="state.postedOnly"> Posted Entries</t>
+                    <t t-if="!state.postedOnly"> All Entries</t>
+                </button>
+                <span class="kob-acct-chip kob-acct-chip--muted">
+                    In <t t-esc="currency"/>
+                </span>
+            </div>
+
+            <!-- Banner (placeholder, can show "unposted entries" warning later) -->
+
+            <!-- Loading -->
+            <div class="kob-acct-loading" t-if="state.loading">
+                <i class="fa fa-spinner fa-pulse"/> Loading...
+            </div>
+
+            <!-- Report card -->
+            <div class="kob-acct-card" t-if="!state.loading">
+                <table class="kob-acct-table">
+                    <thead>
+                        <tr class="kob-acct-year-row">
+                            <th></th>
+                            <th class="kob-acct-year-cell" t-att-colspan="columns.length">
+                                <t t-esc="state.year"/>
+                            </th>
+                            <th class="kob-acct-debug">
+                                <i class="fa fa-bug"/>
+                            </th>
+                        </tr>
+                        <tr class="kob-acct-col-head">
+                            <th></th>
+                            <t t-foreach="columns" t-as="col" t-key="col_index">
+                                <th t-attf-class="kob-acct-col kob-acct-col--{{col.align || 'right'}}">
+                                    <t t-esc="col.label"/>
+                                </th>
+                            </t>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="rows" t-as="row" t-key="row_index">
+                            <tr t-attf-class="kob-acct-row kob-acct-row--{{row.kind}}
+                                              {{ row.emphasis ? 'kob-acct-row--emphasis' : '' }}
+                                              {{ row.final ? 'kob-acct-row--final' : '' }}
+                                              kob-acct-row--lvl-{{row.level || 0}}">
+                                <td class="kob-acct-name">
+                                    <span t-if="row.expandable"
+                                          class="kob-acct-toggle"
+                                          t-on-click="() => this.toggleRow(row_index)">
+                                        <i t-if="state.expanded[row_index]" class="fa fa-caret-down"/>
+                                        <i t-else="" class="fa fa-caret-right"/>
+                                    </span>
+                                    <span t-else="" class="kob-acct-toggle-spacer"/>
+                                    <span class="kob-acct-label">
+                                        <t t-esc="row.label"/>
+                                    </span>
+                                </td>
+                                <t t-foreach="columns" t-as="col" t-key="col_index">
+                                    <td t-attf-class="kob-acct-cell kob-acct-cell--{{col.align || 'right'}}">
+                                        <t t-if="col.key">
+                                            <t t-if="['debit','credit','balance'].includes(col.key)">
+                                                <t t-if="row[col.key] !== undefined and row[col.key] !== null">
+                                                    <t t-esc="fmt(row[col.key])"/>
+                                                    <span class="kob-acct-currency"> <t t-esc="currency"/></span>
+                                                </t>
+                                            </t>
+                                            <t t-else="">
+                                                <t t-esc="row[col.key] || ''"/>
+                                            </t>
+                                        </t>
+                                        <t t-else="">
+                                            <t t-if="row.balance !== undefined and row.balance !== null">
+                                                <t t-esc="fmt(row.balance)"/>
+                                                <span class="kob-acct-currency"> <t t-esc="currency"/></span>
+                                            </t>
+                                        </t>
+                                    </td>
+                                </t>
+                                <td class="kob-acct-info">
+                                    <i class="fa fa-info-circle"/>
+                                </td>
+                            </tr>
+                            <!-- Sub-lines when expanded -->
+                            <t t-if="state.expanded[row_index] and row.lines">
+                                <t t-foreach="row.lines" t-as="line" t-key="line_index">
+                                    <tr class="kob-acct-row kob-acct-row--leaf">
+                                        <td class="kob-acct-name kob-acct-name--indent">
+                                            <span class="kob-acct-toggle-spacer"/>
+                                            <span class="kob-acct-label">
+                                                <t t-esc="line.label"/>
+                                            </span>
+                                        </td>
+                                        <td class="kob-acct-cell kob-acct-cell--right" t-att-colspan="columns.length">
+                                            <t t-esc="fmt(line.balance)"/>
+                                            <span class="kob-acct-currency"> <t t-esc="currency"/></span>
+                                        </td>
+                                        <td/>
+                                    </tr>
+                                </t>
+                            </t>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Tax Summary (Journal Audit only) -->
+            <t t-if="taxSummary and taxSummary.applied">
+                <div class="kob-acct-tax-summary">
+                    <div class="kob-acct-tax-head">Global Tax Summary</div>
+                    <div class="kob-acct-tax-grids">
+                        <div class="kob-acct-card kob-acct-tax-card">
+                            <table class="kob-acct-table kob-acct-tax-table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="5" class="kob-acct-tax-title">Taxes Applied</th>
+                                    </tr>
+                                    <tr class="kob-acct-col-head">
+                                        <th class="kob-acct-col kob-acct-col--left">Name</th>
+                                        <th class="kob-acct-col kob-acct-col--right">Base Amount</th>
+                                        <th class="kob-acct-col kob-acct-col--right">Tax Amount</th>
+                                        <th class="kob-acct-col kob-acct-col--right">Deductible</th>
+                                        <th class="kob-acct-col kob-acct-col--right">Due</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="taxSummary.applied" t-as="tax" t-key="tax_index">
+                                        <tr class="kob-acct-row">
+                                            <td class="kob-acct-name">
+                                                <t t-esc="tax.name"/>
+                                            </td>
+                                            <td class="kob-acct-cell kob-acct-cell--right">
+                                                <t t-esc="fmt(tax.base_amount)"/>
+                                            </td>
+                                            <td class="kob-acct-cell kob-acct-cell--right">
+                                                <t t-esc="fmt(tax.tax_amount)"/>
+                                            </td>
+                                            <td class="kob-acct-cell kob-acct-cell--right">
+                                                <t t-esc="fmt(tax.deductible)"/>
+                                            </td>
+                                            <td class="kob-acct-cell kob-acct-cell--right">
+                                                <t t-esc="fmt(tax.due)"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+
+        </div>
+    </t>
+
+</templates>

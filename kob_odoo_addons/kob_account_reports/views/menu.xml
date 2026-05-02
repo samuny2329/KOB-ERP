@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menus are re-pointed via kob_menu_polish to existing UAT-style
+         menus (Statement Reports, Audit Reports, Partner Reports). No
+         additional menus needed here. -->
+</odoo>

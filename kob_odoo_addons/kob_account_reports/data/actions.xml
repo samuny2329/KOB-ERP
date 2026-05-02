@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Profit and Loss -->
+    <record id="action_profit_loss" model="ir.actions.client">
+        <field name="name">Profit and Loss</field>
+        <field name="tag">kob_account_report</field>
+        <field name="context">{"report_type": "profit_loss"}</field>
+    </record>
+
+    <!-- Balance Sheet -->
+    <record id="action_balance_sheet" model="ir.actions.client">
+        <field name="name">Balance Sheet</field>
+        <field name="tag">kob_account_report</field>
+        <field name="context">{"report_type": "balance_sheet"}</field>
+    </record>
+
+    <!-- Journal Audit -->
+    <record id="action_journal_audit" model="ir.actions.client">
+        <field name="name">Journal Audit</field>
+        <field name="tag">kob_account_report</field>
+        <field name="context">{"report_type": "journal_audit"}</field>
+    </record>
+
+    <!-- Trial Balance -->
+    <record id="action_trial_balance" model="ir.actions.client">
+        <field name="name">Trial Balance</field>
+        <field name="tag">kob_account_report</field>
+        <field name="context">{"report_type": "trial_balance"}</field>
+    </record>
+
+</odoo>
