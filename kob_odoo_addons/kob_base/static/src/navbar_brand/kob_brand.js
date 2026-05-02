@@ -1,161 +1,114 @@
 /** @odoo-module **/
 
 /**
- * KOB ERP — make the navbar brand mark behave as a "back to Welcome" button,
- * and hide the leftover module submenu while the user is on the Welcome page.
+ * KOB ERP — guarantee a clickable "KOB ERP" brand on every backend page.
  *
- * We intentionally avoid an XML template patch (which breaks the webclient
- * mount in Odoo 19 when the xpath shape changes between versions).  Instead
- * we patch NavBar's setup to attach a capture-phase click listener on
- * `.o_menu_brand` that always returns the user to the Welcome dashboard,
- * and we override the `currentApp` getter so that — while the welcome
- * client action is the current controller — the navbar reports "no app",
- * which naturally hides every submenu the previous module rendered.
+ * Why DOM injection instead of OWL patching:
+ *   The original NavBar template only renders the `.o_menu_brand`
+ *   DropdownItem when ``currentApp`` is truthy:
  *
- * Visually, kob_theme already paints the K mark + KOB ERP wordmark; this
- * file just owns the behaviour.
+ *       <DropdownItem t-if="!env.isSmall and currentApp" .../>
  *
- * Note on the menu service:
- *   `menuService.setCurrentMenu(undefined)` is a no-op in Odoo 19 — the
- *   service ignores falsy values:
+ *   ``currentApp`` is computed from a closure variable in
+ *   ``menuService`` (``currentAppId``) that is NEVER persisted.  On
+ *   page reload (direct URL like /odoo/action-NN, or any non-menu
+ *   navigation) it stays unset and the brand vanishes — taking the
+ *   "back to Welcome" button with it.
  *
- *       function setCurrentMenu(menu) {
- *           menu = typeof menu === "number" ? _getMenu(menu) : menu;
- *           if (menu && menu.appID !== currentAppId) { ... }
- *       }
- *
- *   so currentAppId stays "stuck" on whichever module the user opened
- *   last.  The navbar reads `getCurrentApp()` to render the submenu and
- *   we cannot clear that closure.  Hence the getter override below —
- *   it short-circuits at the navbar level instead.
+ *   We tried ``patch(NavBar.prototype, { get currentApp() {...} })`` —
+ *   it works in some browser/cache states but observed to be ignored in
+ *   others (Odoo 19 patch utility's super-via-getter chain has edge
+ *   cases).  The robust fix is to bypass OWL entirely: a
+ *   MutationObserver watches every navbar mount and injects a fallback
+ *   brand whenever the real one is absent.
  */
 
-import { patch } from "@web/core/utils/patch";
-import { NavBar } from "@web/webclient/navbar/navbar";
+// Path Odoo uses for the welcome action — used in the "we're on welcome"
+// short-circuit to suppress the fallback brand.
+const WELCOME_ACTION_PATTERN = "kob_base.welcome";
+const FALLBACK_CLASS = "kob_fallback_brand";
 
-const WELCOME_TAG = "kob_base.welcome";
+console.log("[KobBrand] DOM-injection brand bootstrap loaded");
 
-// Synthetic fallback so the brand stays clickable even when no real
-// app could be resolved (e.g. the user landed on a menu whose action_id
-// does not correspond to any cached menu, like Odoo Settings on a
-// post-reload state).
-const SYNTHETIC_BRAND = Object.freeze({
-    id: -1,
-    name: "KOB ERP",
-    xmlid: "kob_base.menu_kob_root",
-    appID: -1,
-    actionID: false,
-    children: [],
-});
-
-let _delegated = false;
-
-patch(NavBar.prototype, {
-    /**
-     * Resolve the navbar's currentApp robustly.
-     *
-     *   1. Welcome page → null  (we don't want any submenu while at home).
-     *   2. Real currentApp from menu service → use it (normal navigation
-     *      via menu / Welcome cards goes through `selectMenu` which sets
-     *      the closure currentAppId).
-     *   3. Page reloaded directly to /odoo/action-NN → menu service has
-     *      no currentAppId (closure reset).  Walk the menu cache to find
-     *      the menu owning the running action and return its `appID`'s
-     *      menu.
-     *   4. Still nothing → return SYNTHETIC_BRAND so the brand stays
-     *      clickable (kob_brand.js's click delegate redirects to Welcome
-     *      regardless of what the brand thinks it represents).
-     */
-    get currentApp() {
-        try {
-            const ctrl = this.actionService && this.actionService.currentController;
-            const tag = ctrl && ctrl.action && ctrl.action.tag;
-            if (tag === WELCOME_TAG) {
-                return null;
-            }
-            // Resolve directly via menuService (don't use `super` — Odoo's
-            // patch utility's super-via-getter chain has been observed to
-            // break silently after first patch in some browsers/cache
-            // states).
-            const real = this.menuService.getCurrentApp();
-            if (real) {
-                return real;
-            }
-            // Closure currentAppId is unset (post-reload, direct URL).
-            // Derive from the running action.
-            const actionId = ctrl && ctrl.action && ctrl.action.id;
-            if (actionId && this.menuService.getAll) {
-                const all = this.menuService.getAll();
-                const owning = all.find(
-                    (m) => m && m.actionID === actionId,
-                );
-                if (owning && owning.appID && this.menuService.getMenu) {
-                    const app = this.menuService.getMenu(owning.appID);
-                    if (app) {
-                        return app;
-                    }
-                }
-            }
-        } catch (e) {
-            console.warn("[KobBrand] currentApp resolve failed", e);
+/** True if the user is currently on the Welcome client action. */
+function isOnWelcome() {
+    // Match via URL — we route to it as /odoo/action-<id>, but the
+    // action *path* in the location may also be 'kob_base.welcome'.
+    try {
+        const path = window.location.pathname || "";
+        if (path.includes(WELCOME_ACTION_PATTERN)) {
+            return true;
         }
-        // Fallback — never let the brand disappear.
-        return SYNTHETIC_BRAND;
-    },
-
-    /** Skip section enumeration when we're on the synthetic brand —
-     *  there are no real children for id=-1, and getMenuAsTree would
-     *  throw. */
-    get currentAppSections() {
-        try {
-            const app = this.currentApp;
-            if (!app || app.id === -1) {
-                return [];
-            }
-            const tree = this.menuService.getMenuAsTree(app.id);
-            return (tree && tree.childrenTree) || [];
-        } catch (e) {
-            console.warn("[KobBrand] currentAppSections failed", e);
-            return [];
+        // Heuristic: the welcome page has the .kob-welcome-root element
+        // (defined in the XML template).
+        if (document.querySelector(".kob-welcome-root, [data-kob-welcome]")) {
+            return true;
         }
-    },
+    } catch (_e) {
+        /* ignore */
+    }
+    return false;
+}
 
-    setup() {
-        super.setup();
-        if (_delegated) return;
-        _delegated = true;
+/** Inject the fallback brand into a navbar element if it doesn't already
+ *  have a real or fallback brand. */
+function ensureBrand(navbar) {
+    if (!navbar) return;
+    if (isOnWelcome()) {
+        // Welcome page — remove any leftover fallback brand so the
+        // home screen stays clean.
+        const existing = navbar.querySelector("." + FALLBACK_CLASS);
+        if (existing) existing.remove();
+        return;
+    }
+    // Already has a real brand or our fallback? Nothing to do.
+    if (navbar.querySelector(".o_menu_brand:not(." + FALLBACK_CLASS + ")")) {
+        return;
+    }
+    if (navbar.querySelector("." + FALLBACK_CLASS)) {
+        return;
+    }
+    const a = document.createElement("a");
+    a.className = "o_menu_brand d-flex align-items-center " + FALLBACK_CLASS;
+    a.href = "/odoo";
+    a.textContent = "KOB ERP";
+    a.style.cssText = (
+        "color: inherit; font-weight: 600; padding: 0 0.75rem; "
+        + "text-decoration: none; cursor: pointer;"
+    );
+    a.addEventListener("click", (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        window.location.assign("/odoo");
+    });
+    // Insert AFTER the apps-menu button, BEFORE the breadcrumbs slot.
+    const appsMenu = navbar.querySelector(".o_navbar_apps_menu");
+    const breadcrumbs = navbar.querySelector(".o_navbar_breadcrumbs");
+    if (breadcrumbs) {
+        navbar.insertBefore(a, breadcrumbs);
+    } else if (appsMenu && appsMenu.nextSibling) {
+        navbar.insertBefore(a, appsMenu.nextSibling);
+    } else {
+        navbar.prepend(a);
+    }
+}
 
-        const goWelcome = (ev) => {
-            // Treat both the desktop brand (.o_menu_brand) and the
-            // mobile/tablet burger toggle (.o_menu_toggle) as "go home".
-            const target = ev.target.closest(".o_menu_brand, .o_menu_toggle");
-            if (!target) return;
-            if (!document.body.contains(target)) return;
-            // Kill the event for everyone — including the DropdownItem's
-            // onSelected handler attached to this same element.
-            ev.preventDefault();
-            ev.stopPropagation();
-            ev.stopImmediatePropagation();
-            // Hard reload to the welcome action.  We resolve its numeric
-            // id via the action service (synchronously through cache) and
-            // navigate to /odoo/action-<id> — bypasses Odoo's "last
-            // visited action" router which would otherwise send us back
-            // to whatever the user was looking at last.
-            const action = this.actionService;
-            (async () => {
-                try {
-                    const a = await action.loadAction(
-                        "kob_base.action_kob_welcome",
-                    );
-                    window.location.assign(`/odoo/action-${a.id}`);
-                } catch (e) {
-                    console.warn("[KobBrand] welcome action not found", e);
-                    window.location.assign("/odoo");
-                }
-            })();
-        };
+/** Run ensureBrand on every navbar in the document. */
+function pass() {
+    const navbars = document.querySelectorAll(".o_main_navbar");
+    navbars.forEach(ensureBrand);
+}
 
-        // Capture phase so we win over Odoo's own DropdownItem onSelected.
-        document.addEventListener("click", goWelcome, true);
-    },
+// Watch the entire body for any DOM mutation — cheap operation, this
+// only inserts when the navbar lacks a brand.
+const observer = new MutationObserver(pass);
+observer.observe(document.body || document.documentElement, {
+    childList: true,
+    subtree: true,
 });
+// Initial pass in case navbar is already mounted.
+pass();
+// And one more after the next tick to catch race-with-OWL-mount.
+setTimeout(pass, 100);
+setTimeout(pass, 500);
+setTimeout(pass, 1500);
