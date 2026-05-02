@@ -370,6 +370,7 @@ class MarketplaceImportWizard(models.TransientModel):
         new_prod_vals = {
             "name":           name,
             "default_code":   sku,
+            "barcode":        sku,
             "x_kob_sku_code": sku,
             "x_kob_brand":    brand or "",
             "type":           "consu",
@@ -379,7 +380,18 @@ class MarketplaceImportWizard(models.TransientModel):
         }
         if "is_storable" in self.env["product.template"]._fields:
             new_prod_vals["is_storable"] = True
-        new_prod = self.env["product.product"].sudo().create(new_prod_vals)
+        # ``barcode`` is unique on product.product; in the rare case
+        # the same SKU got registered as a barcode by another import
+        # path, fall back to no-barcode rather than crashing.
+        try:
+            new_prod = self.env["product.product"].sudo().create(new_prod_vals)
+        except Exception as e:
+            _logger.warning(
+                "Barcode '%s' clashes with an existing product — "
+                "creating without barcode (%s)", sku, e,
+            )
+            new_prod_vals.pop("barcode", None)
+            new_prod = self.env["product.product"].sudo().create(new_prod_vals)
         _logger.info(
             "Auto-created lot-tracked product %s (%s) for marketplace import",
             new_prod.id, sku,
