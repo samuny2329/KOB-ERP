@@ -43,6 +43,8 @@ Sub-areas:
         "views/intercompany_loan_views.xml",
         "views/cash_pool_views.xml",
         "views/volume_rebate_views.xml",
+        # Group v2 — extra models
+        "views/group_v2_views.xml",
     ],
     "installable": True,
     "auto_install": False,

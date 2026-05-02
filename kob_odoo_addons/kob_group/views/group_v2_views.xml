@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ========= TaxGroup ========= -->
+    <record id="view_kob_tax_group_list" model="ir.ui.view">
+        <field name="name">kob.tax.group.list</field>
+        <field name="model">kob.tax.group</field>
+        <field name="arch" type="xml">
+            <list string="Tax Groups">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="rd_registration_no"/>
+                <field name="effective_from"/>
+                <field name="effective_to"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_kob_tax_group_form" model="ir.ui.view">
+        <field name="name">kob.tax.group.form</field>
+        <field name="model">kob.tax.group</field>
+        <field name="arch" type="xml">
+            <form string="Tax Group">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                            <field name="rd_registration_no"/>
+                        </group>
+                        <group>
+                            <field name="effective_from"/>
+                            <field name="effective_to"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Members">
+                            <field name="member_ids">
+                                <list editable="bottom">
+                                    <field name="company_id"/>
+                                    <field name="joined_on"/>
+                                    <field name="left_on"/>
+                                    <field name="is_lead"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes"><field name="note"/></page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_kob_tax_group" model="ir.actions.act_window">
+        <field name="name">Tax Groups</field>
+        <field name="res_model">kob.tax.group</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem id="menu_kob_tax_group" name="Tax Groups"
+              parent="menu_kob_group_root"
+              action="action_kob_tax_group" sequence="80"/>
+
+    <!-- ========= BrandLicense ========= -->
+    <record id="view_kob_brand_license_list" model="ir.ui.view">
+        <field name="name">kob.brand.license.list</field>
+        <field name="model">kob.brand.license</field>
+        <field name="arch" type="xml">
+            <list editable="bottom" string="Brand Licenses">
+                <field name="brand_code"/>
+                <field name="brand_name"/>
+                <field name="company_id"/>
+                <field name="royalty_pct"/>
+                <field name="effective_from"/>
+                <field name="effective_to"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+    <record id="action_kob_brand_license" model="ir.actions.act_window">
+        <field name="name">Brand Licenses</field>
+        <field name="res_model">kob.brand.license</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem id="menu_kob_brand_license" name="Brand Licenses"
+              parent="menu_kob_group_root"
+              action="action_kob_brand_license" sequence="90"/>
+
+    <!-- ========= TransferPricing ========= -->
+    <record id="view_kob_transfer_pricing_list" model="ir.ui.view">
+        <field name="name">kob.transfer.pricing.agreement.list</field>
+        <field name="model">kob.transfer.pricing.agreement</field>
+        <field name="arch" type="xml">
+            <list editable="bottom" string="Transfer Pricing Agreements">
+                <field name="name"/>
+                <field name="from_company_id"/>
+                <field name="to_company_id"/>
+                <field name="product_category_id"/>
+                <field name="method"/>
+                <field name="markup_pct"/>
+                <field name="effective_from"/>
+                <field name="effective_to"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+    <record id="action_kob_transfer_pricing" model="ir.actions.act_window">
+        <field name="name">Transfer Pricing</field>
+        <field name="res_model">kob.transfer.pricing.agreement</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem id="menu_kob_transfer_pricing" name="Transfer Pricing"
+              parent="menu_kob_group_root"
+              action="action_kob_transfer_pricing" sequence="100"/>
+
+    <!-- ========= SkuBridge ========= -->
+    <record id="view_kob_sku_bridge_list" model="ir.ui.view">
+        <field name="name">kob.sku.bridge.list</field>
+        <field name="model">kob.sku.bridge</field>
+        <field name="arch" type="xml">
+            <list string="SKU Bridges">
+                <field name="master_sku"/>
+                <field name="name"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_kob_sku_bridge_form" model="ir.ui.view">
+        <field name="name">kob.sku.bridge.form</field>
+        <field name="model">kob.sku.bridge</field>
+        <field name="arch" type="xml">
+            <form string="SKU Bridge">
+                <sheet>
+                    <group>
+                        <field name="master_sku"/>
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="active"/>
+                    </group>
+                    <notebook>
+                        <page string="Per-Company Mapping">
+                            <field name="member_ids">
+                                <list editable="bottom">
+                                    <field name="company_id"/>
+                                    <field name="local_sku"/>
+                                    <field name="local_product_id"/>
+                                    <field name="note"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_kob_sku_bridge" model="ir.actions.act_window">
+        <field name="name">SKU Bridges</field>
+        <field name="res_model">kob.sku.bridge</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem id="menu_kob_sku_bridge" name="SKU Bridges"
+              parent="menu_kob_group_root"
+              action="action_kob_sku_bridge" sequence="110"/>
+
+    <!-- ========= ComplianceItem ========= -->
+    <record id="view_kob_compliance_item_list" model="ir.ui.view">
+        <field name="name">kob.compliance.item.list</field>
+        <field name="model">kob.compliance.item</field>
+        <field name="arch" type="xml">
+            <list string="Compliance Items"
+                  decoration-warning="state == 'in_progress'"
+                  decoration-danger="state == 'overdue'"
+                  decoration-success="state == 'submitted'"
+                  decoration-muted="state == 'cancelled'">
+                <field name="due_date"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="item_type"/>
+                <field name="period_year"/>
+                <field name="name"/>
+                <field name="state"/>
+                <field name="rd_receipt_number"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_kob_compliance_item_form" model="ir.ui.view">
+        <field name="name">kob.compliance.item.form</field>
+        <field name="model">kob.compliance.item</field>
+        <field name="arch" type="xml">
+            <form string="Compliance Item">
+                <header>
+                    <button name="action_start" type="object"
+                            string="Start" class="oe_highlight"
+                            invisible="state != 'pending'"/>
+                    <button name="action_submit" type="object"
+                            string="Mark Submitted" class="oe_highlight"
+                            invisible="state in ('submitted','cancelled')"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel"
+                            invisible="state in ('submitted','cancelled')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="pending,in_progress,submitted"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                            <field name="item_type"/>
+                            <field name="period_year"/>
+                            <field name="due_date"/>
+                        </group>
+                        <group>
+                            <field name="submitted_at" readonly="1"/>
+                            <field name="submitted_by" readonly="1"/>
+                            <field name="rd_receipt_number"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes"><field name="note"/></page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_kob_compliance_item" model="ir.actions.act_window">
+        <field name="name">Compliance Items</field>
+        <field name="res_model">kob.compliance.item</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem id="menu_kob_compliance_item" name="Compliance Items"
+              parent="menu_kob_group_root"
+              action="action_kob_compliance_item" sequence="120"/>
+
+    <!-- ========= Cross-Co Customer ========= -->
+    <record id="view_kob_cross_customer_list" model="ir.ui.view">
+        <field name="name">kob.cross.customer.list</field>
+        <field name="model">kob.cross.customer</field>
+        <field name="arch" type="xml">
+            <list string="Cross-Company Customers">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="customer_group"/>
+                <field name="group_credit_limit"/>
+                <field name="group_credit_consumed"/>
+                <field name="blocked"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_kob_cross_customer_form" model="ir.ui.view">
+        <field name="name">kob.cross.customer.form</field>
+        <field name="model">kob.cross.customer</field>
+        <field name="arch" type="xml">
+            <form string="Cross-Company Customer">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                            <field name="tax_id"/>
+                            <field name="customer_group"/>
+                        </group>
+                        <group>
+                            <field name="group_credit_limit"/>
+                            <field name="group_credit_consumed" readonly="1"/>
+                            <field name="currency_id"/>
+                            <field name="blocked"/>
+                            <field name="blocked_reason"
+                                   invisible="not blocked"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Per-Company Partners">
+                            <field name="link_ids">
+                                <list editable="bottom">
+                                    <field name="company_id"/>
+                                    <field name="partner_id"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_kob_cross_customer" model="ir.actions.act_window">
+        <field name="name">Cross-Company Customers</field>
+        <field name="res_model">kob.cross.customer</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem id="menu_kob_cross_customer" name="Cross-Co Customers"
+              parent="menu_kob_group_root"
+              action="action_kob_cross_customer" sequence="130"/>
+
+    <!-- ========= Cross-Co Vendor ========= -->
+    <record id="view_kob_cross_vendor_list" model="ir.ui.view">
+        <field name="name">kob.cross.vendor.list</field>
+        <field name="model">kob.cross.vendor</field>
+        <field name="arch" type="xml">
+            <list string="Cross-Company Vendors">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="tax_id"/>
+                <field name="wht_type"/>
+                <field name="wht_rate"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_kob_cross_vendor_form" model="ir.ui.view">
+        <field name="name">kob.cross.vendor.form</field>
+        <field name="model">kob.cross.vendor</field>
+        <field name="arch" type="xml">
+            <form string="Cross-Company Vendor">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                            <field name="tax_id"/>
+                        </group>
+                        <group>
+                            <field name="wht_type"/>
+                            <field name="wht_rate"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Per-Company Partners">
+                            <field name="link_ids">
+                                <list editable="bottom">
+                                    <field name="company_id"/>
+                                    <field name="partner_id"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes"><field name="note"/></page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_kob_cross_vendor" model="ir.actions.act_window">
+        <field name="name">Cross-Company Vendors</field>
+        <field name="res_model">kob.cross.vendor</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem id="menu_kob_cross_vendor" name="Cross-Co Vendors"
+              parent="menu_kob_group_root"
+              action="action_kob_cross_vendor" sequence="140"/>
+
+    <!-- ========= Approval Substitution ========= -->
+    <record id="view_kob_approval_substitution_list" model="ir.ui.view">
+        <field name="name">kob.approval.substitution.list</field>
+        <field name="model">kob.approval.substitution</field>
+        <field name="arch" type="xml">
+            <list editable="bottom" string="Approval Substitutions">
+                <field name="primary_user_id"/>
+                <field name="substitute_user_id"/>
+                <field name="effective_from"/>
+                <field name="effective_to"/>
+                <field name="document_type"/>
+                <field name="reason"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+    <record id="action_kob_approval_substitution" model="ir.actions.act_window">
+        <field name="name">Approval Substitutions</field>
+        <field name="res_model">kob.approval.substitution</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem id="menu_kob_approval_substitution" name="Approval Substitutions"
+              parent="menu_kob_group_root"
+              action="action_kob_approval_substitution" sequence="150"/>
+</odoo>

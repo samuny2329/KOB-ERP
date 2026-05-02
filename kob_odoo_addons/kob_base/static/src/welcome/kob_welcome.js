@@ -122,6 +122,56 @@ class KobWelcome extends Component {
                 glyph: "📊",
                 menuXmlId: "kob_base.menu_kob_kpi",
             },
+            // ── Phase-3/4/8 advanced + Phase-11/12/13 group ──────
+            {
+                key: "kob_purchase_pro",
+                name: _t("Purchase Pro"),
+                description: _t(
+                    "Vendor performance scoring, procurement budget gating, " +
+                    "demand signal, PO consolidation, vendor compliance docs.",
+                ),
+                category: "kob",
+                color: "#107e3e",
+                glyph: "₱",
+                menuXmlId: "kob_purchase_pro.menu_kob_purchase_pro_root",
+            },
+            {
+                key: "kob_sales_pro",
+                name: _t("Sales Pro"),
+                description: _t(
+                    "RMA returns workflow, multi-platform order linkage, " +
+                    "channel margin, customer LTV, intercompany SO mirror.",
+                ),
+                category: "kob",
+                color: "#0a6ed1",
+                glyph: "$",
+                menuXmlId: "kob_sales_pro.menu_kob_sales_pro_root",
+            },
+            {
+                key: "kob_mfg_pro",
+                name: _t("Manufacturing Pro"),
+                description: _t(
+                    "Per-shift OEE, production shifts, MO production " +
+                    "signals from sales velocity, batch consolidation.",
+                ),
+                category: "kob",
+                color: "#e9730c",
+                glyph: "⚙",
+                menuXmlId: "kob_mfg_pro.menu_kob_mfg_pro_root",
+            },
+            {
+                key: "kob_group",
+                name: _t("Multi-Company Group"),
+                description: _t(
+                    "Inventory pools, approval matrix, cost allocation, " +
+                    "intercompany loans, cash pool, transfer pricing, " +
+                    "volume rebates, cross-co partners, brand licenses.",
+                ),
+                category: "kob",
+                color: "#5d9ff5",
+                glyph: "Σ",
+                menuXmlId: "kob_group.menu_kob_group_root",
+            },
             // ── Standard Odoo apps the business uses ──────────────
             {
                 key: "sales",
