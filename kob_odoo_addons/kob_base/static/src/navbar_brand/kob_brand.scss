@@ -5,6 +5,27 @@
 // gently-animated left-arrow via a CSS pseudo-element so the user
 // has a single, consistent back-button.
 
+// ── Welcome-page navbar suppression (CSS-only, :has()-driven) ──
+//
+// When the Welcome OWL component is mounted anywhere inside the web
+// client, the .kob-welcome root exists in the DOM.  The navbar is a
+// SIBLING (or earlier descendant) of the action manager, so we use the
+// modern :has() selector to react to .kob-welcome's presence and hide
+// the navbar's brand / sections / breadcrumbs.  When the user clicks a
+// Welcome card and navigates away, .kob-welcome disappears → :has()
+// no longer matches → the elements become visible again, with no JS
+// toggle required (this is what previously caused the brand to stay
+// hidden on module pages until a manual refresh).
+.o_web_client:has(.kob-welcome) {
+    .o_main_navbar {
+        .o_menu_brand,
+        .o_menu_sections,
+        .o_navbar_breadcrumbs {
+            display: none !important;
+        }
+    }
+}
+
 @keyframes kob-back-pulse {
     0%,
     100% {
