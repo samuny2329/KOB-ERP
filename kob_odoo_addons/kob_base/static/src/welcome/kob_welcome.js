@@ -148,8 +148,113 @@ class KobWelcome extends Component {
         }
     }
 
-    /** Static catalogue — module key → metadata. */
+    // ── DYNAMIC APP DISCOVERY ──────────────────────────────────────
+    // Pull every top-level app the user can see from the menu service;
+    // augment with curated metadata for KOB-specific modules.
+
+    /** Stable color from a palette, hashed by app key. */
+    _colorFor(key) {
+        const palette = [
+            "#714B67", "#0a6ed1", "#107e3e", "#e9730c", "#bb0000",
+            "#354a5f", "#5d9ff5", "#a855f7", "#06b6d4", "#10b981",
+            "#f59e0b", "#ec4899", "#6366f1", "#14b8a6", "#f97316",
+            "#8b5cf6", "#0284c7", "#65a30d", "#ea580c", "#db2777",
+        ];
+        let h = 0;
+        for (let i = 0; i < key.length; i++) {
+            h = (h << 5) - h + key.charCodeAt(i);
+            h |= 0;
+        }
+        return palette[Math.abs(h) % palette.length];
+    }
+
+    /** Pick a glyph: first letter of the name (uppercased), Thai-aware. */
+    _glyphFor(name) {
+        if (!name) return "·";
+        // Strip emoji prefixes
+        const stripped = name.replace(/^[\s\p{Emoji}]+/u, "").trim();
+        return (stripped[0] || name[0] || "·").toUpperCase();
+    }
+
+    /** Categorize app by xmlid / name heuristics. */
+    _categoryFor(xmlid, name) {
+        const x = (xmlid || "").toLowerCase();
+        const n = (name || "").toLowerCase();
+        const hit = (...words) =>
+            words.some((w) => x.includes(w) || n.includes(w));
+        if (hit("kob")) return "kob";
+        if (hit("stock", "inventory", "mrp", "manufact", "purchase",
+                 "barcode", "shop_floor", "shop floor", "quality",
+                 "maintenance", "point_of_sale", "pos")) return "operations";
+        if (hit("sale", "crm", "website", "marketing", "contact",
+                 "link_tracker", "link tracker")) return "sales_marketing";
+        if (hit("account", "invoic", "expense", "asset", "audit"))
+            return "finance";
+        if (hit("hr", "employee", "holiday", "time_off", "time off",
+                 "attendance", "approval", "skill")) return "people";
+        if (hit("discuss", "calendar", "todo", "to-do", "to do",
+                 "knowledge", "project", "timesheet", "meeting",
+                 "dashboard", "spreadsheet")) return "productivity";
+        if (hit("settings", "apps", "base.menu", "iap", "documents")) return "admin";
+        return "other";
+    }
+
+    /** Curated overrides — apps we want to badge with KOB-specific
+     *  description/glyph/color. Keys match the menu xmlid. */
+    get _curated() {
+        return {
+            "kob_base.menu_kob_root": {
+                description: _t("KOB ERP control center — Thailand Compliance, Group, Marketplace, KPIs."),
+                color: "#0a6ed1", glyph: "K",
+            },
+            "kob_extras_v4.menu_kob_extras_root": {
+                description: _t("Onboarding · bulk import · kiosk · forecast · scorecard · OCR · ESG · API."),
+                color: "#a855f7", glyph: "🧰",
+            },
+            "kob_logistics_marketing.menu_kob_lgm_root": {
+                description: _t("Multi-carrier shipping, RMA, email/SMS campaigns, coupons, attribution."),
+                color: "#06b6d4", glyph: "🚚",
+            },
+            "kob_wms.menu_kob_wms_root": {
+                description: _t("WMS — Pick · Pack · Outbound · Dispatch · Cycle Count, scan-driven."),
+                color: "#354a5f", glyph: "W",
+            },
+            "kob_kpi_tiles.menu_kob_kpi_dashboard": {
+                description: _t("Live KPI tiles: sales, AR/AP, inventory, helpdesk, top movers."),
+                color: "#bb0000", glyph: "📊",
+            },
+        };
+    }
+
+    /** Build the modules array dynamically from the menu service. */
     get modules() {
+        const apps = (this.menuService.getApps && this.menuService.getApps()) || [];
+        const curated = this._curated;
+        const out = [];
+        const seen = new Set();
+        for (const app of apps) {
+            if (!app || !app.id) continue;
+            const xmlid = app.xmlid || `app_${app.id}`;
+            if (seen.has(xmlid)) continue;
+            seen.add(xmlid);
+            const c = curated[xmlid] || {};
+            const name = app.name || xmlid;
+            out.push({
+                key: xmlid,
+                name,
+                description: c.description || "",
+                category: this._categoryFor(xmlid, name),
+                color: c.color || this._colorFor(xmlid),
+                glyph: c.glyph || this._glyphFor(name),
+                menuXmlId: app.xmlid || null,
+                appId: app.id,
+            });
+        }
+        return out;
+    }
+
+    /** Static catalogue — kept for reference; superseded by `modules` above. */
+    get _legacyModules() {
         return [
             // ── KOB ERP modules ────────────────────────────────────
             {
@@ -504,6 +609,7 @@ class KobWelcome extends Component {
             { id: "people", label: _t("People"), color: "#e9730c" },
             { id: "productivity", label: _t("Productivity"), color: "#5d9ff5" },
             { id: "admin", label: _t("Administration"), color: "#6a6d70" },
+            { id: "other", label: _t("Other"), color: "#94a3b8" },
         ];
     }
 
@@ -546,6 +652,16 @@ class KobWelcome extends Component {
 
     async onCardClick(mod) {
         const all = this.menuService.getAll ? this.menuService.getAll() : [];
+
+        // 0. Dynamic apps carry an appId — open the app menu directly.
+        if (mod.appId) {
+            const app = all.find((m) => m && m.id === mod.appId);
+            if (app && this.menuService.selectMenu) {
+                const target = this._firstActionableDescendant(app, all) || app;
+                await this.menuService.selectMenu(target);
+                return;
+            }
+        }
 
         // 1. Direct menu lookup by xmlid.
         if (mod.menuXmlId) {
