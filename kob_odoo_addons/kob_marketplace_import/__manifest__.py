@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "KOB ERP — Marketplace Import",
-    "version": "19.0.2.0.1",
+    "version": "19.0.2.0.2",
     "category": "KOB ERP/Marketplace",
     "summary": "Import Shopee / TikTok / Lazada orders into Odoo as Sale "
                "Orders + Delivery Orders, with the x_kob_* custom fields "

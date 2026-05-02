@@ -671,6 +671,12 @@ class MarketplaceImportWizard(models.TransientModel):
             )
             if normal_type:
                 so_vals["sale_order_type_id"] = normal_type.id
+            # Default Sales Team = eMarketplace (matches UAT).
+            emarket_team = self.env["crm.team"].search(
+                [("name", "=", "eMarketplace")], limit=1,
+            )
+            if emarket_team:
+                so_vals["team_id"] = emarket_team.id
             so = SaleOrder.create(so_vals)
             sales |= so
             log_lines.append(f"OK   {order_sn} → {so.name} ({len(so.order_line)} lines)")

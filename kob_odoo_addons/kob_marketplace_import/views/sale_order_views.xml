@@ -9,27 +9,77 @@
                 <field name="order_line" position="attributes">
                     <attribute name="context">{'tree_view_ref': 'sale.view_order_form'}</attribute>
                 </field>
+                <!-- Order Lines columns matching UAT: Product ID, Barcode,
+                     Variant, Delivered, Invoiced, Packaging Q, Packaging,
+                     Brand. -->
+                <xpath expr="//field[@name='order_line']/list/field[@name='product_template_id']" position="before">
+                    <field name="product_id"
+                           string="Product ID"
+                           optional="show" readonly="1"/>
+                </xpath>
                 <xpath expr="//field[@name='order_line']/list/field[@name='product_template_id']" position="after">
                     <field name="x_kob_brand" optional="show"/>
                 </xpath>
+                <xpath expr="//field[@name='order_line']/list/field[@name='product_uom_qty']" position="before">
+                    <field name="qty_delivered"
+                           string="Delivered"
+                           optional="show" readonly="1"/>
+                    <field name="qty_invoiced"
+                           string="Invoiced"
+                           optional="show" readonly="1"/>
+                </xpath>
 
-                <!-- Top-of-form quick info: marketplace order ref + source + Order Type -->
+                <!-- UAT-style top-of-form: 2-column layout matching screenshot.
+                     Left column under Customer: Order Type, Sales Team, Warehouse.
+                     Right column: Order Date, Pricelist, Payment Terms, Delivery
+                     Date, Currency, Source Document, Source. -->
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name="sale_order_type_id"
                            string="Order Type"
                            options="{'no_create_edit': True}"/>
+                    <field name="team_id"
+                           string="Sales Team"
+                           options="{'no_create_edit': True}"/>
                     <field name="client_order_ref"
                            string="Marketplace Order #"
                            placeholder="Shopee / Lazada / TikTok order_sn"/>
-                    <field name="source_id"
-                           string="Source / Shop"
-                           options="{'no_create_edit': True}"/>
                     <field name="tag_ids" widget="many2many_tags"
                            options="{'color_field': 'color'}"/>
                 </xpath>
 
-                <!-- Dedicated KOB Marketplace tab -->
+                <!-- Right column extras — date_order is always there;
+                     append delivery date + source. -->
+                <xpath expr="//field[@name='date_order']" position="after">
+                    <field name="commitment_date"
+                           string="Delivery Date"/>
+                    <field name="source_id"
+                           string="Source"
+                           options="{'no_create_edit': True}"/>
+                </xpath>
+
+                <!-- Approvals tab — mirrors UAT.  Empty until a workflow
+                     hooks rules in (left as a placeholder so the tab
+                     order matches the screenshot). -->
                 <xpath expr="//notebook" position="inside">
+                    <page string="Approvals" name="kob_approvals">
+                        <group>
+                            <group string="Approval Status">
+                                <field name="state" readonly="1"/>
+                                <field name="user_id" readonly="1"
+                                       string="Sales Person"/>
+                                <field name="team_id" readonly="1"
+                                       string="Sales Team"/>
+                            </group>
+                            <group string="Locked / Confirmed">
+                                <field name="locked"
+                                       readonly="1"/>
+                                <field name="date_order"
+                                       readonly="1"
+                                       string="Confirmed at"
+                                       invisible="state not in ['sale','done']"/>
+                            </group>
+                        </group>
+                    </page>
                     <page string="KOB Marketplace" name="kob_marketplace">
                         <group>
                             <group string="Identity">
