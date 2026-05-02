@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="group_actual_date_editable" model="res.groups">
+        <field name="name">Modify Actual Date</field>
+    </record>
+</odoo>
