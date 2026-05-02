@@ -9,3 +9,5 @@ from . import vat_period
 from . import fixed_asset
 from . import fx_revaluation
 from . import employee_transfer
+# Phase 6 — KOB Payroll (Payslip + Batch + PND91)
+from . import payroll

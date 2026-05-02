@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "KOB ERP — Thailand Compliance",
-    "version": "19.0.1.2.0",
+    "version": "19.0.1.3.0",
     "category": "KOB ERP/Localization",
     "summary": "SSO, PND withholding tax, OT (Thai LPA), leave entitlement, "
                "fixed asset depreciation, FX revaluation — Thai SME compliance.",
@@ -43,6 +43,8 @@ verbatim.
         "views/fx_revaluation_views.xml",
         # Phase 6-adv — HR cross-company
         "views/employee_transfer_views.xml",
+        # Phase 6 — KOB Payroll (Payslip + Batch + ภงด.91)
+        "views/payroll_views.xml",
         # UAT-style menu extensions (Customers/Accounting/Reporting)
         "views/uat_menu_extension.xml",
         # QWeb PDF reports — Thai compliance + Asset management

@@ -23,3 +23,9 @@ access_kob_fx_revaluation_user,kob.fx.revaluation user,model_kob_fx_revaluation,
 access_kob_fx_revaluation_manager,kob.fx.revaluation manager,model_kob_fx_revaluation,account.group_account_manager,1,1,1,1
 access_kob_employee_transfer_user,kob.employee.transfer user,model_kob_employee_transfer,hr.group_hr_user,1,1,1,0
 access_kob_employee_transfer_manager,kob.employee.transfer manager,model_kob_employee_transfer,hr.group_hr_manager,1,1,1,1
+access_kob_payslip_user,kob.payslip user,model_kob_payslip,hr.group_hr_user,1,1,1,0
+access_kob_payslip_manager,kob.payslip manager,model_kob_payslip,hr.group_hr_manager,1,1,1,1
+access_kob_payroll_batch_user,kob.payroll.batch user,model_kob_payroll_batch,hr.group_hr_user,1,1,1,0
+access_kob_payroll_batch_manager,kob.payroll.batch manager,model_kob_payroll_batch,hr.group_hr_manager,1,1,1,1
+access_kob_tax_cert_annual_user,kob.tax.cert.annual user,model_kob_tax_cert_annual,hr.group_hr_user,1,1,1,0
+access_kob_tax_cert_annual_manager,kob.tax.cert.annual manager,model_kob_tax_cert_annual,hr.group_hr_manager,1,1,1,1

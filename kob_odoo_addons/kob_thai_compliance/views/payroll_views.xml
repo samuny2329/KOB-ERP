@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ─── Payslip ─── -->
+    <record id="view_kob_payslip_list" model="ir.ui.view">
+        <field name="name">kob.payslip.list</field>
+        <field name="model">kob.payslip</field>
+        <field name="arch" type="xml">
+            <list string="Payslips">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="period_year"/>
+                <field name="period_month"/>
+                <field name="base_salary" sum="Total Base"/>
+                <field name="ot_amount" sum="Total OT"/>
+                <field name="gross_pay" sum="Total Gross"/>
+                <field name="sso_employee" sum="Total SSO"/>
+                <field name="wht_pnd1" sum="Total WHT"/>
+                <field name="net_pay" sum="Total Net"/>
+                <field name="state"
+                       decoration-info="state == 'calculated'"
+                       decoration-success="state == 'paid'"
+                       decoration-muted="state in ('draft','cancelled')"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_kob_payslip_form" model="ir.ui.view">
+        <field name="name">kob.payslip.form</field>
+        <field name="model">kob.payslip</field>
+        <field name="arch" type="xml">
+            <form string="Payslip">
+                <header>
+                    <button name="action_calculate" type="object"
+                            string="Calculate" class="oe_highlight"
+                            invisible="state not in ('draft','calculated')"/>
+                    <button name="action_approve" type="object"
+                            string="Approve"
+                            invisible="state != 'calculated'"/>
+                    <button name="action_pay" type="object"
+                            string="Mark Paid" class="oe_highlight"
+                            invisible="state != 'approved'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,calculated,approved,paid"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Employee">
+                            <field name="employee_id" readonly="state != 'draft'"/>
+                            <field name="period_year" readonly="state != 'draft'"/>
+                            <field name="period_month" readonly="state != 'draft'"/>
+                            <field name="batch_id" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Earnings">
+                            <field name="base_salary"/>
+                            <field name="ot_amount" readonly="1"/>
+                            <field name="bonus"/>
+                            <field name="allowance"/>
+                            <field name="gross_pay" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Deductions">
+                            <field name="sso_employee" readonly="1"/>
+                            <field name="sso_employer" readonly="1"/>
+                            <field name="wht_pnd1" readonly="1"/>
+                            <field name="other_deduction"/>
+                        </group>
+                        <group string="Net Pay">
+                            <field name="net_pay" readonly="1"
+                                   class="oe_subtotal_footer_separator"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes">
+                            <field name="note"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_kob_payslip" model="ir.actions.act_window">
+        <field name="name">Payslips</field>
+        <field name="res_model">kob.payslip</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ─── Payroll Batch ─── -->
+    <record id="view_kob_payroll_batch_list" model="ir.ui.view">
+        <field name="name">kob.payroll.batch.list</field>
+        <field name="model">kob.payroll.batch</field>
+        <field name="arch" type="xml">
+            <list string="Payroll Batches">
+                <field name="name"/>
+                <field name="period_year"/>
+                <field name="period_month"/>
+                <field name="state"
+                       decoration-info="state == 'generated'"
+                       decoration-success="state == 'paid'"/>
+                <field name="total_gross" sum="Total Gross"/>
+                <field name="total_sso" sum="Total SSO"/>
+                <field name="total_wht" sum="Total WHT"/>
+                <field name="total_net" sum="Total Net"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_kob_payroll_batch_form" model="ir.ui.view">
+        <field name="name">kob.payroll.batch.form</field>
+        <field name="model">kob.payroll.batch</field>
+        <field name="arch" type="xml">
+            <form string="Payroll Batch">
+                <header>
+                    <button name="action_generate" type="object"
+                            string="Generate Payslips" class="oe_highlight"
+                            invisible="state != 'draft'"/>
+                    <button name="action_calculate_all" type="object"
+                            string="Calculate All"
+                            invisible="state != 'generated'"/>
+                    <button name="action_approve_all" type="object"
+                            string="Approve All" class="oe_highlight"
+                            invisible="state != 'generated'"/>
+                    <button name="action_pay_all" type="object"
+                            string="Mark All Paid" class="oe_highlight"
+                            invisible="state != 'approved'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,generated,approved,paid"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="period_year" readonly="state != 'draft'"/>
+                            <field name="period_month" readonly="state != 'draft'"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Totals (computed)">
+                            <field name="total_gross" readonly="1"/>
+                            <field name="total_sso" readonly="1"/>
+                            <field name="total_wht" readonly="1"/>
+                            <field name="total_net" readonly="1"
+                                   class="oe_subtotal_footer_separator"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Payslips">
+                            <field name="payslip_ids">
+                                <list>
+                                    <field name="employee_id"/>
+                                    <field name="base_salary"/>
+                                    <field name="ot_amount"/>
+                                    <field name="gross_pay"/>
+                                    <field name="sso_employee"/>
+                                    <field name="wht_pnd1"/>
+                                    <field name="net_pay"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_kob_payroll_batch" model="ir.actions.act_window">
+        <field name="name">Payroll Batches</field>
+        <field name="res_model">kob.payroll.batch</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ─── Annual Tax Cert (ภงด.91) ─── -->
+    <record id="view_kob_tax_cert_annual_list" model="ir.ui.view">
+        <field name="name">kob.tax.cert.annual.list</field>
+        <field name="model">kob.tax.cert.annual</field>
+        <field name="arch" type="xml">
+            <list string="Annual Tax Certificates (ภงด.91)">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="tax_year"/>
+                <field name="annual_gross" sum="Total Gross"/>
+                <field name="taxable_income"/>
+                <field name="tax_payable" sum="Total Tax Due"/>
+                <field name="tax_withheld" sum="Total Withheld"/>
+                <field name="refund_or_due" sum="Net Refund/Due"
+                       decoration-success="refund_or_due > 0"
+                       decoration-danger="refund_or_due &lt; 0"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_kob_tax_cert_annual_form" model="ir.ui.view">
+        <field name="name">kob.tax.cert.annual.form</field>
+        <field name="model">kob.tax.cert.annual</field>
+        <field name="arch" type="xml">
+            <form string="ภงด.91">
+                <header>
+                    <button name="action_calculate" type="object"
+                            string="Calculate from Payslips"
+                            class="oe_highlight"
+                            invisible="state == 'submitted'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id" readonly="state != 'draft'"/>
+                            <field name="tax_year" readonly="state != 'draft'"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Income (annual)">
+                            <field name="annual_gross"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Deductions">
+                            <field name="deduction_personal"/>
+                            <field name="deduction_sso"/>
+                            <field name="deduction_other"/>
+                        </group>
+                        <group string="Tax">
+                            <field name="taxable_income" readonly="1"/>
+                            <field name="tax_payable" readonly="1"/>
+                            <field name="tax_withheld"/>
+                            <field name="refund_or_due" readonly="1"
+                                   class="oe_subtotal_footer_separator"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes">
+                            <field name="note"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_kob_tax_cert_annual" model="ir.actions.act_window">
+        <field name="name">Annual Tax Cert (ภงด.91)</field>
+        <field name="res_model">kob.tax.cert.annual</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ─── Menus ─── -->
+    <menuitem
+        id="menu_kob_payroll_batch"
+        name="Payroll Batches"
+        parent="kob_base.menu_kob_thai"
+        action="action_kob_payroll_batch"
+        sequence="65"/>
+
+    <menuitem
+        id="menu_kob_payslip"
+        name="Payslips"
+        parent="kob_base.menu_kob_thai"
+        action="action_kob_payslip"
+        sequence="66"/>
+
+    <menuitem
+        id="menu_kob_tax_cert_annual"
+        name="ภงด.91 Annual Tax Cert"
+        parent="kob_base.menu_kob_thai"
+        action="action_kob_tax_cert_annual"
+        sequence="67"/>
+
+</odoo>
