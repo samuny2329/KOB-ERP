@@ -7,12 +7,26 @@
             <field name="inherit_id" ref="product.product_template_form_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//page[@name='general_information']" position="inside">
-                    <group string="KOB Marketplace">
-                        <field name="x_kob_brand"
-                               placeholder="e.g. KISS-MY-BODY, SKINOXY"/>
-                        <field name="x_kob_sku_code"
-                               placeholder="e.g. KHKB038, DUT300"/>
+                    <group>
+                        <group string="KOB Marketplace">
+                            <field name="x_kob_brand"
+                                   placeholder="e.g. KISS-MY-BODY, SKINOXY"/>
+                            <field name="x_kob_sku_code"
+                                   placeholder="e.g. KHKB038, DUT300"/>
+                        </group>
+                        <group string="Thai Compliance">
+                            <field name="x_kob_wht_tax_id"
+                                   options="{'no_create': True}"/>
+                            <field name="x_kob_start_selling_date"/>
+                        </group>
                     </group>
+                    <separator string="Variant Sales Description"/>
+                    <field name="x_kob_variant_sales_description"
+                           nolabel="1"
+                           placeholder="e.g. Smooth chocolate notes, low acidity"/>
+                    <separator string="Internal Notes"/>
+                    <field name="x_kob_internal_note" nolabel="1"
+                           placeholder="Notes only visible to staff"/>
                 </xpath>
             </field>
         </record>
