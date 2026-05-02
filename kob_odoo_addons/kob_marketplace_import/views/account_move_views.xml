@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <!-- ── Customer Invoice list view ── -->
+        <record id="account_move_list_view_kob" model="ir.ui.view">
+            <field name="name">account.move.list.kob</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_out_invoice_tree"/>
+            <field name="arch" type="xml">
+                <field name="invoice_date" position="before">
+                    <field name="x_kob_delivery_date"
+                           string="Delivery Date" optional="show"/>
+                    <field name="sale_order_type_id"
+                           string="Order Type" optional="show"/>
+                    <field name="x_kob_order_id"
+                           string="Order ID" optional="show"/>
+                </field>
+                <field name="invoice_date_due" position="after">
+                    <field name="x_kob_cash_flow_tags"
+                           string="Cash Flow Tags"
+                           widget="many2many_tags"
+                           optional="hide"/>
+                    <field name="x_kob_cash_flow_date"
+                           string="Cash Flow Date"
+                           optional="hide"/>
+                </field>
+            </field>
+        </record>
+
         <record id="account_move_form_view_kob" model="ir.ui.view">
             <field name="name">account.move.form.kob</field>
             <field name="model">account.move</field>
@@ -28,7 +54,7 @@
                            string="Brand" optional="show" readonly="1"/>
                 </xpath>
 
-                <!-- Other Info tab — Marketing section (Campaign / Medium / Source). -->
+                <!-- Other Info tab — Marketing + Cash Flow sections -->
                 <xpath expr="//page[@id='other_tab_entry']" position="inside">
                     <separator string="MARKETING"/>
                     <group>
@@ -44,6 +70,18 @@
                             <field name="source_id"
                                    string="Source"
                                    options="{'no_create_edit': True}"/>
+                        </group>
+                    </group>
+                    <separator string="CASH FLOW"/>
+                    <group>
+                        <group>
+                            <field name="x_kob_cash_flow_tags"
+                                   widget="many2many_tags"
+                                   options="{'color_field': 'color'}"/>
+                        </group>
+                        <group>
+                            <field name="x_kob_cash_flow_date"/>
+                            <field name="x_kob_order_id" readonly="1"/>
                         </group>
                     </group>
                 </xpath>
