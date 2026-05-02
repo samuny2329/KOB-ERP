@@ -36,22 +36,70 @@ _PARTNER_BY_PLATFORM = {
 }
 _PRETTY = {"shopee": "Shopee", "tiktok": "TikTok", "lazada": "Lazada"}
 
-# Aliases we accept for each logical column.
+# Aliases we accept for each logical column.  English-only — Shopee /
+# Lazada / TikTok official exports all use English headers (``Order
+# ID``, ``SKU``, ``Order Date``, ``Quantity``, ``Unit Price``,
+# ``Net Sale``, ``Shipping Fee``, …).  Thai column names are
+# intentionally NOT accepted (per user policy: keep imports machine-
+# readable).  Compared case-insensitively after _normalize() collapses
+# punctuation + whitespace.
 _COL_ALIASES = {
-    "order_sn":  ("order_sn", "order #", "order number", "order_no",
-                  "order_number"),
-    "shop":      ("shop", "shop_name", "shopname"),
-    "order_date":("order_date", "date", "order_at", "date_order"),
-    "sku":       ("sku", "sku_code", "code"),
-    "qty":       ("qty", "quantity", "product_uom_qty"),
-    "brand":     ("brand", "x_kob_brand"),
-    "fake":      ("fake", "fake_order", "x_kob_fake_order"),
-    "price":     ("price", "unit_price", "price_unit"),
+    "order_sn": (
+        "order_sn", "order_no", "order_number", "order_id", "orderid",
+        "order#", "order", "ordernumber", "order_ref", "ordersn",
+        "platform_order_id", "marketplace_order_id",
+    ),
+    "shop": (
+        "shop", "shop_name", "shopname", "store", "store_name",
+    ),
+    "order_date": (
+        "order_date", "date", "order_at", "date_order", "ordered_at",
+        "orderdate", "ordereddate",
+    ),
+    "sku": (
+        "sku", "sku_code", "code", "product_code", "item_id", "itemid",
+        "product_sku", "default_code", "skucode",
+    ),
+    "qty": (
+        "qty", "quantity", "product_uom_qty", "count", "num",
+    ),
+    "brand": (
+        "brand", "x_kob_brand", "brand_name", "brandname",
+    ),
+    "fake": (
+        "fake", "fake_order", "x_kob_fake_order", "is_fake", "test",
+    ),
+    "price": (
+        "price", "unit_price", "price_unit", "selling_price",
+        "unitprice", "sellingprice", "net_sale", "netsale",
+    ),
 }
 
 
 def _normalize(s):
-    return (s or "").strip().lower().replace(" ", "_")
+    """Lower-case, strip leading/trailing space, and squeeze inner
+    whitespace + common punctuation away so that ``Order #``,
+    ``order_number``, ``Order ID`` and ``ORDER NUMBER`` all collapse
+    to the same canonical form for alias matching.  Non-ASCII
+    characters (incl. Thai) are dropped entirely so they cannot
+    accidentally match."""
+    if s is None:
+        return ""
+    out = str(s).strip().lower()
+    keep = []
+    for ch in out:
+        # Keep ASCII alnum + underscore.  Drop everything else.
+        if (ch.isascii() and ch.isalnum()) or ch == "_":
+            keep.append(ch)
+    return "".join(keep)
+
+
+# Pre-normalise the alias table once at import-time so column matching
+# can compare apples to apples.
+_COL_ALIASES_NORM = {
+    logical: tuple(_normalize(a) for a in aliases)
+    for logical, aliases in _COL_ALIASES.items()
+}
 
 
 def _to_bool(v):
@@ -124,6 +172,21 @@ class MarketplaceImportWizard(models.TransientModel):
         raw = base64.b64decode(self.file_data)
         name = (self.filename or "").lower()
 
+        # Auto-derive brand + shop from a filename of the shape
+        # "<Platform>_<Brand>[_<Word>...] <Date> <Shift> Automation.xlsx".
+        # Real Shopee/Lazada/TikTok exports don't carry a brand column,
+        # but our internal naming convention encodes it in the filename.
+        derived_brand = None
+        derived_shop = None
+        if self.filename:
+            # Tokenise on whitespace — first token holds platform_brand.
+            stem = self.filename.rsplit(".", 1)[0]
+            head = stem.split(" ", 1)[0]
+            parts = head.split("_")
+            if len(parts) >= 2:
+                derived_shop = "_".join(parts[1:])
+                derived_brand = derived_shop  # often equal — UI can override
+
         if name.endswith(".csv"):
             text = raw.decode("utf-8-sig")
             rdr = csv.reader(io.StringIO(text))
@@ -149,9 +212,9 @@ class MarketplaceImportWizard(models.TransientModel):
             header = [_normalize(c) for c in header_row]
             data = [r for r in iter_ if any(c is not None for c in r)]
 
-        # Resolve column indexes.
+        # Resolve column indexes (case + punctuation insensitive).
         col = {}
-        for logical, aliases in _COL_ALIASES.items():
+        for logical, aliases in _COL_ALIASES_NORM.items():
             for i, h in enumerate(header):
                 if h in aliases:
                     col[logical] = i
@@ -159,9 +222,21 @@ class MarketplaceImportWizard(models.TransientModel):
 
         for required in ("order_sn", "sku", "qty"):
             if required not in col:
+                # Show both the accepted aliases and the columns we
+                # actually saw — much easier to fix the file.
                 raise UserError(_(
-                    "Required column missing: %s.  Accepted aliases: %s",
-                ) % (required, ", ".join(_COL_ALIASES[required])))
+                    "Required column missing: %(name)s.\n\n"
+                    "Accepted aliases (case-insensitive): %(aliases)s\n\n"
+                    "Columns found in your file: %(found)s\n\n"
+                    "Fix: rename one of your columns to any accepted "
+                    "alias, or add a new alias to _COL_ALIASES in "
+                    "kob_marketplace_import/wizards/"
+                    "marketplace_import_wizard.py.",
+                ) % {
+                    "name": required,
+                    "aliases": ", ".join(_COL_ALIASES[required]),
+                    "found": ", ".join(repr(h) for h in header) or "(empty)",
+                })
 
         records = []
         for r in data:
@@ -173,7 +248,7 @@ class MarketplaceImportWizard(models.TransientModel):
                 "shop": (
                     str(r[col["shop"]]).strip()
                     if "shop" in col and r[col["shop"]]
-                    else None
+                    else derived_shop
                 ),
                 "order_date": (
                     r[col["order_date"]]
@@ -183,7 +258,8 @@ class MarketplaceImportWizard(models.TransientModel):
                 "qty": float(r[col["qty"]] or 0),
                 "brand": (
                     str(r[col["brand"]]).strip()
-                    if "brand" in col and r[col["brand"]] else None
+                    if "brand" in col and r[col["brand"]]
+                    else derived_brand
                 ),
                 "fake": _to_bool(r[col["fake"]]) if "fake" in col else False,
                 "price": float(r[col["price"]] or 0)

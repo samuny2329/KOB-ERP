@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ==========================================================
+         KOB Marketplace Filters
+         Inherits Odoo's Sales + Picking search views to add filters
+         that slice marketplace order data the way warehouse +
+         e-commerce teams actually use it:
+           * Platform — Shopee / Lazada / TikTok (matches partner.name
+             pattern set by the import wizard).
+           * Brand    — KissMyBody / Skinoxy / DaengGiMeoRi / etc.
+           * Shift    — รอบเช้า (morning) vs รอบบ่าย (afternoon)
+             matched by source_id name pattern.
+         ========================================================== -->
+
+    <!-- ── Sale Order ────────────────────────────────────────── -->
+    <record id="sale_order_search_view_kob_filter" model="ir.ui.view">
+        <field name="name">sale.order.search.kob.filter</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <separator/>
+                <!-- Platform filters -->
+                <filter string="Shopee" name="kob_platform_shopee"
+                        domain="[('partner_id.name', 'ilike', 'SHOPEE')]"/>
+                <filter string="Lazada" name="kob_platform_lazada"
+                        domain="[('partner_id.name', 'ilike', 'LAZADA')]"/>
+                <filter string="TikTok" name="kob_platform_tiktok"
+                        domain="[('partner_id.name', 'ilike', 'TIKTOK')]"/>
+                <separator/>
+                <!-- Brand filters (the four KOB house brands) -->
+                <filter string="KissMyBody" name="kob_brand_kmb"
+                        domain="[('source_id.name', 'ilike', 'KissMyBody')]"/>
+                <filter string="Skinoxy" name="kob_brand_skinoxy"
+                        domain="[('source_id.name', 'ilike', 'Skinoxy')]"/>
+                <filter string="DaengGiMeoRi" name="kob_brand_dgmr"
+                        domain="[('source_id.name', 'ilike', 'DaengGiMeoRi')]"/>
+                <filter string="Smile Box" name="kob_brand_smile_box"
+                        domain="[('source_id.name', 'ilike', 'Smile_Box')]"/>
+                <separator/>
+                <!-- Group-by helpers -->
+                <filter string="Group by Platform"
+                        name="g_platform"
+                        context="{'group_by': 'partner_id'}"/>
+                <filter string="Group by Source / Shop"
+                        name="g_source"
+                        context="{'group_by': 'source_id'}"/>
+                <filter string="Group by Order Date"
+                        name="g_order_date"
+                        context="{'group_by': 'date_order:day'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- ── Stock Picking (Outbound) ──────────────────────────── -->
+    <record id="stock_picking_search_view_kob_filter" model="ir.ui.view">
+        <field name="name">stock.picking.search.kob.filter</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <separator/>
+                <filter string="Marketplace Pickings"
+                        name="kob_marketplace"
+                        domain="[('x_kob_source_ref', '!=', False)]"/>
+                <filter string="Shopee" name="kob_pick_shopee"
+                        domain="[('x_kob_source_ref.name', 'ilike', 'Shopee')]"/>
+                <filter string="Lazada" name="kob_pick_lazada"
+                        domain="[('x_kob_source_ref.name', 'ilike', 'Lazada')]"/>
+                <filter string="TikTok" name="kob_pick_tiktok"
+                        domain="[('x_kob_source_ref.name', 'ilike', 'TikTok')]"/>
+                <separator/>
+                <filter string="Stock Available"
+                        name="kob_avail_full"
+                        domain="[('x_kob_products_availability', '=', 'Available')]"/>
+                <filter string="Partial Stock"
+                        name="kob_avail_partial"
+                        domain="[('x_kob_products_availability', '=', 'Partial')]"/>
+                <filter string="Out of Stock"
+                        name="kob_avail_out"
+                        domain="[('x_kob_products_availability', '=', 'Out of stock')]"/>
+                <separator/>
+                <filter string="Real Order" name="kob_real"
+                        domain="[('x_kob_fake_order', '=', False)]"/>
+                <filter string="Fake / Test Order" name="kob_fake"
+                        domain="[('x_kob_fake_order', '=', True)]"/>
+                <separator/>
+                <filter string="Group by Source / Shop"
+                        name="g_pick_source"
+                        context="{'group_by': 'x_kob_source_ref'}"/>
+                <filter string="Group by Order Date"
+                        name="g_pick_order_date"
+                        context="{'group_by': 'x_kob_order_date_ref:day'}"/>
+                <filter string="Group by Stock Availability"
+                        name="g_pick_avail"
+                        context="{'group_by': 'x_kob_products_availability'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
