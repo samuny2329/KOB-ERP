@@ -1,0 +1,5002 @@
+﻿[
+  {
+    "code": "101101",
+    "name": "Petty Cash",
+    "type": "asset_current"
+  },
+  {
+    "code": "101101",
+    "name": "Petty Cash",
+    "type": "asset_current"
+  },
+  {
+    "code": "101102",
+    "name": "Cash",
+    "type": "asset_cash"
+  },
+  {
+    "code": "101102",
+    "name": "Cash",
+    "type": "asset_cash"
+  },
+  {
+    "code": "101201",
+    "name": "KOB SA SCB 078-2-36509-3",
+    "type": "asset_cash"
+  },
+  {
+    "code": "101202",
+    "name": "KOB SA KBANK #770-2-24065-9",
+    "type": "asset_cash"
+  },
+  {
+    "code": "101203",
+    "name": "KOB SA BAY #474-1-10780-3",
+    "type": "asset_cash"
+  },
+  {
+    "code": "101204",
+    "name": "KOB SA BBL #063-0-40384-8",
+    "type": "asset_cash"
+  },
+  {
+    "code": "101216",
+    "name": "BTV SA SCB #089-2-75084-5",
+    "type": "asset_cash"
+  },
+  {
+    "code": "101217",
+    "name": "BTV SA KBANK #010-1-53637-8",
+    "type": "asset_cash"
+  },
+  {
+    "code": "101218",
+    "name": "BTV SA GSB #020-2-56027-754",
+    "type": "asset_cash"
+  },
+  {
+    "code": "101219",
+    "name": "BTV SA KBANK #032-1-87225-5",
+    "type": "asset_cash"
+  },
+  {
+    "code": "101220",
+    "name": "BTV SA EXIM #201-2-00200-1",
+    "type": "asset_cash"
+  },
+  {
+    "code": "101221",
+    "name": "BTV SA BBL #063-0-47566-3",
+    "type": "asset_cash"
+  },
+  {
+    "code": "101251",
+    "name": "KOB CA SCB #078-3-02268-0",
+    "type": "asset_cash"
+  },
+  {
+    "code": "101252",
+    "name": "KOB CA KBANK #770-1-00355-6",
+    "type": "asset_cash"
+  },
+  {
+    "code": "101253",
+    "name": "KOB CA BAY #474-0-00428-2",
+    "type": "asset_cash"
+  },
+  {
+    "code": "101254",
+    "name": "KOB CA BBL #063-3-02189-4",
+    "type": "asset_cash"
+  },
+  {
+    "code": "101255",
+    "name": "KOB CA EXIM BANK #201-1-00929-299",
+    "type": "asset_cash"
+  },
+  {
+    "code": "101266",
+    "name": "BTV CA SCB #089-3-02190-6",
+    "type": "asset_cash"
+  },
+  {
+    "code": "101267",
+    "name": "BTV CA KBANK #010-1-53893-1",
+    "type": "asset_cash"
+  },
+  {
+    "code": "101268",
+    "name": "BTV CA KBANK #xxx-x-xx853-7",
+    "type": "asset_cash"
+  },
+  {
+    "code": "101269",
+    "name": "BTV CA EXIM BANK #201-1-01086-2",
+    "type": "asset_cash"
+  },
+  {
+    "code": "101275",
+    "name": "BTV CA KBANK #032-1-87353-7",
+    "type": "asset_cash"
+  },
+  {
+    "code": "101276",
+    "name": "BTV CA BBL #063-3-02614-1",
+    "type": "asset_cash"
+  },
+  {
+    "code": "101277",
+    "name": "BTV CA UOB #916-3-63586-7",
+    "type": "asset_cash"
+  },
+  {
+    "code": "101278",
+    "name": "BTV SA UOB #916-1-67917-4",
+    "type": "asset_cash"
+  },
+  {
+    "code": "101298",
+    "name": "Suspend bank account",
+    "type": "asset_current"
+  },
+  {
+    "code": "101298",
+    "name": "Suspend bank account",
+    "type": "asset_current"
+  },
+  {
+    "code": "101299",
+    "name": "Bank Suspense",
+    "type": "asset_current"
+  },
+  {
+    "code": "101299",
+    "name": "Bank Suspense",
+    "type": "asset_current"
+  },
+  {
+    "code": "101301",
+    "name": "Trade Receivable - Local",
+    "type": "asset_receivable"
+  },
+  {
+    "code": "101301",
+    "name": "Trade Receivable - Local",
+    "type": "asset_receivable"
+  },
+  {
+    "code": "101302",
+    "name": "Trade Receivable - Oversea",
+    "type": "asset_receivable"
+  },
+  {
+    "code": "101302",
+    "name": "Trade Receivable - Oversea",
+    "type": "asset_receivable"
+  },
+  {
+    "code": "101303",
+    "name": "Trade Receivable - Related Companies",
+    "type": "asset_receivable"
+  },
+  {
+    "code": "101303",
+    "name": "Trade Receivable - Related Companies",
+    "type": "asset_receivable"
+  },
+  {
+    "code": "101304",
+    "name": "Trade Receivable - Consignment Local",
+    "type": "asset_receivable"
+  },
+  {
+    "code": "101304",
+    "name": "Trade Receivable - Consignment Local",
+    "type": "asset_receivable"
+  },
+  {
+    "code": "101305",
+    "name": "Trade Receivable - Consignment Oversea",
+    "type": "asset_receivable"
+  },
+  {
+    "code": "101305",
+    "name": "Trade Receivable - Consignment Oversea",
+    "type": "asset_receivable"
+  },
+  {
+    "code": "101306",
+    "name": "Trade Receivable - Other",
+    "type": "asset_receivable"
+  },
+  {
+    "code": "101306",
+    "name": "Trade Receivable - Other",
+    "type": "asset_receivable"
+  },
+  {
+    "code": "101307",
+    "name": "Post Date Cheque",
+    "type": "asset_receivable"
+  },
+  {
+    "code": "101307",
+    "name": "Post Date Cheque",
+    "type": "asset_receivable"
+  },
+  {
+    "code": "101308",
+    "name": "AR Credit Card - Related Company - BTV",
+    "type": "asset_receivable"
+  },
+  {
+    "code": "101308",
+    "name": "AR Credit Card - Related Company - KOB",
+    "type": "asset_receivable"
+  },
+  {
+    "code": "101309",
+    "name": "Trade Receivable - Temporary",
+    "type": "asset_current"
+  },
+  {
+    "code": "101400",
+    "name": "Inventories",
+    "type": "asset_current"
+  },
+  {
+    "code": "101400",
+    "name": "Inventories",
+    "type": "asset_current"
+  },
+  {
+    "code": "101401",
+    "name": "Finished Goods",
+    "type": "asset_current"
+  },
+  {
+    "code": "101401",
+    "name": "Finished Goods",
+    "type": "asset_current"
+  },
+  {
+    "code": "101402",
+    "name": "Raw Material",
+    "type": "asset_current"
+  },
+  {
+    "code": "101402",
+    "name": "Raw Material",
+    "type": "asset_current"
+  },
+  {
+    "code": "101403",
+    "name": "Packaging",
+    "type": "asset_current"
+  },
+  {
+    "code": "101403",
+    "name": "Packaging",
+    "type": "asset_current"
+  },
+  {
+    "code": "101404",
+    "name": "Bulk / Semi goods",
+    "type": "asset_current"
+  },
+  {
+    "code": "101404",
+    "name": "Bulk / Semi goods",
+    "type": "asset_current"
+  },
+  {
+    "code": "101405",
+    "name": "Semi Bulk",
+    "type": "asset_current"
+  },
+  {
+    "code": "101405",
+    "name": "Semi Bulk",
+    "type": "asset_current"
+  },
+  {
+    "code": "101406",
+    "name": "Work in process",
+    "type": "asset_current"
+  },
+  {
+    "code": "101406",
+    "name": "Work in process",
+    "type": "asset_current"
+  },
+  {
+    "code": "101407",
+    "name": "Goods In transit",
+    "type": "asset_current"
+  },
+  {
+    "code": "101407",
+    "name": "Goods In transit",
+    "type": "asset_current"
+  },
+  {
+    "code": "101408",
+    "name": "Inventory Out Transit",
+    "type": "asset_current"
+  },
+  {
+    "code": "101408",
+    "name": "Inventory Out Transit",
+    "type": "asset_current"
+  },
+  {
+    "code": "101409",
+    "name": "Packaging Transit",
+    "type": "asset_current"
+  },
+  {
+    "code": "101410",
+    "name": "Production Account",
+    "type": "asset_current"
+  },
+  {
+    "code": "101411",
+    "name": "FG-Consignment WATSON",
+    "type": "asset_current"
+  },
+  {
+    "code": "101411",
+    "name": "FG-Consignment WATSON",
+    "type": "asset_current"
+  },
+  {
+    "code": "101412",
+    "name": "FG-Consignment EVEANDBOY",
+    "type": "asset_current"
+  },
+  {
+    "code": "101412",
+    "name": "FG-Consignment EVEANDBOY",
+    "type": "asset_current"
+  },
+  {
+    "code": "101413",
+    "name": "FG-Consignment BEAUTRIUM",
+    "type": "asset_current"
+  },
+  {
+    "code": "101413",
+    "name": "FG-Consignment BEAUTRIUM",
+    "type": "asset_current"
+  },
+  {
+    "code": "101414",
+    "name": "FG-Consignment BOOTS",
+    "type": "asset_current"
+  },
+  {
+    "code": "101414",
+    "name": "FG-Consignment BOOTS",
+    "type": "asset_current"
+  },
+  {
+    "code": "101415",
+    "name": "FG-Consignment MULTY BEAUTY",
+    "type": "asset_current"
+  },
+  {
+    "code": "101415",
+    "name": "FG-Consignment MULTY BEAUTY",
+    "type": "asset_current"
+  },
+  {
+    "code": "101416",
+    "name": "FG-Consignment KONVY",
+    "type": "asset_current"
+  },
+  {
+    "code": "101416",
+    "name": "FG-Consignment KONVY",
+    "type": "asset_current"
+  },
+  {
+    "code": "101417",
+    "name": "FG-Consignment COSMEI",
+    "type": "asset_current"
+  },
+  {
+    "code": "101417",
+    "name": "FG-Consignment COSMEI",
+    "type": "asset_current"
+  },
+  {
+    "code": "101418",
+    "name": "FG-Consignment BEAUTYCOOL",
+    "type": "asset_current"
+  },
+  {
+    "code": "101418",
+    "name": "FG-Consignment BEAUTYCOOL",
+    "type": "asset_current"
+  },
+  {
+    "code": "101419",
+    "name": "FG-Consignment SC INFINIT",
+    "type": "asset_current"
+  },
+  {
+    "code": "101419",
+    "name": "FG-Consignment SC INFINIT",
+    "type": "asset_current"
+  },
+  {
+    "code": "101420",
+    "name": "FG-Consignment BETTERWAY",
+    "type": "asset_current"
+  },
+  {
+    "code": "101420",
+    "name": "FG-Consignment BETTERWAY",
+    "type": "asset_current"
+  },
+  {
+    "code": "101421",
+    "name": "FG-Consignment SCOMMERSE",
+    "type": "asset_current"
+  },
+  {
+    "code": "101421",
+    "name": "FG-Consignment SCOMMERSE",
+    "type": "asset_current"
+  },
+  {
+    "code": "101495",
+    "name": "FG-Reclassify",
+    "type": "asset_current"
+  },
+  {
+    "code": "101495",
+    "name": "FG-Reclassify",
+    "type": "asset_current"
+  },
+  {
+    "code": "101496",
+    "name": "PK-Reclassify",
+    "type": "asset_current"
+  },
+  {
+    "code": "101496",
+    "name": "PK-Reclassify",
+    "type": "asset_current"
+  },
+  {
+    "code": "101497",
+    "name": "Provision for loss on declining of value of inventories",
+    "type": "asset_current"
+  },
+  {
+    "code": "101497",
+    "name": "Provision for loss on declining of value of inventories",
+    "type": "asset_current"
+  },
+  {
+    "code": "101498",
+    "name": "Suspense for OB Inventory",
+    "type": "asset_current"
+  },
+  {
+    "code": "101498",
+    "name": "Suspense for OB Inventory",
+    "type": "asset_current"
+  },
+  {
+    "code": "101501",
+    "name": "Short Term Loan to Shareholders",
+    "type": "asset_current"
+  },
+  {
+    "code": "101501",
+    "name": "Short Term Loan to Shareholders",
+    "type": "asset_current"
+  },
+  {
+    "code": "101502",
+    "name": "Short Term Loan to Directors",
+    "type": "asset_current"
+  },
+  {
+    "code": "101502",
+    "name": "Short Term Loan to Directors",
+    "type": "asset_current"
+  },
+  {
+    "code": "101503",
+    "name": "Short Term Loan to Related Companies - KOB",
+    "type": "asset_current"
+  },
+  {
+    "code": "101503",
+    "name": "Short Term Loan to Related Companies",
+    "type": "asset_current"
+  },
+  {
+    "code": "101504",
+    "name": "Short Term Loan to Related Companies - KOB",
+    "type": "asset_current"
+  },
+  {
+    "code": "101504",
+    "name": "Short Term Loan to Related Companies - BTV",
+    "type": "asset_current"
+  },
+  {
+    "code": "101505",
+    "name": "Short Term Loan to Related Companies - NGB",
+    "type": "asset_current"
+  },
+  {
+    "code": "101505",
+    "name": "Short Term Loan to Related Companies - NGB",
+    "type": "asset_current"
+  },
+  {
+    "code": "101506",
+    "name": "Short Term Loan to Related Companies - BGV",
+    "type": "asset_current"
+  },
+  {
+    "code": "101506",
+    "name": "Short Term Loan to Related Companies - BGV",
+    "type": "asset_current"
+  },
+  {
+    "code": "101507",
+    "name": "Short Term Loan to Related Companies - KV",
+    "type": "asset_current"
+  },
+  {
+    "code": "101507",
+    "name": "Short Term Loan to Related Companies - KV",
+    "type": "asset_current"
+  },
+  {
+    "code": "101508",
+    "name": "Short Term Loan to Related Companies - B&B",
+    "type": "asset_current"
+  },
+  {
+    "code": "101508",
+    "name": "Short Term Loan to Related Companies - B&B",
+    "type": "asset_current"
+  },
+  {
+    "code": "101509",
+    "name": "Short Term Loan to Related Companies - BSL",
+    "type": "asset_current"
+  },
+  {
+    "code": "101509",
+    "name": "Short Term Loan to Related Companies - BSL",
+    "type": "asset_current"
+  },
+  {
+    "code": "101510",
+    "name": "Short Term Loan to Related Companies - YM",
+    "type": "asset_current"
+  },
+  {
+    "code": "101511",
+    "name": "Short Term Loan to Related Companies - KOL",
+    "type": "asset_current"
+  },
+  {
+    "code": "101701",
+    "name": "Accrued Revenue",
+    "type": "asset_current"
+  },
+  {
+    "code": "101701",
+    "name": "Accrued Revenue",
+    "type": "asset_current"
+  },
+  {
+    "code": "101702",
+    "name": "Accrued interest income",
+    "type": "asset_current"
+  },
+  {
+    "code": "101702",
+    "name": "Accrued interest income",
+    "type": "asset_current"
+  },
+  {
+    "code": "101703",
+    "name": "Other accrued income",
+    "type": "asset_current"
+  },
+  {
+    "code": "101703",
+    "name": "Other accrued income",
+    "type": "asset_current"
+  },
+  {
+    "code": "101704",
+    "name": "Prepaid insurance",
+    "type": "asset_current"
+  },
+  {
+    "code": "101704",
+    "name": "Prepaid insurance",
+    "type": "asset_current"
+  },
+  {
+    "code": "101705",
+    "name": "Prepaid expenses-Others",
+    "type": "asset_current"
+  },
+  {
+    "code": "101705",
+    "name": "Prepaid expenses-Others",
+    "type": "asset_current"
+  },
+  {
+    "code": "101706",
+    "name": "Advance for goods",
+    "type": "asset_current"
+  },
+  {
+    "code": "101706",
+    "name": "Advance for goods",
+    "type": "asset_current"
+  },
+  {
+    "code": "101707",
+    "name": "Advance payment-Others",
+    "type": "asset_current"
+  },
+  {
+    "code": "101707",
+    "name": "Advance payment-Others",
+    "type": "asset_current"
+  },
+  {
+    "code": "101708",
+    "name": "Input VAT",
+    "type": "asset_current"
+  },
+  {
+    "code": "101708",
+    "name": "Input VAT",
+    "type": "off_balance"
+  },
+  {
+    "code": "101709",
+    "name": "Undue Input VAT",
+    "type": "asset_current"
+  },
+  {
+    "code": "101709",
+    "name": "Undue Input VAT",
+    "type": "asset_current"
+  },
+  {
+    "code": "101710",
+    "name": "AR Revenue Department",
+    "type": "asset_current"
+  },
+  {
+    "code": "101710",
+    "name": "AR Revenue Department",
+    "type": "asset_current"
+  },
+  {
+    "code": "101711",
+    "name": "Prepaid withholding tax",
+    "type": "asset_current"
+  },
+  {
+    "code": "101711",
+    "name": "Prepaid withholding tax",
+    "type": "asset_current"
+  },
+  {
+    "code": "101712",
+    "name": "Prepaid income tax (51)",
+    "type": "asset_current"
+  },
+  {
+    "code": "101712",
+    "name": "Prepaid income tax (51)",
+    "type": "asset_current"
+  },
+  {
+    "code": "101713",
+    "name": "Cash advance",
+    "type": "asset_current"
+  },
+  {
+    "code": "101713",
+    "name": "Cash advance",
+    "type": "asset_current"
+  },
+  {
+    "code": "101714",
+    "name": "Suspend account",
+    "type": "asset_current"
+  },
+  {
+    "code": "101714",
+    "name": "Suspend account",
+    "type": "asset_current"
+  },
+  {
+    "code": "101715",
+    "name": "VAT/WHT Receivable",
+    "type": "asset_current"
+  },
+  {
+    "code": "101715",
+    "name": "VAT/WHT Receivable",
+    "type": "asset_current"
+  },
+  {
+    "code": "101716",
+    "name": "Purchase tax Pending deduction",
+    "type": "asset_current"
+  },
+  {
+    "code": "101998",
+    "name": "Trade Receivable - Other Suspense",
+    "type": "asset_current"
+  },
+  {
+    "code": "101998",
+    "name": "Trade Receivable - Other Suspense",
+    "type": "asset_current"
+  },
+  {
+    "code": "101999",
+    "name": "Trade Receivable - Related Companies Suspense",
+    "type": "asset_current"
+  },
+  {
+    "code": "101999",
+    "name": "Trade Receivable - Related Companies Suspense",
+    "type": "asset_current"
+  },
+  {
+    "code": "102000",
+    "name": "Trade Receivable - LOCAL Companies Suspense",
+    "type": "asset_current"
+  },
+  {
+    "code": "102000",
+    "name": "Trade Receivable - LOCAL Companies Suspense",
+    "type": "asset_current"
+  },
+  {
+    "code": "102001",
+    "name": "Trade Receivable - OVERSEA Companies Suspense",
+    "type": "asset_current"
+  },
+  {
+    "code": "102002",
+    "name": "Trade Receivable - CONSIGNMENT Companies Suspense",
+    "type": "asset_current"
+  },
+  {
+    "code": "102002",
+    "name": "Trade Receivable - CONSIGNMENT Companies Suspense",
+    "type": "asset_current"
+  },
+  {
+    "code": "102101",
+    "name": "Long Term Loan to Shareholders",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "102101",
+    "name": "Long Term Loan to Shareholders",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "102102",
+    "name": "Long Term Loan to Directors",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "102102",
+    "name": "Long Term Loan to Directors",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "102103",
+    "name": "Long Term Loan to Related Companies",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "102103",
+    "name": "Long Term Loan to Related Companies - KOB",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "102104",
+    "name": "Long Term Loan to Related Companies - KOB",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "102104",
+    "name": "Long Term Loan to Related Companies - BTV",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "102105",
+    "name": "Long Term Loan to Related Companies - BDD",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "102105",
+    "name": "Long Term Loan to Related Companies - BDD",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "102106",
+    "name": "Long Term Loan to Related Companies - BGV",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "102106",
+    "name": "Long Term Loan to Related Companies - BGV",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "102107",
+    "name": "Long Term Loan to Related Companies - KV",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "102107",
+    "name": "Long Term Loan to Related Companies - KV",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "102108",
+    "name": "Long Term Loan to Related Companies - B&B",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "102108",
+    "name": "Long Term Loan to Related Companies - B&B",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "102109",
+    "name": "Long Term Loan to Related Companies - BSL",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "102109",
+    "name": "Long Term Loan to Related Companies - BSL",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "102201",
+    "name": "Land",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102201",
+    "name": "Land",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102202",
+    "name": "Building",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102202",
+    "name": "Building",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102203",
+    "name": "Building Improvement",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102203",
+    "name": "Building Improvement",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102204",
+    "name": "Office Equipment",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102204",
+    "name": "Office Equipment",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102205",
+    "name": "Computer",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102205",
+    "name": "Computer",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102206",
+    "name": "Furniture and Fixture",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102206",
+    "name": "Furniture and Fixture",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102207",
+    "name": "Tool & Equipment",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102207",
+    "name": "Tool & Equipment",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102208",
+    "name": "Vehicles",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102208",
+    "name": "Vehicles",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102209",
+    "name": "Software",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102209",
+    "name": "Software",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102302",
+    "name": "Accumulated Depre - Building",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102302",
+    "name": "Accumulated Depre - Building",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102303",
+    "name": "Accumulated Depre - Building improvement",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102303",
+    "name": "Accumulated Depre - Building improvement",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102304",
+    "name": "Accumulated Depre - Office Equipment",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102304",
+    "name": "Accumulated Depre - Office Equipment",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102305",
+    "name": "Accumulated Depre - Computer",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102305",
+    "name": "Accumulated Depre - Computer",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102306",
+    "name": "Accumulated Depre - Furniture and Fixture",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102306",
+    "name": "Accumulated Depre - Furniture and Fixture",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102307",
+    "name": "Accumulated Depre - Tool & Equipment",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102307",
+    "name": "Accumulated Depre - Tool & Equipment",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102308",
+    "name": "Accumulated Depre - Vehicle",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102308",
+    "name": "Accumulated Depre - Vehicle",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102309",
+    "name": "Amortization - Software",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102309",
+    "name": "Amortization - Software",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "102310",
+    "name": "Accumulated Depre Suspense",
+    "type": "asset_fixed"
+  },
+  {
+    "code": "103001",
+    "name": "Investment in subsidiaries",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "103001",
+    "name": "Investment in subsidiaries",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "104101",
+    "name": "Deposit - Building",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "104101",
+    "name": "Deposit - Building",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "104102",
+    "name": "Other deposits",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "104102",
+    "name": "Other deposits",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "104103",
+    "name": "Other assets",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "104103",
+    "name": "Other assets",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "104104",
+    "name": "Retention",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "104104",
+    "name": "Retention",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "104105",
+    "name": "Deferred Interest expense",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "104105",
+    "name": "Deferred Interest expense",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "104106",
+    "name": "Deferred expense",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "104106",
+    "name": "Deferred expense",
+    "type": "asset_non_current"
+  },
+  {
+    "code": "110001",
+    "name": "Cash",
+    "type": "asset_cash"
+  },
+  {
+    "code": "110001",
+    "name": "Cash",
+    "type": "asset_cash"
+  },
+  {
+    "code": "111001",
+    "name": "Bank",
+    "type": "asset_cash"
+  },
+  {
+    "code": "111001",
+    "name": "Bank",
+    "type": "asset_cash"
+  },
+  {
+    "code": "1110016",
+    "name": "Suspense Account",
+    "type": "asset_cash"
+  },
+  {
+    "code": "111002",
+    "name": "Bank Suspense Account",
+    "type": "asset_current"
+  },
+  {
+    "code": "111002",
+    "name": "Bank Suspense Account",
+    "type": "asset_current"
+  },
+  {
+    "code": "111003",
+    "name": "Outstanding Receipts",
+    "type": "asset_current"
+  },
+  {
+    "code": "111003",
+    "name": "Outstanding Receipts",
+    "type": "asset_current"
+  },
+  {
+    "code": "111004",
+    "name": "Outstanding Payments Local",
+    "type": "asset_current"
+  },
+  {
+    "code": "111004",
+    "name": "Outstanding Payments Local",
+    "type": "asset_current"
+  },
+  {
+    "code": "111005",
+    "name": "Advance payment-Others (copy)",
+    "type": "asset_cash"
+  },
+  {
+    "code": "111006",
+    "name": "101201 KOB SA SCB 0782365093 (copy)",
+    "type": "asset_cash"
+  },
+  {
+    "code": "111014",
+    "name": "Outstanding Payments Oversea",
+    "type": "asset_current"
+  },
+  {
+    "code": "111014",
+    "name": "Outstanding Payments Oversea",
+    "type": "asset_current"
+  },
+  {
+    "code": "120000",
+    "name": "Account Receivable",
+    "type": "asset_receivable"
+  },
+  {
+    "code": "120000",
+    "name": "Account Receivable",
+    "type": "asset_receivable"
+  },
+  {
+    "code": "120100",
+    "name": "Outstanding Cheques",
+    "type": "liability_current"
+  },
+  {
+    "code": "120100",
+    "name": "Outstanding Cheques",
+    "type": "liability_current"
+  },
+  {
+    "code": "121000",
+    "name": "Account Receivable (PoS)",
+    "type": "asset_receivable"
+  },
+  {
+    "code": "121000",
+    "name": "Account Receivable (PoS)",
+    "type": "asset_receivable"
+  },
+  {
+    "code": "130000",
+    "name": "Inventory",
+    "type": "asset_current"
+  },
+  {
+    "code": "130000",
+    "name": "Inventory",
+    "type": "asset_current"
+  },
+  {
+    "code": "141100",
+    "name": "Accumulated Depreciation - Building",
+    "type": "expense_depreciation"
+  },
+  {
+    "code": "141100",
+    "name": "Accumulated Depreciation - Building",
+    "type": "expense_depreciation"
+  },
+  {
+    "code": "142100",
+    "name": "Accumulated Depreciation - Equipment",
+    "type": "expense_depreciation"
+  },
+  {
+    "code": "142100",
+    "name": "Accumulated Depreciation - Equipment",
+    "type": "expense_depreciation"
+  },
+  {
+    "code": "151000",
+    "name": "Input VAT",
+    "type": "asset_current"
+  },
+  {
+    "code": "151000",
+    "name": "Input VAT",
+    "type": "asset_current"
+  },
+  {
+    "code": "152000",
+    "name": "Withholding Income Tax",
+    "type": "asset_current"
+  },
+  {
+    "code": "152000",
+    "name": "Withholding Income Tax",
+    "type": "asset_current"
+  },
+  {
+    "code": "160001",
+    "name": "Liquidity Transfer",
+    "type": "asset_current"
+  },
+  {
+    "code": "160001",
+    "name": "Liquidity Transfer",
+    "type": "asset_current"
+  },
+  {
+    "code": "201100",
+    "name": "Accounts Payable-Trade",
+    "type": "liability_payable"
+  },
+  {
+    "code": "201100",
+    "name": "Accounts Payable-Trade",
+    "type": "liability_payable"
+  },
+  {
+    "code": "201101",
+    "name": "Trade Accounts Payable-Local",
+    "type": "liability_payable"
+  },
+  {
+    "code": "201101",
+    "name": "Trade Accounts Payable-Local",
+    "type": "liability_payable"
+  },
+  {
+    "code": "201102",
+    "name": "Trade Accounts Payable-Oversea",
+    "type": "liability_payable"
+  },
+  {
+    "code": "201102",
+    "name": "Trade Accounts Payable-Oversea",
+    "type": "liability_payable"
+  },
+  {
+    "code": "201103",
+    "name": "Trade Accounts Payable-Related Companies",
+    "type": "liability_payable"
+  },
+  {
+    "code": "201103",
+    "name": "Trade Accounts Payable-Related Companies",
+    "type": "liability_payable"
+  },
+  {
+    "code": "201104",
+    "name": "Trade Accounts Payable-Consignment Local",
+    "type": "liability_payable"
+  },
+  {
+    "code": "201104",
+    "name": "Trade Accounts Payable-Consignment Local",
+    "type": "liability_payable"
+  },
+  {
+    "code": "201105",
+    "name": "Trade Accounts Payable-Consignment Oversea",
+    "type": "liability_payable"
+  },
+  {
+    "code": "201105",
+    "name": "Trade Accounts Payable-Consignment Oversea",
+    "type": "liability_payable"
+  },
+  {
+    "code": "201106",
+    "name": "Trade Accounts Payable-Other",
+    "type": "liability_payable"
+  },
+  {
+    "code": "201106",
+    "name": "Trade Accounts Payable-Other",
+    "type": "liability_payable"
+  },
+  {
+    "code": "201107",
+    "name": "KOB Credit Card KBANK Payable  4652 5042 9133 4112",
+    "type": "liability_current"
+  },
+  {
+    "code": "201108",
+    "name": "KOB Credit Card KBANK Payable 4652 5042 9133 4005",
+    "type": "liability_current"
+  },
+  {
+    "code": "201109",
+    "name": "KOB Credit Card BBL Payable 4546 2900 3809 3126",
+    "type": "liability_current"
+  },
+  {
+    "code": "201201",
+    "name": "Withholding tax payable (PND.1)",
+    "type": "liability_current"
+  },
+  {
+    "code": "201201",
+    "name": "Withholding tax payable (PND.1)",
+    "type": "liability_current"
+  },
+  {
+    "code": "201202",
+    "name": "Withholding tax payable (PND.3)",
+    "type": "liability_current"
+  },
+  {
+    "code": "201202",
+    "name": "Withholding tax payable (PND.3)",
+    "type": "liability_current"
+  },
+  {
+    "code": "201203",
+    "name": "Withholding tax payable (PND.53)",
+    "type": "liability_current"
+  },
+  {
+    "code": "201203",
+    "name": "Withholding tax payable (PND.53)",
+    "type": "liability_current"
+  },
+  {
+    "code": "201204",
+    "name": "Withholding tax payable (PND.54)",
+    "type": "liability_current"
+  },
+  {
+    "code": "201204",
+    "name": "Withholding tax payable (PND.54)",
+    "type": "liability_current"
+  },
+  {
+    "code": "201205",
+    "name": "Withholding tax payable (PP.36)",
+    "type": "liability_current"
+  },
+  {
+    "code": "201205",
+    "name": "Withholding tax payable (PP.36)",
+    "type": "liability_current"
+  },
+  {
+    "code": "201206",
+    "name": "AP Revenue Department",
+    "type": "liability_payable"
+  },
+  {
+    "code": "201206",
+    "name": "AP Revenue Department",
+    "type": "liability_current"
+  },
+  {
+    "code": "201207",
+    "name": "Accrued Social  Security",
+    "type": "liability_current"
+  },
+  {
+    "code": "201207",
+    "name": "Accrued Social  Security",
+    "type": "liability_current"
+  },
+  {
+    "code": "201208",
+    "name": "Accrued Income Tax (50)",
+    "type": "liability_current"
+  },
+  {
+    "code": "201208",
+    "name": "Accrued Income Tax (50)",
+    "type": "liability_current"
+  },
+  {
+    "code": "201209",
+    "name": "Output VAT",
+    "type": "liability_current"
+  },
+  {
+    "code": "201209",
+    "name": "Output VAT",
+    "type": "liability_current"
+  },
+  {
+    "code": "201210",
+    "name": "Undue output VAT",
+    "type": "liability_current"
+  },
+  {
+    "code": "201210",
+    "name": "Undue output VAT",
+    "type": "liability_current"
+  },
+  {
+    "code": "201211",
+    "name": "Accrued Purchases",
+    "type": "liability_current"
+  },
+  {
+    "code": "201211",
+    "name": "Accrued Purchases",
+    "type": "liability_current"
+  },
+  {
+    "code": "201301",
+    "name": "Promissory Notes : KOB : SCB 15M P/N 90Days MLR",
+    "type": "liability_current"
+  },
+  {
+    "code": "201302",
+    "name": "Promissory Notes : KOB : SCB 12M P/N 90Days MLR-0.25%",
+    "type": "liability_current"
+  },
+  {
+    "code": "201311",
+    "name": "Promissory Notes : BTV : SCB 5M P/N 150Days MLR",
+    "type": "liability_current"
+  },
+  {
+    "code": "201401",
+    "name": "Short term loans from shareholder",
+    "type": "liability_current"
+  },
+  {
+    "code": "201401",
+    "name": "Short term loans from shareholder",
+    "type": "liability_current"
+  },
+  {
+    "code": "201402",
+    "name": "Short term loans from directors",
+    "type": "liability_current"
+  },
+  {
+    "code": "201402",
+    "name": "Short term loans from directors",
+    "type": "liability_current"
+  },
+  {
+    "code": "201403",
+    "name": "Short term loans from Related Companies - KOB",
+    "type": "liability_current"
+  },
+  {
+    "code": "201403",
+    "name": "Short term loans from Related Companies",
+    "type": "liability_current"
+  },
+  {
+    "code": "201404",
+    "name": "Short term loans from Related Companies - BTV",
+    "type": "liability_current"
+  },
+  {
+    "code": "201404",
+    "name": "Short term loans from Related Companies - KOB",
+    "type": "liability_current"
+  },
+  {
+    "code": "201405",
+    "name": "Short term loans from Related Companies - NGB",
+    "type": "liability_current"
+  },
+  {
+    "code": "201405",
+    "name": "Short term loans from Related Companies - NGB",
+    "type": "liability_current"
+  },
+  {
+    "code": "201406",
+    "name": "Short term loans from Related Companies - BGV",
+    "type": "liability_current"
+  },
+  {
+    "code": "201406",
+    "name": "Short term loans from Related Companies - BGV",
+    "type": "liability_current"
+  },
+  {
+    "code": "201407",
+    "name": "Short term loans from Related Companies - KV",
+    "type": "liability_current"
+  },
+  {
+    "code": "201407",
+    "name": "Short term loans from Related Companies - KV",
+    "type": "liability_current"
+  },
+  {
+    "code": "201408",
+    "name": "Short term loans from Related Companies - B&B",
+    "type": "liability_current"
+  },
+  {
+    "code": "201408",
+    "name": "Short term loans from Related Companies - B&B",
+    "type": "liability_current"
+  },
+  {
+    "code": "201409",
+    "name": "Short term loans from Related Companies - BSL",
+    "type": "liability_current"
+  },
+  {
+    "code": "201409",
+    "name": "Short term loans from Related Companies - BSL",
+    "type": "liability_current"
+  },
+  {
+    "code": "201501",
+    "name": "Long Term Loans Due Within 1 Year",
+    "type": "liability_current"
+  },
+  {
+    "code": "201501",
+    "name": "Long Term Loans Due Within 1 Year",
+    "type": "liability_current"
+  },
+  {
+    "code": "201601",
+    "name": "LC / TR : KOB : SCB 12M LC/TR 150 Days",
+    "type": "liability_current"
+  },
+  {
+    "code": "201602",
+    "name": "LC / TR : KOB : KBANK 12M LC/TR 150 Days",
+    "type": "liability_current"
+  },
+  {
+    "code": "201611",
+    "name": "LC / TR : BTV : SCB 5M LC/TR 150 Days",
+    "type": "liability_current"
+  },
+  {
+    "code": "201612",
+    "name": "LC / TR : BTV : KBANK 18M LC/TR 180 Days",
+    "type": "liability_current"
+  },
+  {
+    "code": "201613",
+    "name": "LC / TR : BTV : UOB 3M LC/TR 180 Days",
+    "type": "liability_current"
+  },
+  {
+    "code": "201701",
+    "name": "Accrued expense-Others",
+    "type": "liability_current"
+  },
+  {
+    "code": "201701",
+    "name": "Accrued expense-Others",
+    "type": "liability_current"
+  },
+  {
+    "code": "201702",
+    "name": "Prepaid Cheque",
+    "type": "liability_current"
+  },
+  {
+    "code": "201702",
+    "name": "Prepaid Cheque",
+    "type": "liability_current"
+  },
+  {
+    "code": "201703",
+    "name": "Accrued royalty fee",
+    "type": "liability_current"
+  },
+  {
+    "code": "201703",
+    "name": "Accrued royalty fee",
+    "type": "liability_current"
+  },
+  {
+    "code": "201704",
+    "name": "Accrued interest expense",
+    "type": "liability_current"
+  },
+  {
+    "code": "201704",
+    "name": "Accrued interest expense",
+    "type": "liability_current"
+  },
+  {
+    "code": "201705",
+    "name": "Other payables-Local",
+    "type": "liability_current"
+  },
+  {
+    "code": "201705",
+    "name": "Other payables-Local",
+    "type": "liability_current"
+  },
+  {
+    "code": "201706",
+    "name": "Other payables-Oversea",
+    "type": "liability_current"
+  },
+  {
+    "code": "201706",
+    "name": "Other payables-Oversea",
+    "type": "liability_current"
+  },
+  {
+    "code": "201707",
+    "name": "Other Accounts Payable-Employees",
+    "type": "liability_current"
+  },
+  {
+    "code": "201707",
+    "name": "Other Accounts Payable-Employees",
+    "type": "liability_payable"
+  },
+  {
+    "code": "201708",
+    "name": "Deposit Received from customers",
+    "type": "liability_current"
+  },
+  {
+    "code": "201708",
+    "name": "Deposit Received from customers",
+    "type": "liability_current"
+  },
+  {
+    "code": "201709",
+    "name": "Provident fund payable",
+    "type": "liability_current"
+  },
+  {
+    "code": "201709",
+    "name": "Provident fund payable",
+    "type": "liability_current"
+  },
+  {
+    "code": "201710",
+    "name": "Deferred Revenue - Customers",
+    "type": "liability_current"
+  },
+  {
+    "code": "201710",
+    "name": "Deferred Revenue - Customers",
+    "type": "liability_current"
+  },
+  {
+    "code": "201711",
+    "name": "Deferred Revenue - Related Companies",
+    "type": "liability_current"
+  },
+  {
+    "code": "201711",
+    "name": "Deferred Revenue - Related Companies",
+    "type": "liability_current"
+  },
+  {
+    "code": "201712",
+    "name": "AP Credit Card",
+    "type": "liability_current"
+  },
+  {
+    "code": "201712",
+    "name": "AP Credit Card",
+    "type": "liability_current"
+  },
+  {
+    "code": "201713",
+    "name": "AP Credit Card - Related Companies - BTV",
+    "type": "liability_current"
+  },
+  {
+    "code": "201713",
+    "name": "AP Credit Card - Related Companies - KOB",
+    "type": "liability_current"
+  },
+  {
+    "code": "201993",
+    "name": "AP Revenue Department Suspense",
+    "type": "liability_current"
+  },
+  {
+    "code": "201993",
+    "name": "AP Revenue Department Suspense",
+    "type": "liability_current"
+  },
+  {
+    "code": "201994",
+    "name": "Trade Accounts Payable-Related Companies Suspense",
+    "type": "liability_current"
+  },
+  {
+    "code": "201994",
+    "name": "Trade Accounts Payable-Related Companies Suspense",
+    "type": "liability_current"
+  },
+  {
+    "code": "201995",
+    "name": "Trade Accounts Payable-Other Suspense",
+    "type": "liability_current"
+  },
+  {
+    "code": "201995",
+    "name": "Trade Accounts Payable-Other Suspense",
+    "type": "liability_current"
+  },
+  {
+    "code": "201996",
+    "name": "Trade Accounts Payable-Director Suspense",
+    "type": "liability_current"
+  },
+  {
+    "code": "201996",
+    "name": "Trade Accounts Payable-Director Suspense",
+    "type": "liability_current"
+  },
+  {
+    "code": "201997",
+    "name": "Trade Accounts payable-Advance Suspense",
+    "type": "liability_current"
+  },
+  {
+    "code": "201997",
+    "name": "Trade Accounts payable-Advance Suspense",
+    "type": "liability_current"
+  },
+  {
+    "code": "201998",
+    "name": "Trade Accounts Payable-Oversea Suspense",
+    "type": "liability_current"
+  },
+  {
+    "code": "201998",
+    "name": "Trade Accounts Payable-Oversea Suspense",
+    "type": "liability_current"
+  },
+  {
+    "code": "201999",
+    "name": "Trade Accounts Payable-Local Suspense",
+    "type": "liability_current"
+  },
+  {
+    "code": "201999",
+    "name": "Trade Accounts Payable-Local Suspense",
+    "type": "liability_current"
+  },
+  {
+    "code": "202101",
+    "name": "Long- term loans from shareholder",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "202101",
+    "name": "Long- term loans from shareholder",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "202102",
+    "name": "Long Term Loan from director",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "202102",
+    "name": "Long Term Loan from director",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "202103",
+    "name": "Long- term loans from Related Companies - KOB",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "202103",
+    "name": "Long- term loans from Related Companies",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "202104",
+    "name": "Long- term loans from Related Companies - BTV",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "202104",
+    "name": "Long- term loans from Related Companies - KOB",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "202105",
+    "name": "Long- term loans from Related Companies - BDD",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "202105",
+    "name": "Long- term loans from Related Companies - BDD",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "202106",
+    "name": "Long- term loans from Related Companies - BGV",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "202106",
+    "name": "Long- term loans from Related Companies - BGV",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "202107",
+    "name": "Long- term loans from Related Companies - KV",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "202107",
+    "name": "Long- term loans from Related Companies - KV",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "202108",
+    "name": "Long- term loans from Related Companies - B&B",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "202108",
+    "name": "Long- term loans from Related Companies - B&B",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "202109",
+    "name": "Long- term loans from Related Companies - BSL",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "202109",
+    "name": "Long- term loans from Related Companies - BSL",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "202207",
+    "name": "Long-term loans from financial institutes : KOB : KBANK 6.5M JUL20 2Y MLR-1.60%+3Y MLR-1.00%",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "202209",
+    "name": "Long-term loans from financial institutes : KOB : EXIM 24.12.20 3M",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "202210",
+    "name": "Long-term loans from financial institutes : KOB : SCB 13.24M BOT JUN14-21 2.00%",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "202211",
+    "name": "Long-term loans from financial institutes : KOB : KIATNAKIN 5M Mar-23 1%",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "202212",
+    "name": "Long-term loans from financial institutes : KOB : SCB 15M BOT 7year MRL-6.35%",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "202213",
+    "name": "Long-term loans from financial institutes : KOB : THAI CREDIT 7.453M",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "202221",
+    "name": "Long-term loans from financial institutes : BTV : SCB 0.3M 5Yrs Credit Insurance MLR+0.75% 6,200PMT",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "202222",
+    "name": "Long-term loans from financial institutes : BTV : EXIM 24.12.20 3M",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "202223",
+    "name": "Long-term loans from financial institutes : BTV : SCB 7.59M BOT JUN14-21 - 2.00%",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "202224",
+    "name": "Long-term loans from financial institutes : BTV : THAI CREDIT 10.336M BOT",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "202225",
+    "name": "Long-term loans from financial institutes : BTV : EXIM 0.6 M",
+    "type": "liability_current"
+  },
+  {
+    "code": "202226",
+    "name": "Long-term loans from financial institutes : BTV : THAI CREDIT 1.5M",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "202301",
+    "name": "AP Leasing",
+    "type": "liability_payable"
+  },
+  {
+    "code": "202301",
+    "name": "AP Leasing",
+    "type": "liability_payable"
+  },
+  {
+    "code": "203001",
+    "name": "Provisions : Employee benefits",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "203001",
+    "name": "Provisions : Employee benefits",
+    "type": "liability_non_current"
+  },
+  {
+    "code": "210100",
+    "name": "Account Payable",
+    "type": "liability_payable"
+  },
+  {
+    "code": "210100",
+    "name": "Account Payable",
+    "type": "liability_payable"
+  },
+  {
+    "code": "210200",
+    "name": "Accrued Expenses",
+    "type": "liability_current"
+  },
+  {
+    "code": "210200",
+    "name": "Accrued Expenses",
+    "type": "liability_current"
+  },
+  {
+    "code": "210300",
+    "name": "Uninvoiced Receipts",
+    "type": "liability_current"
+  },
+  {
+    "code": "210300",
+    "name": "Uninvoiced Receipts",
+    "type": "liability_current"
+  },
+  {
+    "code": "220000",
+    "name": "Loans",
+    "type": "liability_current"
+  },
+  {
+    "code": "220000",
+    "name": "Loans",
+    "type": "liability_current"
+  },
+  {
+    "code": "231000",
+    "name": "Output VAT",
+    "type": "liability_current"
+  },
+  {
+    "code": "231000",
+    "name": "Output VAT",
+    "type": "liability_current"
+  },
+  {
+    "code": "2310001",
+    "name": "VAT/WHT Payable",
+    "type": "liability_current"
+  },
+  {
+    "code": "231001",
+    "name": "VAT/WHT Payable",
+    "type": "liability_current"
+  },
+  {
+    "code": "232000",
+    "name": "Withholding Tax",
+    "type": "liability_current"
+  },
+  {
+    "code": "232000",
+    "name": "Withholding Tax",
+    "type": "liability_current"
+  },
+  {
+    "code": "300101",
+    "name": "Authorized Share Capital",
+    "type": "equity"
+  },
+  {
+    "code": "300101",
+    "name": "Authorized Share Capital",
+    "type": "equity"
+  },
+  {
+    "code": "300102",
+    "name": "Issued and Paid-up Share Capital",
+    "type": "equity"
+  },
+  {
+    "code": "300102",
+    "name": "Issued and Paid-up Share Capital",
+    "type": "equity"
+  },
+  {
+    "code": "300103",
+    "name": "Premium on Share Capital",
+    "type": "equity"
+  },
+  {
+    "code": "300103",
+    "name": "Premium on Share Capital",
+    "type": "equity"
+  },
+  {
+    "code": "300201",
+    "name": "Retained Earnings(Deficit)",
+    "type": "equity"
+  },
+  {
+    "code": "300201",
+    "name": "Retained Earnings(Deficit)",
+    "type": "equity"
+  },
+  {
+    "code": "300202",
+    "name": "Net Profit (Loss)",
+    "type": "equity"
+  },
+  {
+    "code": "300202",
+    "name": "Net Profit (Loss)",
+    "type": "equity"
+  },
+  {
+    "code": "300203",
+    "name": "Dividend",
+    "type": "equity"
+  },
+  {
+    "code": "300203",
+    "name": "Dividend",
+    "type": "equity"
+  },
+  {
+    "code": "300204",
+    "name": "Legal Reserved",
+    "type": "equity"
+  },
+  {
+    "code": "300204",
+    "name": "Legal Reserved",
+    "type": "equity"
+  },
+  {
+    "code": "310000",
+    "name": "Capital Stock",
+    "type": "equity"
+  },
+  {
+    "code": "310000",
+    "name": "Capital Stock",
+    "type": "equity"
+  },
+  {
+    "code": "320000",
+    "name": "Retained Earnings",
+    "type": "equity"
+  },
+  {
+    "code": "320000",
+    "name": "Retained Earnings",
+    "type": "equity"
+  },
+  {
+    "code": "330000",
+    "name": "Dividends",
+    "type": "equity"
+  },
+  {
+    "code": "330000",
+    "name": "Dividends",
+    "type": "equity"
+  },
+  {
+    "code": "340000",
+    "name": "Income Summary",
+    "type": "equity"
+  },
+  {
+    "code": "340000",
+    "name": "Income Summary",
+    "type": "equity"
+  },
+  {
+    "code": "401101",
+    "name": "Sale Domestics",
+    "type": "income"
+  },
+  {
+    "code": "401101",
+    "name": "Sale Domestics",
+    "type": "income"
+  },
+  {
+    "code": "401102",
+    "name": "Sale Overseas",
+    "type": "income"
+  },
+  {
+    "code": "401102",
+    "name": "Sale Overseas",
+    "type": "income"
+  },
+  {
+    "code": "401104",
+    "name": "Sales Return",
+    "type": "income"
+  },
+  {
+    "code": "401104",
+    "name": "Sales Return",
+    "type": "income"
+  },
+  {
+    "code": "401105",
+    "name": "Sales Discount",
+    "type": "income"
+  },
+  {
+    "code": "401105",
+    "name": "Sales Discount",
+    "type": "income"
+  },
+  {
+    "code": "401109",
+    "name": "Sales Adjusment Ekachai",
+    "type": "income"
+  },
+  {
+    "code": "401109",
+    "name": "Sales Adjusment Ekachai",
+    "type": "income"
+  },
+  {
+    "code": "401111",
+    "name": "Sales - Related Companies",
+    "type": "income"
+  },
+  {
+    "code": "401111",
+    "name": "Sales - Related Companies",
+    "type": "income"
+  },
+  {
+    "code": "401112",
+    "name": "Sales Service - Related Companies",
+    "type": "income"
+  },
+  {
+    "code": "401112",
+    "name": "Sales Service - Related Companies",
+    "type": "income"
+  },
+  {
+    "code": "401113",
+    "name": "Sales Return - Related Companies",
+    "type": "income"
+  },
+  {
+    "code": "401113",
+    "name": "Sales Return - Related Companies",
+    "type": "income"
+  },
+  {
+    "code": "401121",
+    "name": "Sales Consignment",
+    "type": "income"
+  },
+  {
+    "code": "401121",
+    "name": "Sales Consignment",
+    "type": "income"
+  },
+  {
+    "code": "405101",
+    "name": "Service Fees",
+    "type": "income_other"
+  },
+  {
+    "code": "405101",
+    "name": "Service Fees",
+    "type": "income_other"
+  },
+  {
+    "code": "405102",
+    "name": "Logistics Fees",
+    "type": "income_other"
+  },
+  {
+    "code": "405102",
+    "name": "Logistics Fees",
+    "type": "income_other"
+  },
+  {
+    "code": "405103",
+    "name": "Operating Fees",
+    "type": "income_other"
+  },
+  {
+    "code": "405103",
+    "name": "Operating Fees",
+    "type": "income_other"
+  },
+  {
+    "code": "405104",
+    "name": "Repacking",
+    "type": "income_other"
+  },
+  {
+    "code": "405104",
+    "name": "Repacking",
+    "type": "income_other"
+  },
+  {
+    "code": "405105",
+    "name": "Other service revenues",
+    "type": "income_other"
+  },
+  {
+    "code": "405105",
+    "name": "Platform Commission",
+    "type": "income_other"
+  },
+  {
+    "code": "405106",
+    "name": "Social Partner (Bonus)",
+    "type": "income_other"
+  },
+  {
+    "code": "405106",
+    "name": "Scrap Sales",
+    "type": "income_other"
+  },
+  {
+    "code": "405107",
+    "name": "Rental income",
+    "type": "income_other"
+  },
+  {
+    "code": "405107",
+    "name": "Rental income",
+    "type": "income_other"
+  },
+  {
+    "code": "405108",
+    "name": "Returns from investment",
+    "type": "income_other"
+  },
+  {
+    "code": "405108",
+    "name": "Returns from investment",
+    "type": "income_other"
+  },
+  {
+    "code": "405109",
+    "name": "Management & Consulting Fees",
+    "type": "income_other"
+  },
+  {
+    "code": "405109",
+    "name": "Management & Consulting Fees",
+    "type": "income_other"
+  },
+  {
+    "code": "405110",
+    "name": "Other Income",
+    "type": "income_other"
+  },
+  {
+    "code": "405110",
+    "name": "Other Income",
+    "type": "income_other"
+  },
+  {
+    "code": "405111",
+    "name": "Interest income",
+    "type": "income_other"
+  },
+  {
+    "code": "405111",
+    "name": "Interest income",
+    "type": "income_other"
+  },
+  {
+    "code": "405112",
+    "name": "Interest income - Related Companies",
+    "type": "income_other"
+  },
+  {
+    "code": "405112",
+    "name": "Interest income - Related Companies",
+    "type": "income_other"
+  },
+  {
+    "code": "405113",
+    "name": "Gain(loss) from sale fixed assets",
+    "type": "income_other"
+  },
+  {
+    "code": "405113",
+    "name": "Gain(loss) from sale fixed assets",
+    "type": "income_other"
+  },
+  {
+    "code": "405114",
+    "name": "Gain(loss) from foreign exchange rate",
+    "type": "income_other"
+  },
+  {
+    "code": "405114",
+    "name": "Gain(loss) from foreign exchange rate",
+    "type": "income_other"
+  },
+  {
+    "code": "405115",
+    "name": "Unrealized Gain(loss) from foreign exchange rate ",
+    "type": "income_other"
+  },
+  {
+    "code": "405115",
+    "name": "Unrealized Gain(loss) from foreign exchange rate ",
+    "type": "income_other"
+  },
+  {
+    "code": "405198",
+    "name": "Other Income - Related Companies",
+    "type": "income_other"
+  },
+  {
+    "code": "405198",
+    "name": "Other Income - Related Companies",
+    "type": "income_other"
+  },
+  {
+    "code": "410000",
+    "name": "Income",
+    "type": "income"
+  },
+  {
+    "code": "410000",
+    "name": "Income",
+    "type": "income"
+  },
+  {
+    "code": "420000",
+    "name": "Gain Account",
+    "type": "income_other"
+  },
+  {
+    "code": "420000",
+    "name": "Gain Account",
+    "type": "income_other"
+  },
+  {
+    "code": "501101",
+    "name": "Cost of sales - External",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "501101",
+    "name": "Cost of sales - External",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "501102",
+    "name": "Cost of sales - Related Companies",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "501102",
+    "name": "Cost of sales - Related Companies",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "501103",
+    "name": "Cost of sales - Consignment",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "501103",
+    "name": "Cost of sales - Consignment",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "501111",
+    "name": "Cost of sales - Consignment WATSON",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "501111",
+    "name": "Cost of sales - Consignment WATSON",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "501112",
+    "name": "Cost of sales - Consignment EVEANDBOY",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "501112",
+    "name": "Cost of sales - Consignment EVEANDBOY",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "501113",
+    "name": "Cost of sales - Consignment BEAUTRIUM",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "501113",
+    "name": "Cost of sales - Consignment BEAUTRIUM",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "501114",
+    "name": "Cost of sales - Consignment BOOTS",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "501114",
+    "name": "Cost of sales - Consignment BOOTS",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "501115",
+    "name": "Cost of sales - Consignment MULTY BEAUTY",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "501115",
+    "name": "Cost of sales - Consignment MULTY BEAUTY",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "501116",
+    "name": "Cost of sales - Consignment KONVY",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "501116",
+    "name": "Cost of sales - Consignment KONVY",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "501117",
+    "name": "Cost of sales - Consignment COSMEI",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "501117",
+    "name": "Cost of sales - Consignment COSMEI",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "501118",
+    "name": "Cost of sales - Consignment BEAUTYCOOL",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "501118",
+    "name": "Cost of sales - Consignment BEAUTYCOOL",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "501119",
+    "name": "Cost of sales - Consignment SC INFINIT",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "501119",
+    "name": "Cost of sales - Consignment SC INFINIT",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "501120",
+    "name": "Cost of sales - Consignment BETTERWAY",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "501120",
+    "name": "Cost of sales - Consignment BETTERWAY",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "501121",
+    "name": "Cost of sales - Consignment SCOMMERSE",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "501121",
+    "name": "Cost of sales - Consignment SCOMMERSE",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "501199",
+    "name": "Inventory - Applied",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "501199",
+    "name": "Inventory - Applied",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "510000",
+    "name": "Cost of Revenue",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "510000",
+    "name": "Cost of Revenue",
+    "type": "expense_direct_cost"
+  },
+  {
+    "code": "520100",
+    "name": "Salary",
+    "type": "expense"
+  },
+  {
+    "code": "520100",
+    "name": "Salary",
+    "type": "expense"
+  },
+  {
+    "code": "520200",
+    "name": "Rent",
+    "type": "expense"
+  },
+  {
+    "code": "520200",
+    "name": "Rent",
+    "type": "expense"
+  },
+  {
+    "code": "520300",
+    "name": "Office Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "520300",
+    "name": "Office Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "530000",
+    "name": "Interest expenses",
+    "type": "expense"
+  },
+  {
+    "code": "530000",
+    "name": "Interest expenses",
+    "type": "expense"
+  },
+  {
+    "code": "540000",
+    "name": "Income tax expenses",
+    "type": "expense"
+  },
+  {
+    "code": "540000",
+    "name": "Income tax expenses",
+    "type": "expense"
+  },
+  {
+    "code": "550000",
+    "name": "Loss Account",
+    "type": "expense"
+  },
+  {
+    "code": "550000",
+    "name": "Loss Account",
+    "type": "expense"
+  },
+  {
+    "code": "602101",
+    "name": "MKT - Advertising & Media Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "602101",
+    "name": "MKT - Advertising & Media Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "602102",
+    "name": "MKT - Production Cost",
+    "type": "expense"
+  },
+  {
+    "code": "602102",
+    "name": "MKT - Production Cost",
+    "type": "expense"
+  },
+  {
+    "code": "602103",
+    "name": "MKT - Events",
+    "type": "expense"
+  },
+  {
+    "code": "602103",
+    "name": "MKT - Events",
+    "type": "expense"
+  },
+  {
+    "code": "602104",
+    "name": "MKT - Research & Reports",
+    "type": "expense"
+  },
+  {
+    "code": "602104",
+    "name": "MKT - Research & Reports",
+    "type": "expense"
+  },
+  {
+    "code": "602105",
+    "name": "MKT - Manpower / Outsource / Agency",
+    "type": "expense"
+  },
+  {
+    "code": "602105",
+    "name": "MKT - Manpower / Outsource / Agency",
+    "type": "expense"
+  },
+  {
+    "code": "602106",
+    "name": "MKT - Merchandise and Gifts with Purchase",
+    "type": "expense"
+  },
+  {
+    "code": "602106",
+    "name": "MKT - Merchandise and Gifts with Purchase",
+    "type": "expense"
+  },
+  {
+    "code": "602107",
+    "name": "MKT - Public Relations",
+    "type": "expense"
+  },
+  {
+    "code": "602107",
+    "name": "MKT - Public Relations",
+    "type": "expense"
+  },
+  {
+    "code": "602108",
+    "name": "MKT - Logistics & In-land Fee / Postage",
+    "type": "expense"
+  },
+  {
+    "code": "602108",
+    "name": "MKT - Logistics & In-land Fee / Postage",
+    "type": "expense"
+  },
+  {
+    "code": "602109",
+    "name": "MKT - Below The Line Materials",
+    "type": "expense"
+  },
+  {
+    "code": "602109",
+    "name": "MKT - Below The Line Materials",
+    "type": "expense"
+  },
+  {
+    "code": "602110",
+    "name": "MKT - Customer Service",
+    "type": "expense"
+  },
+  {
+    "code": "602110",
+    "name": "MKT - Customer Service",
+    "type": "expense"
+  },
+  {
+    "code": "602111",
+    "name": "MKT - KOL / Influencer / Blogger",
+    "type": "expense"
+  },
+  {
+    "code": "602111",
+    "name": "MKT - KOL / Influencer / Blogger",
+    "type": "expense"
+  },
+  {
+    "code": "602112",
+    "name": "MKT - Softwares & Service Subscription",
+    "type": "expense"
+  },
+  {
+    "code": "602112",
+    "name": "MKT - Softwares & Service Subscription",
+    "type": "expense"
+  },
+  {
+    "code": "602113",
+    "name": "MKT - Content Creation Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "602113",
+    "name": "MKT - Content Creation Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "602114",
+    "name": "MKT - Creative Production Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "602114",
+    "name": "MKT - Creative Production Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "602115",
+    "name": "MKT - Graphic Designing Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "602115",
+    "name": "MKT - Graphic Designing Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "602998",
+    "name": "MKT - Other MKT Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "602998",
+    "name": "MKT - Other MKT Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "603101",
+    "name": "ECM - Platform Commission & Transaction Fees & Service Fees",
+    "type": "expense"
+  },
+  {
+    "code": "603101",
+    "name": "ECM - Platform Commission & Transaction Fees & Service Fees",
+    "type": "expense"
+  },
+  {
+    "code": "603102",
+    "name": "ECM - Media Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "603102",
+    "name": "ECM - Media Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "603103",
+    "name": "ECM - Softwares & Service Subscription",
+    "type": "expense"
+  },
+  {
+    "code": "603103",
+    "name": "ECM - Softwares & Service Subscription",
+    "type": "expense"
+  },
+  {
+    "code": "603104",
+    "name": "ECM - Online Packaging Materials",
+    "type": "expense"
+  },
+  {
+    "code": "603104",
+    "name": "ECM - Online Packaging Materials",
+    "type": "expense"
+  },
+  {
+    "code": "603105",
+    "name": "ECM - Logistics & In-land Fee / Postage",
+    "type": "expense"
+  },
+  {
+    "code": "603105",
+    "name": "ECM - Logistics & In-land Fee / Postage",
+    "type": "expense"
+  },
+  {
+    "code": "603106",
+    "name": "ECM - Influencer and Affiliate's Commission",
+    "type": "expense"
+  },
+  {
+    "code": "603106",
+    "name": "ECM - Influencer and Affiliate's Commission",
+    "type": "expense"
+  },
+  {
+    "code": "603107",
+    "name": "ECM - Influencer and Affiliate's Promotion",
+    "type": "expense"
+  },
+  {
+    "code": "603107",
+    "name": "ECM - Influencer and Affiliate's Promotion",
+    "type": "expense"
+  },
+  {
+    "code": "603108",
+    "name": "ECM - Live streaming KOL/MC Booking Expense",
+    "type": "expense"
+  },
+  {
+    "code": "603108",
+    "name": "ECM - Live streaming KOL/MC Booking Expense",
+    "type": "expense"
+  },
+  {
+    "code": "603109",
+    "name": "ECM - Online Manpower / Outsource / Agency Fees",
+    "type": "expense"
+  },
+  {
+    "code": "603109",
+    "name": "ECM - Online Manpower / Outsource / Agency Fees",
+    "type": "expense"
+  },
+  {
+    "code": "603110",
+    "name": "ECM - Online Sales Promotion",
+    "type": "expense"
+  },
+  {
+    "code": "603110",
+    "name": "ECM - Online Sales Promotion",
+    "type": "expense"
+  },
+  {
+    "code": "603111",
+    "name": "ECM - Web / App Maintenance Expense",
+    "type": "expense"
+  },
+  {
+    "code": "603111",
+    "name": "ECM - Web / App Maintenance Expense",
+    "type": "expense"
+  },
+  {
+    "code": "603112",
+    "name": "ECM - Sales Discount Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "603112",
+    "name": "ECM - Sales Discount Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "603113",
+    "name": "ECM - Entertainment Expense ",
+    "type": "expense"
+  },
+  {
+    "code": "603113",
+    "name": "ECM - Entertainment Expense ",
+    "type": "expense"
+  },
+  {
+    "code": "603114",
+    "name": "ECM - Events & Exhibitions",
+    "type": "expense"
+  },
+  {
+    "code": "603114",
+    "name": "ECM - Events & Exhibitions",
+    "type": "expense"
+  },
+  {
+    "code": "603115",
+    "name": "ECM - Refund After  Release",
+    "type": "expense"
+  },
+  {
+    "code": "603115",
+    "name": "ECM - Refund After  Release",
+    "type": "expense"
+  },
+  {
+    "code": "603116",
+    "name": "ECM - Platform Package Fee",
+    "type": "expense"
+  },
+  {
+    "code": "603117",
+    "name": "ECM - Fake Order",
+    "type": "expense"
+  },
+  {
+    "code": "603117",
+    "name": "ECM - Fake Order",
+    "type": "expense"
+  },
+  {
+    "code": "603118",
+    "name": "ECM - Outsource service",
+    "type": "expense"
+  },
+  {
+    "code": "603119",
+    "name": "ECM - Affiliate reward program",
+    "type": "expense"
+  },
+  {
+    "code": "603119",
+    "name": "ECM - Affiliate reward program",
+    "type": "expense"
+  },
+  {
+    "code": "603197",
+    "name": "ECM - Sampled Goods",
+    "type": "expense"
+  },
+  {
+    "code": "603198",
+    "name": "ECM - Other Ecommerce Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "603198",
+    "name": "ECM - Other Ecommerce Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "603199",
+    "name": "EV - Events & Exhibitions",
+    "type": "expense"
+  },
+  {
+    "code": "603201",
+    "name": "SAL - Store and Shelf Rental Expense",
+    "type": "expense"
+  },
+  {
+    "code": "603201",
+    "name": "SAL - Store and Shelf Rental Expense",
+    "type": "expense"
+  },
+  {
+    "code": "603202",
+    "name": "SAL - Trade Marketing Materials & POSM",
+    "type": "expense"
+  },
+  {
+    "code": "603202",
+    "name": "SAL - Trade Marketing Materials & POSM",
+    "type": "expense"
+  },
+  {
+    "code": "603203",
+    "name": "SAL - Conditional Rebates",
+    "type": "expense"
+  },
+  {
+    "code": "603203",
+    "name": "SAL - Conditional Rebates",
+    "type": "expense"
+  },
+  {
+    "code": "603204",
+    "name": "SAL - Price Discount Compensation",
+    "type": "expense"
+  },
+  {
+    "code": "603204",
+    "name": "SAL - Price Discount Compensation",
+    "type": "expense"
+  },
+  {
+    "code": "603205",
+    "name": "SAL - Sampled Goods",
+    "type": "expense"
+  },
+  {
+    "code": "603205",
+    "name": "SAL - Sampled Goods",
+    "type": "expense"
+  },
+  {
+    "code": "603206",
+    "name": "SAL - DC Allowance",
+    "type": "expense"
+  },
+  {
+    "code": "603206",
+    "name": "SAL - DC Allowance",
+    "type": "expense"
+  },
+  {
+    "code": "603207",
+    "name": "SAL - Listing Fees",
+    "type": "expense"
+  },
+  {
+    "code": "603207",
+    "name": "SAL - Listing Fees",
+    "type": "expense"
+  },
+  {
+    "code": "603208",
+    "name": "SAL - Service Subscription",
+    "type": "expense"
+  },
+  {
+    "code": "603208",
+    "name": "SAL - Service Subscription",
+    "type": "expense"
+  },
+  {
+    "code": "603209",
+    "name": "SAL - Traveling & Accomodation Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "603209",
+    "name": "SAL - Traveling & Accomodation Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "603210",
+    "name": "SAL - Entertainment & Gifts",
+    "type": "expense"
+  },
+  {
+    "code": "603210",
+    "name": "SAL - Entertainment & Gifts",
+    "type": "expense"
+  },
+  {
+    "code": "603211",
+    "name": "SAL - Exporting Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "603211",
+    "name": "SAL - Exporting Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "603212",
+    "name": "SAL - Logistics & In-land Fee / Postage",
+    "type": "expense"
+  },
+  {
+    "code": "603212",
+    "name": "SAL - Logistics & In-land Fee / Postage",
+    "type": "expense"
+  },
+  {
+    "code": "603213",
+    "name": "SAL - Warehouse Rental Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "603213",
+    "name": "SAL - Warehouse Rental Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "603214",
+    "name": "SAL - Warehouse insurance expenses",
+    "type": "expense"
+  },
+  {
+    "code": "603214",
+    "name": "SAL - Warehouse insurance expenses",
+    "type": "expense"
+  },
+  {
+    "code": "603215",
+    "name": "SAL - Warehouse Electricity",
+    "type": "expense"
+  },
+  {
+    "code": "603215",
+    "name": "SAL - Warehouse Electricity",
+    "type": "expense"
+  },
+  {
+    "code": "603216",
+    "name": "SAL - Warehouse Telephone",
+    "type": "expense"
+  },
+  {
+    "code": "603216",
+    "name": "SAL - Warehouse Telephone",
+    "type": "expense"
+  },
+  {
+    "code": "603217",
+    "name": "SAL - Warehouse Water Supply",
+    "type": "expense"
+  },
+  {
+    "code": "603217",
+    "name": "SAL - Warehouse Water Supply",
+    "type": "expense"
+  },
+  {
+    "code": "603218",
+    "name": "SAL - Warehouse Internet Fee",
+    "type": "expense"
+  },
+  {
+    "code": "603218",
+    "name": "SAL - Warehouse Internet Fee",
+    "type": "expense"
+  },
+  {
+    "code": "603219",
+    "name": "SAL - Warehouse Cleaning Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "603219",
+    "name": "SAL - Warehouse Cleaning Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "603220",
+    "name": "SAL - Warehouse Repair and Maintenance",
+    "type": "expense"
+  },
+  {
+    "code": "603220",
+    "name": "SAL - Warehouse Repair and Maintenance",
+    "type": "expense"
+  },
+  {
+    "code": "603221",
+    "name": "SAL - Warehouse Security Guard Expense",
+    "type": "expense"
+  },
+  {
+    "code": "603221",
+    "name": "SAL - Warehouse Security Guard Expense",
+    "type": "expense"
+  },
+  {
+    "code": "603222",
+    "name": "SAL - Vehicle Rental Services",
+    "type": "expense"
+  },
+  {
+    "code": "603222",
+    "name": "SAL - Vehicle Rental Services",
+    "type": "expense"
+  },
+  {
+    "code": "603223",
+    "name": "SAL - QC Sampling & Inspection Expense",
+    "type": "expense"
+  },
+  {
+    "code": "603223",
+    "name": "SAL - QC Sampling & Inspection Expense",
+    "type": "expense"
+  },
+  {
+    "code": "603224",
+    "name": "SAL - Penalty Expense",
+    "type": "expense"
+  },
+  {
+    "code": "603224",
+    "name": "SAL - Penalty Expense",
+    "type": "expense"
+  },
+  {
+    "code": "603225",
+    "name": "SAL - Warehouse Vehicle Maintenance Expense",
+    "type": "expense"
+  },
+  {
+    "code": "603225",
+    "name": "SAL - Warehouse Vehicle Maintenance Expense",
+    "type": "expense"
+  },
+  {
+    "code": "603226",
+    "name": "SAL - Warehouse Vehicle Fuel Expense & Express Way/Parking Fee/Taxi",
+    "type": "expense"
+  },
+  {
+    "code": "603226",
+    "name": "SAL - Warehouse Vehicle Fuel Expense & Express Way/Parking Fee/Taxi",
+    "type": "expense"
+  },
+  {
+    "code": "603227",
+    "name": "SAL - Warehouse Packing Materials",
+    "type": "expense"
+  },
+  {
+    "code": "603227",
+    "name": "SAL - Warehouse Packing Materials",
+    "type": "expense"
+  },
+  {
+    "code": "603228",
+    "name": "SAL - Events & Exhibitions",
+    "type": "expense"
+  },
+  {
+    "code": "603228",
+    "name": "SAL - Events & Exhibitions",
+    "type": "expense"
+  },
+  {
+    "code": "603229",
+    "name": "SAL - Commercial Support (TTA)",
+    "type": "expense"
+  },
+  {
+    "code": "603229",
+    "name": "SAL - Commercial Support (TTA)",
+    "type": "expense"
+  },
+  {
+    "code": "603296",
+    "name": "SAL - Inventory Write Off",
+    "type": "expense"
+  },
+  {
+    "code": "603296",
+    "name": "SAL - Inventory Write Off",
+    "type": "expense"
+  },
+  {
+    "code": "603297",
+    "name": "SAL - Gain/Loss Return Inventory",
+    "type": "expense"
+  },
+  {
+    "code": "603297",
+    "name": "SAL - Gain/Loss Return Inventory",
+    "type": "expense"
+  },
+  {
+    "code": "603301",
+    "name": "SAL - Salary & Wages",
+    "type": "expense"
+  },
+  {
+    "code": "603301",
+    "name": "SAL - Salary & Wages",
+    "type": "expense"
+  },
+  {
+    "code": "603302",
+    "name": "SAL - Staff Allowance",
+    "type": "expense"
+  },
+  {
+    "code": "603302",
+    "name": "SAL - Staff Allowance",
+    "type": "expense"
+  },
+  {
+    "code": "603303",
+    "name": "SAL - Overtime",
+    "type": "expense"
+  },
+  {
+    "code": "603303",
+    "name": "SAL - Overtime",
+    "type": "expense"
+  },
+  {
+    "code": "603304",
+    "name": "SAL - Staff Comission & Incentive",
+    "type": "expense"
+  },
+  {
+    "code": "603304",
+    "name": "SAL - Staff Comission & Incentive",
+    "type": "expense"
+  },
+  {
+    "code": "603305",
+    "name": "SAL - Worker Compensation and Social Security",
+    "type": "expense"
+  },
+  {
+    "code": "603305",
+    "name": "SAL - Worker Compensation and Social Security",
+    "type": "expense"
+  },
+  {
+    "code": "603306",
+    "name": "SAL - Contribution to Provident Funds",
+    "type": "expense"
+  },
+  {
+    "code": "603306",
+    "name": "SAL - Contribution to Provident Funds",
+    "type": "expense"
+  },
+  {
+    "code": "603307",
+    "name": "SAL - Per Diem and Temporary wages",
+    "type": "expense"
+  },
+  {
+    "code": "603307",
+    "name": "SAL - Per Diem and Temporary wages",
+    "type": "expense"
+  },
+  {
+    "code": "603308",
+    "name": "SAL - Bonus",
+    "type": "expense"
+  },
+  {
+    "code": "603308",
+    "name": "SAL - Bonus",
+    "type": "expense"
+  },
+  {
+    "code": "603309",
+    "name": "SAL - Employee Benefits & Insurance",
+    "type": "expense"
+  },
+  {
+    "code": "603309",
+    "name": "SAL - Employee Benefits & Insurance",
+    "type": "expense"
+  },
+  {
+    "code": "603310",
+    "name": "SAL - Entertainment for Employees",
+    "type": "expense"
+  },
+  {
+    "code": "603310",
+    "name": "SAL - Entertainment for Employees",
+    "type": "expense"
+  },
+  {
+    "code": "603311",
+    "name": "SAL - Training and Seminar",
+    "type": "expense"
+  },
+  {
+    "code": "603311",
+    "name": "SAL - Training and Seminar",
+    "type": "expense"
+  },
+  {
+    "code": "603312",
+    "name": "SAL - Employee Uniforms",
+    "type": "expense"
+  },
+  {
+    "code": "603312",
+    "name": "SAL - Employee Uniforms",
+    "type": "expense"
+  },
+  {
+    "code": "603313",
+    "name": "SAL - Warehouse Rental Service",
+    "type": "expense"
+  },
+  {
+    "code": "603313",
+    "name": "SAL - Warehouse Rental Service",
+    "type": "expense"
+  },
+  {
+    "code": "604102",
+    "name": "GAE - Office Rental Fees",
+    "type": "expense"
+  },
+  {
+    "code": "604102",
+    "name": "GAE - Office Rental Fees",
+    "type": "expense"
+  },
+  {
+    "code": "604115",
+    "name": "GAE - Importing Charges",
+    "type": "expense"
+  },
+  {
+    "code": "604115",
+    "name": "GAE - Importing Charges",
+    "type": "expense"
+  },
+  {
+    "code": "604127",
+    "name": "GAE - Tools & Equipment",
+    "type": "expense"
+  },
+  {
+    "code": "604127",
+    "name": "GAE - Tools & Equipment",
+    "type": "expense"
+  },
+  {
+    "code": "604128",
+    "name": "GAE - Entertainment and Gifts",
+    "type": "expense"
+  },
+  {
+    "code": "604128",
+    "name": "GAE - Entertainment and Gifts",
+    "type": "expense"
+  },
+  {
+    "code": "604129",
+    "name": "GAE - Management Fees",
+    "type": "expense"
+  },
+  {
+    "code": "604129",
+    "name": "GAE - Management Fees",
+    "type": "expense"
+  },
+  {
+    "code": "604130",
+    "name": "GAE - Consulting and Professional Fee",
+    "type": "expense"
+  },
+  {
+    "code": "604130",
+    "name": "GAE - Consulting and Professional Fee",
+    "type": "expense"
+  },
+  {
+    "code": "604131",
+    "name": "GAE - Legal Fee",
+    "type": "expense"
+  },
+  {
+    "code": "604131",
+    "name": "GAE - Legal Fee",
+    "type": "expense"
+  },
+  {
+    "code": "604132",
+    "name": "GAE - Accounting Audit Fee",
+    "type": "expense"
+  },
+  {
+    "code": "604132",
+    "name": "GAE - Accounting Audit Fee",
+    "type": "expense"
+  },
+  {
+    "code": "604133",
+    "name": "GAE - Other Fee",
+    "type": "expense"
+  },
+  {
+    "code": "604133",
+    "name": "GAE - Other Fee",
+    "type": "expense"
+  },
+  {
+    "code": "604134",
+    "name": "GAE - Other service fee",
+    "type": "expense"
+  },
+  {
+    "code": "604134",
+    "name": "GAE - Other service fee",
+    "type": "expense"
+  },
+  {
+    "code": "604135",
+    "name": "GAE - Bank Charges",
+    "type": "expense"
+  },
+  {
+    "code": "604135",
+    "name": "GAE - Bank Charges",
+    "type": "expense"
+  },
+  {
+    "code": "604136",
+    "name": "GAE - Stationery and pre-printing",
+    "type": "expense"
+  },
+  {
+    "code": "604136",
+    "name": "GAE - Stationery and pre-printing",
+    "type": "expense"
+  },
+  {
+    "code": "604137",
+    "name": "GAE - Electricity",
+    "type": "expense"
+  },
+  {
+    "code": "604137",
+    "name": "GAE - Electricity",
+    "type": "expense"
+  },
+  {
+    "code": "604138",
+    "name": "GAE - Telephone",
+    "type": "expense"
+  },
+  {
+    "code": "604138",
+    "name": "GAE - Telephone",
+    "type": "expense"
+  },
+  {
+    "code": "604139",
+    "name": "GAE - Water Supply",
+    "type": "expense"
+  },
+  {
+    "code": "604139",
+    "name": "GAE - Water Supply",
+    "type": "expense"
+  },
+  {
+    "code": "604140",
+    "name": "GAE - Internet Fee",
+    "type": "expense"
+  },
+  {
+    "code": "604140",
+    "name": "GAE - Internet Fee",
+    "type": "expense"
+  },
+  {
+    "code": "604141",
+    "name": "GAE - Medical Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "604141",
+    "name": "GAE - Medical Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "604142",
+    "name": "GAE - Transportation/Fuel/Express Way/Parking Fee/Taxi",
+    "type": "expense"
+  },
+  {
+    "code": "604142",
+    "name": "GAE - Transportation/Fuel/Express Way/Parking Fee/Taxi",
+    "type": "expense"
+  },
+  {
+    "code": "604143",
+    "name": "GAE - Express Way/Parking Fee/Taxi",
+    "type": "expense"
+  },
+  {
+    "code": "604143",
+    "name": "GAE - Express Way/Parking Fee/Taxi",
+    "type": "expense"
+  },
+  {
+    "code": "604144",
+    "name": "GAE - Office Supplies & Other consumables",
+    "type": "expense"
+  },
+  {
+    "code": "604144",
+    "name": "GAE - Office Supplies & Other consumables",
+    "type": "expense"
+  },
+  {
+    "code": "604145",
+    "name": "GAE - Cleaning Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "604145",
+    "name": "GAE - Cleaning Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "604146",
+    "name": "GAE - Repair and Maintenance",
+    "type": "expense"
+  },
+  {
+    "code": "604146",
+    "name": "GAE - Repair and Maintenance",
+    "type": "expense"
+  },
+  {
+    "code": "604147",
+    "name": "GAE - Security Guard Expense",
+    "type": "expense"
+  },
+  {
+    "code": "604147",
+    "name": "GAE - Security Guard Expense",
+    "type": "expense"
+  },
+  {
+    "code": "604148",
+    "name": "GAE - Royalty fee",
+    "type": "expense"
+  },
+  {
+    "code": "604148",
+    "name": "GAE - Royalty fee",
+    "type": "expense"
+  },
+  {
+    "code": "604149",
+    "name": "GAE - Donation",
+    "type": "asset_current"
+  },
+  {
+    "code": "604149",
+    "name": "GAE - Donation",
+    "type": "expense"
+  },
+  {
+    "code": "604150",
+    "name": "GAE - Property and Equipment Insurance Expense",
+    "type": "expense"
+  },
+  {
+    "code": "604150",
+    "name": "GAE - Property and Equipment Insurance Expense",
+    "type": "expense"
+  },
+  {
+    "code": "604151",
+    "name": "GAE - Property Tax",
+    "type": "expense"
+  },
+  {
+    "code": "604151",
+    "name": "GAE - Property Tax",
+    "type": "expense"
+  },
+  {
+    "code": "604152",
+    "name": "GAE - Signboard Tax/Other Tax/Tax Subsidy",
+    "type": "expense"
+  },
+  {
+    "code": "604152",
+    "name": "GAE - Signboard Tax/Other Tax/Tax Subsidy",
+    "type": "expense"
+  },
+  {
+    "code": "604153",
+    "name": "GAE - Postage & Courier&Messenger",
+    "type": "expense"
+  },
+  {
+    "code": "604153",
+    "name": "GAE - Postage & Courier&Messenger",
+    "type": "expense"
+  },
+  {
+    "code": "604154",
+    "name": "GAE - Space Rental Services",
+    "type": "expense"
+  },
+  {
+    "code": "604154",
+    "name": "GAE - Space Rental Services",
+    "type": "expense"
+  },
+  {
+    "code": "604155",
+    "name": "GAE - Vehicle Rental Services",
+    "type": "expense"
+  },
+  {
+    "code": "604155",
+    "name": "GAE - Vehicle Rental Services",
+    "type": "expense"
+  },
+  {
+    "code": "604156",
+    "name": "GAE - Photocopy Machine Rental & Services",
+    "type": "expense"
+  },
+  {
+    "code": "604156",
+    "name": "GAE - Photocopy Machine Rental & Services",
+    "type": "expense"
+  },
+  {
+    "code": "604158",
+    "name": "GAE - Copy Machines",
+    "type": "expense"
+  },
+  {
+    "code": "604158",
+    "name": "GAE - Copy Machines",
+    "type": "expense"
+  },
+  {
+    "code": "604159",
+    "name": "GAE - IT Related Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "604159",
+    "name": "GAE - IT Related Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "604160",
+    "name": "GAE - Welfare",
+    "type": "expense"
+  },
+  {
+    "code": "604160",
+    "name": "GAE - Welfare",
+    "type": "expense"
+  },
+  {
+    "code": "604161",
+    "name": "GAE - Government Registration & License Fee",
+    "type": "expense"
+  },
+  {
+    "code": "604161",
+    "name": "GAE - Government Registration & License Fee",
+    "type": "expense"
+  },
+  {
+    "code": "604162",
+    "name": "GAE - Membership Fee for Organizations",
+    "type": "expense"
+  },
+  {
+    "code": "604162",
+    "name": "GAE - Membership Fee for Organizations",
+    "type": "expense"
+  },
+  {
+    "code": "604163",
+    "name": "GAE - Bank Loan Related Fees",
+    "type": "expense"
+  },
+  {
+    "code": "604163",
+    "name": "GAE - Bank Loan Related Fees",
+    "type": "expense"
+  },
+  {
+    "code": "604164",
+    "name": "GAE - Loan Payment Protection Insurance ",
+    "type": "expense"
+  },
+  {
+    "code": "604164",
+    "name": "GAE - Loan Payment Protection Insurance ",
+    "type": "expense"
+  },
+  {
+    "code": "604165",
+    "name": "GAE - Penalty fee",
+    "type": "expense"
+  },
+  {
+    "code": "604165",
+    "name": "GAE - Penalty fee",
+    "type": "expense"
+  },
+  {
+    "code": "604166",
+    "name": "GAE - Unclaimed input VAT",
+    "type": "expense"
+  },
+  {
+    "code": "604166",
+    "name": "GAE - Unclaimed input VAT",
+    "type": "expense"
+  },
+  {
+    "code": "604167",
+    "name": "GAE - Undeductible Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "604167",
+    "name": "GAE - Undeductible Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "604168",
+    "name": "GAE - Assets write off",
+    "type": "expense"
+  },
+  {
+    "code": "604168",
+    "name": "GAE - Assets write off",
+    "type": "expense"
+  },
+  {
+    "code": "604169",
+    "name": "GAE - Sundry Income/Loss",
+    "type": "expense"
+  },
+  {
+    "code": "604169",
+    "name": "GAE - Sundry Income/Loss",
+    "type": "expense"
+  },
+  {
+    "code": "604170",
+    "name": "GAE - Gain(Loss) from foreign exchange rate",
+    "type": "expense"
+  },
+  {
+    "code": "604170",
+    "name": "GAE - Gain(Loss) from foreign exchange rate",
+    "type": "expense"
+  },
+  {
+    "code": "604171",
+    "name": "GAE -Trade Discount",
+    "type": "asset_current"
+  },
+  {
+    "code": "604201",
+    "name": "GAS - Salary & Wages",
+    "type": "expense"
+  },
+  {
+    "code": "604201",
+    "name": "GAS - Salary & Wages",
+    "type": "expense"
+  },
+  {
+    "code": "604202",
+    "name": "GAS - Perdium And Temporary Wages",
+    "type": "expense"
+  },
+  {
+    "code": "604202",
+    "name": "GAS - Perdium And Temporary Wages",
+    "type": "expense"
+  },
+  {
+    "code": "604203",
+    "name": "GAS - Staff Comission & Incentive",
+    "type": "expense"
+  },
+  {
+    "code": "604203",
+    "name": "GAS - Staff Comission & Incentive",
+    "type": "expense"
+  },
+  {
+    "code": "604204",
+    "name": "GAS - Overtime",
+    "type": "expense"
+  },
+  {
+    "code": "604204",
+    "name": "GAS - Overtime",
+    "type": "expense"
+  },
+  {
+    "code": "604205",
+    "name": "GAS - Staff Allowance",
+    "type": "expense"
+  },
+  {
+    "code": "604205",
+    "name": "GAS - Staff Allowance",
+    "type": "expense"
+  },
+  {
+    "code": "604206",
+    "name": "GAS - Workers Compensation And Social Security",
+    "type": "expense"
+  },
+  {
+    "code": "604206",
+    "name": "GAS - Workers Compensation And Social Security",
+    "type": "expense"
+  },
+  {
+    "code": "604207",
+    "name": "GAS - Contribution To Provident Fund",
+    "type": "expense"
+  },
+  {
+    "code": "604207",
+    "name": "GAS - Contribution To Provident Fund",
+    "type": "expense"
+  },
+  {
+    "code": "604208",
+    "name": "GAS - Bonus",
+    "type": "expense"
+  },
+  {
+    "code": "604208",
+    "name": "GAS - Bonus",
+    "type": "expense"
+  },
+  {
+    "code": "604209",
+    "name": "GAS - Employee Insurance",
+    "type": "expense"
+  },
+  {
+    "code": "604209",
+    "name": "GAS - Employee Insurance",
+    "type": "expense"
+  },
+  {
+    "code": "604210",
+    "name": "GAS - Traveling & Accomodation Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "604210",
+    "name": "GAS - Traveling & Accomodation Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "604212",
+    "name": "GAS - Entertainment for Employees",
+    "type": "expense"
+  },
+  {
+    "code": "604212",
+    "name": "GAS - Entertainment for Employees",
+    "type": "expense"
+  },
+  {
+    "code": "604213",
+    "name": "GAS - Training And Seminar",
+    "type": "expense"
+  },
+  {
+    "code": "604213",
+    "name": "GAS - Training And Seminar",
+    "type": "expense"
+  },
+  {
+    "code": "604214",
+    "name": "GAS - Recruitment Fee",
+    "type": "expense"
+  },
+  {
+    "code": "604214",
+    "name": "GAS - Recruitment Fee",
+    "type": "expense"
+  },
+  {
+    "code": "604215",
+    "name": "GAS - Employee Welfares ",
+    "type": "expense"
+  },
+  {
+    "code": "604215",
+    "name": "GAS - Employee Welfares ",
+    "type": "expense"
+  },
+  {
+    "code": "604216",
+    "name": "GAS - Employee Benefits",
+    "type": "expense"
+  },
+  {
+    "code": "604216",
+    "name": "GAS - Employee Benefits",
+    "type": "expense"
+  },
+  {
+    "code": "604217",
+    "name": "GAS - Uniform Employee",
+    "type": "expense"
+  },
+  {
+    "code": "604217",
+    "name": "GAS - Uniform Employee",
+    "type": "expense"
+  },
+  {
+    "code": "604218",
+    "name": "GAS - Softwares & Service Subscription",
+    "type": "expense"
+  },
+  {
+    "code": "604501",
+    "name": "GRD - RD Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "604501",
+    "name": "GRD - RD Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "604502",
+    "name": "GRD - Product Prototypes , Mockups, & Moulds",
+    "type": "expense"
+  },
+  {
+    "code": "604502",
+    "name": "GRD - Product Prototypes , Mockups, & Moulds",
+    "type": "expense"
+  },
+  {
+    "code": "604503",
+    "name": "GRD - Product Testing & Certificates",
+    "type": "expense"
+  },
+  {
+    "code": "604503",
+    "name": "GRD - Product Testing & Certificates",
+    "type": "expense"
+  },
+  {
+    "code": "604504",
+    "name": "GRD - Finished Goods Used & Sampled Goods",
+    "type": "expense"
+  },
+  {
+    "code": "604504",
+    "name": "GRD - Finished Goods Used & Sampled Goods",
+    "type": "expense"
+  },
+  {
+    "code": "604505",
+    "name": "GRD - FDA Registration and License Fees",
+    "type": "expense"
+  },
+  {
+    "code": "604505",
+    "name": "GRD - FDA Registration and License Fees",
+    "type": "expense"
+  },
+  {
+    "code": "604506",
+    "name": "GRD - Logistics & In-Land Fee/ Postage",
+    "type": "expense"
+  },
+  {
+    "code": "604506",
+    "name": "GRD - Logistics & In-Land Fee/ Postage",
+    "type": "expense"
+  },
+  {
+    "code": "604801",
+    "name": "GMN - Compensations",
+    "type": "expense"
+  },
+  {
+    "code": "604801",
+    "name": "GMN - Compensations",
+    "type": "expense"
+  },
+  {
+    "code": "604802",
+    "name": "GMN - Perdium and temporary wages",
+    "type": "expense"
+  },
+  {
+    "code": "604802",
+    "name": "GMN - Perdium and temporary wages",
+    "type": "expense"
+  },
+  {
+    "code": "604803",
+    "name": "GMN - Benefits & Insurances",
+    "type": "expense"
+  },
+  {
+    "code": "604803",
+    "name": "GMN - Benefits & Insurances",
+    "type": "expense"
+  },
+  {
+    "code": "604804",
+    "name": "GMN - Contribution to provident fund",
+    "type": "expense"
+  },
+  {
+    "code": "604804",
+    "name": "GMN - Contribution to provident fund",
+    "type": "expense"
+  },
+  {
+    "code": "604805",
+    "name": "GMN - Bonus",
+    "type": "expense"
+  },
+  {
+    "code": "604805",
+    "name": "GMN - Bonus",
+    "type": "expense"
+  },
+  {
+    "code": "604806",
+    "name": "GMN - Transportation/Fuel/Express Way/Parking Fee/Taxi",
+    "type": "expense"
+  },
+  {
+    "code": "604806",
+    "name": "GMN - Transportation/Fuel/Express Way/Parking Fee/Taxi",
+    "type": "expense"
+  },
+  {
+    "code": "604807",
+    "name": "GMN - Travelling & Accomodation Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "604807",
+    "name": "GMN - Travelling & Accomodation Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "604809",
+    "name": "GMN - Entertainment & Gifts",
+    "type": "expense"
+  },
+  {
+    "code": "604809",
+    "name": "GMN - Entertainment & Gifts",
+    "type": "expense"
+  },
+  {
+    "code": "604810",
+    "name": "GMN - Training and Seminar",
+    "type": "expense"
+  },
+  {
+    "code": "604810",
+    "name": "GMN - Training and Seminar",
+    "type": "expense"
+  },
+  {
+    "code": "604898",
+    "name": "GMN - Other Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "604898",
+    "name": "GMN - Other Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "605102",
+    "name": "DEP - Building",
+    "type": "expense_depreciation"
+  },
+  {
+    "code": "605102",
+    "name": "DEP - Building",
+    "type": "expense_depreciation"
+  },
+  {
+    "code": "605103",
+    "name": "DEP - Building Improvement",
+    "type": "expense_depreciation"
+  },
+  {
+    "code": "605103",
+    "name": "DEP - Building Improvement",
+    "type": "expense_depreciation"
+  },
+  {
+    "code": "605104",
+    "name": "DEP - Office Equipment",
+    "type": "expense_depreciation"
+  },
+  {
+    "code": "605104",
+    "name": "DEP - Office Equipment",
+    "type": "expense_depreciation"
+  },
+  {
+    "code": "605105",
+    "name": "DEP - Computer",
+    "type": "expense_depreciation"
+  },
+  {
+    "code": "605105",
+    "name": "DEP - Computer",
+    "type": "expense_depreciation"
+  },
+  {
+    "code": "605106",
+    "name": "DEP - Furniture and Fixture",
+    "type": "expense_depreciation"
+  },
+  {
+    "code": "605106",
+    "name": "DEP - Furniture and Fixture",
+    "type": "expense_depreciation"
+  },
+  {
+    "code": "605107",
+    "name": "DEP - Tool & Equipment",
+    "type": "expense_depreciation"
+  },
+  {
+    "code": "605107",
+    "name": "DEP - Tool & Equipment",
+    "type": "expense_depreciation"
+  },
+  {
+    "code": "605108",
+    "name": "DEP - Vehicles",
+    "type": "expense_depreciation"
+  },
+  {
+    "code": "605108",
+    "name": "DEP - Vehicles",
+    "type": "expense_depreciation"
+  },
+  {
+    "code": "605109",
+    "name": "DEP - Software",
+    "type": "expense_depreciation"
+  },
+  {
+    "code": "605109",
+    "name": "DEP - Software",
+    "type": "expense_depreciation"
+  },
+  {
+    "code": "700001",
+    "name": "FNE - Interest Expenses: Short-term loan from Shareholders",
+    "type": "expense"
+  },
+  {
+    "code": "700001",
+    "name": "FNE - Interest Expenses: Short-term loan from Shareholders",
+    "type": "expense"
+  },
+  {
+    "code": "700002",
+    "name": "FNE - Interest Expenses: Long-term loan from Shareholders",
+    "type": "expense"
+  },
+  {
+    "code": "700002",
+    "name": "FNE - Interest Expenses: Long-term loan from Shareholders",
+    "type": "expense"
+  },
+  {
+    "code": "700003",
+    "name": "FNE - Interest Expenses: Financial Lease",
+    "type": "expense"
+  },
+  {
+    "code": "700003",
+    "name": "FNE - Interest Expenses: Financial Lease",
+    "type": "expense"
+  },
+  {
+    "code": "700004",
+    "name": "FNE - Interest Expenses: Overdraft",
+    "type": "expense"
+  },
+  {
+    "code": "700004",
+    "name": "FNE - Interest Expenses: Overdraft",
+    "type": "expense"
+  },
+  {
+    "code": "700005",
+    "name": "FNE - Interest Expenses: LC/TR",
+    "type": "expense"
+  },
+  {
+    "code": "700005",
+    "name": "FNE - Interest Expenses: LC/TR",
+    "type": "expense"
+  },
+  {
+    "code": "700006",
+    "name": "FNE - Interest Expenses: Credit Cards",
+    "type": "expense"
+  },
+  {
+    "code": "700006",
+    "name": "FNE - Interest Expenses: Credit Cards",
+    "type": "expense"
+  },
+  {
+    "code": "700007",
+    "name": "FNE - Interest Expenses: Promissory Notes",
+    "type": "expense"
+  },
+  {
+    "code": "700007",
+    "name": "FNE - Interest Expenses: Promissory Notes",
+    "type": "expense"
+  },
+  {
+    "code": "700008",
+    "name": "FNE - Interest Expenses: Bank & Institutional Term Loan",
+    "type": "expense"
+  },
+  {
+    "code": "700008",
+    "name": "FNE - Interest Expenses: Bank & Institutional Term Loan",
+    "type": "expense"
+  },
+  {
+    "code": "700009",
+    "name": "FNE - Interest Expense - Related Companies",
+    "type": "expense"
+  },
+  {
+    "code": "700009",
+    "name": "FNE - Interest Expense - Related Companies",
+    "type": "expense"
+  },
+  {
+    "code": "700010",
+    "name": "FNE - Other Interest Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "700010",
+    "name": "FNE - Other Interest Expenses",
+    "type": "expense"
+  },
+  {
+    "code": "800001",
+    "name": "TAX - Corporate Income tax",
+    "type": "expense"
+  },
+  {
+    "code": "800001",
+    "name": "TAX - Corporate Income tax",
+    "type": "expense"
+  },
+  {
+    "code": "999001",
+    "name": "Cash Difference Gain",
+    "type": "income_other"
+  },
+  {
+    "code": "999001",
+    "name": "Cash Difference Gain",
+    "type": "income_other"
+  },
+  {
+    "code": "999002",
+    "name": "Cash Difference Loss",
+    "type": "expense"
+  },
+  {
+    "code": "999002",
+    "name": "Cash Difference Loss",
+    "type": "expense"
+  },
+  {
+    "code": "999997",
+    "name": "Cash Discount Gain",
+    "type": "income_other"
+  },
+  {
+    "code": "999997",
+    "name": "Cash Discount Gain",
+    "type": "income_other"
+  },
+  {
+    "code": "999998",
+    "name": "Cash Discount Loss",
+    "type": "expense"
+  },
+  {
+    "code": "999998",
+    "name": "Cash Discount Loss",
+    "type": "expense"
+  },
+  {
+    "code": "999999",
+    "name": "Undistributed Profits/Losses",
+    "type": "equity_unaffected"
+  },
+  {
+    "code": "999999",
+    "name": "Undistributed Profits/Losses",
+    "type": "equity_unaffected"
+  },
+  {
+    "code": false,
+    "name": "Accumulated Depre - FCTY - Furniture and Fixture",
+    "type": "asset_fixed"
+  },
+  {
+    "code": false,
+    "name": "Accumulated Depre - FCTY - Tool & Equipment",
+    "type": "asset_fixed"
+  },
+  {
+    "code": false,
+    "name": "Accumulated Depre - FCTY - Vehicles",
+    "type": "asset_fixed"
+  },
+  {
+    "code": false,
+    "name": "Accumulated Depre - FCTY - Machinery and Equipment",
+    "type": "asset_fixed"
+  },
+  {
+    "code": false,
+    "name": "Investment in subsidiaries",
+    "type": "asset_non_current"
+  },
+  {
+    "code": false,
+    "name": "Deposit - Building",
+    "type": "asset_non_current"
+  },
+  {
+    "code": false,
+    "name": "Other deposits",
+    "type": "asset_non_current"
+  },
+  {
+    "code": false,
+    "name": "Other assets",
+    "type": "asset_non_current"
+  },
+  {
+    "code": false,
+    "name": "Retention",
+    "type": "asset_non_current"
+  },
+  {
+    "code": false,
+    "name": "Deferred Interest expense",
+    "type": "asset_non_current"
+  },
+  {
+    "code": false,
+    "name": "Deferred expense",
+    "type": "asset_non_current"
+  },
+  {
+    "code": false,
+    "name": "Trade Accounts Payable-Local",
+    "type": "liability_payable"
+  },
+  {
+    "code": false,
+    "name": "Trade Accounts Payable-Oversea",
+    "type": "liability_payable"
+  },
+  {
+    "code": false,
+    "name": "Trade Accounts Payable-Related Companies",
+    "type": "liability_payable"
+  },
+  {
+    "code": false,
+    "name": "Trade Accounts Payable-Director",
+    "type": "liability_payable"
+  },
+  {
+    "code": false,
+    "name": "Trade Accounts Payable-Consignment Oversea",
+    "type": "liability_payable"
+  },
+  {
+    "code": false,
+    "name": "Trade Accounts Payable-Other",
+    "type": "liability_payable"
+  },
+  {
+    "code": false,
+    "name": "AP-Reclassify",
+    "type": "liability_payable"
+  },
+  {
+    "code": false,
+    "name": "Withholding tax payable (PND.1)",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Withholding tax payable (PND.3)",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Withholding tax payable (PND.53)",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Withholding tax payable (PND.54)",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Withholding tax payable (PP.36)",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "AP Revenue Department",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Accrued Social  Security",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Accrued Income Tax (50)",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Output VAT",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Undue output VAT",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Promissory Notes : KOB : SCB 15M P/N 90Days MLR",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Promissory Notes : KOB : SCB 12M P/N 90Days MLR-0.25%",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Promissory Notes : KOB : SCB 4M P/N 24Mo APR20-22 2.00%",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Promissory Notes : KOB : SCB 15M P/N 24Mo APR20-22 2.00%",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Promissory Notes : KOB : KBANK 10M P/N (Multiple Sellers) 120Days MLR-0.5%",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Promissory Notes: KOB:SCB 15M P/N BOT 7Year MRL-6.35%",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Promissory Notes : BTV : SCB 5M P/N 150Days MLR",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Promissory Notes : BTV : SCB 8M P/N 24Mo JAN20-22 2.00%",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Short term loans from shareholder",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Short term loans from directors",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Short term loans from Related Companies",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "LC / TR : KOB : SCB 12M LC/TR 150 Days",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "LC / TR : KOB : KBANK 12M LC/TR 150 Days",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "LC / TR : KOB : EXIM 2M PACKING CREDIT 5.0%",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "LC / TR : BTV : SCB 5M LC/TR 150 Days",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Accrued expense-Others",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Prepaid Cheque",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Accrued royalty fee",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Accrued interest expense",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Other payables-Local",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Other payables-Oversea",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Other Accounts Payable-Employees/Director",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Deposit Received from customers",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Provident fund payable",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Deferred Revenue - Customers",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Deferred Revenue - Related Companies",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Other accrued expenses-Related Companies",
+    "type": "liability_current"
+  },
+  {
+    "code": false,
+    "name": "Long- term loans from shareholder",
+    "type": "liability_non_current"
+  },
+  {
+    "code": false,
+    "name": "Long Term Loan from director",
+    "type": "liability_non_current"
+  },
+  {
+    "code": false,
+    "name": "Long- term loans from Related Companies",
+    "type": "liability_non_current"
+  },
+  {
+    "code": false,
+    "name": "Long-term loans from financial institutes : KOB : SCB 0.3M 7Yrs Credit Insurance MLR+0.75%",
+    "type": "liability_non_current"
+  },
+  {
+    "code": false,
+    "name": "Long-term loans from financial institutes : KOB : SCB 0.3M 5Yrs Credit Insurance MLR",
+    "type": "liability_non_current"
+  },
+  {
+    "code": false,
+    "name": "Long-term loans from financial institutes : KOB : SCB 6.2M BOT 24Mo JUL20-22 2.00%",
+    "type": "liability_non_current"
+  },
+  {
+    "code": false,
+    "name": "Long-term loans from financial institutes : KOB : KBANK 0.139M 60Mo FEB17-22 Credit Insurance MLR",
+    "type": "liability_non_current"
+  },
+  {
+    "code": false,
+    "name": "Long-term loans from financial institutes : KOB : KBANK 0.099M 60Mo AUG17-22 Credit Insur. MLR-0.50%",
+    "type": "liability_non_current"
+  },
+  {
+    "code": false,
+    "name": "Long-term loans from financial institutes : KOB : KBANK 0.145M 60Mo JAN18-23 Credit Insurance MLR",
+    "type": "liability_non_current"
+  },
+  {
+    "code": false,
+    "name": "Long-term loans from financial institutes : KOB : KBANK 6.5M JUL20 2Y MLR-1.60%+3Y MLR-1.00%",
+    "type": "liability_non_current"
+  },
+  {
+    "code": false,
+    "name": "Long-term loans from financial institutes : KOB : SME 5M FIXED LOAN 4.00%",
+    "type": "liability_non_current"
+  },
+  {
+    "code": false,
+    "name": "Long-term loans from financial institutes : KOB : EXIM 24.12.20 3M",
+    "type": "liability_non_current"
+  },
+  {
+    "code": false,
+    "name": "Long-term loans from financial institutes : KOB : SCB 13.24M BOT JUN14-21 2.00%",
+    "type": "liability_non_current"
+  },
+  {
+    "code": false,
+    "name": "Long-term loans from financial institutes : BTV : SCB 0.3M 5Yrs Credit Insurance MLR+0.75% 6,200PMT",
+    "type": "liability_non_current"
+  },
+  {
+    "code": false,
+    "name": "Long-term loans from financial institutes : BTV : EXIM 24.12.20 3M",
+    "type": "liability_non_current"
+  },
+  {
+    "code": false,
+    "name": "Long-term loans from financial institutes : BTV : SCB 7.59M BOT JUN14-21 - 2.00%",
+    "type": "liability_non_current"
+  },
+  {
+    "code": false,
+    "name": "Provisions : Employee benefits",
+    "type": "liability_non_current"
+  },
+  {
+    "code": false,
+    "name": "Issued and Paid-up Share Capital",
+    "type": "equity"
+  },
+  {
+    "code": false,
+    "name": "Premium on Share Capital",
+    "type": "equity"
+  },
+  {
+    "code": false,
+    "name": "Retained Earnings(Deficit)",
+    "type": "equity"
+  },
+  {
+    "code": false,
+    "name": "Net Profit (Loss)",
+    "type": "equity"
+  },
+  {
+    "code": false,
+    "name": "Dividend",
+    "type": "equity"
+  },
+  {
+    "code": false,
+    "name": "Legal Reserved",
+    "type": "equity"
+  },
+  {
+    "code": false,
+    "name": "Sale External",
+    "type": "income"
+  },
+  {
+    "code": false,
+    "name": "Sale Overseas",
+    "type": "income"
+  },
+  {
+    "code": false,
+    "name": "Sales Return-External",
+    "type": "income"
+  },
+  {
+    "code": false,
+    "name": "Sales Discount-External",
+    "type": "income"
+  },
+  {
+    "code": false,
+    "name": "Sale Service-External",
+    "type": "income"
+  },
+  {
+    "code": false,
+    "name": "Sales Packaging",
+    "type": "income"
+  },
+  {
+    "code": false,
+    "name": "Sales Bulk",
+    "type": "income"
+  },
+  {
+    "code": false,
+    "name": "Sales Adjusment Ekachai",
+    "type": "income"
+  },
+  {
+    "code": false,
+    "name": "Sales Raw Material ",
+    "type": "income"
+  },
+  {
+    "code": false,
+    "name": "Sales - Related Companies",
+    "type": "income"
+  },
+  {
+    "code": false,
+    "name": "Sales Service - Related Companies",
+    "type": "income"
+  },
+  {
+    "code": false,
+    "name": "Sales Return - Related Companies",
+    "type": "income"
+  },
+  {
+    "code": false,
+    "name": "Sales Packaging-Related Companies",
+    "type": "income"
+  },
+  {
+    "code": false,
+    "name": "Sales Consignment",
+    "type": "income"
+  },
+  {
+    "code": false,
+    "name": "Service Fees",
+    "type": "income_other"
+  },
+  {
+    "code": false,
+    "name": "Logistics Fees",
+    "type": "income_other"
+  },
+  {
+    "code": false,
+    "name": "Operating Fees",
+    "type": "income_other"
+  },
+  {
+    "code": false,
+    "name": "Repacking",
+    "type": "income_other"
+  },
+  {
+    "code": false,
+    "name": "Other service revenues",
+    "type": "income_other"
+  },
+  {
+    "code": false,
+    "name": "Scrap Sales",
+    "type": "income_other"
+  },
+  {
+    "code": false,
+    "name": "Rental income",
+    "type": "income_other"
+  },
+  {
+    "code": false,
+    "name": "Returns from investment",
+    "type": "income_other"
+  },
+  {
+    "code": false,
+    "name": "Management & Consulting Fees",
+    "type": "income_other"
+  },
+  {
+    "code": false,
+    "name": "Other Income",
+    "type": "income_other"
+  },
+  {
+    "code": false,
+    "name": "Interest income",
+    "type": "income_other"
+  }
+]
