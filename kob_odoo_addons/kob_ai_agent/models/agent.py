@@ -97,7 +97,7 @@ class KobAiAgentRun(models.Model):
                     "rationale": tc.get("rationale", ""),
                     "status": "pending",
                 })
-            self.suggestion_count = len(self.suggestion_ids)
+            self.suggestion_count = self.env["kob.ai.suggestion"].search_count([("run_id", "=", self.id)])
         except Exception as e:
             _logger.exception("AI agent run failed")
             self.write({
