@@ -203,29 +203,39 @@ button.o_list_button_add,
 .btn.btn-info    { color: $kob-text !important; }
 
 /* ─────────────────────────────────────────────────────────────────────────
-   Search-view facets / filter chips — minimal light gray, not bold purple.
+   Search-view facets / filter chips — single light-gray pill (no nesting).
+   Style ONLY the outer container; let inner labels inherit transparent
+   background so we don't get double-border / double-pill effect.
    ─────────────────────────────────────────────────────────────────────── */
-.o_searchview .o_facet_value,
-.o_searchview .o_facet_remove,
-.o_searchview .o_facet_values,
-.o_searchview .o_searchview_facet,
-.o_facet_with_operator,
-.o_facet_value_node {
+.o_searchview .o_searchview_facet {
     background-color: $kob-neutral-bg !important;
     color:            $kob-text       !important;
-    border-color:     $kob-neutral-br !important;
-}
-.o_searchview_facet_label,
-.o_facet_value {
-    background-color: $kob-neutral-bg2 !important;
-    color:            $kob-text        !important;
+    border:           1px solid $kob-neutral-br !important;
     border-radius:    4px !important;
-    padding:          2px 8px !important;
-    font-weight:      500 !important;
+
+    &:hover {
+        background-color: #fff !important;
+        border-color:     $kob-text-muted !important;
+    }
 }
-.o_searchview .o_searchview_facet:hover {
-    background-color: #fff !important;
-    border-color:     $kob-text-muted !important;
+/* Reset inner pieces so they inherit, no nested box */
+.o_searchview .o_searchview_facet .o_facet_value,
+.o_searchview .o_searchview_facet .o_facet_values,
+.o_searchview .o_searchview_facet .o_searchview_facet_label,
+.o_searchview .o_searchview_facet .o_facet_with_operator,
+.o_searchview .o_searchview_facet .o_facet_value_node {
+    background: transparent !important;
+    border: 0 !important;
+    color: inherit !important;
+    box-shadow: none !important;
+}
+/* Remove (×) button — keep neutral */
+.o_searchview .o_searchview_facet .o_facet_remove {
+    background: transparent !important;
+    border: 0 !important;
+    color: $kob-text-muted !important;
+
+    &:hover { color: $kob-text !important; }
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
