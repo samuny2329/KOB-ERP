@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_stage_transition_user,access_stage_transition_user,model_kob_stage_transition,base.group_user,1,0,0,0
+access_stage_transition_manager,access_stage_transition_manager,model_kob_stage_transition,base.group_system,1,1,1,1
+access_stage_threshold_user,access_stage_threshold_user,model_kob_stage_threshold,base.group_user,1,0,0,0
+access_stage_threshold_manager,access_stage_threshold_manager,model_kob_stage_threshold,base.group_system,1,1,1,1

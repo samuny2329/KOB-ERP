@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_purchase_order_form_stage_tracker" model="ir.ui.view">
+        <field name="name">purchase.order.form.stage.tracker</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_stage_history"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-history">
+                    <div class="o_stat_info">
+                        <span class="o_stat_text">Stage</span>
+                        <span class="o_stat_text">history</span>
+                    </div>
+                </button>
+                <button name="action_view_upstream_chain"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-arrow-up">
+                    <div class="o_stat_info">
+                        <span class="o_stat_text">Upstream</span>
+                        <span class="o_stat_text">timing</span>
+                    </div>
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='date_order']" position="after">
+                <field name="current_stage_started_at" readonly="1"/>
+                <field name="total_active_stage_min" readonly="1"/>
+                <field name="stage_breach_warning" widget="badge"
+                       decoration-success="stage_breach_warning == 'ok'"
+                       decoration-warning="stage_breach_warning == 'warning'"
+                       decoration-danger="stage_breach_warning == 'breached'"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

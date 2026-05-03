@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stage_threshold_list" model="ir.ui.view">
+        <field name="name">kob.stage.threshold.list</field>
+        <field name="model">kob.stage.threshold</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="res_model"/>
+                <field name="state_value"/>
+                <field name="threshold_minutes"/>
+                <field name="severity"/>
+                <field name="action_type"/>
+                <field name="last_scan_at"/>
+                <field name="last_scan_breaches"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_stage_threshold_form" model="ir.ui.view">
+        <field name="name">kob.stage.threshold.form</field>
+        <field name="model">kob.stage.threshold</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="active"/>
+                            <field name="res_model"/>
+                            <field name="state_field"/>
+                            <field name="state_value"/>
+                        </group>
+                        <group>
+                            <field name="threshold_minutes"/>
+                            <field name="working_hours_only"/>
+                            <field name="severity"/>
+                            <field name="action_type"/>
+                            <field name="target_user_field"/>
+                            <field name="target_channel_id"
+                                   invisible="action_type != 'discuss'"/>
+                        </group>
+                    </group>
+                    <group string="Last scan">
+                        <field name="last_scan_at"/>
+                        <field name="last_scan_breaches"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_stage_threshold" model="ir.actions.act_window">
+        <field name="name">Thresholds</field>
+        <field name="res_model">kob.stage.threshold</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_stage_threshold"
+              name="Thresholds"
+              parent="menu_stage_tracker_root"
+              action="action_stage_threshold"
+              sequence="20"/>
+</odoo>

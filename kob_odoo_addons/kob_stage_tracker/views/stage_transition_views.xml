@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_stage_transition_list" model="ir.ui.view">
+        <field name="name">kob.stage.transition.list</field>
+        <field name="model">kob.stage.transition</field>
+        <field name="arch" type="xml">
+            <list default_order="transitioned_at desc">
+                <field name="transitioned_at"/>
+                <field name="res_model"/>
+                <field name="res_id"/>
+                <field name="res_name"/>
+                <field name="stage_from"/>
+                <field name="stage_to"/>
+                <field name="duration_in_previous_min" sum="Total"/>
+                <field name="transitioned_by"/>
+                <button name="action_open_record" type="object"
+                        string="Open" icon="fa-external-link"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_stage_transition_pivot" model="ir.ui.view">
+        <field name="name">kob.stage.transition.pivot</field>
+        <field name="model">kob.stage.transition</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="res_model" type="row"/>
+                <field name="stage_to" type="col"/>
+                <field name="duration_in_previous_min" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_stage_transition_graph" model="ir.ui.view">
+        <field name="name">kob.stage.transition.graph</field>
+        <field name="model">kob.stage.transition</field>
+        <field name="arch" type="xml">
+            <graph>
+                <field name="res_model"/>
+                <field name="duration_in_previous_min" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_stage_transition_search" model="ir.ui.view">
+        <field name="name">kob.stage.transition.search</field>
+        <field name="model">kob.stage.transition</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="res_model"/>
+                <field name="res_id"/>
+                <field name="stage_to"/>
+                <field name="transitioned_by"/>
+                <filter name="last_30d" string="Last 30 days"
+                        domain="[('transitioned_at', '&gt;=', (context_today() - relativedelta(days=30)).strftime('%Y-%m-%d'))]"/>
+                <filter name="last_7d" string="Last 7 days"
+                        domain="[('transitioned_at', '&gt;=', (context_today() - relativedelta(days=7)).strftime('%Y-%m-%d'))]"/>
+                <separator/>
+                <filter name="groupby_res_model" string="Model"
+                        context="{'group_by': 'res_model'}"/>
+                <filter name="groupby_stage_to" string="Stage"
+                        context="{'group_by': 'stage_to'}"/>
+                <filter name="groupby_user" string="User"
+                        context="{'group_by': 'transitioned_by'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_stage_transition" model="ir.actions.act_window">
+        <field name="name">Stage Transitions</field>
+        <field name="res_model">kob.stage.transition</field>
+        <field name="view_mode">list,pivot,graph,form</field>
+    </record>
+
+    <menuitem id="menu_stage_tracker_root"
+              name="Stage Tracker"
+              sequence="80"/>
+
+    <menuitem id="menu_stage_transition"
+              name="Transitions"
+              parent="menu_stage_tracker_root"
+              action="action_stage_transition"
+              sequence="10"/>
+</odoo>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="threshold_po_pending_24h" model="kob.stage.threshold">
+        <field name="name">PO approval pending &gt; 24h</field>
+        <field name="res_model">purchase.order</field>
+        <field name="state_field">approval_state</field>
+        <field name="state_value">pending</field>
+        <field name="threshold_minutes">1440</field>
+        <field name="severity">medium</field>
+        <field name="action_type">activity</field>
+        <field name="target_user_field">user_id</field>
+    </record>
+
+    <record id="threshold_picking_confirmed_4h" model="kob.stage.threshold">
+        <field name="name">Picking confirmed &gt; 4h</field>
+        <field name="res_model">stock.picking</field>
+        <field name="state_field">state</field>
+        <field name="state_value">confirmed</field>
+        <field name="threshold_minutes">240</field>
+        <field name="severity">low</field>
+        <field name="action_type">activity</field>
+        <field name="target_user_field">user_id</field>
+    </record>
+
+    <record id="threshold_picking_assigned_8h" model="kob.stage.threshold">
+        <field name="name">Picking assigned &gt; 8h</field>
+        <field name="res_model">stock.picking</field>
+        <field name="state_field">state</field>
+        <field name="state_value">assigned</field>
+        <field name="threshold_minutes">480</field>
+        <field name="severity">medium</field>
+        <field name="action_type">activity</field>
+        <field name="target_user_field">user_id</field>
+    </record>
+
+    <record id="threshold_approval_step_pending_24h" model="kob.stage.threshold">
+        <field name="name">Approval step pending &gt; 24h</field>
+        <field name="res_model">kob.approval.step</field>
+        <field name="state_field">state</field>
+        <field name="state_value">pending</field>
+        <field name="threshold_minutes">1440</field>
+        <field name="severity">medium</field>
+        <field name="action_type">activity</field>
+        <field name="target_user_field">approver_id</field>
+    </record>
+</odoo>
