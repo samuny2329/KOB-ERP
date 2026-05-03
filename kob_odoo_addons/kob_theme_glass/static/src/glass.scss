@@ -141,16 +141,81 @@ body.o_web_client {
     backdrop-filter: blur(12px);
 }
 
-/* Side menus */
-.o_menu_sections,
+/* Dropdown menus only — DO NOT make .o_menu_sections transparent here,
+   that's the visible top-bar with sub-app links and must stay readable. */
 .dropdown-menu {
     background: rgba(255, 255, 255, 0.96) !important;
     backdrop-filter: blur(10px);
 }
 
-/* Hide noisy emoji prefixes that show up in app icons / titles
-   (only inside main navigation labels — leave model fields untouched) */
-.o_menu_sections .o_menu_section_title,
-.o_navbar_apps_menu_button {
-    /* No-op rule kept as anchor for future tweaks */
+/* ─────────────────────────────────────────────────────────────────────────
+   Sub-menu / secondary navbar fix — keep app sub-menus clearly visible
+   on top of the glass background. The previous rule made it transparent
+   which hid the labels.
+   ─────────────────────────────────────────────────────────────────────── */
+.o_main_navbar .o_menu_sections {
+    background: transparent !important;
+}
+.o_main_navbar .o_menu_sections > a,
+.o_main_navbar .o_menu_sections > button,
+.o_main_navbar .o_menu_sections .dropdown-toggle,
+.o_main_navbar .o_menu_sections .o_nav_entry {
+    color: #2c2c2c !important;
+    background: transparent !important;
+    font-weight: 500;
+
+    &:hover, &:focus, &.show {
+        background: rgba(113, 75, 103, 0.08) !important;
+        color: #714B67 !important;
+    }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   KOB / WMS fullscreen action navbars — keep solid + readable.
+   These set their own colored background via inline style; we only need
+   to ensure the foreground text/icons stay visible against it.
+   ─────────────────────────────────────────────────────────────────────── */
+.wms-topnav,
+.sap-shellbar,
+.kob-bb-header {
+    color: #fff !important;
+
+    .wms-brand,
+    .sap-shellbar-title,
+    .sap-shellbar-logo,
+    .kob-bb-brand h1,
+    .kob-bb-subtitle {
+        color: #fff !important;
+    }
+    a, kbd { color: inherit !important; }
+}
+
+/* WMS mode tabs — white text on colored bar */
+.wms-topnav .wms-modetab {
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.10) !important;
+    border-color: rgba(255, 255, 255, 0.20) !important;
+
+    &:hover { background: rgba(255, 255, 255, 0.20) !important; }
+    &.active {
+        background: rgba(255, 255, 255, 0.95) !important;
+        color: #1a1a1a !important;
+
+        i, kbd, span { color: #1a1a1a !important; }
+    }
+    i, kbd, span { color: #fff !important; }
+}
+
+/* Outline-light buttons (refresh / home) inside dark navbars */
+.wms-topnav .btn-outline-light,
+.sap-shellbar .btn-outline-light,
+.kob-bb-header .btn-outline-light {
+    color: #fff !important;
+    border-color: rgba(255, 255, 255, 0.50) !important;
+    background: transparent !important;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.15) !important;
+        color: #fff !important;
+    }
 }
