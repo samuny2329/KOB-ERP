@@ -16,8 +16,10 @@ K-On/Stock/PICKFACE → Location auto-set to K-On/Stock/PICKFACE.
 """,
     "author": "Kiss of Beauty (KOB)",
     "license": "LGPL-3",
-    "depends": ["stock_cycle_count"],
-    "data": [],
+    "depends": ["stock_cycle_count", "stock_account"],
+    "data": [
+        "views/stock_location_views.xml",
+    ],
     "installable": True,
     "auto_install": True,
 }

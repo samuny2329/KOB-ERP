@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_location_form_kob_extra" model="ir.ui.view">
+        <field name="name">stock.location.form.kob.extra</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_form" />
+        <field name="priority">30</field>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button string="Current Stock"
+                        class="oe_stat_button"
+                        icon="fa-cubes"
+                        name="action_open_quants"
+                        type="object"/>
+            </xpath>
+            <xpath expr="//group[@name='additional_info']" position="after">
+                <group string="Account Information" name="kob_accounting_info">
+                    <field name="valuation_in_account_id"/>
+                    <field name="valuation_out_account_id"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
