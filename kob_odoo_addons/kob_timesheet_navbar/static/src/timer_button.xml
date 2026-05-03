@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="kob_timesheet_navbar.TimerButton">
+        <div class="kob_timer_button" t-att-class="{ 'kob_timer_running': state.running }">
+            <button t-if="!state.running"
+                    class="btn btn-link kob_timer_start"
+                    t-on-click="onClickStart"
+                    title="Start time tracking">
+                <i class="fa fa-play"/>
+                <span class="d-none d-md-inline ms-1">Start Timer</span>
+            </button>
+            <button t-if="state.running"
+                    class="btn btn-link kob_timer_stop"
+                    t-on-click="onClickStop"
+                    t-att-title="'Stop tracking — ' + state.description">
+                <i class="fa fa-stop kob_blink"/>
+                <span class="kob_timer_elapsed ms-1" t-esc="formatElapsed()"/>
+            </button>
+        </div>
+    </t>
+
+</templates>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="kob_discuss_polls.PollWidget">
+        <div class="kob_poll_widget">
+            <div t-if="state.loading">Loading poll…</div>
+            <div t-elif="state.poll">
+                <div class="kob_poll_q">
+                    <i class="fa fa-bar-chart me-1"/>
+                    <b><t t-esc="state.poll.question"/></b>
+                </div>
+                <t t-foreach="state.poll.results" t-as="r" t-key="r.option_id">
+                    <button class="kob_poll_opt"
+                            t-att-class="{ kob_my_vote: state.poll.my_vote === r.option_id }"
+                            t-att-disabled="state.poll.is_closed"
+                            t-on-click="() =&gt; this.onVote(r.option_id)">
+                        <span t-esc="r.label"/>
+                        <span class="kob_poll_count" t-esc="r.count + ' (' + r.pct + '%)'"/>
+                        <div class="kob_poll_bar" t-att-style="'width:' + r.pct + '%'"/>
+                    </button>
+                </t>
+                <div class="kob_poll_meta">
+                    <t t-esc="state.poll.total_votes"/> votes
+                    <t t-if="state.poll.is_closed"> · CLOSED</t>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

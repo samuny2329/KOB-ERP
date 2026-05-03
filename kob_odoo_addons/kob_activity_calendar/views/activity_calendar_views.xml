@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_mail_activity_calendar" model="ir.ui.view">
+        <field name="name">mail.activity.calendar.kob</field>
+        <field name="model">mail.activity</field>
+        <field name="arch" type="xml">
+            <calendar string="Activities"
+                      date_start="date_deadline"
+                      mode="month"
+                      color="activity_type_id"
+                      quick_create="0"
+                      event_open_popup="1"
+                      hide_time="0">
+                <field name="summary"/>
+                <field name="user_id" filters="1"/>
+                <field name="activity_type_id" filters="1" invisible="0"/>
+                <field name="res_model"/>
+                <field name="state" filters="1"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="action_kob_mail_activity_calendar" model="ir.actions.act_window">
+        <field name="name">My Activities (Calendar)</field>
+        <field name="res_model">mail.activity</field>
+        <field name="view_mode">calendar,list,form</field>
+        <field name="domain">[('user_id','=',uid)]</field>
+        <field name="context">{'search_default_user_id': uid}</field>
+    </record>
+
+    <menuitem id="menu_kob_mail_activity_calendar"
+              name="My Activities (Calendar)"
+              parent="mail.discuss_channel_menu_settings"
+              action="action_kob_mail_activity_calendar"
+              sequence="40"/>
+</odoo>

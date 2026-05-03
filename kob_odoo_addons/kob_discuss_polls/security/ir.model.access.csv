@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_kob_poll_user,kob.poll user,model_kob_poll,base.group_user,1,1,1,1
+access_kob_poll_option_user,kob.poll.option user,model_kob_poll_option,base.group_user,1,1,1,1
+access_kob_poll_vote_user,kob.poll.vote user,model_kob_poll_vote,base.group_user,1,1,1,1

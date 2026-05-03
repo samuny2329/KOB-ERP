@@ -1,0 +1,66 @@
+.kob_poll_widget,
+.kob_poll_inline {
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    background: #f9fafb;
+    max-width: 480px;
+
+    .kob_poll_q {
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+    }
+
+    .kob_poll_opt {
+        position: relative;
+        display: block;
+        width: 100%;
+        text-align: left;
+        background: #fff;
+        border: 1px solid #d1d5db;
+        border-radius: 0.375rem;
+        padding: 0.5rem 0.75rem;
+        margin-bottom: 0.375rem;
+        cursor: pointer;
+        overflow: hidden;
+        transition: border-color 0.15s;
+        font-size: 0.875rem;
+
+        &:hover:not(:disabled) {
+            border-color: #6366f1;
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+            opacity: 0.65;
+        }
+
+        &.kob_my_vote {
+            border-color: #6366f1;
+            background-color: #eef2ff;
+            font-weight: 600;
+        }
+
+        .kob_poll_count {
+            float: right;
+            color: #6b7280;
+            font-size: 0.8rem;
+        }
+
+        .kob_poll_bar {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 3px;
+            background: #6366f1;
+            transition: width 0.3s;
+        }
+    }
+
+    .kob_poll_meta {
+        font-size: 0.75rem;
+        color: #6b7280;
+        margin-top: 0.25rem;
+    }
+}

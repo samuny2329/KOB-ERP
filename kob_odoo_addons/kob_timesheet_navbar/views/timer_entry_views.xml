@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_timer_entry_list" model="ir.ui.view">
+        <field name="name">kob.timer.entry.list</field>
+        <field name="model">kob.timer.entry</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="user_id"/>
+                <field name="description"/>
+                <field name="project_id"/>
+                <field name="task_id"/>
+                <field name="start_time"/>
+                <field name="stop_time"/>
+                <field name="duration_seconds" widget="float_time"/>
+                <field name="analytic_line_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_kob_timer_entry" model="ir.actions.act_window">
+        <field name="name">Timer Entries</field>
+        <field name="res_model">kob.timer.entry</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_kob_timer_entry"
+              name="Timer Entries"
+              parent="hr_timesheet.timesheet_menu_root"
+              action="action_kob_timer_entry"
+              sequence="50"/>
+</odoo>
