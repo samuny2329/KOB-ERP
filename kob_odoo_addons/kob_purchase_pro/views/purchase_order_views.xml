@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_purchase_order_form_kob_resupply" model="ir.ui.view">
+        <field name="name">purchase.order.form.kob.resupply</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_resupply"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-truck"
+                        invisible="state not in ('purchase','done') or not has_resupply_products">
+                    <field name="resupply_picking_count" widget="statinfo" string="Resupply"/>
+                </button>
+                <field name="has_resupply_products" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

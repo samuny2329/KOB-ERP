@@ -39,6 +39,7 @@ beyond what stock Odoo ships:
         "views/procurement_budget_views.xml",
         "views/demand_signal_views.xml",
         "views/po_consolidation_views.xml",
+        "views/purchase_order_views.xml",
         # QWeb PDF reports
         "report/purchase_pro_reports.xml",
     ],
