@@ -77,7 +77,7 @@ export class KobTimesheetTimerButton extends Component {
     }
 
     onClickStart() {
-        const desc = browser.prompt("What are you working on?", "") || "";
+        const desc = window.prompt("What are you working on?", "") || "";
         this.state.running = true;
         this.state.startTime = new Date().toISOString();
         this.state.description = desc;
