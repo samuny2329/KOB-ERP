@@ -254,7 +254,9 @@ class WmsCountSession(models.Model):
 
             Task.create({
                 'session_id': self.id,
-                'name': _('[%s] Count %s') % (abc, product_code),
+                # Don't pass `name` — let the sequence in
+                # wms.count.task.create() assign a proper TASK/yyyy/0000 ref.
+                'abc_label':  _('[%s] Count %s') % (abc, product_code),
                 'location_id': location.id,
                 'rack_id': rack.id if rack else False,
                 'product_id': product_id,

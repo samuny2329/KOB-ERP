@@ -9,7 +9,9 @@
                   decoration-info="state == 'counting'"
                   decoration-warning="state == 'submitted'"
                   decoration-success="state in ('verified', 'approved')">
-                <field name="name"/>
+                <field name="name" string="Reference"/>
+                <field name="abc_label" string="ABC" optional="show"/>
+                <field name="product_id" optional="show"/>
                 <field name="session_id"/>
                 <field name="rack_id"/>
                 <field name="zone_id"/>

@@ -10,6 +10,11 @@ class WmsCountTask(models.Model):
 
     name = fields.Char(string='Reference', required=True, copy=False,
                        readonly=True, default=lambda self: _('New'))
+    abc_label = fields.Char(
+        string='ABC Label',
+        help='Short human-readable label like "[A] Count SBPR275" for '
+             'ABC-cycle generated tasks. Independent of the sequence ref.',
+    )
     sequence = fields.Integer(default=10)
     session_id = fields.Many2one('wms.count.session', string='Session',
                                  required=True, ondelete='cascade')
