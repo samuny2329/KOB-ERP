@@ -1,0 +1,156 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   KOB Glass Theme — semi-transparent overlay across all Odoo 19 views
+
+   Layers a soft gradient on the body, then makes form/list/kanban
+   surfaces use white-with-transparency so the gradient shows through.
+   No emojis, no decorative noise — clean enterprise glass aesthetic.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+$kob-glass-tint:    rgba(255, 255, 255, 0.78);
+$kob-glass-border:  rgba(0, 0, 0, 0.06);
+$kob-glass-shadow:  0 1px 3px rgba(0, 0, 0, 0.04);
+
+/* Body — soft gradient backdrop */
+body.o_web_client {
+    background:
+        linear-gradient(115deg,
+            rgba(255, 255, 255, 0.0) 0%,
+            rgba(255, 255, 255, 0.30) 48%,
+            rgba(255, 255, 255, 0.0) 52%,
+            rgba(255, 255, 255, 0.0) 100%),
+        linear-gradient(180deg, #d8d6e0 0%, #ecebef 60%) !important;
+    background-attachment: fixed !important;
+}
+
+/* Action manager surface = transparent */
+.o_action_manager {
+    background: transparent !important;
+}
+
+/* Navbar — solid for legibility */
+.o_main_navbar {
+    background: rgba(255, 255, 255, 0.92) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid $kob-glass-border;
+
+    .o_menu_brand,
+    .o_navbar_apps_menu,
+    .o_menu_sections > a,
+    .o_menu_systray > * {
+        color: #2c2c2c !important;
+    }
+}
+
+/* Control panel (search bar / breadcrumb area) */
+.o_control_panel {
+    background: $kob-glass-tint !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid $kob-glass-border;
+}
+
+/* List view */
+.o_list_view {
+    background: transparent !important;
+
+    .o_list_table {
+        background: $kob-glass-tint !important;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 6px;
+        overflow: hidden;
+        box-shadow: $kob-glass-shadow;
+
+        thead { background: rgba(245, 246, 248, 0.85) !important; }
+        > tbody > tr:hover { background: rgba(255, 255, 255, 0.55) !important; }
+    }
+}
+
+/* Form view */
+.o_form_view {
+    background: transparent !important;
+
+    .o_form_sheet_bg { background: transparent !important; padding: 16px; }
+    .o_form_sheet {
+        background: $kob-glass-tint !important;
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border: 1px solid $kob-glass-border;
+        box-shadow: $kob-glass-shadow;
+    }
+
+    .o_form_statusbar {
+        background: rgba(255, 255, 255, 0.85) !important;
+        backdrop-filter: blur(8px);
+    }
+
+    .o_notebook .nav-tabs {
+        background: rgba(245, 246, 248, 0.6) !important;
+    }
+}
+
+/* Kanban view */
+.o_kanban_view {
+    background: transparent !important;
+
+    .o_kanban_record,
+    .o_kanban_card {
+        background: $kob-glass-tint !important;
+        backdrop-filter: blur(8px);
+        border: 1px solid $kob-glass-border;
+        box-shadow: $kob-glass-shadow;
+    }
+
+    .o_kanban_group { background: transparent !important; }
+    .o_kanban_header { background: rgba(255, 255, 255, 0.55) !important; }
+}
+
+/* Search panel */
+.o_search_panel {
+    background: rgba(255, 255, 255, 0.55) !important;
+    backdrop-filter: blur(8px);
+    border-right: 1px solid $kob-glass-border;
+}
+
+/* Modals — keep crisp white with strong shadow */
+.modal-content {
+    background: rgba(255, 255, 255, 0.96) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid $kob-glass-border;
+}
+
+/* Dashboards / spreadsheets / dialogs — ensure they breathe */
+.o_pivot_view,
+.o_graph_view,
+.o_calendar_view {
+    background: $kob-glass-tint !important;
+    backdrop-filter: blur(10px);
+}
+
+/* Buttons — keep Odoo defaults, just soften */
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.70) !important;
+    border-color: $kob-glass-border !important;
+}
+
+/* Notifications — use higher opacity for legibility */
+.o_notification {
+    background: rgba(255, 255, 255, 0.96) !important;
+    backdrop-filter: blur(12px);
+}
+
+/* Side menus */
+.o_menu_sections,
+.dropdown-menu {
+    background: rgba(255, 255, 255, 0.96) !important;
+    backdrop-filter: blur(10px);
+}
+
+/* Hide noisy emoji prefixes that show up in app icons / titles
+   (only inside main navigation labels — leave model fields untouched) */
+.o_menu_sections .o_menu_section_title,
+.o_navbar_apps_menu_button {
+    /* No-op rule kept as anchor for future tweaks */
+}

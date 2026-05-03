@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Placeholder SMTP server — admin should fill in real credentials.
+         Marked active=False so it won't actually be used until configured. -->
+    <record id="mail_server_kob_placeholder" model="ir.mail_server">
+        <field name="name">KOB SMTP (configure me)</field>
+        <field name="smtp_host">smtp.gmail.com</field>
+        <field name="smtp_port">587</field>
+        <field name="smtp_encryption">starttls</field>
+        <field name="smtp_user">configure-me@kissofbeauty.co.th</field>
+        <field name="from_filter">@kissofbeauty.co.th</field>
+        <field name="active" eval="False"/>
+        <field name="sequence">100</field>
+    </record>
+</odoo>

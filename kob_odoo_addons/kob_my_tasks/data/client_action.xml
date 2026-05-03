@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="action_my_battle_board" model="ir.actions.client">
-        <field name="name">🔥 My Battle Board</field>
+        <field name="name">My Battle Board</field>
         <field name="tag">kob_my_tasks.battle_board</field>
         <field name="target">main</field>
     </record>

@@ -7,7 +7,7 @@ approval matrix / substitution) to the user, filtered by their role.
 """
 from datetime import date, datetime, timedelta
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 
 
 PRIORITY_WEIGHT = {"urgent": 100, "high": 75, "medium": 50, "low": 25}
@@ -147,7 +147,7 @@ class KobMyTask(models.AbstractModel):
         ]
         domain.append(("state", "not in", ("done", "cancelled")))
         tasks = Task.sudo().search(domain, limit=100)
-        cat_label = self.env._("My Tasks")
+        cat_label = _("My Tasks")
         pri_map = {"0": "low", "1": "medium", "2": "high", "3": "urgent"}
         out = []
         for t in tasks:
@@ -185,7 +185,7 @@ class KobMyTask(models.AbstractModel):
             ("assignee_id", "=", user.id),
             ("state", "in", ("new", "in_progress", "waiting")),
         ], limit=50)
-        cat_label = self.env._("Helpdesk")
+        cat_label = _("Helpdesk")
         out = []
         for t in tickets:
             pri_map = {"0": "low", "1": "medium", "2": "high", "3": "urgent"}
@@ -236,7 +236,7 @@ class KobMyTask(models.AbstractModel):
                     pass
 
         out = []
-        cat_label = self.env._("Approvals")
+        cat_label = _("Approvals")
         for s in steps:
             req = s.request_id
             amt = req.amount if req else 0
@@ -267,7 +267,7 @@ class KobMyTask(models.AbstractModel):
             ("technician_id", "=", user.id),
             ("state", "in", ("draft", "scheduled", "in_progress")),
         ], limit=50)
-        cat_label = self.env._("Field Service")
+        cat_label = _("Field Service")
         out = []
         for t in tasks:
             out.append({
@@ -298,7 +298,7 @@ class KobMyTask(models.AbstractModel):
             ("assigned_user_id", "=", False),
             ("state", "in", ("assigned", "counting")),
         ], limit=50)
-        cat_label = self.env._("WMS Count")
+        cat_label = _("WMS Count")
         out = []
         for t in tasks:
             loc = getattr(t.location_id, "complete_name", "") or t.location_id.name or ""
@@ -333,7 +333,7 @@ class KobMyTask(models.AbstractModel):
         asms = Asm.sudo().search(domain + [
             ("state", "not in", ("done", "rejected"))
         ], limit=50)
-        cat_label = self.env._("KPI")
+        cat_label = _("KPI")
         out = []
         for a in asms:
             out.append({
@@ -361,7 +361,7 @@ class KobMyTask(models.AbstractModel):
         rmas = Ret.sudo().search([
             ("state", "in", ("submitted", "approved", "received", "inspected")),
         ], limit=30)
-        cat_label = self.env._("RMA")
+        cat_label = _("RMA")
         out = []
         for r in rmas:
             out.append({
@@ -387,7 +387,7 @@ class KobMyTask(models.AbstractModel):
         if Q is None:
             return []
         items = Q.sudo().search([("state", "in", ("review", "failed"))], limit=30)
-        cat_label = self.env._("Invoice OCR")
+        cat_label = _("Invoice OCR")
         out = []
         for q in items:
             out.append({
@@ -412,7 +412,7 @@ class KobMyTask(models.AbstractModel):
     def _collect_activities(self, user):
         Act = self.env["mail.activity"]
         acts = Act.sudo().search([("user_id", "=", user.id)], limit=50)
-        cat_label = self.env._("Activities")
+        cat_label = _("Activities")
         out = []
         for a in acts:
             try:
@@ -451,7 +451,7 @@ class KobMyTask(models.AbstractModel):
             ("state", "=", "new"),
             ("priority", "in", ("2", "3")),  # high + critical only
         ], limit=20)
-        cat_label = self.env._("AI Suggestion")
+        cat_label = _("AI Suggestion")
         out = []
         for s in items:
             pri_map = {"0": "low", "1": "medium", "2": "high", "3": "urgent"}

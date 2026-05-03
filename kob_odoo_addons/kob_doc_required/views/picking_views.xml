@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_picking_form_doc_required" model="ir.ui.view">
+        <field name="name">stock.picking.form.doc.required</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_open_attachment_picker" type="object"
+                        string="📎 Attach Document / Photo"
+                        class="btn-warning"
+                        invisible="state == 'done' or attachment_count > 0"/>
+                <field name="attachment_count" invisible="1"/>
+                <field name="requires_doc" invisible="1"/>
+            </xpath>
+            <xpath expr="//sheet" position="before">
+                <div class="alert alert-warning text-center mb-0"
+                     role="alert"
+                     invisible="not requires_doc or attachment_count > 0 or state == 'done'">
+                    <strong>⚠ ต้องแนบเอกสารหรือถ่ายภาพก่อน Validate</strong> —
+                    เพื่อยืนยันการรับ/ส่งสินค้า ตามนโยบาย KOB
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -4,21 +4,18 @@
     <t t-name="kob_my_tasks.MyBattleBoard">
         <div class="kob-battle-board">
 
-            <!-- ── Header ──────────────────────────────────────────── -->
+            <!-- ── Header (clean — no decorative emoji) ───────────── -->
             <div class="kob-bb-header">
                 <div class="kob-bb-brand">
-                    <span class="kob-bb-flame">🔥</span>
-                    <div>
-                        <h1>My Battle Board</h1>
-                        <small class="kob-bb-subtitle">
-                            <t t-if="state.data">
-                                <t t-esc="state.data.user_name"/>
-                                <span t-if="state.data.user_role"> ·
-                                    <t t-esc="state.data.user_role"/>
-                                </span>
-                            </t>
-                        </small>
-                    </div>
+                    <h1>My Battle Board</h1>
+                    <small class="kob-bb-subtitle">
+                        <t t-if="state.data">
+                            <t t-esc="state.data.user_name"/>
+                            <span t-if="state.data.user_role"> ·
+                                <t t-esc="state.data.user_role"/>
+                            </span>
+                        </t>
+                    </small>
                 </div>
                 <div class="kob-bb-header-right">
                     <small t-if="state.lastUpdated" class="text-muted me-2">
@@ -41,17 +38,17 @@
                 </div>
                 <div class="kob-bb-kpi kob-bb-kpi--danger"
                      t-att-class="{'kob-bb-kpi--zero': state.data.kpi.overdue === 0}">
-                    <div class="kob-bb-kpi-value">⚠ <t t-esc="state.data.kpi.overdue"/></div>
+                    <div class="kob-bb-kpi-value"><t t-esc="state.data.kpi.overdue"/></div>
                     <div class="kob-bb-kpi-label">Overdue</div>
                 </div>
                 <div class="kob-bb-kpi kob-bb-kpi--warn"
                      t-att-class="{'kob-bb-kpi--zero': state.data.kpi.due_today === 0}">
-                    <div class="kob-bb-kpi-value">⏰ <t t-esc="state.data.kpi.due_today"/></div>
+                    <div class="kob-bb-kpi-value"><t t-esc="state.data.kpi.due_today"/></div>
                     <div class="kob-bb-kpi-label">Due Today</div>
                 </div>
                 <div class="kob-bb-kpi kob-bb-kpi--accent"
                      t-att-class="{'kob-bb-kpi--zero': state.data.kpi.high_pri === 0}">
-                    <div class="kob-bb-kpi-value">🔥 <t t-esc="state.data.kpi.high_pri"/></div>
+                    <div class="kob-bb-kpi-value"><t t-esc="state.data.kpi.high_pri"/></div>
                     <div class="kob-bb-kpi-label">High Priority</div>
                 </div>
             </div>
@@ -82,7 +79,7 @@
 
             <!-- ── Quick Create ─────────────────────────────────────── -->
             <div class="kob-bb-quick-create">
-                <span class="kob-bb-qc-icon">🎯</span>
+                <i class="fa fa-plus-circle kob-bb-qc-icon"/>
                 <input type="text"
                        class="kob-bb-qc-input"
                        placeholder="พิมพ์งานใหม่ที่นี่ + Enter (Quick add)"
@@ -93,7 +90,7 @@
                     <option value="0">Low</option>
                     <option value="1">Medium</option>
                     <option value="2">High</option>
-                    <option value="3">🔥 Urgent</option>
+                    <option value="3">Urgent</option>
                 </select>
                 <input type="date"
                        class="kob-bb-qc-date"

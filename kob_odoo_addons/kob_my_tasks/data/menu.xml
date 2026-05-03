@@ -2,7 +2,7 @@
 <odoo>
     <!-- Root App menu — appears on Welcome page + navbar -->
     <menuitem id="menu_my_battle_board_root"
-              name="🔥 My Battle Board"
+              name="My Battle Board"
               sequence="2"
               web_icon="kob_my_tasks,static/description/icon.png"
               action="action_my_battle_board"
@@ -29,12 +29,12 @@
 
     <!-- Personal Tasks (kanban / list / form) -->
     <menuitem id="menu_personal_task"
-              name="📋 My Tasks"
+              name="My Tasks"
               parent="menu_my_battle_board_root"
               action="action_personal_task"
               sequence="10"/>
     <menuitem id="menu_personal_task_time_log"
-              name="⏱ Time Logs"
+              name="Time Logs"
               parent="menu_my_battle_board_root"
               action="action_personal_time_log"
               sequence="20"/>

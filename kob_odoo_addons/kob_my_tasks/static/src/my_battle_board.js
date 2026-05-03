@@ -86,15 +86,16 @@ class MyBattleBoard extends Component {
                        && this.state.data.kpi.total) || 0;
         const chips = [{ id: "all", label: _t("All"), count: total }];
         const order = [
-            { id: "approval",   label: _t("Approvals"),  icon: "✅" },
-            { id: "helpdesk",   label: _t("Helpdesk"),   icon: "🎫" },
-            { id: "wms_count",  label: _t("WMS"),        icon: "📦" },
-            { id: "kpi",        label: _t("KPI"),        icon: "🎯" },
-            { id: "returns",    label: _t("Returns"),    icon: "↩" },
-            { id: "ocr_review", label: _t("OCR"),        icon: "🧾" },
-            { id: "field_svc",  label: _t("Field"),      icon: "🔧" },
-            { id: "ai",         label: _t("AI"),         icon: "✨" },
-            { id: "activities", label: _t("Activities"), icon: "📝" },
+            { id: "personal",   label: _t("Personal") },
+            { id: "approval",   label: _t("Approvals") },
+            { id: "helpdesk",   label: _t("Helpdesk") },
+            { id: "wms_count",  label: _t("WMS") },
+            { id: "kpi",        label: _t("KPI") },
+            { id: "returns",    label: _t("Returns") },
+            { id: "ocr_review", label: _t("OCR") },
+            { id: "field_svc",  label: _t("Field") },
+            { id: "ai",         label: _t("AI") },
+            { id: "activities", label: _t("Activities") },
         ];
         for (const c of order) {
             if ((counts[c.id] || 0) > 0) {
