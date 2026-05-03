@@ -8,6 +8,7 @@
     "data": [
         "security/ir.model.access.csv",
         "views/kob_helpdesk_views.xml",
+        "data/seed_data.xml",
     ],
     "installable": True,
     "auto_install": False,

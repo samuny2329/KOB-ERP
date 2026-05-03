@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- ── Helpdesk Categories ──────────────────────────────── -->
+    <record id="cat_order_issue" model="kob.helpdesk.category">
+        <field name="name">Order Issue</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="cat_product_inquiry" model="kob.helpdesk.category">
+        <field name="name">Product Inquiry</field>
+        <field name="sequence">20</field>
+    </record>
+    <record id="cat_returns" model="kob.helpdesk.category">
+        <field name="name">Returns &amp; Refunds</field>
+        <field name="sequence">30</field>
+    </record>
+    <record id="cat_billing" model="kob.helpdesk.category">
+        <field name="name">Billing &amp; Payment</field>
+        <field name="sequence">40</field>
+    </record>
+    <record id="cat_technical" model="kob.helpdesk.category">
+        <field name="name">Technical Issue</field>
+        <field name="sequence">50</field>
+    </record>
+
+    <!-- ── Sample Tickets ───────────────────────────────────── -->
+    <record id="ticket_1" model="kob.helpdesk.ticket">
+        <field name="name">Lipstick arrived damaged</field>
+        <field name="category_id" ref="cat_returns"/>
+        <field name="priority">2</field>
+        <field name="state">in_progress</field>
+        <field name="description"><![CDATA[<p>Customer ordered KOB Velvet Lipstick #SO-2026-04-1218. Box arrived crushed, lipstick tube cracked. Photo attached. Requesting replacement.</p>]]></field>
+    </record>
+    <record id="ticket_2" model="kob.helpdesk.ticket">
+        <field name="name">Order #SO-2026-04-1247 not received after 8 days</field>
+        <field name="category_id" ref="cat_order_issue"/>
+        <field name="priority">3</field>
+        <field name="state">waiting</field>
+        <field name="description"><![CDATA[<p>Customer says order placed Apr 22, expected Apr 25, still not received as of Apr 30. Tracking shows "in transit" since Apr 24. Need to contact Kerry to investigate.</p>]]></field>
+    </record>
+    <record id="ticket_3" model="kob.helpdesk.ticket">
+        <field name="name">Q: Is the Hydra Serum vegan?</field>
+        <field name="category_id" ref="cat_product_inquiry"/>
+        <field name="priority">0</field>
+        <field name="state">resolved</field>
+        <field name="description"><![CDATA[<p>Customer asking about KOB Hydra Serum ingredients before buying.</p>]]></field>
+        <field name="resolution">Replied with full ingredient list. Confirmed: 100% vegan, cruelty-free, no parabens. Customer purchased.</field>
+    </record>
+    <record id="ticket_4" model="kob.helpdesk.ticket">
+        <field name="name">Promo code REFILL20 not working at checkout</field>
+        <field name="category_id" ref="cat_technical"/>
+        <field name="priority">2</field>
+        <field name="state">in_progress</field>
+        <field name="description"><![CDATA[<p>Customer reports REFILL20 code rejected. Min order 500฿ already met. Need to check coupon configuration.</p>]]></field>
+    </record>
+    <record id="ticket_5" model="kob.helpdesk.ticket">
+        <field name="name">Refund not received after 14 days</field>
+        <field name="category_id" ref="cat_billing"/>
+        <field name="priority">3</field>
+        <field name="state">new</field>
+        <field name="description"><![CDATA[<p>Customer returned product on Apr 14, refund approved Apr 16, but bank shows no credit yet. Need to investigate with finance.</p>]]></field>
+    </record>
+    <record id="ticket_6" model="kob.helpdesk.ticket">
+        <field name="name">Wrong item shipped — got Mascara instead of Lipstick</field>
+        <field name="category_id" ref="cat_order_issue"/>
+        <field name="priority">2</field>
+        <field name="state">resolved</field>
+        <field name="description"><![CDATA[<p>Picking error. Customer received wrong product.</p>]]></field>
+        <field name="resolution">Apologized, sent correct item via express, customer keeps wrong item as goodwill gesture.</field>
+    </record>
+    <record id="ticket_7" model="kob.helpdesk.ticket">
+        <field name="name">Subscription cancellation request</field>
+        <field name="category_id" ref="cat_billing"/>
+        <field name="priority">1</field>
+        <field name="state">closed</field>
+        <field name="description"><![CDATA[<p>Customer wants to cancel monthly refill subscription.</p>]]></field>
+        <field name="resolution">Cancelled subscription effective next billing cycle. Offered 20% retention discount, declined.</field>
+    </record>
+</odoo>

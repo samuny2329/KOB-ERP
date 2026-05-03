@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- ── Sample webhook configurations (UAT operations) ─────── -->
+    <record id="webhook_so_confirmed" model="kob.webhook.config">
+        <field name="name">Notify Slack on Sale Order Confirmed</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="trigger">write</field>
+        <field name="state_filter">[('state','=','sale')]</field>
+        <field name="target_url">https://hooks.slack.com/services/T0XXX/B0YYY/example_token</field>
+        <field name="method">POST</field>
+        <field name="payload_template">{"text": "Sale Order {{record.name}} confirmed for {{record.partner_id.name}} — {{record.amount_total}} THB"}</field>
+        <field name="retry_max">3</field>
+        <field name="timeout_sec">15</field>
+    </record>
+
+    <record id="webhook_invoice_paid" model="kob.webhook.config">
+        <field name="name">Push paid invoice to BI warehouse</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="trigger">write</field>
+        <field name="state_filter">[('state','=','posted'),('move_type','=','out_invoice')]</field>
+        <field name="target_url">https://bi.kissofbeauty.co.th/api/v1/invoices/posted</field>
+        <field name="method">POST</field>
+        <field name="auth_header">Bearer kob_bi_xxxxxxxxxxxxxx</field>
+        <field name="payload_template">{"invoice_id": "{{record.id}}", "name": "{{record.name}}", "total": {{record.amount_total}}}</field>
+    </record>
+
+    <record id="webhook_helpdesk_new" model="kob.webhook.config">
+        <field name="name">Notify Line OA on new high-priority ticket</field>
+        <field name="model_id" ref="kob_helpdesk.model_kob_helpdesk_ticket"/>
+        <field name="trigger">create</field>
+        <field name="target_url">https://api.line.me/v2/bot/message/push</field>
+        <field name="method">POST</field>
+        <field name="auth_header">Bearer LINE_OA_CHANNEL_ACCESS_TOKEN_HERE</field>
+        <field name="payload_template">{"to": "Ux_admin", "messages": [{"type": "text", "text": "New ticket: {{record.name}} ({{record.priority}})"}]}</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="webhook_inventory_low" model="kob.webhook.config">
+        <field name="name">Alert procurement on low stock</field>
+        <field name="model_id" ref="stock.model_stock_quant"/>
+        <field name="trigger">create</field>
+        <field name="target_url">https://procurement.kissofbeauty.co.th/api/low-stock-alert</field>
+        <field name="method">POST</field>
+        <field name="payload_template">{"product": "{{record.product_id.name}}", "qty": {{record.quantity}}}</field>
+        <field name="active" eval="False"/>
+    </record>
+</odoo>

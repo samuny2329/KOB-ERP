@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- ==========================================================
+         KOB Extras v4 — Sample data based on UAT operations
+         ========================================================== -->
+
+    <!-- Demand Forecasts and Vendor Scorecards are computed dynamically
+         via cron jobs (cron_generate_monthly_forecast,
+         cron_generate_monthly_scorecard). No static seed needed —
+         they populate from real account.move and purchase.order data. -->
+
+    <!-- ── API Key (sample for testing) ──────────────────────── -->
+    <record id="api_key_demo" model="kob.api.key">
+        <field name="name">Mobile App API Key</field>
+        <field name="key">kob_demo_8f3d2c1a9b7e4f5d6c0a8b9e2d3f4a5b</field>
+        <field name="rate_limit_rpm">120</field>
+        <field name="rate_limit_rpd">50000</field>
+        <field name="notes">Used by KOB mobile app v2.x for read-only catalog access.</field>
+    </record>
+</odoo>

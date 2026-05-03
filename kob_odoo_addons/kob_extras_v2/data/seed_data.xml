@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- ==========================================================
+         KOB Extras v2 — Sample data based on UAT operations
+         ========================================================== -->
+
+    <!-- ── Approval Requests ─────────────────────────────────── -->
+    <record id="approval_capex_q2" model="kob.approval.request">
+        <field name="name">CapEx — Lipstick filling line upgrade</field>
+        <field name="request_type">budget_increase</field>
+        <field name="requester_id" ref="base.user_admin"/>
+        <field name="amount">2480000</field>
+        <field name="description"><![CDATA[<p>Upgrade existing manual filling line to semi-automated to support 40% volume increase from Q3 launch. Vendor: SkyTech Industries. Lead time: 90 days.</p>]]></field>
+        <field name="state">approved</field>
+    </record>
+
+    <record id="approval_marketing_july" model="kob.approval.request">
+        <field name="name">Marketing budget — July campaign</field>
+        <field name="request_type">expense_reimburse</field>
+        <field name="requester_id" ref="base.user_admin"/>
+        <field name="amount">680000</field>
+        <field name="description"><![CDATA[<p>Multi-channel campaign for Lipstick collection: paid social 350k, KOL 200k, Google Ads 130k.</p>]]></field>
+        <field name="state">pending</field>
+    </record>
+
+    <record id="approval_vendor_new" model="kob.approval.request">
+        <field name="name">New vendor onboarding — Glass packaging</field>
+        <field name="request_type">po_approval</field>
+        <field name="requester_id" ref="base.user_admin"/>
+        <field name="amount">0</field>
+        <field name="description"><![CDATA[<p>Onboard new glass bottle supplier: Crystal Pack Co., Ltd. Sample tested OK. MOQ 5,000 pcs/SKU.</p>]]></field>
+        <field name="state">approved</field>
+    </record>
+
+    <!-- ── ESG Metrics (rolling year) ────────────────────────── -->
+    <record id="esg_carbon_apr" model="kob.esg.metric">
+        <field name="period_year">2026</field>
+        <field name="period_month">4</field>
+        <field name="metric_type">carbon_kgco2</field>
+        <field name="value">12480</field>
+        <field name="target">14000</field>
+        <field name="note">Production + logistics. Below target — solar panels online since March helped.</field>
+    </record>
+    <record id="esg_water_apr" model="kob.esg.metric">
+        <field name="period_year">2026</field>
+        <field name="period_month">4</field>
+        <field name="metric_type">water_m3</field>
+        <field name="value">880</field>
+        <field name="target">950</field>
+        <field name="note">Cleaning + cooling water. New low-flow nozzles deployed in March.</field>
+    </record>
+    <record id="esg_waste_apr" model="kob.esg.metric">
+        <field name="period_year">2026</field>
+        <field name="period_month">4</field>
+        <field name="metric_type">waste_kg</field>
+        <field name="value">2150</field>
+        <field name="target">2400</field>
+        <field name="note">Reduced via better QC at filling stage.</field>
+    </record>
+    <record id="esg_energy_apr" model="kob.esg.metric">
+        <field name="period_year">2026</field>
+        <field name="period_month">4</field>
+        <field name="metric_type">energy_kwh</field>
+        <field name="value">48200</field>
+        <field name="target">52000</field>
+    </record>
+    <record id="esg_plastic_apr" model="kob.esg.metric">
+        <field name="period_year">2026</field>
+        <field name="period_month">4</field>
+        <field name="metric_type">plastic_kg</field>
+        <field name="value">1880</field>
+        <field name="target">2000</field>
+        <field name="note">PCR plastic mix increased to 35%.</field>
+    </record>
+    <record id="esg_recycled_apr" model="kob.esg.metric">
+        <field name="period_year">2026</field>
+        <field name="period_month">4</field>
+        <field name="metric_type">recycled_kg</field>
+        <field name="value">1280</field>
+        <field name="target">1100</field>
+        <field name="note">Post-consumer cardboard recycling program — exceeding target.</field>
+    </record>
+    <record id="esg_renewable_apr" model="kob.esg.metric">
+        <field name="period_year">2026</field>
+        <field name="period_month">4</field>
+        <field name="metric_type">renewable_pct</field>
+        <field name="value">42</field>
+        <field name="target">40</field>
+        <field name="note">Rooftop solar contributing — 42% of plant energy.</field>
+    </record>
+
+    <!-- ── AI Suggestions ────────────────────────────────────── -->
+    <record id="ai_reorder_essence" model="kob.ai.suggestion">
+        <field name="title">Reorder: KOB Hydra Essence — stockout risk in 11 days</field>
+        <field name="category">reorder</field>
+        <field name="priority">2</field>
+        <field name="message">Current stock 420 units, daily velocity 38 units. Lead time from supplier is 14 days. Suggest PO for 800 units this week.</field>
+        <field name="confidence_pct">87</field>
+        <field name="state">new</field>
+    </record>
+    <record id="ai_churn_vip" model="kob.ai.suggestion">
+        <field name="title">Churn risk: 24 VIP customers haven't ordered in 90+ days</field>
+        <field name="category">churn</field>
+        <field name="priority">2</field>
+        <field name="message">24 VIP customers (LTV avg 28,400 THB) inactive since Jan. Suggest re-engagement email with personal voucher.</field>
+        <field name="confidence_pct">73</field>
+        <field name="state">new</field>
+    </record>
+    <record id="ai_vendor_alert" model="kob.ai.suggestion">
+        <field name="title">Vendor performance drop: BeautyPack Co. on-time fell to 78%</field>
+        <field name="category">vendor</field>
+        <field name="priority">3</field>
+        <field name="message">3 of last 5 deliveries late by avg 4 days. Quality acceptance still 99% but recommend kickoff call.</field>
+        <field name="confidence_pct">95</field>
+        <field name="state">acknowledged</field>
+    </record>
+    <record id="ai_anomaly_invoice" model="kob.ai.suggestion">
+        <field name="title">Anomaly: Vendor invoice 38% above last 3-month average</field>
+        <field name="category">anomaly</field>
+        <field name="priority">3</field>
+        <field name="message">Invoice INV-2026-04-127 from Crystal Pack: 482k vs 3-month avg 350k. Verify against PO + delivery note.</field>
+        <field name="confidence_pct">91</field>
+        <field name="state">new</field>
+    </record>
+    <record id="ai_forecast_lipstick" model="kob.ai.suggestion">
+        <field name="title">Demand forecast: Velvet Lipstick — May +28% vs April</field>
+        <field name="category">forecast</field>
+        <field name="priority">1</field>
+        <field name="message">Recent Tiktok virality + 2 KOL endorsements. Production should plan +30% buffer for May.</field>
+        <field name="confidence_pct">68</field>
+        <field name="state">acted</field>
+    </record>
+    <record id="ai_pricing_serum" model="kob.ai.suggestion">
+        <field name="title">Pricing: KOB Serum — 690฿ vs market 590฿ avg</field>
+        <field name="category">price</field>
+        <field name="priority">1</field>
+        <field name="message">Competitive scan shows similar serums at 590-650 range. Conversion drops above 650. Test 590 promo for 30 days.</field>
+        <field name="confidence_pct">75</field>
+        <field name="state">new</field>
+    </record>
+</odoo>

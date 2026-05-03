@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- ==========================================================
+         Sample data based on real UAT KOB operations
+         ========================================================== -->
+
+    <!-- ── Customer Segments ─────────────────────────────────── -->
+    <record id="seg_vip" model="kob.customer.segment">
+        <field name="name">VIP Customers</field>
+        <field name="description">High-value customers, LTV &gt; 50,000 THB</field>
+        <field name="domain">[('customer_rank','&gt;',0)]</field>
+        <field name="use_domain" eval="True"/>
+    </record>
+    <record id="seg_new" model="kob.customer.segment">
+        <field name="name">New Customers (30 days)</field>
+        <field name="description">Onboarded in the last 30 days</field>
+        <field name="domain">[('customer_rank','&gt;',0)]</field>
+        <field name="use_domain" eval="True"/>
+    </record>
+    <record id="seg_regular" model="kob.customer.segment">
+        <field name="name">Regular Customers</field>
+        <field name="description">Non-VIP retail customers</field>
+        <field name="domain">[('customer_rank','&gt;',0)]</field>
+        <field name="use_domain" eval="True"/>
+    </record>
+
+    <!-- ── Email Campaigns (mirrors KOB skincare promo cadence) ─ -->
+    <record id="camp_skincare_april" model="kob.email.campaign">
+        <field name="name">KOB Skincare Refill — April Promo</field>
+        <field name="subject">Get 20% off your favorite refill this month</field>
+        <field name="from_name">KOB Beauty</field>
+        <field name="from_email">marketing@kissofbeauty.co.th</field>
+        <field name="body_html"><![CDATA[<h2>April Refill Promo</h2>
+<p>Time to refill your KOB favorites! Get 20% off all refill products this April.</p>
+<p>Use code <strong>REFILL20</strong> at checkout.</p>]]></field>
+        <field name="state">sent</field>
+        <field name="sent_count">2847</field>
+        <field name="open_count">1142</field>
+        <field name="click_count">421</field>
+        <field name="unsubscribe_count">8</field>
+        <field name="bounce_count">23</field>
+        <field name="segment_id" ref="seg_vip"/>
+    </record>
+
+    <record id="camp_welcome" model="kob.email.campaign">
+        <field name="name">Welcome Series — Day 1</field>
+        <field name="subject">Welcome to KOB Beauty 💄</field>
+        <field name="from_name">KOB Beauty</field>
+        <field name="from_email">welcome@kissofbeauty.co.th</field>
+        <field name="body_html"><![CDATA[<h2>Welcome aboard!</h2>
+<p>Thanks for joining KOB Beauty. Here's a 10% off voucher for your first order.</p>]]></field>
+        <field name="state">sent</field>
+        <field name="sent_count">412</field>
+        <field name="open_count">298</field>
+        <field name="click_count">187</field>
+        <field name="segment_id" ref="seg_new"/>
+    </record>
+
+    <record id="camp_ab_test" model="kob.email.campaign">
+        <field name="name">A/B Subject Line Test — Lipstick Launch</field>
+        <field name="subject">New: KOB Velvet Lipstick now available</field>
+        <field name="from_name">KOB Beauty</field>
+        <field name="from_email">launch@kissofbeauty.co.th</field>
+        <field name="body_html"><![CDATA[<h2>Meet your new favorite lipstick</h2>
+<p>The KOB Velvet collection just dropped. Free shipping on first orders.</p>]]></field>
+        <field name="state">sent</field>
+        <field name="ab_test" eval="True"/>
+        <field name="ab_split_pct">50</field>
+        <field name="ab_variant_b_subject">💋 KOB Velvet Lipstick — yours today</field>
+        <field name="ab_variant_b_body"><![CDATA[<h2>Velvet, your way</h2>
+<p>The KOB Velvet collection just dropped. Free shipping on first orders.</p>]]></field>
+        <field name="sent_count">1500</field>
+        <field name="open_count">630</field>
+        <field name="click_count">198</field>
+        <field name="segment_id" ref="seg_regular"/>
+    </record>
+
+    <!-- ── SMS Gateway + Blast ──────────────────────────────── -->
+    <record id="sms_gw_thbulk" model="kob.sms.gateway">
+        <field name="name">ThaiBulkSMS</field>
+        <field name="code">thbulksms</field>
+        <field name="sender_id">KOB</field>
+        <field name="cost_per_msg">0.45</field>
+        <field name="api_endpoint">https://api.thaibulksms.com/sms</field>
+    </record>
+
+    <record id="sms_blast_flash_sale" model="kob.sms.blast">
+        <field name="name">Flash Sale 24h — Today only</field>
+        <field name="gateway_id" ref="sms_gw_thbulk"/>
+        <field name="segment_id" ref="seg_vip"/>
+        <field name="body">Hi {first_name}, KOB flash sale 30% off — today only! Shop: kob.co.th/flash</field>
+        <field name="state">sent</field>
+        <field name="sent_count">421</field>
+    </record>
+
+    <!-- ── Coupon Programs ─────────────────────────────────── -->
+    <record id="coupon_refill20" model="kob.coupon.program">
+        <field name="name">Refill 20% Off (April)</field>
+        <field name="code_prefix">REFILL</field>
+        <field name="discount_type">percent</field>
+        <field name="discount_value">20</field>
+        <field name="min_order_value">500</field>
+        <field name="max_uses">1</field>
+        <field name="max_uses_per_customer">1</field>
+        <field name="state">active</field>
+    </record>
+
+    <record id="coupon_freeship" model="kob.coupon.program">
+        <field name="name">Free Shipping Over 1,000฿</field>
+        <field name="code_prefix">SHIP</field>
+        <field name="discount_type">free_shipping</field>
+        <field name="discount_value">0</field>
+        <field name="min_order_value">1000</field>
+        <field name="max_uses">9999</field>
+        <field name="max_uses_per_customer">3</field>
+        <field name="state">active</field>
+    </record>
+
+    <record id="coupon_vip100" model="kob.coupon.program">
+        <field name="name">VIP 100฿ Off</field>
+        <field name="code_prefix">VIP</field>
+        <field name="discount_type">fixed</field>
+        <field name="discount_value">100</field>
+        <field name="min_order_value">500</field>
+        <field name="max_uses">1</field>
+        <field name="max_uses_per_customer">1</field>
+        <field name="state">active</field>
+    </record>
+
+    <!-- ── A/B Tests ───────────────────────────────────────── -->
+    <record id="ab_test_checkout" model="kob.ab.test">
+        <field name="name">Checkout — One Page vs Multi Step</field>
+        <field name="hypothesis">A single-page checkout will lift conversion by 8%+ over the current 3-step checkout, especially on mobile.</field>
+        <field name="variant_a_label">3-Step Checkout (control)</field>
+        <field name="variant_b_label">1-Page Checkout (treatment)</field>
+        <field name="target_metric">conversion_rate</field>
+        <field name="start_date">2026-04-01</field>
+        <field name="end_date">2026-04-30</field>
+        <field name="sample_size_target">5000</field>
+        <field name="state">complete</field>
+        <field name="a_sample_count">2480</field>
+        <field name="a_conversion_count">98</field>
+        <field name="b_sample_count">2502</field>
+        <field name="b_conversion_count">142</field>
+    </record>
+
+    <record id="ab_test_pricing" model="kob.ab.test">
+        <field name="name">Lipstick Pricing — 590 vs 690</field>
+        <field name="hypothesis">Pricing the new lipstick at 590 instead of 690 will increase volume enough to keep total revenue.</field>
+        <field name="variant_a_label">฿690 (control)</field>
+        <field name="variant_b_label">฿590 (treatment)</field>
+        <field name="target_metric">aov</field>
+        <field name="start_date">2026-03-15</field>
+        <field name="end_date">2026-04-15</field>
+        <field name="state">running</field>
+        <field name="a_sample_count">820</field>
+        <field name="a_conversion_count">60</field>
+        <field name="b_sample_count">831</field>
+        <field name="b_conversion_count">78</field>
+    </record>
+
+    <!-- ── Marketing Touchpoints (sample) ─────────────────── -->
+    <record id="touch_email_1" model="kob.marketing.touch">
+        <field name="channel">email</field>
+        <field name="source">april_promo</field>
+        <field name="medium">newsletter</field>
+        <field name="cost">2.50</field>
+        <field name="touch_at" eval="(DateTime.now() - relativedelta(days=4))"/>
+        <field name="converted" eval="True"/>
+        <field name="conversion_value">2890</field>
+    </record>
+    <record id="touch_paid_1" model="kob.marketing.touch">
+        <field name="channel">paid_search</field>
+        <field name="source">google_ads</field>
+        <field name="medium">cpc</field>
+        <field name="term">korean skincare</field>
+        <field name="cost">38.50</field>
+        <field name="touch_at" eval="(DateTime.now() - relativedelta(days=2))"/>
+        <field name="converted" eval="True"/>
+        <field name="conversion_value">1290</field>
+    </record>
+    <record id="touch_social_1" model="kob.marketing.touch">
+        <field name="channel">social_paid</field>
+        <field name="source">facebook</field>
+        <field name="medium">cpm</field>
+        <field name="cost">125.00</field>
+        <field name="touch_at" eval="(DateTime.now() - relativedelta(days=1))"/>
+        <field name="converted">False</field>
+        <field name="conversion_value">0</field>
+    </record>
+
+    <!-- ── Attribution Reports (last 3 months) ────────────── -->
+    <record id="attr_email_apr" model="kob.attribution.report">
+        <field name="period_start">2026-04-01</field>
+        <field name="period_end">2026-04-30</field>
+        <field name="channel">email</field>
+        <field name="touch_count">12480</field>
+        <field name="conversion_count">1247</field>
+        <field name="cost">28500</field>
+        <field name="revenue">3741200</field>
+    </record>
+    <record id="attr_paid_apr" model="kob.attribution.report">
+        <field name="period_start">2026-04-01</field>
+        <field name="period_end">2026-04-30</field>
+        <field name="channel">paid_search</field>
+        <field name="touch_count">8430</field>
+        <field name="conversion_count">421</field>
+        <field name="cost">142800</field>
+        <field name="revenue">1683800</field>
+    </record>
+    <record id="attr_social_apr" model="kob.attribution.report">
+        <field name="period_start">2026-04-01</field>
+        <field name="period_end">2026-04-30</field>
+        <field name="channel">social_paid</field>
+        <field name="touch_count">21450</field>
+        <field name="conversion_count">198</field>
+        <field name="cost">68000</field>
+        <field name="revenue">593400</field>
+    </record>
+    <record id="attr_organic_apr" model="kob.attribution.report">
+        <field name="period_start">2026-04-01</field>
+        <field name="period_end">2026-04-30</field>
+        <field name="channel">organic</field>
+        <field name="touch_count">15820</field>
+        <field name="conversion_count">684</field>
+        <field name="cost">0</field>
+        <field name="revenue">2052000</field>
+    </record>
+</odoo>

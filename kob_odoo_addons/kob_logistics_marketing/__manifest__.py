@@ -15,6 +15,7 @@
         "data/sequences.xml",
         "data/cron.xml",
         "data/seed_carriers.xml",
+        "data/demo_data.xml",
         "views/carrier_views.xml",
         "views/shipment_views.xml",
         "views/return_request_views.xml",

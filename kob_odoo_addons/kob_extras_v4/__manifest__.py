@@ -19,6 +19,7 @@
         "security/api_security.xml",
         "data/cron_data.xml",
         "data/i18n_seed_data.xml",
+        "data/seed_data.xml",
         "views/kiosk_views.xml",
         "views/demand_forecast_views.xml",
         "views/vendor_scorecard_views.xml",
