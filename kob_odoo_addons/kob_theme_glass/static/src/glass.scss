@@ -10,6 +10,27 @@ $kob-glass-tint:    rgba(255, 255, 255, 0.78);
 $kob-glass-border:  rgba(0, 0, 0, 0.06);
 $kob-glass-shadow:  0 1px 3px rgba(0, 0, 0, 0.04);
 
+/* ═══════════════════════════════════════════════════════════════════════
+   Odoo 19 brand color — force purple everywhere to match UAT.
+   Override CSS variables AND every blue-default button class.
+   ═══════════════════════════════════════════════════════════════════════ */
+$o-purple:        #714B67;
+$o-purple-dark:   #5d3a55;
+$o-purple-light:  #875A7B;
+
+:root,
+body.o_web_client {
+    --primary:               #{$o-purple} !important;
+    --o-action:              #{$o-purple} !important;
+    --o-brand-odoo:          #{$o-purple} !important;
+    --o-brand-secondary:     #{$o-purple} !important;
+    --bs-primary:            #{$o-purple} !important;
+    --bs-primary-rgb:        113, 75, 103 !important;
+    --bs-link-color:         #{$o-purple} !important;
+    --bs-link-color-rgb:     113, 75, 103 !important;
+    --bs-link-hover-color:   #{$o-purple-dark} !important;
+}
+
 /* Body — soft gradient backdrop */
 body.o_web_client {
     background:
@@ -188,6 +209,79 @@ $kob-odoo-text: #2c2c2c;
 .btn.btn-danger  { color: #fff !important; }
 .btn.btn-warning { color: $kob-odoo-text !important; }
 .btn.btn-info    { color: $kob-odoo-text !important; }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Kanban dashboard tiles (Inventory Overview / Sales / Purchase /
+   Manufacturing / etc) — force the "Open / N To Receive / N To Deliver"
+   button colors to Odoo 19 purple to match UAT branding.
+   ─────────────────────────────────────────────────────────────────────── */
+.o_kanban_view {
+    /* Title links — purple */
+    .o_kanban_record .o_kanban_card_header_title a,
+    .o_primary,
+    .oe_kanban_text_red,
+    a.text-primary,
+    .o_kanban_record a {
+        color: $o-purple !important;
+    }
+    /* All buttons inside kanban dashboard tiles */
+    .o_kanban_record .btn,
+    .o_kanban_inventory .btn,
+    .o_kanban_dashboard .btn,
+    button.o_button {
+        background-color: $o-purple !important;
+        border-color: $o-purple !important;
+        color: #fff !important;
+
+        &:hover, &:focus {
+            background-color: $o-purple-dark !important;
+            border-color: $o-purple-dark !important;
+        }
+    }
+    /* Bottom-right "manage" 3-dot menu colors */
+    .o_kanban_manage_button_section a,
+    .o_kanban_card_manage_pane a {
+        color: $o-purple !important;
+    }
+}
+
+/* Specific Inventory dashboard fixes — kanban_inventory_*  */
+.o_kanban_inventory,
+.oe_kanban_inventory {
+    .o_kanban_card_content a,
+    .o_kanban_card_content button.btn-primary,
+    .oe_kanban_action {
+        color: #fff !important;
+        background-color: $o-purple !important;
+        border-color: $o-purple !important;
+    }
+}
+
+/* Statinfo numbers — use purple */
+.o_stat_info .o_stat_value,
+.o_stat_info .o_stat_text {
+    color: $o-purple !important;
+}
+
+/* Form view links + smart buttons */
+a, .o_form_view a:not(.btn) {
+    color: $o-purple !important;
+}
+a:hover, .o_form_view a:not(.btn):hover {
+    color: $o-purple-dark !important;
+}
+
+/* Statusbar active state */
+.o_form_statusbar .o_statusbar_status .btn-primary {
+    background-color: $o-purple !important;
+    border-color: $o-purple !important;
+}
+
+/* Switch/toggle accent */
+.form-check-input:checked {
+    background-color: $o-purple !important;
+    border-color: $o-purple !important;
+}
 
 /* Statusbar arrow buttons (form view 1→2→3 flow) — keep clear */
 .o_form_statusbar .o_arrow_button {
