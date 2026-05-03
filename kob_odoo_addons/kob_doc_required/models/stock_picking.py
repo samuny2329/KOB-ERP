@@ -17,10 +17,18 @@ class StockPicking(models.Model):
 
     @api.depends("picking_type_id")
     def _compute_requires_doc(self):
+        # Exempt KOB WMS-driven pickings (Pick/Pack/Outbound/Dispatch
+        # screens will use camera capture later — no manual attach needed).
+        WmsSO = self.env.get("wms.sales.order")
         for r in self:
-            r.requires_doc = bool(
+            base = bool(
                 r.picking_type_id and r.picking_type_id.code in
                 ("incoming", "outgoing"))
+            wms_linked = False
+            if WmsSO is not None and r.id:
+                wms_linked = bool(WmsSO.sudo().search_count(
+                    [("picking_id", "=", r.id)]))
+            r.requires_doc = base and not wms_linked
 
     def _compute_attachment_count(self):
         Att = self.env["ir.attachment"]
@@ -31,13 +39,21 @@ class StockPicking(models.Model):
             ])
 
     def button_validate(self):
-        for r in self:
-            if r.requires_doc and not r.attachment_count:
-                raise UserError(_(
-                    "ต้องแนบเอกสาร / ภาพถ่ายอย่างน้อย 1 ไฟล์ ก่อน validate "
-                    "การ %(label)s นี้\n\nกด 📎 ที่ chatter เพื่อแนบไฟล์",
-                    label=(_("รับสินค้า") if r.picking_type_id.code == "incoming"
-                           else _("ส่งสินค้า"))))
+        # WMS uses these context flags when validating from Pack screen —
+        # treat as bypass for the document requirement.
+        ctx = self.env.context or {}
+        wms_bypass = (ctx.get("skip_immediate") or
+                      ctx.get("skip_backorder") or
+                      ctx.get("skip_doc_check"))
+        if not wms_bypass:
+            for r in self:
+                if r.requires_doc and not r.attachment_count:
+                    raise UserError(_(
+                        "ต้องแนบเอกสาร / ภาพถ่ายอย่างน้อย 1 ไฟล์ "
+                        "ก่อน validate การ %(label)s นี้\n\n"
+                        "กด 📎 ที่ chatter เพื่อแนบไฟล์",
+                        label=(_("รับสินค้า") if r.picking_type_id.code == "incoming"
+                               else _("ส่งสินค้า"))))
         return super().button_validate()
 
     def action_open_attachment_picker(self):

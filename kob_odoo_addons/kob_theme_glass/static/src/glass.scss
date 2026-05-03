@@ -27,20 +27,9 @@ body.o_web_client {
     background: transparent !important;
 }
 
-/* Navbar — solid for legibility */
-.o_main_navbar {
-    background: rgba(255, 255, 255, 0.92) !important;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-bottom: 1px solid $kob-glass-border;
-
-    .o_menu_brand,
-    .o_navbar_apps_menu,
-    .o_menu_sections > a,
-    .o_menu_systray > * {
-        color: #2c2c2c !important;
-    }
-}
+/* Navbar — keep Odoo 19 native (don't override).
+   The glass effect applies only to content area below; navbar stays
+   crisp + readable with all menu items visible. */
 
 /* Control panel (search bar / breadcrumb area) */
 .o_control_panel {
@@ -129,10 +118,89 @@ body.o_web_client {
     backdrop-filter: blur(10px);
 }
 
-/* Buttons — keep Odoo defaults, just soften */
-.btn-secondary {
-    background: rgba(255, 255, 255, 0.70) !important;
-    border-color: $kob-glass-border !important;
+/* ─────────────────────────────────────────────────────────────────────────
+   Buttons — use Odoo 19 official palette for legibility & consistency.
+   We only nudge `.btn-secondary` slightly so it stands out on glass bg,
+   while every other variant keeps Odoo's native color.
+   ─────────────────────────────────────────────────────────────────────── */
+$kob-odoo-purple: #714B67;
+$kob-odoo-purple-dark: #5d3a55;
+$kob-odoo-text: #2c2c2c;
+
+/* Primary — Odoo brand purple, white text */
+.btn.btn-primary {
+    background-color: $kob-odoo-purple !important;
+    border-color: $kob-odoo-purple !important;
+    color: #fff !important;
+
+    &:hover, &:focus, &:active {
+        background-color: $kob-odoo-purple-dark !important;
+        border-color: $kob-odoo-purple-dark !important;
+        color: #fff !important;
+    }
+    &:disabled, &.disabled {
+        background-color: lighten($kob-odoo-purple, 25%) !important;
+        border-color: lighten($kob-odoo-purple, 25%) !important;
+        color: #fff !important;
+    }
+}
+
+/* Secondary — light gray with dark text (Odoo 19 default) */
+.btn.btn-secondary {
+    background-color: #f8f9fa !important;
+    border-color: #d8dde3 !important;
+    color: $kob-odoo-text !important;
+
+    &:hover, &:focus, &:active {
+        background-color: #e9ecef !important;
+        border-color: #adb5bd !important;
+        color: $kob-odoo-text !important;
+    }
+}
+
+/* Outline-secondary — for "Cancel" etc. */
+.btn.btn-outline-secondary {
+    background-color: transparent !important;
+    border-color: #d8dde3 !important;
+    color: $kob-odoo-text !important;
+
+    &:hover, &:focus {
+        background-color: #f3f4f6 !important;
+        border-color: $kob-odoo-purple !important;
+        color: $kob-odoo-purple !important;
+    }
+}
+
+/* Outline-primary */
+.btn.btn-outline-primary {
+    background-color: transparent !important;
+    border-color: $kob-odoo-purple !important;
+    color: $kob-odoo-purple !important;
+
+    &:hover, &:focus {
+        background-color: $kob-odoo-purple !important;
+        color: #fff !important;
+    }
+}
+
+/* Status / utility buttons — keep Bootstrap 5 / Odoo 19 native */
+.btn.btn-success { color: #fff !important; }
+.btn.btn-danger  { color: #fff !important; }
+.btn.btn-warning { color: $kob-odoo-text !important; }
+.btn.btn-info    { color: $kob-odoo-text !important; }
+
+/* Statusbar arrow buttons (form view 1→2→3 flow) — keep clear */
+.o_form_statusbar .o_arrow_button {
+    color: $kob-odoo-text !important;
+
+    &.btn-primary {
+        background-color: $kob-odoo-purple !important;
+        color: #fff !important;
+    }
+    &.btn-secondary {
+        background-color: #f8f9fa !important;
+        color: $kob-odoo-text !important;
+    }
 }
 
 /* Notifications — use higher opacity for legibility */
@@ -148,27 +216,7 @@ body.o_web_client {
     backdrop-filter: blur(10px);
 }
 
-/* ─────────────────────────────────────────────────────────────────────────
-   Sub-menu / secondary navbar fix — keep app sub-menus clearly visible
-   on top of the glass background. The previous rule made it transparent
-   which hid the labels.
-   ─────────────────────────────────────────────────────────────────────── */
-.o_main_navbar .o_menu_sections {
-    background: transparent !important;
-}
-.o_main_navbar .o_menu_sections > a,
-.o_main_navbar .o_menu_sections > button,
-.o_main_navbar .o_menu_sections .dropdown-toggle,
-.o_main_navbar .o_menu_sections .o_nav_entry {
-    color: #2c2c2c !important;
-    background: transparent !important;
-    font-weight: 500;
-
-    &:hover, &:focus, &.show {
-        background: rgba(113, 75, 103, 0.08) !important;
-        color: #714B67 !important;
-    }
-}
+/* Navbar sub-menus — leave Odoo 19 native styling untouched. */
 
 /* ─────────────────────────────────────────────────────────────────────────
    KOB / WMS fullscreen action navbars — keep solid + readable.
