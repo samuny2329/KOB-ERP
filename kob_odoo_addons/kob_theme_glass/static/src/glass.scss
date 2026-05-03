@@ -139,149 +139,148 @@ body.o_web_client {
     backdrop-filter: blur(10px);
 }
 
-/* ─────────────────────────────────────────────────────────────────────────
-   Buttons — use Odoo 19 official palette for legibility & consistency.
-   We only nudge `.btn-secondary` slightly so it stands out on glass bg,
-   while every other variant keeps Odoo's native color.
-   ─────────────────────────────────────────────────────────────────────── */
-$kob-odoo-purple: #714B67;
-$kob-odoo-purple-dark: #5d3a55;
-$kob-odoo-text: #2c2c2c;
+/* ═══════════════════════════════════════════════════════════════════════
+   Minimal theme — single accent (Odoo purple), neutral everywhere else.
+   Goal: reduce visual noise. Strong color ONLY on the one main action.
+   ═══════════════════════════════════════════════════════════════════════ */
+$kob-text:        #2c2c2c;
+$kob-text-muted:  #6b7280;
+$kob-neutral-bg:  #f3f4f6;
+$kob-neutral-bg2: #e5e7eb;
+$kob-neutral-br:  #d1d5db;
 
-/* Primary — Odoo brand purple, white text */
-.btn.btn-primary {
-    background-color: $kob-odoo-purple !important;
-    border-color: $kob-odoo-purple !important;
-    color: #fff !important;
+/* Primary action — purple (Save / New / Confirm / Send). */
+.btn.btn-primary,
+button.o_list_button_add,
+.o-list-button-add,
+.o_list_button_add,
+.o_searchview_input_container ~ .btn-primary,
+.o_cp_buttons .btn-primary {
+    background-color: $o-purple !important;
+    border-color:     $o-purple !important;
+    color:            #fff      !important;
+    box-shadow:       none      !important;
 
     &:hover, &:focus, &:active {
-        background-color: $kob-odoo-purple-dark !important;
-        border-color: $kob-odoo-purple-dark !important;
-        color: #fff !important;
-    }
-    &:disabled, &.disabled {
-        background-color: lighten($kob-odoo-purple, 25%) !important;
-        border-color: lighten($kob-odoo-purple, 25%) !important;
-        color: #fff !important;
+        background-color: $o-purple-dark !important;
+        border-color:     $o-purple-dark !important;
+        color:            #fff           !important;
     }
 }
 
-/* Secondary — light gray with dark text (Odoo 19 default) */
-.btn.btn-secondary {
-    background-color: #f8f9fa !important;
-    border-color: #d8dde3 !important;
-    color: $kob-odoo-text !important;
-
-    &:hover, &:focus, &:active {
-        background-color: #e9ecef !important;
-        border-color: #adb5bd !important;
-        color: $kob-odoo-text !important;
-    }
-}
-
-/* Outline-secondary — for "Cancel" etc. */
-.btn.btn-outline-secondary {
-    background-color: transparent !important;
-    border-color: #d8dde3 !important;
-    color: $kob-odoo-text !important;
+/* Secondary / outline buttons — neutral gray, dark text */
+.btn.btn-secondary,
+.btn.btn-outline-secondary,
+.btn.btn-light {
+    background-color: #fff !important;
+    border-color:     $kob-neutral-br !important;
+    color:            $kob-text !important;
+    box-shadow:       none !important;
 
     &:hover, &:focus {
-        background-color: #f3f4f6 !important;
-        border-color: $kob-odoo-purple !important;
-        color: $kob-odoo-purple !important;
+        background-color: $kob-neutral-bg !important;
+        border-color:     $kob-text-muted !important;
+        color:            $kob-text       !important;
     }
 }
 
-/* Outline-primary */
+/* Outline-primary — purple text on white */
 .btn.btn-outline-primary {
     background-color: transparent !important;
-    border-color: $kob-odoo-purple !important;
-    color: $kob-odoo-purple !important;
+    border-color: $o-purple !important;
+    color:        $o-purple !important;
 
     &:hover, &:focus {
-        background-color: $kob-odoo-purple !important;
+        background-color: $o-purple !important;
         color: #fff !important;
     }
 }
 
-/* Status / utility buttons — keep Bootstrap 5 / Odoo 19 native */
+/* Status utility buttons — text color only, keep system colors otherwise */
 .btn.btn-success { color: #fff !important; }
 .btn.btn-danger  { color: #fff !important; }
-.btn.btn-warning { color: $kob-odoo-text !important; }
-.btn.btn-info    { color: $kob-odoo-text !important; }
+.btn.btn-warning { color: $kob-text !important; }
+.btn.btn-info    { color: $kob-text !important; }
 
 /* ─────────────────────────────────────────────────────────────────────────
-   Kanban dashboard tiles (Inventory Overview / Sales / Purchase /
-   Manufacturing / etc) — force the "Open / N To Receive / N To Deliver"
-   button colors to Odoo 19 purple to match UAT branding.
+   Search-view facets / filter chips — minimal light gray, not bold purple.
+   ─────────────────────────────────────────────────────────────────────── */
+.o_searchview .o_facet_value,
+.o_searchview .o_facet_remove,
+.o_searchview .o_facet_values,
+.o_searchview .o_searchview_facet,
+.o_facet_with_operator,
+.o_facet_value_node {
+    background-color: $kob-neutral-bg !important;
+    color:            $kob-text       !important;
+    border-color:     $kob-neutral-br !important;
+}
+.o_searchview_facet_label,
+.o_facet_value {
+    background-color: $kob-neutral-bg2 !important;
+    color:            $kob-text        !important;
+    border-radius:    4px !important;
+    padding:          2px 8px !important;
+    font-weight:      500 !important;
+}
+.o_searchview .o_searchview_facet:hover {
+    background-color: #fff !important;
+    border-color:     $kob-text-muted !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Kanban dashboard tiles (Inventory Overview etc) — purple primary buttons.
    ─────────────────────────────────────────────────────────────────────── */
 .o_kanban_view {
-    /* Title links — purple */
-    .o_kanban_record .o_kanban_card_header_title a,
     .o_primary,
-    .oe_kanban_text_red,
     a.text-primary,
-    .o_kanban_record a {
+    .o_kanban_record .o_kanban_card_header_title a,
+    .o_kanban_record a:not(.btn) {
         color: $o-purple !important;
     }
-    /* All buttons inside kanban dashboard tiles */
-    .o_kanban_record .btn,
-    .o_kanban_inventory .btn,
-    .o_kanban_dashboard .btn,
-    button.o_button {
+    .o_kanban_record .btn-primary,
+    .o_kanban_dashboard .btn-primary {
         background-color: $o-purple !important;
-        border-color: $o-purple !important;
-        color: #fff !important;
+        border-color:     $o-purple !important;
+        color:            #fff      !important;
 
         &:hover, &:focus {
             background-color: $o-purple-dark !important;
-            border-color: $o-purple-dark !important;
+            border-color:     $o-purple-dark !important;
         }
     }
-    /* Bottom-right "manage" 3-dot menu colors */
-    .o_kanban_manage_button_section a,
-    .o_kanban_card_manage_pane a {
-        color: $o-purple !important;
+    .o_kanban_record .btn-secondary {
+        background-color: #fff !important;
+        border-color:     $kob-neutral-br !important;
+        color:            $kob-text !important;
     }
 }
 
-/* Specific Inventory dashboard fixes — kanban_inventory_*  */
-.o_kanban_inventory,
-.oe_kanban_inventory {
-    .o_kanban_card_content a,
-    .o_kanban_card_content button.btn-primary,
-    .oe_kanban_action {
-        color: #fff !important;
-        background-color: $o-purple !important;
-        border-color: $o-purple !important;
-    }
-}
-
-/* Statinfo numbers — use purple */
+/* Form-view links / smart buttons / statbuttons */
+.o_form_view a:not(.btn) { color: $o-purple !important; }
+.o_form_view a:not(.btn):hover { color: $o-purple-dark !important; }
 .o_stat_info .o_stat_value,
-.o_stat_info .o_stat_text {
-    color: $o-purple !important;
-}
+.o_stat_info .o_stat_text { color: $o-purple !important; }
 
-/* Form view links + smart buttons */
-a, .o_form_view a:not(.btn) {
-    color: $o-purple !important;
-}
-a:hover, .o_form_view a:not(.btn):hover {
-    color: $o-purple-dark !important;
-}
-
-/* Statusbar active state */
+/* Statusbar — purple only on active step */
 .o_form_statusbar .o_statusbar_status .btn-primary {
     background-color: $o-purple !important;
-    border-color: $o-purple !important;
+    border-color:     $o-purple !important;
+    color:            #fff      !important;
+}
+.o_form_statusbar .o_statusbar_status .btn-secondary {
+    background-color: #fff !important;
+    color:            $kob-text-muted !important;
 }
 
-/* Switch/toggle accent */
+/* Switch/toggle on state */
 .form-check-input:checked {
     background-color: $o-purple !important;
-    border-color: $o-purple !important;
+    border-color:     $o-purple !important;
 }
+
+/* Avatar / user chip default — keep neutral */
+.o_avatar_chip { background: $kob-neutral-bg !important; color: $kob-text !important; }
 
 /* Statusbar arrow buttons (form view 1→2→3 flow) — keep clear */
 .o_form_statusbar .o_arrow_button {
