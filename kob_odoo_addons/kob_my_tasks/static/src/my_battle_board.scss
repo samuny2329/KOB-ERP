@@ -1,0 +1,394 @@
+// 🔥 My Battle Board — war-room palette: deep red + orange + teal accents
+
+$bb-bg:        #f9fafb;
+$bb-card:      #ffffff;
+$bb-border:    #e5e7eb;
+$bb-text:      #1f2937;
+$bb-muted:     #6b7280;
+$bb-subtle:    #9ca3af;
+
+$bb-flame:     #ea580c;        // orange flame
+$bb-deep:      #991b1b;        // deep red
+$bb-accent:    #00A99D;        // KOB teal
+$bb-warn:      #f59e0b;        // amber
+$bb-danger:    #dc2626;        // red
+$bb-violet:    #7c3aed;
+
+.kob-battle-board {
+    height: 100%;
+    overflow: auto;
+    background: $bb-bg;
+    font-family: "Inter", "Roboto", "Segoe UI", -apple-system, "Helvetica Neue", Arial, "Noto Sans Thai", sans-serif;
+    color: $bb-text;
+
+    // ── Header ─────────────────────────────────────────────────
+    .kob-bb-header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 24px;
+        background: linear-gradient(135deg, #1f2937 0%, $bb-deep 100%);
+        color: #fff;
+        border-bottom: 3px solid $bb-flame;
+
+        h1 { font-size: 20px; font-weight: 700; margin: 0; line-height: 1; }
+
+        .kob-bb-subtitle { color: rgba(255, 255, 255, 0.75); font-size: 12px; }
+
+        .kob-bb-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            .kob-bb-flame {
+                font-size: 28px;
+                filter: drop-shadow(0 0 8px rgba(234, 88, 12, 0.6));
+                animation: bb-flicker 2s ease-in-out infinite;
+            }
+        }
+
+        .kob-bb-header-right {
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    @keyframes bb-flicker {
+        0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(234, 88, 12, 0.6)); }
+        50% { transform: scale(1.05); filter: drop-shadow(0 0 14px rgba(234, 88, 12, 0.9)); }
+    }
+
+    // ── KPI strip ──────────────────────────────────────────────
+    .kob-bb-kpis {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 12px;
+        padding: 16px 24px;
+        background: #fff;
+        border-bottom: 1px solid $bb-border;
+    }
+    .kob-bb-kpi {
+        background: #f9fafb;
+        border: 1px solid $bb-border;
+        border-radius: 8px;
+        padding: 14px 16px;
+        text-align: left;
+
+        &-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: $bb-text;
+            line-height: 1;
+        }
+        &-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: $bb-muted;
+            letter-spacing: 0.05em;
+            margin-top: 4px;
+        }
+        &--danger .kob-bb-kpi-value { color: $bb-danger; }
+        &--warn   .kob-bb-kpi-value { color: $bb-warn; }
+        &--accent .kob-bb-kpi-value { color: $bb-flame; }
+        &--zero { opacity: 0.45; }
+    }
+
+    // ── Toolbar (chips + search) ───────────────────────────────
+    .kob-bb-toolbar {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        flex-wrap: wrap;
+        padding: 12px 24px;
+        background: #fff;
+        border-bottom: 1px solid $bb-border;
+    }
+    .kob-bb-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        flex: 1;
+    }
+    .kob-bb-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #fff;
+        border: 1px solid $bb-border;
+        color: $bb-text;
+        font-size: 12px;
+        font-weight: 500;
+        padding: 5px 12px;
+        border-radius: 999px;
+        cursor: pointer;
+        transition: all 100ms ease;
+        font-family: inherit;
+
+        &:hover {
+            border-color: $bb-flame;
+            background: rgba(234, 88, 12, 0.05);
+        }
+        &--on {
+            background: $bb-deep;
+            border-color: $bb-deep;
+            color: #fff;
+
+            &:hover { background: #7f1d1d; border-color: #7f1d1d; }
+        }
+        .kob-bb-chip-icon { font-size: 14px; }
+        .kob-bb-chip-count {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 20px;
+            height: 18px;
+            border-radius: 9px;
+            background: rgba(255, 255, 255, 0.20);
+            padding: 0 6px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+        &:not(.kob-bb-chip--on) .kob-bb-chip-count {
+            background: #f3f4f6;
+            color: $bb-muted;
+        }
+    }
+
+    .kob-bb-search {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #fff;
+        border: 1px solid $bb-border;
+        border-radius: 6px;
+        padding: 5px 12px;
+        min-width: 240px;
+
+        i { color: $bb-subtle; }
+        input {
+            border: 0;
+            outline: 0;
+            background: transparent;
+            font-size: 13px;
+            font-family: inherit;
+            color: $bb-text;
+            width: 100%;
+
+            &::placeholder { color: $bb-subtle; }
+        }
+        &:focus-within {
+            border-color: $bb-flame;
+            box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15);
+        }
+    }
+
+    // ── Quick Create ───────────────────────────────────────────
+    .kob-bb-quick-create {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(135deg, #fff7ed 0%, #fff 100%);
+        border: 1px solid #fed7aa;
+        border-radius: 10px;
+        padding: 10px 14px;
+        margin: 12px 24px 0;
+
+        .kob-bb-qc-icon { font-size: 22px; }
+        .kob-bb-qc-input {
+            flex: 1;
+            border: 0;
+            outline: 0;
+            background: transparent;
+            font-size: 14px;
+            font-family: inherit;
+            color: $bb-text;
+
+            &::placeholder { color: $bb-subtle; }
+        }
+        .kob-bb-qc-priority,
+        .kob-bb-qc-date {
+            background: #fff;
+            border: 1px solid $bb-border;
+            border-radius: 6px;
+            padding: 5px 10px;
+            font-size: 12px;
+            font-family: inherit;
+            color: $bb-text;
+            cursor: pointer;
+
+            &:focus { outline: none; border-color: $bb-flame; }
+        }
+        .kob-bb-qc-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: $bb-flame;
+            color: #fff;
+            border: 0;
+            font-weight: 600;
+            font-size: 12px;
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 100ms;
+
+            &:hover:not(:disabled) { background: $bb-deep; }
+            &:disabled { opacity: 0.5; cursor: not-allowed; }
+        }
+    }
+
+    // ── Loading + Empty ────────────────────────────────────────
+    .kob-bb-loading {
+        text-align: center;
+        padding: 80px 20px;
+        color: $bb-muted;
+        i { color: $bb-flame; }
+        p { margin-top: 16px; font-size: 14px; }
+    }
+    .kob-bb-empty {
+        text-align: center;
+        padding: 80px 20px;
+        background: #fff;
+
+        &-emoji {
+            font-size: 64px;
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+        h3 { color: $bb-text; font-size: 20px; font-weight: 600; }
+    }
+
+    // ── Items list ─────────────────────────────────────────────
+    .kob-bb-items {
+        max-width: 1280px;
+        margin: 16px auto;
+        padding: 0 24px 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .kob-bb-item {
+        display: grid;
+        grid-template-columns: 4px 48px 1fr auto;
+        gap: 14px;
+        align-items: center;
+        background: $bb-card;
+        border: 1px solid $bb-border;
+        border-radius: 8px;
+        padding: 14px;
+        cursor: pointer;
+        transition: all 120ms ease;
+        position: relative;
+        overflow: hidden;
+
+        &:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            border-color: $bb-subtle;
+        }
+
+        // Priority states
+        &--overdue {
+            border-left: 4px solid $bb-danger;
+            background: rgba(220, 38, 38, 0.025);
+
+            .kob-bb-item-marker { background: $bb-danger !important; }
+        }
+        &--due-today {
+            border-left: 4px solid $bb-warn;
+        }
+        &--urgent .kob-bb-item-icon {
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+        }
+        &--high .kob-bb-item-icon {
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+        }
+
+        &-marker {
+            width: 4px;
+            height: 100%;
+            min-height: 36px;
+            border-radius: 2px;
+        }
+        &-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+        &-body {
+            min-width: 0;
+            overflow: hidden;
+        }
+        &-title-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 2px;
+        }
+        &-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: $bb-text;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        &-subtitle {
+            font-size: 12.5px;
+            color: $bb-muted;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        &-meta {
+            font-size: 11px;
+            color: $bb-subtle;
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+
+            .kob-bb-meta-cat { font-weight: 600; color: $bb-muted; }
+        }
+        &-action .btn {
+            white-space: nowrap;
+        }
+    }
+
+    // ── Tags ──────────────────────────────────────────────────
+    .kob-bb-tag {
+        display: inline-flex;
+        align-items: center;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 2px 7px;
+        border-radius: 999px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+
+        &--danger { background: #fee2e2; color: #991b1b; }
+        &--warn   { background: #fef3c7; color: #92400e; }
+        &--accent { background: rgba(0, 169, 157, 0.15); color: $bb-accent; }
+    }
+
+    // ── Mobile ─────────────────────────────────────────────────
+    @media (max-width: 600px) {
+        .kob-bb-toolbar { flex-direction: column; align-items: stretch; }
+        .kob-bb-chips { overflow-x: auto; flex-wrap: nowrap; }
+        .kob-bb-chip { flex-shrink: 0; }
+        .kob-bb-item {
+            grid-template-columns: 4px 40px 1fr;
+        }
+        .kob-bb-item-action { display: none; }
+        .kob-bb-kpis { grid-template-columns: repeat(2, 1fr); }
+    }
+}

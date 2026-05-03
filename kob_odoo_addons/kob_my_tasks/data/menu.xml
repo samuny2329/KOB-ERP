@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Root App menu — appears on Welcome page + navbar -->
+    <menuitem id="menu_my_battle_board_root"
+              name="🔥 My Battle Board"
+              sequence="2"
+              web_icon="kob_my_tasks,static/description/icon.png"
+              action="action_my_battle_board"
+              groups="base.group_user"/>
+
+    <!-- Configuration sub-menu (Admin only) -->
+    <menuitem id="menu_my_battle_board_config_root"
+              name="Configuration"
+              parent="menu_my_battle_board_root"
+              sequence="90"
+              groups="base.group_system"/>
+
+    <record id="action_role_source_map" model="ir.actions.act_window">
+        <field name="name">Role → Source Map</field>
+        <field name="res_model">kob.my.task.role.source.map</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_role_source_map"
+              name="Role → Source Map"
+              parent="menu_my_battle_board_config_root"
+              action="action_role_source_map"
+              sequence="10"/>
+
+    <!-- Personal Tasks (kanban / list / form) -->
+    <menuitem id="menu_personal_task"
+              name="📋 My Tasks"
+              parent="menu_my_battle_board_root"
+              action="action_personal_task"
+              sequence="10"/>
+    <menuitem id="menu_personal_task_time_log"
+              name="⏱ Time Logs"
+              parent="menu_my_battle_board_root"
+              action="action_personal_time_log"
+              sequence="20"/>
+    <menuitem id="menu_personal_task_tag"
+              name="Task Tags"
+              parent="menu_my_battle_board_config_root"
+              action="action_personal_task_tag"
+              sequence="20"/>
+    <menuitem id="menu_personal_task_rule"
+              name="Automation Rules"
+              parent="menu_my_battle_board_config_root"
+              action="action_personal_task_rule"
+              sequence="30"/>
+</odoo>

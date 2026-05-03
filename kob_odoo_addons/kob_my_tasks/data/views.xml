@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ── Personal Task: List ─────────────────────────────── -->
+    <record id="view_personal_task_list" model="ir.ui.view">
+        <field name="name">kob.my.task.personal.list</field>
+        <field name="model">kob.my.task.personal</field>
+        <field name="arch" type="xml">
+            <list decoration-danger="is_overdue"
+                  decoration-warning="is_due_today and not is_overdue"
+                  decoration-success="state == 'done'"
+                  decoration-muted="state == 'cancelled'">
+                <field name="name"/>
+                <field name="state" widget="badge"/>
+                <field name="priority" widget="priority"/>
+                <field name="user_id" widget="many2one_avatar_user"/>
+                <field name="assignee_ids" widget="many2many_avatar_user"
+                       optional="show"/>
+                <field name="parent_id" optional="show"/>
+                <field name="child_count" string="Sub" optional="show"/>
+                <field name="due_date"/>
+                <field name="estimated_hours" optional="hide"/>
+                <field name="spent_hours" optional="show"/>
+                <field name="progress_pct" widget="progressbar"
+                       optional="show"/>
+                <field name="tag_ids" widget="many2many_tags"
+                       optional="show"/>
+                <field name="is_overdue" invisible="1"/>
+                <field name="is_due_today" invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ── Personal Task: Kanban ───────────────────────────── -->
+    <record id="view_personal_task_kanban" model="ir.ui.view">
+        <field name="name">kob.my.task.personal.kanban</field>
+        <field name="model">kob.my.task.personal</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" class="o_kanban_small_column">
+                <field name="state"/>
+                <field name="priority"/>
+                <field name="due_date"/>
+                <field name="is_overdue"/>
+                <templates>
+                    <t t-name="card">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="d-flex align-items-center mb-1">
+                                <field name="priority" widget="priority"
+                                       class="me-2"/>
+                                <strong><field name="name"/></strong>
+                            </div>
+                            <div t-if="record.due_date.raw_value"
+                                 class="small text-muted">
+                                <i class="fa fa-calendar me-1"/>
+                                <field name="due_date"/>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <field name="tag_ids"
+                                       widget="many2many_tags"/>
+                                <field name="user_id"
+                                       widget="many2one_avatar_user"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- ── Personal Task: Form ─────────────────────────────── -->
+    <record id="view_personal_task_form" model="ir.ui.view">
+        <field name="name">kob.my.task.personal.form</field>
+        <field name="model">kob.my.task.personal</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_start" type="object"
+                            string="🔥 Start" class="btn-primary"
+                            invisible="state != 'todo'"/>
+                    <button name="action_review" type="object"
+                            string="👁 Send to Review"
+                            invisible="state != 'in_progress'"/>
+                    <button name="action_done" type="object"
+                            string="✅ Done" class="btn-success"
+                            invisible="state in ('done','cancelled')"/>
+                    <button name="action_block" type="object"
+                            string="⛔ Block"
+                            invisible="state in ('blocked','done','cancelled')"/>
+                    <button name="action_reset_to_todo" type="object"
+                            string="↺ Reset"
+                            invisible="state == 'todo'"/>
+                    <button name="action_cancel" type="object"
+                            string="Cancel"
+                            invisible="state == 'cancelled'"/>
+                    <button name="action_start_timer" type="object"
+                            string="⏱ Start Timer" class="btn-info"
+                            invisible="timer_running"/>
+                    <button name="action_stop_timer" type="object"
+                            string="⏹ Stop Timer" class="btn-warning"
+                            invisible="not timer_running"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="todo,in_progress,review,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Task name..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="user_id"
+                                   widget="many2one_avatar_user"/>
+                            <field name="assignee_ids"
+                                   widget="many2many_avatar_user"/>
+                            <field name="priority" widget="priority"/>
+                            <field name="tag_ids" widget="many2many_tags"
+                                   options="{'color_field': 'color'}"/>
+                            <field name="parent_id"/>
+                        </group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="due_date"/>
+                            <field name="estimated_hours"/>
+                            <field name="spent_hours" readonly="1"/>
+                            <field name="progress_pct" widget="progressbar"/>
+                            <field name="is_blocked" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description" widget="html"/>
+                        </page>
+                        <page string="Sub-tasks">
+                            <field name="child_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="state" widget="badge"/>
+                                    <field name="priority" widget="priority"/>
+                                    <field name="user_id"/>
+                                    <field name="due_date"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Dependencies">
+                            <group>
+                                <field name="blocked_by_ids"
+                                       widget="many2many_tags"/>
+                                <field name="blocking_ids"
+                                       widget="many2many_tags"/>
+                            </group>
+                        </page>
+                        <page string="Time Logs">
+                            <field name="timer_log_ids" readonly="1">
+                                <list>
+                                    <field name="started_at"/>
+                                    <field name="ended_at"/>
+                                    <field name="duration_hours"/>
+                                    <field name="user_id"/>
+                                    <field name="note"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Watchers">
+                            <field name="watcher_ids"
+                                   widget="many2many_avatar_user"/>
+                        </page>
+                        <page string="Linked Record"
+                              invisible="not linked_model">
+                            <group>
+                                <field name="linked_model"/>
+                                <field name="linked_id"/>
+                                <field name="linked_label"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- ── Search view ─────────────────────────────────────── -->
+    <record id="view_personal_task_search" model="ir.ui.view">
+        <field name="name">kob.my.task.personal.search</field>
+        <field name="model">kob.my.task.personal</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="tag_ids"/>
+                <separator/>
+                <filter string="My Tasks" name="my"
+                        domain="[('user_id','=',uid)]"/>
+                <filter string="Assigned to Me" name="assigned"
+                        domain="[('assignee_ids','in',uid)]"/>
+                <filter string="🔥 In Progress" name="in_progress"
+                        domain="[('state','=','in_progress')]"/>
+                <filter string="📋 Todo" name="todo"
+                        domain="[('state','=','todo')]"/>
+                <filter string="⚠ Overdue" name="overdue"
+                        domain="[('due_date','&lt;', context_today().strftime('%Y-%m-%d')),
+                                 ('state','not in',('done','cancelled'))]"/>
+                <filter string="⏰ Due Today" name="today"
+                        domain="[('due_date','=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter string="🔥 Urgent" name="urgent"
+                        domain="[('priority','=','3')]"/>
+                <separator/>
+                <filter string="Group: State" name="g_state"
+                        context="{'group_by':'state'}"/>
+                <filter string="Group: Owner" name="g_user"
+                        context="{'group_by':'user_id'}"/>
+                <filter string="Group: Priority" name="g_pri"
+                        context="{'group_by':'priority'}"/>
+                <filter string="Group: Due Date" name="g_due"
+                        context="{'group_by':'due_date:week'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_personal_task" model="ir.actions.act_window">
+        <field name="name">My Tasks</field>
+        <field name="res_model">kob.my.task.personal</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="search_view_id" ref="view_personal_task_search"/>
+        <field name="context">{'search_default_my': 1, 'search_default_g_state': 1}</field>
+    </record>
+
+    <!-- ── Tags ────────────────────────────────────────────── -->
+    <record id="action_personal_task_tag" model="ir.actions.act_window">
+        <field name="name">Task Tags</field>
+        <field name="res_model">kob.my.task.tag</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ── Automation Rules ─────────────────────────────────── -->
+    <record id="action_personal_task_rule" model="ir.actions.act_window">
+        <field name="name">Automation Rules</field>
+        <field name="res_model">kob.my.task.rule</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ── Time Log report ──────────────────────────────────── -->
+    <record id="action_personal_time_log" model="ir.actions.act_window">
+        <field name="name">Time Logs</field>
+        <field name="res_model">kob.my.task.time.log</field>
+        <field name="view_mode">list,pivot</field>
+    </record>
+
+</odoo>

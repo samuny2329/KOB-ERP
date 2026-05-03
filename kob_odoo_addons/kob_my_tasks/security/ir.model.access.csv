@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_role_source_map_user,role_source_map user,model_kob_my_task_role_source_map,base.group_user,1,0,0,0
+access_role_source_map_admin,role_source_map admin,model_kob_my_task_role_source_map,base.group_system,1,1,1,1
+access_personal_task_user,personal_task user,model_kob_my_task_personal,base.group_user,1,1,1,1
+access_personal_task_tag_user,personal_task_tag user,model_kob_my_task_tag,base.group_user,1,1,1,0
+access_personal_task_tag_admin,personal_task_tag admin,model_kob_my_task_tag,base.group_system,1,1,1,1
+access_personal_time_log_user,time_log user,model_kob_my_task_time_log,base.group_user,1,1,1,1
+access_personal_rule_user,rule user,model_kob_my_task_rule,base.group_user,1,0,0,0
+access_personal_rule_admin,rule admin,model_kob_my_task_rule,base.group_system,1,1,1,1

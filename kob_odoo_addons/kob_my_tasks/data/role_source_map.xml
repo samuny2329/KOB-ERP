@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Default — applies to everyone -->
+    <record id="rsm_default" model="kob.my.task.role.source.map">
+        <field name="name">Default — Activities + own Helpdesk + own Approvals</field>
+        <field name="sequence">5</field>
+        <field name="is_default" eval="True"/>
+        <field name="enable_activities" eval="True"/>
+        <field name="enable_helpdesk" eval="True"/>
+        <field name="enable_approval" eval="True"/>
+    </record>
+
+    <!-- WMS Picker / Packer / Outbound -->
+    <record id="rsm_wms_picker" model="kob.my.task.role.source.map">
+        <field name="name">WMS Picker</field>
+        <field name="sequence">10</field>
+        <field name="wms_role">picker</field>
+        <field name="enable_wms_count" eval="True"/>
+        <field name="enable_activities" eval="True"/>
+    </record>
+    <record id="rsm_wms_packer" model="kob.my.task.role.source.map">
+        <field name="name">WMS Packer</field>
+        <field name="sequence">11</field>
+        <field name="wms_role">packer</field>
+        <field name="enable_wms_count" eval="True"/>
+        <field name="enable_activities" eval="True"/>
+    </record>
+    <record id="rsm_wms_outbound" model="kob.my.task.role.source.map">
+        <field name="name">WMS Outbound</field>
+        <field name="sequence">12</field>
+        <field name="wms_role">outbound</field>
+        <field name="enable_wms_count" eval="True"/>
+        <field name="enable_activities" eval="True"/>
+    </record>
+
+    <!-- WMS Supervisor / Coordinator -->
+    <record id="rsm_wms_supervisor" model="kob.my.task.role.source.map">
+        <field name="name">WMS Supervisor</field>
+        <field name="sequence">20</field>
+        <field name="wms_role">supervisor</field>
+        <field name="enable_wms_count" eval="True"/>
+        <field name="enable_kpi" eval="True"/>
+        <field name="enable_helpdesk" eval="True"/>
+        <field name="enable_returns" eval="True"/>
+        <field name="enable_activities" eval="True"/>
+    </record>
+    <record id="rsm_wms_coordinator" model="kob.my.task.role.source.map">
+        <field name="name">WMS Coordinator</field>
+        <field name="sequence">21</field>
+        <field name="wms_role">coordinator</field>
+        <field name="enable_wms_count" eval="True"/>
+        <field name="enable_kpi" eval="True"/>
+        <field name="enable_helpdesk" eval="True"/>
+        <field name="enable_field_svc" eval="True"/>
+        <field name="enable_activities" eval="True"/>
+    </record>
+
+    <!-- WMS Manager (group) -->
+    <record id="rsm_wms_manager" model="kob.my.task.role.source.map">
+        <field name="name">WMS Manager (group)</field>
+        <field name="sequence">30</field>
+        <field name="odoo_group_id" ref="kob_wms.group_wms_manager"/>
+        <field name="enable_approval" eval="True"/>
+        <field name="enable_kpi" eval="True"/>
+        <field name="enable_helpdesk" eval="True"/>
+        <field name="enable_returns" eval="True"/>
+        <field name="enable_ocr_review" eval="True"/>
+        <field name="enable_activities" eval="True"/>
+    </record>
+
+    <!-- WMS Director (group) — sees everything -->
+    <record id="rsm_wms_director" model="kob.my.task.role.source.map">
+        <field name="name">WMS Director (group)</field>
+        <field name="sequence">40</field>
+        <field name="odoo_group_id" ref="kob_wms.group_wms_director"/>
+        <field name="enable_approval" eval="True"/>
+        <field name="enable_kpi" eval="True"/>
+        <field name="enable_ai" eval="True"/>
+        <field name="enable_returns" eval="True"/>
+        <field name="enable_ocr_review" eval="True"/>
+        <field name="enable_activities" eval="True"/>
+    </record>
+
+    <!-- Accountant (Odoo native group) -->
+    <record id="rsm_accountant" model="kob.my.task.role.source.map">
+        <field name="name">Accountant</field>
+        <field name="sequence">50</field>
+        <field name="odoo_group_id" ref="account.group_account_user"/>
+        <field name="enable_approval" eval="True"/>
+        <field name="enable_ocr_review" eval="True"/>
+        <field name="enable_activities" eval="True"/>
+    </record>
+
+    <!-- System admin — full visibility -->
+    <record id="rsm_admin" model="kob.my.task.role.source.map">
+        <field name="name">System Admin</field>
+        <field name="sequence">100</field>
+        <field name="odoo_group_id" ref="base.group_system"/>
+        <field name="enable_approval" eval="True"/>
+        <field name="enable_helpdesk" eval="True"/>
+        <field name="enable_field_svc" eval="True"/>
+        <field name="enable_wms_count" eval="True"/>
+        <field name="enable_kpi" eval="True"/>
+        <field name="enable_returns" eval="True"/>
+        <field name="enable_ocr_review" eval="True"/>
+        <field name="enable_ai" eval="True"/>
+        <field name="enable_activities" eval="True"/>
+    </record>
+
+</odoo>

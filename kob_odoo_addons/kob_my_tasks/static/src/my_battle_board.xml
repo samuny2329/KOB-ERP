@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="kob_my_tasks.MyBattleBoard">
+        <div class="kob-battle-board">
+
+            <!-- ── Header ──────────────────────────────────────────── -->
+            <div class="kob-bb-header">
+                <div class="kob-bb-brand">
+                    <span class="kob-bb-flame">🔥</span>
+                    <div>
+                        <h1>My Battle Board</h1>
+                        <small class="kob-bb-subtitle">
+                            <t t-if="state.data">
+                                <t t-esc="state.data.user_name"/>
+                                <span t-if="state.data.user_role"> ·
+                                    <t t-esc="state.data.user_role"/>
+                                </span>
+                            </t>
+                        </small>
+                    </div>
+                </div>
+                <div class="kob-bb-header-right">
+                    <small t-if="state.lastUpdated" class="text-muted me-2">
+                        Updated <t t-esc="fmtTime(state.lastUpdated)"/>
+                    </small>
+                    <button class="btn btn-sm btn-outline-light"
+                            t-on-click="onManualRefresh"
+                            t-att-disabled="state.loading">
+                        <i class="fa fa-refresh"
+                           t-att-class="{'fa-spin': state.loading}"/>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ── KPI Strip ───────────────────────────────────────── -->
+            <div class="kob-bb-kpis" t-if="state.data">
+                <div class="kob-bb-kpi">
+                    <div class="kob-bb-kpi-value"><t t-esc="state.data.kpi.total"/></div>
+                    <div class="kob-bb-kpi-label">Total</div>
+                </div>
+                <div class="kob-bb-kpi kob-bb-kpi--danger"
+                     t-att-class="{'kob-bb-kpi--zero': state.data.kpi.overdue === 0}">
+                    <div class="kob-bb-kpi-value">⚠ <t t-esc="state.data.kpi.overdue"/></div>
+                    <div class="kob-bb-kpi-label">Overdue</div>
+                </div>
+                <div class="kob-bb-kpi kob-bb-kpi--warn"
+                     t-att-class="{'kob-bb-kpi--zero': state.data.kpi.due_today === 0}">
+                    <div class="kob-bb-kpi-value">⏰ <t t-esc="state.data.kpi.due_today"/></div>
+                    <div class="kob-bb-kpi-label">Due Today</div>
+                </div>
+                <div class="kob-bb-kpi kob-bb-kpi--accent"
+                     t-att-class="{'kob-bb-kpi--zero': state.data.kpi.high_pri === 0}">
+                    <div class="kob-bb-kpi-value">🔥 <t t-esc="state.data.kpi.high_pri"/></div>
+                    <div class="kob-bb-kpi-label">High Priority</div>
+                </div>
+            </div>
+
+            <!-- ── Filter chips + Search ───────────────────────────── -->
+            <div class="kob-bb-toolbar">
+                <div class="kob-bb-chips">
+                    <t t-foreach="categoryChips" t-as="c" t-key="c.id">
+                        <button class="kob-bb-chip"
+                                t-att-class="{'kob-bb-chip--on': state.category === c.id}"
+                                t-on-click="() => this.selectCategory(c.id)">
+                            <span t-if="c.icon" class="kob-bb-chip-icon"
+                                  t-esc="c.icon"/>
+                            <t t-esc="c.label"/>
+                            <span class="kob-bb-chip-count"
+                                  t-esc="c.count"/>
+                        </button>
+                    </t>
+                </div>
+                <div class="kob-bb-search">
+                    <i class="fa fa-search"/>
+                    <input type="search"
+                           placeholder="Search by title / subtitle / state..."
+                           t-att-value="state.search"
+                           t-on-input="onSearchInput"/>
+                </div>
+            </div>
+
+            <!-- ── Quick Create ─────────────────────────────────────── -->
+            <div class="kob-bb-quick-create">
+                <span class="kob-bb-qc-icon">🎯</span>
+                <input type="text"
+                       class="kob-bb-qc-input"
+                       placeholder="พิมพ์งานใหม่ที่นี่ + Enter (Quick add)"
+                       t-model="state.quickCreate.name"
+                       t-on-keydown="onQuickKeyDown"/>
+                <select class="kob-bb-qc-priority"
+                        t-model="state.quickCreate.priority">
+                    <option value="0">Low</option>
+                    <option value="1">Medium</option>
+                    <option value="2">High</option>
+                    <option value="3">🔥 Urgent</option>
+                </select>
+                <input type="date"
+                       class="kob-bb-qc-date"
+                       t-model="state.quickCreate.due_date"/>
+                <button class="kob-bb-qc-btn"
+                        t-on-click="quickCreateTask"
+                        t-att-disabled="state.creating or !state.quickCreate.name.trim()">
+                    <i class="fa fa-plus"/> Add
+                </button>
+            </div>
+
+            <!-- ── Loading ─────────────────────────────────────────── -->
+            <div t-if="state.loading and !state.data"
+                 class="kob-bb-loading">
+                <i class="fa fa-spinner fa-pulse fa-2x"/>
+                <p>กำลังโหลดงานของคุณ...</p>
+            </div>
+
+            <!-- ── Items list ──────────────────────────────────────── -->
+            <div class="kob-bb-items"
+                 t-if="state.data and !state.loading">
+
+                <!-- Empty state -->
+                <t t-if="filteredItems.length === 0">
+                    <div class="kob-bb-empty">
+                        <div class="kob-bb-empty-emoji">🎯</div>
+                        <h3 t-if="state.data.kpi.total === 0">
+                            ทำงานเสร็จหมดแล้ว — เก่งมาก!
+                        </h3>
+                        <h3 t-else="">ไม่พบงานในเงื่อนไขที่กรอง</h3>
+                        <p class="text-muted" t-if="state.data.kpi.total === 0">
+                            🎉 ไปพักเบรกได้เลย หรือรอ task ใหม่ใน 30 วินาที
+                        </p>
+                        <p class="text-muted" t-else="">
+                            ลองเปลี่ยน chip filter หรือล้าง search box
+                        </p>
+                    </div>
+                </t>
+
+                <t t-foreach="filteredItems" t-as="it" t-key="it.key">
+                    <div class="kob-bb-item"
+                         t-att-class="{'kob-bb-item--overdue': it.overdue,
+                                       'kob-bb-item--due-today': it.due_today,
+                                       'kob-bb-item--urgent': it.priority === 'urgent',
+                                       'kob-bb-item--high':   it.priority === 'high'}"
+                         t-on-click="() => this.openItem(it)">
+
+                        <!-- Priority left bar -->
+                        <div class="kob-bb-item-marker"
+                             t-attf-style="background: {{it.color}};"/>
+
+                        <!-- Icon -->
+                        <div class="kob-bb-item-icon"
+                             t-attf-style="background: {{it.color}}20; color: {{it.color}};">
+                            <span t-esc="it.icon"/>
+                        </div>
+
+                        <!-- Body -->
+                        <div class="kob-bb-item-body">
+                            <div class="kob-bb-item-title-row">
+                                <span class="kob-bb-item-title"
+                                      t-esc="it.title"/>
+                                <span t-if="it.overdue"
+                                      class="kob-bb-tag kob-bb-tag--danger">
+                                    ⚠ Overdue
+                                </span>
+                                <span t-elif="it.due_today"
+                                      class="kob-bb-tag kob-bb-tag--warn">
+                                    ⏰ Today
+                                </span>
+                                <span t-if="it.priority === 'urgent'"
+                                      class="kob-bb-tag kob-bb-tag--danger">
+                                    🔥 Urgent
+                                </span>
+                                <span t-elif="it.priority === 'high'"
+                                      class="kob-bb-tag kob-bb-tag--warn">
+                                    High
+                                </span>
+                            </div>
+                            <div class="kob-bb-item-subtitle"
+                                 t-esc="it.subtitle"/>
+                            <div class="kob-bb-item-meta">
+                                <span class="kob-bb-meta-cat">
+                                    <t t-esc="it.category_label"/>
+                                </span>
+                                <span class="kob-bb-meta-state">
+                                    · <t t-esc="it.state_label"/>
+                                </span>
+                                <span t-if="it.due_date"
+                                      class="kob-bb-meta-date">
+                                    · <t t-esc="fmtDate(it.due_date)"/>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Action -->
+                        <div class="kob-bb-item-action">
+                            <button class="btn btn-sm btn-outline-secondary">
+                                Open <i class="fa fa-arrow-right ms-1"/>
+                            </button>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </div>
+    </t>
+
+</templates>

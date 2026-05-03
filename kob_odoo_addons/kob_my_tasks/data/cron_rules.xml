@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Daily digest — 8:00 every weekday -->
+    <record id="cron_daily_digest" model="ir.cron">
+        <field name="name">My Battle Board: Daily Digest</field>
+        <field name="cron_name">My Battle Board: Daily Digest</field>
+        <field name="model_id" ref="model_kob_my_task_digest"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_send_daily_digest()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Weekly digest — Friday afternoon -->
+    <record id="cron_weekly_digest" model="ir.cron">
+        <field name="name">My Battle Board: Weekly Digest</field>
+        <field name="cron_name">My Battle Board: Weekly Digest</field>
+        <field name="model_id" ref="model_kob_my_task_digest"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_send_weekly_digest()</field>
+        <field name="interval_number">7</field>
+        <field name="interval_type">days</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Record rule — users see only their own tasks (or shared) -->
+    <record id="rule_personal_task_user" model="ir.rule">
+        <field name="name">Personal Task: own + assigned + watching</field>
+        <field name="model_id" ref="model_kob_my_task_personal"/>
+        <field name="domain_force">[
+            '|', '|',
+            ('user_id', '=', user.id),
+            ('assignee_ids', 'in', [user.id]),
+            ('watcher_ids', 'in', [user.id]),
+        ]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_personal_task_admin" model="ir.rule">
+        <field name="name">Personal Task: admin sees all</field>
+        <field name="model_id" ref="model_kob_my_task_personal"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+    </record>
+
+</odoo>
