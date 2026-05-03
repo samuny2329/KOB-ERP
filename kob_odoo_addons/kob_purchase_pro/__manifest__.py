@@ -28,6 +28,7 @@ beyond what stock Odoo ships:
     "depends": [
         "kob_base",
         "purchase",
+        "purchase_stock",
         "account",
         "kob_thai_compliance",
         "project",

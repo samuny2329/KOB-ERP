@@ -54,6 +54,7 @@ class PurchaseOrder(models.Model):
             )
         )
 
+    @api.depends("order_line.product_id.product_tmpl_id.route_ids", "picking_ids.state")
     def _compute_resupply_picking_count(self):
         Picking = self.env["stock.picking"]
         for po in self:
