@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a6ed1"/>
+      <stop offset="100%" stop-color="#1e40af"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="url(#g)"/>
+  <!-- Headset / support -->
+  <path d="M80 144 Q80 88 128 88 Q176 88 176 144" fill="none" stroke="#fff"
+        stroke-width="10" stroke-linecap="round"/>
+  <rect x="64" y="136" width="32" height="48" rx="8" fill="#fff"/>
+  <rect x="160" y="136" width="32" height="48" rx="8" fill="#fff"/>
+  <path d="M176 184 Q176 200 160 200 L140 200" fill="none" stroke="#fff"
+        stroke-width="10" stroke-linecap="round"/>
+  <circle cx="138" cy="200" r="6" fill="#fff"/>
+</svg>

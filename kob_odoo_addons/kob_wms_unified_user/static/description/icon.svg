@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a3a5e"/>
+      <stop offset="100%" stop-color="#0f2540"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="url(#g)"/>
+  <!-- User silhouette + key -->
+  <circle cx="100" cy="98" r="28" fill="#fff"/>
+  <path d="M52 196 Q52 152 100 152 Q148 152 148 196 Z" fill="#fff"/>
+  <!-- PIN dots -->
+  <circle cx="170" cy="124" r="8" fill="#fbbf24"/>
+  <circle cx="190" cy="124" r="8" fill="#fbbf24"/>
+  <circle cx="210" cy="124" r="8" fill="#fbbf24"/>
+  <circle cx="170" cy="148" r="8" fill="#fbbf24" opacity="0.5"/>
+  <rect x="160" y="100" width="64" height="76" rx="8" fill="none"
+        stroke="#fbbf24" stroke-width="3"/>
+</svg>

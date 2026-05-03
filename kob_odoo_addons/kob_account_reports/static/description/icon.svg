@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#354a5f"/>
+      <stop offset="100%" stop-color="#1f2937"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="url(#g)"/>
+  <!-- Document with chart lines -->
+  <rect x="72" y="56" width="112" height="144" rx="8" fill="#fff"/>
+  <rect x="72" y="56" width="112" height="22" fill="#0a6ed1"/>
+  <path d="M88 110 L120 110 M88 130 L160 130 M88 150 L140 150 M88 170 L160 170"
+        stroke="#354a5f" stroke-width="4" stroke-linecap="round"/>
+  <path d="M156 158 L172 142 L188 174" fill="none" stroke="#10b981"
+        stroke-width="3" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#6d28d9"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="url(#g)"/>
+  <!-- Toolbox / wrench + screwdriver crossed -->
+  <path d="M76 76 L100 100 L80 120 L56 96 Z" fill="#fff" transform="rotate(45 78 98)"/>
+  <rect x="100" y="100" width="80" height="20" rx="4" fill="#fff" transform="rotate(45 140 110)"/>
+  <rect x="56" y="56" width="144" height="144" rx="14" fill="none" stroke="#fff"
+        stroke-width="6" opacity="0.4"/>
+  <circle cx="128" cy="128" r="20" fill="#fff"/>
+  <circle cx="128" cy="128" r="8" fill="#6d28d9"/>
+</svg>

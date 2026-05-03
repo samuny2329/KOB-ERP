@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_users_form_wms_pin" model="ir.ui.view">
+        <field name="name">res.users.form.wms.pin</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="KOB WMS" name="kob_wms_settings">
+                    <group>
+                        <group string="WMS Access">
+                            <field name="wms_pin" password="True"
+                                   placeholder="4-6 digit PIN"/>
+                            <field name="wms_pin_set" readonly="1"/>
+                            <field name="wms_role_label" readonly="1"/>
+                        </group>
+                        <group>
+                            <div class="alert alert-info">
+                                <strong>Single source of truth</strong> — PIN
+                                ตั้งที่นี่จุดเดียว ไม่ต้องสร้าง kob.wms.user แยก
+                                อีกต่อไป role ดึงจาก Security Groups อัตโนมัติ
+                            </div>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

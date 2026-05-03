@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- ════════════════════════════════════════════════════════════════
+         Auto-grant WMS Worker to all internal users
+         ════════════════════════════════════════════════════════════════
+         By making base.group_user IMPLY kob_wms.group_wms_worker, every
+         Odoo internal user automatically gets WMS Worker access. Admins
+         can still elevate specific users to Supervisor / Manager / Director
+         in the user form. -->
+    <record id="kob_wms.group_wms_worker" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <!-- Backfill: assign group to every existing internal user. -->
+    <function model="res.users" name="_kob_wms_grant_all"/>
+</odoo>

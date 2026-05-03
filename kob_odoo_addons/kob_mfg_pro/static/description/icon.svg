@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e9730c"/>
+      <stop offset="100%" stop-color="#9a3412"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="url(#g)"/>
+  <!-- Gear -->
+  <g transform="translate(128 128)">
+    <path d="M -12 -84 L 12 -84 L 16 -64 Q 32 -58 44 -48 L 64 -56 L 76 -36 L 60 -22
+             Q 64 -8 64 8 L 80 22 L 68 42 L 48 36 Q 36 48 22 54 L 18 74 L -6 74
+             L -10 54 Q -24 50 -36 40 L -56 48 L -68 28 L -52 14 Q -56 0 -56 -16
+             L -72 -30 L -60 -50 L -40 -44 Q -28 -56 -14 -62 L -12 -84 Z"
+          fill="#fff"/>
+    <circle r="22" fill="#9a3412"/>
+  </g>
+</svg>

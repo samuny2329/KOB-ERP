@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f97316"/>
+      <stop offset="100%" stop-color="#c2410c"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="url(#g)"/>
+  <!-- Cloud + arrow down (import) -->
+  <path d="M76 132 Q60 132 60 116 Q60 96 84 92 Q88 64 120 64 Q156 64 160 92
+           Q188 92 188 116 Q188 132 172 132 Z"
+        fill="#fff"/>
+  <path d="M124 124 L124 196" stroke="#f97316" stroke-width="14"
+        stroke-linecap="round"/>
+  <path d="M96 168 L124 196 L152 168" fill="none" stroke="#f97316"
+        stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

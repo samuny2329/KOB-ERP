@@ -1,0 +1,628 @@
+id,default_code,name,categ,kiss_cost,btv_cost,cmn_cost,kiss_taxes,btv_taxes,cmn_taxes,kiss_stx,btv_stx,cmn_stx,kiss_sellers,btv_sellers,cmn_sellers,route_ids,tracking
+33008,TSCP012,2SOME1 Cherry Pink Serum 12g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5,lot
+15342,,2SOME1 Eau De Parfum 25 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,3,3,3,7|5,lot
+30068,,2SOME1 Eau De Parfum 25 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5,lot
+31856,,2SOME1 Hair Vitamin Serum 20 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,4,4,4,7|5,lot
+30069,TSSA010-CL,2SOME1 Perfume 10 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+31265,,2SOME1 Perfume 30 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7|5|16,lot
+31860,,2SOME1 Perfume 30 ml [72CTN],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+15510,TSSA010,2SOME1 Perfume Sweet Angel 10 ml,Finished Goods / Finished Goods - Imported,16.77900117380991,16.77900117380991,16.77900117380991,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7|5|16,lot
+30288,TSSA010-4PCS,2SOME1 Perfume Sweet Angel 10 ml (4PCS),Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+33010,TSVR012,2SOME1 V Recovery Serum 12g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5,lot
+19849,TSSB030,2SOME1 Whitening Bikini Serum Snow Blink 30 g,Finished Goods / Finished Goods - Domestic,12.875000034481513,12.875000034481513,12.875000034481513,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,4,4,4,7|5,lot
+26330,TSSB030-144CTN,2SOME1 Whitening Bikini Serum Snow Blink 30 g (144CTN),Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+30070,TSSB030-CL,2SOME1 Whitening Bikini Serum Snow Blink 30 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+15343,TSAQ030,2SOME1 Whitening Booster Serum Aura Queen 30 g,Finished Goods / Finished Goods - Domestic,10.76,10.76,10.76,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,3,3,3,7|5,lot
+26329,TSAQ030-144CTN,2SOME1 Whitening Booster Serum Aura Queen 30 g (144CTN),Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+30071,TSAQ030-CL,2SOME1 Whitening Booster Serum Aura Queen 30 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+15344,,2SOME1 Whitening Perfume Body Lotion 40 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,10,10,10,7|5,lot
+26328,,2SOME1 Whitening Perfume Body Lotion 40 g (144CTN),Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+30289,,2SOME1 Whitening Perfume Body Lotion 40 g (4PCS),Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+30072,,2SOME1 Whitening Perfume Body Lotion 40 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7|5,lot
+15501,TLP050,2SOME1 Whitening Perfume Lotion 50 g,Finished Goods / Finished Goods - Domestic,15.3,15.3,15.3,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+30073,TLP050-CL,2SOME1 Whitening Perfume Lotion 50 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+15509,TSSW012,2SOME1 Whitening Underarm Serum Snow Wink 12 g,Finished Goods / Finished Goods - Domestic,8.65,8.65,8.65,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,4,4,4,7|5,lot
+26333,TSSW012-276CTN,2SOME1 Whitening Underarm Serum Snow Wink 12 g (276CTN),Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+26332,TSSW012-6PCS,2SOME1 Whitening Underarm Serum Snow Wink 12 g (6PCS),Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+30074,TSSW012-CL,2SOME1 Whitening Underarm Serum Snow Wink 12 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+31416,BAR-BOJ-001,BARTER Beauty Of Joseon Relief Sun Rice + Probiotics SPF50+ PA++++ 50ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7,lot
+26197,BPD200,BARTER Bepanthen Daily Control 200 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30075,BPD200-CL,BARTER Bepanthen Daily Control 200 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+26198,BPS400,BARTER Bepanthen SensiControl Wash 400 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30076,BPS400-CL,BARTER Bepanthen SensiControl Wash 400 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+26195,BPS007,BARTER Bepanthen SensiControl Wash 7 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30077,BPS007-CL,BARTER Bepanthen SensiControl Wash 7 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+26196,BPS003,BARTER Bepanthen Sensiderm sachet 3.5 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30078,BPS003-CL,BARTER Bepanthen Sensiderm sachet 3.5 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+26194,,BARTER Bloss Jeli 25 g,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30079,,BARTER Bloss Jeli 25 g [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+26205,BMHG002,BARTER Bomi Appotin Hare Gro 2 g,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30080,BMHG002-CL,BARTER Bomi Appotin Hare Gro 2 g [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+26211,HIQSCT,BARTER CENTER TMK HIQ Base Scooter NTW ECOM SEP 24 P1,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+26188,CTTWIP,BARTER Certainty Wipes Adult Skin Cleaning Wipes 50 Sheets,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30081,CTTWIP-CL,BARTER Certainty Wipes Adult Skin Cleaning Wipes 50 Sheets [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+26184,DNDGBM,BARTER D-nee Baby Liquid Detergent Natural 400 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30082,DNDGBM-CL,BARTER D-nee Baby Liquid Detergent Natural 400 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+26183,DNSHNB,BARTER D-nee Organic Head & Body Baby Wash 200 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30083,DNSHNB-CL,BARTER D-nee Organic Head & Body Baby Wash 200 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+26179,DARSNW,BARTER Darlie All Shiny White Supreme Toothpaste 60 g,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30084,DARSNW-CL,BARTER Darlie All Shiny White Supreme Toothpaste 60 g [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+26210,HIQUHT,BARTER HI-Q 1 Plus SG UHT P3 180 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+26189,BBLLUG,BARTER Luggage,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30086,BBLLUG-CL,BARTER Luggage [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+26201,MIZU004,BARTER Mizumi Peptide Acne Gel 4 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30087,MIZU004-CL,BARTER Mizumi Peptide Acne Gel 4 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+26207,MUVJ040,BARTER Mizumi UV Jelly Aqua Fresh 40 g,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30088,MUVJ040-CL,BARTER Mizumi UV Jelly Aqua Fresh 40 g [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+26206,MLUV004,BARTER Mizumi UV Plumping Lip Oil Clear 4 g,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30089,MLUV004-CL,BARTER Mizumi UV Plumping Lip Oil Clear 4 g [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+26200,MIZU040,BARTER Mizumi UV Water Serum SPF50 PA++++ 40 g,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30090,MIZU040-CL,BARTER Mizumi UV Water Serum SPF50 PA++++ 40 g [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30506,PLAN-LY-BOX,BARTER PLANTAE Glow Essentials รส  Lychee Licious แบบกล่อง 5 ซอง,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7,lot
+30505,PLAN-LY-600g,BARTER PLANTAE Glow Essentials รส Lychee Licious แบบกระปุก ขนาด 600g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7,lot
+26190,PVM040,BARTER PRO-BALANCE UV AQUA SERUM SPF50 PA++++ 40 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30091,PVM040-CL,BARTER PRO-BALANCE UV AQUA SERUM SPF50 PA++++ 40 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30092,,BARTER Philips Hair Dryer [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30093,PHLP500-CL,BARTER Philips Personal Hair Dryer [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+26202,PHLP500,BARTER Philips Personal Hair Dryer ไดร์เป่าผม รุ่น BHD500/00 ,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+26209,,BARTER Philips ไดร์จัดเเต่งทรงผม,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+26204,SBRI005,BARTER Skinsista Flawless Bright 42x Vit C Brightening Booster 5 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30094,SBRI005-CL,BARTER Skinsista Flawless Bright 42x Vit C Brightening Booster 5 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+26203,SSUN005,BARTER Skinsista Ultra Block Hybrid Sunscreen SPF50 PA++++ 5 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30095,SSUN005-CL,BARTER Skinsista Ultra Block Hybrid Sunscreen SPF50 PA++++ 5 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+26192,FG02VI03-0001,BARTER Vistra Imu-Pro C 2000 plus 30 tabs,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30096,FG02VI03-0001-CL,BARTER Vistra Imu-Pro C 2000 plus 30 tabs [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+26193,FG02VO03-0001,BARTER Vistra Odorless Fish Oil 1000 mg 45 caps,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30097,FG02VO03-0001-CL,BARTER Vistra Odorless Fish Oil 1000 mg 45 caps [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+32678,EAS200+EAT200,BUNDLE EGG-PLANET Shampoo Argan 200 ml + EGG-PLANET Treatment Argan 200 ml,Finished Goods / Finished Goods - Domestic,156.2201,156.2201,156.2201,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7|5,lot
+32618,DDP200-CL^2,BUNDLE Intensive Nourishing 300 ml [CL] X2,Finished Goods / Finished Goods - Domestic,187.37245,187.37245,187.37245,2|20,2|20,2|20,1|19|37,1|19|37,1|19|37,1,1,1,7|5,lot
+32648,DDS400-CL+DDT400-CL,BUNDLE Shampoo Dlaesoo Hair Loss Care 400 ml [CL] + Treatment Dlaesoo Hair Loss Care 400 ml [CL],Finished Goods / Finished Goods - Domestic,314.61821,314.61821,314.61821,2|20,2|20,2|20,1|19|37,1|19|37,1|19|37,1,1,1,7|5,lot
+32651,DMS400-CL^2,BUNDLE Shampoo Gounmo Hair Scales Care 400 ml [CL] X2,Finished Goods / Finished Goods - Domestic,341.697972,341.697972,341.697972,2|20,2|20,2|20,1|19|37,1|19|37,1|19|37,1,1,1,7|5,lot
+32650,DJS300-CL+DJT300-CL,BUNDLE Shampoo Jingi Anti-Hair Loss 300 ml [CL] + Treatment Jingi Anti-Hair Loss 300 ml [CL],Finished Goods / Finished Goods - Domestic,300.065796,300.065796,300.065796,2|20,2|20,2|20,1|19|37,1|19|37,1|19|37,1,1,1,7|5,lot
+32652,DVS300-CL+DVT300-CL,BUNDLE Shampoo Vitalizing 300 ml [CL] + TreatmentVitalizing 300 ml [CL],Finished Goods / Finished Goods - Domestic,259.7145,259.7145,259.7145,2|20,2|20,2|20,1|19|37,1|19|37,1|19|37,1,1,1,7|5,lot
+32649,DGT400-CL^2,BUNDLE Treatment Glamo Keratin 400 ml [CL] X2,Finished Goods / Finished Goods - Domestic,302.560222,302.560222,302.560222,2|20,2|20,2|20,1|19|37,1|19|37,1|19|37,1,1,1,7|5,lot
+15348,,BUYDIDI Baby Bear Cap,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30098,,BUYDIDI Baby Bear Cap [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15351,,BUYDIDI Bag Storage,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15352,,BUYDIDI Bag Storage Rack,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30100,,BUYDIDI Bag Storage Rack [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30099,,BUYDIDI Bag Storage [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15397,,BUYDIDI Bath Mat Polyester,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30101,,BUYDIDI Bath Mat Polyester [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15398,,BUYDIDI Bath Mat Quick Dry,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30102,,BUYDIDI Bath Mat Quick Dry [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15393,BSB001,BUYDIDI Bathroom Shelves,Finished Goods / Finished Goods - Imported,92.65,92.65,92.65,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30103,BSB001-CL,BUYDIDI Bathroom Shelves [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15353,BRO001,BUYDIDI Bronson WiFi Smart Remote Controllers,Finished Goods / Finished Goods - Imported,222.6,222.6,222.6,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30104,BRO001-CL,BUYDIDI Bronson WiFi Smart Remote Controllers [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15349,BCC001,BUYDIDI Cap Cover,Finished Goods / Finished Goods - Imported,77.36,77.36,77.36,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30105,BCC001-CL,BUYDIDI Cap Cover [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15346,,BUYDIDI Cat Ear Cap,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30106,,BUYDIDI Cat Ear Cap [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15354,ZHCW02,BUYDIDI Clothes Hangers,Finished Goods / Finished Goods - Imported,21.88,21.88,21.88,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30108,ZHCW02-CL,BUYDIDI Clothes Hangers [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30462,CBW001,BUYDIDI Cosmetics box (White),Finished Goods / Finished Goods - Imported,205.39,205.39,205.39,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,none
+15355,,BUYDIDI Cotton Storage Box,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30109,,BUYDIDI Cotton Storage Box [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15345,,BUYDIDI Cracker Slippers,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30110,,BUYDIDI Cracker Slippers [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15392,ZBSJC1,BUYDIDI Dining Box,Finished Goods / Finished Goods - Imported,48.669999999999995,48.669999999999995,48.669999999999995,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30111,ZBSJC1-CL,BUYDIDI Dining Box [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15356,,BUYDIDI Door Mat Polyester Fiber,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30112,,BUYDIDI Door Mat Polyester Fiber [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15357,ZFD001,BUYDIDI Foldable Dish Rack,Finished Goods / Finished Goods - Imported,59.48,59.48,59.48,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30113,ZFD001-CL,BUYDIDI Foldable Dish Rack [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15358,,BUYDIDI Folding Food Box Set 3 PCS,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30114,,BUYDIDI Folding Food Box Set 3 PCS [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15359,ZFB001,BUYDIDI Folding Food Box Transparent 350 ml,Finished Goods / Finished Goods - Imported,54.08,54.08,54.08,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30115,ZFB001-CL,BUYDIDI Folding Food Box Transparent 350 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15360,,BUYDIDI Four Layers Close Storage,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+32856,FLS001,BUYDIDI Four Layers Close Storage (White),Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30116,,BUYDIDI Four Layers Close Storage [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15350,,BUYDIDI Fruit Slippers,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30117,,BUYDIDI Fruit Slippers [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15361,ZGR001,BUYDIDI Grill Plates Rectangular,Finished Goods / Finished Goods - Imported,152.49,152.49,152.49,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30118,ZGR001-CL,BUYDIDI Grill Plates Rectangular [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15362,ZGT002,BUYDIDI Grilled Meat Tongs 12 inch,Finished Goods / Finished Goods - Imported,33.17,33.17,33.17,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30119,ZGT002-CL,BUYDIDI Grilled Meat Tongs 12 inch [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15363,ZGT001,BUYDIDI Grilled Meat Tongs 9 inch,Finished Goods / Finished Goods - Imported,30.28,30.28,30.28,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30120,ZGT001-CL,BUYDIDI Grilled Meat Tongs 9 inch [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15364,,BUYDIDI Hanging Jewelry Storage,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30121,,BUYDIDI Hanging Jewelry Storage [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15365,,BUYDIDI Health Slipper Minimal,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30122,,BUYDIDI Health Slipper Minimal [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30123,ZTBJB1,BUYDIDI Joybos Easy-Packing Garbage Bag,Finished Goods / Finished Goods - Imported,257.6,257.6,257.6,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15367,ZTCJB1,BUYDIDI Joybos Easy-Packing Trash Can With Lid_12L,Finished Goods / Finished Goods - Imported,242.26,242.26,242.26,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30124,ZTCJB1-CL,BUYDIDI Joybos Easy-Packing Trash Can With Lid_12L [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15386,,BUYDIDI Kitchenware,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30125,,BUYDIDI Kitchenware [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15389,ZFB002,BUYDIDI Lunch Box 540 ml,Finished Goods / Finished Goods - Imported,65.61,65.61,65.61,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30126,ZFB002-CL,BUYDIDI Lunch Box 540 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15388,,BUYDIDI Mask Storage Box,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30127,,BUYDIDI Mask Storage Box [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15368,,BUYDIDI Mosquito Wire Screen Cleaning Brush,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30128,,BUYDIDI Mosquito Wire Screen Cleaning Brush [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15369,ZMC002,BUYDIDI Multi-Purpose Machine Cover,Finished Goods / Finished Goods - Imported,24.87,24.87,24.87,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30129,ZMC002-CL,BUYDIDI Multi-Purpose Machine Cover [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15347,,BUYDIDI No Doubt Cap,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30130,,BUYDIDI No Doubt Cap [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15390,,BUYDIDI Nordic Tissue Box,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30131,,BUYDIDI Nordic Tissue Box [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15387,,BUYDIDI Nordic Utility Box PET,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30132,,BUYDIDI Nordic Utility Box PET [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15370,,BUYDIDI Plastic Box,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15371,,BUYDIDI Plastic Box With Partition 10,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30134,,BUYDIDI Plastic Box With Partition 10 [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15372,ZPP001,BUYDIDI Plastic Box With Patition 10,Finished Goods / Finished Goods - Imported,50.42000000000001,50.42000000000001,50.42000000000001,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30135,ZPP001-CL,BUYDIDI Plastic Box With Patition 10 [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15373,,BUYDIDI Plastic Box With Patition 15,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30136,,BUYDIDI Plastic Box With Patition 15 [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30133,,BUYDIDI Plastic Box [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15374,,BUYDIDI Plastic Storage Box With Lid,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30137,,BUYDIDI Plastic Storage Box With Lid [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15396,,BUYDIDI Potective Case,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30138,,BUYDIDI Potective Case [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15375,RGB001,BUYDIDI Refill Garbage Bags,Finished Goods / Finished Goods - Imported,11.9,11.9,11.9,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30139,RGB001-CL,BUYDIDI Refill Garbage Bags [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15376,,BUYDIDI Rolling Cosmetic Storage,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30303,,BUYDIDI Rolling Cosmetic Storage [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15377,,BUYDIDI Slipper Summer Korean,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30140,,BUYDIDI Slipper Summer Korean [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15378,,BUYDIDI Slipper Transparent Polka-Dot,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30141,,BUYDIDI Slipper Transparent Polka-Dot [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15394,,BUYDIDI Small Trash Can With Lid,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30142,,BUYDIDI Small Trash Can With Lid [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30458,TPC001,BUYDIDI TPU COVER (BLACK),Finished Goods / Finished Goods - Imported,23.216002,23.216002,23.216002,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,none
+30461,TPC002,BUYDIDI TPU COVER (YELLOW),Finished Goods / Finished Goods - Imported,23.216,23.216,23.216,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,none
+15379,ZLS001,BUYDIDI The Ladle Separates The Broth And Oil,Finished Goods / Finished Goods - Imported,58.76,58.76,58.76,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30143,ZLS001-CL,BUYDIDI The Ladle Separates The Broth And Oil [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15380,,BUYDIDI Three Layers Close Storage,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30144,,BUYDIDI Three Layers Close Storage [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15381,,BUYDIDI Tissue Box With Storage,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30145,,BUYDIDI Tissue Box With Storage [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15382,,BUYDIDI Toilet Brush Set,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30146,,BUYDIDI Toilet Brush Set [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15383,,BUYDIDI Toothbrush Holder Set,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30147,,BUYDIDI Toothbrush Holder Set [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15395,,BUYDIDI Trash Bag,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30148,,BUYDIDI Trash Bag [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15391,,BUYDIDI Utility Box 3in1,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30149,,BUYDIDI Utility Box 3in1 [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15384,,BUYDIDI Wall Baskets Triangle,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30150,,BUYDIDI Wall Baskets Triangle [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15385,,BUYDIDI Zipper Cap,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30151,,BUYDIDI Zipper Cap [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30563,CFSC001,CLARYNA Facial Sonic Cleanser,Finished Goods / Finished Goods - Imported,102.282,102.282,102.282,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30359,CMC001,CLARYNA Mini Facial Cleanser Ice Cream,Finished Goods / Finished Goods - Imported,16.02,16.02,16.02,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30360,CMC002,CLARYNA Mini Facial Cleanser Lemon,Finished Goods / Finished Goods - Imported,11.83,11.83,11.83,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+15399,CSF001,CLARYNA Shower Filter,Finished Goods / Finished Goods - Imported,78.03,78.03,78.03,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30153,CSF001-CL,CLARYNA Shower Filter [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15506,,COSMOOD Body Lotion 200 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+30154,,COSMOOD Body Lotion 200 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+15400,,COSMOOD Sheet Mask 25 g,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,3,3,3,7|5|16,lot
+30155,,COSMOOD Sheet Mask 25 g [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+26185,CMHM080,COSMOOD Ultimate Hair Shine Mist 80 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30156,CMHM080-CL,COSMOOD Ultimate Hair Shine Mist 80 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+31231,DAB001-GWP,DAENG GI MEO RI Art Toy Dann Box Tray (4PCS/BOX),Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+31027,DJST007,DAENG GI MEO RI JINGI ANTI-HAIR LOSS SHAMPOO & TREATMENT SET,Finished Goods / Finished Goods - Domestic,12.757477,12.757477,12.757477,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7|5,lot
+26199,,DAENG-GI-MEO-RI Art Toy Dann,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30157,,DAENG-GI-MEO-RI Art Toy Dann [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+26182,DBS001,DAENG-GI-MEO-RI Box Set,Finished Goods / Finished Goods - Imported,33.963,33.963,33.963,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30158,DBS001-CL,DAENG-GI-MEO-RI Box Set [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+26181,GWP-DCB001,DAENG-GI-MEO-RI Cosmetic Bag,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30159,GWP-DCB001-CL,DAENG-GI-MEO-RI Cosmetic Bag [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+26174,DVC035,DAENG-GI-MEO-RI Hair Pack 35 g,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30160,DVC035-CL,DAENG-GI-MEO-RI Hair Pack 35 g [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+15502,DDP200,DAENG-GI-MEO-RI Intensive Nourishing Pack 200 ml,Finished Goods / Finished Goods - Imported,95.996639,95.996639,95.996639,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,3,3,3,7|5|16,lot
+30161,DDP200-CL,DAENG-GI-MEO-RI Intensive Nourishing Pack 200 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15406,DJT100,DAENG-GI-MEO-RI Jingi Anti-Hair Loss Scalp Tonic 100 ml,Finished Goods / Finished Goods - Imported,113.71,113.71,113.71,2|20|38,2|20|38,2|20|38,1|21|37,1|21|37,1|21|37,3,3,3,7|5|16,lot
+30162,DJT100-CL,DAENG-GI-MEO-RI Jingi Anti-Hair Loss Scalp Tonic 100 ml [CL],Finished Goods / Finished Goods - Imported,97.143786,97.143786,97.143786,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+15508,DDM100,DAENG-GI-MEO-RI Moist Glow Mist 100 ml,Finished Goods / Finished Goods - Imported,83.33,83.33,83.33,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7|5|16,lot
+30163,DDM100-CL,DAENG-GI-MEO-RI Moist Glow Mist 100 ml [CL],Finished Goods / Finished Goods - Imported,85.8299,85.8299,85.8299,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7|5|16,lot
+26187,CLOTH BAG-TC180,DAENG-GI-MEO-RI Natural Cotton Drawstring Bag 4.5 in x 7 in,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30164,CLOTH BAG-TC180-CL,DAENG-GI-MEO-RI Natural Cotton Drawstring Bag 4.5 in x 7 in [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+26208,GWP-DPX001-RANDOM,DAENG-GI-MEO-RI Postcard N'DANN,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+26191,GWP-DSB001,DAENG-GI-MEO-RI Scalp Brush Tanhom,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30166,GWP-DSB001-CL,DAENG-GI-MEO-RI Scalp Brush Tanhom [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+26178,GWP-MKT-002,DAENG-GI-MEO-RI Scalp Care Brush,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30167,GWP-MKT-002-CL,DAENG-GI-MEO-RI Scalp Care Brush [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30380,DSB001-GWP,DAENG-GI-MEO-RI Scalp hair brush,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30500,,DAENG-GI-MEO-RI Set 50 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+15507,DGS145,DAENG-GI-MEO-RI Shampoo 145 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30168,DGS145-CL,DAENG-GI-MEO-RI Shampoo 145 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15401,,DAENG-GI-MEO-RI Shampoo 300 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|21|37,1|21|37,1|21|37,7,7,7,7,lot
+30169,,DAENG-GI-MEO-RI Shampoo 300 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7,lot
+15402,,DAENG-GI-MEO-RI Shampoo 400 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|21|37,1|21|37,1|21|37,5,5,5,7|5|16,lot
+30170,,DAENG-GI-MEO-RI Shampoo 400 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+15403,,DAENG-GI-MEO-RI Shampoo 50 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,4,4,4,7|5,lot
+30171,,DAENG-GI-MEO-RI Shampoo 50 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15404,,DAENG-GI-MEO-RI Shampoo 500 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|21|37,1|21|37,1|21|37,2,2,2,7|5|16,lot
+30172,,DAENG-GI-MEO-RI Shampoo 500 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+15405,,DAENG-GI-MEO-RI Shampoo 7 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,3,3,3,7|5|16,lot
+19848,DJSF007,DAENG-GI-MEO-RI Shampoo 7 ml (FDA Version),Finished Goods / Finished Goods - Imported,3.2445,3.2445,3.2445,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7,lot
+30174,DJSF007-CL,DAENG-GI-MEO-RI Shampoo 7 ml (FDA Version) [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30173,,DAENG-GI-MEO-RI Shampoo 7 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15497,,DAENG-GI-MEO-RI Shampoo 70 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30175,,DAENG-GI-MEO-RI Shampoo 70 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+26180,GWP-DTB001,DAENG-GI-MEO-RI Tote Bag,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+15412,CP-1,DAENG-GI-MEO-RI Treatment 25 g,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30177,CP-1-CL,DAENG-GI-MEO-RI Treatment 25 g [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15407,,DAENG-GI-MEO-RI Treatment 300 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|21|37,1|21|37,1|21|37,6,6,6,7|5|16,lot
+30178,,DAENG-GI-MEO-RI Treatment 300 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7|5|16,lot
+15408,,DAENG-GI-MEO-RI Treatment 400 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|21|37,1|21|37,1|21|37,4,4,4,7|5|16,lot
+30179,,DAENG-GI-MEO-RI Treatment 400 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7|5|16,lot
+15409,,DAENG-GI-MEO-RI Treatment 50 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|21|37,1|21|37,1|21|37,4,4,4,7|5,lot
+30180,,DAENG-GI-MEO-RI Treatment 50 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15410,,DAENG-GI-MEO-RI Treatment 500 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|21|37,1|21|37,1|21|37,3,3,3,7|5|16,lot
+30181,,DAENG-GI-MEO-RI Treatment 500 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7|5|16,lot
+15411,,DAENG-GI-MEO-RI Treatment 7 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+19847,DJTF007,DAENG-GI-MEO-RI Treatment 7 ml (FDA Version),Finished Goods / Finished Goods - Imported,3.2445,3.2445,3.2445,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7,lot
+30183,DJTF007-CL,DAENG-GI-MEO-RI Treatment 7 ml (FDA Version) [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30182,,DAENG-GI-MEO-RI Treatment 7 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15498,,DAENG-GI-MEO-RI Treatment 70 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30184,,DAENG-GI-MEO-RI Treatment 70 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+26186,GWP-DTB002,DAENG-GI-MEO-RI Tumbler,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+26175,DVP145,DAENG-GI-MEO-RI Vitalizing Scalp Nutrition Pack For Hair Loss 145 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30186,DVP145-CL,DAENG-GI-MEO-RI Vitalizing Scalp Nutrition Pack For Hair Loss 145 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+32688,GWP-DGMR-001,DGMR - Jute Tote Bag,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30579,DCC001,DGMR Bamboo Comb,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|21|37,1|21|37,1|21|37,1,1,1,7,lot
+32806,GWP-DTC001,DGMR Hair Towel Cap ผ้าคลุมผมแห้งไว,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+16527,DCC003-SET,DGMR SET Brush & Cotton Bag Box,Finished Goods / Finished Goods - Imported,63.95,63.95,63.95,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|16,lot
+32855,DGS007--10,DGS007--10,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+33475,DGT050--2,DGT050--2,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+32887,DJS007--10,DJS007--10,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+32295,DJS007^8+DGS007^8,DJS007^8+DGS007^8,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+32818,GWP-DYS-001-BLU,Dyson Airstrait ™ (Prussian Blue/Rich Copper),Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7,lot
+15499,,EGG-PLANET Shampoo 200 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,6,6,6,7,lot
+30187,,EGG-PLANET Shampoo 200 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+15500,,EGG-PLANET Treatment 200 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,5,5,5,7|5|16,lot
+30188,,EGG-PLANET Treatment 200 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15413,,EMIR Eau De Parfum 100 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30189,,EMIR Eau De Parfum 100 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30633,EBD100,ERB SEA BLISS REED DIFFUSER 100 ml,Finished Goods / Finished Goods - Domestic External (CMN),0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+31552,ETPS050,EVERWHITE TINTED SPF 50 SUNSCREEN 50 g,Finished Goods / Finished Goods - Domestic,73,73,73,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+30508,,FRAGRANCE REFILL 500 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,11,11,11,7|5,lot
+32229,UWD070,FRESH ARMORIE LABS ULTIMATE WHITENING DEO 70 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+33484,GPT002-Set,GOOD GOODS EAU DE PERFUME 2 ml - Set 9 pcs (Tester),Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+31164,GJR-IPQ,GOOD GOODS JASMINE RICE HARMONY (สำหรับ I Plus Q),Finished Goods / Finished Goods - Domestic,1822,1822,1822,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+30555,GJR1000,"GOOD GOODS Jasmine Rice Harmony 1,000 ml",Finished Goods / Finished Goods - Domestic External (CMN),1822,1822,1822,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5,lot
+30694,GPRH030,GOOD GOODS Jasmine Rice Harmony Eau De Parfum 30 ml,Finished Goods / Finished Goods - Domestic,184.337256,184.337256,184.337256,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5,lot
+30695,GPRH050,GOOD GOODS Jasmine Rice Harmony Eau De Parfum 50 ml,Finished Goods / Finished Goods - Domestic,234.881464,234.881464,234.881464,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5,lot
+30308,GDR500,GOOD GOODS Jasmine Rice Harmony Eau De Parfum 500 ml,Finished Goods / Finished Goods - Domestic External (CMN),470,470,470,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5,lot
+15414,GPJR001,GOOD-GOODS Eau De Parfum 1.5 ml,Finished Goods / Finished Goods - Domestic,7.33,7.33,7.33,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30190,GPJR001-CL,GOOD-GOODS Eau De Parfum 1.5 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+31966,,GOOD-GOODS Reed Diffuser 100 ml ,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,3,3,3,7|16,lot
+31980,GWP-HSC-001-WHT,GWP-AMABELLA เครื่องม้วนผมอัตโนมัติ สีขาว,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7,lot
+32154,GWP-BAG-006-BEIGE,GWP-DGMR Fluffy Bag Beige,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+32155,GWP-BAG-007-BROWN,GWP-DGMR Fluffy Bag Brown,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+32191,GWP-BAG-008-DANPURPLE,GWP-DGMR Fluffy Bag Dann Purple,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+32287,GWP-BAG-009-PINK,GWP-DGMR Fluffy Bag Pink,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+32153,GWP-BAG-005-PURPLE,GWP-DGMR Fluffy Bag Purple,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+31990,GWP-BAG-003-MIX,GWP-DGMR Fur Bag Mix,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7,lot
+32689,GWP-BOX-001-PNK,GWP-KMB Boxset Wanted Girl,Finished Goods / Finished Goods - Domestic,470,470,470,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7,lot
+32113,GWP-CLK-001-WHT,GWP-KMB Digital Clock White,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+31992,GWP-BAG-004-MIX,GWP-KMB Handbag Mix,Finished Goods / Finished Goods - Domestic,26.917736,26.917736,26.917736,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7,lot
+31784,GWP-BAG-001-PNK,GWP-KMB Mesh Bag Pink กระเป๋าถุงตาข่ายสีชมพู,Finished Goods / Finished Goods - Domestic,35.97579,35.97579,35.97579,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7,lot
+31785,GWP-MIR-001-PNK,GWP-KMB Portable Mirror Pink,Finished Goods / Finished Goods - Domestic,8.225302,8.225302,8.225302,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7,lot
+32871,GWP-MIRI-HAIR-BAND+DJS007--22,GWP-MIRI-HAIR-BAND+DJS007--22,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+32874,GWP-MIRI-MINI-HB001+DGS007--8+DJS007--8,GWP-MIRI-MINI-HB001+DGS007--8+DJS007--8,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+31048,GWP-EGG1,GWP-กิ๊ฟติดผม ตัวการ์ตูนไข่,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7,lot
+30191,,JELLY BUNNY EAU DE PARFUM 50 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+15416,,JULIET-COLE Eau De Parfum 30 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+30192,,JULIET-COLE Eau De Parfum 30 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+15415,,JULIET-COLE Eau De Toilette 30 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+30193,,JULIET-COLE Eau De Toilette 30 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+31315,,Juliet-Cole Perfume 30 ml (clearance 2025),Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+32310,,KAYE Parfum 50 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,5,5,5,7|5,lot
+30378,GWP-KKX001,KISS MY BODY Acrylic Keychain (Random),Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+33470,C-KLF200,KISS MY BODY BRIGHT & SHINE PERFUME LOTION SPF30 PA+++ FLY ME AWAY 200 g [Clearance],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+31188,KLT200-A,KISS MY BODY BRIGHT & SHINE PERFUME LOTION SPF30 PA+++ SWEETIE 200 g-A,Finished Goods / Finished Goods - Domestic,19.948333,19.948333,19.948333,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+30361,GWP-KBB001,KISS MY BODY Bath Ball,Finished Goods / Finished Goods - Imported,16.822027874899664,16.822027874899664,16.822027874899664,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+31050,KLH200-A,KISS MY BODY Bright & Shine Perfume Lotion Spf30 Pa+++ Hottie 200 g-A,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30567,KLC075-SET,"KISS MY BODY Crazy In Love Travel Set (Lotion 1 pcs, Mist 1 pcs)",Finished Goods / Finished Goods - Domestic,122.548083,122.548083,122.548083,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+31297,KTNL088 (Rework),KISS MY BODY EAU DE TOILETTE NANG LOY 88 ml (Rework),Finished Goods / Finished Goods - Domestic,0,0,0,38,38,38,37,37,37,0,0,0,7|5|16,lot
+30692,KLF070-SET,KISS MY BODY Festive Set 4 pcs,Finished Goods / Finished Goods - Domestic,113.511,113.511,113.511,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30348,GWP-STK-VALEN2025,KISS MY BODY GWP Sticker Valentine 2025,Finished Goods / Finished Goods - Domestic,2.9,2.9,2.9,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7,lot
+33477,C-KSF180,KISS MY BODY HEALTHY SKIN BOOSTER PERFUME SERUM SPF 30 PA+++ FIERCE 180 g [Clearance],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,5,lot
+30568,KSD070,KISS MY BODY Healthy Skin Booster Perfume Serum Spf 30 Pa+++ Desire 70 g,Finished Goods / Finished Goods - Domestic,12.360992,12.360992,12.360992,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30467,,KISS MY BODY Large Electric Diffusers SI500,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30349,,KISS MY BODY Refillable Perfume Stick,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7,none
+30456,GWP-KBX-002,KISS MY BODY Shopping Bag (ใบเล็ก),Finished Goods / Finished Goods - Imported,5.37,5.37,5.37,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30455,GWP-KBX-001,KISS MY BODY Shopping Bag (ใบใหญ่),Finished Goods / Finished Goods - Imported,6.39,6.39,6.39,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30468,,KISS MY BODY Small Electric Diffusers SI50,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30466,,KISS MY BODY Summer Glass,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30318,,KISS MY BODY Underarm Dry Serum 40 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,none
+33280,,KISS MY BODY Whipped Cream Scrub 190g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+33006,KSBN020,KISS-MY-BODY Bikini Serum 20g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+32919,C-KMM088,KISS-MY-BODY Body Mist Call Me Maybe 88 ml [Clearance],Finished Goods / Finished Goods - Domestic,18.785724,18.785724,18.785724,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|16,lot
+33111,,KISS-MY-BODY Bright & Dewy Perfume Lotion 200 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15417,,KISS-MY-BODY Bright & Shine Perfume Lotion 200 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,4,4,4,7|5,lot
+30194,,KISS-MY-BODY Bright & Shine Perfume Lotion 200 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+33261,,KISS-MY-BODY Bright & Shine Perfume Lotion 200 g [CL] [Summer Sale],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+30375,,KISS-MY-BODY Bright & Shine Perfume Lotion 200 g [SA],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,3,3,3,7|5,lot
+30539,,KISS-MY-BODY Bright & Shine Perfume Lotion 200 g [VN],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+15418,,KISS-MY-BODY Bright & Shine Perfume Lotion 226 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|38,2|38,2|38,1|19|37,1|19|37,1|19|37,8,8,8,7|5,lot
+27121,,KISS-MY-BODY Bright & Shine Perfume Lotion 226 g (12CTN),Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+30195,,KISS-MY-BODY Bright & Shine Perfume Lotion 226 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+32604,,KISS-MY-BODY Bright & Shine Perfume Lotion 226 g [CL] [Summer Sale],Finished Goods / Finished Goods - Domestic,0,0,0,2|20,2|20,2|20,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+30382,,KISS-MY-BODY Bright & Shine Perfume Lotion 226 g [SA],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5,lot
+30538,,KISS-MY-BODY Bright & Shine Perfume Lotion 226 g [VN],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5,lot
+15419,,KISS-MY-BODY Bright & Shine Perfume Lotion 75 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30196,,KISS-MY-BODY Bright & Shine Perfume Lotion 75 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15420,,KISS-MY-BODY Bright & Shine Perfume Lotion 8 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30198,,KISS-MY-BODY Bright & Shine Perfume Lotion 8 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15421,,KISS-MY-BODY Bright & Shine Perfume Lotion SPF30 PA+++ 200 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|38,2|38,2|38,1|19|37,1|19|37,1|19|37,6,6,6,7|5|16,lot
+30199,,KISS-MY-BODY Bright & Shine Perfume Lotion SPF30 PA+++ 200 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+32605,,KISS-MY-BODY Bright & Shine Perfume Lotion SPF30 PA+++ 200 g [CL] [Summer Sale],Finished Goods / Finished Goods - Domestic,0,0,0,2|20,2|20,2|20,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+30551,,KISS-MY-BODY Bright & Shine Perfume Lotion SPF30 PA+++ 200 g [VN],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,6,6,6,7|5|16,lot
+15422,,KISS-MY-BODY Bright & Shine Perfume Lotion SPF30 PA+++ 70 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+30200,,KISS-MY-BODY Bright & Shine Perfume Lotion SPF30 PA+++ 70 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,5,lot
+33420,,KISS-MY-BODY Eau De Parfum 40 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15423,,KISS-MY-BODY Eau De Parfum 50 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,11,11,11,7|5,lot
+30952,,KISS-MY-BODY Eau De Parfum 50 ml (Re Printlot),Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+30201,,KISS-MY-BODY Eau De Parfum 50 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+32993,,KISS-MY-BODY Eau De Parfum 50 ml [INT],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+31498,,KISS-MY-BODY Eau De Parfum 50 ml [SA],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,7,7,7,7|5,lot
+30925,,KISS-MY-BODY Eau De Parfum 50 ml [VN],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+31983,,KISS-MY-BODY Eau De Parfum Intense 50 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,4,4,4,7|16,lot
+33046,,KISS-MY-BODY Eau De Toilette 80 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+15424,,KISS-MY-BODY Eau De Toilette 88 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,16,16,16,7|5|16,lot
+30202,,KISS-MY-BODY Eau De Toilette 88 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+30556,,KISS-MY-BODY Eau De Toilette 88 ml [INTER],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5,lot
+30358,,KISS-MY-BODY Eau De Toilette 88 ml [SA],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7|5,lot
+33307,,KISS-MY-BODY Eau De Toilette 88 ml [VN],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5,lot
+15425,,KISS-MY-BODY Healthy Skin Booster Perfume Serum SPF30 PA+++ 180 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,10,10,10,7|5|16,lot
+30203,,KISS-MY-BODY Healthy Skin Booster Perfume Serum SPF30 PA+++ 180 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+32606,,KISS-MY-BODY Healthy Skin Booster Perfume Serum SPF30 PA+++ 180 g [CL] [Summer Sale],Finished Goods / Finished Goods - Domestic,0,0,0,2|20,2|20,2|20,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+30552,,KISS-MY-BODY Healthy Skin Booster Perfume Serum SPF30 PA+++ 180 g [VN],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15426,,KISS-MY-BODY Healthy Skin Booster Perfume Serum SPF30 PA+++ 70 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30204,,KISS-MY-BODY Healthy Skin Booster Perfume Serum SPF30 PA+++ 70 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+15427,KSF008,KISS-MY-BODY Healthy Skin Booster Perfume Serum SPF30 PA+++ 8 g,Finished Goods / Finished Goods - Domestic,4.08,4.08,4.08,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15511,KSFI008,KISS-MY-BODY Healthy Skin Booster Perfume Serum SPF30 PA+++ 8 g (Only Sachet),Finished Goods / Finished Goods - Domestic,7.37,7.37,7.37,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|16,lot
+30206,KSFI008-CL,KISS-MY-BODY Healthy Skin Booster Perfume Serum SPF30 PA+++ 8 g (Only Sachet) [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|16,lot
+30205,KSF008-CL,KISS-MY-BODY Healthy Skin Booster Perfume Serum SPF30 PA+++ 8 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+33009,KSPP020,KISS-MY-BODY Nipple Serum Pinky Pop 20g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+33381,,KISS-MY-BODY Passionate Perfume Shower Gel 380 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+31686,,KISS-MY-BODY Perfume Hair Mist 38 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,6,6,6,7|5|16,lot
+15428,,KISS-MY-BODY Perfume Mist 88 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|38,2|38,2|38,1|19|37,1|19|37,1|19|37,17,17,17,7|5|16,lot
+31034,,KISS-MY-BODY Perfume Mist 88 ml (24 CTN),Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+30207,,KISS-MY-BODY Perfume Mist 88 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+32607,,KISS-MY-BODY Perfume Mist 88 ml [CL] [Summer Sale],Finished Goods / Finished Goods - Domestic,0,0,0,2|20,2|20,2|20,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+30529,,KISS-MY-BODY Perfume Mist 88 ml [INTER],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+30346,,KISS-MY-BODY Perfume Mist 88 ml [SA],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+33306,,KISS-MY-BODY Perfume Mist 88 ml [VN],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+15431,,KISS-MY-BODY Perfume Shower Gel 380 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|38,2|38,2|38,1|19|37,1|19|37,1|19|37,10,10,10,7|5|16,lot
+32326,KWAP380-CL,KISS-MY-BODY Perfume Shower Gel 380 ml [CL],Finished Goods / Finished Goods - Domestic,29.28,29.28,29.28,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+32327,KWCC380-CL,KISS-MY-BODY Perfume Shower Gel 380 ml [CL],Finished Goods / Finished Goods - Domestic,43.398125,43.398125,43.398125,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30208,,KISS-MY-BODY Perfume Shower Gel 380 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30553,,KISS-MY-BODY Perfume Shower Gel 380 ml [VN],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15430,,KISS-MY-BODY Sun Protection Perfume Serum SPF50 PA++++ 180 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,3,3,3,7|5|16,lot
+30209,,KISS-MY-BODY Sun Protection Perfume Serum SPF50 PA++++ 180 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30554,,KISS-MY-BODY Sun Protection Perfume Serum SPF50 PA++++ 180 g [VN],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7|5|16,lot
+31385,,KISS-MY-BODY Tone Up Perfume Lotion 180 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7|5,lot
+33075,,KISS-MY-BODY Tone Up Perfume Lotion 180 g [SA],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+30321,,KISS-MY-BODY Underarm Dry Serum 45 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7|5,lot
+31499,,KISS-MY-BODY Underarm Dry Serum 45 g [SA],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7|5,lot
+31500,,KISS-MY-BODY Underarm Dry Serum 45 g [VN],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7|5,lot
+15432,,KISS-MY-LIFE Car Perfume 11 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30210,,KISS-MY-LIFE Car Perfume 11 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+31576,KBL020,KNOX B3 WHITENING COMPLEX LOTION 15 kg,Finished Goods / Finished Goods - Domestic External (CMN),0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+33022,KBL050,KNOX B3 WHITENING COMPLEX LOTION 50 kg,Finished Goods / Finished Goods - Domestic External (CMN),0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+31646,KBL007,KNOX B3 WHITENING COMPLEX LOTION 7 kg,Finished Goods / Finished Goods - Domestic External (CMN),0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+32687,GWP-KISS-003,KOB - Hologram Tote Bag,Finished Goods / Finished Goods - Domestic,5,5,5,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+31055,KSDS050,KURIT Daily Shield Sunscreen SPF50 PA+++ 50 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7,lot
+31059,KCFS100,KURIT Fresh Start Cleanser 100 ml,Finished Goods / Finished Goods - Domestic,49.15,49.15,49.15,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7,lot
+31058,KCRR050,KURIT Restore Retinol Cream 50 ml,Finished Goods / Finished Goods - Domestic,53.46,53.46,53.46,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7,lot
+15433,LMS500,LOOK-AT-HAIR-LOSS Deep Cooling Shampoo 500 ml,Finished Goods / Finished Goods - Imported,153.93,153.93,153.93,2|20|38,2|20|38,2|20|38,1|21|37,1|21|37,1|21|37,2,2,2,7|5|16,lot
+30211,LMS500-CL,LOOK-AT-HAIR-LOSS Deep Cooling Shampoo 500 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15505,LMS250,LOOK-AT-HAIR-LOSS Shampoo 250 ml,Finished Goods / Finished Goods - Imported,97.65,97.65,97.65,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+30212,LMS250-CL,LOOK-AT-HAIR-LOSS Shampoo 250 ml [CL],Finished Goods / Finished Goods - Imported,100.5795,100.5795,100.5795,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7|5|16,lot
+15504,LMT500,LOOK-AT-HAIR-LOSS Treatment 500 ml,Finished Goods / Finished Goods - Imported,158.94,158.94,158.94,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7|5|16,lot
+30213,LMT500-CL,LOOK-AT-HAIR-LOSS Treatment 500 ml [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+33073,LMS500-P,LOOK-AT-HAIR-PLUS Deep Cooling Shampoo 500 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|16,lot
+33074,LMT500-P,LOOK-AT-HAIR-PLUS Deep Cooling Treatment 500 ml,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|16,lot
+31235,LSBN200,LUXE ORGANIX Bakuchiol + Niacinamide Nano-Complex Renew & Illuminate Whitening Serum Lotion Spf50+ Pa++++ 200 ml,Finished Goods / Finished Goods - Domestic,43.1,43.1,43.1,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5,lot
+32309,LKPL200,LUXE ORGANIX DERMAPRO 2IN1 CORRECTOR SMOOTH RESTORE TREATMENT BODY LOTION 200 ml,Finished Goods / Finished Goods - Domestic,35.9,35.9,35.9,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+32308,LKPS200,LUXE ORGANIX DERMAPRO 2IN1 ROUGH & DRY MICRODERM SMOOTH MASK & BODY SCRUB 200 ml,Finished Goods / Finished Goods - Domestic,37.23,37.23,37.23,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+15435,LSNT200,LUXE ORGANIX Niacinamide + Tranexamic Acid SPF50 Youthful Glow Whitening Serum Lotion 200 ml,Finished Goods / Finished Goods - Domestic,48.515942,48.515942,48.515942,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5,lot
+33303,LLPN200,LUXE ORGANIX PDRN + Nano White Dark Marks Fading Hybrid Body Serum 200g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|16,lot
+33304,LLPR200,LUXE ORGANIX PDRN + Retinal Wrinkles Smoothing  Hybrid Body Serum 200g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|16,lot
+33123,,LUXE ORGANIX x KISS MY BODY PERFUME MIST 100ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7|5,lot
+31562,,LUXE ORGANIX x KISS MY BODY Perfume Mist 88 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,4,4,4,7|5|16,lot
+15434,,LUXE-KMB Perfume Lotion SPF50 PA+++ 200 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30214,,LUXE-KMB Perfume Lotion SPF50 PA+++ 200 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30616,,LUXE-ORGANIX Whitening Serum Deo Underarm 50 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5,lot
+30215,LSNT200-CL,LUXE-ORGANIX Whitening Serum Lotion SPF50 200 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+31865,HWE200 (Rework Foil Seal),MAISY HAIR ESSENCE 200 ml (Rework Foil Seal),Finished Goods / Finished Goods - Domestic External (CMN),0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+32685,GWP-KISS-002,MALISSA KISS Clear Pouch,Finished Goods / Finished Goods - Domestic,5,5,5,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+32684,GWP-MKT-001,MALISSA KISS Juizy Crush Scraft And Bag Set,Finished Goods / Finished Goods - Domestic,189,189,189,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+31049,LSH200-A,MALISSA KISS Whitening Perfume Lotion Spf30 Pa+++ Hottie 200 g-A,Finished Goods / Finished Goods - Domestic,14.758337,14.758337,14.758337,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+15438,GWP-MK-005,MALISSA-KISS Bath Ball Black Straps,Finished Goods / Finished Goods - Domestic,7.544,7.544,7.544,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30218,GWP-MK-005-CL,MALISSA-KISS Bath Ball Black Straps [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15439,YBO030,MALISSA-KISS Booster Overninght Mask 30 g,Finished Goods / Finished Goods - Domestic,166.85,166.85,166.85,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30219,YBO030-CL,MALISSA-KISS Booster Overninght Mask 30 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15440,,MALISSA-KISS Brow Pencil 0.71 g,Finished Goods / Finished Goods - Domestic,55.49,55.49,55.49,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30220,SSB003-CL,MALISSA-KISS Brow Pencil 0.71 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15441,CWT030,MALISSA-KISS Crystal White Tone Up Cream SPF50 PA+++ 30 ml,Finished Goods / Finished Goods - Domestic,85.57,85.57,85.57,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30221,CWT030-CL,MALISSA-KISS Crystal White Tone Up Cream SPF50 PA+++ 30 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+26177,MFM050,MALISSA-KISS Disposable Medical Face Mask,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30222,MFM050-CL,MALISSA-KISS Disposable Medical Face Mask [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+15442,,MALISSA-KISS Everyday Cheek&Eye Blush 3.5 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30223,,MALISSA-KISS Everyday Cheek&Eye Blush 3.5 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30224,SBE001-CL,MALISSA-KISS Eyeliner 1 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15444,,MALISSA-KISS Gel Nail Polish,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15445,,MALISSA-KISS Gel Nail Polish 10 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30226,,MALISSA-KISS Gel Nail Polish 10 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30225,,MALISSA-KISS Gel Nail Polish [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15446,,MALISSA-KISS Hand Sanitizing Spray 45 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30227,,MALISSA-KISS Hand Sanitizing Spray 45 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15447,,MALISSA-KISS It's Real 3in1 Brow Pencil 0.71g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30228,,MALISSA-KISS It's Real 3in1 Brow Pencil 0.71g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15448,,MALISSA-KISS Lollipop Ink Tint 2.9 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30229,,MALISSA-KISS Lollipop Ink Tint 2.9 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15449,,MALISSA-KISS Melted Matte Lip 2.8 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30230,,MALISSA-KISS Melted Matte Lip 2.8 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15450,,MALISSA-KISS Perfect Brow Pencil 0.26 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30231,,MALISSA-KISS Perfect Brow Pencil 0.26 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15451,,MALISSA-KISS Perfume Foaming Hand Wash 220 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30232,,MALISSA-KISS Perfume Foaming Hand Wash 220 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15452,,MALISSA-KISS Perfume Lotion 75 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30233,,MALISSA-KISS Perfume Lotion 75 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15453,,MALISSA-KISS Perfume Mist 88 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30234,,MALISSA-KISS Perfume Mist 88 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+33265,,MALISSA-KISS Perfume Mist 88 ml [CL] [Summer Sale],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+15454,,MALISSA-KISS Perfume Reed Diffuser 100 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30235,,MALISSA-KISS Perfume Reed Diffuser 100 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+15455,,MALISSA-KISS Perfume Shower Gel 350 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30236,,MALISSA-KISS Perfume Shower Gel 350 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15456,PTM050,MALISSA-KISS Plankton Mineral Mist 50 ml,Finished Goods / Finished Goods - Domestic,27.06,27.06,27.06,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30237,PTM050-CL,MALISSA-KISS Plankton Mineral Mist 50 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15457,,MALISSA-KISS Scented Candle 80 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30238,,MALISSA-KISS Scented Candle 80 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15458,,MALISSA-KISS Serum Sheet Mask 25 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+30239,,MALISSA-KISS Serum Sheet Mask 25 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15459,,MALISSA-KISS Soothing Gel 230 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7|5,lot
+30240,,MALISSA-KISS Soothing Gel 230 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+15461,AVH290,MALISSA-KISS Soothing Gel 290 g,Finished Goods / Finished Goods - Domestic,33.36409511494872,33.36409511494872,33.36409511494872,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5,lot
+30242,AVH290-CL,MALISSA-KISS Soothing Gel 290 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+15462,TWU030,MALISSA-KISS Total White Underarm Cream 30 g,Finished Goods / Finished Goods - Domestic,21.52326882488987,21.52326882488987,21.52326882488987,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30243,TWU030-CL,MALISSA-KISS Total White Underarm Cream 30 g [CL],Finished Goods / Finished Goods - Domestic,22.227903841772154,22.227903841772154,22.227903841772154,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+15463,TWT060,MALISSA-KISS Total White Underarm Toner 60 ml,Finished Goods / Finished Goods - Domestic,29.85,29.85,29.85,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30244,TWT060-CL,MALISSA-KISS Total White Underarm Toner 60 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15464,,MALISSA-KISS Velvet Matte Lip 3.8 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30245,,MALISSA-KISS Velvet Matte Lip 3.8 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30246,WMU015-CL,MALISSA-KISS White Me Up Sleeping Pack 15 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15466,WMU030,MALISSA-KISS White Me Up Sleeping Pack 30 g,Finished Goods / Finished Goods - Domestic,38.67,38.67,38.67,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30247,WMU030-CL,MALISSA-KISS White Me Up Sleeping Pack 30 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30248,WBM030-CL,MALISSA-KISS White Me Up White Booster Moisturize 30 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15468,,MALISSA-KISS Whitening Perfume Lotion 226 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30249,,MALISSA-KISS Whitening Perfume Lotion 226 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+33262,PLM226-CL-20,MALISSA-KISS Whitening Perfume Lotion 226 g [CL] [Summer Sale],Finished Goods / Finished Goods - Domestic,21.53,21.53,21.53,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+15469,,MALISSA-KISS Whitening Perfume Lotion 75 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30250,,MALISSA-KISS Whitening Perfume Lotion 75 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15470,,MALISSA-KISS Whitening Perfume Lotion SPF30 PA+++ 200 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+30251,,MALISSA-KISS Whitening Perfume Lotion SPF30 PA+++ 200 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+33263,LSS200-CL-20,MALISSA-KISS Whitening Perfume Lotion SPF30 PA+++ 200 g [CL] [Summer Sale],Finished Goods / Finished Goods - Domestic,27.377576,27.377576,27.377576,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+31175,MDCW100,MIDOO Melt-away Cleansing Water 100 ml,Finished Goods / Finished Goods - Domestic,43,43,43,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5,lot
+33504,MRMR-SET-BLK-PRP,MIRIMIRI Hair Band Towel Set Black with Purple Pouch (pouch + Band),Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+33491,MRMR-SET-WHT-PRP,MIRIMIRI Hair Turban Towel Set White with Purple Pouch (pouch + turban),Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+31574,MRMR-TURBAN-WHT,MIRIMIRI Hair Turban Towel WHT Minky (turban only),Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7,lot
+33344,MIRIMIRI-CMB-CATWOOD,MIRIMIRI Massage Hair Comb-CATWOOD,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7,lot
+30351,GWP-MIRI-MINI-HB001,MIRIMIRI New Bristle Hair Blush (หวีขนหมูป่า mini),Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7,lot
+30924,,MIRIMIRI Satin Hair Band,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,3|19|37,3|19|37,3|19|37,1,1,1,7,lot
+31169,,MONT DE LUR CRYSTAL BROAD-SPECTRUM SUNSCREEN SPF50 PA++++ 50 ml-Philippines,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+31174,MLSM050,MONT-DE-LUR Tinted Mousse Sunscreen SPF50 PA++++ 50 g,Finished Goods / Finished Goods - Domestic,111.28,111.28,111.28,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5,lot
+15471,MGB010,MOONA-HOUSE Cream Serum 10 ml,Finished Goods / Finished Goods - Domestic,6.68,6.68,6.68,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+30252,MGB010-CL,MOONA-HOUSE Cream Serum 10 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15472,MPS005,MOONA-HOUSE Eau De Parfum 5 ml,Finished Goods / Finished Goods - Domestic,20.07,20.07,20.07,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30253,MPS005-CL,MOONA-HOUSE Eau De Parfum 5 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15474,,MOONA-HOUSE Serum 10 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7|5|16,lot
+30254,,MOONA-HOUSE Serum 10 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+15503,,MOONA-HOUSE White Perfume Lotion 40 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,5,5,5,7|5|16,lot
+32954,,MOONA-HOUSE White Perfume Lotion 40 g [216CTN],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+30255,,MOONA-HOUSE White Perfume Lotion 40 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5,lot
+32686,GWP-FGC001-BX-01,Malissa Kiss - กระเป๋าซิปใส (เล็ก),Finished Goods / Finished Goods - Domestic,5,5,5,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+32741,,Malissa Kiss Whitening Perfume Lotion 200g (clearance 2025),Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+15475,,PENDORA-SCENTS Eau De Parfum,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30256,,PENDORA-SCENTS Eau De Parfum [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+26248,PBC200,PERSONA AHA ALPHA B3 SKIN BOOSTER WHITE CREAM 200 g,Finished Goods / Finished Goods - Domestic External (CMN),0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+31490,,PERSONA AHA ALPHA B3 SKIN BOOSTER WHITE CREAM 200 g (copy),Finished Goods / Finished Goods - Domestic External (CMN),0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+30379,PBL001,Plastic storage box with lid Yellow Size L,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+31295,SDS030-SET,SKINOXY Advanced Booster Duo Serum Set 30 ml,Finished Goods / Finished Goods - Domestic,42,42,42,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+15476,SAS050,SKINOXY Anti Acne Spray 50 ml,Finished Goods / Finished Goods - Domestic,34.07,34.07,34.07,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30257,SAS050-CL,SKINOXY Anti Acne Spray 50 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+33083,SBOX-PH001,SKINOXY BOXSET PHUWIN,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+30258,SBPS180-CL,SKINOXY Body Lotion SPF50+ PA++++ 180 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|16,none
+15477,,SKINOXY Body Serum 275 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,8,8,8,7|5,lot
+30259,,SKINOXY Body Serum 275 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+33274,,SKINOXY Body Serum 275 g [SA],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+31783,,SKINOXY Body Serum 275 g [TW],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+32094,,SKINOXY Body Serum 275 g [VN],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+32203,,SKINOXY Body Serum 30 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7|5,lot
+32323,,SKINOXY Body Serum 30 g [144CTN],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+31846,,SKINOXY Body Wash 700ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,3,3,3,7|5,lot
+33278,,SKINOXY Body Wash 700ml [SA],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+15478,,SKINOXY Booster Serum 10 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+31510,,SKINOXY Booster Serum 10 ml (96PCS),Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+30260,,SKINOXY Booster Serum 10 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30261,,SKINOXY Booster Serum 30 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+32608,,SKINOXY Booster Serum 30 ml [CL] [Summer Sale],Finished Goods / Finished Goods - Domestic,0,0,0,2|20,2|20,2|20,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+15480,,SKINOXY Booster Serum 9 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30262,,SKINOXY Booster Serum 9 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+33264,SAH009-CL-20,SKINOXY Booster Serum 9 ml [CL] [Summer Sale],Finished Goods / Finished Goods - Domestic,21.03,21.03,21.03,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+15481,SSS050,SKINOXY Booster Spray 50 ml,Finished Goods / Finished Goods - Domestic,30.87,30.87,30.87,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30263,SSS050-CL,SKINOXY Booster Spray 50 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15482,SCG300,SKINOXY Cleansing Gel 300 ml,Finished Goods / Finished Goods - Domestic,39.29,39.29,39.29,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30264,SCG300-CL,SKINOXY Cleansing Gel 300 ml [CL],Finished Goods / Finished Goods - Domestic,39.29,39.29,39.29,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+32609,SCG300-CL-20,SKINOXY Cleansing Gel 300 ml [CL] [End Year Sale],Finished Goods / Finished Goods - Domestic,39.29,39.29,39.29,2|20,2|20,2|20,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+15483,SCC050,SKINOXY Cream 50 g,Finished Goods / Finished Goods - Domestic,33.28,33.28,33.28,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30265,SCC050-CL,SKINOXY Cream 50 g [CL],Finished Goods / Finished Goods - Domestic,33.28,33.28,33.28,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30377,,SKINOXY Fabric Eye Cover,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+31824,,SKINOXY Hydrogel Mask 30g,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,3|19|37,3|19|37,3|19|37,4,4,4,7|5|16,lot
+33431,,SKINOXY Hydrogel Mask PACK3,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,none
+15484,SCS030,SKINOXY Intensive Serum 30 ml,Finished Goods / Finished Goods - Domestic,32.64000000000001,32.64000000000001,32.64000000000001,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30266,SCS030-CL,SKINOXY Intensive Serum 30 ml [CL],Finished Goods / Finished Goods - Domestic,32.64,32.64,32.64,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15486,,SKINOXY Mask,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,11,11,11,7|5|16,lot
+31508,,SKINOXY Mask (6PCS),Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+31509,,SKINOXY Mask 25g (72PCS),Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+30267,,SKINOXY Mask [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5,lot
+33058,,SKINOXY Mask [Rework],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+33436,,SKINOXY Mask [SA],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5,lot
+32096,,SKINOXY Mask [VN],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5,lot
+15487,,SKINOXY Overnight Mask 25 ml,Finished Goods / Finished Goods - Domestic,11.63,11.63,11.63,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+33269,SCAC085,SKINOXY Pro Acne Clear Facial Cleanser 85 g,Finished Goods / Finished Goods - Domestic,0,0,0,38,38,38,37,37,37,1,1,1,7|5|16,lot
+33502,SCAC085-BD,SKINOXY Pro Acne Clear Facial Cleanser 85 g [BD],Finished Goods / Finished Goods - Domestic,0,0,0,20|38,20|38,20|38,19|37,19|37,19|37,1,1,1,7|5|16,lot
+15479,,SKINOXY Pro Booster Serum 30 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,7,7,7,7|5|16,lot
+25324,,SKINOXY Pro Cleanser 220 ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,5,5,5,7|5,lot
+30268,,SKINOXY Pro Cleanser 220 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+33121,,SKINOXY Pro Cleanser 220 ml [Rework],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5,lot
+33279,,SKINOXY Pro Cleanser 220 ml [SA],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+32971,,SKINOXY Pro Cleanser 220 ml [VN],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+24979,SBPS180,SKINOXY Pro Sun Protection Body Lotion SPF50+ PA++++ 180 g,Finished Goods / Finished Goods - Domestic,34.56480373952153,34.56480373952153,34.56480373952153,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7|5,lot
+33275,SBPS180-SA,SKINOXY Pro Sun Protection Body Lotion SPF50+ PA++++ 180 g [SA],Finished Goods / Finished Goods - Domestic,34.26988333333333,34.26988333333333,34.26988333333333,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+32095,SBPS180-VN,SKINOXY Pro Sun Protection Body Lotion SPF50+ PA++++ 180 g [VN],Finished Goods / Finished Goods - Domestic,35.03449319727891,35.03449319727891,35.03449319727891,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|16,lot
+31586,SBPS030,SKINOXY Pro Sun Protection Body Lotion SPF50+ PA++++ 30 g,Finished Goods / Finished Goods - Domestic,12.122265343688838,12.122265343688838,12.122265343688838,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7|5|16,lot
+31952,SBPS030-144CTN,SKINOXY Pro Sun Protection Body Lotion SPF50+ PA++++ 30 g (144CTN),Finished Goods / Finished Goods - Domestic,1745.99,1745.99,1745.99,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+33322,SCPW085,SKINOXY Pro Whitening Facial Cleanser 85 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|16,lot
+32076,,SKINOXY Refill Toner Pad 150 ml (80 Sheets),Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7|5,lot
+33277,,SKINOXY Refill Toner Pad 150 ml (80 Sheets) [SA],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+15488,,SKINOXY Soothing Gel 230 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,4,4,4,7|5|16,lot
+30269,,SKINOXY Soothing Gel 230 g [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+33276,,SKINOXY Soothing Gel 230 g [SA],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5,lot
+31580,,SKINOXY Soothing Gel 50g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7|5|16,lot
+31687,,SKINOXY TONER PAD 150 ml (Rework เพิ่มแผ่นโฟม),Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15489,SCT300,SKINOXY Toner 300 ml,Finished Goods / Finished Goods - Domestic,42.2,42.2,42.2,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30270,SCT300-CL,SKINOXY Toner 300 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30955,,SKINOXY Toner Pad 150 ml (80 Sheets),Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,5,5,5,7|5|16,lot
+32972,,SKINOXY Toner Pad 150 ml (80 Sheets) [VN],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7|5|16,lot
+33467,SUPM050,SKINOXY UV Sunscreen 50ml,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+32413,,Skinoxy Toner Pad 10 Pad,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,7,7,7,7|5|16,lot
+31264,GWP-TShirt-Haas,"T-Shirt Haas รุ่น ซัมเมอร์ (คละสี, คละไซส์)",Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7,lot
+33517,TKH045,THAI KONG BRAND HERBAL INHALER 4.5 g,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,5,lot
+32742,TOPSPD-AIRPOD4,TOP SPENDER-AirPods 4,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7,none
+31469,WNS001,WINKEL Nano Sponge,Finished Goods / Finished Goods - Imported,4.1076,4.1076,4.1076,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+19846,WNS002,WINKEL Nano Sponge (Tester),Finished Goods / Finished Goods - Imported,2.126900000000001,2.126900000000001,2.126900000000001,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,2,2,2,7,lot
+30271,WNS002-CL,WINKEL Nano Sponge (Tester) [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+15490,WNS003,WINKLE Nano Sponge,Finished Goods / Finished Goods - Imported,4.15,4.15,4.15,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+26176,,WINKLE Nano Sponge,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+30272,WNS003-CL,WINKLE Nano Sponge [CL],Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+31292,YAW010,YUMA Alcohol Wipe 10 pcs,Finished Goods / Finished Goods - Imported,4.211,4.211,4.211,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+31293,,YUMA Alcohol Wipe 60 Pcs,Finished Goods / Finished Goods - Domestic,26.544,26.544,26.544,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+31419,YAW060,YUMA Alcohol Wipe 60 pcs,Finished Goods / Finished Goods - Imported,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+31294,YBW080,YUMA Baby Wipes Soft & Care 80 Sheets,Finished Goods / Finished Goods - Domestic,16.418,16.418,16.418,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,lot
+15491,YHG100,YUMA Hand Sanitizer Gel 100 ml,Finished Goods / Finished Goods - Domestic,28,28,28,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30273,YHG100-CL,YUMA Hand Sanitizer Gel 100 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15492,YHG040,YUMA Hand Sanitizer Gel 40 ml,Finished Goods / Finished Goods - Domestic,13.49,13.49,13.49,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30274,YHG040-CL,YUMA Hand Sanitizer Gel 40 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15493,YHG500,YUMA Hand Sanitizer Gel 500 ml,Finished Goods / Finished Goods - Domestic,39.02,39.02,39.02,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30275,YHG500-CL,YUMA Hand Sanitizer Gel 500 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15494,YHG1000,YUMA Hand Sanitizing Gel 1000 ml,Finished Goods / Finished Goods - Domestic,69.1,69.1,69.1,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30276,YHG1000-CL,YUMA Hand Sanitizing Gel 1000 ml [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+15495,,YUMA Mask,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7|5|16,lot
+30277,,YUMA Mask [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30460,YMS001,YUMA Pm 2.5 Mask + YUMA Mini Sanitizing Spray,Finished Goods / Finished Goods - Imported,4.169,4.169,4.169,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,none
+15496,YMS015,YUMA Sanitizing Spray,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+30278,YMS015-CL,YUMA Sanitizing Spray [CL],Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7|5|16,lot
+31236,GWP-APR-001,พวงกุญแจ ลูกปัด สีชมพู,Finished Goods / Finished Goods - Domestic,15.993333,15.993333,15.993333,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,1,1,1,7,lot
+32422,GWP-PUR-001-WHT,เครื่องฟอกอากาศ Samsung GWP,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,none
+31967,GDXX100-PP-01,แผ่นพับ 6.3×10.5 cm. GPJRXXX-PP-01,Finished Goods / Finished Goods - Domestic,0,0,0,2|20|38,2|20|38,2|20|38,1|19|37,1|19|37,1|19|37,0,0,0,7,none

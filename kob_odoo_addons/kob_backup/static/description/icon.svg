@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#475569"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="url(#g)"/>
+  <!-- Database stack -->
+  <ellipse cx="128" cy="80" rx="56" ry="16" fill="#fff"/>
+  <path d="M72 80 L72 120 Q72 136 128 136 Q184 136 184 120 L184 80" fill="#fff"/>
+  <path d="M72 120 L72 160 Q72 176 128 176 Q184 176 184 160 L184 120" fill="#cbd5e1"/>
+  <path d="M72 160 L72 196 Q72 212 128 212 Q184 212 184 196 L184 160" fill="#94a3b8"/>
+  <!-- Sync arrow -->
+  <path d="M200 88 Q220 108 200 128" fill="none" stroke="#10b981"
+        stroke-width="6" stroke-linecap="round"/>
+  <path d="M194 122 L200 130 L208 124" fill="none" stroke="#10b981"
+        stroke-width="6" stroke-linecap="round"/>
+</svg>

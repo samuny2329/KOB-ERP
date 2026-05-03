@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="url(#g)"/>
+  <!-- Document + paperclip -->
+  <rect x="64" y="56" width="112" height="144" rx="8" fill="#fff"/>
+  <path d="M88 100 L152 100 M88 124 L140 124 M88 148 L152 148" stroke="#f59e0b"
+        stroke-width="5" stroke-linecap="round"/>
+  <!-- Camera lens for the photo aspect -->
+  <circle cx="180" cy="172" r="22" fill="#fff" stroke="#b45309" stroke-width="4"/>
+  <circle cx="180" cy="172" r="10" fill="#b45309"/>
+</svg>
