@@ -89,7 +89,25 @@ class WmsCountTask(models.Model):
         self.write({'state': 'assigned'})
 
     def action_start_counting(self):
+        """Switch state to counting and open the guided OWL count screen
+        with this task pre-selected. Falls back to plain state change if
+        the count screen action isn't available (e.g. multi-record call)."""
         self.write({'state': 'counting'})
+        if len(self) == 1:
+            action = self.env.ref(
+                "kob_wms.action_wms_count_screen", raise_if_not_found=False)
+            if action:
+                ctx = dict(self.env.context, default_task_id=self.id,
+                           preload_task_id=self.id)
+                return {
+                    "type": "ir.actions.client",
+                    "tag": action.tag,
+                    "name": action.name,
+                    "target": action.target or "fullscreen",
+                    "context": ctx,
+                    "params": {"task_id": self.id},
+                }
+        return True
 
     def action_submit(self):
         for task in self:
