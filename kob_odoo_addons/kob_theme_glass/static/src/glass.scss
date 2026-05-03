@@ -20,15 +20,15 @@ $o-purple-light:  #875A7B;
 
 :root,
 body.o_web_client {
-    --primary:               #{$o-purple} !important;
-    --o-action:              #{$o-purple} !important;
-    --o-brand-odoo:          #{$o-purple} !important;
-    --o-brand-secondary:     #{$o-purple} !important;
-    --bs-primary:            #{$o-purple} !important;
-    --bs-primary-rgb:        113, 75, 103 !important;
-    --bs-link-color:         #{$o-purple} !important;
-    --bs-link-color-rgb:     113, 75, 103 !important;
-    --bs-link-hover-color:   #{$o-purple-dark} !important;
+    --primary:               #{$o-purple};
+    --o-action:              #{$o-purple};
+    --o-brand-odoo:          #{$o-purple};
+    --o-brand-secondary:     #{$o-purple};
+    --bs-primary:            #{$o-purple};
+    --bs-primary-rgb:        113, 75, 103;
+    --bs-link-color:         #{$o-purple};
+    --bs-link-color-rgb:     113, 75, 103;
+    --bs-link-hover-color:   #{$o-purple-dark};
 }
 
 /* Body — soft gradient backdrop */
@@ -284,15 +284,15 @@ button.o_list_button_add,
 
 /* Statusbar arrow buttons (form view 1→2→3 flow) — keep clear */
 .o_form_statusbar .o_arrow_button {
-    color: $kob-odoo-text !important;
+    color: $kob-text !important;
 
     &.btn-primary {
-        background-color: $kob-odoo-purple !important;
+        background-color: $o-purple !important;
         color: #fff !important;
     }
     &.btn-secondary {
         background-color: #f8f9fa !important;
-        color: $kob-odoo-text !important;
+        color: $kob-text !important;
     }
 }
 
