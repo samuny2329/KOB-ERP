@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_ai_run_list" model="ir.ui.view">
+        <field name="name">kob.ai.agent.run.list</field>
+        <field name="model">kob.ai.agent.run</field>
+        <field name="arch" type="xml">
+            <list decoration-success="status=='done'"
+                  decoration-warning="status=='blocked'"
+                  decoration-danger="status=='error'"
+                  decoration-info="status=='running'">
+                <field name="name"/>
+                <field name="model"/>
+                <field name="trigger"/>
+                <field name="user_id"/>
+                <field name="status" widget="badge"/>
+                <field name="tool_call_count"/>
+                <field name="suggestion_count"/>
+                <field name="cost_estimate" widget="monetary" optional="show"/>
+                <field name="duration_seconds" optional="show"/>
+                <field name="create_date"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_kob_ai_run_form" model="ir.ui.view">
+        <field name="name">kob.ai.agent.run.form</field>
+        <field name="model">kob.ai.agent.run</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_run" type="object" string="Run"
+                            class="btn-primary" invisible="status not in ('pending','blocked','error')"/>
+                    <field name="status" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="model"/>
+                            <field name="trigger"/>
+                            <field name="user_id"/>
+                        </group>
+                        <group>
+                            <field name="tool_call_count"/>
+                            <field name="suggestion_count"/>
+                            <field name="cost_estimate"/>
+                            <field name="duration_seconds"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Prompt">
+                            <field name="prompt" widget="text"/>
+                        </page>
+                        <page string="Output">
+                            <field name="output" readonly="1" widget="text"/>
+                        </page>
+                        <!-- Suggestions are listed in dedicated menu, run_id m2o links them -->
+
+                        <page string="Error" invisible="not error_message">
+                            <field name="error_message" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_kob_ai_run" model="ir.actions.act_window">
+        <field name="name">Agent Runs</field>
+        <field name="res_model">kob.ai.agent.run</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="view_kob_ai_tool_list" model="ir.ui.view">
+        <field name="name">kob.ai.tool.list</field>
+        <field name="model">kob.ai.tool</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="name"/>
+                <field name="description"/>
+                <field name="method_model"/>
+                <field name="method_name"/>
+                <field name="active" widget="boolean_toggle"/>
+                <field name="require_role"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_kob_ai_tool" model="ir.actions.act_window">
+        <field name="name">AI Tools</field>
+        <field name="res_model">kob.ai.tool</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="view_kob_ai_sugg_list" model="ir.ui.view">
+        <field name="name">kob.ai.suggestion.list</field>
+        <field name="model">kob.ai.suggestion</field>
+        <field name="arch" type="xml">
+            <list decoration-warning="status=='pending'"
+                  decoration-success="status=='approved'"
+                  decoration-muted="status=='rejected'"
+                  decoration-danger="status=='error'">
+                <field name="tool_name"/>
+                <field name="rationale"/>
+                <field name="priority" widget="priority"/>
+                <field name="status" widget="badge"/>
+                <field name="run_id"/>
+                <button name="action_approve" type="object" icon="fa-check"
+                        invisible="status != 'pending'"/>
+                <button name="action_reject" type="object" icon="fa-times"
+                        invisible="status != 'pending'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_kob_ai_sugg" model="ir.actions.act_window">
+        <field name="name">AI Suggestions (pending)</field>
+        <field name="res_model">kob.ai.suggestion</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('status','=','pending')]</field>
+    </record>
+
+    <menuitem id="menu_kob_ai_root"
+              name="AI Agent"
+              sequence="55"
+              web_icon="kob_ai_agent,static/description/icon.png"/>
+    <menuitem id="menu_kob_ai_runs" name="Runs"
+              parent="menu_kob_ai_root" action="action_kob_ai_run" sequence="10"/>
+    <menuitem id="menu_kob_ai_sugg" name="Suggestions"
+              parent="menu_kob_ai_root" action="action_kob_ai_sugg" sequence="20"/>
+    <menuitem id="menu_kob_ai_tools" name="Tools"
+              parent="menu_kob_ai_root" action="action_kob_ai_tool" sequence="30"/>
+</odoo>

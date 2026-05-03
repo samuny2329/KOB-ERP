@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_kob_ai_run_user,kob.ai.agent.run user,model_kob_ai_agent_run,base.group_user,1,1,1,0
+access_kob_ai_run_admin,kob.ai.agent.run admin,model_kob_ai_agent_run,base.group_system,1,1,1,1
+access_kob_ai_tool_user,kob.ai.tool user read,model_kob_ai_tool,base.group_user,1,0,0,0
+access_kob_ai_tool_admin,kob.ai.tool admin,model_kob_ai_tool,base.group_system,1,1,1,1
+access_kob_ai_sugg_user,kob.ai.suggestion user,model_kob_ai_suggestion,base.group_user,1,1,1,0
+access_kob_ai_sugg_admin,kob.ai.suggestion admin,model_kob_ai_suggestion,base.group_system,1,1,1,1

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="tool_list_overdue_invoices" model="kob.ai.tool">
+        <field name="name">list_overdue_invoices</field>
+        <field name="description">List customer invoices that are past their due date and still unpaid. Use to identify which customers to chase for payment.</field>
+        <field name="method_model">kob.ai.tool</field>
+        <field name="method_name">list_overdue_invoices</field>
+        <field name="args_schema">{"type":"object","properties":{"days_overdue":{"type":"integer","description":"Minimum days past due","default":7}}}</field>
+    </record>
+
+    <record id="tool_suggest_reorder" model="kob.ai.tool">
+        <field name="name">suggest_reorder</field>
+        <field name="description">Identify products whose available stock is below their orderpoint minimum, optionally filtered by warehouse code. Returns recommended buy quantities.</field>
+        <field name="method_model">kob.ai.tool</field>
+        <field name="method_name">suggest_reorder</field>
+        <field name="args_schema">{"type":"object","properties":{"warehouse_code":{"type":"string","description":"Optional warehouse code filter (e.g. K-Off)"}}}</field>
+    </record>
+</odoo>

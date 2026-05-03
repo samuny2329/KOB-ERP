@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_forecast_list" model="ir.ui.view">
+        <field name="name">kob.finance.forecast.list</field>
+        <field name="model">kob.finance.forecast</field>
+        <field name="arch" type="xml">
+            <list decoration-success="variance_pct &lt; 0 and account_type=='expense'"
+                  decoration-danger="variance_pct &gt; 10 and account_type=='expense'"
+                  decoration-info="is_projection">
+                <field name="fiscal_year"/>
+                <field name="granularity"/>
+                <field name="period_index" string="Period"/>
+                <field name="account_id"/>
+                <field name="account_type"/>
+                <field name="actual_amount" sum="Actual"/>
+                <field name="forecast_amount" sum="Forecast"/>
+                <field name="budget_amount" sum="Budget"/>
+                <field name="variance" sum="Variance"/>
+                <field name="variance_pct" widget="percentage"/>
+                <field name="confidence" widget="badge"
+                       decoration-success="confidence=='high'"
+                       decoration-warning="confidence=='medium'"
+                       decoration-danger="confidence=='low'"/>
+                <field name="is_projection" widget="boolean_toggle"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_kob_forecast_pivot" model="ir.ui.view">
+        <field name="name">kob.finance.forecast.pivot</field>
+        <field name="model">kob.finance.forecast</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="account_id" type="row"/>
+                <field name="period_index" type="col"/>
+                <field name="actual_amount" type="measure"/>
+                <field name="forecast_amount" type="measure"/>
+                <field name="variance" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+
+    <record id="action_kob_finance_forecast" model="ir.actions.act_window">
+        <field name="name">Forecasts</field>
+        <field name="res_model">kob.finance.forecast</field>
+        <field name="view_mode">list,pivot</field>
+        <field name="context">{}</field>
+    </record>
+
+    <record id="action_kob_forecast_refresh_now" model="ir.actions.server">
+        <field name="name">Refresh Forecast (current year)</field>
+        <field name="model_id" ref="model_kob_finance_forecast"/>
+        <field name="state">code</field>
+        <field name="code">model.refresh_for_year(); action = {'type': 'ir.actions.client', 'tag': 'reload'}</field>
+    </record>
+
+    <menuitem id="menu_kob_finance_forecast"
+              name="Forecasts"
+              parent="account.menu_finance_reports"
+              action="action_kob_finance_forecast"
+              sequence="50"/>
+</odoo>

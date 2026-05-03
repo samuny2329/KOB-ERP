@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_kob_replica_status_form" model="ir.ui.view">
+        <field name="name">kob.replica.status.form</field>
+        <field name="model">kob.replica.status</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>DB Read-Replica Status</h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="is_configured"/>
+                            <field name="replica_dsn"/>
+                            <field name="is_reachable"/>
+                        </group>
+                        <group>
+                            <field name="lag_seconds" widget="float"/>
+                            <field name="health" widget="badge"
+                                   decoration-success="health=='ok'"
+                                   decoration-warning="health=='warn'"
+                                   decoration-danger="health=='fail'"
+                                   decoration-muted="health=='disabled'"/>
+                            <field name="last_check"/>
+                        </group>
+                    </group>
+                    <div class="alert alert-info" role="alert">
+                        <p>To enable read-replica routing, add to <code>odoo.conf</code>:</p>
+                        <pre>db_replica_uri = postgresql://user:pass@replica-host:5432/dbname</pre>
+                        <p>Then wrap heavy read methods with the
+                            <code>@with_replica</code> decorator from
+                            <code>odoo.addons.kob_db_replica.replica_router</code>.</p>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_kob_replica_status" model="ir.actions.act_window">
+        <field name="name">Replica Status</field>
+        <field name="res_model">kob.replica.status</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_kob_replica_status"
+              name="DB Replica Status"
+              parent="base.menu_administration"
+              action="action_kob_replica_status"
+              sequence="80"
+              groups="base.group_system"/>
+</odoo>

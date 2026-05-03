@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_kob_finance_forecast_acct,kob.finance.forecast accountant,model_kob_finance_forecast,account.group_account_user,1,1,1,1
+access_kob_finance_forecast_mgr,kob.finance.forecast manager,model_kob_finance_forecast,account.group_account_manager,1,1,1,1

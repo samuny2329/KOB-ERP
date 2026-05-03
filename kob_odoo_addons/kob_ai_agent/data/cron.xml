@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="cron_kob_ai_agent_30min" model="ir.cron">
+        <field name="name">KOB AI: Agent runs (every 30 min)</field>
+        <field name="model_id" ref="model_kob_ai_agent_run"/>
+        <field name="state">code</field>
+        <field name="code"># Placeholder: instantiate scheduled prompts here when wired
+# Example:
+# model.create({
+#     "name": "Hourly overdue check",
+#     "trigger": "cron",
+#     "prompt": "List overdue invoices &gt; 14 days and propose follow-up actions.",
+# })._execute()
+pass</field>
+        <field name="interval_number">30</field>
+        <field name="interval_type">minutes</field>
+        <field name="active">False</field>
+    </record>
+</odoo>
