@@ -90,11 +90,16 @@ class SaleOrder(models.Model):
                 getattr(l.product_id, "is_storable", False) or l.product_id.type == "product"
             )
         ):
+            uom_id = (
+                line.product_uom_id.id
+                if hasattr(line, "product_uom_id") and line.product_uom_id
+                else line.product_id.uom_id.id
+            )
             moves.append((0, 0, {
-                "name": line.product_id.display_name,
+                "description_picking": line.product_id.display_name,
                 "product_id": line.product_id.id,
                 "product_uom_qty": line.product_uom_qty,
-                "product_uom": line.product_uom_id.id if hasattr(line, "product_uom_id") else line.product_id.uom_id.id,
+                "product_uom": uom_id,
                 "location_id": out_pt.default_location_src_id.id,
                 "location_dest_id": out_pt.default_location_dest_id.id,
             }))
