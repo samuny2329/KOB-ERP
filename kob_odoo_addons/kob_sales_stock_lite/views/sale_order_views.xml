@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_order_form_kob_stock_lite" model="ir.ui.view">
+        <field name="name">sale.order.form.kob.stock.lite</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="before">
+                <field name="stock_lite_qty" invisible="1"/>
+                <field name="stock_lite_status" invisible="1"/>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_stock_lite"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-cubes"
+                        invisible="stock_lite_status == 'none'">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="stock_lite_qty" widget="statinfo" nolabel="1"/>
+                        </span>
+                        <span class="o_stat_text">Stock</span>
+                    </div>
+                </button>
+                <button name="action_quick_deliver"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-truck"
+                        invisible="stock_lite_status == 'none' or state not in ('sale','done')">
+                    <span class="o_stat_text">Quick Deliver</span>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>
