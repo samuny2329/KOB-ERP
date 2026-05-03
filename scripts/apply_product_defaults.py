@@ -33,6 +33,16 @@ assert buy and manufacture, "Missing 'Buy' or 'Manufacture' route — check Odoo
 target_route_ids = [buy.id, manufacture.id]
 print(f"Target routes: Buy(id={buy.id}) + Manufacture(id={manufacture.id})")
 
+# 1b. Ensure target routes are product_selectable (else Odoo silently filters them
+# out when written to product.template.route_ids).
+to_flip = (buy + manufacture).filtered(lambda r: not r.product_selectable)
+if to_flip:
+    if DRY_RUN:
+        print(f"  WOULD set product_selectable=True on: {to_flip.mapped('name')}")
+    else:
+        to_flip.write({"product_selectable": True})
+        print(f"  ✓ Set product_selectable=True on: {to_flip.mapped('name')}")
+
 # 2. Build per-company virtual location map
 companies = Company.search([])
 loc_map = {}  # cid -> {production, inventory}
