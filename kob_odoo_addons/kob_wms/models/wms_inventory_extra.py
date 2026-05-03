@@ -178,8 +178,11 @@ class WmsCountSession(models.Model):
         b_cutoff = max(a_cutoff + 1, int(total_products * 0.50))  # next 30%
 
         # Build rank map: product_id → 'A' | 'B' | 'C'
+        # NOTE: avoid using `_` as a tuple unpack variable here — it would
+        # shadow the imported gettext alias `_` for the rest of this method
+        # and break any later `_(...)` translation calls.
         rank_map = {}
-        for idx, (product_id, _) in enumerate(results_30d):
+        for idx, (product_id, _qty) in enumerate(results_30d):
             if idx < a_cutoff:
                 rank_map[product_id] = 'A'
             elif idx < b_cutoff:
@@ -260,9 +263,9 @@ class WmsCountSession(models.Model):
             created += 1
 
         self.abc_based = True
-        a_n = sum(1 for _, r in sampled if r == 'A')
-        b_n = sum(1 for _, r in sampled if r == 'B')
-        c_n = sum(1 for _, r in sampled if r == 'C')
+        a_n = sum(1 for _pid, r in sampled if r == 'A')
+        b_n = sum(1 for _pid, r in sampled if r == 'B')
+        c_n = sum(1 for _pid, r in sampled if r == 'C')
         self.message_post(body=_(
             'ABC tasks generated (yesterday %s): %d tasks — A=%d, B=%d, C=%d '
             '(sampled from %d total products in 30-day window)'
