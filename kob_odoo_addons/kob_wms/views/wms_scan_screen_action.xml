@@ -68,7 +68,10 @@
         <field name="name">Outbound (F3)</field>
         <field name="res_model">wms.sales.order</field>
         <field name="view_mode">list,form</field>
-        <field name="domain">[('status', 'in', ['packed', 'shipped'])]</field>
+        <!-- Includes 'picked'/'packing' to support Skip-Pack mode
+             (res.company.wms_skip_pack). When the pack scanner is back
+             online, revert this domain to ['packed','shipped'] only. -->
+        <field name="domain">[('status', 'in', ['picked', 'packing', 'packed', 'shipped'])]</field>
         <field name="view_ids" eval="[(5,0,0),
             (0,0,{'view_mode':'list','view_id':ref('view_wms_outbound_list')}),
             (0,0,{'view_mode':'form','view_id':ref('view_wms_sales_order_form')})]"/>

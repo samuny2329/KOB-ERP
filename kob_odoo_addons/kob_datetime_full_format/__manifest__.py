@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "KOB ERP — Datetime Full Format",
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.0.1",
     "category": "KOB ERP/Tools",
     "summary": "Force all datetime fields to render as DD/MM/YYYY HH:MM:SS",
     "description": """

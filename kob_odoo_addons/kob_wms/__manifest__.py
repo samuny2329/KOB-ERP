@@ -86,6 +86,7 @@ Features
         # ── Odoo stock / POS extensions ──────────────────────────────────────
         'views/stock_picking_inherit_views.xml',
         'views/pos_order_inherit_views.xml',
+        'views/res_company_wms_views.xml',
 
         # ── Screen / action launchers ────────────────────────────────────────
         'views/wms_scan_screen_action.xml',

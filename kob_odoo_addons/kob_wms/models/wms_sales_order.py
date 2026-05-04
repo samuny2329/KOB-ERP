@@ -844,9 +844,117 @@ class WmsSalesOrder(models.Model):
             },
         }
 
-    def action_ship(self):
-        """Mark as shipped + create scan item + auto add to active batch."""
+    def action_skip_pack(self):
+        """Skip the Pack stage entirely (pick → packed) and validate the
+        underlying delivery, so the picking is closed and stock is moved
+        the same way as a normal pack/close-box operation.
+
+        Useful when the physical pack/scan station is unavailable but
+        items are already picked and ready to ship — removes the manual
+        scan-each-SKU step and any box selection.
+        """
         for order in self:
+            if order.status not in ('picked', 'packing'):
+                raise UserError(_(
+                    "Cannot skip Pack: order %s is in status '%s' "
+                    "(need 'picked' or 'packing')."
+                ) % (order.ref or order.name, order.status))
+            if not order.all_picked:
+                raise UserError(_(
+                    "Cannot skip Pack: order %s has unpicked items "
+                    "(%d / %d picked). Finish picking first."
+                ) % (
+                    order.ref or order.name,
+                    order.picked_total or 0,
+                    order.expected_total or 0,
+                ))
+
+            # Mirror picked_qty into packed_qty so reports stay consistent
+            for line in order.line_ids:
+                if (line.packed_qty or 0) < (line.picked_qty or 0):
+                    line.packed_qty = line.picked_qty
+
+            # Validate underlying picking (move stock + create backorder if any)
+            if order.picking_id:
+                try:
+                    order._validate_picking()
+                except Exception as e:
+                    _logger.exception(
+                        "skip_pack: _validate_picking failed for %s",
+                        order.name,
+                    )
+                    raise UserError(_(
+                        "Skip Pack failed: stock validation error — %s"
+                    ) % str(e)[:300])
+
+            order.status = 'packed'
+            order.packed_at = fields.Datetime.now()
+            order._log_action('skip_pack', order.ref or order.name,
+                              note='Pack stage skipped — pack tool unavailable')
+        return True
+
+    def action_skip_pack_and_ship(self):
+        """One-shot: skip pack → ship immediately. For picked orders that
+        should go straight out the door without a separate ship action.
+        """
+        self.action_skip_pack()
+        return self.action_ship()
+
+    def action_ship(self):
+        """Mark as shipped + create scan item + auto add to active batch.
+
+        Skip-Pack mode (toggle via res.company.wms_skip_pack):
+            When the scan/pack station is unavailable, OUT consolidates
+            Pack's responsibilities. If status=='picked', this method
+            auto-runs:
+                * _validate_picking()    → cut stock
+                * _auto_create_invoice() → post invoice
+                * status = 'packed'      → packed_at stamped
+            then proceeds to ship as usual. Toggle off the flag when the
+            pack tool is ready and the normal Pick → Pack → Out flow
+            resumes.
+        """
+        for order in self:
+            company = order.company_id or self.env.company
+
+            # ── Skip-Pack mode: do Pack's work inline before shipping ──
+            if order.status == 'picked' and getattr(
+                company, 'wms_skip_pack', False
+            ):
+                if not order.all_picked:
+                    return {'ok': False, 'error': _(
+                        "Cannot ship — order %s has unpicked items."
+                    ) % order.name}
+                # Mirror picked_qty into packed_qty for accurate reports
+                for line in order.line_ids:
+                    if (line.packed_qty or 0) < (line.picked_qty or 0):
+                        line.packed_qty = line.picked_qty
+
+                if order.picking_id:
+                    try:
+                        order._validate_picking()
+                    except Exception as e:
+                        _logger.exception(
+                            "skip_pack ship: _validate_picking failed for %s",
+                            order.name,
+                        )
+                        return {'ok': False, 'error': _(
+                            "Stock validation failed for %s: %s"
+                        ) % (order.name, str(e)[:300])}
+                try:
+                    order._auto_create_invoice()
+                except Exception as e:
+                    _logger.exception(
+                        "skip_pack ship: _auto_create_invoice failed for %s",
+                        order.name,
+                    )
+                    # Don't block ship if invoice fails — just log
+                order.status = 'packed'
+                order.packed_at = fields.Datetime.now()
+                order._log_action('skip_pack', order.ref or order.name,
+                                  note='Pack stage skipped — invoice + stock '
+                                       'handled at OUT (scanner unavailable)')
+
             if order.status != 'packed':
                 return {'ok': False, 'error': _('Order %s is not packed.') % order.name}
 
