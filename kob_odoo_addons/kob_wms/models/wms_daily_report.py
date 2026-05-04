@@ -191,7 +191,11 @@ class WmsDailyReport(models.Model):
         recipient_ids = set()
         for g in recipient_groups:
             if g:
-                for user in g.users:
+                # Odoo 19 renamed res.groups.users -> all_user_ids
+                # (includes indirect members via implied_ids).
+                # Fall back to user_ids if all_user_ids is unavailable.
+                users = g.all_user_ids if "all_user_ids" in g._fields else g.user_ids
+                for user in users:
                     if user.partner_id:
                         recipient_ids.add(user.partner_id.id)
         if not recipient_ids:
