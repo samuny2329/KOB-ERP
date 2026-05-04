@@ -90,7 +90,12 @@ class KobMyTaskRoleSourceMap(models.Model):
                 applies = True
             if r.wms_role and r.wms_role == wms_role:
                 applies = True
-            if r.odoo_group_id and r.odoo_group_id in user.groups_id:
+            # Odoo 19 renamed res.users.groups_id -> all_group_ids
+            # (with `groups_id` kept as a write-time alias). Use the
+            # new field with a defensive fallback for safety.
+            user_groups = user.all_group_ids \
+                if "all_group_ids" in user._fields else user.groups_id
+            if r.odoo_group_id and r.odoo_group_id in user_groups:
                 applies = True
 
             if not applies:

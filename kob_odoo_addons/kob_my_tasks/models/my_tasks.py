@@ -109,7 +109,9 @@ class KobMyTask(models.AbstractModel):
             ("kob_wms.group_wms_worker",     "Worker"),
         ]:
             grp = self.env.ref(grp_xml, raise_if_not_found=False)
-            if grp and grp in user.groups_id:
+            user_groups = user.all_group_ids \
+                if "all_group_ids" in user._fields else user.groups_id
+            if grp and grp in user_groups:
                 return label
         return "User"
 
