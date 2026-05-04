@@ -2,6 +2,95 @@ from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 
 
+# Inline stylesheet embedded in breakdown_html so the form-view html
+# widget renders styled regardless of asset bundle state.
+_INLINE_CSS = """
+<style>
+.kob-dr-card-bare {
+  font-family: "Inter","Roboto","Segoe UI",-apple-system,"Helvetica Neue",Arial,"Noto Sans Thai",sans-serif;
+  font-size: 13px; color: #4c4c4c; max-width: 1280px; margin: 8px 0;
+}
+.kob-dr-card-bare .kob-dr-section { margin: 14px 0 0; }
+.kob-dr-card-bare .kob-dr-section__title {
+  display: flex; align-items: baseline; gap: 10px; padding: 8px 4px;
+  font-size: 11px; font-weight: 600; color: #6c757d;
+  text-transform: uppercase; letter-spacing: 0.6px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.kob-dr-card-bare .kob-dr-section__name { color: #2c2c2c; }
+.kob-dr-card-bare .kob-dr-section__icon { font-size: 14px; }
+.kob-dr-card-bare .kob-dr-section__totals {
+  margin-left: auto; font-size: 11px; font-weight: 400;
+  color: #6c757d; text-transform: none; letter-spacing: 0;
+}
+.kob-dr-card-bare .kob-dr-section__totals b { color: #2c2c2c; font-weight: 600; }
+.kob-dr-card-bare .kob-dr-section--warn .kob-dr-section__title {
+  color: #b06000; border-bottom-color: #fde293;
+}
+.kob-dr-card-bare table.kob-dr-table {
+  width: 100%; border-collapse: collapse; font-size: 13px; margin: 0;
+}
+.kob-dr-card-bare table.kob-dr-table thead th {
+  text-align: left; font-weight: 500; color: #6c757d;
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.4px;
+  padding: 10px 14px; background: #f6f6f6;
+  border-bottom: 1px solid #e0e0e0; white-space: nowrap;
+}
+.kob-dr-card-bare table.kob-dr-table thead th.kob-dr-num { text-align: right; }
+.kob-dr-card-bare table.kob-dr-table tbody td {
+  padding: 9px 14px; border-bottom: 1px solid #f0f0f0; color: #4c4c4c;
+  vertical-align: middle;
+}
+.kob-dr-card-bare table.kob-dr-table tbody td.kob-dr-num {
+  text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+.kob-dr-card-bare table.kob-dr-table tbody td.kob-dr-platform {
+  font-weight: 500; color: #2c2c2c; white-space: nowrap;
+}
+.kob-dr-card-bare table.kob-dr-table tbody tr:last-child td { border-bottom: 0; }
+.kob-dr-card-bare table.kob-dr-table tbody tr:hover td { background: rgba(113,75,103,0.035); }
+.kob-dr-card-bare table.kob-dr-table tfoot tr td {
+  background: #f6f6f6; font-weight: 600; color: #2c2c2c;
+  border-top: 1px solid #e0e0e0; border-bottom: 0; padding: 10px 14px;
+}
+.kob-dr-card-bare table.kob-dr-table tfoot tr td.kob-dr-num {
+  text-align: right; font-variant-numeric: tabular-nums;
+}
+.kob-dr-card-bare .kob-dr-bar {
+  display: inline-block; width: 90px; height: 6px;
+  background: #f0f0f0; border-radius: 3px; overflow: hidden;
+  vertical-align: middle; margin-right: 8px;
+}
+.kob-dr-card-bare .kob-dr-bar__fill {
+  height: 100%; background: linear-gradient(90deg,#714B67 0%,#5d3a55 100%);
+}
+.kob-dr-card-bare .kob-dr-bar-pct { font-size: 11px; color: #6c757d; font-variant-numeric: tabular-nums; }
+.kob-dr-card-bare .kob-dr-pill {
+  display: inline-block; padding: 1px 8px; border-radius: 10px;
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px;
+  font-weight: 600; background: #f6f6f6; color: #6c757d;
+  border: 1px solid #f0f0f0; white-space: nowrap;
+}
+.kob-dr-card-bare .kob-dr-pill--ok { background: #e6f4ea; color: #137333; border-color: #cae9d4; }
+.kob-dr-card-bare .kob-dr-pill--warn { background: #fef7e0; color: #b06000; border-color: #fde293; }
+.kob-dr-card-bare .kob-dr-pill--scanning { background: #e8f0fe; color: #1a73e8; border-color: #c2dafd; }
+.kob-dr-card-bare .kob-dr-empty-block {
+  text-align: center; color: #adb5bd; padding: 24px 16px;
+  margin: 12px 0; border: 1px dashed #f0f0f0; border-radius: 4px; font-size: 12px;
+}
+.kob-dr-card-bare .kob-dr-empty-block--ok {
+  background: #f0fdf4; color: #137333; border: 1px solid #cae9d4;
+}
+.kob-dr-card-bare .kob-dr-check {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11px; margin-left: 6px;
+}
+.kob-dr-card-bare .kob-dr-check--ok { color: #137333; }
+.kob-dr-card-bare .kob-dr-check--bad { color: #c5221f; }
+</style>
+"""
+
+
 class WmsDispatchRound(models.Model):
     """A dispatch round = a working session in which scan-Out events are
     grouped. Only one round per company is OPEN at a time; new scans
@@ -404,9 +493,14 @@ class WmsDispatchRound(models.Model):
                 )
 
             # Wrap output in a bare card so the embedded form view shows a
-            # tidy white surface around both tables.
+            # tidy white surface around both tables. Inline <style> guards
+            # against asset bundle cache misses on freshly-restarted Odoo
+            # containers — table renders styled even before SCSS rebuilds.
             r.breakdown_html = (
-                "<div class='kob-dr-card-bare'>" + table + wip_table + "</div>"
+                _INLINE_CSS
+                + "<div class='kob-dr-card-bare'>"
+                + table + wip_table
+                + "</div>"
             )
 
     @api.model_create_multi
