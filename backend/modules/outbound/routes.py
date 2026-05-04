@@ -11,6 +11,7 @@ from backend.core.models_audit import ActivityLog, verify_chain
 from backend.modules.outbound.models import DispatchBatch, Order
 from backend.modules.outbound.schemas import (
     ActivityLogRead,
+    ConfirmPackLinePayload,
     ConfirmPickLinePayload,
     CourierCreate,
     CourierRead,
@@ -18,6 +19,8 @@ from backend.modules.outbound.schemas import (
     DispatchBatchRead,
     OrderCreate,
     OrderRead,
+    PackTaskItem,
+    PackTaskList,
     PickfaceCreate,
     PickfaceRead,
     PickTaskList,
@@ -26,6 +29,7 @@ from backend.modules.outbound.schemas import (
     RackRead,
     ScanItemCreate,
     ScanItemRead,
+    StartPackPayload,
     StartPickPayload,
 )
 from backend.modules.outbound.models import OrderLine
@@ -197,10 +201,9 @@ async def start_pick(
     """Transition order pending → picking and assign picker. No paper slip needed."""
     order = await get_order(order_id, session, user)
     order = await transition_order(session, order, "picking", actor_id=user.id)
-    if body.picker_id:
-        order.picker_id = body.picker_id
-    else:
-        order.picker_id = user.id
+    order.picker_id = body.picker_id or user.id
+    if body.tote_code:
+        order.tote_code = body.tote_code
     from datetime import UTC, datetime
     order.pick_start_at = datetime.now(UTC)
     await session.flush()
@@ -286,6 +289,121 @@ async def complete_pick(order_id: int, session: SessionDep, user: CurrentUser) -
     from datetime import UTC, datetime
     order = await transition_order(session, order, "picked", actor_id=user.id)
     order.picked_at = datetime.now(UTC)
+    await session.flush()
+    return order
+
+
+# ── Packing ────────────────────────────────────────────────────────────
+
+
+@router.get("/outbound/orders/by-tote/{tote_code}", response_model=OrderRead)
+async def get_order_by_tote(tote_code: str, session: SessionDep, _user: CurrentUser) -> Order:
+    """Packer scans tote/basket barcode → get the order it belongs to."""
+    stmt = (
+        select(Order)
+        .where(Order.tote_code == tote_code, Order.deleted_at.is_(None))
+        .options(selectinload(Order.lines))
+    )
+    order = (await session.execute(stmt)).scalar_one_or_none()
+    if order is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "no order found for this tote code")
+    return order
+
+
+@router.post("/outbound/orders/{order_id}/start-pack", response_model=OrderRead)
+async def start_pack(
+    order_id: int, body: StartPackPayload, session: SessionDep, user: CurrentUser
+) -> Order:
+    """Transition order picked → packing and assign packer."""
+    order = await get_order(order_id, session, user)
+    order = await transition_order(session, order, "packing", actor_id=user.id)
+    order.packer_id = body.packer_id or user.id
+    from datetime import UTC, datetime
+    order.pack_start_at = datetime.now(UTC)
+    await session.flush()
+    return order
+
+
+@router.get("/outbound/orders/{order_id}/pack-tasks", response_model=PackTaskList)
+async def get_pack_tasks(order_id: int, session: SessionDep, user: CurrentUser) -> PackTaskList:
+    """Return structured digital pack task list — mirrors pick tasks for packer's device."""
+    order = await get_order(order_id, session, user)
+    lines_result = await session.execute(
+        select(OrderLine).where(OrderLine.order_id == order_id)
+    )
+    lines = list(lines_result.scalars().all())
+    tasks = [
+        PackTaskItem(
+            line_id=line.id,
+            product_id=line.product_id,
+            sku=line.sku,
+            description=line.description,
+            qty_expected=float(line.qty_expected),
+            qty_picked=float(line.qty_picked),
+            qty_packed=float(line.qty_packed),
+            confirmed=line.pack_confirmed_at is not None,
+        )
+        for line in lines
+    ]
+    confirmed = sum(1 for t in tasks if t.confirmed)
+    return PackTaskList(
+        order_id=order.id,
+        order_ref=order.ref,
+        tote_code=order.tote_code,
+        state=order.state,
+        packer_id=order.packer_id,
+        tasks=tasks,
+        total_lines=len(tasks),
+        confirmed_lines=confirmed,
+    )
+
+
+@router.post("/outbound/orders/{order_id}/lines/{line_id}/confirm-pack")
+async def confirm_pack_line(
+    order_id: int,
+    line_id: int,
+    body: ConfirmPackLinePayload,
+    session: SessionDep,
+    user: CurrentUser,
+):
+    """Packer digitally confirms one line has been packed."""
+    from datetime import UTC, datetime
+    line_result = await session.execute(
+        select(OrderLine).where(OrderLine.id == line_id, OrderLine.order_id == order_id)
+    )
+    line = line_result.scalar_one_or_none()
+    if not line:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "order line not found")
+    line.qty_packed = body.qty_packed
+    line.pack_confirmed_at = datetime.now(UTC)
+    line.pack_confirmed_by = user.id
+    line.packer_note = body.packer_note
+    await session.flush()
+    return {
+        "line_id": line.id,
+        "qty_packed": float(line.qty_packed),
+        "confirmed": True,
+        "pack_confirmed_at": line.pack_confirmed_at,
+    }
+
+
+@router.post("/outbound/orders/{order_id}/complete-pack", response_model=OrderRead)
+async def complete_pack(order_id: int, session: SessionDep, user: CurrentUser) -> Order:
+    """Transition packing → packed after all lines confirmed digitally."""
+    order = await get_order(order_id, session, user)
+    lines_result = await session.execute(
+        select(OrderLine).where(OrderLine.order_id == order_id)
+    )
+    lines = list(lines_result.scalars().all())
+    unconfirmed = [l for l in lines if l.pack_confirmed_at is None]
+    if unconfirmed:
+        raise HTTPException(
+            status.HTTP_400_BAD_REQUEST,
+            f"{len(unconfirmed)} line(s) not yet packed — complete digital pack first",
+        )
+    from datetime import UTC, datetime
+    order = await transition_order(session, order, "packed", actor_id=user.id)
+    order.packed_at = datetime.now(UTC)
     await session.flush()
     return order
 

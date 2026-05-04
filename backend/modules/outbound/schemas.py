@@ -101,6 +101,9 @@ class OrderLineRead(_ORM):
     pick_confirmed_at: datetime | None = None
     pick_confirmed_by: int | None = None
     picker_note: str | None = None
+    pack_confirmed_at: datetime | None = None
+    pack_confirmed_by: int | None = None
+    packer_note: str | None = None
 
 
 class PickTaskItem(BaseModel):
@@ -132,6 +135,39 @@ class ConfirmPickLinePayload(BaseModel):
 
 class StartPickPayload(BaseModel):
     picker_id: int | None = None
+    tote_code: str | None = None
+
+
+class StartPackPayload(BaseModel):
+    packer_id: int | None = None
+
+
+class ConfirmPackLinePayload(BaseModel):
+    qty_packed: float
+    packer_note: str | None = None
+
+
+class PackTaskItem(BaseModel):
+    """Digital pack task for a single order line — displayed on packer's device."""
+    line_id: int
+    product_id: int
+    sku: str | None
+    description: str | None
+    qty_expected: float
+    qty_picked: float
+    qty_packed: float
+    confirmed: bool
+
+
+class PackTaskList(BaseModel):
+    order_id: int
+    order_ref: str
+    tote_code: str | None
+    state: str
+    packer_id: int | None
+    tasks: list[PackTaskItem]
+    total_lines: int
+    confirmed_lines: int
 
 
 class OrderCreate(BaseModel):
@@ -152,6 +188,7 @@ class OrderRead(_ORM):
     courier_id: int | None = None
     awb: str | None = None
     box_barcode: str | None = None
+    tote_code: str | None = None
     note: str | None = None
     sla_start_at: datetime | None = None
     pick_start_at: datetime | None = None

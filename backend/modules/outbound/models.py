@@ -59,6 +59,7 @@ class Order(BaseModel, WorkflowMixin):
     )
     awb: Mapped[str | None] = mapped_column(String(80), nullable=True, index=True)
     box_barcode: Mapped[str | None] = mapped_column(String(80), nullable=True)
+    tote_code: Mapped[str | None] = mapped_column(String(40), nullable=True, index=True)
     note: Mapped[str | None] = mapped_column(String(2000), nullable=True)
 
     sla_start_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
@@ -115,6 +116,11 @@ class OrderLine(BaseModel):
         BigInteger, ForeignKey("core.user.id", ondelete="SET NULL"), nullable=True
     )
     picker_note: Mapped[str | None] = mapped_column(String(240), nullable=True)
+    pack_confirmed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    pack_confirmed_by: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("core.user.id", ondelete="SET NULL"), nullable=True
+    )
+    packer_note: Mapped[str | None] = mapped_column(String(240), nullable=True)
 
     order: Mapped[Order] = relationship(back_populates="lines")
     product: Mapped[Product] = relationship()
