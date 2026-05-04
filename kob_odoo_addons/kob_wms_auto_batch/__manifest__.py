@@ -33,6 +33,7 @@ Adds:
     ],
     "data": [
         "security/ir.model.access.csv",
+        "security/multi_company_rules.xml",
         "data/ir_config_parameter.xml",
         "data/cron.xml",
         "views/dispatch_round_views.xml",

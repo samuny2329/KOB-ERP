@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Multi-company isolation for the dispatch flow models. The
+         existing kob_wms rules cover wms.sales.order; these layer on
+         identical filtering for the batch + scan + round entities so
+         users only see records for the companies they have ticked in
+         the company switcher. Pattern matches kob_wms (allow company_id
+         IS NULL for shared/master rows). -->
+
+    <record id="rule_wms_courier_batch_company" model="ir.rule">
+        <field name="name">WMS Courier Batch: multi-company</field>
+        <field name="model_id" search="[('model','=','wms.courier.batch')]"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_wms_scan_item_company" model="ir.rule">
+        <field name="name">WMS Scan Item: multi-company</field>
+        <field name="model_id" search="[('model','=','wms.scan.item')]"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_wms_dispatch_round_company" model="ir.rule">
+        <field name="name">WMS Dispatch Round: multi-company</field>
+        <field name="model_id" ref="model_wms_dispatch_round"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <record id="rule_wms_courier_platform_map_company" model="ir.rule">
+        <field name="name">WMS Courier Platform Map: multi-company</field>
+        <field name="model_id" ref="model_wms_courier_platform_map"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+</odoo>
