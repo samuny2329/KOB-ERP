@@ -240,3 +240,22 @@ $kdr-card:        #ffffff;
     }
 }
 .kob-dr-bar-pct { font-size: 11px; color: #6c757d; font-variant-numeric: tabular-nums; }
+
+.kob-dr-h {
+    margin: 16px 0 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #4c4c4c;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    &--warn {
+        color: #b06000;
+        &::before { content: ""; }
+    }
+}
+.kob-dr-empty--ok {
+    background: #e6f4ea;
+    color: #137333;
+    border-color: #cae9d4 !important;
+}
