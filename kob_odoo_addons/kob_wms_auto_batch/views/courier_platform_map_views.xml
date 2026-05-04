@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_courier_platform_map_list" model="ir.ui.view">
+        <field name="name">wms.courier.platform.map.list</field>
+        <field name="model">wms.courier.platform.map</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="platform"/>
+                <field name="courier_id"/>
+                <field name="note"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_courier_platform_map" model="ir.actions.act_window">
+        <field name="name">Platform → Courier Mapping</field>
+        <field name="res_model">wms.courier.platform.map</field>
+        <field name="view_mode">list</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Map each marketplace to its default courier</p>
+            <p>Orders shipped without a courier will auto-assign based on
+               this mapping. If the platform has no mapping, scans go to
+               the PENDING fallback courier.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_courier_platform_map"
+              name="Platform → Courier"
+              parent="kob_wms.menu_wms_dispatch"
+              action="action_courier_platform_map"
+              sequence="60"/>
+</odoo>

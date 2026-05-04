@@ -16,6 +16,14 @@ class WmsSalesOrder(models.Model):
     _inherit = "wms.sales.order"
 
     def action_ship(self):
+        # Auto-resolve courier BEFORE parent runs — otherwise parent skips
+        # scan_item creation when courier_id is empty (line 861 in kob_wms).
+        for order in self:
+            if not order.courier_id:
+                resolved = order._kob_resolve_default_courier()
+                if resolved:
+                    order.with_context(skip_track=True).courier_id = resolved.id
+
         # Capture pre-ship state per order so we can detect new scan items.
         ScanItem = self.env["wms.scan.item"]
         before_ids = {

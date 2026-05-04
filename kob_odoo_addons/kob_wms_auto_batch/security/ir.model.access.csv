@@ -1,3 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_dispatch_round_user,access_dispatch_round_user,model_wms_dispatch_round,base.group_user,1,0,0,0
 access_dispatch_round_manager,access_dispatch_round_manager,model_wms_dispatch_round,base.group_system,1,1,1,1
+access_courier_platform_map_user,access_courier_platform_map_user,model_wms_courier_platform_map,base.group_user,1,0,0,0
+access_courier_platform_map_manager,access_courier_platform_map_manager,model_wms_courier_platform_map,base.group_system,1,1,1,1

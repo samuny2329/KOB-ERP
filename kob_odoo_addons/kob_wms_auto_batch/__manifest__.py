@@ -37,6 +37,7 @@ Adds:
         "data/cron.xml",
         "views/dispatch_round_views.xml",
         "views/courier_batch_views.xml",
+        "views/courier_platform_map_views.xml",
         "views/menus.xml",
     ],
     "installable": True,
