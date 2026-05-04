@@ -25,12 +25,19 @@ with sync_playwright() as p:
     page.goto(BASE + "/odoo/action-kob_wms.action_wms_daily_report")
     page.wait_for_load_state("domcontentloaded")
     page.wait_for_timeout(3500)
-    page.screenshot(path=str(OUT / "20_daily_report_list.png"), full_page=True)
+    page.screenshot(path=str(OUT / "40_wms_daily_list.png"), full_page=True)
 
-    # Form view of the most recent record (id=6)
-    page.goto(BASE + "/odoo/action-kob_wms.action_wms_daily_report/6")
+    # Form view of KISS report (the one with rounds/batches/scans)
+    # Find the row with KISS and click it
+    rows = page.locator("tr.o_data_row")
+    n = rows.count()
+    for i in range(n):
+        row_text = rows.nth(i).inner_text()
+        if "คิสออฟ" in row_text:
+            rows.nth(i).click()
+            break
     page.wait_for_load_state("domcontentloaded")
     page.wait_for_timeout(3500)
-    page.screenshot(path=str(OUT / "21_daily_report_form.png"), full_page=True)
+    page.screenshot(path=str(OUT / "41_wms_daily_form_kiss.png"), full_page=True)
     print("done")
     browser.close()
