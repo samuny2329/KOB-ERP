@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_marketplace_import_wizard_form_inherit_mc"
+            model="ir.ui.view">
+        <field name="name">kob.marketplace.import.wizard.form.mc</field>
+        <field name="model">kob.marketplace.import.wizard</field>
+        <field name="inherit_id"
+               ref="kob_marketplace_import.view_marketplace_import_wizard_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="enforce_product_company"/>
+                <field name="restrict_to_active_companies"
+                       invisible="not enforce_product_company"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
