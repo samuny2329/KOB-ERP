@@ -60,6 +60,103 @@ class WmsCourierPlatformMap(models.Model):
         ], limit=1)
         return m.courier_id if m else self.env["wms.courier"]
 
+    def apply_to_pending(self):
+        """Walk through scan items currently routed to a PENDING fallback
+        batch. For each, look up this mapping by (platform, company); if a
+        mapping exists and active, reassign the order's courier and reroute
+        the scan item into the matching (round, courier, platform) batch.
+
+        Skips items in dispatched/cancelled batches — those are already
+        out the door. Returns count of items moved.
+        """
+        ScanItem = self.env["wms.scan.item"].sudo()
+        Batch = self.env["wms.courier.batch"].sudo()
+        Round = self.env["wms.dispatch.round"].sudo()
+        SO = self.env["wms.sales.order"].sudo()
+
+        moved = 0
+        # If called on an empty recordset, scan ALL active mappings
+        mappings = self if self else self.search([("active", "=", True)])
+
+        for mapping in mappings:
+            if not mapping.active or not mapping.courier_id:
+                continue
+            new_courier = mapping.courier_id
+            company = mapping.company_id
+
+            # Find all scan items in PENDING batches for this platform/company
+            pending_items = ScanItem.search([
+                ("batch_id.state", "=", "scanning"),
+                ("batch_id.courier_id.is_pending_fallback", "=", True),
+                ("batch_id.company_id", "=", company.id),
+                ("sales_order_id.platform", "=", mapping.platform),
+            ])
+
+            for item in pending_items:
+                order = item.sales_order_id
+                if not order:
+                    continue
+                # Update order + scan item courier
+                order.with_context(kob_stage_skip_track=True).courier_id = new_courier.id
+                item.write({"courier_id": new_courier.id})
+
+                # Reroute via the same logic action_ship uses
+                old_batch = item.batch_id
+                active_round = Round.get_or_create_active(company)
+                target = SO._kob_pick_batch(
+                    Batch, active_round, order, True,
+                )
+                if target.id != item.batch_id.id:
+                    item.write({"batch_id": target.id})
+                    moved += 1
+
+                # Auto-cancel old PENDING batch if now empty
+                if old_batch and old_batch.id != target.id and not old_batch.scan_item_ids:
+                    if old_batch.state == "scanning":
+                        old_batch.write({"state": "cancelled"})
+
+        return moved
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        records = super().create(vals_list)
+        # Auto-apply newly created mappings to existing PENDING items
+        try:
+            records.apply_to_pending()
+        except Exception:
+            import logging
+            logging.getLogger(__name__).exception(
+                "apply_to_pending failed on map create"
+            )
+        return records
+
+    def write(self, vals):
+        res = super().write(vals)
+        # Re-apply if courier or active flipped
+        if any(k in vals for k in ("courier_id", "active", "platform")):
+            try:
+                self.apply_to_pending()
+            except Exception:
+                import logging
+                logging.getLogger(__name__).exception(
+                    "apply_to_pending failed on map write"
+                )
+        return res
+
+    def action_reapply(self):
+        """Manual button: re-run apply_to_pending on selection."""
+        moved = (self if self else self.search([("active", "=", True)])).apply_to_pending()
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": _("Re-applied mapping"),
+                "message": _("%s scan item(s) moved out of PENDING.") % moved,
+                "type": "success",
+                "sticky": False,
+            },
+        }
+
 
 class WmsCourier(models.Model):
     _inherit = "wms.courier"

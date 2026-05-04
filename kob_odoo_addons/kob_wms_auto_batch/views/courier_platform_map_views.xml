@@ -5,6 +5,11 @@
         <field name="model">wms.courier.platform.map</field>
         <field name="arch" type="xml">
             <list editable="bottom">
+                <header>
+                    <button name="action_reapply" type="object"
+                            string="Re-apply to PENDING"
+                            class="btn-primary"/>
+                </header>
                 <field name="sequence" widget="handle"/>
                 <field name="platform"/>
                 <field name="courier_id"/>
