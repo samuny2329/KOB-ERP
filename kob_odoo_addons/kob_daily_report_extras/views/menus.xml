@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_dispatch_daily_report"
+              name="Dispatch Daily"
+              parent="kob_wms.menu_wms_dispatch"
+              action="action_dispatch_daily_report"
+              sequence="70"/>
+</odoo>

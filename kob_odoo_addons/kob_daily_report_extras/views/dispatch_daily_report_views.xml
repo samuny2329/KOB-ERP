@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_dispatch_daily_report_list" model="ir.ui.view">
+        <field name="name">wms.dispatch.daily.report.list</field>
+        <field name="model">wms.dispatch.daily.report</field>
+        <field name="arch" type="xml">
+            <list decoration-success="teams_status == 'sent'"
+                  decoration-warning="teams_status == 'skipped'"
+                  decoration-danger="teams_status == 'error'">
+                <field name="report_date"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="round_count"/>
+                <field name="batch_count"/>
+                <field name="scan_count"/>
+                <field name="dispatched_batch_count"/>
+                <field name="pending_scan_count"/>
+                <field name="teams_status" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_dispatch_daily_report_form" model="ir.ui.view">
+        <field name="name">wms.dispatch.daily.report.form</field>
+        <field name="model">wms.dispatch.daily.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_regenerate" type="object"
+                            string="Regenerate" class="btn-secondary"/>
+                    <button name="action_resend_teams" type="object"
+                            string="Resend to Teams" class="btn-primary"/>
+                    <field name="teams_status" widget="statusbar"
+                           statusbar_visible="pending,sent,skipped,error"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="display_name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="report_date"/>
+                            <field name="company_id"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="round_count"/>
+                            <field name="batch_count"/>
+                            <field name="scan_count"/>
+                            <field name="dispatched_batch_count"/>
+                            <field name="pending_scan_count"/>
+                        </group>
+                    </group>
+                    <group string="Delivery">
+                        <field name="teams_status"/>
+                        <field name="teams_error" invisible="not teams_error"/>
+                        <field name="posted_to_discuss"/>
+                    </group>
+                    <separator string="Report"/>
+                    <field name="body_html" widget="html" readonly="1"/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_dispatch_daily_report" model="ir.actions.act_window">
+        <field name="name">Dispatch Daily Reports</field>
+        <field name="res_model">wms.dispatch.daily.report</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

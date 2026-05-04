@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dispatch_daily_report_user,access_dispatch_daily_report_user,model_wms_dispatch_daily_report,base.group_user,1,0,0,0
+access_dispatch_daily_report_manager,access_dispatch_daily_report_manager,model_wms_dispatch_daily_report,base.group_system,1,1,1,1

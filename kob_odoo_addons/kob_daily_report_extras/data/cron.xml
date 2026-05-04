@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="cron_dispatch_daily_send" model="ir.cron">
+        <field name="name">KOB · Dispatch Daily → Teams</field>
+        <field name="model_id" ref="model_wms_dispatch_daily_report"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_send_today()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="nextcall" eval="(DateTime.now().replace(hour=18, minute=0, second=0, microsecond=0) + relativedelta(days=1) if DateTime.now().hour &gt;= 18 else DateTime.now().replace(hour=18, minute=0, second=0, microsecond=0)).strftime('%Y-%m-%d %H:%M:%S')"/>
+        <field name="active" eval="True"/>
+    </record>
+</odoo>

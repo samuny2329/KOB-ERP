@@ -1,0 +1,109 @@
+// KOB Dispatch Daily — minimal Enterprise-style card
+// Mirrors kob_account_reports tone: white card, soft borders, neutral text.
+
+$kdr-purple:      #714B67;
+$kdr-text-strong: #2c2c2c;
+$kdr-text:        #4c4c4c;
+$kdr-muted:       #6c757d;
+$kdr-subtle:      #adb5bd;
+$kdr-border:      #e0e0e0;
+$kdr-border-soft: #f0f0f0;
+$kdr-band:        #f6f6f6;
+$kdr-card:        #ffffff;
+
+.kob-dr-card {
+    background: $kdr-card;
+    border: 1px solid $kdr-border-soft;
+    border-radius: 4px;
+    padding: 0;
+    color: $kdr-text;
+    font-size: 13px;
+    font-family: "Inter", "Roboto", "Segoe UI", -apple-system,
+                 "Helvetica Neue", Arial, "Noto Sans Thai", sans-serif;
+    max-width: 1080px;
+    margin: 12px 0;
+
+    .kob-dr-head {
+        padding: 16px 24px 12px;
+        border-bottom: 1px solid $kdr-border-soft;
+    }
+    .kob-dr-title {
+        font-size: 16px;
+        font-weight: 500;
+        color: $kdr-text-strong;
+    }
+    .kob-dr-subtitle {
+        font-size: 12px;
+        color: $kdr-muted;
+        margin-top: 2px;
+    }
+
+    .kob-dr-totals {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0;
+        padding: 12px 24px;
+        background: $kdr-band;
+        border-bottom: 1px solid $kdr-border-soft;
+
+        > div {
+            flex: 1;
+            min-width: 110px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            padding: 4px 12px 4px 0;
+
+            .kob-dr-num-big {
+                font-size: 22px;
+                font-weight: 600;
+                color: $kdr-text-strong;
+                line-height: 1.1;
+            }
+            span:not(.kob-dr-num-big) {
+                font-size: 11px;
+                color: $kdr-muted;
+                text-transform: uppercase;
+                letter-spacing: 0.4px;
+            }
+        }
+    }
+
+    .kob-dr-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+
+        thead th {
+            text-align: left;
+            font-weight: 500;
+            color: $kdr-muted;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            padding: 10px 16px;
+            background: $kdr-band;
+            border-bottom: 1px solid $kdr-border;
+
+            &.kob-dr-num { text-align: right; }
+        }
+        tbody td {
+            padding: 10px 16px;
+            border-bottom: 1px solid $kdr-border-soft;
+            color: $kdr-text;
+
+            &.kob-dr-num {
+                text-align: right;
+                font-variant-numeric: tabular-nums;
+            }
+            &.kob-dr-platform { font-weight: 500; color: $kdr-text-strong; }
+            &.kob-dr-empty {
+                text-align: center;
+                color: $kdr-subtle;
+                padding: 32px 16px;
+            }
+        }
+        tbody tr:last-child td { border-bottom: 0; }
+        tbody tr:hover td { background: rgba(113, 75, 103, 0.04); }
+    }
+}

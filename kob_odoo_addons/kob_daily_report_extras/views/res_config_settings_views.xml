@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_config_settings_kob_daily_dispatch" model="ir.ui.view">
+        <field name="name">res.config.settings.kob.daily.dispatch</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="KOB Daily Dispatch" string="KOB Dispatch Report"
+                     name="kob_daily_dispatch">
+                    <block title="Dispatch → Microsoft Teams"
+                           name="kob_daily_dispatch_block">
+                        <setting id="setting_dispatch_webhook"
+                                 string="Teams Webhook"
+                                 help="Incoming webhook URL of the Teams channel that receives the daily dispatch card.">
+                            <field name="kob_dispatch_teams_webhook"
+                                   placeholder="https://outlook.office.com/webhook/..."/>
+                        </setting>
+                        <setting id="setting_dispatch_hour"
+                                 string="Send hour"
+                                 help="Hour of day (0-23) the cron triggers, in server timezone.">
+                            <field name="kob_dispatch_send_hour"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>
