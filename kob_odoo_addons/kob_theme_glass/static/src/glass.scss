@@ -69,7 +69,13 @@ body.o_web_client {
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
         border-radius: 6px;
-        overflow: hidden;
+        // overflow MUST be visible — `overflow: hidden` creates a clipping
+        // context that hides Many2one / autocomplete dropdowns in editable
+        // list views. Use `border-collapse: separate` so corners still round
+        // without needing to clip.
+        overflow: visible;
+        border-collapse: separate;
+        border-spacing: 0;
         box-shadow: $kob-glass-shadow;
 
         thead { background: rgba(245, 246, 248, 0.85) !important; }
