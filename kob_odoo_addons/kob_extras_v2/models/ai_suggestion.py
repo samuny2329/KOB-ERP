@@ -12,11 +12,19 @@ from odoo import api, fields, models
 
 
 class KobAiSuggestion(models.Model):
-    _name = "kob.ai.suggestion"
-    _description = "AI Suggestion"
-    _order = "priority desc, create_date desc"
+    """Extends the canonical ``kob.ai.suggestion`` model (defined in
+    ``kob_ai_agent``) with ML-classification fields.
 
-    title = fields.Char(required=True)
+    Was originally defined with `_name`, which caused a duplicate-class
+    conflict with kob_ai_agent: the action with domain
+    ``[('status','=','pending')]`` failed because libsass / ORM only saw
+    the kob_extras_v2 fields (state/category) and not kob_ai_agent's
+    ``status``. Switched to `_inherit` so both field sets coexist on one
+    table.
+    """
+    _inherit = "kob.ai.suggestion"
+
+    title = fields.Char()  # not required when inheriting
     category = fields.Selection(
         [
             ("reorder", "Reorder Suggestion"),
@@ -28,10 +36,6 @@ class KobAiSuggestion(models.Model):
             ("other", "Other"),
         ],
         default="other",
-    )
-    priority = fields.Selection(
-        [("0", "Low"), ("1", "Medium"), ("2", "High"), ("3", "Critical")],
-        default="1",
     )
     message = fields.Text()
     related_model = fields.Char()
@@ -46,7 +50,6 @@ class KobAiSuggestion(models.Model):
         ],
         default="new",
     )
-    create_date = fields.Datetime(readonly=True)
 
     def action_acknowledge(self):
         for r in self:

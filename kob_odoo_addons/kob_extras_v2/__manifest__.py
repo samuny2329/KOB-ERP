@@ -8,7 +8,7 @@
         "Field service tasks + ESG metrics + AI suggestions + "
         "Multi-warehouse rebalancing proposals."
     ),
-    "depends": ["base", "mail", "stock", "account", "sale_management"],
+    "depends": ["base", "mail", "stock", "account", "sale_management", "kob_ai_agent"],
     "data": [
         "security/ir.model.access.csv",
         "views/kob_extras_views.xml",
