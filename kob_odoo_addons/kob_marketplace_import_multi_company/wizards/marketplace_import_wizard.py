@@ -134,5 +134,10 @@ class MarketplaceImportWizard(models.TransientModel):
                 "co": elsewhere.name,
                 "allowed": ", ".join(allowed.mapped("name")) or "(none)",
             }
-            self.log = (self.log or "") + extra + "\n"
+        else:
+            extra = _(
+                "⚠ SKU %(sku)s has no on-hand stock in any company. "
+                "Line skipped — assign stock first."
+            ) % {"sku": sku}
+        self.log = (self.log or "") + extra + "\n"
         return self.env["product.product"]
