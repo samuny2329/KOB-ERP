@@ -53,8 +53,30 @@ class WmsDispatchRound(models.Model):
     )
     is_complete = fields.Boolean(
         compute="_compute_counts", store=True,
-        help="True when every (non-cancelled) batch has been dispatched.",
+        help="True when every non-cancelled batch is dispatched AND no "
+             "upstream WIP orders remain (pick/pack/packed) in the same "
+             "company. A round is genuinely 'done' only when nothing is "
+             "still in flight.",
     )
+
+    # Upstream WIP — orders that haven't reached the F3 scan-out step yet
+    # but are in flight in the same company. Without this, a round can
+    # show 100% complete while orders are still queued in pick/pack.
+    wip_pick_count = fields.Integer(
+        compute="_compute_wip", store=False,
+        help="Orders currently in pending/picking — NOT yet picked.",
+    )
+    wip_pack_count = fields.Integer(
+        compute="_compute_wip", store=False,
+        help="Orders currently in picked/packing — picked but not packed.",
+    )
+    wip_packed_count = fields.Integer(
+        compute="_compute_wip", store=False,
+        help="Orders currently in packed — ready to ship at F3 but not yet "
+             "scanned out, so no batch row exists yet.",
+    )
+    wip_total = fields.Integer(compute="_compute_wip", store=False)
+    wip_breakdown_json = fields.Text(compute="_compute_wip", store=False)
     breakdown_html = fields.Html(
         compute="_compute_breakdown_html",
         sanitize=False, readonly=True,
@@ -78,16 +100,82 @@ class WmsDispatchRound(models.Model):
             r.total_scanned = done
             r.total_pending = max(0, exp - done)
             r.completion_pct = (done / exp * 100) if exp else 0.0
-            # Round complete = at least one batch AND all non-cancelled
-            # batches are dispatched.
+            # is_complete is finalised by _compute_wip — see below.
+            # Provisional value here.
             r.is_complete = bool(non_cx) and all(
                 b.state == "dispatched" for b in non_cx
             )
+
+    @api.depends("company_id", "state")
+    def _compute_wip(self):
+        """Count orders still upstream (pre-F3) for THIS round.
+
+        Two cases:
+        * Orders pre-tagged to this round via wms.sales.order.dispatch_round_id
+          (Admin assigned them in Pick / Pack queues) → counted here.
+        * Orders without a round tag → NOT counted here; they appear in
+          the latest open round only via the global view, not this one.
+        """
+        SO = self.env.get("wms.sales.order")
+        if SO is None:
+            for r in self:
+                r.wip_pick_count = 0
+                r.wip_pack_count = 0
+                r.wip_packed_count = 0
+                r.wip_total = 0
+                r.wip_breakdown_json = "[]"
+            return
+        SO = SO.sudo()
+
+        import json
+        for r in self:
+            # Only count orders explicitly tagged to this round.
+            domain = [
+                ("dispatch_round_id", "=", r.id),
+                ("status", "in",
+                    ("pending", "picking", "picked", "packing", "packed")),
+            ]
+            wip = SO.search(domain)
+            r.wip_pick_count = len(wip.filtered(
+                lambda o: o.status in ("pending", "picking")
+            ))
+            r.wip_pack_count = len(wip.filtered(
+                lambda o: o.status in ("picked", "packing")
+            ))
+            r.wip_packed_count = len(wip.filtered(
+                lambda o: o.status == "packed"
+            ))
+            r.wip_total = len(wip)
+
+            # Per-platform WIP rollup
+            by_platform = {}
+            for o in wip:
+                p = getattr(o, "platform", None) or "manual"
+                row = by_platform.setdefault(p, {
+                    "platform": p, "pick": 0, "pack": 0, "packed": 0, "total": 0,
+                })
+                if o.status in ("pending", "picking"):
+                    row["pick"] += 1
+                elif o.status in ("picked", "packing"):
+                    row["pack"] += 1
+                elif o.status == "packed":
+                    row["packed"] += 1
+                row["total"] += 1
+            r.wip_breakdown_json = json.dumps(
+                sorted(by_platform.values(), key=lambda x: x["platform"]),
+                ensure_ascii=False,
+            )
+
+            # Override is_complete: true only when batches dispatched AND
+            # no orders left in the pipeline.
+            if r.is_complete and r.wip_total > 0:
+                r.is_complete = False
 
     @api.depends(
         "batch_ids", "batch_ids.scanned_count", "batch_ids.platform",
         "batch_ids.courier_id", "batch_ids.state",
         "batch_ids.expected_count", "batch_ids.scanned_done_count",
+        "wip_breakdown_json",
     )
     def _compute_breakdown_html(self):
         """Render a per-(platform, courier) breakdown table used on the
@@ -146,6 +234,7 @@ class WmsDispatchRound(models.Model):
             else:
                 grand_pct = (grand_done / grand_exp * 100) if grand_exp else 0
                 table = (
+                    "<h4 class='kob-dr-h'>F3 / F4 — In-round batches</h4>"
                     "<table class='kob-dr-table'>"
                     "<thead><tr>"
                     "<th>Platform</th><th>Courier</th>"
@@ -170,7 +259,80 @@ class WmsDispatchRound(models.Model):
                     "</tr></tfoot>"
                     "</table>"
                 )
-            r.breakdown_html = table
+
+            # ── Upstream WIP (Pick/Pack/Packed) ─────────────────────────
+            # Inline compute — calling r.wip_breakdown_json here is racy
+            # because the two compute fields don't have strict ordering
+            # on first read. Recompute directly so the HTML matches the
+            # stat-button counts every time.
+            wip_rows = []
+            SO = self.env.get("wms.sales.order")
+            if SO is not None:
+                wip = SO.sudo().search([
+                    ("dispatch_round_id", "=", r.id),
+                    ("status", "in",
+                     ("pending", "picking", "picked", "packing", "packed")),
+                ])
+                groups = {}
+                for o in wip:
+                    p = getattr(o, "platform", None) or "manual"
+                    row = groups.setdefault(p, {
+                        "platform": p, "pick": 0, "pack": 0, "packed": 0, "total": 0,
+                    })
+                    if o.status in ("pending", "picking"):
+                        row["pick"] += 1
+                    elif o.status in ("picked", "packing"):
+                        row["pack"] += 1
+                    elif o.status == "packed":
+                        row["packed"] += 1
+                    row["total"] += 1
+                wip_rows = sorted(groups.values(), key=lambda x: x["platform"])
+            if wip_rows:
+                wip_html_rows = "".join(
+                    f"<tr>"
+                    f"<td class='kob-dr-platform'>{platform_icons.get(w['platform'], '📦')} {w['platform'].capitalize()}</td>"
+                    f"<td class='kob-dr-num'>{w['pick']}</td>"
+                    f"<td class='kob-dr-num'>{w['pack']}</td>"
+                    f"<td class='kob-dr-num'>{w['packed']}</td>"
+                    f"<td class='kob-dr-num'><b>{w['total']}</b></td>"
+                    f"</tr>"
+                    for w in wip_rows
+                )
+                wip_grand = sum(w["total"] for w in wip_rows)
+                wip_pick_g = sum(w["pick"] for w in wip_rows)
+                wip_pack_g = sum(w["pack"] for w in wip_rows)
+                wip_packed_g = sum(w["packed"] for w in wip_rows)
+                wip_table = (
+                    "<h4 class='kob-dr-h kob-dr-h--warn'>"
+                    "⚠ Upstream WIP — orders not yet at F3 dispatch"
+                    "</h4>"
+                    "<table class='kob-dr-table'>"
+                    "<thead><tr>"
+                    "<th>Platform</th>"
+                    "<th class='kob-dr-num'>Pick (F1)</th>"
+                    "<th class='kob-dr-num'>Pack (F2)</th>"
+                    "<th class='kob-dr-num'>Packed</th>"
+                    "<th class='kob-dr-num'>Total WIP</th>"
+                    "</tr></thead>"
+                    f"<tbody>{wip_html_rows}</tbody>"
+                    "<tfoot><tr class='kob-dr-grand'>"
+                    "<td><b>TOTAL</b></td>"
+                    f"<td class='kob-dr-num'><b>{wip_pick_g}</b></td>"
+                    f"<td class='kob-dr-num'><b>{wip_pack_g}</b></td>"
+                    f"<td class='kob-dr-num'><b>{wip_packed_g}</b></td>"
+                    f"<td class='kob-dr-num'><b>{wip_grand}</b></td>"
+                    "</tr></tfoot>"
+                    "</table>"
+                )
+            else:
+                wip_table = (
+                    "<h4 class='kob-dr-h'>Upstream WIP</h4>"
+                    "<div class='kob-dr-empty--block kob-dr-empty--ok'>"
+                    "✓ No orders in pick / pack / packed — pipeline is clean."
+                    "</div>"
+                )
+
+            r.breakdown_html = table + wip_table
 
     @api.model_create_multi
     def create(self, vals_list):

@@ -36,6 +36,7 @@ Adds:
         "security/multi_company_rules.xml",
         "data/ir_config_parameter.xml",
         "data/cron.xml",
+        "data/server_actions.xml",
         "views/dispatch_round_views.xml",
         "views/courier_batch_views.xml",
         "views/courier_platform_map_views.xml",

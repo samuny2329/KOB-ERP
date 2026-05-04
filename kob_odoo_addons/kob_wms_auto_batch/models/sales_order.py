@@ -55,13 +55,19 @@ class WmsSalesOrder(models.Model):
 
             active_round = Round.get_or_create_active(order.company_id)
 
+            # Honour any pre-assigned round on the SO so morning orders
+            # still land in the morning round even if they ship late.
+            so_round = order.dispatch_round_id
+            target_round = so_round if (so_round and so_round.state == "open") \
+                else active_round
+
             for item in new_items:
                 if not item.courier_id:
                     continue
                 # Always set platform on the scan item itself
                 item.write({"platform": order.platform or "manual"})
                 target_batch = self._kob_pick_batch(
-                    Batch, active_round, order, platform_grouping,
+                    Batch, target_round, order, platform_grouping,
                 )
                 # Only re-link if parent assigned to a different batch that
                 # doesn't match our routing key
@@ -70,11 +76,16 @@ class WmsSalesOrder(models.Model):
 
         return result
 
-    def _kob_pick_batch(self, Batch, active_round, order, platform_grouping):
+    def _kob_pick_batch(self, Batch, target_round, order, platform_grouping):
         """Find an open scanning batch matching the routing key, else create
         one. Routing key:
             (round, courier, [platform if grouping enabled])
+
+        `target_round` may differ from the company's currently-active round
+        when an SO was pre-tagged to an older still-open round.
         """
+        # Backwards-compat: accept the parameter name `active_round` too.
+        active_round = target_round
         domain = [
             ("state", "=", "scanning"),
             ("courier_id", "=", order.courier_id.id),
