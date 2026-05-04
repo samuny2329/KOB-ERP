@@ -267,17 +267,28 @@ class WmsDispatchRound(models.Model):
         "wip_breakdown_json",
     )
     def _compute_breakdown_html(self):
-        """Render a per-(platform, courier) breakdown table used on the
-        round form to answer 'how many remaining per platform'."""
+        """Render the round's full order pipeline as ONE coherent table.
+
+        Each order in the round flows through:
+            Pick (F1) → Pack (F2) → Packed → In Batch → Dispatched
+
+        The main table groups orders by platform and counts how many
+        sit at each stage. Row totals = sum of stages — math is honest
+        and matches the imported cohort size (e.g. 2,947 imported
+        orders show as 2,943 pick + 4 in-batch when only 4 reached F3).
+
+        A secondary courier table drills the "In Batch" column down
+        by courier so dispatch staff still see "3 Shopee scans for
+        Shopee Express, 1 Tiktok for J&T".
+        """
         platform_icons = {
             "shopee": "🛒", "lazada": "🟦", "tiktok": "🎵",
             "odoo": "🟣", "pos": "🏬", "manual": "✍️",
         }
         for r in self:
-            rows = []
-            grand_exp = grand_done = grand_pending = 0
             non_cx = r.batch_ids.filtered(lambda b: b.state != "cancelled")
-            # Group by (platform, courier)
+            # Group batches by (platform, courier) for the secondary
+            # dispatch table.
             groups = {}
             for b in non_cx:
                 key = (b.platform or "manual", b.courier_id.name or "—")
@@ -290,7 +301,144 @@ class WmsDispatchRound(models.Model):
                 row["pending"] += b.pending_count
                 row["batches"] += 1
                 row["states"].append(b.state)
-            # Build rows with BEM-style classes (Account-style minimal table).
+
+            # ── Main pipeline table — orders × stage ───────────────────
+            # An order belongs to this round if EITHER it is pre-tagged
+            # via dispatch_round_id, OR it has a scan_item that landed
+            # in one of this round's batches.
+            SO = self.env.get("wms.sales.order")
+            ScanItem = self.env.get("wms.scan.item")
+            scan_so_ids = []
+            if ScanItem is not None:
+                scan_so_ids = ScanItem.sudo().search([
+                    ("batch_id", "in", non_cx.ids),
+                ]).mapped("sales_order_id").ids
+
+            pipeline = {}   # platform -> {pick, pack, packed, in_batch, dispatched, total}
+            if SO is not None:
+                domain = [
+                    "|",
+                    ("dispatch_round_id", "=", r.id),
+                    ("id", "in", scan_so_ids),
+                ]
+                cohort = SO.sudo().search(domain)
+                # Map order_id → batch state (for shipped orders)
+                so_batch_state = {}
+                if ScanItem is not None and cohort:
+                    items = ScanItem.sudo().search([
+                        ("sales_order_id", "in", cohort.ids),
+                        ("batch_id", "in", non_cx.ids),
+                    ])
+                    for it in items:
+                        so_batch_state[it.sales_order_id.id] = it.batch_id.state
+
+                for o in cohort:
+                    p = getattr(o, "platform", None) or "manual"
+                    bucket = pipeline.setdefault(p, {
+                        "pick": 0, "pack": 0, "packed": 0,
+                        "in_batch": 0, "dispatched": 0, "total": 0,
+                    })
+                    if o.status in ("pending", "picking"):
+                        bucket["pick"] += 1
+                    elif o.status in ("picked", "packing"):
+                        bucket["pack"] += 1
+                    elif o.status == "packed":
+                        bucket["packed"] += 1
+                    elif o.status == "shipped":
+                        st = so_batch_state.get(o.id)
+                        if st == "dispatched":
+                            bucket["dispatched"] += 1
+                        else:
+                            bucket["in_batch"] += 1
+                    bucket["total"] += 1
+
+            pipeline_rows_html = []
+            grand = {"pick": 0, "pack": 0, "packed": 0,
+                     "in_batch": 0, "dispatched": 0, "total": 0}
+            for platform, b in sorted(pipeline.items()):
+                for k in grand:
+                    grand[k] += b[k]
+                pipeline_rows_html.append(
+                    "<tr>"
+                    f"<td class='kob-dr-platform'>"
+                    f"{platform_icons.get(platform, '📦')} "
+                    f"{platform.capitalize()}</td>"
+                    f"<td class='kob-dr-num'>{b['pick']}</td>"
+                    f"<td class='kob-dr-num'>{b['pack']}</td>"
+                    f"<td class='kob-dr-num'>{b['packed']}</td>"
+                    f"<td class='kob-dr-num'>{b['in_batch']}</td>"
+                    f"<td class='kob-dr-num'>{b['dispatched']}</td>"
+                    f"<td class='kob-dr-num'><b>{b['total']}</b></td>"
+                    "</tr>"
+                )
+
+            if not pipeline_rows_html:
+                pipeline_table = (
+                    "<div class='kob-dr-empty-block'>"
+                    "No orders in this round yet — assign orders from "
+                    "Pick Queue (Actions → Assign to current dispatch round) "
+                    "or wait for the first F3 scan to auto-attach."
+                    "</div>"
+                )
+            else:
+                # Consistency check: per-row total = sum of stages
+                row_ok = all(
+                    b["total"] == b["pick"] + b["pack"] + b["packed"]
+                                + b["in_batch"] + b["dispatched"]
+                    for b in pipeline.values()
+                )
+                grand_ok = grand["total"] == (
+                    grand["pick"] + grand["pack"] + grand["packed"]
+                    + grand["in_batch"] + grand["dispatched"]
+                )
+                check_html = (
+                    "<span class='kob-dr-check kob-dr-check--ok'>"
+                    "✓ totals consistent</span>"
+                    if (row_ok and grand_ok) else
+                    "<span class='kob-dr-check kob-dr-check--bad'>"
+                    "⚠ totals mismatch</span>"
+                )
+                # Completion: % of cohort already shipped (in-batch + dispatched)
+                done_n = grand["in_batch"] + grand["dispatched"]
+                pct = (done_n / grand["total"] * 100) if grand["total"] else 0
+                pipeline_table = (
+                    "<div class='kob-dr-section'>"
+                    "<div class='kob-dr-section__title'>"
+                    "<span class='kob-dr-section__icon'>📋</span>"
+                    "<span class='kob-dr-section__name'>"
+                    "Order pipeline — this round</span>"
+                    "<span class='kob-dr-section__totals'>"
+                    f"<b>{grand['total']}</b> total · "
+                    f"<b>{done_n}</b> shipped ({pct:.0f}%) · "
+                    f"<b>{grand['pick'] + grand['pack'] + grand['packed']}</b> upstream"
+                    f"{check_html}"
+                    "</span>"
+                    "</div>"
+                    "<table class='kob-dr-table'>"
+                    "<thead><tr>"
+                    "<th>Platform</th>"
+                    "<th class='kob-dr-num'>Pick (F1)</th>"
+                    "<th class='kob-dr-num'>Pack (F2)</th>"
+                    "<th class='kob-dr-num'>Packed</th>"
+                    "<th class='kob-dr-num'>In Batch</th>"
+                    "<th class='kob-dr-num'>Dispatched</th>"
+                    "<th class='kob-dr-num'>Total</th>"
+                    "</tr></thead>"
+                    f"<tbody>{''.join(pipeline_rows_html)}</tbody>"
+                    "<tfoot><tr>"
+                    "<td><b>TOTAL</b></td>"
+                    f"<td class='kob-dr-num'>{grand['pick']}</td>"
+                    f"<td class='kob-dr-num'>{grand['pack']}</td>"
+                    f"<td class='kob-dr-num'>{grand['packed']}</td>"
+                    f"<td class='kob-dr-num'>{grand['in_batch']}</td>"
+                    f"<td class='kob-dr-num'>{grand['dispatched']}</td>"
+                    f"<td class='kob-dr-num'>{grand['total']}</td>"
+                    "</tr></tfoot>"
+                    "</table>"
+                    "</div>"
+                )
+
+            # ── Secondary table: courier × platform (in-batch only) ─────
             rows = []
             grand_exp = grand_done = grand_pending = 0
             grand_batches = 0
@@ -329,17 +477,14 @@ class WmsDispatchRound(models.Model):
                 )
 
             if not rows:
-                table = (
-                    "<div class='kob-dr-empty-block'>"
-                    "No active batches in this round yet."
-                    "</div>"
-                )
+                table = ""  # main pipeline table already covers the empty case
             else:
                 grand_pct = (grand_done / grand_exp * 100) if grand_exp else 0
                 # Consistency check: pending = expected - scanned
                 check_ok = grand_pending == max(0, grand_exp - grand_done)
                 check_html = (
-                    "<span class='kob-dr-check kob-dr-check--ok'>✓ totals consistent</span>"
+                    "<span class='kob-dr-check kob-dr-check--ok'>"
+                    "✓ matches In Batch column above</span>"
                     if check_ok else
                     "<span class='kob-dr-check kob-dr-check--bad'>"
                     f"⚠ pending ({grand_pending}) ≠ expected − scanned "
@@ -350,10 +495,11 @@ class WmsDispatchRound(models.Model):
                     "<div class='kob-dr-section__title'>"
                     "<span class='kob-dr-section__icon'>📦</span>"
                     "<span class='kob-dr-section__name'>"
-                    "F3 / F4 — In-round batches</span>"
+                    "Dispatch detail — In Batch by courier (F3/F4)"
+                    "</span>"
                     "<span class='kob-dr-section__totals'>"
                     f"<b>{grand_batches}</b> batches · "
-                    f"<b>{grand_exp}</b> expected · "
+                    f"<b>{grand_exp}</b> in-batch · "
                     f"<b>{grand_done}</b> scanned · "
                     f"<b>{grand_pending}</b> pending"
                     f"{check_html}"
@@ -364,7 +510,7 @@ class WmsDispatchRound(models.Model):
                     "<th>Platform</th>"
                     "<th>Courier</th>"
                     "<th class='kob-dr-num'>Batches</th>"
-                    "<th class='kob-dr-num'>Expected</th>"
+                    "<th class='kob-dr-num'>In Batch</th>"
                     "<th class='kob-dr-num'>Scanned</th>"
                     "<th class='kob-dr-num'>Pending</th>"
                     "<th>Progress</th>"
@@ -389,117 +535,19 @@ class WmsDispatchRound(models.Model):
                     "</div>"
                 )
 
-            # ── Upstream WIP (Pick/Pack/Packed) ─────────────────────────
-            # Inline compute — calling r.wip_breakdown_json here is racy
-            # because the two compute fields don't have strict ordering
-            # on first read. Recompute directly so the HTML matches the
-            # stat-button counts every time.
-            wip_rows = []
-            SO = self.env.get("wms.sales.order")
-            if SO is not None:
-                wip = SO.sudo().search([
-                    ("dispatch_round_id", "=", r.id),
-                    ("status", "in",
-                     ("pending", "picking", "picked", "packing", "packed")),
-                ])
-                groups = {}
-                for o in wip:
-                    p = getattr(o, "platform", None) or "manual"
-                    row = groups.setdefault(p, {
-                        "platform": p, "pick": 0, "pack": 0, "packed": 0, "total": 0,
-                    })
-                    if o.status in ("pending", "picking"):
-                        row["pick"] += 1
-                    elif o.status in ("picked", "packing"):
-                        row["pack"] += 1
-                    elif o.status == "packed":
-                        row["packed"] += 1
-                    row["total"] += 1
-                wip_rows = sorted(groups.values(), key=lambda x: x["platform"])
-            if wip_rows:
-                wip_html_rows = "".join(
-                    "<tr>"
-                    f"<td class='kob-dr-platform'>"
-                    f"{platform_icons.get(w['platform'], '📦')} "
-                    f"{w['platform'].capitalize()}</td>"
-                    f"<td class='kob-dr-num'>{w['pick']}</td>"
-                    f"<td class='kob-dr-num'>{w['pack']}</td>"
-                    f"<td class='kob-dr-num'>{w['packed']}</td>"
-                    f"<td class='kob-dr-num'>{w['total']}</td>"
-                    "</tr>"
-                    for w in wip_rows
-                )
-                wip_grand = sum(w["total"] for w in wip_rows)
-                wip_pick_g = sum(w["pick"] for w in wip_rows)
-                wip_pack_g = sum(w["pack"] for w in wip_rows)
-                wip_packed_g = sum(w["packed"] for w in wip_rows)
+            # The Upstream WIP table is no longer rendered separately —
+            # the main pipeline table above already shows Pick/Pack/Packed
+            # columns. Keeping the data exposed via the wip_total field
+            # for the stat button + Daily Report aggregation.
 
-                # Consistency: total = pick + pack + packed (per row + grand)
-                row_ok = all(
-                    w["total"] == w["pick"] + w["pack"] + w["packed"]
-                    for w in wip_rows
-                )
-                grand_ok = wip_grand == wip_pick_g + wip_pack_g + wip_packed_g
-                ck_html = (
-                    "<span class='kob-dr-check kob-dr-check--ok'>✓ totals consistent</span>"
-                    if (row_ok and grand_ok) else
-                    "<span class='kob-dr-check kob-dr-check--bad'>⚠ totals mismatch</span>"
-                )
-
-                wip_table = (
-                    "<div class='kob-dr-section kob-dr-section--warn'>"
-                    "<div class='kob-dr-section__title'>"
-                    "<span class='kob-dr-section__icon'>⏳</span>"
-                    "<span class='kob-dr-section__name'>"
-                    "Upstream WIP — orders not yet at F3 dispatch</span>"
-                    "<span class='kob-dr-section__totals'>"
-                    f"<b>{wip_grand}</b> orders · "
-                    f"<b>{wip_pick_g}</b> pick · "
-                    f"<b>{wip_pack_g}</b> pack · "
-                    f"<b>{wip_packed_g}</b> packed"
-                    f"{ck_html}"
-                    "</span>"
-                    "</div>"
-                    "<table class='kob-dr-table'>"
-                    "<thead><tr>"
-                    "<th>Platform</th>"
-                    "<th class='kob-dr-num'>Pick (F1)</th>"
-                    "<th class='kob-dr-num'>Pack (F2)</th>"
-                    "<th class='kob-dr-num'>Packed</th>"
-                    "<th class='kob-dr-num'>Total WIP</th>"
-                    "</tr></thead>"
-                    f"<tbody>{wip_html_rows}</tbody>"
-                    "<tfoot><tr>"
-                    "<td><b>TOTAL</b></td>"
-                    f"<td class='kob-dr-num'>{wip_pick_g}</td>"
-                    f"<td class='kob-dr-num'>{wip_pack_g}</td>"
-                    f"<td class='kob-dr-num'>{wip_packed_g}</td>"
-                    f"<td class='kob-dr-num'>{wip_grand}</td>"
-                    "</tr></tfoot>"
-                    "</table>"
-                    "</div>"
-                )
-            else:
-                wip_table = (
-                    "<div class='kob-dr-section'>"
-                    "<div class='kob-dr-section__title'>"
-                    "<span class='kob-dr-section__icon'>⏳</span>"
-                    "<span class='kob-dr-section__name'>Upstream WIP</span>"
-                    "</div>"
-                    "<div class='kob-dr-empty-block kob-dr-empty-block--ok'>"
-                    "✓ No orders in pick / pack / packed — pipeline is clean."
-                    "</div>"
-                    "</div>"
-                )
-
-            # Wrap output in a bare card so the embedded form view shows a
-            # tidy white surface around both tables. Inline <style> guards
-            # against asset bundle cache misses on freshly-restarted Odoo
-            # containers — table renders styled even before SCSS rebuilds.
+            # Wrap output in a bare card so the embedded form view shows
+            # a tidy white surface around both tables. Inline <style>
+            # guards against asset bundle cache misses on freshly-
+            # restarted Odoo containers.
             r.breakdown_html = (
                 _INLINE_CSS
                 + "<div class='kob-dr-card-bare'>"
-                + table + wip_table
+                + pipeline_table + table
                 + "</div>"
             )
 
