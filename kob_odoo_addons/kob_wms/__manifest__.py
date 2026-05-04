@@ -92,6 +92,7 @@ Features
         'views/wms_count_screen_action.xml',
         'views/wms_pos_launcher_actions.xml',
         'views/wms_wizard_launcher_actions.xml',
+        'views/wms_mobile_action.xml',
 
         # ── Wizards ──────────────────────────────────────────────────────────
         'wizards/wms_scan_wizard_views.xml',
@@ -177,6 +178,17 @@ Features
             'kob_wms/static/src/js/wms_outbound/wms_outbound_screen.xml',
             'kob_wms/static/src/js/wms_dispatch/wms_dispatch_screen.js',
             'kob_wms/static/src/js/wms_dispatch/wms_dispatch_screen.xml',
+            # ── KOB WMS Mobile App (handheld/tablet/phone fullscreen) ─────────
+            'kob_wms/static/src/js/wms_mobile/wms_mobile_app.scss',
+            'kob_wms/static/src/js/wms_mobile/operations.js',
+            'kob_wms/static/src/js/wms_mobile/screens/login_screen.js',
+            'kob_wms/static/src/js/wms_mobile/screens/login_screen.xml',
+            'kob_wms/static/src/js/wms_mobile/screens/home_screen.js',
+            'kob_wms/static/src/js/wms_mobile/screens/home_screen.xml',
+            'kob_wms/static/src/js/wms_mobile/screens/pick_screen.js',
+            'kob_wms/static/src/js/wms_mobile/screens/pick_screen.xml',
+            'kob_wms/static/src/js/wms_mobile/wms_mobile_app.js',
+            'kob_wms/static/src/js/wms_mobile/wms_mobile_app.xml',
         ],
     },
     'post_init_hook': 'post_init_hook',
