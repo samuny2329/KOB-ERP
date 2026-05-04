@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Try to attach under kob_wms root menu if it exists; fall back to a
+         standalone Settings entry. We use the parent ref as a soft link by
+         id; if the id resolves the menu shows up there. -->
+    <menuitem id="menu_dispatch_round_root"
+              name="Dispatch Rounds"
+              parent="kob_wms.menu_wms_dispatch"
+              action="action_dispatch_round"
+              sequence="50"/>
+</odoo>

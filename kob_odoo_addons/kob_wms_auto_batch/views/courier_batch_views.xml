@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit existing list view to show platform + round -->
+    <record id="view_courier_batch_list_inherit" model="ir.ui.view">
+        <field name="name">wms.courier.batch.list.inherit.auto.batch</field>
+        <field name="model">wms.courier.batch</field>
+        <field name="inherit_id" ref="kob_wms.view_wms_courier_batch_list"/>
+        <field name="arch" type="xml">
+            <field name="courier_id" position="after">
+                <field name="platform" widget="badge"/>
+                <field name="dispatch_round_id" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_courier_batch_form_inherit" model="ir.ui.view">
+        <field name="name">wms.courier.batch.form.inherit.auto.batch</field>
+        <field name="model">wms.courier.batch</field>
+        <field name="inherit_id" ref="kob_wms.view_wms_courier_batch_form"/>
+        <field name="arch" type="xml">
+            <field name="courier_id" position="after">
+                <field name="platform"/>
+                <field name="dispatch_round_id"/>
+                <field name="round_state" invisible="not dispatch_round_id"/>
+            </field>
+        </field>
+    </record>
+</odoo>
