@@ -1,4 +1,4 @@
-// KOB Dispatch Daily — minimal Enterprise-style card
+// KOB Dispatch + WMS Daily — minimal Enterprise-style card
 // Mirrors kob_account_reports tone: white card, soft borders, neutral text.
 
 $kdr-purple:      #714B67;
@@ -105,5 +105,98 @@ $kdr-card:        #ffffff;
         }
         tbody tr:last-child td { border-bottom: 0; }
         tbody tr:hover td { background: rgba(113, 75, 103, 0.04); }
+    }
+
+    // Section headings between tables (Daily WMS report)
+    .kob-dr-section-title {
+        padding: 14px 24px 8px;
+        font-size: 11px;
+        font-weight: 600;
+        color: $kdr-muted;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        border-top: 1px solid $kdr-border-soft;
+
+        .kob-dr-section-totals {
+            margin-left: auto;
+            font-size: 11px;
+            font-weight: 400;
+            color: $kdr-muted;
+            text-transform: none;
+            letter-spacing: 0;
+
+            b { color: $kdr-text-strong; font-weight: 600; }
+        }
+    }
+
+    // Round block (WMS Daily — per dispatch round breakdown)
+    .kob-dr-round {
+        margin: 0 24px 12px;
+        border: 1px solid $kdr-border-soft;
+        border-radius: 4px;
+        overflow: hidden;
+        background: $kdr-card;
+    }
+    .kob-dr-round-head {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 14px;
+        background: $kdr-band;
+        font-size: 12px;
+
+        .kob-dr-round-name {
+            font-weight: 600;
+            color: $kdr-text-strong;
+            font-family: "JetBrains Mono", "SF Mono", Menlo, monospace;
+        }
+        .kob-dr-round-label {
+            color: $kdr-muted;
+            font-style: italic;
+        }
+        .kob-dr-round-state { font-size: 10px; }
+        .kob-dr-round-spacer { flex: 1; }
+        .kob-dr-round-totals {
+            font-size: 11px;
+            color: $kdr-muted;
+            b { color: $kdr-text-strong; }
+        }
+    }
+    .kob-dr-round-table {
+        thead th { background: transparent; padding: 6px 14px; }
+        tbody td { padding: 6px 14px; font-size: 12px; }
+    }
+
+    .kob-dr-pill {
+        display: inline-block;
+        padding: 1px 8px;
+        border-radius: 10px;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 600;
+        background: $kdr-band;
+        color: $kdr-muted;
+        border: 1px solid $kdr-border-soft;
+
+        &--open       { background: #e6f4ea; color: #137333; border-color: #cae9d4; }
+        &--scanning   { background: #e8f0fe; color: #1a73e8; border-color: #c2dafd; }
+        &--dispatched { background: #fef7e0; color: #b06000; border-color: #fde293; }
+        &--closed     { background: #f6f6f6; color: #6c757d; border-color: $kdr-border; }
+        &--draft      { background: #f6f6f6; color: #6c757d; border-color: $kdr-border; }
+        &--cancelled  { background: #fce8e6; color: #c5221f; border-color: #f4c5c2; }
+    }
+
+    .kob-dr-empty--block {
+        text-align: center;
+        color: $kdr-subtle;
+        padding: 24px 16px;
+        margin: 0 24px 12px;
+        border: 1px dashed $kdr-border-soft;
+        border-radius: 4px;
+        font-size: 12px;
     }
 }
