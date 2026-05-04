@@ -153,8 +153,7 @@ Features
             # ── Worker login screen ───────────────────────────────────────────
             'kob_wms/static/src/js/wms_login/wms_login_screen.js',
             'kob_wms/static/src/js/wms_login/wms_login_screen.xml',
-            # ── Legacy scan screen ────────────────────────────────────────────
-            'kob_wms/static/src/js/wms_scan_screen/wms_scan_screen.scss',
+            # ── Legacy scan screen (deprecated — use wms_mobile instead) ─────
             'kob_wms/static/src/js/wms_scan_screen/wms_scan_screen.js',
             'kob_wms/static/src/js/wms_scan_screen/wms_scan_screen.xml',
             # ── WMS List View (queue screens with scan bar) ───────────────────

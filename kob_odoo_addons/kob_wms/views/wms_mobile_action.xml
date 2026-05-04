@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Client action: KOB WMS Mobile App (fullscreen handheld) -->
+    <record id="action_wms_mobile_app" model="ir.actions.client">
+        <field name="name">📱 WMS Mobile</field>
+        <field name="tag">kob_wms.mobile_app</field>
+        <field name="target">fullscreen</field>
+    </record>
+
+    <!-- Top-level menu under KOB WMS — opens the mobile app -->
+    <menuitem id="menu_wms_mobile_app"
+              name="📱 Mobile App"
+              parent="kob_wms.menu_kob_wms_root"
+              action="action_wms_mobile_app"
+              sequence="1"/>
+
+</odoo>

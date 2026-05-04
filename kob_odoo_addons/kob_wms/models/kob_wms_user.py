@@ -230,6 +230,40 @@ class KobWmsUser(models.Model):
             return {'ok': False, 'reason': 'server_error', 'message': str(e)}
 
     @api.model
+    def verify_pin(self, pin):
+        """PIN-only login for handheld mobile app.
+
+        Searches all active users for matching PIN hash. Returns user info
+        if exactly one match. Used by kob_wms.mobile_app login screen.
+        """
+        try:
+            pin_str = str(pin or '').strip()
+            if not pin_str.isdigit() or len(pin_str) < 4 or len(pin_str) > 8:
+                return False
+
+            users = self.sudo().search([('is_active', '=', True), ('pin', '!=', False)])
+            matches = []
+            for u in users:
+                if self._verify_pin(pin_str, u.pin):
+                    matches.append(u)
+
+            if len(matches) == 1:
+                user = matches[0]
+                user.sudo().write({'last_login': fields.Datetime.now(),
+                                   'login_count': user.login_count + 1})
+                return {
+                    'id': user.id,
+                    'name': user.name,
+                    'role': user.role,
+                    'position': user.position or '',
+                }
+            # 0 = not found, >1 = ambiguous (force username flow)
+            return False
+        except Exception:
+            _logger.exception("verify_pin failed for pin=%s", pin)
+            return False
+
+    @api.model
     def verify_token(self, token):
         if not token:
             return False
