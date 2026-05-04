@@ -90,6 +90,10 @@ function ensureFallbackBrand(navbar) {
             .forEach((el) => el.remove());
         // Mark it so kob_brand.scss can prepend the animated chevron.
         realBrand.classList.add("kob-real-brand");
+        // Native-style "Home menu" tooltip on hover (mirrors Odoo).
+        if (!realBrand.hasAttribute("title")) {
+            realBrand.setAttribute("title", "Home menu");
+        }
         return;
     }
 
@@ -100,6 +104,7 @@ function ensureFallbackBrand(navbar) {
     a.className = "o_menu_brand d-flex align-items-center " + FALLBACK_CLASS;
     a.href = "/odoo";
     a.textContent = "KOB ERP";
+    a.title = "Home menu";
     a.style.cssText = (
         "color: inherit; font-weight: 600; padding: 0 0.75rem; "
         + "text-decoration: none; cursor: pointer;"

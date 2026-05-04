@@ -86,23 +86,39 @@ def make_ai_agent():
 
 
 # ── 2. Stage Tracker ─────────────────────────────────────────────
+# Horizontal 4-node pipeline: 3 stages done (filled + check), stage 4 current.
 def make_stage_tracker():
     img = _gradient_bg("#0ea5a4", "#06756e")
     d = ImageDraw.Draw(img)
-    cx, cy, R = SIZE // 2, SIZE // 2, 90
-    d.ellipse((cx - R, cy - R, cx + R, cy + R),
-              outline=(255, 255, 255, 230), width=8)
-    d.arc((cx - R, cy - R, cx + R, cy + R),
-          start=-90, end=180, fill=(255, 255, 255), width=12)
-    for i, deg in enumerate((-90, 0, 90, 180)):
-        a = math.radians(deg)
-        ix = cx + int((R - 30) * math.cos(a))
-        iy = cy + int((R - 30) * math.sin(a))
+    cy = SIZE // 2
+    # 4 nodes evenly spaced
+    xs = [54, 116, 178, 222]
+    R = 22
+    # Connecting line
+    d.line([(xs[0], cy), (xs[-1], cy)], fill=(255, 255, 255, 200), width=6)
+    # Filled progress portion (first 3 segments)
+    d.line([(xs[0], cy), (xs[2], cy)], fill="white", width=8)
+    # Stage labels (small dots above showing stage number)
+    for i, x in enumerate(xs):
         if i < 3:
-            d.ellipse((ix - 11, iy - 11, ix + 11, iy + 11), fill="white")
+            # Done stage: filled circle + check
+            d.ellipse((x - R, cy - R, x + R, cy + R), fill="white")
+            d.ellipse((x - R + 4, cy - R + 4, x + R - 4, cy + R - 4),
+                      outline=(6, 117, 110, 255), width=2)
+            d.line([(x - 9, cy + 1), (x - 3, cy + 8), (x + 10, cy - 6)],
+                   fill=(6, 117, 110, 255), width=4)
         else:
-            d.ellipse((ix - 11, iy - 11, ix + 11, iy + 11),
-                      outline="white", width=4)
+            # Current stage: outlined ring + dashed inner
+            d.ellipse((x - R, cy - R, x + R, cy + R),
+                      outline="white", width=6)
+            # Pulsing inner dot
+            d.ellipse((x - 8, cy - 8, x + 8, cy + 8),
+                      fill=(255, 255, 255, 200))
+    # Subtle progress label strip at bottom
+    d.rounded_rectangle((54, cy + 50, SIZE - 54, cy + 64),
+                        radius=6, fill=(255, 255, 255, 60))
+    d.rounded_rectangle((54, cy + 50, 178, cy + 64),
+                        radius=6, fill=(255, 255, 255, 220))
     return img
 
 
@@ -344,6 +360,57 @@ def make_timesheet_navbar():
     return img
 
 
+# ── 12. KOB WMS Pro (scan-driven warehouse) ──────────────────────
+# SAP Fiori navy + box with barcode + scanner laser beam.
+def make_kob_wms():
+    img = _gradient_bg("#3b4a5a", "#1d2d3e")
+    d = ImageDraw.Draw(img)
+    # Box (cardboard) front face
+    bx0, by0, bx1, by1 = 54, 110, 202, 224
+    d.rounded_rectangle((bx0, by0, bx1, by1), radius=8,
+                        fill=(254, 252, 232, 255))
+    # Box top flap (perspective)
+    d.polygon([(bx0, by0), (bx1, by0),
+               (bx1 - 14, by0 - 18), (bx0 + 14, by0 - 18)],
+              fill=(254, 240, 138, 255), outline=(29, 45, 62, 255))
+    d.polygon([(bx0, by0), (bx0 + 14, by0 - 18), (bx0 + 14, by1 - 26),
+               (bx0, by1 - 8)], fill=(225, 211, 101, 255))
+    # Tape strip
+    d.rectangle((bx0 + 24, by0 + 22, bx1 - 24, by0 + 36),
+                fill=(217, 119, 6, 220))
+    # Barcode area (bottom of box)
+    bcx0, bcy0, bcx1, bcy1 = bx0 + 24, by0 + 56, bx1 - 24, by1 - 24
+    d.rectangle((bcx0, bcy0, bcx1, bcy1), fill="white",
+                outline=(29, 45, 62, 255))
+    # Barcode bars
+    bars = [3, 1, 2, 1, 4, 2, 1, 3, 2, 1, 4, 1, 2, 3, 1, 2]
+    bx = bcx0 + 4
+    for i, w in enumerate(bars):
+        if i % 2 == 0:
+            d.rectangle((bx, bcy0 + 6, bx + w * 2, bcy1 - 6),
+                        fill=(29, 45, 62, 255))
+        bx += w * 2 + 2
+        if bx > bcx1 - 4:
+            break
+    # Scanner laser beam (red diagonal across)
+    laser = [(34, 40), (224, 100)]
+    d.line(laser, fill=(244, 63, 94, 220), width=4)
+    # Soft glow under laser
+    glow = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
+    gd = ImageDraw.Draw(glow)
+    gd.line(laser, fill=(244, 63, 94, 100), width=14)
+    glow = glow.filter(ImageFilter.GaussianBlur(6))
+    img = Image.alpha_composite(img, glow)
+    # Re-draw the sharp laser on top
+    d2 = ImageDraw.Draw(img)
+    d2.line(laser, fill=(255, 255, 255, 255), width=2)
+    # Scanner gun nozzle (top-left corner indicator)
+    d2.polygon([(28, 28), (52, 36), (40, 56), (24, 48)],
+               fill=(255, 255, 255, 230))
+    d2.ellipse((28, 32, 40, 44), fill=(244, 63, 94, 255))
+    return img
+
+
 # ── 11. WMS Auto Dispatch Batch ──────────────────────────────────
 def make_wms_auto_batch():
     img = _gradient_bg("#3b82f6", "#1e3a8a")
@@ -403,6 +470,7 @@ BUILDERS = [
     ("kob_sales_stock_lite", make_sales_stock_lite),
     ("kob_timesheet_navbar", make_timesheet_navbar),
     ("kob_wms_auto_batch", make_wms_auto_batch),
+    ("kob_wms", make_kob_wms),
 ]
 
 
