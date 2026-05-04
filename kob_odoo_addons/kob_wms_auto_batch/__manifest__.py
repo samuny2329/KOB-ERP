@@ -42,4 +42,5 @@ Adds:
     ],
     "installable": True,
     "auto_install": False,
+    "post_init_hook": "post_init_seed_mappings",
 }

@@ -61,10 +61,11 @@ class WmsCourierPlatformMap(models.Model):
         return m.courier_id if m else self.env["wms.courier"]
 
     def apply_to_pending(self):
-        """Walk through scan items currently routed to a PENDING fallback
-        batch. For each, look up this mapping by (platform, company); if a
-        mapping exists and active, reassign the order's courier and reroute
-        the scan item into the matching (round, courier, platform) batch.
+        """Walk through scan items in *any* still-scanning batch whose
+        current courier no longer matches the mapping rule (including those
+        parked in the PENDING fallback batch). Reassign the order courier
+        and reroute the scan item into the proper (round, courier, platform)
+        batch.
 
         Skips items in dispatched/cancelled batches — those are already
         out the door. Returns count of items moved.
@@ -84,15 +85,18 @@ class WmsCourierPlatformMap(models.Model):
             new_courier = mapping.courier_id
             company = mapping.company_id
 
-            # Find all scan items in PENDING batches for this platform/company
-            pending_items = ScanItem.search([
+            # Find all scan items still in OPEN (scanning) batches for this
+            # platform/company that currently sit on a courier that DOES
+            # NOT match the new mapping. Captures both PENDING fallback
+            # scans and previously-misrouted scans.
+            misrouted_items = ScanItem.search([
                 ("batch_id.state", "=", "scanning"),
-                ("batch_id.courier_id.is_pending_fallback", "=", True),
                 ("batch_id.company_id", "=", company.id),
                 ("sales_order_id.platform", "=", mapping.platform),
+                ("batch_id.courier_id", "!=", new_courier.id),
             ])
 
-            for item in pending_items:
+            for item in misrouted_items:
                 order = item.sales_order_id
                 if not order:
                     continue
@@ -110,7 +114,8 @@ class WmsCourierPlatformMap(models.Model):
                     item.write({"batch_id": target.id})
                     moved += 1
 
-                # Auto-cancel old PENDING batch if now empty
+                # Auto-cancel old batch if now empty (any courier, not just
+                # PENDING — keeps the dispatch list clean).
                 if old_batch and old_batch.id != target.id and not old_batch.scan_item_ids:
                     if old_batch.state == "scanning":
                         old_batch.write({"state": "cancelled"})
