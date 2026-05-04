@@ -201,43 +201,79 @@ class WmsDispatchRound(models.Model):
                 row["pending"] += b.pending_count
                 row["batches"] += 1
                 row["states"].append(b.state)
+            # Build rows with BEM-style classes (Account-style minimal table).
+            rows = []
+            grand_exp = grand_done = grand_pending = 0
+            grand_batches = 0
             for (platform, courier), v in sorted(groups.items()):
                 grand_exp += v["expected"]
                 grand_done += v["scanned"]
                 grand_pending += v["pending"]
+                grand_batches += v["batches"]
                 pct = (v["scanned"] / v["expected"] * 100) if v["expected"] else 0
                 done = all(s == "dispatched" for s in v["states"])
-                state_pill = "✓ done" if done else f"⏳ {v['pending']} pending"
-                state_class = "kob-dr-pill--dispatched" if done else "kob-dr-pill--scanning"
-                bar_w = int(pct)
+                if done:
+                    state_cell = "<span class='kob-dr-pill kob-dr-pill--ok'>✓ done</span>"
+                elif v["pending"] == 0:
+                    state_cell = "<span class='kob-dr-pill kob-dr-pill--scanning'>ready to dispatch</span>"
+                else:
+                    state_cell = (
+                        f"<span class='kob-dr-pill kob-dr-pill--warn'>"
+                        f"⏳ {v['pending']} pending</span>"
+                    )
                 rows.append(
-                    f"<tr>"
-                    f"<td class='kob-dr-platform'>{platform_icons.get(platform, '📦')} {platform.capitalize()}</td>"
+                    "<tr>"
+                    f"<td class='kob-dr-platform'>"
+                    f"{platform_icons.get(platform, '📦')} {platform.capitalize()}"
+                    "</td>"
                     f"<td>{courier}</td>"
                     f"<td class='kob-dr-num'>{v['batches']}</td>"
                     f"<td class='kob-dr-num'>{v['expected']}</td>"
                     f"<td class='kob-dr-num'>{v['scanned']}</td>"
-                    f"<td class='kob-dr-num'><b>{v['pending']}</b></td>"
-                    f"<td>"
-                    f"<div class='kob-dr-bar'><div class='kob-dr-bar-fill' style='width:{bar_w}%'></div></div>"
+                    f"<td class='kob-dr-num'>{v['pending']}</td>"
+                    "<td>"
+                    f"<div class='kob-dr-bar'><div class='kob-dr-bar__fill' style='width:{int(pct)}%'></div></div>"
                     f"<span class='kob-dr-bar-pct'>{pct:.0f}%</span>"
-                    f"</td>"
-                    f"<td><span class='kob-dr-pill {state_class}'>{state_pill}</span></td>"
-                    f"</tr>"
+                    "</td>"
+                    f"<td>{state_cell}</td>"
+                    "</tr>"
                 )
+
             if not rows:
                 table = (
-                    "<div class='kob-dr-empty--block'>"
+                    "<div class='kob-dr-empty-block'>"
                     "No active batches in this round yet."
                     "</div>"
                 )
             else:
                 grand_pct = (grand_done / grand_exp * 100) if grand_exp else 0
+                # Consistency check: pending = expected - scanned
+                check_ok = grand_pending == max(0, grand_exp - grand_done)
+                check_html = (
+                    "<span class='kob-dr-check kob-dr-check--ok'>✓ totals consistent</span>"
+                    if check_ok else
+                    "<span class='kob-dr-check kob-dr-check--bad'>"
+                    f"⚠ pending ({grand_pending}) ≠ expected − scanned "
+                    f"({grand_exp - grand_done})</span>"
+                )
                 table = (
-                    "<h4 class='kob-dr-h'>F3 / F4 — In-round batches</h4>"
+                    "<div class='kob-dr-section'>"
+                    "<div class='kob-dr-section__title'>"
+                    "<span class='kob-dr-section__icon'>📦</span>"
+                    "<span class='kob-dr-section__name'>"
+                    "F3 / F4 — In-round batches</span>"
+                    "<span class='kob-dr-section__totals'>"
+                    f"<b>{grand_batches}</b> batches · "
+                    f"<b>{grand_exp}</b> expected · "
+                    f"<b>{grand_done}</b> scanned · "
+                    f"<b>{grand_pending}</b> pending"
+                    f"{check_html}"
+                    "</span>"
+                    "</div>"
                     "<table class='kob-dr-table'>"
                     "<thead><tr>"
-                    "<th>Platform</th><th>Courier</th>"
+                    "<th>Platform</th>"
+                    "<th>Courier</th>"
                     "<th class='kob-dr-num'>Batches</th>"
                     "<th class='kob-dr-num'>Expected</th>"
                     "<th class='kob-dr-num'>Scanned</th>"
@@ -246,18 +282,22 @@ class WmsDispatchRound(models.Model):
                     "<th>State</th>"
                     "</tr></thead>"
                     f"<tbody>{''.join(rows)}</tbody>"
-                    "<tfoot><tr class='kob-dr-grand'>"
-                    "<td colspan='3'><b>TOTAL</b></td>"
-                    f"<td class='kob-dr-num'><b>{grand_exp}</b></td>"
-                    f"<td class='kob-dr-num'><b>{grand_done}</b></td>"
-                    f"<td class='kob-dr-num'><b>{grand_pending}</b></td>"
-                    f"<td>"
-                    f"<div class='kob-dr-bar'><div class='kob-dr-bar-fill' style='width:{int(grand_pct)}%'></div></div>"
-                    f"<span class='kob-dr-bar-pct'><b>{grand_pct:.0f}%</b></span>"
-                    f"</td>"
+                    "<tfoot><tr>"
+                    "<td><b>TOTAL</b></td>"
+                    "<td></td>"
+                    f"<td class='kob-dr-num'>{grand_batches}</td>"
+                    f"<td class='kob-dr-num'>{grand_exp}</td>"
+                    f"<td class='kob-dr-num'>{grand_done}</td>"
+                    f"<td class='kob-dr-num'>{grand_pending}</td>"
+                    "<td>"
+                    f"<div class='kob-dr-bar'><div class='kob-dr-bar__fill' "
+                    f"style='width:{int(grand_pct)}%'></div></div>"
+                    f"<span class='kob-dr-bar-pct'>{grand_pct:.0f}%</span>"
+                    "</td>"
                     "<td></td>"
                     "</tr></tfoot>"
                     "</table>"
+                    "</div>"
                 )
 
             # ── Upstream WIP (Pick/Pack/Packed) ─────────────────────────
@@ -289,23 +329,48 @@ class WmsDispatchRound(models.Model):
                 wip_rows = sorted(groups.values(), key=lambda x: x["platform"])
             if wip_rows:
                 wip_html_rows = "".join(
-                    f"<tr>"
-                    f"<td class='kob-dr-platform'>{platform_icons.get(w['platform'], '📦')} {w['platform'].capitalize()}</td>"
+                    "<tr>"
+                    f"<td class='kob-dr-platform'>"
+                    f"{platform_icons.get(w['platform'], '📦')} "
+                    f"{w['platform'].capitalize()}</td>"
                     f"<td class='kob-dr-num'>{w['pick']}</td>"
                     f"<td class='kob-dr-num'>{w['pack']}</td>"
                     f"<td class='kob-dr-num'>{w['packed']}</td>"
-                    f"<td class='kob-dr-num'><b>{w['total']}</b></td>"
-                    f"</tr>"
+                    f"<td class='kob-dr-num'>{w['total']}</td>"
+                    "</tr>"
                     for w in wip_rows
                 )
                 wip_grand = sum(w["total"] for w in wip_rows)
                 wip_pick_g = sum(w["pick"] for w in wip_rows)
                 wip_pack_g = sum(w["pack"] for w in wip_rows)
                 wip_packed_g = sum(w["packed"] for w in wip_rows)
+
+                # Consistency: total = pick + pack + packed (per row + grand)
+                row_ok = all(
+                    w["total"] == w["pick"] + w["pack"] + w["packed"]
+                    for w in wip_rows
+                )
+                grand_ok = wip_grand == wip_pick_g + wip_pack_g + wip_packed_g
+                ck_html = (
+                    "<span class='kob-dr-check kob-dr-check--ok'>✓ totals consistent</span>"
+                    if (row_ok and grand_ok) else
+                    "<span class='kob-dr-check kob-dr-check--bad'>⚠ totals mismatch</span>"
+                )
+
                 wip_table = (
-                    "<h4 class='kob-dr-h kob-dr-h--warn'>"
-                    "⚠ Upstream WIP — orders not yet at F3 dispatch"
-                    "</h4>"
+                    "<div class='kob-dr-section kob-dr-section--warn'>"
+                    "<div class='kob-dr-section__title'>"
+                    "<span class='kob-dr-section__icon'>⏳</span>"
+                    "<span class='kob-dr-section__name'>"
+                    "Upstream WIP — orders not yet at F3 dispatch</span>"
+                    "<span class='kob-dr-section__totals'>"
+                    f"<b>{wip_grand}</b> orders · "
+                    f"<b>{wip_pick_g}</b> pick · "
+                    f"<b>{wip_pack_g}</b> pack · "
+                    f"<b>{wip_packed_g}</b> packed"
+                    f"{ck_html}"
+                    "</span>"
+                    "</div>"
                     "<table class='kob-dr-table'>"
                     "<thead><tr>"
                     "<th>Platform</th>"
@@ -315,24 +380,34 @@ class WmsDispatchRound(models.Model):
                     "<th class='kob-dr-num'>Total WIP</th>"
                     "</tr></thead>"
                     f"<tbody>{wip_html_rows}</tbody>"
-                    "<tfoot><tr class='kob-dr-grand'>"
+                    "<tfoot><tr>"
                     "<td><b>TOTAL</b></td>"
-                    f"<td class='kob-dr-num'><b>{wip_pick_g}</b></td>"
-                    f"<td class='kob-dr-num'><b>{wip_pack_g}</b></td>"
-                    f"<td class='kob-dr-num'><b>{wip_packed_g}</b></td>"
-                    f"<td class='kob-dr-num'><b>{wip_grand}</b></td>"
+                    f"<td class='kob-dr-num'>{wip_pick_g}</td>"
+                    f"<td class='kob-dr-num'>{wip_pack_g}</td>"
+                    f"<td class='kob-dr-num'>{wip_packed_g}</td>"
+                    f"<td class='kob-dr-num'>{wip_grand}</td>"
                     "</tr></tfoot>"
                     "</table>"
+                    "</div>"
                 )
             else:
                 wip_table = (
-                    "<h4 class='kob-dr-h'>Upstream WIP</h4>"
-                    "<div class='kob-dr-empty--block kob-dr-empty--ok'>"
+                    "<div class='kob-dr-section'>"
+                    "<div class='kob-dr-section__title'>"
+                    "<span class='kob-dr-section__icon'>⏳</span>"
+                    "<span class='kob-dr-section__name'>Upstream WIP</span>"
+                    "</div>"
+                    "<div class='kob-dr-empty-block kob-dr-empty-block--ok'>"
                     "✓ No orders in pick / pack / packed — pipeline is clean."
+                    "</div>"
                     "</div>"
                 )
 
-            r.breakdown_html = table + wip_table
+            # Wrap output in a bare card so the embedded form view shows a
+            # tidy white surface around both tables.
+            r.breakdown_html = (
+                "<div class='kob-dr-card-bare'>" + table + wip_table + "</div>"
+            )
 
     @api.model_create_multi
     def create(self, vals_list):

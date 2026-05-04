@@ -1,5 +1,8 @@
 // KOB Dispatch + WMS Daily — minimal Enterprise-style card
-// Mirrors kob_account_reports tone: white card, soft borders, neutral text.
+// Mirrors kob_account_reports tone: white card, soft borders, neutral
+// text. The selectors below are intentionally NOT nested inside
+// `.kob-dr-card` so the same look applies wherever a `.kob-dr-table`
+// is dropped (e.g. inside a form widget="html" field).
 
 $kdr-purple:      #714B67;
 $kdr-text-strong: #2c2c2c;
@@ -9,253 +12,248 @@ $kdr-subtle:      #adb5bd;
 $kdr-border:      #e0e0e0;
 $kdr-border-soft: #f0f0f0;
 $kdr-band:        #f6f6f6;
+$kdr-band-strong: #ededed;
 $kdr-card:        #ffffff;
 
-.kob-dr-card {
+// ── Card container ──────────────────────────────────────────────
+.kob-dr-card,
+.kob-dr-card-bare {
     background: $kdr-card;
-    border: 1px solid $kdr-border-soft;
-    border-radius: 4px;
-    padding: 0;
     color: $kdr-text;
     font-size: 13px;
     font-family: "Inter", "Roboto", "Segoe UI", -apple-system,
                  "Helvetica Neue", Arial, "Noto Sans Thai", sans-serif;
+}
+.kob-dr-card {
+    border: 1px solid $kdr-border-soft;
+    border-radius: 4px;
     max-width: 1080px;
     margin: 12px 0;
+}
+.kob-dr-card-bare { max-width: 1280px; }
 
-    .kob-dr-head {
-        padding: 16px 24px 12px;
-        border-bottom: 1px solid $kdr-border-soft;
-    }
-    .kob-dr-title {
-        font-size: 16px;
-        font-weight: 500;
-        color: $kdr-text-strong;
-    }
-    .kob-dr-subtitle {
-        font-size: 12px;
-        color: $kdr-muted;
-        margin-top: 2px;
-    }
+.kob-dr-head {
+    padding: 16px 24px 12px;
+    border-bottom: 1px solid $kdr-border-soft;
+}
+.kob-dr-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: $kdr-text-strong;
+}
+.kob-dr-subtitle {
+    font-size: 12px;
+    color: $kdr-muted;
+    margin-top: 2px;
+}
 
-    .kob-dr-totals {
+// ── Five-totals row (top stats band) ────────────────────────────
+.kob-dr-totals {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    padding: 12px 24px;
+    background: $kdr-band;
+    border-bottom: 1px solid $kdr-border-soft;
+
+    > div {
+        flex: 1;
+        min-width: 110px;
         display: flex;
-        flex-wrap: wrap;
-        gap: 0;
-        padding: 12px 24px;
-        background: $kdr-band;
-        border-bottom: 1px solid $kdr-border-soft;
+        flex-direction: column;
+        gap: 2px;
+        padding: 4px 12px 4px 0;
 
-        > div {
-            flex: 1;
-            min-width: 110px;
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            padding: 4px 12px 4px 0;
-
-            .kob-dr-num-big {
-                font-size: 22px;
-                font-weight: 600;
-                color: $kdr-text-strong;
-                line-height: 1.1;
-            }
-            span:not(.kob-dr-num-big) {
-                font-size: 11px;
-                color: $kdr-muted;
-                text-transform: uppercase;
-                letter-spacing: 0.4px;
-            }
+        .kob-dr-num-big {
+            font-size: 22px;
+            font-weight: 600;
+            color: $kdr-text-strong;
+            line-height: 1.1;
         }
-    }
-
-    .kob-dr-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 13px;
-
-        thead th {
-            text-align: left;
-            font-weight: 500;
-            color: $kdr-muted;
+        span:not(.kob-dr-num-big) {
             font-size: 11px;
+            color: $kdr-muted;
             text-transform: uppercase;
             letter-spacing: 0.4px;
-            padding: 10px 16px;
-            background: $kdr-band;
-            border-bottom: 1px solid $kdr-border;
-
-            &.kob-dr-num { text-align: right; }
         }
-        tbody td {
-            padding: 10px 16px;
-            border-bottom: 1px solid $kdr-border-soft;
-            color: $kdr-text;
-
-            &.kob-dr-num {
-                text-align: right;
-                font-variant-numeric: tabular-nums;
-            }
-            &.kob-dr-platform { font-weight: 500; color: $kdr-text-strong; }
-            &.kob-dr-empty {
-                text-align: center;
-                color: $kdr-subtle;
-                padding: 32px 16px;
-            }
-        }
-        tbody tr:last-child td { border-bottom: 0; }
-        tbody tr:hover td { background: rgba(113, 75, 103, 0.04); }
     }
+}
 
-    // Section headings between tables (Daily WMS report)
-    .kob-dr-section-title {
-        padding: 14px 24px 8px;
+// ── Section heading (between tables) ────────────────────────────
+.kob-dr-section {
+    margin: 16px 0 0;
+    padding: 0 0 8px;
+
+    &__title {
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+        padding: 8px 4px;
         font-size: 11px;
         font-weight: 600;
         color: $kdr-muted;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
-        display: flex;
-        align-items: baseline;
-        gap: 12px;
-        border-top: 1px solid $kdr-border-soft;
+        letter-spacing: 0.6px;
+        border-bottom: 1px solid $kdr-border-soft;
+        margin-bottom: 0;
 
-        .kob-dr-section-totals {
+        .kob-dr-section__icon { font-size: 14px; }
+        .kob-dr-section__name { color: $kdr-text-strong; }
+        .kob-dr-section__totals {
             margin-left: auto;
             font-size: 11px;
             font-weight: 400;
             color: $kdr-muted;
             text-transform: none;
             letter-spacing: 0;
-
             b { color: $kdr-text-strong; font-weight: 600; }
         }
     }
 
-    // Round block (WMS Daily — per dispatch round breakdown)
-    .kob-dr-round {
-        margin: 0 24px 12px;
-        border: 1px solid $kdr-border-soft;
-        border-radius: 4px;
-        overflow: hidden;
-        background: $kdr-card;
+    &--warn .kob-dr-section__title {
+        color: #b06000;
+        border-bottom-color: #fde293;
     }
-    .kob-dr-round-head {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 8px 14px;
-        background: $kdr-band;
-        font-size: 12px;
+}
 
-        .kob-dr-round-name {
-            font-weight: 600;
-            color: $kdr-text-strong;
-            font-family: "JetBrains Mono", "SF Mono", Menlo, monospace;
+// ── Tables (Account-style) ──────────────────────────────────────
+table.kob-dr-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 0;
+
+    thead th {
+        text-align: left;
+        font-weight: 500;
+        color: $kdr-muted;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        padding: 10px 14px;
+        background: $kdr-band;
+        border-bottom: 1px solid $kdr-border;
+        white-space: nowrap;
+
+        &.kob-dr-num { text-align: right; }
+        &.kob-dr-center { text-align: center; }
+    }
+    tbody td {
+        padding: 9px 14px;
+        border-bottom: 1px solid $kdr-border-soft;
+        color: $kdr-text;
+        vertical-align: middle;
+
+        &.kob-dr-num {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
         }
-        .kob-dr-round-label {
-            color: $kdr-muted;
+        &.kob-dr-platform {
+            font-weight: 500;
+            color: $kdr-text-strong;
+            white-space: nowrap;
+        }
+        &.kob-dr-empty {
+            text-align: center;
+            color: $kdr-subtle;
+            padding: 28px 16px;
             font-style: italic;
         }
-        .kob-dr-round-state { font-size: 10px; }
-        .kob-dr-round-spacer { flex: 1; }
-        .kob-dr-round-totals {
-            font-size: 11px;
-            color: $kdr-muted;
-            b { color: $kdr-text-strong; }
-        }
     }
-    .kob-dr-round-table {
-        thead th { background: transparent; padding: 6px 14px; }
-        tbody td { padding: 6px 14px; font-size: 12px; }
-    }
+    tbody tr:last-child td { border-bottom: 0; }
+    tbody tr:hover td { background: rgba(113, 75, 103, 0.035); }
 
-    .kob-dr-pill {
-        display: inline-block;
-        padding: 1px 8px;
-        border-radius: 10px;
-        font-size: 10px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        font-weight: 600;
-        background: $kdr-band;
-        color: $kdr-muted;
-        border: 1px solid $kdr-border-soft;
-
-        &--open       { background: #e6f4ea; color: #137333; border-color: #cae9d4; }
-        &--scanning   { background: #e8f0fe; color: #1a73e8; border-color: #c2dafd; }
-        &--dispatched { background: #fef7e0; color: #b06000; border-color: #fde293; }
-        &--closed     { background: #f6f6f6; color: #6c757d; border-color: $kdr-border; }
-        &--draft      { background: #f6f6f6; color: #6c757d; border-color: $kdr-border; }
-        &--cancelled  { background: #fce8e6; color: #c5221f; border-color: #f4c5c2; }
-    }
-
-    .kob-dr-empty--block {
-        text-align: center;
-        color: $kdr-subtle;
-        padding: 24px 16px;
-        margin: 0 24px 12px;
-        border: 1px dashed $kdr-border-soft;
-        border-radius: 4px;
-        font-size: 12px;
-    }
-
-    // Inline progress bar (round breakdown table)
-    .kob-dr-bar {
-        display: inline-block;
-        width: 90px;
-        height: 6px;
-        background: $kdr-border-soft;
-        border-radius: 3px;
-        overflow: hidden;
-        vertical-align: middle;
-        margin-right: 8px;
-
-        .kob-dr-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, $kdr-purple 0%, #5d3a55 100%);
-            transition: width 200ms ease;
-        }
-    }
-    .kob-dr-bar-pct {
-        font-size: 11px;
-        color: $kdr-muted;
-        font-variant-numeric: tabular-nums;
-    }
-    .kob-dr-grand td {
+    tfoot tr td,
+    tr.kob-dr-grand td {
         background: $kdr-band !important;
         font-weight: 600;
+        color: $kdr-text-strong;
+        border-top: 1px solid $kdr-border;
+        border-bottom: 0;
+        padding: 10px 14px;
+
+        &.kob-dr-num {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
     }
 }
 
-// Style the breakdown HTML when rendered outside .kob-dr-card too
+// ── Inline progress bar ─────────────────────────────────────────
 .kob-dr-bar {
     display: inline-block;
-    width: 90px; height: 6px;
-    background: #f0f0f0; border-radius: 3px;
-    overflow: hidden; vertical-align: middle; margin-right: 8px;
-    .kob-dr-bar-fill {
+    width: 90px;
+    height: 6px;
+    background: $kdr-border-soft;
+    border-radius: 3px;
+    overflow: hidden;
+    vertical-align: middle;
+    margin-right: 8px;
+
+    &__fill {
         height: 100%;
-        background: linear-gradient(90deg, #714B67 0%, #5d3a55 100%);
+        background: linear-gradient(90deg, $kdr-purple 0%, #5d3a55 100%);
+        transition: width 200ms ease;
     }
 }
-.kob-dr-bar-pct { font-size: 11px; color: #6c757d; font-variant-numeric: tabular-nums; }
+.kob-dr-bar-pct {
+    font-size: 11px;
+    color: $kdr-muted;
+    font-variant-numeric: tabular-nums;
+}
 
-.kob-dr-h {
-    margin: 16px 0 8px;
-    font-size: 12px;
-    font-weight: 600;
-    color: #4c4c4c;
+// ── State pills ─────────────────────────────────────────────────
+.kob-dr-pill {
+    display: inline-block;
+    padding: 1px 8px;
+    border-radius: 10px;
+    font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    font-weight: 600;
+    background: $kdr-band;
+    color: $kdr-muted;
+    border: 1px solid $kdr-border-soft;
+    white-space: nowrap;
 
-    &--warn {
-        color: #b06000;
-        &::before { content: ""; }
+    &--open       { background: #e6f4ea; color: #137333; border-color: #cae9d4; }
+    &--scanning   { background: #e8f0fe; color: #1a73e8; border-color: #c2dafd; }
+    &--dispatched { background: #fef7e0; color: #b06000; border-color: #fde293; }
+    &--closed     { background: #f6f6f6; color: #6c757d; border-color: $kdr-border; }
+    &--draft      { background: #f6f6f6; color: #6c757d; border-color: $kdr-border; }
+    &--cancelled  { background: #fce8e6; color: #c5221f; border-color: #f4c5c2; }
+    &--ok         { background: #e6f4ea; color: #137333; border-color: #cae9d4; }
+    &--warn       { background: #fef7e0; color: #b06000; border-color: #fde293; }
+}
+
+// ── Empty state callout ─────────────────────────────────────────
+.kob-dr-empty-block {
+    text-align: center;
+    color: $kdr-subtle;
+    padding: 24px 16px;
+    margin: 12px 0;
+    border: 1px dashed $kdr-border-soft;
+    border-radius: 4px;
+    font-size: 12px;
+
+    &--ok {
+        background: #f0fdf4;
+        color: #137333;
+        border: 1px solid #cae9d4;
+        border-style: solid;
     }
 }
-.kob-dr-empty--ok {
-    background: #e6f4ea;
-    color: #137333;
-    border-color: #cae9d4 !important;
+
+// ── Consistency check pill ──────────────────────────────────────
+.kob-dr-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: $kdr-muted;
+    margin-left: 6px;
+
+    &--ok    { color: #137333; }
+    &--bad   { color: #c5221f; }
 }

@@ -72,12 +72,13 @@
                         <group>
                             <field name="label" placeholder="Morning / Round 1 ..."/>
                             <field name="date_open"/>
-                            <field name="date_close"/>
+                            <field name="date_close"
+                                   invisible="state != 'closed'"/>
                         </group>
                         <group>
                             <field name="company_id"
                                    groups="base.group_multi_company"/>
-                            <field name="notes"/>
+                            <field name="notes" placeholder="Notes (optional)"/>
                         </group>
                     </group>
                     <notebook>
