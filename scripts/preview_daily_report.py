@@ -46,11 +46,20 @@ with sync_playwright() as p:
     page2.evaluate("""() => {
       const aside = document.querySelector('.o-mail-Chatter, aside.o_form_view, .o-mail-ChatterContainer');
       if (aside) aside.style.display = 'none';
-      // Expand/scroll the form sheet
-      const sheet = document.querySelector('.o_form_sheet_bg');
-      if (sheet) sheet.scrollIntoView({block:'start'});
+      // Make the form scroller take its full height so full_page screenshot
+      // captures the entire card
+      document.querySelectorAll(
+        '.o_form_view, .o_form_sheet_bg, .o_content, .o_form_sheet'
+      ).forEach(el => {
+        el.style.overflow = 'visible';
+        el.style.maxHeight = 'none';
+        el.style.height = 'auto';
+      });
     }""")
     page2.wait_for_timeout(800)
+    # Resize page to large height so full_page captures all
+    page2.set_viewport_size({"width": 1800, "height": 2400})
+    page2.wait_for_timeout(500)
     page2.screenshot(path=str(OUT / "41_wms_daily_form_kiss.png"), full_page=True)
     page2.close()
     ctx2.close()

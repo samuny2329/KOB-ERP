@@ -30,6 +30,7 @@ to a Microsoft Teams channel via a configured incoming webhook.
     ],
     "data": [
         "security/ir.model.access.csv",
+        "security/multi_company_rules.xml",
         "data/cron.xml",
         "views/res_config_settings_views.xml",
         "views/dispatch_daily_report_views.xml",
