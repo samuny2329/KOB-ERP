@@ -174,9 +174,19 @@ def _sanitize(text: str) -> str:
 
 
 def _login(first_en: str, last_en: str) -> str:
-    f = _sanitize(first_en)
-    l = _sanitize(last_en)
-    return f"{f}.{l}" if f and l else (f or l or "kob.user")
+    """KOB login pattern: <Firstname>.<lastInitialLower>
+
+    Example: Sivaporn Thapjaroen → "Sivaporn.t"
+    """
+    first = (first_en or "").strip()
+    last = (last_en or "").strip()
+    f_keep = "".join(c for c in first if c.isalnum())
+    if f_keep:
+        f_keep = f_keep[:1].upper() + f_keep[1:].lower()
+    l_init = next((c.lower() for c in last if c.isalnum()), "")
+    if f_keep and l_init:
+        return f"{f_keep}.{l_init}"
+    return f_keep or l_init or "kob.user"
 
 
 def _password(nickname_en: str, phone: str) -> str:
@@ -272,7 +282,7 @@ for emp in EMPLOYEES:
         "name": full_name_en or full_name_th,
         "login": login,
         "password": password,
-        "email": f"{login}@kissofbeauty.local",
+        "email": f"{login}@kissofbeauty.co.th",
         "lang": "th_TH" if env["res.lang"].search(
             [("code", "=", "th_TH"), ("active", "=", True)]
         ) else "en_US",

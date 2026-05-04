@@ -74,7 +74,8 @@
 
     <menuitem id="menu_stage_tracker_root"
               name="Stage Tracker"
-              sequence="80"/>
+              sequence="80"
+              web_icon="kob_stage_tracker,static/description/icon.png"/>
 
     <menuitem id="menu_stage_transition"
               name="Transitions"

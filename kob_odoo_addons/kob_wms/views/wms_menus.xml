@@ -15,6 +15,7 @@
               name="KOB WMS"
               sequence="10"
               action="action_wms_login_screen"
+              web_icon="kob_wms,static/description/icon.png"
               groups="group_wms_worker"/>
 
     <!-- ══════════════════════════════════════════════════════════════

@@ -18,7 +18,8 @@ Result: every datetime everywhere → "02/05/2026 18:52:53"
 """,
     "author": "Kiss of Beauty (KOB)",
     "license": "LGPL-3",
-    "depends": ["web"],
+    "depends": ["base", "web"],
+    "post_init_hook": "_post_init_hook",
     "assets": {
         "web.assets_backend": [
             "kob_datetime_full_format/static/src/datetime_format_patch.js",
