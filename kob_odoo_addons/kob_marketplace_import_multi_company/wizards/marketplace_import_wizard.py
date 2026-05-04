@@ -134,5 +134,5 @@ class MarketplaceImportWizard(models.TransientModel):
                 "co": elsewhere.name,
                 "allowed": ", ".join(allowed.mapped("name")) or "(none)",
             }
-            self.import_log = (self.import_log or "") + extra + "\n"
+            self.log = (self.log or "") + extra + "\n"
         return self.env["product.product"]
