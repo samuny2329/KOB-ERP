@@ -39,9 +39,12 @@
         </field>
     </record>
 
+    <!-- Sibling of Import Orders, NOT a child — otherwise Odoo turns
+         Import Orders into a parent-only menu and the action stops
+         opening on click. -->
     <menuitem id="menu_shop_company_map"
               name="Shop → Company"
-              parent="kob_marketplace_import.menu_marketplace_import"
+              parent="kob_base.menu_kob_marketplace"
               action="action_shop_company_map"
-              sequence="20"/>
+              sequence="30"/>
 </odoo>
