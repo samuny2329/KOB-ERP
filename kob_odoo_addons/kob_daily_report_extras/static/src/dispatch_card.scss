@@ -199,4 +199,44 @@ $kdr-card:        #ffffff;
         border-radius: 4px;
         font-size: 12px;
     }
+
+    // Inline progress bar (round breakdown table)
+    .kob-dr-bar {
+        display: inline-block;
+        width: 90px;
+        height: 6px;
+        background: $kdr-border-soft;
+        border-radius: 3px;
+        overflow: hidden;
+        vertical-align: middle;
+        margin-right: 8px;
+
+        .kob-dr-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, $kdr-purple 0%, #5d3a55 100%);
+            transition: width 200ms ease;
+        }
+    }
+    .kob-dr-bar-pct {
+        font-size: 11px;
+        color: $kdr-muted;
+        font-variant-numeric: tabular-nums;
+    }
+    .kob-dr-grand td {
+        background: $kdr-band !important;
+        font-weight: 600;
+    }
 }
+
+// Style the breakdown HTML when rendered outside .kob-dr-card too
+.kob-dr-bar {
+    display: inline-block;
+    width: 90px; height: 6px;
+    background: #f0f0f0; border-radius: 3px;
+    overflow: hidden; vertical-align: middle; margin-right: 8px;
+    .kob-dr-bar-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #714B67 0%, #5d3a55 100%);
+    }
+}
+.kob-dr-bar-pct { font-size: 11px; color: #6c757d; font-variant-numeric: tabular-nums; }

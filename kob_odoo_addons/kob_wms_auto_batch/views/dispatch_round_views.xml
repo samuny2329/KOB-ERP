@@ -43,9 +43,21 @@
                             <field name="batch_count" widget="statinfo"
                                    string="Batches"/>
                         </button>
-                        <button class="oe_stat_button" icon="fa-barcode" disabled="1">
-                            <field name="scan_item_count" widget="statinfo"
-                                   string="Scans"/>
+                        <button class="oe_stat_button" icon="fa-spinner" disabled="1">
+                            <field name="open_batch_count" widget="statinfo"
+                                   string="Open"/>
+                        </button>
+                        <button class="oe_stat_button" icon="fa-check" disabled="1">
+                            <field name="dispatched_batch_count" widget="statinfo"
+                                   string="Dispatched"/>
+                        </button>
+                        <button class="oe_stat_button" icon="fa-hourglass-half" disabled="1">
+                            <field name="total_pending" widget="statinfo"
+                                   string="Pending"/>
+                        </button>
+                        <button class="oe_stat_button" icon="fa-percent" disabled="1">
+                            <field name="completion_pct" widget="statinfo"
+                                   string="Complete"/>
                         </button>
                     </div>
                     <div class="oe_title">
@@ -64,13 +76,21 @@
                         </group>
                     </group>
                     <notebook>
-                        <page string="Batches">
+                        <page string="Per-platform breakdown" name="breakdown">
+                            <field name="breakdown_html" widget="html" readonly="1" nolabel="1"/>
+                        </page>
+                        <page string="Batches" name="batches">
                             <field name="batch_ids" readonly="1">
-                                <list>
+                                <list decoration-success="state=='dispatched'"
+                                      decoration-info="state=='scanning'"
+                                      decoration-muted="state=='cancelled'">
                                     <field name="name"/>
                                     <field name="courier_id"/>
-                                    <field name="platform"/>
-                                    <field name="scanned_count"/>
+                                    <field name="platform" widget="badge"/>
+                                    <field name="expected_count"/>
+                                    <field name="scanned_done_count"/>
+                                    <field name="pending_count"/>
+                                    <field name="completion_pct" widget="progressbar"/>
                                     <field name="state" widget="badge"/>
                                 </list>
                             </field>
