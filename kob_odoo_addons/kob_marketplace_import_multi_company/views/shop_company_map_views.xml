@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_shop_company_map_list" model="ir.ui.view">
+        <field name="name">wms.shop.company.map.list</field>
+        <field name="model">wms.shop.company.map</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <header>
+                    <button name="action_relearn" type="object"
+                            string="Re-learn from SOs"
+                            class="btn-primary"/>
+                </header>
+                <field name="platform"/>
+                <field name="shop_name"/>
+                <field name="company_id"/>
+                <field name="auto_learned" widget="boolean_toggle"/>
+                <field name="last_seen_so_count" optional="hide"/>
+                <field name="note" optional="show"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_shop_company_map" model="ir.actions.act_window">
+        <field name="name">Shop → Company Mapping</field>
+        <field name="res_model">wms.shop.company.map</field>
+        <field name="view_mode">list</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Map each marketplace shop to a company
+            </p>
+            <p>
+                Imports are routed to the company linked to the shop
+                in the file (e.g. <i>Shopee_DaengGiMeoRi</i>). Click
+                <b>Re-learn from SOs</b> to seed from existing sale.order
+                records, then edit any row manually — manually edited
+                rows are protected from cron overwrite.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_shop_company_map"
+              name="Shop → Company"
+              parent="kob_marketplace_import.menu_marketplace_import"
+              action="action_shop_company_map"
+              sequence="20"/>
+</odoo>

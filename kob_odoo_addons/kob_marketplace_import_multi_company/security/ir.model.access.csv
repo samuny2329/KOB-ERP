@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_shop_company_map_user,access_shop_company_map_user,model_wms_shop_company_map,base.group_user,1,0,0,0
+access_shop_company_map_manager,access_shop_company_map_manager,model_wms_shop_company_map,base.group_system,1,1,1,1

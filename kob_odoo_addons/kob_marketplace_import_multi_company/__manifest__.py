@@ -32,6 +32,9 @@ Extends `kob.marketplace.import.wizard` so that on import:
         "stock",
     ],
     "data": [
+        "security/ir.model.access.csv",
+        "data/cron.xml",
+        "views/shop_company_map_views.xml",
         "views/marketplace_import_wizard_views.xml",
     ],
     "installable": True,

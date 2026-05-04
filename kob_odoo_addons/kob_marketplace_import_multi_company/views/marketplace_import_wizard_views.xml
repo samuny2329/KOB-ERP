@@ -8,6 +8,7 @@
                ref="kob_marketplace_import.view_marketplace_import_wizard_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='company_id']" position="after">
+                <field name="route_by_shop_mapping"/>
                 <field name="enforce_product_company"/>
                 <field name="restrict_to_active_companies"
                        invisible="not enforce_product_company"/>
