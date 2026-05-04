@@ -230,6 +230,30 @@ class KobWmsUser(models.Model):
             return {'ok': False, 'reason': 'server_error', 'message': str(e)}
 
     @api.model
+    def list_active_workers(self):
+        """Return active workers for the mobile-app profile picker.
+
+        Sorted by role priority (admin/supervisor first), then name.
+        """
+        ROLE_ORDER = {
+            'admin': 0, 'supervisor': 1, 'coordinator': 2,
+            'picker': 3, 'packer': 4, 'outbound': 5, 'viewer': 6,
+        }
+        users = self.sudo().search([('is_active', '=', True), ('pin', '!=', False)])
+        result = []
+        for u in users:
+            result.append({
+                'id': u.id,
+                'name': u.name or '',
+                'username': u.username or '',
+                'role': u.role or '',
+                'position': u.position or '',
+                'initial': (u.name or '?')[:1].upper(),
+            })
+        result.sort(key=lambda r: (ROLE_ORDER.get(r['role'], 99), r['name'].lower()))
+        return result
+
+    @api.model
     def verify_pin(self, pin):
         """PIN-only login for handheld mobile app.
 

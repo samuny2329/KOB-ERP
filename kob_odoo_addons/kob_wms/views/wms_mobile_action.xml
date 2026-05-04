@@ -8,11 +8,11 @@
         <field name="target">fullscreen</field>
     </record>
 
-    <!-- Top-level menu under KOB WMS — opens the mobile app -->
+    <!-- Top-level app menu — appears in Welcome bento launcher with own icon -->
     <menuitem id="menu_wms_mobile_app"
-              name="📱 Mobile App"
-              parent="kob_wms.menu_kob_wms_root"
+              name="WMS Mobile"
               action="action_wms_mobile_app"
-              sequence="1"/>
+              sequence="11"
+              web_icon="kob_wms,static/description/icon_mobile.svg"/>
 
 </odoo>

@@ -181,6 +181,8 @@ Features
             # ── KOB WMS Mobile App (handheld/tablet/phone fullscreen) ─────────
             'kob_wms/static/src/js/wms_mobile/wms_mobile_app.scss',
             'kob_wms/static/src/js/wms_mobile/operations.js',
+            'kob_wms/static/src/js/wms_mobile/screens/profile_screen.js',
+            'kob_wms/static/src/js/wms_mobile/screens/profile_screen.xml',
             'kob_wms/static/src/js/wms_mobile/screens/login_screen.js',
             'kob_wms/static/src/js/wms_mobile/screens/login_screen.xml',
             'kob_wms/static/src/js/wms_mobile/screens/home_screen.js',
