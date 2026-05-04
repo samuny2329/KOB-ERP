@@ -38,6 +38,11 @@ class EmployeeCreate(_Base):
     hire_date: date | None = None
     warehouse_id: int | None = None
     user_id: int | None = None
+    company_id: int | None = None
+    manager_id: int | None = None
+    job_position_id: int | None = None
+    sso_number: str | None = None
+    provident_fund_id: int | None = None
 
 
 class EmployeeRead(_Base):
@@ -52,6 +57,11 @@ class EmployeeRead(_Base):
     job_title: str | None
     hire_date: date | None
     active: bool
+    company_id: int | None
+    manager_id: int | None
+    job_position_id: int | None
+    sso_number: str | None
+    provident_fund_id: int | None
 
 
 class AttendanceCreate(_Base):
@@ -158,4 +168,10 @@ class PayslipRead(_Base):
     total_allowances: float
     total_deductions: float
     net_salary: float
+    sso_employee: float
+    sso_employer: float
+    provident_fund_employee: float
+    provident_fund_employer: float
+    income_tax: float
+    net_after_tax: float
     lines: list[PayslipLineRead] = []

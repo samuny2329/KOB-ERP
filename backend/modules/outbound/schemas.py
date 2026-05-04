@@ -84,6 +84,7 @@ class OrderLineCreate(BaseModel):
     lot_id: int | None = None
     sku: str | None = None
     description: str | None = None
+    location_hint: str | None = None
 
 
 class OrderLineRead(_ORM):
@@ -96,6 +97,41 @@ class OrderLineRead(_ORM):
     qty_packed: float
     sku: str | None = None
     description: str | None = None
+    location_hint: str | None = None
+    pick_confirmed_at: datetime | None = None
+    pick_confirmed_by: int | None = None
+    picker_note: str | None = None
+
+
+class PickTaskItem(BaseModel):
+    """Digital pick task for a single order line — displayed on picker's device."""
+    line_id: int
+    product_id: int
+    sku: str | None
+    description: str | None
+    location_hint: str | None
+    qty_expected: float
+    qty_picked: float
+    confirmed: bool
+
+
+class PickTaskList(BaseModel):
+    order_id: int
+    order_ref: str
+    state: str
+    picker_id: int | None
+    tasks: list[PickTaskItem]
+    total_lines: int
+    confirmed_lines: int
+
+
+class ConfirmPickLinePayload(BaseModel):
+    qty_picked: float
+    picker_note: str | None = None
+
+
+class StartPickPayload(BaseModel):
+    picker_id: int | None = None
 
 
 class OrderCreate(BaseModel):

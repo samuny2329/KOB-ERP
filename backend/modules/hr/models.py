@@ -62,6 +62,19 @@ class Employee(BaseModel):
     warehouse_id: Mapped[int | None] = mapped_column(
         BigInteger, ForeignKey("wms.warehouse.id", ondelete="SET NULL")
     )
+    company_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("grp.company.id", ondelete="SET NULL"), nullable=True
+    )
+    manager_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("hr.employee.id", ondelete="SET NULL"), nullable=True
+    )
+    job_position_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("hr.job_position.id", ondelete="SET NULL"), nullable=True
+    )
+    sso_number: Mapped[str | None] = mapped_column(String(20), nullable=True)
+    provident_fund_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("hr.provident_fund.id", ondelete="SET NULL"), nullable=True
+    )
 
     department: Mapped[Department | None] = relationship(
         Department,
@@ -193,6 +206,12 @@ class Payslip(BaseModel, WorkflowMixin):
     total_allowances: Mapped[float] = mapped_column(Numeric(14, 2), default=0)
     total_deductions: Mapped[float] = mapped_column(Numeric(14, 2), default=0)
     net_salary: Mapped[float] = mapped_column(Numeric(14, 2), default=0)
+    sso_employee: Mapped[float] = mapped_column(Numeric(10, 2), default=0, nullable=False)
+    sso_employer: Mapped[float] = mapped_column(Numeric(10, 2), default=0, nullable=False)
+    provident_fund_employee: Mapped[float] = mapped_column(Numeric(10, 2), default=0, nullable=False)
+    provident_fund_employer: Mapped[float] = mapped_column(Numeric(10, 2), default=0, nullable=False)
+    income_tax: Mapped[float] = mapped_column(Numeric(10, 2), default=0, nullable=False)
+    net_after_tax: Mapped[float] = mapped_column(Numeric(14, 2), default=0, nullable=False)
     paid_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     notes: Mapped[str | None] = mapped_column(Text)
 

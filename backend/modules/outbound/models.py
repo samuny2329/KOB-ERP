@@ -109,6 +109,12 @@ class OrderLine(BaseModel):
     qty_packed: Mapped[float] = mapped_column(Numeric(16, 4), nullable=False, default=0)
     sku: Mapped[str | None] = mapped_column(String(60), nullable=True)
     description: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    location_hint: Mapped[str | None] = mapped_column(String(80), nullable=True)
+    pick_confirmed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    pick_confirmed_by: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("core.user.id", ondelete="SET NULL"), nullable=True
+    )
+    picker_note: Mapped[str | None] = mapped_column(String(240), nullable=True)
 
     order: Mapped[Order] = relationship(back_populates="lines")
     product: Mapped[Product] = relationship()

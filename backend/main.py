@@ -20,6 +20,8 @@ from backend.modules.inventory.routes_advanced import router as inventory_advanc
 from backend.modules.inventory.routes_count import router as inventory_counts_router
 from backend.modules.mfg.routes import router as mfg_router
 from backend.modules.mfg.routes_advanced import router as mfg_advanced_router
+from backend.modules.accounting.routes_advanced import router as accounting_advanced_router
+from backend.modules.hr.routes_advanced import router as hr_advanced_router
 from backend.modules.group.routes import router as group_router
 from backend.modules.ops.routes import router as ops_router
 from backend.modules.outbound.routes import router as outbound_router
@@ -95,7 +97,9 @@ def create_app() -> FastAPI:
     app.include_router(sales_advanced_router, prefix="/api/v1")
     app.include_router(group_router, prefix="/api/v1")
     app.include_router(accounting_router, prefix="/api/v1")
+    app.include_router(accounting_advanced_router, prefix="/api/v1")
     app.include_router(hr_router, prefix="/api/v1")
+    app.include_router(hr_advanced_router, prefix="/api/v1")
 
     return app
 

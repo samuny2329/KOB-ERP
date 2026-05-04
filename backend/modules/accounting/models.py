@@ -36,6 +36,10 @@ class Account(BaseModel):
     active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
     reconcilable: Mapped[bool] = mapped_column(Boolean, default=False)
     notes: Mapped[str | None] = mapped_column(Text)
+    company_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("grp.company.id", ondelete="SET NULL"), nullable=True
+    )
+    analytic_tag: Mapped[str | None] = mapped_column(String(40), nullable=True)
 
     children: Mapped[list["Account"]] = relationship(
         "Account", foreign_keys=[parent_id], lazy="select"
@@ -71,6 +75,12 @@ class JournalEntry(BaseModel, WorkflowMixin):
     __tablename__ = "journal_entry"
     __table_args__ = ({"schema": "accounting"},)
 
+    allowed_transitions: dict = {
+        "draft": {"posted", "cancelled"},
+        "posted": {"cancelled"},
+        "cancelled": set(),
+    }
+
     number: Mapped[str] = mapped_column(String(60), unique=True, nullable=False)
     journal_id: Mapped[int] = mapped_column(
         BigInteger, ForeignKey("accounting.journal.id", ondelete="RESTRICT"), nullable=False
@@ -82,6 +92,12 @@ class JournalEntry(BaseModel, WorkflowMixin):
     posted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     source_model: Mapped[str | None] = mapped_column(String(80))
     source_id: Mapped[int | None] = mapped_column(BigInteger)
+    company_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("grp.company.id", ondelete="SET NULL"), nullable=True
+    )
+    fiscal_year_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("accounting.fiscal_year.id", ondelete="SET NULL"), nullable=True
+    )
 
     journal: Mapped[Journal] = relationship(back_populates="entries", lazy="select")
     lines: Mapped[list["JournalEntryLine"]] = relationship(
@@ -108,6 +124,9 @@ class JournalEntryLine(BaseModel):
     partner_type: Mapped[str | None] = mapped_column(String(20))
     partner_id: Mapped[int | None] = mapped_column(BigInteger)
     reconciled: Mapped[bool] = mapped_column(Boolean, default=False)
+    analytic_account_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("accounting.analytic_account.id", ondelete="SET NULL"), nullable=True
+    )
 
     entry: Mapped[JournalEntry] = relationship(back_populates="lines", lazy="select")
     account: Mapped[Account] = relationship(lazy="select")
