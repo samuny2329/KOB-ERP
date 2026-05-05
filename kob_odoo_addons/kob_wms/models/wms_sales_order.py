@@ -102,6 +102,19 @@ class WmsSalesOrder(models.Model):
                                        store=True, readonly=True,
                                        help='Date the sale order was placed '
                                             '(date_order on linked SO).')
+    # What WMS list views render in their "Order" column. Falls back to
+    # the internal sequence ``name`` when no sale.order is linked
+    # (manual / POS-originated rows).
+    display_order_name = fields.Char(
+        string='Order',
+        compute='_compute_display_order_name',
+        store=True, index=True,
+    )
+
+    @api.depends('so_name', 'name')
+    def _compute_display_order_name(self):
+        for rec in self:
+            rec.display_order_name = rec.so_name or rec.name or ''
     picking_id = fields.Many2one('stock.picking', string='Delivery Order',
                                  tracking=True, ondelete='set null')
 

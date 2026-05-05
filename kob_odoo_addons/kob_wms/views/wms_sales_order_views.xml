@@ -10,8 +10,9 @@
                   decoration-primary="status == 'packing'"
                   decoration-success="status == 'shipped'"
                   decoration-muted="status == 'cancelled'">
-                <field name="name"/>
-                <field name="ref"/>
+                <field name="display_order_name" string="Order"/>
+                <field name="name" string="WMS Ref" optional="hide"/>
+                <field name="ref" string="Platform Ref"/>
                 <field name="platform" widget="badge"/>
                 <field name="customer"/>
                 <field name="courier_id"/>
@@ -401,7 +402,8 @@ action = report.report_action(records)
                   decoration-warning="sla_status == 'at_risk'"
                   decoration-danger="sla_status == 'breached'"
                   decoration-info="status == 'picking'">
-                <field name="name"           string="Order"/>
+                <field name="display_order_name" string="Order"/>
+                <field name="name"           string="WMS Ref" optional="hide"/>
                 <field name="ref"            string="Platform Ref" optional="show"/>
                 <field name="customer"/>
                 <field name="platform"       widget="badge"/>
@@ -427,7 +429,8 @@ action = report.report_action(records)
                   decoration-warning="sla_status == 'at_risk'"
                   decoration-danger="sla_status == 'breached'"
                   decoration-info="status == 'packing'">
-                <field name="name"           string="Order"/>
+                <field name="display_order_name" string="Order"/>
+                <field name="name"           string="WMS Ref" optional="hide"/>
                 <field name="ref"            string="Platform Ref" optional="show"/>
                 <field name="customer"/>
                 <field name="platform"       widget="badge"/>
@@ -453,7 +456,8 @@ action = report.report_action(records)
         <field name="arch" type="xml">
             <list string="Outbound Queue" js_class="wms_outbound_list"
                   decoration-success="status == 'shipped'">
-                <field name="name"           string="Order"/>
+                <field name="display_order_name" string="Order"/>
+                <field name="name"           string="WMS Ref" optional="hide"/>
                 <field name="ref"            string="Platform Ref" optional="show"/>
                 <field name="customer"/>
                 <field name="courier_id"     string="Courier"/>
@@ -478,7 +482,8 @@ action = report.report_action(records)
         <field name="arch" type="xml">
             <list string="Dispatch Queue" js_class="wms_list"
                   decoration-success="status == 'dispatched'">
-                <field name="name"       string="Order"/>
+                <field name="display_order_name" string="Order"/>
+                <field name="name"       string="WMS Ref" optional="hide"/>
                 <field name="customer"/>
                 <field name="courier_id" string="Courier"/>
                 <field name="awb"        string="AWB"/>
