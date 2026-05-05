@@ -90,6 +90,13 @@ class WmsSalesOrder(models.Model):
     # --- Core Odoo integration ---
     sale_order_id = fields.Many2one('sale.order', string='Sale Order',
                                     tracking=True, ondelete='set null')
+    # Sale order's display name — what the WMS Pick/Pack/Outbound queue
+    # tables show in the "Order" column (instead of the internal
+    # ``wms.sales.order.name`` sequence). Falls back to the WMS sequence
+    # when there's no linked sale.order (manual/POS originated rows).
+    so_name = fields.Char(string='Sale Order Number',
+                          related='sale_order_id.name',
+                          store=True, readonly=True)
     picking_id = fields.Many2one('stock.picking', string='Delivery Order',
                                  tracking=True, ondelete='set null')
 
