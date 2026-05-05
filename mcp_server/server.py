@@ -247,5 +247,15 @@ async def verify_audit_chain() -> str:
     return json.dumps(data, ensure_ascii=False, indent=2)
 
 
+from mcp_server.obsidian_deepseek import register_obsidian_tools
+from mcp_server.subagent import register_subagent_tools
+from mcp_server.deepseek_agent import register_deepseek_agent_tools
+from mcp_server.power_tools import register_power_tools
+
+register_obsidian_tools(mcp)
+register_subagent_tools(mcp)
+register_deepseek_agent_tools(mcp)
+register_power_tools(mcp)
+
 if __name__ == "__main__":
     mcp.run()
