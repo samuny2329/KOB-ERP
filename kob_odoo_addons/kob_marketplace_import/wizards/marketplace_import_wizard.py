@@ -192,10 +192,25 @@ class MarketplaceImportWizard(models.TransientModel):
     )
     log = fields.Text(readonly=True)
     sale_order_ids = fields.Many2many("sale.order", readonly=True)
+    duplicate_order_ids = fields.Many2many(
+        "sale.order", "kob_mp_import_dup_rel", "wiz_id", "so_id",
+        readonly=True, string="Duplicate Sale Orders",
+        help="Existing SOs that matched an imported order_sn — skipped.",
+    )
     progress_total = fields.Integer(readonly=True, default=0)
     progress_done = fields.Integer(readonly=True, default=0)
     progress_pct = fields.Integer(readonly=True, default=0,
                                    help="Percent of orders processed.")
+    imported_count = fields.Integer(readonly=True, default=0,
+                                     string="Imported")
+    duplicate_count = fields.Integer(readonly=True, default=0,
+                                      string="Duplicates Skipped")
+    unresolved_count = fields.Integer(readonly=True, default=0,
+                                       string="Unresolved Skipped")
+    duplicate_summary = fields.Text(readonly=True,
+                                     string="Duplicate Details",
+                                     help="One line per skipped duplicate "
+                                          "with the existing SO it matched.")
 
     # ── Parsing ────────────────────────────────────────────────────
     @staticmethod
@@ -603,10 +618,18 @@ class MarketplaceImportWizard(models.TransientModel):
             "progress_total": total,
             "progress_done": 0,
             "progress_pct": 0,
+            "imported_count": 0,
+            "duplicate_count": 0,
+            "unresolved_count": 0,
         })
         self.env.cr.commit()
         self._notify_progress(0, total, "Starting…")
         completed = 0
+        imported_n = 0
+        duplicate_n = 0
+        unresolved_n = 0
+        duplicate_so_ids = []
+        duplicate_lines = []  # detailed log for duplicate_summary field
 
         # Cache partner per platform to avoid repeated searches.
         partner_cache = {}
@@ -632,11 +655,39 @@ class MarketplaceImportWizard(models.TransientModel):
             return s
 
         for (platform, order_sn), lines in by_order.items():
-            existing = SaleOrder.search([("client_order_ref", "=", order_sn)],
-                                        limit=1)
+            # Robust duplicate check: match either client_order_ref OR
+            # name (marketplace import sets SO.name = order_sn too).
+            existing = SaleOrder.search([
+                "|",
+                ("client_order_ref", "=", order_sn),
+                ("name", "=", order_sn),
+            ], limit=1)
             if existing:
+                duplicate_n += 1
+                duplicate_so_ids.append(existing.id)
+                detail = (
+                    f"{order_sn}  →  existing SO {existing.name} "
+                    f"(state={existing.state}, "
+                    f"date={existing.date_order and existing.date_order.strftime('%Y-%m-%d') or '—'}, "
+                    f"customer={existing.partner_id.name or '—'})"
+                )
+                duplicate_lines.append(detail)
                 log_lines.append(f"SKIP {order_sn} — already imported "
                                  f"({existing.name})")
+                # Still count toward progress so the bar reaches 100%.
+                completed += 1
+                pct = int(completed * 100 / total) if total else 100
+                self.write({
+                    "progress_done": completed,
+                    "progress_pct": pct,
+                    "duplicate_count": duplicate_n,
+                })
+                if completed % 5 == 0 or completed == total:
+                    self.env.cr.commit()
+                self._notify_progress(
+                    completed, total,
+                    f"Skipped duplicate {order_sn}",
+                )
                 continue
 
             partner = _partner_for(platform)
@@ -677,7 +728,21 @@ class MarketplaceImportWizard(models.TransientModel):
                 order_lines_vals.append((0, 0, vals))
 
             if not order_lines_vals:
+                unresolved_n += 1
                 log_lines.append(f"SKIP {order_sn} — all lines unresolved")
+                completed += 1
+                pct = int(completed * 100 / total) if total else 100
+                self.write({
+                    "progress_done": completed,
+                    "progress_pct": pct,
+                    "unresolved_count": unresolved_n,
+                })
+                if completed % 5 == 0 or completed == total:
+                    self.env.cr.commit()
+                self._notify_progress(
+                    completed, total,
+                    f"Skipped (unresolved) {order_sn}",
+                )
                 continue
 
             # FBS auto-routing: if order_sn ends with "-FBS", route to the
@@ -785,26 +850,58 @@ class MarketplaceImportWizard(models.TransientModel):
 
             # ── Per-order progress: update + commit + notify ─────────
             completed += 1
+            imported_n += 1
             pct = int(completed * 100 / total) if total else 100
             self.write({
                 "progress_done": completed,
                 "progress_pct": pct,
+                "imported_count": imported_n,
             })
             # Commit every 5 orders (or last) so a refresh shows progress
             # and a crash doesn't lose imported orders. Notify on every
             # order so the user sees a live toast counter.
             if completed % 5 == 0 or completed == total:
                 self.env.cr.commit()
-            self._notify_progress(completed, total, order_sn)
+            self._notify_progress(completed, total,
+                                   f"Imported {order_sn}")
 
+        # ── Final summary write ───────────────────────────────────────
+        dup_summary = (
+            "\n".join(duplicate_lines) if duplicate_lines
+            else _("No duplicates in this batch — every order_sn was new.")
+        )
         self.write({
-            "state":          "done",
-            "log":            "\n".join(log_lines),
-            "sale_order_ids": [(6, 0, sales.ids)],
-            "progress_pct":   100,
+            "state":            "done",
+            "log":              "\n".join(log_lines),
+            "sale_order_ids":   [(6, 0, sales.ids)],
+            "duplicate_order_ids": [(6, 0, list(set(duplicate_so_ids)))],
+            "duplicate_summary":   dup_summary,
+            "progress_pct":     100,
+            "imported_count":   imported_n,
+            "duplicate_count":  duplicate_n,
+            "unresolved_count": unresolved_n,
         })
         self.env.cr.commit()
-        self._notify_progress(total, total, "Complete")
+
+        # Final summary toast — non-sticky, with breakdown.
+        try:
+            summary_msg = _(
+                "Import complete: %(ok)s new, %(dup)s duplicates skipped, "
+                "%(unres)s unresolved (total %(tot)s).",
+                ok=imported_n, dup=duplicate_n, unres=unresolved_n, tot=total,
+            )
+            self.env["bus.bus"]._sendone(
+                self.env.user.partner_id,
+                "simple_notification",
+                {
+                    "title": _("Marketplace Import — Done"),
+                    "message": summary_msg,
+                    "sticky": True,
+                    "type": "warning" if duplicate_n or unresolved_n else "success",
+                },
+            )
+        except Exception as e:
+            _logger.debug("final summary notify skipped: %s", e)
         return {
             "type": "ir.actions.act_window",
             "res_model": self._name,
@@ -822,4 +919,15 @@ class MarketplaceImportWizard(models.TransientModel):
             "res_model": "sale.order",
             "view_mode": "list,form",
             "domain": [("id", "in", self.sale_order_ids.ids)],
+        }
+
+    def action_open_duplicates(self):
+        """Open the SOs that were skipped because they already existed."""
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": _("Skipped (Already Imported)"),
+            "res_model": "sale.order",
+            "view_mode": "list,form",
+            "domain": [("id", "in", self.duplicate_order_ids.ids)],
         }
