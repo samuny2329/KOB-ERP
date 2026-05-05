@@ -98,6 +98,34 @@ class WmsCountSession(models.Model):
     abc_based = fields.Boolean(string='ABC Based',
                                help='Auto-generate tasks based on order volume (ABC classification)')
 
+    # Per-rank counters — surfaced in the Count Sessions list so users see
+    # at a glance how the sample broke down across A/B/C buckets.
+    task_count_a = fields.Integer(string='A Tasks',
+                                   compute='_compute_abc_task_counts',
+                                   store=True)
+    task_count_b = fields.Integer(string='B Tasks',
+                                   compute='_compute_abc_task_counts',
+                                   store=True)
+    task_count_c = fields.Integer(string='C Tasks',
+                                   compute='_compute_abc_task_counts',
+                                   store=True)
+
+    @api.depends('task_ids.abc_label')
+    def _compute_abc_task_counts(self):
+        for sess in self:
+            a = b = c = 0
+            for t in sess.task_ids:
+                lbl = (t.abc_label or '').strip()
+                if lbl.startswith('[A]'):
+                    a += 1
+                elif lbl.startswith('[B]'):
+                    b += 1
+                elif lbl.startswith('[C]'):
+                    c += 1
+            sess.task_count_a = a
+            sess.task_count_b = b
+            sess.task_count_c = c
+
     # ── ABC sample sizes per rank ──────────────────────────────────────────
     # A (fast movers)  : sample 30% of yesterday's A movers, max 5 tasks
     # B (medium movers): sample 20% of yesterday's B movers, max 3 tasks

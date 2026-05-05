@@ -84,24 +84,37 @@ class WmsCountSessionAuto(models.Model):
         )
         return session
 
-    def _generate_location_tasks(self, session):
-        """Fallback when ABC produces no tasks.
+    # ── Fallback ABC sample sizes (when sales-data ABC yields nothing) ──
+    # Stock-based ABC ranks each (loc, product) by ON-HAND qty.  Sample
+    # caps are bigger than the sales-based version because this branch
+    # only fires when there are no recent orders to drive the smaller
+    # daily sample — so we still want SOME coverage but never thousands.
+    _STOCK_ABC_SAMPLE = {
+        'A': {'pct': 0.20, 'max': 30},   # top 20% of products by qty
+        'B': {'pct': 0.10, 'max': 20},   # next 30%
+        'C': {'pct': 0.05, 'max': 10},   # bottom 50%
+    }
 
-        Creates one task per **(location, product)** pair from on-hand
-        stock — same shape as ABC tasks (specific SKU + expected_qty
-        pre-filled from stock_quant). Without this, workers got blank
-        ``[LOC] <location>`` rows with 0 expected qty and nothing to
-        count, defeating the purpose of cycle count.
+    def _generate_location_tasks(self, session):
+        """Fallback when sales-based ABC produces no tasks.
+
+        Builds (location, product) pairs from on-hand stock, ranks them
+        A/B/C by total on-hand qty per product (top 20% / next 30% /
+        rest = A/B/C), then takes a **weighted random sample** per rank
+        so a typical session ends up with at most ~60 tasks instead of
+        the entire warehouse (which is what produced the 11,994-task
+        sessions seen in the wild).
         """
+        import math
+        import random
+
         warehouse = session.warehouse_id
         domain = [('usage', '=', 'internal')]
         if warehouse:
-            # Restrict to locations under this warehouse's view location
             parent = warehouse.lot_stock_id.location_id
             if parent:
                 domain += [('id', 'child_of', parent.id)]
 
-        # Pull all on-hand quants in matching locations in one query
         locations = self.env['stock.location'].search(domain)
         if not locations:
             return
@@ -110,28 +123,85 @@ class WmsCountSessionAuto(models.Model):
             ('quantity', '>', 0),
             ('product_id', '!=', False),
         ])
+        if not quants:
+            return
 
-        Task = self.env['wms.count.task']
-        created = 0
-        # Aggregate by (location, product) — sum lots so one task covers
-        # the whole pickface bin per SKU.
+        # Aggregate qty per (location, product) — this is the candidate
+        # pool we'll sample from.
         bucket = {}
         for q in quants:
             key = (q.location_id.id, q.product_id.id)
-            bucket.setdefault(key, 0.0)
-            bucket[key] += q.quantity
+            bucket[key] = bucket.get(key, 0.0) + q.quantity
 
-        for (loc_id, product_id), expected in bucket.items():
+        # Per-product total qty (across all locations) → ABC rank.
+        per_product = {}
+        for (_loc, pid), qty in bucket.items():
+            per_product[pid] = per_product.get(pid, 0.0) + qty
+
+        ranked = sorted(per_product.items(), key=lambda x: x[1], reverse=True)
+        n_products = len(ranked)
+        a_cut = max(1, int(n_products * 0.20))
+        b_cut = max(a_cut + 1, int(n_products * 0.50))
+        rank_map = {}
+        for i, (pid, _q) in enumerate(ranked):
+            rank_map[pid] = 'A' if i < a_cut else ('B' if i < b_cut else 'C')
+
+        # Group bucket entries by ABC rank — each entry = (loc, pid, qty).
+        by_rank = {'A': [], 'B': [], 'C': []}
+        for (loc_id, pid), qty in bucket.items():
+            r = rank_map[pid]
+            by_rank[r].append((loc_id, pid, float(qty)))
+
+        # Cycle count: skip C (count C only in full counts).
+        if session.session_type == 'cycle':
+            by_rank['C'] = []
+
+        # Weighted random sample per rank (weight = qty).
+        chosen = []
+        for r, items in by_rank.items():
+            if not items:
+                continue
+            cfg = self._STOCK_ABC_SAMPLE[r]
+            n = min(cfg['max'], max(1, math.ceil(len(items) * cfg['pct'])))
+            n = min(n, len(items))
+            # Weighted sample without replacement
+            pool = list(items)
+            for _ in range(n):
+                if not pool:
+                    break
+                total_w = sum(w for _, _, w in pool)
+                pick = random.uniform(0, total_w)
+                acc = 0.0
+                for idx, (loc, pid, w) in enumerate(pool):
+                    acc += w
+                    if acc >= pick:
+                        chosen.append((loc, pid, w, r))
+                        pool.pop(idx)
+                        break
+
+        Task = self.env['wms.count.task']
+        a_n = b_n = c_n = 0
+        for loc_id, pid, expected, rank in chosen:
+            product = self.env['product.product'].browse(pid)
             Task.create({
                 'session_id': session.id,
                 'location_id': loc_id,
-                'product_id': product_id,
+                'product_id': pid,
                 'expected_qty': expected,
-                # name is auto-assigned via ir.sequence (CT/YYYY/####)
+                'abc_label': _('[%s] Count %s') % (
+                    rank, product.default_code or str(pid)),
             })
-            created += 1
+            if rank == 'A': a_n += 1
+            elif rank == 'B': b_n += 1
+            else: c_n += 1
 
+        session.message_post(body=_(
+            'Stock-based ABC fallback: %d tasks — A=%d, B=%d, C=%d '
+            '(sampled from %d candidate (loc,product) pairs across '
+            '%d distinct products)'
+        ) % (len(chosen), a_n, b_n, c_n, len(bucket), n_products))
         _logger.info(
-            'Auto cycle count fallback: created %d (loc,product) task(s) '
-            'for %s.', created, session.name,
+            'Auto cycle count fallback: created %d task(s) for %s '
+            '(A=%d B=%d C=%d, from %d candidates).',
+            len(chosen), session.name, a_n, b_n, c_n, len(bucket),
         )

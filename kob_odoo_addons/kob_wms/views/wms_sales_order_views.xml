@@ -404,6 +404,7 @@ action = report.report_action(records)
                   decoration-info="status == 'picking'">
                 <field name="display_order_name" string="Order"/>
                 <field name="name"           string="WMS Ref" optional="hide"/>
+                <field name="sale_order_date" string="Order Date" widget="datetime"/>
                 <field name="ref"            string="Platform Ref" optional="show"/>
                 <field name="customer"/>
                 <field name="platform"       widget="badge"/>
@@ -431,6 +432,7 @@ action = report.report_action(records)
                   decoration-info="status == 'packing'">
                 <field name="display_order_name" string="Order"/>
                 <field name="name"           string="WMS Ref" optional="hide"/>
+                <field name="sale_order_date" string="Order Date" widget="datetime"/>
                 <field name="ref"            string="Platform Ref" optional="show"/>
                 <field name="customer"/>
                 <field name="platform"       widget="badge"/>
@@ -458,6 +460,7 @@ action = report.report_action(records)
                   decoration-success="status == 'shipped'">
                 <field name="display_order_name" string="Order"/>
                 <field name="name"           string="WMS Ref" optional="hide"/>
+                <field name="sale_order_date" string="Order Date" widget="datetime"/>
                 <field name="ref"            string="Platform Ref" optional="show"/>
                 <field name="customer"/>
                 <field name="courier_id"     string="Courier"/>
@@ -484,10 +487,11 @@ action = report.report_action(records)
                   decoration-success="status == 'dispatched'">
                 <field name="display_order_name" string="Order"/>
                 <field name="name"       string="WMS Ref" optional="hide"/>
+                <field name="sale_order_date" string="Order Date" widget="datetime"/>
                 <field name="customer"/>
                 <field name="courier_id" string="Courier"/>
                 <field name="awb"        string="AWB"/>
-                <field name="shipped_at" optional="show"/>
+                <field name="shipped_at" widget="datetime" optional="show"/>
                 <field name="status"     widget="badge"
                        decoration-warning="status == 'shipped'"
                        decoration-success="status == 'dispatched'"/>
