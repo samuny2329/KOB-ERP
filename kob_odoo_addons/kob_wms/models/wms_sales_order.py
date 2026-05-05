@@ -246,7 +246,7 @@ class WmsSalesOrder(models.Model):
             order.packed_total = sum(order.line_ids.mapped('packed_qty'))
             order.all_picked = (order.expected_total > 0
                                 and order.picked_total >= order.expected_total)
-            order.all_packed = (order.picked_total > 0
+            order.all_packed = (order.all_picked
                                 and order.packed_total >= order.picked_total)
 
     @api.depends('create_date', 'sla_start_at', 'picked_at', 'packed_at',
@@ -965,20 +965,12 @@ class WmsSalesOrder(models.Model):
                             ('active', '=', True),
                         ], order='volume_cm3 asc', limit=1)
                     if default_box:
-                        order.actual_box_id = default_box
                         order.box_barcode = default_box.code
 
                 if order.picking_id:
-                    try:
-                        order._validate_picking()
-                    except Exception as e:
-                        _logger.exception(
-                            "skip_pack ship: _validate_picking failed for %s",
-                            order.name,
-                        )
-                        return {'ok': False, 'error': _(
-                            "Stock validation failed for %s: %s"
-                        ) % (order.name, str(e)[:300])}
+                    stock_errors = order._validate_picking()
+                    if stock_errors:
+                        return {'ok': False, 'error': stock_errors[0]}
                 try:
                     order._auto_create_invoice()
                 except Exception as e:
