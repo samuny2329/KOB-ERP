@@ -930,6 +930,19 @@ class WmsSalesOrder(models.Model):
                     if (line.packed_qty or 0) < (line.picked_qty or 0):
                         line.packed_qty = line.picked_qty
 
+                # Auto-assign a default box (no manual selection) so reports
+                # have a box reference. Prefer suggested_box_id (volume-based);
+                # fallback to smallest active box; final fallback: leave blank.
+                if not order.actual_box_id:
+                    default_box = order.suggested_box_id
+                    if not default_box:
+                        default_box = self.env['wms.box.size'].search([
+                            ('active', '=', True),
+                        ], order='volume_cm3 asc', limit=1)
+                    if default_box:
+                        order.actual_box_id = default_box
+                        order.box_barcode = default_box.code
+
                 if order.picking_id:
                     try:
                         order._validate_picking()
@@ -953,7 +966,7 @@ class WmsSalesOrder(models.Model):
                 order.packed_at = fields.Datetime.now()
                 order._log_action('skip_pack', order.ref or order.name,
                                   note='Pack stage skipped — invoice + stock '
-                                       'handled at OUT (scanner unavailable)')
+                                       '+ auto-box handled at OUT')
 
             if order.status != 'packed':
                 return {'ok': False, 'error': _('Order %s is not packed.') % order.name}

@@ -187,10 +187,15 @@ class MarketplaceImportWizard(models.TransientModel):
 
     # Results
     state = fields.Selection(
-        [("draft", "Draft"), ("done", "Done")], default="draft",
+        [("draft", "Draft"), ("running", "Running"), ("done", "Done")],
+        default="draft",
     )
     log = fields.Text(readonly=True)
     sale_order_ids = fields.Many2many("sale.order", readonly=True)
+    progress_total = fields.Integer(readonly=True, default=0)
+    progress_done = fields.Integer(readonly=True, default=0)
+    progress_pct = fields.Integer(readonly=True, default=0,
+                                   help="Percent of orders processed.")
 
     # ── Parsing ────────────────────────────────────────────────────
     @staticmethod
@@ -515,6 +520,30 @@ class MarketplaceImportWizard(models.TransientModel):
                 self._detect_platform(att.name) or self.platform,
             )
 
+    def _notify_progress(self, done, total, last_label):
+        """Push a live toast to the current user's bus channel.
+
+        Frontend (web client) listens on the user partner channel and
+        shows a sticky toast — refreshed in-place each time we send.
+        """
+        try:
+            pct = int(done * 100 / total) if total else 100
+            msg = _("Marketplace Import: %(done)s / %(total)s "
+                    "(%(pct)s%%) — %(last)s",
+                    done=done, total=total, pct=pct, last=last_label)
+            self.env["bus.bus"]._sendone(
+                self.env.user.partner_id,
+                "simple_notification",
+                {
+                    "title": _("Marketplace Import"),
+                    "message": msg,
+                    "sticky": done < total,
+                    "type": "info",
+                },
+            )
+        except Exception as e:
+            _logger.debug("progress notify skipped: %s", e)
+
     def action_import(self):
         self.ensure_one()
         if not self.file_data and not self.attachment_ids:
@@ -555,9 +584,29 @@ class MarketplaceImportWizard(models.TransientModel):
             by_order.setdefault(key, []).append(r)
 
         fake_tag = self.env.ref("kob_marketplace_import.tag_fake_order")
+        # Beauty Vill product tag — products bearing it route to BTV-WH2 (Online).
+        btv_tag = self.env.ref(
+            "kob_marketplace_import.product_tag_beauty_vill",
+            raise_if_not_found=False,
+        )
+        btv_wh = self.env["stock.warehouse"].search(
+            [("code", "=", "B-On")], limit=1,
+        ) if btv_tag else self.env["stock.warehouse"]
         SaleOrder = self.env["sale.order"].with_company(self.company_id)
         log_lines = list(per_file_log)
         sales = self.env["sale.order"]
+
+        # ── Progress tracking ─────────────────────────────────────────
+        total = len(by_order)
+        self.write({
+            "state": "running",
+            "progress_total": total,
+            "progress_done": 0,
+            "progress_pct": 0,
+        })
+        self.env.cr.commit()
+        self._notify_progress(0, total, "Starting…")
+        completed = 0
 
         # Cache partner per platform to avoid repeated searches.
         partner_cache = {}
@@ -644,6 +693,24 @@ class MarketplaceImportWizard(models.TransientModel):
                 if shopee_wh:
                     target_wh = shopee_wh
 
+            # Beauty Vill tag → BTV-WH2 (Online) + BTV company. Wins over
+            # warehouse_id but yields to FBS routing above. Swapping the
+            # company keeps SO.company_id == warehouse.company_id so create
+            # passes the cross-company validation.
+            so_company_id = self.company_id.id
+            if (btv_tag and btv_wh
+                and not (platform == "shopee"
+                         and order_sn.upper().endswith("-FBS"))):
+                line_products = self.env["product.product"].browse(
+                    [v[2]["product_id"] for v in order_lines_vals
+                     if v and v[2] and v[2].get("product_id")]
+                )
+                if any(btv_tag.id in p.product_tag_ids.ids
+                       or btv_tag.id in p.product_tmpl_id.product_tag_ids.ids
+                       for p in line_products):
+                    target_wh = btv_wh
+                    so_company_id = btv_wh.company_id.id
+
             # Use the platform order number as the SO reference so the
             # operations team scans / searches the same identifier
             # everywhere (Excel, label, picking, accounting).  Odoo
@@ -656,7 +723,7 @@ class MarketplaceImportWizard(models.TransientModel):
                 "name":             so_name,
                 "partner_id":       partner.id,
                 "client_order_ref": order_sn,
-                "company_id":       self.company_id.id,
+                "company_id":       so_company_id,
                 "warehouse_id":     target_wh.id,
                 "date_order":       self._normalize_date(head["order_date"]),
                 "source_id":        source.id,
@@ -677,7 +744,13 @@ class MarketplaceImportWizard(models.TransientModel):
             )
             if emarket_team:
                 so_vals["team_id"] = emarket_team.id
-            so = SaleOrder.create(so_vals)
+            # Re-bind company context if the order was BTV-routed.
+            so_creator = (
+                self.env["sale.order"].with_company(so_company_id)
+                if so_company_id != self.company_id.id
+                else SaleOrder
+            )
+            so = so_creator.create(so_vals)
             sales |= so
             log_lines.append(f"OK   {order_sn} → {so.name} ({len(so.order_line)} lines)")
 
@@ -710,11 +783,28 @@ class MarketplaceImportWizard(models.TransientModel):
                                     picking.name, e,
                                 )
 
+            # ── Per-order progress: update + commit + notify ─────────
+            completed += 1
+            pct = int(completed * 100 / total) if total else 100
+            self.write({
+                "progress_done": completed,
+                "progress_pct": pct,
+            })
+            # Commit every 5 orders (or last) so a refresh shows progress
+            # and a crash doesn't lose imported orders. Notify on every
+            # order so the user sees a live toast counter.
+            if completed % 5 == 0 or completed == total:
+                self.env.cr.commit()
+            self._notify_progress(completed, total, order_sn)
+
         self.write({
             "state":          "done",
             "log":            "\n".join(log_lines),
             "sale_order_ids": [(6, 0, sales.ids)],
+            "progress_pct":   100,
         })
+        self.env.cr.commit()
+        self._notify_progress(total, total, "Complete")
         return {
             "type": "ir.actions.act_window",
             "res_model": self._name,

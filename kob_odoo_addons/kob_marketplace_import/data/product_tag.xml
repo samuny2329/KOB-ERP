@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Beauty Vill product tag — products bearing this tag will route
+         to the BTV-WH2 (Online) warehouse on marketplace import. -->
+    <record id="product_tag_beauty_vill" model="product.tag">
+        <field name="name">บิวตี้วิล</field>
+    </record>
+</odoo>
