@@ -218,6 +218,9 @@
         <field name="model">wms.count.session</field>
         <field name="arch" type="xml">
             <search string="Count Sessions">
+                <!-- display_name first = defensive against Odoo 19's
+                     Custom Filter "No field found" crash. -->
+                <field name="display_name" string="Reference"/>
                 <field name="name"/>
                 <field name="responsible_id"/>
                 <field name="warehouse_id"/>

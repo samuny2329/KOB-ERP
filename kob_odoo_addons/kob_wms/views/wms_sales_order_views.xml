@@ -285,7 +285,10 @@ action = report.report_action(records)
             <search>
                 <!-- ── Searchable text fields (Odoo Custom Filter editor
                      can only target fields declared here.  Adding more
-                     fields = more options in "Custom Filter…" dialog) -->
+                     fields = more options in "Custom Filter…" dialog)
+                     display_name FIRST = guarantees Odoo 19's domain
+                     editor finds a default-filterable path. -->
+                <field name="display_name" string="Reference / Label"/>
                 <field name="name" string="WMS Reference"
                        filter_domain="[('name','ilike',self)]"/>
                 <field name="so_name" string="Sale Order #"
