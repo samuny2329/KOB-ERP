@@ -97,6 +97,11 @@ class WmsSalesOrder(models.Model):
     so_name = fields.Char(string='Sale Order Number',
                           related='sale_order_id.name',
                           store=True, readonly=True)
+    sale_order_date = fields.Datetime(string='Order Date',
+                                       related='sale_order_id.date_order',
+                                       store=True, readonly=True,
+                                       help='Date the sale order was placed '
+                                            '(date_order on linked SO).')
     picking_id = fields.Many2one('stock.picking', string='Delivery Order',
                                  tracking=True, ondelete='set null')
 

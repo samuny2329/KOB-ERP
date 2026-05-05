@@ -282,22 +282,111 @@ action = report.report_action(records)
         <field name="model">wms.sales.order</field>
         <field name="arch" type="xml">
             <search>
-                <field name="name" string="Order / Barcode"
-                       filter_domain="['|',('name','ilike',self),('ref','ilike',self)]"/>
+                <!-- ── Searchable text fields (Odoo Custom Filter editor
+                     can only target fields declared here.  Adding more
+                     fields = more options in "Custom Filter…" dialog) -->
+                <field name="name" string="WMS Reference"
+                       filter_domain="[('name','ilike',self)]"/>
+                <field name="so_name" string="Sale Order #"
+                       filter_domain="[('so_name','ilike',self)]"/>
+                <field name="ref" string="Platform Ref / Barcode"
+                       filter_domain="[('ref','ilike',self)]"/>
                 <field name="customer"/>
+                <field name="awb" string="AWB / Tracking"/>
+                <field name="box_barcode" string="Box Barcode"/>
                 <field name="courier_id"/>
-                <filter string="SLA At Risk"   name="sla_risk"
+                <field name="kob_picker_id" string="Picker"/>
+                <field name="kob_packer_id" string="Packer"/>
+                <field name="sale_order_id" string="Sale Order"/>
+                <field name="picking_id" string="Delivery"/>
+
+                <!-- ── Quick status filters -->
+                <filter string="Pending"      name="st_pending"
+                        domain="[('status','=','pending')]"/>
+                <filter string="Picking"      name="st_picking"
+                        domain="[('status','=','picking')]"/>
+                <filter string="Picked"       name="st_picked"
+                        domain="[('status','=','picked')]"/>
+                <filter string="Packing"      name="st_packing"
+                        domain="[('status','=','packing')]"/>
+                <filter string="Packed"       name="st_packed"
+                        domain="[('status','=','packed')]"/>
+                <filter string="Shipped"      name="st_shipped"
+                        domain="[('status','=','shipped')]"/>
+                <filter string="Cancelled"    name="st_cancelled"
+                        domain="[('status','=','cancelled')]"/>
+                <separator/>
+                <!-- ── SLA filters -->
+                <filter string="SLA On Track" name="sla_on"
+                        domain="[('sla_status','=','on_track')]"/>
+                <filter string="SLA At Risk"  name="sla_risk"
                         domain="[('sla_status','=','at_risk')]"/>
-                <filter string="SLA Breached"  name="sla_breach"
+                <filter string="SLA Breached" name="sla_breach"
                         domain="[('sla_status','=','breached')]"/>
                 <separator/>
+                <!-- ── Mine -->
+                <filter string="My Picks"     name="my_picks"
+                        domain="[('kob_picker_id.res_user_id','=',uid)]"/>
+                <filter string="My Packs"     name="my_packs"
+                        domain="[('kob_packer_id.res_user_id','=',uid)]"/>
+                <separator/>
+                <!-- ── Channel -->
+                <filter string="Online (Shopee/Lazada/TikTok)" name="ch_online"
+                        domain="[('platform','in',['shopee','lazada','tiktok'])]"/>
+                <filter string="Offline (POS/Manual)"          name="ch_offline"
+                        domain="[('platform','in',['pos','manual','odoo'])]"/>
+                <separator/>
+                <!-- ── AWB -->
+                <filter string="Has AWB"      name="has_awb"
+                        domain="[('awb','!=',False)]"/>
+                <filter string="No AWB"       name="no_awb"
+                        domain="[('awb','=',False)]"/>
+                <separator/>
+                <!-- ── Date ranges (uses create_date as the canonical
+                     "order arrived in WMS" timestamp; sale_order_id.date_order
+                     is also exposed via Group By → Order Date below). -->
+                <filter string="Today"        name="d_today"
+                        domain="[('create_date','&gt;=',context_today().strftime('%Y-%m-%d 00:00:00')),
+                                  ('create_date','&lt;=',context_today().strftime('%Y-%m-%d 23:59:59'))]"/>
+                <filter string="Yesterday"    name="d_yesterday"
+                        domain="[('create_date','&gt;=',(context_today()+relativedelta(days=-1)).strftime('%Y-%m-%d 00:00:00')),
+                                  ('create_date','&lt;=',(context_today()+relativedelta(days=-1)).strftime('%Y-%m-%d 23:59:59'))]"/>
+                <filter string="Last 7 Days"  name="d_7d"
+                        domain="[('create_date','&gt;=',(context_today()+relativedelta(days=-7)).strftime('%Y-%m-%d 00:00:00'))]"/>
+                <filter string="Last 30 Days" name="d_30d"
+                        domain="[('create_date','&gt;=',(context_today()+relativedelta(days=-30)).strftime('%Y-%m-%d 00:00:00'))]"/>
+                <filter string="This Month"   name="d_this_month"
+                        domain="[('create_date','&gt;=',context_today().strftime('%Y-%m-01 00:00:00'))]"/>
+                <filter string="This Year"    name="d_this_year"
+                        domain="[('create_date','&gt;=',context_today().strftime('%Y-01-01 00:00:00'))]"/>
+
+                <!-- ── Group By options ───────────────────────────── -->
                 <group>
-                    <filter string="Platform" name="by_platform"
-                            context="{'group_by':'platform'}"/>
-                    <filter string="Courier"  name="by_courier"
-                            context="{'group_by':'courier_id'}"/>
-                    <filter string="Status"   name="by_status"
+                    <filter string="Status"       name="gb_status"
                             context="{'group_by':'status'}"/>
+                    <filter string="SLA Status"   name="gb_sla"
+                            context="{'group_by':'sla_status'}"/>
+                    <filter string="Platform"     name="gb_platform"
+                            context="{'group_by':'platform'}"/>
+                    <filter string="Courier"      name="gb_courier"
+                            context="{'group_by':'courier_id'}"/>
+                    <filter string="Customer"     name="gb_customer"
+                            context="{'group_by':'partner_id'}"/>
+                    <filter string="Picker"       name="gb_picker"
+                            context="{'group_by':'kob_picker_id'}"/>
+                    <filter string="Packer"       name="gb_packer"
+                            context="{'group_by':'kob_packer_id'}"/>
+                    <filter string="Company"      name="gb_company"
+                            context="{'group_by':'company_id'}"/>
+                    <separator/>
+                    <filter string="Order Date"   name="gb_order_date"
+                            context="{'group_by':'sale_order_date'}"/>
+                    <filter string="Created on"   name="gb_create_date"
+                            context="{'group_by':'create_date'}"/>
+                    <filter string="Last Updated" name="gb_write_date"
+                            context="{'group_by':'write_date'}"/>
+                    <filter string="Shipped At"   name="gb_shipped_at"
+                            context="{'group_by':'shipped_at'}"/>
                 </group>
             </search>
         </field>
