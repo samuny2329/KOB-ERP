@@ -561,6 +561,31 @@ class MarketplaceImportWizard(models.TransientModel):
 
     def action_import(self):
         self.ensure_one()
+        # ── Explicit company selection guard ────────────────────────
+        # Without this, env.company silently routed every BTV file into
+        # KOB. A required field on the model isn't enough — multi-company
+        # users may still trigger the wizard with the wrong env.company.
+        if not self.company_id:
+            raise UserError(_(
+                "⚠ ต้องเลือกบริษัทก่อน import\n\n"
+                "Please tick a Company before importing. The marketplace "
+                "import will create Sales Orders + Pickings under the "
+                "selected company. Choosing the wrong company moves all "
+                "stock movement and invoicing to the wrong books."
+            ))
+        if not self.warehouse_id:
+            raise UserError(_(
+                "⚠ ต้องเลือก Warehouse ของบริษัท %s ก่อน import"
+            ) % self.company_id.name)
+        if self.warehouse_id.company_id != self.company_id:
+            raise UserError(_(
+                "⚠ Warehouse %s อยู่ในบริษัท %s แต่คุณเลือกบริษัท %s — "
+                "ไม่ตรงกัน เลือก warehouse ใหม่ให้ตรงกับบริษัท"
+            ) % (
+                self.warehouse_id.name,
+                self.warehouse_id.company_id.name,
+                self.company_id.name,
+            ))
         if not self.file_data and not self.attachment_ids:
             raise UserError(_(
                 "Please upload at least one Excel/CSV file (single or "

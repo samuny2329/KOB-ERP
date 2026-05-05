@@ -12,7 +12,14 @@
                         <group invisible="state == 'done'">
                             <group>
                                 <field name="platform" widget="radio"/>
-                                <field name="company_id" groups="base.group_multi_company"/>
+                                <!-- Always visible: hiding this behind
+                                     base.group_multi_company caused every
+                                     import to be routed into env.company
+                                     (KOB) silently, so BTV imports never
+                                     created SOs in the BTV company. -->
+                                <field name="company_id"
+                                       options="{'no_create': True, 'no_open': True}"
+                                       required="1"/>
                                 <field name="warehouse_id"/>
                             </group>
                             <group>
