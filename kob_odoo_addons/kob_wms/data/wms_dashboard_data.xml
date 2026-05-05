@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo noupdate="0">
+<!-- noupdate="1": binary data ไม่ reload บน -u (known Odoo limitation)
+     ถ้าต้องการ reload ให้เปลี่ยน XML ID แล้ว upgrade ใหม่ -->
+<odoo noupdate="1">
 
     <record id="dashboard_group_kob_wms" model="spreadsheet.dashboard.group">
         <field name="name">KOB WMS</field>
         <field name="sequence">1</field>
     </record>
 
-    <!-- 1. WMS Overview — layout remapped from UAT Sales dashboard -->
-    <record id="dashboard_kob_wms_overview" model="spreadsheet.dashboard">
+    <!-- 1. WMS Overview — v2 (XML ID เปลี่ยนเพื่อบังคับ fresh load) -->
+    <record id="dashboard_kob_wms_overview_v2" model="spreadsheet.dashboard">
         <field name="name">WMS Overview</field>
         <field name="spreadsheet_binary_data"
                type="base64"
@@ -21,8 +23,8 @@
         <field name="sequence">10</field>
     </record>
 
-    <!-- 2. KPI Performance — wms.worker.performance + wms.kpi.target -->
-    <record id="dashboard_kob_wms_kpi" model="spreadsheet.dashboard">
+    <!-- 2. KPI Performance — v2 -->
+    <record id="dashboard_kob_wms_kpi_v2" model="spreadsheet.dashboard">
         <field name="name">KPI Performance</field>
         <field name="spreadsheet_binary_data"
                type="base64"
@@ -36,8 +38,8 @@
         <field name="sequence">20</field>
     </record>
 
-    <!-- 3. WMS Operations — count sessions, pickface, dispatch, cycle -->
-    <record id="dashboard_kob_wms_operations" model="spreadsheet.dashboard">
+    <!-- 3. WMS Operations — v2 -->
+    <record id="dashboard_kob_wms_operations_v2" model="spreadsheet.dashboard">
         <field name="name">WMS Operations</field>
         <field name="spreadsheet_binary_data"
                type="base64"
@@ -54,9 +56,8 @@
         <field name="sequence">30</field>
     </record>
 
-
-    <!-- 4. Count Adjustments — wms.count.adjustment variance tracking -->
-    <record id="dashboard_kob_wms_count_adj" model="spreadsheet.dashboard">
+    <!-- 4. Count Adjustments — v2 -->
+    <record id="dashboard_kob_wms_count_adj_v2" model="spreadsheet.dashboard">
         <field name="name">Count Adjustments</field>
         <field name="spreadsheet_binary_data"
                type="base64"
