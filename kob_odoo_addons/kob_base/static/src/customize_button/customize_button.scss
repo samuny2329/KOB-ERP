@@ -1,0 +1,25 @@
+.kob_customize_btn {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 0.25rem;
+
+    .kob_customize_trigger {
+        color: inherit;
+        text-decoration: none;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+        font-size: 0.875rem;
+        background-color: rgba(245, 158, 11, 0.18);
+        color: #fff;
+        border: 1px solid rgba(245, 158, 11, 0.4);
+
+        &:hover {
+            background-color: rgba(245, 158, 11, 0.35);
+            text-decoration: none;
+        }
+
+        i.fa {
+            color: #fbbf24;
+        }
+    }
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="kob_base.CustomizeButton">
+        <div class="kob_customize_btn" t-if="isDebug">
+            <Dropdown>
+                <button class="btn btn-link kob_customize_trigger"
+                        title="Customize this page (Debug)">
+                    <i class="fa fa-wrench"/>
+                    <span class="d-none d-md-inline ms-1">Customize</span>
+                </button>
+                <t t-set-slot="content">
+                    <DropdownItem onSelected.bind="onEditView">
+                        <i class="fa fa-eye me-2"/> Edit View
+                    </DropdownItem>
+                    <DropdownItem onSelected.bind="onEditSearchView">
+                        <i class="fa fa-search me-2"/> Edit Search View
+                    </DropdownItem>
+                    <DropdownItem onSelected.bind="onEditAction">
+                        <i class="fa fa-bolt me-2"/> Edit Action
+                    </DropdownItem>
+                    <DropdownItem onSelected.bind="onManageFilters">
+                        <i class="fa fa-filter me-2"/> Manage Filters
+                    </DropdownItem>
+                </t>
+            </Dropdown>
+        </div>
+    </t>
+
+</templates>

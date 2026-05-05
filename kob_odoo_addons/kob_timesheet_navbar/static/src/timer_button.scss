@@ -1,3 +1,16 @@
+// ── Visibility: Welcome page only ───────────────────────────────
+// The timer button is registered as a systray item so Odoo paints it
+// in every navbar.  The user only wants it on the Welcome screen.
+// .kob-welcome is the root class of the Welcome OWL component
+// (see kob_base/static/src/welcome/kob_welcome.xml).  The :has()
+// selector lets the systray item react to its presence/absence.
+.o_web_client .kob_timer_button {
+    display: none !important;
+}
+.o_web_client:has(.kob-welcome) .kob_timer_button {
+    display: inline-flex !important;
+}
+
 .kob_timer_button {
     display: inline-flex;
     align-items: center;

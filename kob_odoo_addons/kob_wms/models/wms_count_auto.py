@@ -85,7 +85,14 @@ class WmsCountSessionAuto(models.Model):
         return session
 
     def _generate_location_tasks(self, session):
-        """Fallback: one task per internal location that has on-hand stock."""
+        """Fallback when ABC produces no tasks.
+
+        Creates one task per **(location, product)** pair from on-hand
+        stock — same shape as ABC tasks (specific SKU + expected_qty
+        pre-filled from stock_quant). Without this, workers got blank
+        ``[LOC] <location>`` rows with 0 expected qty and nothing to
+        count, defeating the purpose of cycle count.
+        """
         warehouse = session.warehouse_id
         domain = [('usage', '=', 'internal')]
         if warehouse:
@@ -94,24 +101,37 @@ class WmsCountSessionAuto(models.Model):
             if parent:
                 domain += [('id', 'child_of', parent.id)]
 
+        # Pull all on-hand quants in matching locations in one query
         locations = self.env['stock.location'].search(domain)
+        if not locations:
+            return
+        quants = self.env['stock.quant'].search([
+            ('location_id', 'in', locations.ids),
+            ('quantity', '>', 0),
+            ('product_id', '!=', False),
+        ])
+
         Task = self.env['wms.count.task']
         created = 0
-        for loc in locations:
-            has_stock = self.env['stock.quant'].search_count([
-                ('location_id', '=', loc.id),
-                ('quantity', '>', 0),
-            ])
-            if not has_stock:
-                continue
+        # Aggregate by (location, product) — sum lots so one task covers
+        # the whole pickface bin per SKU.
+        bucket = {}
+        for q in quants:
+            key = (q.location_id.id, q.product_id.id)
+            bucket.setdefault(key, 0.0)
+            bucket[key] += q.quantity
+
+        for (loc_id, product_id), expected in bucket.items():
             Task.create({
                 'session_id': session.id,
-                'name': _('[LOC] %s') % (loc.display_name or loc.name),
-                'location_id': loc.id,
+                'location_id': loc_id,
+                'product_id': product_id,
+                'expected_qty': expected,
+                # name is auto-assigned via ir.sequence (CT/YYYY/####)
             })
             created += 1
 
         _logger.info(
-            'Auto cycle count fallback: created %d location task(s) for %s.',
-            created, session.name,
+            'Auto cycle count fallback: created %d (loc,product) task(s) '
+            'for %s.', created, session.name,
         )
