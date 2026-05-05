@@ -45,7 +45,7 @@ OPUS_SYSTEM = (
 # ── OpenRouter (Hermes 4) ─────────────────────────────────────────────────────
 
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
-DEFAULT_HERMES_MODEL = "nousresearch/hermes-3-llama-3.1-405b"
+DEFAULT_HERMES_MODEL = "meta-llama/llama-3.1-8b-instruct:free"
 
 HERMES_SYSTEM = (
     "You are Hermes, a highly capable assistant and KOB business analyst. "
