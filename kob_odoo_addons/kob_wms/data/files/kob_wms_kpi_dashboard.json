@@ -202,6 +202,7 @@
       "id": "gf_kpi_date",
       "type": "date",
       "label": "Date Range",
+      "operator": "between",
       "rangeType": "month",
       "defaultValue": {}
     },
@@ -210,6 +211,7 @@
       "type": "relation",
       "label": "Worker",
       "modelName": "res.users",
+      "operator": "in",
       "defaultValue": [],
       "defaultValueDisplayNames": []
     }

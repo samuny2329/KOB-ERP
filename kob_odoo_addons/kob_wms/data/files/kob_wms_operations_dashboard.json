@@ -191,6 +191,7 @@
       "id": "gf_ops_date",
       "type": "date",
       "label": "Date Range",
+      "operator": "between",
       "rangeType": "month",
       "defaultValue": {}
     }
