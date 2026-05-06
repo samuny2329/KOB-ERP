@@ -14,14 +14,14 @@
       "figures": [
         {
           "id": "op-bar-pick-dur",
-          "x": 18,
-          "y": 60,
+          "col": 0, "row": 0,
+          "offset": {"x": 18, "y": 18},
           "width": 475,
           "height": 340,
           "tag": "chart",
           "data": {
             "type": "odoo_bar",
-            "title": { "text": "Avg Pick Duration by Picker (min)" },
+            "title": {"text": "Avg Pick Duration by Picker (min)"},
             "background": "#FFFFFF",
             "legendPosition": "none",
             "metaData": {
@@ -39,10 +39,7 @@
               "orderBy": []
             },
             "fieldMatching": {
-              "gf_ops_date": {
-                "chain": "create_date",
-                "type": "datetime"
-              }
+              "gf_ops_date": {"chain": "create_date", "type": "datetime"}
             },
             "verticalAxisPosition": "left",
             "stacked": false
@@ -50,14 +47,14 @@
         },
         {
           "id": "op-bar-pack-dur",
-          "x": 503,
-          "y": 60,
+          "col": 0, "row": 0,
+          "offset": {"x": 511, "y": 18},
           "width": 465,
           "height": 340,
           "tag": "chart",
           "data": {
             "type": "odoo_bar",
-            "title": { "text": "Avg Pack Duration by Packer (min)" },
+            "title": {"text": "Avg Pack Duration by Packer (min)"},
             "background": "#FFFFFF",
             "legendPosition": "none",
             "metaData": {
@@ -75,10 +72,7 @@
               "orderBy": []
             },
             "fieldMatching": {
-              "gf_ops_date": {
-                "chain": "create_date",
-                "type": "datetime"
-              }
+              "gf_ops_date": {"chain": "create_date", "type": "datetime"}
             },
             "verticalAxisPosition": "left",
             "stacked": false
@@ -86,14 +80,14 @@
         },
         {
           "id": "op-pie-count-state",
-          "x": 18,
-          "y": 420,
+          "col": 0, "row": 0,
+          "offset": {"x": 18, "y": 376},
           "width": 475,
           "height": 340,
           "tag": "chart",
           "data": {
             "type": "odoo_pie",
-            "title": { "text": "Count Sessions by State" },
+            "title": {"text": "Count Sessions by State"},
             "background": "#FFFFFF",
             "legendPosition": "right",
             "metaData": {
@@ -115,14 +109,14 @@
         },
         {
           "id": "op-bar-pickface-zone",
-          "x": 503,
-          "y": 420,
+          "col": 0, "row": 0,
+          "offset": {"x": 511, "y": 376},
           "width": 465,
           "height": 340,
           "tag": "chart",
           "data": {
             "type": "odoo_bar",
-            "title": { "text": "Pickfaces by Zone" },
+            "title": {"text": "Pickfaces by Zone"},
             "background": "#FFFFFF",
             "legendPosition": "top",
             "metaData": {
@@ -146,14 +140,14 @@
         },
         {
           "id": "op-line-daily-ship",
-          "x": 18,
-          "y": 780,
-          "width": 950,
+          "col": 0, "row": 0,
+          "offset": {"x": 18, "y": 734},
+          "width": 958,
           "height": 360,
           "tag": "chart",
           "data": {
             "type": "odoo_line",
-            "title": { "text": "Daily Shipped Orders" },
+            "title": {"text": "Daily Shipped Orders"},
             "background": "#FFFFFF",
             "legendPosition": "top",
             "metaData": {
@@ -171,10 +165,7 @@
               "orderBy": []
             },
             "fieldMatching": {
-              "gf_ops_date": {
-                "chain": "shipped_at",
-                "type": "datetime"
-              }
+              "gf_ops_date": {"chain": "shipped_at", "type": "datetime"}
             },
             "verticalAxisPosition": "left",
             "stacked": false,

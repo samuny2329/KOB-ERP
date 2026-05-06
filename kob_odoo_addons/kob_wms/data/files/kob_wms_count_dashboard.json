@@ -14,14 +14,14 @@
       "figures": [
         {
           "id": "cnt-pie-adj-state",
-          "x": 18,
-          "y": 60,
+          "col": 0, "row": 0,
+          "offset": {"x": 18, "y": 18},
           "width": 465,
           "height": 340,
           "tag": "chart",
           "data": {
             "type": "odoo_pie",
-            "title": { "text": "Adjustments by State" },
+            "title": {"text": "Adjustments by State"},
             "background": "#FFFFFF",
             "legendPosition": "right",
             "metaData": {
@@ -39,23 +39,20 @@
               "orderBy": []
             },
             "fieldMatching": {
-              "gf_count_date": {
-                "chain": "create_date",
-                "type": "datetime"
-              }
+              "gf_count_date": {"chain": "create_date", "type": "datetime"}
             }
           }
         },
         {
           "id": "cnt-bar-variance-product",
-          "x": 503,
-          "y": 60,
+          "col": 0, "row": 0,
+          "offset": {"x": 503, "y": 18},
           "width": 465,
           "height": 340,
           "tag": "chart",
           "data": {
             "type": "odoo_bar",
-            "title": { "text": "Total Variance by Product" },
+            "title": {"text": "Total Variance by Product"},
             "background": "#FFFFFF",
             "legendPosition": "none",
             "metaData": {
@@ -73,10 +70,7 @@
               "orderBy": []
             },
             "fieldMatching": {
-              "gf_count_date": {
-                "chain": "create_date",
-                "type": "datetime"
-              }
+              "gf_count_date": {"chain": "create_date", "type": "datetime"}
             },
             "verticalAxisPosition": "left",
             "stacked": false
@@ -84,14 +78,14 @@
         },
         {
           "id": "cnt-bar-adj-location",
-          "x": 18,
-          "y": 420,
+          "col": 0, "row": 0,
+          "offset": {"x": 18, "y": 376},
           "width": 465,
           "height": 340,
           "tag": "chart",
           "data": {
             "type": "odoo_bar",
-            "title": { "text": "Adjustments by Location" },
+            "title": {"text": "Adjustments by Location"},
             "background": "#FFFFFF",
             "legendPosition": "top",
             "metaData": {
@@ -109,10 +103,7 @@
               "orderBy": []
             },
             "fieldMatching": {
-              "gf_count_date": {
-                "chain": "create_date",
-                "type": "datetime"
-              }
+              "gf_count_date": {"chain": "create_date", "type": "datetime"}
             },
             "verticalAxisPosition": "left",
             "stacked": false
@@ -120,14 +111,14 @@
         },
         {
           "id": "cnt-pie-session-type",
-          "x": 503,
-          "y": 420,
+          "col": 0, "row": 0,
+          "offset": {"x": 503, "y": 376},
           "width": 465,
           "height": 340,
           "tag": "chart",
           "data": {
             "type": "odoo_pie",
-            "title": { "text": "Count Sessions by Type" },
+            "title": {"text": "Count Sessions by Type"},
             "background": "#FFFFFF",
             "legendPosition": "right",
             "metaData": {
@@ -145,23 +136,20 @@
               "orderBy": []
             },
             "fieldMatching": {
-              "gf_count_date": {
-                "chain": "create_date",
-                "type": "datetime"
-              }
+              "gf_count_date": {"chain": "create_date", "type": "datetime"}
             }
           }
         },
         {
           "id": "cnt-line-daily-adj",
-          "x": 18,
-          "y": 780,
+          "col": 0, "row": 0,
+          "offset": {"x": 18, "y": 734},
           "width": 950,
           "height": 360,
           "tag": "chart",
           "data": {
             "type": "odoo_line",
-            "title": { "text": "Daily Adjustments Created" },
+            "title": {"text": "Daily Adjustments Created"},
             "background": "#FFFFFF",
             "legendPosition": "top",
             "metaData": {
@@ -179,10 +167,7 @@
               "orderBy": []
             },
             "fieldMatching": {
-              "gf_count_date": {
-                "chain": "create_date",
-                "type": "datetime"
-              }
+              "gf_count_date": {"chain": "create_date", "type": "datetime"}
             },
             "verticalAxisPosition": "left",
             "stacked": false,

@@ -14,14 +14,14 @@
       "figures": [
         {
           "id": "ov-bar-orders-platform",
-          "x": 18,
-          "y": 18,
+          "col": 0, "row": 0,
+          "offset": {"x": 18, "y": 18},
           "width": 465,
           "height": 340,
           "tag": "chart",
           "data": {
             "type": "odoo_bar",
-            "title": { "text": "Orders by Platform" },
+            "title": {"text": "Orders by Platform"},
             "background": "#EFF6FF",
             "legendPosition": "top",
             "metaData": {
@@ -39,7 +39,7 @@
               "orderBy": []
             },
             "fieldMatching": {
-              "gf_ov_date": { "chain": "create_date", "type": "datetime" }
+              "gf_ov_date": {"chain": "create_date", "type": "datetime"}
             },
             "verticalAxisPosition": "left",
             "stacked": false
@@ -47,14 +47,14 @@
         },
         {
           "id": "ov-pie-status",
-          "x": 503,
-          "y": 18,
+          "col": 0, "row": 0,
+          "offset": {"x": 503, "y": 18},
           "width": 465,
           "height": 340,
           "tag": "chart",
           "data": {
             "type": "odoo_pie",
-            "title": { "text": "Orders by Status" },
+            "title": {"text": "Orders by Status"},
             "background": "#EFF6FF",
             "legendPosition": "right",
             "metaData": {
@@ -72,20 +72,20 @@
               "orderBy": []
             },
             "fieldMatching": {
-              "gf_ov_date": { "chain": "create_date", "type": "datetime" }
+              "gf_ov_date": {"chain": "create_date", "type": "datetime"}
             }
           }
         },
         {
           "id": "ov-line-daily-orders",
-          "x": 18,
-          "y": 376,
+          "col": 0, "row": 0,
+          "offset": {"x": 18, "y": 376},
           "width": 950,
           "height": 360,
           "tag": "chart",
           "data": {
             "type": "odoo_line",
-            "title": { "text": "Daily Order Volume" },
+            "title": {"text": "Daily Order Volume"},
             "background": "#FFFFFF",
             "legendPosition": "top",
             "metaData": {
@@ -103,7 +103,7 @@
               "orderBy": []
             },
             "fieldMatching": {
-              "gf_ov_date": { "chain": "create_date", "type": "datetime" }
+              "gf_ov_date": {"chain": "create_date", "type": "datetime"}
             },
             "verticalAxisPosition": "left",
             "stacked": false,
@@ -112,14 +112,14 @@
         },
         {
           "id": "ov-bar-platform-status",
-          "x": 18,
-          "y": 754,
+          "col": 0, "row": 0,
+          "offset": {"x": 18, "y": 754},
           "width": 465,
           "height": 340,
           "tag": "chart",
           "data": {
             "type": "odoo_bar",
-            "title": { "text": "Orders by Platform & Status" },
+            "title": {"text": "Orders by Platform & Status"},
             "background": "#FFFFFF",
             "legendPosition": "top",
             "metaData": {
@@ -137,7 +137,7 @@
               "orderBy": []
             },
             "fieldMatching": {
-              "gf_ov_date": { "chain": "create_date", "type": "datetime" }
+              "gf_ov_date": {"chain": "create_date", "type": "datetime"}
             },
             "verticalAxisPosition": "left",
             "stacked": true
@@ -145,14 +145,14 @@
         },
         {
           "id": "ov-bar-sla-status",
-          "x": 503,
-          "y": 754,
+          "col": 0, "row": 0,
+          "offset": {"x": 503, "y": 754},
           "width": 465,
           "height": 340,
           "tag": "chart",
           "data": {
             "type": "odoo_bar",
-            "title": { "text": "SLA Status Distribution" },
+            "title": {"text": "SLA Status Distribution"},
             "background": "#FFFFFF",
             "legendPosition": "right",
             "metaData": {
@@ -170,7 +170,7 @@
               "orderBy": []
             },
             "fieldMatching": {
-              "gf_ov_date": { "chain": "create_date", "type": "datetime" }
+              "gf_ov_date": {"chain": "create_date", "type": "datetime"}
             },
             "verticalAxisPosition": "left",
             "stacked": false

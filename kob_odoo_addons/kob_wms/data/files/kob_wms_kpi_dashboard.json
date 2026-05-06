@@ -14,14 +14,14 @@
       "figures": [
         {
           "id": "kpi-bar-worker-score",
-          "x": 18,
-          "y": 60,
+          "col": 0, "row": 0,
+          "offset": {"x": 18, "y": 18},
           "width": 475,
           "height": 360,
           "tag": "chart",
           "data": {
             "type": "odoo_bar",
-            "title": { "text": "Worker Score (Top Performers)" },
+            "title": {"text": "Worker Score (Top Performers)"},
             "background": "#FFFFFF",
             "legendPosition": "none",
             "metaData": {
@@ -39,14 +39,8 @@
               "orderBy": []
             },
             "fieldMatching": {
-              "gf_kpi_date": {
-                "chain": "date",
-                "type": "date"
-              },
-              "gf_kpi_worker": {
-                "chain": "user_id",
-                "type": "many2one"
-              }
+              "gf_kpi_date": {"chain": "date", "type": "date"},
+              "gf_kpi_worker": {"chain": "user_id", "type": "many2one"}
             },
             "verticalAxisPosition": "left",
             "stacked": false
@@ -54,14 +48,14 @@
         },
         {
           "id": "kpi-bar-actions-by-worker",
-          "x": 503,
-          "y": 60,
+          "col": 0, "row": 0,
+          "offset": {"x": 511, "y": 18},
           "width": 465,
           "height": 360,
           "tag": "chart",
           "data": {
             "type": "odoo_bar",
-            "title": { "text": "Actions by Worker" },
+            "title": {"text": "Actions by Worker"},
             "background": "#FFFFFF",
             "legendPosition": "top",
             "metaData": {
@@ -79,14 +73,8 @@
               "orderBy": []
             },
             "fieldMatching": {
-              "gf_kpi_date": {
-                "chain": "date",
-                "type": "date"
-              },
-              "gf_kpi_worker": {
-                "chain": "user_id",
-                "type": "many2one"
-              }
+              "gf_kpi_date": {"chain": "date", "type": "date"},
+              "gf_kpi_worker": {"chain": "user_id", "type": "many2one"}
             },
             "verticalAxisPosition": "left",
             "stacked": true
@@ -94,14 +82,14 @@
         },
         {
           "id": "kpi-line-uph-trend",
-          "x": 18,
-          "y": 440,
-          "width": 950,
+          "col": 0, "row": 0,
+          "offset": {"x": 18, "y": 396},
+          "width": 958,
           "height": 360,
           "tag": "chart",
           "data": {
             "type": "odoo_line",
-            "title": { "text": "UPH Trend (Units Per Hour)" },
+            "title": {"text": "UPH Trend (Units Per Hour)"},
             "background": "#FFFFFF",
             "legendPosition": "top",
             "metaData": {
@@ -119,14 +107,8 @@
               "orderBy": []
             },
             "fieldMatching": {
-              "gf_kpi_date": {
-                "chain": "date",
-                "type": "date"
-              },
-              "gf_kpi_worker": {
-                "chain": "user_id",
-                "type": "many2one"
-              }
+              "gf_kpi_date": {"chain": "date", "type": "date"},
+              "gf_kpi_worker": {"chain": "user_id", "type": "many2one"}
             },
             "verticalAxisPosition": "left",
             "stacked": false,
@@ -135,14 +117,14 @@
         },
         {
           "id": "kpi-bar-errors",
-          "x": 18,
-          "y": 820,
+          "col": 0, "row": 0,
+          "offset": {"x": 18, "y": 774},
           "width": 475,
           "height": 340,
           "tag": "chart",
           "data": {
             "type": "odoo_bar",
-            "title": { "text": "Errors by Worker" },
+            "title": {"text": "Errors by Worker"},
             "background": "#FFFFFF",
             "legendPosition": "top",
             "metaData": {
@@ -160,14 +142,8 @@
               "orderBy": []
             },
             "fieldMatching": {
-              "gf_kpi_date": {
-                "chain": "date",
-                "type": "date"
-              },
-              "gf_kpi_worker": {
-                "chain": "user_id",
-                "type": "many2one"
-              }
+              "gf_kpi_date": {"chain": "date", "type": "date"},
+              "gf_kpi_worker": {"chain": "user_id", "type": "many2one"}
             },
             "verticalAxisPosition": "left",
             "stacked": true
@@ -175,14 +151,14 @@
         },
         {
           "id": "kpi-bar-quality",
-          "x": 503,
-          "y": 820,
+          "col": 0, "row": 0,
+          "offset": {"x": 511, "y": 774},
           "width": 465,
           "height": 340,
           "tag": "chart",
           "data": {
             "type": "odoo_bar",
-            "title": { "text": "Quality % by Worker" },
+            "title": {"text": "Quality % by Worker"},
             "background": "#FFFFFF",
             "legendPosition": "none",
             "metaData": {
@@ -200,14 +176,8 @@
               "orderBy": []
             },
             "fieldMatching": {
-              "gf_kpi_date": {
-                "chain": "date",
-                "type": "date"
-              },
-              "gf_kpi_worker": {
-                "chain": "user_id",
-                "type": "many2one"
-              }
+              "gf_kpi_date": {"chain": "date", "type": "date"},
+              "gf_kpi_worker": {"chain": "user_id", "type": "many2one"}
             },
             "verticalAxisPosition": "left",
             "stacked": false
