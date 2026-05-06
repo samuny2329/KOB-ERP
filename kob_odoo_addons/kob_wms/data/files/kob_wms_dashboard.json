@@ -1,26 +1,216 @@
 {
-  "version": 19,
+  "version": "18.5.10",
   "sheets": [
     {
-      "id": "sh1",
-      "name": "WMS",
-      "colNumber": 26,
-      "rowNumber": 100,
-      "rows": {},
-      "cols": {},
-      "merges": [],
+      "id": "sh_wms_overview",
+      "name": "WMS Overview",
+      "colNumber": 10,
+      "rowNumber": 80,
+      "rows": {
+        "0": { "size": 32 },
+        "1": { "size": 10 }
+      },
+      "cols": {
+        "0": { "size": 30 }
+      },
+      "merges": ["B1:I1"],
       "cells": {
-        "A1": {
-          "content": "KOB WMS Dashboard"
-        }
+        "B1": { "content": "KOB WMS — Overview", "style": 1 }
       },
       "conditionalFormats": [],
-      "figures": [],
-      "areGridLinesVisible": true,
+      "figures": [
+        {
+          "id": "ov-bar-orders-platform",
+          "x": 18,
+          "y": 60,
+          "width": 465,
+          "height": 340,
+          "tag": "chart",
+          "data": {
+            "type": "odoo_bar",
+            "title": { "text": "Orders by Platform" },
+            "background": "#EFF6FF",
+            "legendPosition": "top",
+            "metaData": {
+              "groupBy": ["platform"],
+              "measure": "__count",
+              "order": "DESC",
+              "resModel": "wms.sales.order",
+              "mode": "bar"
+            },
+            "searchParams": {
+              "comparison": null,
+              "context": {},
+              "domain": [],
+              "groupBy": ["platform"],
+              "orderBy": []
+            },
+            "fieldMatching": {
+              "gf_ov_date": {
+                "chain": "create_date",
+                "type": "datetime"
+              }
+            },
+            "verticalAxisPosition": "left",
+            "stacked": false
+          }
+        },
+        {
+          "id": "ov-pie-status",
+          "x": 503,
+          "y": 60,
+          "width": 465,
+          "height": 340,
+          "tag": "chart",
+          "data": {
+            "type": "odoo_pie",
+            "title": { "text": "Orders by Status" },
+            "background": "#EFF6FF",
+            "legendPosition": "right",
+            "metaData": {
+              "groupBy": ["status"],
+              "measure": "__count",
+              "order": null,
+              "resModel": "wms.sales.order",
+              "mode": "pie"
+            },
+            "searchParams": {
+              "comparison": null,
+              "context": {},
+              "domain": [],
+              "groupBy": ["status"],
+              "orderBy": []
+            },
+            "fieldMatching": {
+              "gf_ov_date": {
+                "chain": "create_date",
+                "type": "datetime"
+              }
+            }
+          }
+        },
+        {
+          "id": "ov-line-daily-orders",
+          "x": 18,
+          "y": 420,
+          "width": 950,
+          "height": 360,
+          "tag": "chart",
+          "data": {
+            "type": "odoo_line",
+            "title": { "text": "Daily Order Volume" },
+            "background": "#FFFFFF",
+            "legendPosition": "top",
+            "metaData": {
+              "groupBy": ["create_date:day"],
+              "measure": "__count",
+              "order": null,
+              "resModel": "wms.sales.order",
+              "mode": "line"
+            },
+            "searchParams": {
+              "comparison": null,
+              "context": {},
+              "domain": [],
+              "groupBy": ["create_date:day"],
+              "orderBy": []
+            },
+            "fieldMatching": {
+              "gf_ov_date": {
+                "chain": "create_date",
+                "type": "datetime"
+              }
+            },
+            "verticalAxisPosition": "left",
+            "stacked": false,
+            "cumulative": false
+          }
+        },
+        {
+          "id": "ov-bar-platform-status",
+          "x": 18,
+          "y": 800,
+          "width": 465,
+          "height": 340,
+          "tag": "chart",
+          "data": {
+            "type": "odoo_bar",
+            "title": { "text": "Orders by Platform & Status" },
+            "background": "#FFFFFF",
+            "legendPosition": "top",
+            "metaData": {
+              "groupBy": ["platform", "status"],
+              "measure": "__count",
+              "order": "DESC",
+              "resModel": "wms.sales.order",
+              "mode": "bar"
+            },
+            "searchParams": {
+              "comparison": null,
+              "context": {},
+              "domain": [],
+              "groupBy": ["platform", "status"],
+              "orderBy": []
+            },
+            "fieldMatching": {
+              "gf_ov_date": {
+                "chain": "create_date",
+                "type": "datetime"
+              }
+            },
+            "verticalAxisPosition": "left",
+            "stacked": true
+          }
+        },
+        {
+          "id": "ov-bar-sla-status",
+          "x": 503,
+          "y": 800,
+          "width": 465,
+          "height": 340,
+          "tag": "chart",
+          "data": {
+            "type": "odoo_bar",
+            "title": { "text": "SLA Status Distribution" },
+            "background": "#FFFFFF",
+            "legendPosition": "right",
+            "metaData": {
+              "groupBy": ["sla_status"],
+              "measure": "__count",
+              "order": "DESC",
+              "resModel": "wms.sales.order",
+              "mode": "bar"
+            },
+            "searchParams": {
+              "comparison": null,
+              "context": {},
+              "domain": [["status", "not in", ["shipped", "cancelled"]]],
+              "groupBy": ["sla_status"],
+              "orderBy": []
+            },
+            "fieldMatching": {
+              "gf_ov_date": {
+                "chain": "create_date",
+                "type": "datetime"
+              }
+            },
+            "verticalAxisPosition": "left",
+            "stacked": false
+          }
+        }
+      ],
+      "areGridLinesVisible": false,
       "isVisible": true
     }
   ],
-  "styles": {},
+  "styles": {
+    "1": {
+      "bold": true,
+      "fontSize": 18,
+      "textColor": "#111827",
+      "fillColor": "#EFF6FF"
+    }
+  },
   "formats": {},
   "borders": {},
   "revisionId": "START_REVISION",
@@ -29,5 +219,13 @@
   "pivotNextId": 1,
   "lists": {},
   "listNextId": 1,
-  "globalFilters": []
+  "globalFilters": [
+    {
+      "id": "gf_ov_date",
+      "type": "date",
+      "label": "Date Range",
+      "rangeType": "month",
+      "defaultValue": {}
+    }
+  ]
 }

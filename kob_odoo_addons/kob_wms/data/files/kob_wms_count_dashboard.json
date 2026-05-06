@@ -1,5 +1,5 @@
 {
-  "version": 19,
+  "version": "18.5.10",
   "sheets": [
     {
       "id": "sh_count_adj",
@@ -7,25 +7,15 @@
       "colNumber": 10,
       "rowNumber": 60,
       "rows": {
-        "0": {
-          "size": 32
-        },
-        "1": {
-          "size": 10
-        }
+        "0": { "size": 32 },
+        "1": { "size": 10 }
       },
       "cols": {
-        "0": {
-          "size": 30
-        }
+        "0": { "size": 30 }
       },
-      "merges": [
-        "B1:I1"
-      ],
+      "merges": ["B1:I1"],
       "cells": {
-        "B1": {
-          "content": "KOB WMS — Inventory Count Adjustments"
-        }
+        "B1": { "content": "KOB WMS — Inventory Count Adjustments", "style": 1 }
       },
       "conditionalFormats": [],
       "figures": [
@@ -38,15 +28,11 @@
           "tag": "chart",
           "data": {
             "type": "odoo_pie",
-            "title": {
-              "text": "Adjustments by State"
-            },
+            "title": { "text": "Adjustments by State" },
             "background": "#FFFFFF",
             "legendPosition": "right",
             "metaData": {
-              "groupBy": [
-                "state"
-              ],
+              "groupBy": ["state"],
               "measure": "__count",
               "order": null,
               "resModel": "wms.count.adjustment",
@@ -56,9 +42,7 @@
               "comparison": null,
               "context": {},
               "domain": [],
-              "groupBy": [
-                "state"
-              ],
+              "groupBy": ["state"],
               "orderBy": []
             },
             "fieldMatching": {
@@ -78,15 +62,11 @@
           "tag": "chart",
           "data": {
             "type": "odoo_bar",
-            "title": {
-              "text": "Total Variance by Product"
-            },
+            "title": { "text": "Total Variance by Product" },
             "background": "#FFFFFF",
             "legendPosition": "none",
             "metaData": {
-              "groupBy": [
-                "product_id"
-              ],
+              "groupBy": ["product_id"],
               "measure": "variance_qty",
               "order": "DESC",
               "resModel": "wms.count.adjustment",
@@ -95,21 +75,8 @@
             "searchParams": {
               "comparison": null,
               "context": {},
-              "domain": [
-                [
-                  "variance_qty",
-                  "!=",
-                  0
-                ],
-                [
-                  "state",
-                  "!=",
-                  "rejected"
-                ]
-              ],
-              "groupBy": [
-                "product_id"
-              ],
+              "domain": [["variance_qty", "!=", 0], ["state", "!=", "rejected"]],
+              "groupBy": ["product_id"],
               "orderBy": []
             },
             "fieldMatching": {
@@ -131,15 +98,11 @@
           "tag": "chart",
           "data": {
             "type": "odoo_bar",
-            "title": {
-              "text": "Adjustments by Location"
-            },
+            "title": { "text": "Adjustments by Location" },
             "background": "#FFFFFF",
             "legendPosition": "top",
             "metaData": {
-              "groupBy": [
-                "location_id"
-              ],
+              "groupBy": ["location_id"],
               "measure": "__count",
               "order": "DESC",
               "resModel": "wms.count.adjustment",
@@ -148,16 +111,8 @@
             "searchParams": {
               "comparison": null,
               "context": {},
-              "domain": [
-                [
-                  "state",
-                  "!=",
-                  "rejected"
-                ]
-              ],
-              "groupBy": [
-                "location_id"
-              ],
+              "domain": [["state", "!=", "rejected"]],
+              "groupBy": ["location_id"],
               "orderBy": []
             },
             "fieldMatching": {
@@ -179,15 +134,11 @@
           "tag": "chart",
           "data": {
             "type": "odoo_pie",
-            "title": {
-              "text": "Count Sessions by Type"
-            },
+            "title": { "text": "Count Sessions by Type" },
             "background": "#FFFFFF",
             "legendPosition": "right",
             "metaData": {
-              "groupBy": [
-                "session_type"
-              ],
+              "groupBy": ["session_type"],
               "measure": "__count",
               "order": null,
               "resModel": "wms.count.session",
@@ -197,9 +148,7 @@
               "comparison": null,
               "context": {},
               "domain": [],
-              "groupBy": [
-                "session_type"
-              ],
+              "groupBy": ["session_type"],
               "orderBy": []
             },
             "fieldMatching": {
@@ -219,15 +168,11 @@
           "tag": "chart",
           "data": {
             "type": "odoo_line",
-            "title": {
-              "text": "Daily Adjustments Created"
-            },
+            "title": { "text": "Daily Adjustments Created" },
             "background": "#FFFFFF",
             "legendPosition": "top",
             "metaData": {
-              "groupBy": [
-                "create_date:day"
-              ],
+              "groupBy": ["create_date:day"],
               "measure": "__count",
               "order": null,
               "resModel": "wms.count.adjustment",
@@ -237,9 +182,7 @@
               "comparison": null,
               "context": {},
               "domain": [],
-              "groupBy": [
-                "create_date:day"
-              ],
+              "groupBy": ["create_date:day"],
               "orderBy": []
             },
             "fieldMatching": {
@@ -269,17 +212,7 @@
   "formats": {},
   "borders": {},
   "revisionId": "START_REVISION",
-  "settings": {
-    "locale": {
-      "name": "Thai (Thailand)",
-      "code": "th_TH",
-      "thousandsSeparator": ",",
-      "decimalSeparator": ".",
-      "weekStart": 7,
-      "dateFormat": "m/d/yyyy",
-      "timeFormat": "hh:mm:ss a"
-    }
-  },
+  "settings": {},
   "pivots": {},
   "pivotNextId": 1,
   "lists": {},

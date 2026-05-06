@@ -1,5 +1,5 @@
 {
-  "version": 19,
+  "version": "18.5.10",
   "sheets": [
     {
       "id": "sh_wms_kpi",
@@ -7,25 +7,15 @@
       "colNumber": 10,
       "rowNumber": 60,
       "rows": {
-        "0": {
-          "size": 32
-        },
-        "1": {
-          "size": 10
-        }
+        "0": { "size": 32 },
+        "1": { "size": 10 }
       },
       "cols": {
-        "0": {
-          "size": 30
-        }
+        "0": { "size": 30 }
       },
-      "merges": [
-        "B1:I1"
-      ],
+      "merges": ["B1:I1"],
       "cells": {
-        "B1": {
-          "content": "KOB WMS — KPI Performance"
-        }
+        "B1": { "content": "KOB WMS — KPI Performance", "style": 1 }
       },
       "conditionalFormats": [],
       "figures": [
@@ -38,15 +28,11 @@
           "tag": "chart",
           "data": {
             "type": "odoo_bar",
-            "title": {
-              "text": "Worker Score (Top Performers)"
-            },
+            "title": { "text": "Worker Score (Top Performers)" },
             "background": "#FFFFFF",
             "legendPosition": "none",
             "metaData": {
-              "groupBy": [
-                "user_id"
-              ],
+              "groupBy": ["user_id"],
               "measure": "worker_score",
               "order": "DESC",
               "resModel": "wms.worker.performance",
@@ -56,9 +42,7 @@
               "comparison": null,
               "context": {},
               "domain": [],
-              "groupBy": [
-                "user_id"
-              ],
+              "groupBy": ["user_id"],
               "orderBy": []
             },
             "fieldMatching": {
@@ -84,15 +68,11 @@
           "tag": "chart",
           "data": {
             "type": "odoo_bar",
-            "title": {
-              "text": "Actions by Worker"
-            },
+            "title": { "text": "Actions by Worker" },
             "background": "#FFFFFF",
             "legendPosition": "top",
             "metaData": {
-              "groupBy": [
-                "user_id"
-              ],
+              "groupBy": ["user_id"],
               "measure": "total_actions",
               "order": "DESC",
               "resModel": "wms.worker.performance",
@@ -102,9 +82,7 @@
               "comparison": null,
               "context": {},
               "domain": [],
-              "groupBy": [
-                "user_id"
-              ],
+              "groupBy": ["user_id"],
               "orderBy": []
             },
             "fieldMatching": {
@@ -130,15 +108,11 @@
           "tag": "chart",
           "data": {
             "type": "odoo_line",
-            "title": {
-              "text": "UPH Trend"
-            },
+            "title": { "text": "UPH Trend (Units Per Hour)" },
             "background": "#FFFFFF",
             "legendPosition": "top",
             "metaData": {
-              "groupBy": [
-                "date:day"
-              ],
+              "groupBy": ["date:day"],
               "measure": "uph",
               "order": null,
               "resModel": "wms.worker.performance",
@@ -148,9 +122,7 @@
               "comparison": null,
               "context": {},
               "domain": [],
-              "groupBy": [
-                "date:day"
-              ],
+              "groupBy": ["date:day"],
               "orderBy": []
             },
             "fieldMatching": {
@@ -177,15 +149,11 @@
           "tag": "chart",
           "data": {
             "type": "odoo_bar",
-            "title": {
-              "text": "Errors by Worker"
-            },
+            "title": { "text": "Errors by Worker" },
             "background": "#FFFFFF",
             "legendPosition": "top",
             "metaData": {
-              "groupBy": [
-                "user_id"
-              ],
+              "groupBy": ["user_id"],
               "measure": "total_errors",
               "order": "DESC",
               "resModel": "wms.worker.performance",
@@ -195,9 +163,7 @@
               "comparison": null,
               "context": {},
               "domain": [],
-              "groupBy": [
-                "user_id"
-              ],
+              "groupBy": ["user_id"],
               "orderBy": []
             },
             "fieldMatching": {
@@ -223,15 +189,11 @@
           "tag": "chart",
           "data": {
             "type": "odoo_bar",
-            "title": {
-              "text": "Quality % by Worker"
-            },
+            "title": { "text": "Quality % by Worker" },
             "background": "#FFFFFF",
             "legendPosition": "none",
             "metaData": {
-              "groupBy": [
-                "user_id"
-              ],
+              "groupBy": ["user_id"],
               "measure": "quality_score",
               "order": "DESC",
               "resModel": "wms.worker.performance",
@@ -241,9 +203,7 @@
               "comparison": null,
               "context": {},
               "domain": [],
-              "groupBy": [
-                "user_id"
-              ],
+              "groupBy": ["user_id"],
               "orderBy": []
             },
             "fieldMatching": {
@@ -276,17 +236,7 @@
   "formats": {},
   "borders": {},
   "revisionId": "START_REVISION",
-  "settings": {
-    "locale": {
-      "name": "Thai (Thailand)",
-      "code": "th_TH",
-      "thousandsSeparator": ",",
-      "decimalSeparator": ".",
-      "weekStart": 7,
-      "dateFormat": "m/d/yyyy",
-      "timeFormat": "hh:mm:ss a"
-    }
-  },
+  "settings": {},
   "pivots": {},
   "pivotNextId": 1,
   "lists": {},
