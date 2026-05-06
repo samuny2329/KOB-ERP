@@ -6,23 +6,16 @@
       "name": "WMS Overview",
       "colNumber": 10,
       "rowNumber": 80,
-      "rows": {
-        "0": { "size": 32 },
-        "1": { "size": 10 }
-      },
-      "cols": {
-        "0": { "size": 30 }
-      },
-      "merges": ["B1:I1"],
-      "cells": {
-        "B1": { "content": "KOB WMS — Overview", "style": 1 }
-      },
+      "rows": {},
+      "cols": {},
+      "merges": [],
+      "cells": {},
       "conditionalFormats": [],
       "figures": [
         {
           "id": "ov-bar-orders-platform",
           "x": 18,
-          "y": 60,
+          "y": 18,
           "width": 465,
           "height": 340,
           "tag": "chart",
@@ -46,10 +39,7 @@
               "orderBy": []
             },
             "fieldMatching": {
-              "gf_ov_date": {
-                "chain": "create_date",
-                "type": "datetime"
-              }
+              "gf_ov_date": { "chain": "create_date", "type": "datetime" }
             },
             "verticalAxisPosition": "left",
             "stacked": false
@@ -58,7 +48,7 @@
         {
           "id": "ov-pie-status",
           "x": 503,
-          "y": 60,
+          "y": 18,
           "width": 465,
           "height": 340,
           "tag": "chart",
@@ -82,17 +72,14 @@
               "orderBy": []
             },
             "fieldMatching": {
-              "gf_ov_date": {
-                "chain": "create_date",
-                "type": "datetime"
-              }
+              "gf_ov_date": { "chain": "create_date", "type": "datetime" }
             }
           }
         },
         {
           "id": "ov-line-daily-orders",
           "x": 18,
-          "y": 420,
+          "y": 376,
           "width": 950,
           "height": 360,
           "tag": "chart",
@@ -116,10 +103,7 @@
               "orderBy": []
             },
             "fieldMatching": {
-              "gf_ov_date": {
-                "chain": "create_date",
-                "type": "datetime"
-              }
+              "gf_ov_date": { "chain": "create_date", "type": "datetime" }
             },
             "verticalAxisPosition": "left",
             "stacked": false,
@@ -129,7 +113,7 @@
         {
           "id": "ov-bar-platform-status",
           "x": 18,
-          "y": 800,
+          "y": 754,
           "width": 465,
           "height": 340,
           "tag": "chart",
@@ -153,10 +137,7 @@
               "orderBy": []
             },
             "fieldMatching": {
-              "gf_ov_date": {
-                "chain": "create_date",
-                "type": "datetime"
-              }
+              "gf_ov_date": { "chain": "create_date", "type": "datetime" }
             },
             "verticalAxisPosition": "left",
             "stacked": true
@@ -165,7 +146,7 @@
         {
           "id": "ov-bar-sla-status",
           "x": 503,
-          "y": 800,
+          "y": 754,
           "width": 465,
           "height": 340,
           "tag": "chart",
@@ -189,10 +170,7 @@
               "orderBy": []
             },
             "fieldMatching": {
-              "gf_ov_date": {
-                "chain": "create_date",
-                "type": "datetime"
-              }
+              "gf_ov_date": { "chain": "create_date", "type": "datetime" }
             },
             "verticalAxisPosition": "left",
             "stacked": false
@@ -203,14 +181,7 @@
       "isVisible": true
     }
   ],
-  "styles": {
-    "1": {
-      "bold": true,
-      "fontSize": 18,
-      "textColor": "#111827",
-      "fillColor": "#EFF6FF"
-    }
-  },
+  "styles": {},
   "formats": {},
   "borders": {},
   "revisionId": "START_REVISION",

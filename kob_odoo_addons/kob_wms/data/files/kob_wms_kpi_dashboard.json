@@ -6,17 +6,10 @@
       "name": "KPI Performance",
       "colNumber": 10,
       "rowNumber": 60,
-      "rows": {
-        "0": { "size": 32 },
-        "1": { "size": 10 }
-      },
-      "cols": {
-        "0": { "size": 30 }
-      },
-      "merges": ["B1:I1"],
-      "cells": {
-        "B1": { "content": "KOB WMS — KPI Performance", "style": 1 }
-      },
+      "rows": {},
+      "cols": {},
+      "merges": [],
+      "cells": {},
       "conditionalFormats": [],
       "figures": [
         {
@@ -225,14 +218,7 @@
       "isVisible": true
     }
   ],
-  "styles": {
-    "1": {
-      "bold": true,
-      "fontSize": 18,
-      "textColor": "#111827",
-      "fillColor": "#F9FAFB"
-    }
-  },
+  "styles": {},
   "formats": {},
   "borders": {},
   "revisionId": "START_REVISION",
