@@ -39,8 +39,7 @@
               "orderBy": []
             },
             "fieldMatching": {
-              "gf_kpi_date": {"chain": "date", "type": "date"},
-              "gf_kpi_worker": {"chain": "user_id", "type": "many2one"}
+              "gf_kpi_date": {"chain": "date", "type": "date"}
             },
             "verticalAxisPosition": "left",
             "stacked": false
@@ -73,8 +72,7 @@
               "orderBy": []
             },
             "fieldMatching": {
-              "gf_kpi_date": {"chain": "date", "type": "date"},
-              "gf_kpi_worker": {"chain": "user_id", "type": "many2one"}
+              "gf_kpi_date": {"chain": "date", "type": "date"}
             },
             "verticalAxisPosition": "left",
             "stacked": true
@@ -107,8 +105,7 @@
               "orderBy": []
             },
             "fieldMatching": {
-              "gf_kpi_date": {"chain": "date", "type": "date"},
-              "gf_kpi_worker": {"chain": "user_id", "type": "many2one"}
+              "gf_kpi_date": {"chain": "date", "type": "date"}
             },
             "verticalAxisPosition": "left",
             "stacked": false,
@@ -142,8 +139,7 @@
               "orderBy": []
             },
             "fieldMatching": {
-              "gf_kpi_date": {"chain": "date", "type": "date"},
-              "gf_kpi_worker": {"chain": "user_id", "type": "many2one"}
+              "gf_kpi_date": {"chain": "date", "type": "date"}
             },
             "verticalAxisPosition": "left",
             "stacked": true
@@ -176,8 +172,7 @@
               "orderBy": []
             },
             "fieldMatching": {
-              "gf_kpi_date": {"chain": "date", "type": "date"},
-              "gf_kpi_worker": {"chain": "user_id", "type": "many2one"}
+              "gf_kpi_date": {"chain": "date", "type": "date"}
             },
             "verticalAxisPosition": "left",
             "stacked": false
@@ -205,15 +200,6 @@
       "operator": "between",
       "rangeType": "month",
       "defaultValue": {}
-    },
-    {
-      "id": "gf_kpi_worker",
-      "type": "relation",
-      "label": "Worker",
-      "modelName": "res.users",
-      "operator": "in",
-      "defaultValue": [],
-      "defaultValueDisplayNames": []
     }
   ]
 }
