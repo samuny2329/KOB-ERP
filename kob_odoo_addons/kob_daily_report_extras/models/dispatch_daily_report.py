@@ -10,6 +10,8 @@ import logging
 from datetime import datetime, time, timedelta
 from urllib import request as urllib_request, error as urllib_error
 
+from markupsafe import Markup
+
 from odoo import api, fields, models, _
 
 _logger = logging.getLogger(__name__)
@@ -370,7 +372,7 @@ class DispatchDailyReport(models.Model):
         # Mirror to Discuss as a backup so people without Teams still see it
         try:
             rec.message_post(
-                body=body,
+                body=Markup(body),
                 subject=f"📦 Dispatch Daily Report — {for_date}",
                 message_type="comment",
                 subtype_xmlid="mail.mt_note",

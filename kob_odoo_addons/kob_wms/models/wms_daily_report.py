@@ -8,6 +8,8 @@ active supervisors + managers.
 """
 from datetime import timedelta
 
+from markupsafe import Markup
+
 from odoo import models, fields, api, _
 
 
@@ -129,32 +131,233 @@ class WmsDailyReport(models.Model):
 
         return metrics
 
+    # ──────────────────────────────────────────────────────────────────
+    # HTML rendering — Odoo 19 native table style, embedded inline so the
+    # form-view <field widget="html"> renders consistently and Discuss /
+    # email recipients see the same card-style report.
+    # ──────────────────────────────────────────────────────────────────
+    _DAILY_INLINE_CSS = """
+<style>
+.kob-rpt {
+  font-family: "Inter","Roboto","Segoe UI",-apple-system,"Helvetica Neue",Arial,"Noto Sans Thai",sans-serif;
+  font-size: 13px; color: #2c2c2c; max-width: 920px; margin: 0;
+}
+.kob-rpt__header {
+  display: flex; align-items: baseline; justify-content: space-between;
+  padding: 14px 18px; background: linear-gradient(135deg,#714B67 0%,#5d3a55 100%);
+  color: #fff; border-radius: 6px 6px 0 0; margin: 0;
+}
+.kob-rpt__title { font-size: 16px; font-weight: 700; margin: 0; }
+.kob-rpt__date  { font-size: 12px; opacity: 0.85; font-variant-numeric: tabular-nums; }
+.kob-rpt__section {
+  border: 1px solid #e0e0e0; border-top: 0;
+  background: #fff;
+}
+.kob-rpt__section:last-of-type { border-radius: 0 0 6px 6px; }
+.kob-rpt__section-title {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 18px; background: #f6f6f6;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 11px; font-weight: 700; color: #6c757d;
+  text-transform: uppercase; letter-spacing: 0.6px;
+}
+.kob-rpt__section-icon { font-size: 14px; }
+.kob-rpt table {
+  width: 100%; border-collapse: separate; border-spacing: 0;
+  margin: 0; font-size: 13px;
+}
+.kob-rpt table th, .kob-rpt table td {
+  padding: 10px 18px; vertical-align: middle;
+}
+.kob-rpt table th {
+  text-align: left; font-weight: 600; color: #6c757d;
+  font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.5px;
+  background: #fafafa; border-bottom: 1px solid #f0f0f0;
+}
+.kob-rpt table th.kob-rpt-num { text-align: right; }
+.kob-rpt table td { border-bottom: 1px solid #f0f0f0; color: #2c2c2c; }
+.kob-rpt table td.kob-rpt-label { color: #6c757d; font-weight: 500; width: 40%; }
+.kob-rpt table td.kob-rpt-num {
+  text-align: right; font-variant-numeric: tabular-nums;
+  font-weight: 600; white-space: nowrap;
+}
+.kob-rpt table tr:last-child td { border-bottom: 0; }
+.kob-rpt table tr:nth-child(even) td { background: rgba(246,246,246,0.4); }
+.kob-rpt__pill {
+  display: inline-block; padding: 2px 9px; border-radius: 11px;
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.4px;
+  text-transform: uppercase; line-height: 1.5;
+}
+.kob-rpt__pill--ok    { background: #e6f4ea; color: #137333; }
+.kob-rpt__pill--warn  { background: #fef7e0; color: #b06000; }
+.kob-rpt__pill--bad   { background: #fce8e6; color: #c5221f; }
+.kob-rpt__pill--info  { background: #e8f0fe; color: #1a73e8; }
+.kob-rpt__bar {
+  display: inline-block; width: 80px; height: 6px;
+  background: #f0f0f0; border-radius: 3px; overflow: hidden;
+  vertical-align: middle; margin-right: 8px;
+}
+.kob-rpt__bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg,#714B67 0%,#5d3a55 100%);
+}
+.kob-rpt__footer {
+  padding: 9px 18px; font-size: 11px; color: #adb5bd;
+  text-align: right; background: #fafafa;
+  border: 1px solid #e0e0e0; border-top: 0;
+  border-radius: 0 0 6px 6px;
+}
+</style>
+"""
+
+    @staticmethod
+    def _sla_pill(pct):
+        """Return a coloured pill class based on SLA pass percentage."""
+        if pct >= 90:
+            return "kob-rpt__pill--ok"
+        if pct >= 70:
+            return "kob-rpt__pill--warn"
+        return "kob-rpt__pill--bad"
+
+    @staticmethod
+    def _sla_bar(pct):
+        clamped = max(0, min(100, pct))
+        return (
+            f'<span class="kob-rpt__bar">'
+            f'<span class="kob-rpt__bar-fill" '
+            f'style="width:{clamped:.0f}%"></span></span>'
+        )
+
     def _render_body_html(self, m, for_date):
-        return """
-        <h2>📊 Daily WMS Report — {date}</h2>
-        <h3>📦 Order Summary</h3>
-        <ul>
-          <li><b>Total Orders:</b> {total_orders}</li>
-          <li>✅ Shipped: {shipped_orders} · ⏳ Pending: {pending_orders} · ❌ Cancelled: {cancelled_orders}</li>
-          <li><b>Total Value:</b> ฿{total_value:,.2f}</li>
-        </ul>
-        <h3>🌐 Platform Breakdown</h3>
-        <ul>
-          <li>Shopee: {shopee_orders} · Lazada: {lazada_orders} · TikTok: {tiktok_orders} · Odoo: {odoo_orders}</li>
-        </ul>
-        <h3>⏱️ SLA Compliance</h3>
-        <ul>
-          <li>Avg Pick: {avg_pick_min:.1f} min · SLA Pass: {sla_pick_pct:.1f}%</li>
-          <li>Avg Pack: {avg_pack_min:.1f} min · SLA Pass: {sla_pack_pct:.1f}%</li>
-        </ul>
-        <h3>🎯 Quality</h3>
-        <ul>
-          <li>Defects reported: {defect_count}</li>
-          <li>Expiry alerts: {expiry_alert_count}</li>
-        </ul>
-        <hr/>
-        <p style="font-size:11px;color:#888">Auto-generated by KOB WMS · Daily Sales Report Cron</p>
-        """.format(date=for_date, **m)
+        """Render the daily report as a card with Odoo 19-styled tables.
+
+        Sections: Order Summary · Platform Breakdown · SLA Compliance · Quality.
+        Numbers are right-aligned with tabular-nums.  Each section is its
+        own subtable so Discuss / email render consistently.
+        """
+        total = m.get('total_orders') or 0
+        shipped = m.get('shipped_orders') or 0
+        pending = m.get('pending_orders') or 0
+        cancelled = m.get('cancelled_orders') or 0
+        ship_pct = (shipped / total * 100) if total else 0
+        sla_pick = m.get('sla_pick_pct') or 0
+        sla_pack = m.get('sla_pack_pct') or 0
+
+        # ── Order Summary table ───────────────────────────────────────
+        order_rows = [
+            ('<b>Total Orders</b>', f"{total:,}"),
+            ('✅ Shipped',
+             f"{shipped:,} <span class='kob-rpt__pill kob-rpt__pill--info'>"
+             f"{ship_pct:.0f}%</span>"),
+            ('⏳ Pending',  f"{pending:,}"),
+            ('❌ Cancelled', f"{cancelled:,}"),
+            ('<b>Total Value</b>',
+             f"<b>฿{m.get('total_value', 0):,.2f}</b>"),
+        ]
+        order_html = "".join(
+            f"<tr><td class='kob-rpt-label'>{lbl}</td>"
+            f"<td class='kob-rpt-num'>{val}</td></tr>"
+            for lbl, val in order_rows
+        )
+
+        # ── Platform breakdown table ──────────────────────────────────
+        platforms = [
+            ('🛒 Shopee',  m.get('shopee_orders') or 0),
+            ('🟦 Lazada',  m.get('lazada_orders') or 0),
+            ('🎵 TikTok',  m.get('tiktok_orders') or 0),
+            ('🟣 Odoo',    m.get('odoo_orders')   or 0),
+        ]
+        plat_total = sum(v for _l, v in platforms) or 1
+        plat_html = "".join(
+            f"<tr><td class='kob-rpt-label'>{lbl}</td>"
+            f"<td class='kob-rpt-num'>{v:,}</td>"
+            f"<td class='kob-rpt-num' style='width:140px'>"
+            f"{self._sla_bar(v / plat_total * 100)}"
+            f"<span style='color:#6c757d;font-size:11px'>"
+            f"{v / plat_total * 100:.0f}%</span></td></tr>"
+            for lbl, v in platforms
+        )
+
+        # ── SLA Compliance table ──────────────────────────────────────
+        sla_rows = [
+            ('Pick (F1)', m.get('avg_pick_min') or 0, sla_pick),
+            ('Pack (F2)', m.get('avg_pack_min') or 0, sla_pack),
+        ]
+        sla_html = "".join(
+            f"<tr><td class='kob-rpt-label'>{stage}</td>"
+            f"<td class='kob-rpt-num'>{avg:.1f} min</td>"
+            f"<td class='kob-rpt-num'>"
+            f"<span class='kob-rpt__pill {self._sla_pill(pct)}'>"
+            f"{pct:.1f}%</span></td></tr>"
+            for stage, avg, pct in sla_rows
+        )
+
+        # ── Quality table ─────────────────────────────────────────────
+        defect = m.get('defect_count') or 0
+        expiry = m.get('expiry_alert_count') or 0
+        qual_html = (
+            f"<tr><td class='kob-rpt-label'>🐛 Defects reported</td>"
+            f"<td class='kob-rpt-num'>"
+            f"<span class='kob-rpt__pill "
+            f"{'kob-rpt__pill--ok' if defect == 0 else 'kob-rpt__pill--bad'}'>"
+            f"{defect:,}</span></td></tr>"
+            f"<tr><td class='kob-rpt-label'>⏰ Expiry alerts</td>"
+            f"<td class='kob-rpt-num'>"
+            f"<span class='kob-rpt__pill "
+            f"{'kob-rpt__pill--ok' if expiry == 0 else 'kob-rpt__pill--warn'}'>"
+            f"{expiry:,}</span></td></tr>"
+        )
+
+        return self._DAILY_INLINE_CSS + (
+            "<div class='kob-rpt'>"
+            "<div class='kob-rpt__header'>"
+            "<div class='kob-rpt__title'>📊 Daily WMS Report</div>"
+            f"<div class='kob-rpt__date'>{for_date}</div>"
+            "</div>"
+
+            "<div class='kob-rpt__section'>"
+            "<div class='kob-rpt__section-title'>"
+            "<span class='kob-rpt__section-icon'>📦</span>"
+            "Order Summary</div>"
+            f"<table>{order_html}</table>"
+            "</div>"
+
+            "<div class='kob-rpt__section'>"
+            "<div class='kob-rpt__section-title'>"
+            "<span class='kob-rpt__section-icon'>🌐</span>"
+            "Platform Breakdown</div>"
+            "<table><thead><tr>"
+            "<th>Platform</th>"
+            "<th class='kob-rpt-num'>Orders</th>"
+            "<th class='kob-rpt-num'>Share</th>"
+            "</tr></thead>"
+            f"<tbody>{plat_html}</tbody></table>"
+            "</div>"
+
+            "<div class='kob-rpt__section'>"
+            "<div class='kob-rpt__section-title'>"
+            "<span class='kob-rpt__section-icon'>⏱️</span>"
+            "SLA Compliance</div>"
+            "<table><thead><tr>"
+            "<th>Stage</th>"
+            "<th class='kob-rpt-num'>Avg Time</th>"
+            "<th class='kob-rpt-num'>SLA Pass</th>"
+            "</tr></thead>"
+            f"<tbody>{sla_html}</tbody></table>"
+            "</div>"
+
+            "<div class='kob-rpt__section'>"
+            "<div class='kob-rpt__section-title'>"
+            "<span class='kob-rpt__section-icon'>🎯</span>"
+            "Quality</div>"
+            f"<table>{qual_html}</table>"
+            "</div>"
+
+            "<div class='kob-rpt__footer'>"
+            "Auto-generated by KOB WMS · Daily Sales Report Cron"
+            "</div>"
+            "</div>"
+        )
 
     # ────────────────────────────────────────────────────────────────────
     # Cron: generate yesterday's report at 07:00
@@ -202,8 +405,10 @@ class WmsDailyReport(models.Model):
             return
 
         self.ensure_one()
+        # Wrap with Markup so Odoo trusts the HTML and renders it instead
+        # of escaping it to literal "<h2>...</h2>" text in chatter.
         self.message_post(
-            body=body,
+            body=Markup(body),
             subject=_('📊 Daily WMS Report — %s') % for_date,
             partner_ids=list(recipient_ids),
             message_type='comment',
