@@ -645,3 +645,82 @@ class WmsDispatchRound(models.Model):
             "domain": [("dispatch_round_id", "=", self.id)],
             "context": {"default_dispatch_round_id": self.id},
         }
+
+    def action_open_open_batches(self):
+        """Drilldown for the 'Open' stat — batches in scanning state."""
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": _("Open Batches — %s") % self.name,
+            "res_model": "wms.courier.batch",
+            "view_mode": "list,form",
+            "domain": [
+                ("dispatch_round_id", "=", self.id),
+                ("state", "=", "scanning"),
+            ],
+            "context": {"default_dispatch_round_id": self.id},
+        }
+
+    def action_open_dispatched_batches(self):
+        """Drilldown for the 'Dispatched' stat."""
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": _("Dispatched Batches — %s") % self.name,
+            "res_model": "wms.courier.batch",
+            "view_mode": "list,form",
+            "domain": [
+                ("dispatch_round_id", "=", self.id),
+                ("state", "=", "dispatched"),
+            ],
+            "context": {"default_dispatch_round_id": self.id},
+        }
+
+    def action_open_pending_orders(self):
+        """Drilldown for the 'Pending' stat — scanned items in batches that
+        haven't been physically packed/handed off yet."""
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": _("Pending Items — %s") % self.name,
+            "res_model": "wms.scan.item",
+            "view_mode": "list,form",
+            "domain": [
+                ("batch_id.dispatch_round_id", "=", self.id),
+                ("batch_id.state", "!=", "dispatched"),
+            ],
+        }
+
+    def action_open_completion_breakdown(self):
+        """The 'Complete %' stat just opens all batches with the
+        completion column highlighted — a quick way to drill into which
+        batches are dragging down the percentage."""
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": _("Completion Breakdown — %s") % self.name,
+            "res_model": "wms.courier.batch",
+            "view_mode": "list,form",
+            "domain": [("dispatch_round_id", "=", self.id)],
+            "context": {
+                "default_dispatch_round_id": self.id,
+                "search_default_group_state": 1,
+            },
+        }
+
+    def action_open_wip_upstream(self):
+        """Drilldown for 'WIP upstream' — orders tagged to this round
+        that are still in pick/pack and haven't reached F3 outbound."""
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": _("WIP Orders Upstream — %s") % self.name,
+            "res_model": "wms.sales.order",
+            "view_mode": "list,form",
+            "domain": [
+                ("dispatch_round_id", "=", self.id),
+                ("status", "in",
+                 ("pending", "picking", "picked", "packing", "packed")),
+            ],
+            "context": {"search_default_gb_status": 1},
+        }

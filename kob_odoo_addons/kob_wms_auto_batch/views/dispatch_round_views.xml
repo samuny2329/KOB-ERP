@@ -43,23 +43,30 @@
                             <field name="batch_count" widget="statinfo"
                                    string="Batches"/>
                         </button>
-                        <button class="oe_stat_button" icon="fa-spinner" disabled="1">
+                        <button name="action_open_open_batches" type="object"
+                                class="oe_stat_button" icon="fa-spinner">
                             <field name="open_batch_count" widget="statinfo"
                                    string="Open"/>
                         </button>
-                        <button class="oe_stat_button" icon="fa-check" disabled="1">
+                        <button name="action_open_dispatched_batches"
+                                type="object"
+                                class="oe_stat_button" icon="fa-check">
                             <field name="dispatched_batch_count" widget="statinfo"
                                    string="Dispatched"/>
                         </button>
-                        <button class="oe_stat_button" icon="fa-hourglass-half" disabled="1">
+                        <button name="action_open_pending_orders" type="object"
+                                class="oe_stat_button" icon="fa-hourglass-half">
                             <field name="total_pending" widget="statinfo"
                                    string="Pending"/>
                         </button>
-                        <button class="oe_stat_button" icon="fa-percent" disabled="1">
+                        <button name="action_open_completion_breakdown"
+                                type="object"
+                                class="oe_stat_button" icon="fa-percent">
                             <field name="completion_pct" widget="statinfo"
                                    string="Complete"/>
                         </button>
-                        <button class="oe_stat_button" icon="fa-clock-o"
+                        <button name="action_open_wip_upstream" type="object"
+                                class="oe_stat_button" icon="fa-clock-o"
                                 invisible="wip_total == 0">
                             <field name="wip_total" widget="statinfo"
                                    string="WIP upstream"/>
