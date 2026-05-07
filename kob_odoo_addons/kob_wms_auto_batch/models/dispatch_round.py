@@ -720,8 +720,28 @@ class WmsDispatchRound(models.Model):
             self.get_or_create_active(company)
         return True
 
+    def _empty_stat_notification(self, title, message):
+        """Return an Odoo notification action used when a stat has 0
+        records — beats opening a blank list view that confuses users."""
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": title,
+                "message": message,
+                "type": "info",
+                "sticky": False,
+            },
+        }
+
     def action_open_batches(self):
         self.ensure_one()
+        if not self.batch_ids:
+            return self._empty_stat_notification(
+                _("No Batches Yet"),
+                _("Round %s has no courier batches. Run an F3 outbound "
+                  "scan to create the first one.") % self.name,
+            )
         return {
             "type": "ir.actions.act_window",
             "name": _("Batches in %s") % self.name,
@@ -734,6 +754,12 @@ class WmsDispatchRound(models.Model):
     def action_open_open_batches(self):
         """Drilldown for the 'Open' stat — batches in scanning state."""
         self.ensure_one()
+        if self.open_batch_count == 0:
+            return self._empty_stat_notification(
+                _("No Open Batches"),
+                _("All batches in this round are already dispatched "
+                  "(or none exist yet)."),
+            )
         return {
             "type": "ir.actions.act_window",
             "name": _("Open Batches — %s") % self.name,
@@ -749,6 +775,13 @@ class WmsDispatchRound(models.Model):
     def action_open_dispatched_batches(self):
         """Drilldown for the 'Dispatched' stat."""
         self.ensure_one()
+        if self.dispatched_batch_count == 0:
+            return self._empty_stat_notification(
+                _("Nothing Dispatched Yet"),
+                _("No batches in round %s have been dispatched. "
+                  "Mark a batch as 'Dispatched' to handover to courier.")
+                % self.name,
+            )
         return {
             "type": "ir.actions.act_window",
             "name": _("Dispatched Batches — %s") % self.name,
@@ -765,6 +798,11 @@ class WmsDispatchRound(models.Model):
         """Drilldown for the 'Pending' stat — scanned items in batches that
         haven't been physically packed/handed off yet."""
         self.ensure_one()
+        if self.total_pending == 0:
+            return self._empty_stat_notification(
+                _("Nothing Pending"),
+                _("All scanned items in this round have been processed."),
+            )
         return {
             "type": "ir.actions.act_window",
             "name": _("Pending Items — %s") % self.name,
@@ -781,6 +819,13 @@ class WmsDispatchRound(models.Model):
         completion column highlighted — a quick way to drill into which
         batches are dragging down the percentage."""
         self.ensure_one()
+        if not self.batch_ids:
+            return self._empty_stat_notification(
+                _("No Completion Data"),
+                _("Round %s has no batches yet — completion %% will "
+                  "calculate once the first F3 scan creates one.")
+                % self.name,
+            )
         return {
             "type": "ir.actions.act_window",
             "name": _("Completion Breakdown — %s") % self.name,
@@ -882,6 +927,12 @@ class WmsDispatchRound(models.Model):
         """Drilldown for 'WIP upstream' — orders tagged to this round
         that are still in pick/pack and haven't reached F3 outbound."""
         self.ensure_one()
+        if self.wip_total == 0:
+            return self._empty_stat_notification(
+                _("No Upstream WIP"),
+                _("Every order tagged to round %s has already reached "
+                  "F3 outbound (or none are tagged yet).") % self.name,
+            )
         return {
             "type": "ir.actions.act_window",
             "name": _("WIP Orders Upstream — %s") % self.name,
