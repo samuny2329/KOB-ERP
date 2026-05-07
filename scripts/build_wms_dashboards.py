@@ -59,9 +59,11 @@ def scorecard_figure(
     background: str = TILE_BG_BLUE,
     field_matching: dict | None = None,
 ) -> dict:
-    """KPI scorecard tile — references precomputed Data sheet cells."""
+    """KPI scorecard tile.  Positioning uses col=0,row=0 + offset.x/y
+    (Odoo 19 spreadsheet anchor-cell pattern). ``x``/``y`` here become
+    the offset values."""
     data = {
-        "title": {"text": title},
+        "title": {"text": title, "bold": True, "color": "#434343"},
         "background": background,
         "type": "scorecard",
         "keyValue": key_value_cell,
@@ -69,19 +71,21 @@ def scorecard_figure(
         "baselineColorUp": "#00A04A",
         "baselineColorDown": "#DC6965",
         "baseline": baseline_cell or "",
-        "baselineDescr": "vs prior period" if baseline_cell else "",
-        "humanize": True,
+        "baselineDescr": {"text": "vs prior period"} if baseline_cell else {"text": ""},
+        "humanize": False,
+        "chartId": fig_id,
     }
     if field_matching:
         data["fieldMatching"] = field_matching
     return {
         "id": fig_id,
-        "x": x,
-        "y": y,
         "width": width,
         "height": height,
         "tag": "chart",
         "data": data,
+        "col": 0,
+        "row": 0,
+        "offset": {"x": x, "y": y},
     }
 
 
@@ -105,7 +109,7 @@ def odoo_chart_figure(
     stacked: bool = False,
     field_matching: dict | None = None,
 ) -> dict:
-    """odoo_bar / odoo_pie / odoo_line chart figure."""
+    """odoo_bar / odoo_pie / odoo_line chart figure (anchor-cell positioning)."""
     data = {
         "title": {"text": title},
         "background": background,
@@ -116,17 +120,22 @@ def odoo_chart_figure(
             "order": order,
             "resModel": res_model,
             "mode": mode,
+            "cumulatedStart": False,
         },
         "searchParams": {
             "comparison": None,
-            "context": {},
+            "context": {"group_by": []},
             "domain": domain or [],
             "groupBy": group_by,
             "orderBy": [],
         },
         "type": f"odoo_{mode}",
+        "dataSets": [{}],
         "verticalAxisPosition": "left",
         "stacked": stacked,
+        "cumulatedStart": False,
+        "axesDesign": {},
+        "chartId": fig_id,
     }
     if mode == "line":
         data["fillArea"] = fill_area
@@ -134,12 +143,13 @@ def odoo_chart_figure(
         data["fieldMatching"] = field_matching
     return {
         "id": fig_id,
-        "x": x,
-        "y": y,
         "width": width,
         "height": height,
         "tag": "chart",
         "data": data,
+        "col": 0,
+        "row": 0,
+        "offset": {"x": x, "y": y},
     }
 
 
@@ -238,7 +248,7 @@ def build_dashboard(
     global_filter_id: str,
     field_chain: str,
     field_chain_type: str,
-    tiles: list[dict],
+    tiles: list[dict] | None = None,
     main_chart: dict,
     list_left: dict,
     list_right: dict,
@@ -250,6 +260,7 @@ def build_dashboard(
     breakdown_right: dict,
 ) -> dict:
     """Assemble final JSON for one dashboard."""
+    tiles = tiles or []
     # Date filter fieldMatching needs `offset: 0` per Sales pattern.
     fm = {global_filter_id: {
         "chain": field_chain,
@@ -258,14 +269,10 @@ def build_dashboard(
     }}
 
     # Charts: only apply fieldMatching when groupBy has a date axis.
-    # Tiles (empty groupBy) and non-date breakdown charts skip it,
-    # which avoids the spreadsheet engine destructuring null granularity
-    # in _onGlobalFilterChange.
     for fig in [main_chart, breakdown_left, breakdown_right] + tiles:
         if _has_date_groupby(fig):
             fig["data"]["fieldMatching"] = fm
 
-    # Lists are domain-pushed (no granularity), always apply fieldMatching.
     list_left["fieldMatching"] = fm
     list_right["fieldMatching"] = fm
 
@@ -283,10 +290,9 @@ def build_dashboard(
         list_id=list_right["id"], columns=list_right_columns,
     ))
 
-    # Sheet schema matches Odoo 19 Sales dashboard.  No `panes` / `areas`
-    # — those keys were leftover from older v22 KOB files and the newer
-    # spreadsheet engine fails (`getColRowOffset` reads undefined.COL)
-    # when they're set as objects/arrays it doesn't expect.
+    # Sheet schema cloned from Odoo 19 Sales dashboard exactly.  Missing
+    # keys (borders/comments/formats/styles) cause `getColRowOffset` and
+    # `getChartGranularity` to read undefined and crash on filter change.
     sheet = {
         "id": fid("sheet"),
         "name": title,
@@ -298,6 +304,10 @@ def build_dashboard(
         "cols": {},
         "merges": ["B1:I1"],
         "cells": cells,
+        "borders": {},
+        "comments": {},
+        "formats": {},
+        "styles": {},
         "conditionalFormats": [],
         "figures": tiles + [main_chart, breakdown_left, breakdown_right],
         "tables": [],
@@ -306,11 +316,12 @@ def build_dashboard(
     }
 
     return {
-        "version": 22,
+        "version": "18.5.10",
         "sheets": [sheet],
         "styles": STYLES,
         "formats": {},
         "borders": {},
+        "customTableStyles": {},
         "revisionId": "START_REVISION",
         "uniqueFigureIds": True,
         "settings": {"locale": LOCALE},
@@ -441,7 +452,7 @@ def dashboard_overview() -> dict:
         global_filter_id=gf,
         field_chain=chain,
         field_chain_type="datetime",
-        tiles=tiles,
+        tiles=[],
         main_chart=main_chart,
         list_left=list_left,
         list_right=list_right,
@@ -546,7 +557,7 @@ def dashboard_kpi() -> dict:
         global_filter_id=gf,
         field_chain=chain,
         field_chain_type="date",
-        tiles=tiles,
+        tiles=[],
         main_chart=main_chart,
         list_left=list_left,
         list_right=list_right,
@@ -651,7 +662,7 @@ def dashboard_count() -> dict:
         global_filter_id=gf,
         field_chain=chain,
         field_chain_type="datetime",
-        tiles=tiles,
+        tiles=[],
         main_chart=main_chart,
         list_left=list_left,
         list_right=list_right,
@@ -762,7 +773,7 @@ def dashboard_operations() -> dict:
         global_filter_id=gf,
         field_chain=chain,
         field_chain_type="datetime",
-        tiles=tiles,
+        tiles=[],
         main_chart=main_chart,
         list_left=list_left,
         list_right=list_right,

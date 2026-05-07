@@ -1,8 +1,8 @@
 {
-  "version": 22,
+  "version": "18.5.10",
   "sheets": [
     {
-      "id": "sheet-4d7c4338",
+      "id": "sheet-0e74bee6",
       "name": "KPI Performance",
       "isVisible": true,
       "areGridLinesVisible": true,
@@ -299,140 +299,14 @@
           "content": "=IFERROR(ODOO.LIST(2,10,\"quality_score\"),\"\")"
         }
       },
+      "borders": {},
+      "comments": {},
+      "formats": {},
+      "styles": {},
       "conditionalFormats": [],
       "figures": [
         {
-          "id": "kpi-tile1-e32c418e",
-          "x": 18,
-          "y": 60,
-          "width": 213,
-          "height": 101,
-          "tag": "chart",
-          "data": {
-            "title": {
-              "text": "Avg UPH"
-            },
-            "background": "#EFF6FF",
-            "legendPosition": "none",
-            "metaData": {
-              "groupBy": [],
-              "measure": "uph",
-              "order": "DESC",
-              "resModel": "wms.worker.performance",
-              "mode": "bar"
-            },
-            "searchParams": {
-              "comparison": null,
-              "context": {},
-              "domain": [],
-              "groupBy": [],
-              "orderBy": []
-            },
-            "type": "odoo_bar",
-            "verticalAxisPosition": "left",
-            "stacked": false
-          }
-        },
-        {
-          "id": "kpi-tile2-704a55bf",
-          "x": 241,
-          "y": 60,
-          "width": 213,
-          "height": 101,
-          "tag": "chart",
-          "data": {
-            "title": {
-              "text": "Total Picks"
-            },
-            "background": "#EFF6FF",
-            "legendPosition": "none",
-            "metaData": {
-              "groupBy": [],
-              "measure": "pick_count",
-              "order": "DESC",
-              "resModel": "wms.worker.performance",
-              "mode": "bar"
-            },
-            "searchParams": {
-              "comparison": null,
-              "context": {},
-              "domain": [],
-              "groupBy": [],
-              "orderBy": []
-            },
-            "type": "odoo_bar",
-            "verticalAxisPosition": "left",
-            "stacked": false
-          }
-        },
-        {
-          "id": "kpi-tile3-c594a8aa",
-          "x": 464,
-          "y": 60,
-          "width": 213,
-          "height": 101,
-          "tag": "chart",
-          "data": {
-            "title": {
-              "text": "Total Errors"
-            },
-            "background": "#ECFDF5",
-            "legendPosition": "none",
-            "metaData": {
-              "groupBy": [],
-              "measure": "total_errors",
-              "order": "DESC",
-              "resModel": "wms.worker.performance",
-              "mode": "bar"
-            },
-            "searchParams": {
-              "comparison": null,
-              "context": {},
-              "domain": [],
-              "groupBy": [],
-              "orderBy": []
-            },
-            "type": "odoo_bar",
-            "verticalAxisPosition": "left",
-            "stacked": false
-          }
-        },
-        {
-          "id": "kpi-tile4-8a853350",
-          "x": 687,
-          "y": 60,
-          "width": 213,
-          "height": 101,
-          "tag": "chart",
-          "data": {
-            "title": {
-              "text": "Avg Quality Score"
-            },
-            "background": "#F5F3FF",
-            "legendPosition": "none",
-            "metaData": {
-              "groupBy": [],
-              "measure": "quality_score",
-              "order": "DESC",
-              "resModel": "wms.worker.performance",
-              "mode": "bar"
-            },
-            "searchParams": {
-              "comparison": null,
-              "context": {},
-              "domain": [],
-              "groupBy": [],
-              "orderBy": []
-            },
-            "type": "odoo_bar",
-            "verticalAxisPosition": "left",
-            "stacked": false
-          }
-        },
-        {
-          "id": "kpi-line-uph-a3e39eda",
-          "x": 18,
-          "y": 171,
+          "id": "kpi-line-uph-721a7a21",
           "width": 900,
           "height": 340,
           "tag": "chart",
@@ -449,11 +323,14 @@
               "measure": "uph",
               "order": null,
               "resModel": "wms.worker.performance",
-              "mode": "line"
+              "mode": "line",
+              "cumulatedStart": false
             },
             "searchParams": {
               "comparison": null,
-              "context": {},
+              "context": {
+                "group_by": []
+              },
               "domain": [
                 [
                   "uph",
@@ -467,8 +344,14 @@
               "orderBy": []
             },
             "type": "odoo_line",
+            "dataSets": [
+              {}
+            ],
             "verticalAxisPosition": "left",
             "stacked": false,
+            "cumulatedStart": false,
+            "axesDesign": {},
+            "chartId": "kpi-line-uph-721a7a21",
             "fillArea": true,
             "fieldMatching": {
               "gf_kpi_date": {
@@ -477,12 +360,16 @@
                 "offset": 0
               }
             }
+          },
+          "col": 0,
+          "row": 0,
+          "offset": {
+            "x": 18,
+            "y": 171
           }
         },
         {
-          "id": "kpi-bar-score-cd401c8c",
-          "x": 18,
-          "y": 800,
+          "id": "kpi-bar-score-97c5f20f",
           "width": 460,
           "height": 340,
           "tag": "chart",
@@ -499,11 +386,14 @@
               "measure": "worker_score",
               "order": "DESC",
               "resModel": "wms.worker.performance",
-              "mode": "bar"
+              "mode": "bar",
+              "cumulatedStart": false
             },
             "searchParams": {
               "comparison": null,
-              "context": {},
+              "context": {
+                "group_by": []
+              },
               "domain": [
                 [
                   "kob_user_id",
@@ -517,14 +407,24 @@
               "orderBy": []
             },
             "type": "odoo_bar",
+            "dataSets": [
+              {}
+            ],
             "verticalAxisPosition": "left",
-            "stacked": false
+            "stacked": false,
+            "cumulatedStart": false,
+            "axesDesign": {},
+            "chartId": "kpi-bar-score-97c5f20f"
+          },
+          "col": 0,
+          "row": 0,
+          "offset": {
+            "x": 18,
+            "y": 800
           }
         },
         {
-          "id": "kpi-bar-errors-3800db35",
-          "x": 488,
-          "y": 800,
+          "id": "kpi-bar-errors-e7a313fb",
           "width": 460,
           "height": 340,
           "tag": "chart",
@@ -541,11 +441,14 @@
               "measure": "total_errors",
               "order": "DESC",
               "resModel": "wms.worker.performance",
-              "mode": "bar"
+              "mode": "bar",
+              "cumulatedStart": false
             },
             "searchParams": {
               "comparison": null,
-              "context": {},
+              "context": {
+                "group_by": []
+              },
               "domain": [
                 [
                   "total_errors",
@@ -559,8 +462,14 @@
               "orderBy": []
             },
             "type": "odoo_bar",
+            "dataSets": [
+              {}
+            ],
             "verticalAxisPosition": "left",
             "stacked": false,
+            "cumulatedStart": false,
+            "axesDesign": {},
+            "chartId": "kpi-bar-errors-e7a313fb",
             "fieldMatching": {
               "gf_kpi_date": {
                 "chain": "date",
@@ -568,6 +477,12 @@
                 "offset": 0
               }
             }
+          },
+          "col": 0,
+          "row": 0,
+          "offset": {
+            "x": 488,
+            "y": 800
           }
         }
       ],
@@ -597,6 +512,7 @@
   },
   "formats": {},
   "borders": {},
+  "customTableStyles": {},
   "revisionId": "START_REVISION",
   "uniqueFigureIds": true,
   "settings": {

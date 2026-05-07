@@ -1,8 +1,8 @@
 {
-  "version": 22,
+  "version": "18.5.10",
   "sheets": [
     {
-      "id": "sheet-6ca35220",
+      "id": "sheet-8177bd32",
       "name": "WMS Overview",
       "isVisible": true,
       "areGridLinesVisible": true,
@@ -231,170 +231,14 @@
           "content": "=IFERROR(ODOO.LIST(2,10,\"picked_qty\"),\"\")"
         }
       },
+      "borders": {},
+      "comments": {},
+      "formats": {},
+      "styles": {},
       "conditionalFormats": [],
       "figures": [
         {
-          "id": "ov-tile1-d39595d3",
-          "x": 18,
-          "y": 60,
-          "width": 213,
-          "height": 101,
-          "tag": "chart",
-          "data": {
-            "title": {
-              "text": "Total Orders"
-            },
-            "background": "#EFF6FF",
-            "legendPosition": "none",
-            "metaData": {
-              "groupBy": [],
-              "measure": "__count",
-              "order": "DESC",
-              "resModel": "wms.sales.order",
-              "mode": "bar"
-            },
-            "searchParams": {
-              "comparison": null,
-              "context": {},
-              "domain": [
-                [
-                  "status",
-                  "!=",
-                  "cancelled"
-                ]
-              ],
-              "groupBy": [],
-              "orderBy": []
-            },
-            "type": "odoo_bar",
-            "verticalAxisPosition": "left",
-            "stacked": false
-          }
-        },
-        {
-          "id": "ov-tile2-205007a3",
-          "x": 241,
-          "y": 60,
-          "width": 213,
-          "height": 101,
-          "tag": "chart",
-          "data": {
-            "title": {
-              "text": "Fulfilled (Packed/Shipped)"
-            },
-            "background": "#EFF6FF",
-            "legendPosition": "none",
-            "metaData": {
-              "groupBy": [],
-              "measure": "__count",
-              "order": "DESC",
-              "resModel": "wms.sales.order",
-              "mode": "bar"
-            },
-            "searchParams": {
-              "comparison": null,
-              "context": {},
-              "domain": [
-                [
-                  "status",
-                  "in",
-                  [
-                    "packed",
-                    "shipped"
-                  ]
-                ]
-              ],
-              "groupBy": [],
-              "orderBy": []
-            },
-            "type": "odoo_bar",
-            "verticalAxisPosition": "left",
-            "stacked": false
-          }
-        },
-        {
-          "id": "ov-tile3-cbef7ffb",
-          "x": 464,
-          "y": 60,
-          "width": 213,
-          "height": 101,
-          "tag": "chart",
-          "data": {
-            "title": {
-              "text": "Items Picked"
-            },
-            "background": "#FFF7ED",
-            "legendPosition": "none",
-            "metaData": {
-              "groupBy": [],
-              "measure": "picked_total",
-              "order": "DESC",
-              "resModel": "wms.sales.order",
-              "mode": "bar"
-            },
-            "searchParams": {
-              "comparison": null,
-              "context": {},
-              "domain": [
-                [
-                  "status",
-                  "!=",
-                  "cancelled"
-                ]
-              ],
-              "groupBy": [],
-              "orderBy": []
-            },
-            "type": "odoo_bar",
-            "verticalAxisPosition": "left",
-            "stacked": false
-          }
-        },
-        {
-          "id": "ov-tile4-80c45642",
-          "x": 687,
-          "y": 60,
-          "width": 213,
-          "height": 101,
-          "tag": "chart",
-          "data": {
-            "title": {
-              "text": "Pack Cost (฿)"
-            },
-            "background": "#FFF7ED",
-            "legendPosition": "none",
-            "metaData": {
-              "groupBy": [],
-              "measure": "total_pack_cost",
-              "order": "DESC",
-              "resModel": "wms.sales.order",
-              "mode": "bar"
-            },
-            "searchParams": {
-              "comparison": null,
-              "context": {},
-              "domain": [
-                [
-                  "status",
-                  "in",
-                  [
-                    "packed",
-                    "shipped"
-                  ]
-                ]
-              ],
-              "groupBy": [],
-              "orderBy": []
-            },
-            "type": "odoo_bar",
-            "verticalAxisPosition": "left",
-            "stacked": false
-          }
-        },
-        {
-          "id": "ov-line-daily-d2bea6b3",
-          "x": 18,
-          "y": 171,
+          "id": "ov-line-daily-53d08b79",
           "width": 900,
           "height": 340,
           "tag": "chart",
@@ -411,11 +255,14 @@
               "measure": "__count",
               "order": null,
               "resModel": "wms.sales.order",
-              "mode": "line"
+              "mode": "line",
+              "cumulatedStart": false
             },
             "searchParams": {
               "comparison": null,
-              "context": {},
+              "context": {
+                "group_by": []
+              },
               "domain": [
                 [
                   "status",
@@ -429,8 +276,14 @@
               "orderBy": []
             },
             "type": "odoo_line",
+            "dataSets": [
+              {}
+            ],
             "verticalAxisPosition": "left",
             "stacked": false,
+            "cumulatedStart": false,
+            "axesDesign": {},
+            "chartId": "ov-line-daily-53d08b79",
             "fillArea": true,
             "fieldMatching": {
               "gf_ov_date": {
@@ -439,12 +292,16 @@
                 "offset": 0
               }
             }
+          },
+          "col": 0,
+          "row": 0,
+          "offset": {
+            "x": 18,
+            "y": 171
           }
         },
         {
-          "id": "ov-pie-platform-752c9bf5",
-          "x": 18,
-          "y": 800,
+          "id": "ov-pie-platform-2d65a3e4",
           "width": 460,
           "height": 340,
           "tag": "chart",
@@ -461,11 +318,14 @@
               "measure": "__count",
               "order": "DESC",
               "resModel": "wms.sales.order",
-              "mode": "pie"
+              "mode": "pie",
+              "cumulatedStart": false
             },
             "searchParams": {
               "comparison": null,
-              "context": {},
+              "context": {
+                "group_by": []
+              },
               "domain": [
                 [
                   "status",
@@ -479,14 +339,24 @@
               "orderBy": []
             },
             "type": "odoo_pie",
+            "dataSets": [
+              {}
+            ],
             "verticalAxisPosition": "left",
-            "stacked": false
+            "stacked": false,
+            "cumulatedStart": false,
+            "axesDesign": {},
+            "chartId": "ov-pie-platform-2d65a3e4"
+          },
+          "col": 0,
+          "row": 0,
+          "offset": {
+            "x": 18,
+            "y": 800
           }
         },
         {
-          "id": "ov-bar-courier-2445bbd7",
-          "x": 488,
-          "y": 800,
+          "id": "ov-bar-courier-8217470b",
           "width": 460,
           "height": 340,
           "tag": "chart",
@@ -503,11 +373,14 @@
               "measure": "__count",
               "order": "DESC",
               "resModel": "wms.sales.order",
-              "mode": "bar"
+              "mode": "bar",
+              "cumulatedStart": false
             },
             "searchParams": {
               "comparison": null,
-              "context": {},
+              "context": {
+                "group_by": []
+              },
               "domain": [
                 [
                   "status",
@@ -524,8 +397,20 @@
               "orderBy": []
             },
             "type": "odoo_bar",
+            "dataSets": [
+              {}
+            ],
             "verticalAxisPosition": "left",
-            "stacked": false
+            "stacked": false,
+            "cumulatedStart": false,
+            "axesDesign": {},
+            "chartId": "ov-bar-courier-8217470b"
+          },
+          "col": 0,
+          "row": 0,
+          "offset": {
+            "x": 488,
+            "y": 800
           }
         }
       ],
@@ -555,6 +440,7 @@
   },
   "formats": {},
   "borders": {},
+  "customTableStyles": {},
   "revisionId": "START_REVISION",
   "uniqueFigureIds": true,
   "settings": {

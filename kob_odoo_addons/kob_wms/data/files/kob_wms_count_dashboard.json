@@ -1,8 +1,8 @@
 {
-  "version": 22,
+  "version": "18.5.10",
   "sheets": [
     {
-      "id": "sheet-26138929",
+      "id": "sheet-af70fd71",
       "name": "Count Adjustments",
       "isVisible": true,
       "areGridLinesVisible": true,
@@ -265,170 +265,14 @@
           "content": "=IFERROR(ODOO.LIST(2,10,\"state\"),\"\")"
         }
       },
+      "borders": {},
+      "comments": {},
+      "formats": {},
+      "styles": {},
       "conditionalFormats": [],
       "figures": [
         {
-          "id": "ca-tile1-4f548d91",
-          "x": 18,
-          "y": 60,
-          "width": 213,
-          "height": 101,
-          "tag": "chart",
-          "data": {
-            "title": {
-              "text": "Pending Adj."
-            },
-            "background": "#EFF6FF",
-            "legendPosition": "none",
-            "metaData": {
-              "groupBy": [],
-              "measure": "__count",
-              "order": "DESC",
-              "resModel": "wms.count.adjustment",
-              "mode": "bar"
-            },
-            "searchParams": {
-              "comparison": null,
-              "context": {},
-              "domain": [
-                [
-                  "state",
-                  "in",
-                  [
-                    "pending",
-                    "approved"
-                  ]
-                ]
-              ],
-              "groupBy": [],
-              "orderBy": []
-            },
-            "type": "odoo_bar",
-            "verticalAxisPosition": "left",
-            "stacked": false
-          }
-        },
-        {
-          "id": "ca-tile2-ed6d2d9e",
-          "x": 241,
-          "y": 60,
-          "width": 213,
-          "height": 101,
-          "tag": "chart",
-          "data": {
-            "title": {
-              "text": "Net Variance Qty"
-            },
-            "background": "#EFF6FF",
-            "legendPosition": "none",
-            "metaData": {
-              "groupBy": [],
-              "measure": "variance_qty",
-              "order": "DESC",
-              "resModel": "wms.count.adjustment",
-              "mode": "bar"
-            },
-            "searchParams": {
-              "comparison": null,
-              "context": {},
-              "domain": [
-                [
-                  "state",
-                  "!=",
-                  "rejected"
-                ]
-              ],
-              "groupBy": [],
-              "orderBy": []
-            },
-            "type": "odoo_bar",
-            "verticalAxisPosition": "left",
-            "stacked": false
-          }
-        },
-        {
-          "id": "ca-tile3-37e4e23b",
-          "x": 464,
-          "y": 60,
-          "width": 213,
-          "height": 101,
-          "tag": "chart",
-          "data": {
-            "title": {
-              "text": "Avg Variance %"
-            },
-            "background": "#FFF7ED",
-            "legendPosition": "none",
-            "metaData": {
-              "groupBy": [],
-              "measure": "variance_pct",
-              "order": "DESC",
-              "resModel": "wms.count.adjustment",
-              "mode": "bar"
-            },
-            "searchParams": {
-              "comparison": null,
-              "context": {},
-              "domain": [
-                [
-                  "state",
-                  "!=",
-                  "rejected"
-                ]
-              ],
-              "groupBy": [],
-              "orderBy": []
-            },
-            "type": "odoo_bar",
-            "verticalAxisPosition": "left",
-            "stacked": false
-          }
-        },
-        {
-          "id": "ca-tile4-01c5f72d",
-          "x": 687,
-          "y": 60,
-          "width": 213,
-          "height": 101,
-          "tag": "chart",
-          "data": {
-            "title": {
-              "text": "Active Sessions"
-            },
-            "background": "#FFF7ED",
-            "legendPosition": "none",
-            "metaData": {
-              "groupBy": [],
-              "measure": "__count",
-              "order": "DESC",
-              "resModel": "wms.count.session",
-              "mode": "bar"
-            },
-            "searchParams": {
-              "comparison": null,
-              "context": {},
-              "domain": [
-                [
-                  "state",
-                  "in",
-                  [
-                    "draft",
-                    "in_progress"
-                  ]
-                ]
-              ],
-              "groupBy": [],
-              "orderBy": []
-            },
-            "type": "odoo_bar",
-            "verticalAxisPosition": "left",
-            "stacked": false
-          }
-        },
-        {
-          "id": "ca-bar-state-781d9693",
-          "x": 18,
-          "y": 171,
+          "id": "ca-bar-state-b131acc6",
           "width": 900,
           "height": 340,
           "tag": "chart",
@@ -445,11 +289,14 @@
               "measure": "__count",
               "order": "DESC",
               "resModel": "wms.count.adjustment",
-              "mode": "bar"
+              "mode": "bar",
+              "cumulatedStart": false
             },
             "searchParams": {
               "comparison": null,
-              "context": {},
+              "context": {
+                "group_by": []
+              },
               "domain": [],
               "groupBy": [
                 "state"
@@ -457,14 +304,24 @@
               "orderBy": []
             },
             "type": "odoo_bar",
+            "dataSets": [
+              {}
+            ],
             "verticalAxisPosition": "left",
-            "stacked": false
+            "stacked": false,
+            "cumulatedStart": false,
+            "axesDesign": {},
+            "chartId": "ca-bar-state-b131acc6"
+          },
+          "col": 0,
+          "row": 0,
+          "offset": {
+            "x": 18,
+            "y": 171
           }
         },
         {
-          "id": "ca-pie-session-de4e3ce5",
-          "x": 18,
-          "y": 800,
+          "id": "ca-pie-session-dc75d66b",
           "width": 460,
           "height": 340,
           "tag": "chart",
@@ -481,11 +338,14 @@
               "measure": "__count",
               "order": "DESC",
               "resModel": "wms.count.session",
-              "mode": "pie"
+              "mode": "pie",
+              "cumulatedStart": false
             },
             "searchParams": {
               "comparison": null,
-              "context": {},
+              "context": {
+                "group_by": []
+              },
               "domain": [],
               "groupBy": [
                 "state"
@@ -493,14 +353,24 @@
               "orderBy": []
             },
             "type": "odoo_pie",
+            "dataSets": [
+              {}
+            ],
             "verticalAxisPosition": "left",
-            "stacked": false
+            "stacked": false,
+            "cumulatedStart": false,
+            "axesDesign": {},
+            "chartId": "ca-pie-session-dc75d66b"
+          },
+          "col": 0,
+          "row": 0,
+          "offset": {
+            "x": 18,
+            "y": 800
           }
         },
         {
-          "id": "ca-bar-sessiontype-fbeec6aa",
-          "x": 488,
-          "y": 800,
+          "id": "ca-bar-sessiontype-e23a1c4b",
           "width": 460,
           "height": 340,
           "tag": "chart",
@@ -517,11 +387,14 @@
               "measure": "done_count",
               "order": "DESC",
               "resModel": "wms.count.session",
-              "mode": "bar"
+              "mode": "bar",
+              "cumulatedStart": false
             },
             "searchParams": {
               "comparison": null,
-              "context": {},
+              "context": {
+                "group_by": []
+              },
               "domain": [],
               "groupBy": [
                 "session_type"
@@ -529,8 +402,20 @@
               "orderBy": []
             },
             "type": "odoo_bar",
+            "dataSets": [
+              {}
+            ],
             "verticalAxisPosition": "left",
-            "stacked": false
+            "stacked": false,
+            "cumulatedStart": false,
+            "axesDesign": {},
+            "chartId": "ca-bar-sessiontype-e23a1c4b"
+          },
+          "col": 0,
+          "row": 0,
+          "offset": {
+            "x": 488,
+            "y": 800
           }
         }
       ],
@@ -560,6 +445,7 @@
   },
   "formats": {},
   "borders": {},
+  "customTableStyles": {},
   "revisionId": "START_REVISION",
   "uniqueFigureIds": true,
   "settings": {
