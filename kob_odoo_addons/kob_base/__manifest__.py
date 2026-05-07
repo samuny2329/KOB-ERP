@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "KOB ERP — Base",
-    "version": "19.0.1.1.0",
+    "version": "19.0.1.1.1",
     "category": "KOB ERP/Foundation",
     "summary": "KOB ERP foundation: branding, system params, dependency hub.",
     "description": """
@@ -34,6 +34,7 @@ Loaded first by every other ``kob_*`` addon.  Owns:
             "kob_base/static/src/customize_button/customize_button.js",
             "kob_base/static/src/customize_button/customize_button.xml",
             "kob_base/static/src/customize_button/customize_button.scss",
+            "kob_base/static/src/dashboard/dashboard.scss",
         ],
     },
     "application": True,

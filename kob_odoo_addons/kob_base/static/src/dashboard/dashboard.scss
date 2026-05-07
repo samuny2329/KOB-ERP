@@ -1,0 +1,142 @@
+// KOB ERP — Spreadsheet Dashboard polish (Odoo 19 native style + fullscreen).
+//
+// Two goals:
+//   1. Make the spreadsheet dashboard view use the entire content area
+//      so charts breathe (no awkward whitespace on wide monitors).
+//   2. Refine the chart cards / sidebar / header to match Odoo 19 list
+//      view aesthetics — same border/shadow tokens we use elsewhere.
+
+// ── 1. Fullscreen content area ─────────────────────────────────────
+// The default spreadsheet dashboard is constrained by Odoo's
+// .o_action_manager parent.  Force the main column to consume all
+// available width inside the action manager (still respects the
+// app navbar so users can navigate back).
+.o_action_manager > .o_spreadsheet_dashboard_action,
+.o_spreadsheet_dashboard_action {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    // Internal columns — sidebar + content — fill height.
+    > .o_spreadsheet_dashboard_main {
+        height: 100%;
+    }
+}
+
+// Charts grid uses every pixel of the content column.
+.o_spreadsheet_dashboard_action .o-dashboard-content,
+.o_spreadsheet_dashboard_action .o_spreadsheet {
+    width: 100% !important;
+    max-width: none !important;
+}
+
+// ── 2. Sidebar — Odoo 19 list-style groups ─────────────────────────
+.o_spreadsheet_dashboard_action {
+    .o_spreadsheet_dashboard_groups,
+    .o-dashboard-groups {
+        background: #fff;
+        border-right: 1px solid #e0e0e0;
+        padding: 12px 0;
+
+        // Section title (KOB WMS / SALES / FINANCE …)
+        .group_label,
+        .o-dashboard-group-name,
+        .o_dashboard_group_label {
+            display: block;
+            padding: 14px 18px 6px;
+            font-size: 10.5px;
+            font-weight: 700;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        // Dashboard items
+        .o-dashboard-link,
+        .o_dashboard_item,
+        .o_spreadsheet_dashboard_item {
+            display: block;
+            padding: 8px 18px;
+            font-size: 13px;
+            color: #2c2c2c;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+            transition: background-color 0.12s ease,
+                        border-color 0.12s ease;
+
+            &:hover {
+                background: rgba(113, 75, 103, 0.05);
+                border-left-color: rgba(113, 75, 103, 0.5);
+            }
+
+            &.selected,
+            &.active,
+            &.o_active {
+                background: rgba(113, 75, 103, 0.08);
+                color: #714B67;
+                font-weight: 600;
+                border-left-color: #714B67;
+            }
+        }
+    }
+
+    // ── 3. Page header polish ─────────────────────────────────────
+    .o-dashboard-header,
+    .o_spreadsheet_dashboard_header {
+        padding: 16px 24px;
+        border-bottom: 1px solid #e0e0e0;
+        background: #fff;
+
+        h1, h2, .o-dashboard-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2c2c2c;
+            margin: 0;
+            letter-spacing: -0.2px;
+        }
+    }
+
+    // ── 4. Chart cards — soft shadow, rounded corners ──────────────
+    .o-dashboard-content {
+        padding: 16px;
+        background: #f9f9f9;
+
+        .o-figure,
+        .o-chart-container,
+        .o_spreadsheet_chart {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04),
+                        0 1px 3px rgba(0, 0, 0, 0.06);
+            transition: box-shadow 0.15s ease;
+
+            &:hover {
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06),
+                            0 4px 8px rgba(0, 0, 0, 0.08);
+            }
+        }
+    }
+
+    // ── 5. Date-range picker / search bar — match Odoo 19 chrome ──
+    .o-dashboard-period-selector,
+    .o_spreadsheet_dashboard_period_selector {
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+        font-size: 13px;
+    }
+
+    // ── 6. Number labels — tabular figures so columns align ───────
+    .o-chart-value,
+    .o-figure-value,
+    text.o-chart-text {
+        font-variant-numeric: tabular-nums;
+        font-feature-settings: "tnum";
+    }
+}
+
+// ── 7. Reduce wasted space at the very top (control panel padding) ─
+.o_action_manager:has(.o_spreadsheet_dashboard_action) > .o_control_panel {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
