@@ -1,6 +1,6 @@
 {
     'name': 'KOB WMS Pro — WH-Online E-Commerce',
-    'version': '19.0.1.0.4',
+    'version': '19.0.1.0.6',
     'category': 'KOB ERP/WH-Online E-Commerce',
     'summary': 'Warehouse Management for online E-commerce '
                '(Shopee · Lazada · TikTok · POS) — Kiss of Beauty.',
@@ -159,6 +159,7 @@ Features
             'kob_wms/static/src/js/wms_scan_screen/wms_scan_screen.js',
             'kob_wms/static/src/js/wms_scan_screen/wms_scan_screen.xml',
             # ── WMS List View (queue screens with scan bar) ───────────────────
+            'kob_wms/static/src/scss/wms_pick_queue.scss',
             'kob_wms/static/src/js/wms_list/wms_list_view.js',
             # ── WMS Scan Bar widget (in-form barcode input) ───────────────────
             'kob_wms/static/src/js/wms_scan_bar/wms_scan_bar.js',

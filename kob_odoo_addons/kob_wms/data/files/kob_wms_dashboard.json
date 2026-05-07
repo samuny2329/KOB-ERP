@@ -1,242 +1,714 @@
 {
-    "version": 22,
-    "sheets": [
+  "version": 22,
+  "sheets": [
+    {
+      "id": "sheet-d75620db",
+      "name": "WMS Overview",
+      "isVisible": true,
+      "rowNumber": 60,
+      "colNumber": 10,
+      "rows": {},
+      "cols": {},
+      "merges": [
+        "B1:I1"
+      ],
+      "cells": {
+        "B1": {
+          "content": "WMS Overview",
+          "style": "section_title"
+        },
+        "A22": {
+          "content": "Top Customers (by items picked)",
+          "style": "header"
+        },
+        "E22": {
+          "content": "Top Products (by qty picked)",
+          "style": "header"
+        },
+        "A23": {
+          "content": "=IFERROR(ODOO.LIST.HEADER(1,\"customer\"),\"\")",
+          "style": "header"
+        },
+        "B23": {
+          "content": "=IFERROR(ODOO.LIST.HEADER(1,\"platform\"),\"\")",
+          "style": "header"
+        },
+        "C23": {
+          "content": "=IFERROR(ODOO.LIST.HEADER(1,\"picked_total\"),\"\")",
+          "style": "header"
+        },
+        "A24": {
+          "content": "=IFERROR(ODOO.LIST(1,1,\"customer\"),\"\")"
+        },
+        "B24": {
+          "content": "=IFERROR(ODOO.LIST(1,1,\"platform\"),\"\")"
+        },
+        "C24": {
+          "content": "=IFERROR(ODOO.LIST(1,1,\"picked_total\"),\"\")"
+        },
+        "A25": {
+          "content": "=IFERROR(ODOO.LIST(1,2,\"customer\"),\"\")"
+        },
+        "B25": {
+          "content": "=IFERROR(ODOO.LIST(1,2,\"platform\"),\"\")"
+        },
+        "C25": {
+          "content": "=IFERROR(ODOO.LIST(1,2,\"picked_total\"),\"\")"
+        },
+        "A26": {
+          "content": "=IFERROR(ODOO.LIST(1,3,\"customer\"),\"\")"
+        },
+        "B26": {
+          "content": "=IFERROR(ODOO.LIST(1,3,\"platform\"),\"\")"
+        },
+        "C26": {
+          "content": "=IFERROR(ODOO.LIST(1,3,\"picked_total\"),\"\")"
+        },
+        "A27": {
+          "content": "=IFERROR(ODOO.LIST(1,4,\"customer\"),\"\")"
+        },
+        "B27": {
+          "content": "=IFERROR(ODOO.LIST(1,4,\"platform\"),\"\")"
+        },
+        "C27": {
+          "content": "=IFERROR(ODOO.LIST(1,4,\"picked_total\"),\"\")"
+        },
+        "A28": {
+          "content": "=IFERROR(ODOO.LIST(1,5,\"customer\"),\"\")"
+        },
+        "B28": {
+          "content": "=IFERROR(ODOO.LIST(1,5,\"platform\"),\"\")"
+        },
+        "C28": {
+          "content": "=IFERROR(ODOO.LIST(1,5,\"picked_total\"),\"\")"
+        },
+        "A29": {
+          "content": "=IFERROR(ODOO.LIST(1,6,\"customer\"),\"\")"
+        },
+        "B29": {
+          "content": "=IFERROR(ODOO.LIST(1,6,\"platform\"),\"\")"
+        },
+        "C29": {
+          "content": "=IFERROR(ODOO.LIST(1,6,\"picked_total\"),\"\")"
+        },
+        "A30": {
+          "content": "=IFERROR(ODOO.LIST(1,7,\"customer\"),\"\")"
+        },
+        "B30": {
+          "content": "=IFERROR(ODOO.LIST(1,7,\"platform\"),\"\")"
+        },
+        "C30": {
+          "content": "=IFERROR(ODOO.LIST(1,7,\"picked_total\"),\"\")"
+        },
+        "A31": {
+          "content": "=IFERROR(ODOO.LIST(1,8,\"customer\"),\"\")"
+        },
+        "B31": {
+          "content": "=IFERROR(ODOO.LIST(1,8,\"platform\"),\"\")"
+        },
+        "C31": {
+          "content": "=IFERROR(ODOO.LIST(1,8,\"picked_total\"),\"\")"
+        },
+        "A32": {
+          "content": "=IFERROR(ODOO.LIST(1,9,\"customer\"),\"\")"
+        },
+        "B32": {
+          "content": "=IFERROR(ODOO.LIST(1,9,\"platform\"),\"\")"
+        },
+        "C32": {
+          "content": "=IFERROR(ODOO.LIST(1,9,\"picked_total\"),\"\")"
+        },
+        "A33": {
+          "content": "=IFERROR(ODOO.LIST(1,10,\"customer\"),\"\")"
+        },
+        "B33": {
+          "content": "=IFERROR(ODOO.LIST(1,10,\"platform\"),\"\")"
+        },
+        "C33": {
+          "content": "=IFERROR(ODOO.LIST(1,10,\"picked_total\"),\"\")"
+        },
+        "E23": {
+          "content": "=IFERROR(ODOO.LIST.HEADER(2,\"product_id\"),\"\")",
+          "style": "header"
+        },
+        "F23": {
+          "content": "=IFERROR(ODOO.LIST.HEADER(2,\"expected_qty\"),\"\")",
+          "style": "header"
+        },
+        "G23": {
+          "content": "=IFERROR(ODOO.LIST.HEADER(2,\"picked_qty\"),\"\")",
+          "style": "header"
+        },
+        "E24": {
+          "content": "=IFERROR(ODOO.LIST(2,1,\"product_id\"),\"\")"
+        },
+        "F24": {
+          "content": "=IFERROR(ODOO.LIST(2,1,\"expected_qty\"),\"\")"
+        },
+        "G24": {
+          "content": "=IFERROR(ODOO.LIST(2,1,\"picked_qty\"),\"\")"
+        },
+        "E25": {
+          "content": "=IFERROR(ODOO.LIST(2,2,\"product_id\"),\"\")"
+        },
+        "F25": {
+          "content": "=IFERROR(ODOO.LIST(2,2,\"expected_qty\"),\"\")"
+        },
+        "G25": {
+          "content": "=IFERROR(ODOO.LIST(2,2,\"picked_qty\"),\"\")"
+        },
+        "E26": {
+          "content": "=IFERROR(ODOO.LIST(2,3,\"product_id\"),\"\")"
+        },
+        "F26": {
+          "content": "=IFERROR(ODOO.LIST(2,3,\"expected_qty\"),\"\")"
+        },
+        "G26": {
+          "content": "=IFERROR(ODOO.LIST(2,3,\"picked_qty\"),\"\")"
+        },
+        "E27": {
+          "content": "=IFERROR(ODOO.LIST(2,4,\"product_id\"),\"\")"
+        },
+        "F27": {
+          "content": "=IFERROR(ODOO.LIST(2,4,\"expected_qty\"),\"\")"
+        },
+        "G27": {
+          "content": "=IFERROR(ODOO.LIST(2,4,\"picked_qty\"),\"\")"
+        },
+        "E28": {
+          "content": "=IFERROR(ODOO.LIST(2,5,\"product_id\"),\"\")"
+        },
+        "F28": {
+          "content": "=IFERROR(ODOO.LIST(2,5,\"expected_qty\"),\"\")"
+        },
+        "G28": {
+          "content": "=IFERROR(ODOO.LIST(2,5,\"picked_qty\"),\"\")"
+        },
+        "E29": {
+          "content": "=IFERROR(ODOO.LIST(2,6,\"product_id\"),\"\")"
+        },
+        "F29": {
+          "content": "=IFERROR(ODOO.LIST(2,6,\"expected_qty\"),\"\")"
+        },
+        "G29": {
+          "content": "=IFERROR(ODOO.LIST(2,6,\"picked_qty\"),\"\")"
+        },
+        "E30": {
+          "content": "=IFERROR(ODOO.LIST(2,7,\"product_id\"),\"\")"
+        },
+        "F30": {
+          "content": "=IFERROR(ODOO.LIST(2,7,\"expected_qty\"),\"\")"
+        },
+        "G30": {
+          "content": "=IFERROR(ODOO.LIST(2,7,\"picked_qty\"),\"\")"
+        },
+        "E31": {
+          "content": "=IFERROR(ODOO.LIST(2,8,\"product_id\"),\"\")"
+        },
+        "F31": {
+          "content": "=IFERROR(ODOO.LIST(2,8,\"expected_qty\"),\"\")"
+        },
+        "G31": {
+          "content": "=IFERROR(ODOO.LIST(2,8,\"picked_qty\"),\"\")"
+        },
+        "E32": {
+          "content": "=IFERROR(ODOO.LIST(2,9,\"product_id\"),\"\")"
+        },
+        "F32": {
+          "content": "=IFERROR(ODOO.LIST(2,9,\"expected_qty\"),\"\")"
+        },
+        "G32": {
+          "content": "=IFERROR(ODOO.LIST(2,9,\"picked_qty\"),\"\")"
+        },
+        "E33": {
+          "content": "=IFERROR(ODOO.LIST(2,10,\"product_id\"),\"\")"
+        },
+        "F33": {
+          "content": "=IFERROR(ODOO.LIST(2,10,\"expected_qty\"),\"\")"
+        },
+        "G33": {
+          "content": "=IFERROR(ODOO.LIST(2,10,\"picked_qty\"),\"\")"
+        }
+      },
+      "conditionalFormats": [],
+      "figures": [
         {
-            "id": "sh_wms_overview",
-            "name": "Overview",
-            "colNumber": 10,
-            "rowNumber": 60,
-            "rows": {
-                "0": { "size": 32 },
-                "1": { "size": 10 }
+          "id": "ov-tile1-39ed3aac",
+          "x": 18,
+          "y": 60,
+          "width": 213,
+          "height": 101,
+          "tag": "chart",
+          "data": {
+            "title": {
+              "text": "Total Orders"
             },
-            "cols": {
-                "0": { "size": 30 }
+            "background": "#EFF6FF",
+            "legendPosition": "none",
+            "metaData": {
+              "groupBy": [],
+              "measure": "__count",
+              "order": "DESC",
+              "resModel": "wms.sales.order",
+              "mode": "bar"
             },
-            "merges": ["B1:I1"],
-            "cells": {
-                "B1": { "content": "KOB WMS — Overview" }
+            "searchParams": {
+              "comparison": null,
+              "context": {},
+              "domain": [
+                [
+                  "status",
+                  "!=",
+                  "cancelled"
+                ]
+              ],
+              "groupBy": [],
+              "orderBy": []
             },
-            "styles": {
-                "B1": 1
-            },
-            "formats": {},
-            "borders": {},
-            "conditionalFormats": [],
-            "figures": [
-                {
-                    "id": "ov-chart-status",
-                    "x": 18, "y": 60,
-                    "width": 475, "height": 340,
-                    "tag": "chart",
-                    "data": {
-                        "title": { "text": "Orders by Status" },
-                        "background": "#FFFFFF",
-                        "legendPosition": "none",
-                        "metaData": {
-                            "groupBy": ["status"],
-                            "measure": "__count",
-                            "order": null,
-                            "resModel": "wms.sales.order",
-                            "mode": "bar"
-                        },
-                        "searchParams": {
-                            "comparison": null,
-                            "context": {},
-                            "domain": [],
-                            "groupBy": ["status"],
-                            "orderBy": []
-                        },
-                        "type": "odoo_bar",
-                        "verticalAxisPosition": "left",
-                        "stacked": false,
-                        "fieldMatching": {
-                            "gf_ov_date": {
-                                "chain": "create_date",
-                                "type": "datetime"
-                            }
-                        }
-                    }
-                },
-                {
-                    "id": "ov-chart-platform",
-                    "x": 503, "y": 60,
-                    "width": 465, "height": 340,
-                    "tag": "chart",
-                    "data": {
-                        "title": { "text": "Orders by Platform" },
-                        "background": "#FFFFFF",
-                        "legendPosition": "right",
-                        "metaData": {
-                            "groupBy": ["platform"],
-                            "measure": "__count",
-                            "order": null,
-                            "resModel": "wms.sales.order",
-                            "mode": "pie"
-                        },
-                        "searchParams": {
-                            "comparison": null,
-                            "context": {},
-                            "domain": [],
-                            "groupBy": ["platform"],
-                            "orderBy": []
-                        },
-                        "type": "odoo_pie",
-                        "fieldMatching": {
-                            "gf_ov_date": {
-                                "chain": "create_date",
-                                "type": "datetime"
-                            }
-                        }
-                    }
-                },
-                {
-                    "id": "ov-chart-daily",
-                    "x": 18, "y": 420,
-                    "width": 950, "height": 360,
-                    "tag": "chart",
-                    "data": {
-                        "title": { "text": "Daily Order Volume" },
-                        "background": "#FFFFFF",
-                        "legendPosition": "top",
-                        "metaData": {
-                            "groupBy": ["create_date:day"],
-                            "measure": "__count",
-                            "order": null,
-                            "resModel": "wms.sales.order",
-                            "mode": "line"
-                        },
-                        "searchParams": {
-                            "comparison": null,
-                            "context": {},
-                            "domain": [],
-                            "groupBy": ["create_date:day"],
-                            "orderBy": []
-                        },
-                        "type": "odoo_line",
-                        "verticalAxisPosition": "left",
-                        "stacked": false,
-                        "cumulative": false,
-                        "fieldMatching": {
-                            "gf_ov_date": {
-                                "chain": "create_date",
-                                "type": "datetime"
-                            }
-                        }
-                    }
-                },
-                {
-                    "id": "ov-chart-courier",
-                    "x": 18, "y": 800,
-                    "width": 475, "height": 340,
-                    "tag": "chart",
-                    "data": {
-                        "title": { "text": "Orders by Courier" },
-                        "background": "#FFFFFF",
-                        "legendPosition": "none",
-                        "metaData": {
-                            "groupBy": ["courier_id"],
-                            "measure": "__count",
-                            "order": "DESC",
-                            "resModel": "wms.sales.order",
-                            "mode": "bar"
-                        },
-                        "searchParams": {
-                            "comparison": null,
-                            "context": {},
-                            "domain": [],
-                            "groupBy": ["courier_id"],
-                            "orderBy": []
-                        },
-                        "type": "odoo_bar",
-                        "verticalAxisPosition": "left",
-                        "stacked": false,
-                        "fieldMatching": {
-                            "gf_ov_date": {
-                                "chain": "create_date",
-                                "type": "datetime"
-                            }
-                        }
-                    }
-                },
-                {
-                    "id": "ov-chart-errors",
-                    "x": 503, "y": 800,
-                    "width": 465, "height": 340,
-                    "tag": "chart",
-                    "data": {
-                        "title": { "text": "Pick/Pack Errors by Status" },
-                        "background": "#FFFFFF",
-                        "legendPosition": "top",
-                        "metaData": {
-                            "groupBy": ["status"],
-                            "measure": "pick_errors",
-                            "order": null,
-                            "resModel": "wms.sales.order",
-                            "mode": "bar"
-                        },
-                        "searchParams": {
-                            "comparison": null,
-                            "context": {},
-                            "domain": [],
-                            "groupBy": ["status"],
-                            "orderBy": []
-                        },
-                        "type": "odoo_bar",
-                        "verticalAxisPosition": "left",
-                        "stacked": false,
-                        "fieldMatching": {
-                            "gf_ov_date": {
-                                "chain": "create_date",
-                                "type": "datetime"
-                            }
-                        }
-                    }
-                }
-            ],
-            "tables": [],
-            "areGridLinesVisible": false,
-            "isVisible": true,
-            "headerGroups": { "ROW": [], "COL": [] },
-            "dataValidationRules": [],
-            "comments": {}
-        }
-    ],
-    "styles": {
-        "1": {
-            "bold": true,
-            "fontSize": 18,
-            "textColor": "#111827",
-            "fillColor": "#F9FAFB"
-        }
-    },
-    "formats": {},
-    "borders": {},
-    "revisionId": "START_REVISION",
-    "uniqueFigureIds": true,
-    "settings": {
-        "locale": {
-            "name": "English (US)",
-            "code": "en_US",
-            "thousandsSeparator": ",",
-            "decimalSeparator": ".",
-            "weekStart": 7,
-            "dateFormat": "m/d/yyyy",
-            "timeFormat": "hh:mm:ss a"
-        }
-    },
-    "pivots": {},
-    "pivotNextId": 1,
-    "lists": {},
-    "listNextId": 1,
-    "chartOdooMenusReferences": {},
-    "globalFilters": [
+            "type": "odoo_bar",
+            "verticalAxisPosition": "left",
+            "stacked": false,
+            "fieldMatching": {
+              "gf_ov_date": {
+                "chain": "create_date",
+                "type": "datetime"
+              }
+            }
+          }
+        },
         {
-            "id": "gf_ov_date",
-            "type": "date",
-            "label": "Date Range",
-            "rangeType": "month",
-            "defaultValue": {}
+          "id": "ov-tile2-5d0d19b1",
+          "x": 241,
+          "y": 60,
+          "width": 213,
+          "height": 101,
+          "tag": "chart",
+          "data": {
+            "title": {
+              "text": "Fulfilled (Packed/Shipped)"
+            },
+            "background": "#EFF6FF",
+            "legendPosition": "none",
+            "metaData": {
+              "groupBy": [],
+              "measure": "__count",
+              "order": "DESC",
+              "resModel": "wms.sales.order",
+              "mode": "bar"
+            },
+            "searchParams": {
+              "comparison": null,
+              "context": {},
+              "domain": [
+                [
+                  "status",
+                  "in",
+                  [
+                    "packed",
+                    "shipped"
+                  ]
+                ]
+              ],
+              "groupBy": [],
+              "orderBy": []
+            },
+            "type": "odoo_bar",
+            "verticalAxisPosition": "left",
+            "stacked": false,
+            "fieldMatching": {
+              "gf_ov_date": {
+                "chain": "create_date",
+                "type": "datetime"
+              }
+            }
+          }
+        },
+        {
+          "id": "ov-tile3-5dee1a1c",
+          "x": 464,
+          "y": 60,
+          "width": 213,
+          "height": 101,
+          "tag": "chart",
+          "data": {
+            "title": {
+              "text": "Items Picked"
+            },
+            "background": "#FFF7ED",
+            "legendPosition": "none",
+            "metaData": {
+              "groupBy": [],
+              "measure": "picked_total",
+              "order": "DESC",
+              "resModel": "wms.sales.order",
+              "mode": "bar"
+            },
+            "searchParams": {
+              "comparison": null,
+              "context": {},
+              "domain": [
+                [
+                  "status",
+                  "!=",
+                  "cancelled"
+                ]
+              ],
+              "groupBy": [],
+              "orderBy": []
+            },
+            "type": "odoo_bar",
+            "verticalAxisPosition": "left",
+            "stacked": false,
+            "fieldMatching": {
+              "gf_ov_date": {
+                "chain": "create_date",
+                "type": "datetime"
+              }
+            }
+          }
+        },
+        {
+          "id": "ov-tile4-260e6b34",
+          "x": 687,
+          "y": 60,
+          "width": 213,
+          "height": 101,
+          "tag": "chart",
+          "data": {
+            "title": {
+              "text": "Pack Cost (฿)"
+            },
+            "background": "#FFF7ED",
+            "legendPosition": "none",
+            "metaData": {
+              "groupBy": [],
+              "measure": "total_pack_cost",
+              "order": "DESC",
+              "resModel": "wms.sales.order",
+              "mode": "bar"
+            },
+            "searchParams": {
+              "comparison": null,
+              "context": {},
+              "domain": [
+                [
+                  "status",
+                  "in",
+                  [
+                    "packed",
+                    "shipped"
+                  ]
+                ]
+              ],
+              "groupBy": [],
+              "orderBy": []
+            },
+            "type": "odoo_bar",
+            "verticalAxisPosition": "left",
+            "stacked": false,
+            "fieldMatching": {
+              "gf_ov_date": {
+                "chain": "create_date",
+                "type": "datetime"
+              }
+            }
+          }
+        },
+        {
+          "id": "ov-line-daily-ce2864d0",
+          "x": 18,
+          "y": 171,
+          "width": 900,
+          "height": 340,
+          "tag": "chart",
+          "data": {
+            "title": {
+              "text": "Daily Order Volume"
+            },
+            "background": "#FFFFFF",
+            "legendPosition": "none",
+            "metaData": {
+              "groupBy": [
+                "create_date:day"
+              ],
+              "measure": "__count",
+              "order": null,
+              "resModel": "wms.sales.order",
+              "mode": "line"
+            },
+            "searchParams": {
+              "comparison": null,
+              "context": {},
+              "domain": [
+                [
+                  "status",
+                  "!=",
+                  "cancelled"
+                ]
+              ],
+              "groupBy": [
+                "create_date:day"
+              ],
+              "orderBy": []
+            },
+            "type": "odoo_line",
+            "verticalAxisPosition": "left",
+            "stacked": false,
+            "fillArea": true,
+            "fieldMatching": {
+              "gf_ov_date": {
+                "chain": "create_date",
+                "type": "datetime"
+              }
+            }
+          }
+        },
+        {
+          "id": "ov-pie-platform-747c100d",
+          "x": 18,
+          "y": 800,
+          "width": 460,
+          "height": 340,
+          "tag": "chart",
+          "data": {
+            "title": {
+              "text": "Orders by Platform"
+            },
+            "background": "#FFFFFF",
+            "legendPosition": "right",
+            "metaData": {
+              "groupBy": [
+                "platform"
+              ],
+              "measure": "__count",
+              "order": "DESC",
+              "resModel": "wms.sales.order",
+              "mode": "pie"
+            },
+            "searchParams": {
+              "comparison": null,
+              "context": {},
+              "domain": [
+                [
+                  "status",
+                  "!=",
+                  "cancelled"
+                ]
+              ],
+              "groupBy": [
+                "platform"
+              ],
+              "orderBy": []
+            },
+            "type": "odoo_pie",
+            "verticalAxisPosition": "left",
+            "stacked": false,
+            "fieldMatching": {
+              "gf_ov_date": {
+                "chain": "create_date",
+                "type": "datetime"
+              }
+            }
+          }
+        },
+        {
+          "id": "ov-bar-courier-d048ca9d",
+          "x": 488,
+          "y": 800,
+          "width": 460,
+          "height": 340,
+          "tag": "chart",
+          "data": {
+            "title": {
+              "text": "Orders by Courier"
+            },
+            "background": "#FFFFFF",
+            "legendPosition": "right",
+            "metaData": {
+              "groupBy": [
+                "courier_id"
+              ],
+              "measure": "__count",
+              "order": "DESC",
+              "resModel": "wms.sales.order",
+              "mode": "bar"
+            },
+            "searchParams": {
+              "comparison": null,
+              "context": {},
+              "domain": [
+                [
+                  "status",
+                  "in",
+                  [
+                    "packed",
+                    "shipped"
+                  ]
+                ]
+              ],
+              "groupBy": [
+                "courier_id"
+              ],
+              "orderBy": []
+            },
+            "type": "odoo_bar",
+            "verticalAxisPosition": "left",
+            "stacked": false,
+            "fieldMatching": {
+              "gf_ov_date": {
+                "chain": "create_date",
+                "type": "datetime"
+              }
+            }
+          }
         }
-    ]
+      ],
+      "tables": [],
+      "areas": [],
+      "headerGroups": {
+        "ROW": [],
+        "COL": []
+      },
+      "dataValidationRules": [],
+      "panes": {
+        "xSplit": 0,
+        "ySplit": 0
+      }
+    }
+  ],
+  "styles": {
+    "section_title": {
+      "bold": true,
+      "fontSize": 16,
+      "textColor": "#01666b"
+    },
+    "header": {
+      "bold": true,
+      "textColor": "#434343",
+      "fontSize": 11
+    },
+    "tile_label": {
+      "bold": true,
+      "fontSize": 10,
+      "textColor": "#6c757d"
+    },
+    "tile_value": {
+      "bold": true,
+      "fontSize": 24,
+      "textColor": "#2c2c2c"
+    }
+  },
+  "formats": {},
+  "borders": {},
+  "revisionId": "START_REVISION",
+  "uniqueFigureIds": true,
+  "settings": {
+    "locale": {
+      "name": "English (US)",
+      "code": "en_US",
+      "thousandsSeparator": ",",
+      "decimalSeparator": ".",
+      "weekStart": 7,
+      "dateFormat": "m/d/yyyy",
+      "timeFormat": "hh:mm:ss a"
+    }
+  },
+  "pivots": {},
+  "pivotNextId": 1,
+  "lists": {
+    "1": {
+      "id": "1",
+      "model": "wms.sales.order",
+      "columns": [
+        {
+          "name": "customer",
+          "type": "char"
+        },
+        {
+          "name": "platform",
+          "type": "selection"
+        },
+        {
+          "name": "picked_total",
+          "type": "integer"
+        }
+      ],
+      "domain": [
+        [
+          "status",
+          "not in",
+          [
+            "cancelled"
+          ]
+        ],
+        [
+          "customer",
+          "!=",
+          false
+        ]
+      ],
+      "context": {},
+      "orderBy": [
+        {
+          "name": "picked_total",
+          "asc": false
+        }
+      ],
+      "fieldMatching": {
+        "gf_ov_date": {
+          "chain": "create_date",
+          "type": "datetime"
+        }
+      }
+    },
+    "2": {
+      "id": "2",
+      "model": "wms.sales.order.line",
+      "columns": [
+        {
+          "name": "product_id",
+          "type": "many2one"
+        },
+        {
+          "name": "expected_qty",
+          "type": "integer"
+        },
+        {
+          "name": "picked_qty",
+          "type": "integer"
+        }
+      ],
+      "domain": [
+        [
+          "order_id.status",
+          "!=",
+          "cancelled"
+        ]
+      ],
+      "context": {},
+      "orderBy": [
+        {
+          "name": "picked_qty",
+          "asc": false
+        }
+      ],
+      "fieldMatching": {
+        "gf_ov_date": {
+          "chain": "create_date",
+          "type": "datetime"
+        }
+      }
+    }
+  },
+  "listNextId": 3,
+  "chartOdooMenusReferences": {},
+  "globalFilters": [
+    {
+      "id": "gf_ov_date",
+      "type": "date",
+      "label": "Date Range",
+      "rangeType": "month",
+      "defaultValue": {}
+    }
+  ]
 }

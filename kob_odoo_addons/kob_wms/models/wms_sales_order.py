@@ -582,6 +582,144 @@ class WmsSalesOrder(models.Model):
             self.picked_at = now
         return {'ok': True}
 
+    # ------------------------------------------------------------------
+    # Queue-level multi-order scan dispatcher (F1 basket mode)
+    # ------------------------------------------------------------------
+    @api.model
+    def _resolve_so_ref(self, code):
+        """Resolve a barcode to a wms.sales.order by name/ref/so_name or
+        by sale.order.name. Returns empty recordset if not matched.
+        """
+        code = (code or '').strip()
+        if not code:
+            return self.browse()
+        # Try the WMS sequence (e.g. WMS/2026/0001)
+        rec = self.search([('name', '=', code)], limit=1)
+        if rec:
+            return rec
+        # Try the platform ref
+        rec = self.search([('ref', '=', code)], limit=1)
+        if rec:
+            return rec
+        # Try the linked sale.order name (e.g. SO0042)
+        rec = self.search([('so_name', '=', code)], limit=1)
+        if rec:
+            return rec
+        sale = self.env['sale.order'].search([('name', '=', code)], limit=1)
+        if sale:
+            rec = self.search([('sale_order_id', '=', sale.id)], limit=1)
+            if rec:
+                return rec
+        return self.browse()
+
+    @api.model
+    def queue_scan_dispatch(self, active_order_ids, code, kob_worker_id=None):
+        """Queue-level multi-order scan orchestrator.
+
+        Behaviour:
+          - barcode resolves to a wms.sales.order  → add to Active basket
+          - barcode resolves to a product          → distribute to first
+            order in the basket (FIFO by sale_order_date) that still
+            needs the SKU; delegate to existing ``scan_pick`` so all
+            stock + qty + log + status rules apply unchanged
+          - no match                               → error
+
+        Args:
+            active_order_ids (list[int]): wms.sales.order ids currently
+                in the worker's basket (empty list means basket is empty).
+            code (str): scanned barcode.
+            kob_worker_id (int|None): kob.wms.user id for activity log.
+
+        Returns dict with one of:
+            {type: 'so_added',     order_id, order_name}
+            {type: 'so_duplicate', order_id, order_name}
+            {type: 'so_invalid',   error}
+            {type: 'pick',         order_id, order_name, line_id,
+                                   product_name,
+                                   all_picked_in_order,
+                                   all_done_in_basket}
+            {type: 'error',        error}
+        """
+        code = (code or '').strip()
+        if not code:
+            return {'type': 'error', 'error': _('Empty scan')}
+        active_order_ids = [int(i) for i in (active_order_ids or [])]
+
+        # 1) Try to resolve as a sales-order ref first (cheap, exact match)
+        so = self._resolve_so_ref(code)
+        if so:
+            if so.id in active_order_ids:
+                return {'type': 'so_duplicate',
+                        'order_id': so.id,
+                        'order_name': so.display_order_name or so.name}
+            if so.status not in ('pending', 'picking'):
+                return {'type': 'so_invalid',
+                        'error': _(
+                            'Order %s status=%s — not pickable'
+                        ) % (so.display_order_name or so.name, so.status)}
+            # Move from pending → picking + assign worker (delegated to
+            # scan_pick when first SKU is shot, but flip status now so the
+            # row decoration in the queue updates immediately).
+            if so.status == 'pending':
+                so.status = 'picking'
+            if kob_worker_id and not so.kob_picker_id:
+                so.kob_picker_id = kob_worker_id
+            if not so.picker_id:
+                so.picker_id = self.env.user
+            return {'type': 'so_added',
+                    'order_id': so.id,
+                    'order_name': so.display_order_name or so.name}
+
+        # 2) Treat as a product code — but first verify it IS a product so
+        #    we can give a precise "Unknown barcode" error otherwise.
+        product = self.env['product.product'].search([
+            '|', ('default_code', '=', code), ('barcode', '=', code),
+        ], limit=1)
+        if not product:
+            return {'type': 'error',
+                    'error': _('Unknown barcode: %s') % code}
+
+        if not active_order_ids:
+            return {'type': 'error',
+                    'error': _(
+                        'No Active SO in basket — scan an order ref first.'
+                    )}
+
+        orders = self.browse(active_order_ids).exists().filtered(
+            lambda o: o.status in ('pending', 'picking')
+        ).sorted(key=lambda o: o.sale_order_date or o.create_date)
+
+        if not orders:
+            return {'type': 'error',
+                    'error': _(
+                        'All Active SOs already picked or shipped.'
+                    )}
+
+        for order in orders:
+            line = order._find_line_by_code(code)
+            if not line or line.picked_qty >= line.expected_qty:
+                continue
+            # Delegate to the single-order scan_pick — re-uses every existing
+            # rule (delivery state, stock reservation, picked_qty++,
+            # all_picked auto-status, _log_action, picker assignment).
+            result = order.scan_pick(code, kob_worker_id=kob_worker_id)
+            if not result.get('ok'):
+                return {'type': 'error',
+                        'error': result.get('error') or _('Pick failed')}
+            all_done = all(o.all_picked for o in orders)
+            return {'type': 'pick',
+                    'order_id': order.id,
+                    'order_name': order.display_order_name or order.name,
+                    'line_id': line.id,
+                    'product_name': line.product_id.display_name,
+                    'all_picked_in_order': bool(order.all_picked),
+                    'all_done_in_basket': bool(all_done)}
+
+        return {'type': 'error',
+                'error': _(
+                    'SKU %s not needed in any Active SO.'
+                ) % code}
+
     def scan_pack(self, sku, kob_worker_id=None):
         """Pack one unit. Logs errors. Sets pack_start_at."""
         self.ensure_one()

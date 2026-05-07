@@ -396,12 +396,12 @@ action = report.report_action(records)
         </field>
     </record>
 
-    <!-- Pick Queue (F1) -->
+    <!-- Pick Queue (F1) — multi-order basket scan controller -->
     <record id="view_wms_pick_list" model="ir.ui.view">
         <field name="name">wms.sales.order.pick.list</field>
         <field name="model">wms.sales.order</field>
         <field name="arch" type="xml">
-            <list string="Pick Queue" js_class="wms_list"
+            <list string="Pick Queue" js_class="wms_pick_queue_list"
                   decoration-warning="sla_status == 'at_risk'"
                   decoration-danger="sla_status == 'breached'"
                   decoration-info="status == 'picking'">
