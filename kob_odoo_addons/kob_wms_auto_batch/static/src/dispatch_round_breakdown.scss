@@ -1,0 +1,17 @@
+// Clickable cells in the dispatch-round breakdown HTML table.
+.kob-dr-table {
+    a.kob-dr-cell-link {
+        color: #0a6ed1;
+        text-decoration: none;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 2px 6px;
+        border-radius: 3px;
+        transition: background-color 0.15s ease;
+
+        &:hover {
+            background-color: rgba(10, 110, 209, 0.1);
+            text-decoration: underline;
+        }
+    }
+}

@@ -361,6 +361,20 @@ class WmsDispatchRound(models.Model):
             pipeline_rows_html = []
             grand = {"pending": 0, "pick": 0, "pack": 0, "packed": 0,
                      "in_batch": 0, "dispatched": 0, "total": 0}
+            def cell(value, platform, stage):
+                """Render a clickable cell; JS asset wires the click to
+                ``action_view_breakdown_cell`` via RPC."""
+                if not value:
+                    return f"<td class='kob-dr-num'>{value}</td>"
+                return (
+                    f"<td class='kob-dr-num'>"
+                    f"<a class='kob-dr-cell-link' href='#'"
+                    f" data-round-id='{r.id}'"
+                    f" data-platform='{platform}'"
+                    f" data-stage='{stage}'>{value}</a>"
+                    f"</td>"
+                )
+
             for platform, b in sorted(pipeline.items()):
                 for k in grand:
                     grand[k] += b[k]
@@ -369,13 +383,18 @@ class WmsDispatchRound(models.Model):
                     f"<td class='kob-dr-platform'>"
                     f"{platform_icons.get(platform, '📦')} "
                     f"{platform.capitalize()}</td>"
-                    f"<td class='kob-dr-num'>{b['pending']}</td>"
-                    f"<td class='kob-dr-num'>{b['pick']}</td>"
-                    f"<td class='kob-dr-num'>{b['pack']}</td>"
-                    f"<td class='kob-dr-num'>{b['packed']}</td>"
-                    f"<td class='kob-dr-num'>{b['in_batch']}</td>"
-                    f"<td class='kob-dr-num'>{b['dispatched']}</td>"
-                    f"<td class='kob-dr-num'><b>{b['total']}</b></td>"
+                    f"{cell(b['pending'], platform, 'pending')}"
+                    f"{cell(b['pick'], platform, 'pick')}"
+                    f"{cell(b['pack'], platform, 'pack')}"
+                    f"{cell(b['packed'], platform, 'packed')}"
+                    f"{cell(b['in_batch'], platform, 'in_batch')}"
+                    f"{cell(b['dispatched'], platform, 'dispatched')}"
+                    f"<td class='kob-dr-num'>"
+                    f"<a class='kob-dr-cell-link' href='#'"
+                    f" data-round-id='{r.id}'"
+                    f" data-platform='{platform}'"
+                    f" data-stage='total'><b>{b['total']}</b></a>"
+                    f"</td>"
                     "</tr>"
                 )
 
@@ -437,13 +456,18 @@ class WmsDispatchRound(models.Model):
                     f"<tbody>{''.join(pipeline_rows_html)}</tbody>"
                     "<tfoot><tr>"
                     "<td><b>TOTAL</b></td>"
-                    f"<td class='kob-dr-num'>{grand['pending']}</td>"
-                    f"<td class='kob-dr-num'>{grand['pick']}</td>"
-                    f"<td class='kob-dr-num'>{grand['pack']}</td>"
-                    f"<td class='kob-dr-num'>{grand['packed']}</td>"
-                    f"<td class='kob-dr-num'>{grand['in_batch']}</td>"
-                    f"<td class='kob-dr-num'>{grand['dispatched']}</td>"
-                    f"<td class='kob-dr-num'>{grand['total']}</td>"
+                    f"{cell(grand['pending'], '', 'pending')}"
+                    f"{cell(grand['pick'], '', 'pick')}"
+                    f"{cell(grand['pack'], '', 'pack')}"
+                    f"{cell(grand['packed'], '', 'packed')}"
+                    f"{cell(grand['in_batch'], '', 'in_batch')}"
+                    f"{cell(grand['dispatched'], '', 'dispatched')}"
+                    f"<td class='kob-dr-num'>"
+                    f"<a class='kob-dr-cell-link' href='#'"
+                    f" data-round-id='{r.id}'"
+                    f" data-platform=''"
+                    f" data-stage='total'><b>{grand['total']}</b></a>"
+                    f"</td>"
                     "</tr></tfoot>"
                     "</table>"
                     "</div>"
@@ -706,6 +730,91 @@ class WmsDispatchRound(models.Model):
                 "default_dispatch_round_id": self.id,
                 "search_default_group_state": 1,
             },
+        }
+
+    def action_view_breakdown_cell(self, platform=None, stage=None):
+        """Drill-down for one cell of the per-platform pipeline table.
+
+        Called via RPC from JS when the user clicks a cell in the
+        ORDER PIPELINE — THIS ROUND table.  ``stage`` ∈
+        {pending, pick, pack, packed, in_batch, dispatched}.
+        """
+        self.ensure_one()
+        SO = self.env["wms.sales.order"].sudo()
+        ScanItem = self.env.get("wms.scan.item")
+
+        # Cohort: orders pre-tagged to this round + scanned into this
+        # round's batches (mirrors _compute_breakdown_html).
+        non_cx = self.batch_ids.filtered(lambda b: b.state != "cancelled")
+        scan_so_ids = []
+        if ScanItem is not None:
+            scan_so_ids = ScanItem.sudo().search([
+                ("batch_id", "in", non_cx.ids),
+            ]).mapped("sales_order_id").ids
+        domain = [
+            "|",
+            ("dispatch_round_id", "=", self.id),
+            ("id", "in", scan_so_ids),
+        ]
+        if platform:
+            domain.append(("platform", "=", platform))
+
+        title = self.name
+        if platform:
+            title = "%s — %s" % (title, platform.capitalize())
+
+        if stage == "pending":
+            domain.append(("status", "=", "pending"))
+            title += " — Pending"
+        elif stage == "pick":
+            domain.append(("status", "=", "picking"))
+            title += " — Pick (F1)"
+        elif stage == "pack":
+            domain.append(("status", "in", ("picked", "packing")))
+            title += " — Pack (F2)"
+        elif stage == "packed":
+            domain.append(("status", "=", "packed"))
+            title += " — Packed"
+        elif stage == "in_batch":
+            domain.append(("status", "=", "shipped"))
+            # narrow to those whose batch is NOT yet dispatched
+            shipped_ids = SO.search(domain).ids
+            in_batch_ids = []
+            if ScanItem is not None:
+                items = ScanItem.sudo().search([
+                    ("batch_id", "in", non_cx.ids),
+                    ("sales_order_id", "in", shipped_ids),
+                ])
+                for it in items:
+                    if it.batch_id.state != "dispatched":
+                        in_batch_ids.append(it.sales_order_id.id)
+            domain = [("id", "in", list(set(in_batch_ids)))]
+            title += " — In Batch"
+        elif stage == "dispatched":
+            domain.append(("status", "=", "shipped"))
+            shipped_ids = SO.search(domain).ids
+            disp_ids = []
+            if ScanItem is not None:
+                items = ScanItem.sudo().search([
+                    ("batch_id", "in", non_cx.ids),
+                    ("sales_order_id", "in", shipped_ids),
+                ])
+                for it in items:
+                    if it.batch_id.state == "dispatched":
+                        disp_ids.append(it.sales_order_id.id)
+            domain = [("id", "in", list(set(disp_ids)))]
+            title += " — Dispatched"
+        # stage = None / "total" → all rows in cohort
+        elif stage in (None, "total"):
+            title += " — All"
+
+        return {
+            "type": "ir.actions.act_window",
+            "name": title,
+            "res_model": "wms.sales.order",
+            "view_mode": "list,form",
+            "domain": domain,
+            "target": "current",
         }
 
     def action_open_wip_upstream(self):

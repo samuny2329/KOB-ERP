@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "KOB WMS — Auto Dispatch Batch (Round + Platform)",
-    "version": "19.0.1.0.2",
+    "version": "19.0.1.0.3",
     "category": "KOB ERP/Warehouse",
     "summary": (
         "Auto-group scan-Out into per-round, per-platform, per-courier "
@@ -42,6 +42,12 @@ Adds:
         "views/courier_platform_map_views.xml",
         "views/menus.xml",
     ],
+    "assets": {
+        "web.assets_backend": [
+            "kob_wms_auto_batch/static/src/dispatch_round_breakdown.js",
+            "kob_wms_auto_batch/static/src/dispatch_round_breakdown.scss",
+        ],
+    },
     "installable": True,
     "auto_install": False,
     "post_init_hook": "post_init_seed_mappings",
