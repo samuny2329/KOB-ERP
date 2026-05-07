@@ -541,7 +541,7 @@ class WmsSalesOrder(models.Model):
         if not line:
             for l in self.line_ids.filtered(lambda x: x.picked_qty < x.expected_qty):
                 if l.product_id and l.product_id.tracking != 'none':
-                    found_lot, _ = self._resolve_lot(sku, l.product_id)
+                    found_lot, _lot_msg = self._resolve_lot(sku, l.product_id)
                     if found_lot:
                         line = l
                         lot = found_lot
@@ -585,6 +585,16 @@ class WmsSalesOrder(models.Model):
     # ------------------------------------------------------------------
     # Queue-level multi-order scan dispatcher (F1 basket mode)
     # ------------------------------------------------------------------
+    @api.model
+    def resolve_so_ref(self, code):
+        """Public RPC wrapper for `_resolve_so_ref`.
+
+        Returns the wms.sales.order id matching `code`, or False.
+        Used by the scan-bar widget to detect SO refs vs product codes.
+        """
+        rec = self._resolve_so_ref(code)
+        return rec.id if rec else False
+
     @api.model
     def _resolve_so_ref(self, code):
         """Resolve a barcode to a wms.sales.order by name/ref/so_name or
