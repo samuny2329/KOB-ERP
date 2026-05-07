@@ -335,10 +335,16 @@ class WmsDispatchRound(models.Model):
                 for o in cohort:
                     p = getattr(o, "platform", None) or "manual"
                     bucket = pipeline.setdefault(p, {
-                        "pick": 0, "pack": 0, "packed": 0,
+                        "pending": 0, "pick": 0, "pack": 0, "packed": 0,
                         "in_batch": 0, "dispatched": 0, "total": 0,
                     })
-                    if o.status in ("pending", "picking"):
+                    # Honest stage breakdown: pending (queued, not started)
+                    # is a separate column so the dashboard never claims a
+                    # row of 2,205 orders is "being picked" when nobody has
+                    # touched a barcode gun yet.
+                    if o.status == "pending":
+                        bucket["pending"] += 1
+                    elif o.status == "picking":
                         bucket["pick"] += 1
                     elif o.status in ("picked", "packing"):
                         bucket["pack"] += 1
@@ -353,7 +359,7 @@ class WmsDispatchRound(models.Model):
                     bucket["total"] += 1
 
             pipeline_rows_html = []
-            grand = {"pick": 0, "pack": 0, "packed": 0,
+            grand = {"pending": 0, "pick": 0, "pack": 0, "packed": 0,
                      "in_batch": 0, "dispatched": 0, "total": 0}
             for platform, b in sorted(pipeline.items()):
                 for k in grand:
@@ -363,6 +369,7 @@ class WmsDispatchRound(models.Model):
                     f"<td class='kob-dr-platform'>"
                     f"{platform_icons.get(platform, '📦')} "
                     f"{platform.capitalize()}</td>"
+                    f"<td class='kob-dr-num'>{b['pending']}</td>"
                     f"<td class='kob-dr-num'>{b['pick']}</td>"
                     f"<td class='kob-dr-num'>{b['pack']}</td>"
                     f"<td class='kob-dr-num'>{b['packed']}</td>"
@@ -381,15 +388,15 @@ class WmsDispatchRound(models.Model):
                     "</div>"
                 )
             else:
-                # Consistency check: per-row total = sum of stages
+                # Consistency check: per-row total = sum of all stages
                 row_ok = all(
-                    b["total"] == b["pick"] + b["pack"] + b["packed"]
-                                + b["in_batch"] + b["dispatched"]
+                    b["total"] == b["pending"] + b["pick"] + b["pack"]
+                                + b["packed"] + b["in_batch"] + b["dispatched"]
                     for b in pipeline.values()
                 )
                 grand_ok = grand["total"] == (
-                    grand["pick"] + grand["pack"] + grand["packed"]
-                    + grand["in_batch"] + grand["dispatched"]
+                    grand["pending"] + grand["pick"] + grand["pack"]
+                    + grand["packed"] + grand["in_batch"] + grand["dispatched"]
                 )
                 check_html = (
                     "<span class='kob-dr-check kob-dr-check--ok'>"
@@ -401,6 +408,8 @@ class WmsDispatchRound(models.Model):
                 # Completion: % of cohort already shipped (in-batch + dispatched)
                 done_n = grand["in_batch"] + grand["dispatched"]
                 pct = (done_n / grand["total"] * 100) if grand["total"] else 0
+                upstream_n = (grand["pending"] + grand["pick"]
+                              + grand["pack"] + grand["packed"])
                 pipeline_table = (
                     "<div class='kob-dr-section'>"
                     "<div class='kob-dr-section__title'>"
@@ -410,15 +419,16 @@ class WmsDispatchRound(models.Model):
                     "<span class='kob-dr-section__totals'>"
                     f"<b>{grand['total']}</b> total · "
                     f"<b>{done_n}</b> shipped ({pct:.0f}%) · "
-                    f"<b>{grand['pick'] + grand['pack'] + grand['packed']}</b> upstream"
+                    f"<b>{upstream_n}</b> upstream"
                     f"{check_html}"
                     "</span>"
                     "</div>"
                     "<table class='kob-dr-table'>"
                     "<thead><tr>"
                     "<th>Platform</th>"
-                    "<th class='kob-dr-num'>Pick (F1)</th>"
-                    "<th class='kob-dr-num'>Pack (F2)</th>"
+                    "<th class='kob-dr-num' title='Queued — not started'>Pending</th>"
+                    "<th class='kob-dr-num' title='Currently in Pick (F1)'>Pick (F1)</th>"
+                    "<th class='kob-dr-num' title='Picked or in Pack (F2)'>Pack (F2)</th>"
                     "<th class='kob-dr-num'>Packed</th>"
                     "<th class='kob-dr-num'>In Batch</th>"
                     "<th class='kob-dr-num'>Dispatched</th>"
@@ -427,6 +437,7 @@ class WmsDispatchRound(models.Model):
                     f"<tbody>{''.join(pipeline_rows_html)}</tbody>"
                     "<tfoot><tr>"
                     "<td><b>TOTAL</b></td>"
+                    f"<td class='kob-dr-num'>{grand['pending']}</td>"
                     f"<td class='kob-dr-num'>{grand['pick']}</td>"
                     f"<td class='kob-dr-num'>{grand['pack']}</td>"
                     f"<td class='kob-dr-num'>{grand['packed']}</td>"

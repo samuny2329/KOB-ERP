@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "KOB WMS — Auto Dispatch Batch (Round + Platform)",
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.0.1",
     "category": "KOB ERP/Warehouse",
     "summary": (
         "Auto-group scan-Out into per-round, per-platform, per-courier "
