@@ -2,9 +2,10 @@
   "version": 22,
   "sheets": [
     {
-      "id": "sheet-e7156579",
+      "id": "sheet-4d7c4338",
       "name": "KPI Performance",
       "isVisible": true,
+      "areGridLinesVisible": true,
       "rowNumber": 60,
       "colNumber": 10,
       "rows": {},
@@ -301,7 +302,7 @@
       "conditionalFormats": [],
       "figures": [
         {
-          "id": "kpi-tile1-84cec19d",
+          "id": "kpi-tile1-e32c418e",
           "x": 18,
           "y": 60,
           "width": 213,
@@ -333,7 +334,7 @@
           }
         },
         {
-          "id": "kpi-tile2-6b1709d0",
+          "id": "kpi-tile2-704a55bf",
           "x": 241,
           "y": 60,
           "width": 213,
@@ -365,7 +366,7 @@
           }
         },
         {
-          "id": "kpi-tile3-a236b3af",
+          "id": "kpi-tile3-c594a8aa",
           "x": 464,
           "y": 60,
           "width": 213,
@@ -397,7 +398,7 @@
           }
         },
         {
-          "id": "kpi-tile4-c42112cf",
+          "id": "kpi-tile4-8a853350",
           "x": 687,
           "y": 60,
           "width": 213,
@@ -429,7 +430,7 @@
           }
         },
         {
-          "id": "kpi-line-uph-52dffc22",
+          "id": "kpi-line-uph-a3e39eda",
           "x": 18,
           "y": 171,
           "width": 900,
@@ -472,13 +473,14 @@
             "fieldMatching": {
               "gf_kpi_date": {
                 "chain": "date",
-                "type": "date"
+                "type": "date",
+                "offset": 0
               }
             }
           }
         },
         {
-          "id": "kpi-bar-score-f86a92cf",
+          "id": "kpi-bar-score-cd401c8c",
           "x": 18,
           "y": 800,
           "width": 460,
@@ -520,7 +522,7 @@
           }
         },
         {
-          "id": "kpi-bar-errors-ea552d5b",
+          "id": "kpi-bar-errors-3800db35",
           "x": 488,
           "y": 800,
           "width": 460,
@@ -562,23 +564,19 @@
             "fieldMatching": {
               "gf_kpi_date": {
                 "chain": "date",
-                "type": "date"
+                "type": "date",
+                "offset": 0
               }
             }
           }
         }
       ],
       "tables": [],
-      "areas": [],
       "headerGroups": {
         "ROW": [],
         "COL": []
       },
-      "dataValidationRules": [],
-      "panes": {
-        "xSplit": 0,
-        "ySplit": 0
-      }
+      "dataValidationRules": []
     }
   ],
   "styles": {
@@ -617,24 +615,13 @@
   "lists": {
     "1": {
       "id": "1",
+      "name": "Top Pickers",
       "model": "wms.worker.performance",
       "columns": [
-        {
-          "name": "kob_user_id",
-          "type": "many2one"
-        },
-        {
-          "name": "pick_count",
-          "type": "integer"
-        },
-        {
-          "name": "uph",
-          "type": "float"
-        },
-        {
-          "name": "error_rate",
-          "type": "float"
-        }
+        "kob_user_id",
+        "pick_count",
+        "uph",
+        "error_rate"
       ],
       "domain": [
         [
@@ -658,30 +645,20 @@
       "fieldMatching": {
         "gf_kpi_date": {
           "chain": "date",
-          "type": "date"
+          "type": "date",
+          "offset": 0
         }
       }
     },
     "2": {
       "id": "2",
+      "name": "Top Packers",
       "model": "wms.worker.performance",
       "columns": [
-        {
-          "name": "kob_user_id",
-          "type": "many2one"
-        },
-        {
-          "name": "pack_count",
-          "type": "integer"
-        },
-        {
-          "name": "uph",
-          "type": "float"
-        },
-        {
-          "name": "quality_score",
-          "type": "float"
-        }
+        "kob_user_id",
+        "pack_count",
+        "uph",
+        "quality_score"
       ],
       "domain": [
         [
@@ -705,7 +682,8 @@
       "fieldMatching": {
         "gf_kpi_date": {
           "chain": "date",
-          "type": "date"
+          "type": "date",
+          "offset": 0
         }
       }
     }

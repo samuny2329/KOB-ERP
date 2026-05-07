@@ -2,9 +2,10 @@
   "version": 22,
   "sheets": [
     {
-      "id": "sheet-bf078403",
+      "id": "sheet-6ca35220",
       "name": "WMS Overview",
       "isVisible": true,
+      "areGridLinesVisible": true,
       "rowNumber": 60,
       "colNumber": 10,
       "rows": {},
@@ -233,7 +234,7 @@
       "conditionalFormats": [],
       "figures": [
         {
-          "id": "ov-tile1-a4a4a0f1",
+          "id": "ov-tile1-d39595d3",
           "x": 18,
           "y": 60,
           "width": 213,
@@ -271,7 +272,7 @@
           }
         },
         {
-          "id": "ov-tile2-124445b4",
+          "id": "ov-tile2-205007a3",
           "x": 241,
           "y": 60,
           "width": 213,
@@ -312,7 +313,7 @@
           }
         },
         {
-          "id": "ov-tile3-1e83ea70",
+          "id": "ov-tile3-cbef7ffb",
           "x": 464,
           "y": 60,
           "width": 213,
@@ -350,7 +351,7 @@
           }
         },
         {
-          "id": "ov-tile4-4fefab78",
+          "id": "ov-tile4-80c45642",
           "x": 687,
           "y": 60,
           "width": 213,
@@ -391,7 +392,7 @@
           }
         },
         {
-          "id": "ov-line-daily-7ac58f20",
+          "id": "ov-line-daily-d2bea6b3",
           "x": 18,
           "y": 171,
           "width": 900,
@@ -434,13 +435,14 @@
             "fieldMatching": {
               "gf_ov_date": {
                 "chain": "create_date",
-                "type": "datetime"
+                "type": "datetime",
+                "offset": 0
               }
             }
           }
         },
         {
-          "id": "ov-pie-platform-68a51184",
+          "id": "ov-pie-platform-752c9bf5",
           "x": 18,
           "y": 800,
           "width": 460,
@@ -482,7 +484,7 @@
           }
         },
         {
-          "id": "ov-bar-courier-f67717e0",
+          "id": "ov-bar-courier-2445bbd7",
           "x": 488,
           "y": 800,
           "width": 460,
@@ -528,16 +530,11 @@
         }
       ],
       "tables": [],
-      "areas": [],
       "headerGroups": {
         "ROW": [],
         "COL": []
       },
-      "dataValidationRules": [],
-      "panes": {
-        "xSplit": 0,
-        "ySplit": 0
-      }
+      "dataValidationRules": []
     }
   ],
   "styles": {
@@ -576,20 +573,12 @@
   "lists": {
     "1": {
       "id": "1",
+      "name": "Top Customers by Items Picked",
       "model": "wms.sales.order",
       "columns": [
-        {
-          "name": "customer",
-          "type": "char"
-        },
-        {
-          "name": "platform",
-          "type": "selection"
-        },
-        {
-          "name": "picked_total",
-          "type": "integer"
-        }
+        "customer",
+        "platform",
+        "picked_total"
       ],
       "domain": [
         [
@@ -615,26 +604,19 @@
       "fieldMatching": {
         "gf_ov_date": {
           "chain": "create_date",
-          "type": "datetime"
+          "type": "datetime",
+          "offset": 0
         }
       }
     },
     "2": {
       "id": "2",
+      "name": "Top Products by Picked Qty",
       "model": "wms.sales.order.line",
       "columns": [
-        {
-          "name": "product_id",
-          "type": "many2one"
-        },
-        {
-          "name": "expected_qty",
-          "type": "integer"
-        },
-        {
-          "name": "picked_qty",
-          "type": "integer"
-        }
+        "product_id",
+        "expected_qty",
+        "picked_qty"
       ],
       "domain": [
         [
@@ -653,7 +635,8 @@
       "fieldMatching": {
         "gf_ov_date": {
           "chain": "create_date",
-          "type": "datetime"
+          "type": "datetime",
+          "offset": 0
         }
       }
     }

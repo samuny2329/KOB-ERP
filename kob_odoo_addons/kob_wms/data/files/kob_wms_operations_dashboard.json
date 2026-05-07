@@ -2,9 +2,10 @@
   "version": 22,
   "sheets": [
     {
-      "id": "sheet-2ffeed8e",
+      "id": "sheet-607b9d06",
       "name": "WMS Operations",
       "isVisible": true,
+      "areGridLinesVisible": true,
       "rowNumber": 60,
       "colNumber": 10,
       "rows": {},
@@ -301,7 +302,7 @@
       "conditionalFormats": [],
       "figures": [
         {
-          "id": "op-tile1-a3847d15",
+          "id": "op-tile1-2d56c251",
           "x": 18,
           "y": 60,
           "width": 213,
@@ -339,7 +340,7 @@
           }
         },
         {
-          "id": "op-tile2-c6662a84",
+          "id": "op-tile2-ce5f2a99",
           "x": 241,
           "y": 60,
           "width": 213,
@@ -377,7 +378,7 @@
           }
         },
         {
-          "id": "op-tile3-a0c45a76",
+          "id": "op-tile3-4c130b79",
           "x": 464,
           "y": 60,
           "width": 213,
@@ -415,7 +416,7 @@
           }
         },
         {
-          "id": "op-tile4-d512eddc",
+          "id": "op-tile4-6ea14c4a",
           "x": 687,
           "y": 60,
           "width": 213,
@@ -456,7 +457,7 @@
           }
         },
         {
-          "id": "op-line-duration-b19f5d35",
+          "id": "op-line-duration-48a39c52",
           "x": 18,
           "y": 171,
           "width": 900,
@@ -499,13 +500,14 @@
             "fieldMatching": {
               "gf_op_date": {
                 "chain": "create_date",
-                "type": "datetime"
+                "type": "datetime",
+                "offset": 0
               }
             }
           }
         },
         {
-          "id": "op-pie-sla-bf7a965e",
+          "id": "op-pie-sla-66f8e02a",
           "x": 18,
           "y": 800,
           "width": 460,
@@ -547,7 +549,7 @@
           }
         },
         {
-          "id": "op-bar-courier-c3a2790e",
+          "id": "op-bar-courier-55bdb002",
           "x": 488,
           "y": 800,
           "width": 460,
@@ -584,16 +586,11 @@
         }
       ],
       "tables": [],
-      "areas": [],
       "headerGroups": {
         "ROW": [],
         "COL": []
       },
-      "dataValidationRules": [],
-      "panes": {
-        "xSplit": 0,
-        "ySplit": 0
-      }
+      "dataValidationRules": []
     }
   ],
   "styles": {
@@ -632,24 +629,13 @@
   "lists": {
     "1": {
       "id": "1",
+      "name": "Recent SLA Breaches",
       "model": "wms.sales.order",
       "columns": [
-        {
-          "name": "display_order_name",
-          "type": "char"
-        },
-        {
-          "name": "platform",
-          "type": "selection"
-        },
-        {
-          "name": "sla_status",
-          "type": "selection"
-        },
-        {
-          "name": "total_duration_min",
-          "type": "float"
-        }
+        "display_order_name",
+        "platform",
+        "sla_status",
+        "total_duration_min"
       ],
       "domain": [
         [
@@ -668,30 +654,20 @@
       "fieldMatching": {
         "gf_op_date": {
           "chain": "create_date",
-          "type": "datetime"
+          "type": "datetime",
+          "offset": 0
         }
       }
     },
     "2": {
       "id": "2",
+      "name": "Slowest Active Orders",
       "model": "wms.sales.order",
       "columns": [
-        {
-          "name": "display_order_name",
-          "type": "char"
-        },
-        {
-          "name": "status",
-          "type": "selection"
-        },
-        {
-          "name": "pick_duration_min",
-          "type": "float"
-        },
-        {
-          "name": "pack_duration_min",
-          "type": "float"
-        }
+        "display_order_name",
+        "status",
+        "pick_duration_min",
+        "pack_duration_min"
       ],
       "domain": [
         [
@@ -713,7 +689,8 @@
       "fieldMatching": {
         "gf_op_date": {
           "chain": "create_date",
-          "type": "datetime"
+          "type": "datetime",
+          "offset": 0
         }
       }
     }

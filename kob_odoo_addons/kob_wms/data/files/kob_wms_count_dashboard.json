@@ -2,9 +2,10 @@
   "version": 22,
   "sheets": [
     {
-      "id": "sheet-734ca3f5",
+      "id": "sheet-26138929",
       "name": "Count Adjustments",
       "isVisible": true,
+      "areGridLinesVisible": true,
       "rowNumber": 60,
       "colNumber": 10,
       "rows": {},
@@ -267,7 +268,7 @@
       "conditionalFormats": [],
       "figures": [
         {
-          "id": "ca-tile1-cb667da2",
+          "id": "ca-tile1-4f548d91",
           "x": 18,
           "y": 60,
           "width": 213,
@@ -308,7 +309,7 @@
           }
         },
         {
-          "id": "ca-tile2-51ddf8ce",
+          "id": "ca-tile2-ed6d2d9e",
           "x": 241,
           "y": 60,
           "width": 213,
@@ -346,7 +347,7 @@
           }
         },
         {
-          "id": "ca-tile3-7c5a84a3",
+          "id": "ca-tile3-37e4e23b",
           "x": 464,
           "y": 60,
           "width": 213,
@@ -384,7 +385,7 @@
           }
         },
         {
-          "id": "ca-tile4-b1a12f73",
+          "id": "ca-tile4-01c5f72d",
           "x": 687,
           "y": 60,
           "width": 213,
@@ -425,7 +426,7 @@
           }
         },
         {
-          "id": "ca-bar-state-3c94eef8",
+          "id": "ca-bar-state-781d9693",
           "x": 18,
           "y": 171,
           "width": 900,
@@ -461,7 +462,7 @@
           }
         },
         {
-          "id": "ca-pie-session-a4d41cd7",
+          "id": "ca-pie-session-de4e3ce5",
           "x": 18,
           "y": 800,
           "width": 460,
@@ -497,7 +498,7 @@
           }
         },
         {
-          "id": "ca-bar-sessiontype-a35356b6",
+          "id": "ca-bar-sessiontype-fbeec6aa",
           "x": 488,
           "y": 800,
           "width": 460,
@@ -534,16 +535,11 @@
         }
       ],
       "tables": [],
-      "areas": [],
       "headerGroups": {
         "ROW": [],
         "COL": []
       },
-      "dataValidationRules": [],
-      "panes": {
-        "xSplit": 0,
-        "ySplit": 0
-      }
+      "dataValidationRules": []
     }
   ],
   "styles": {
@@ -582,24 +578,13 @@
   "lists": {
     "1": {
       "id": "1",
+      "name": "Top Variance Products",
       "model": "wms.count.adjustment",
       "columns": [
-        {
-          "name": "product_id",
-          "type": "many2one"
-        },
-        {
-          "name": "variance_qty",
-          "type": "float"
-        },
-        {
-          "name": "variance_pct",
-          "type": "float"
-        },
-        {
-          "name": "state",
-          "type": "selection"
-        }
+        "product_id",
+        "variance_qty",
+        "variance_pct",
+        "state"
       ],
       "domain": [
         [
@@ -618,26 +603,19 @@
       "fieldMatching": {
         "gf_ca_date": {
           "chain": "verified_date",
-          "type": "datetime"
+          "type": "datetime",
+          "offset": 0
         }
       }
     },
     "2": {
       "id": "2",
+      "name": "Top Variance Locations",
       "model": "wms.count.adjustment",
       "columns": [
-        {
-          "name": "location_id",
-          "type": "many2one"
-        },
-        {
-          "name": "variance_qty",
-          "type": "float"
-        },
-        {
-          "name": "state",
-          "type": "selection"
-        }
+        "location_id",
+        "variance_qty",
+        "state"
       ],
       "domain": [
         [
@@ -656,7 +634,8 @@
       "fieldMatching": {
         "gf_ca_date": {
           "chain": "verified_date",
-          "type": "datetime"
+          "type": "datetime",
+          "offset": 0
         }
       }
     }

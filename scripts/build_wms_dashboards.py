@@ -143,11 +143,16 @@ def odoo_chart_figure(
     }
 
 
-def make_list(*, list_id: str, model: str, columns: list[dict], domain: list,
-              order_by: list[dict], context: dict | None = None) -> dict:
-    """`lists` registry entry — drives ODOO.LIST formulas in cells."""
+def make_list(*, list_id: str, model: str, columns: list[str], domain: list,
+              order_by: list[dict], context: dict | None = None,
+              name: str = "") -> dict:
+    """`lists` registry entry — drives ODOO.LIST formulas in cells.
+
+    Columns are plain field-name strings per Odoo Sales dashboard pattern.
+    """
     return {
         "id": list_id,
+        "name": name or f"List {list_id}",
         "model": model,
         "columns": columns,
         "domain": domain,
@@ -245,7 +250,12 @@ def build_dashboard(
     breakdown_right: dict,
 ) -> dict:
     """Assemble final JSON for one dashboard."""
-    fm = {global_filter_id: {"chain": field_chain, "type": field_chain_type}}
+    # Date filter fieldMatching needs `offset: 0` per Sales pattern.
+    fm = {global_filter_id: {
+        "chain": field_chain,
+        "type": field_chain_type,
+        "offset": 0,
+    }}
 
     # Charts: only apply fieldMatching when groupBy has a date axis.
     # Tiles (empty groupBy) and non-date breakdown charts skip it,
@@ -273,10 +283,15 @@ def build_dashboard(
         list_id=list_right["id"], columns=list_right_columns,
     ))
 
+    # Sheet schema matches Odoo 19 Sales dashboard.  No `panes` / `areas`
+    # — those keys were leftover from older v22 KOB files and the newer
+    # spreadsheet engine fails (`getColRowOffset` reads undefined.COL)
+    # when they're set as objects/arrays it doesn't expect.
     sheet = {
         "id": fid("sheet"),
         "name": title,
         "isVisible": True,
+        "areGridLinesVisible": True,
         "rowNumber": 60,
         "colNumber": 10,
         "rows": {},
@@ -286,11 +301,8 @@ def build_dashboard(
         "conditionalFormats": [],
         "figures": tiles + [main_chart, breakdown_left, breakdown_right],
         "tables": [],
-        "areas": [],
-        "isVisible": True,
         "headerGroups": {"ROW": [], "COL": []},
         "dataValidationRules": [],
-        "panes": {"xSplit": 0, "ySplit": 0},
     }
 
     return {
@@ -386,23 +398,18 @@ def dashboard_overview() -> dict:
 
     list_left = make_list(
         list_id="1",
+        name="Top Customers by Items Picked",
         model="wms.sales.order",
-        columns=[
-            {"name": "customer", "type": "char"},
-            {"name": "platform", "type": "selection"},
-            {"name": "picked_total", "type": "integer"},
-        ],
-        domain=[("status", "not in", ["cancelled"]), ("customer", "!=", False)],
+        columns=["customer", "platform", "picked_total"],
+        domain=[("status", "not in", ["cancelled"]),
+                ("customer", "!=", False)],
         order_by=[{"name": "picked_total", "asc": False}],
     )
     list_right = make_list(
         list_id="2",
+        name="Top Products by Picked Qty",
         model="wms.sales.order.line",
-        columns=[
-            {"name": "product_id", "type": "many2one"},
-            {"name": "expected_qty", "type": "integer"},
-            {"name": "picked_qty", "type": "integer"},
-        ],
+        columns=["product_id", "expected_qty", "picked_qty"],
         domain=[("order_id.status", "!=", "cancelled")],
         order_by=[{"name": "picked_qty", "asc": False}],
     )
@@ -497,25 +504,17 @@ def dashboard_kpi() -> dict:
 
     list_left = make_list(
         list_id="1",
+        name="Top Pickers",
         model="wms.worker.performance",
-        columns=[
-            {"name": "kob_user_id", "type": "many2one"},
-            {"name": "pick_count", "type": "integer"},
-            {"name": "uph", "type": "float"},
-            {"name": "error_rate", "type": "float"},
-        ],
+        columns=["kob_user_id", "pick_count", "uph", "error_rate"],
         domain=[("pick_count", ">", 0), ("kob_user_id", "!=", False)],
         order_by=[{"name": "pick_count", "asc": False}],
     )
     list_right = make_list(
         list_id="2",
+        name="Top Packers",
         model="wms.worker.performance",
-        columns=[
-            {"name": "kob_user_id", "type": "many2one"},
-            {"name": "pack_count", "type": "integer"},
-            {"name": "uph", "type": "float"},
-            {"name": "quality_score", "type": "float"},
-        ],
+        columns=["kob_user_id", "pack_count", "uph", "quality_score"],
         domain=[("pack_count", ">", 0), ("kob_user_id", "!=", False)],
         order_by=[{"name": "pack_count", "asc": False}],
     )
@@ -611,24 +610,17 @@ def dashboard_count() -> dict:
 
     list_left = make_list(
         list_id="1",
+        name="Top Variance Products",
         model="wms.count.adjustment",
-        columns=[
-            {"name": "product_id", "type": "many2one"},
-            {"name": "variance_qty", "type": "float"},
-            {"name": "variance_pct", "type": "float"},
-            {"name": "state", "type": "selection"},
-        ],
+        columns=["product_id", "variance_qty", "variance_pct", "state"],
         domain=[("variance_qty", "!=", 0)],
         order_by=[{"name": "variance_qty", "asc": False}],
     )
     list_right = make_list(
         list_id="2",
+        name="Top Variance Locations",
         model="wms.count.adjustment",
-        columns=[
-            {"name": "location_id", "type": "many2one"},
-            {"name": "variance_qty", "type": "float"},
-            {"name": "state", "type": "selection"},
-        ],
+        columns=["location_id", "variance_qty", "state"],
         domain=[("variance_qty", "!=", 0)],
         order_by=[{"name": "variance_qty", "asc": False}],
     )
@@ -726,25 +718,19 @@ def dashboard_operations() -> dict:
 
     list_left = make_list(
         list_id="1",
+        name="Recent SLA Breaches",
         model="wms.sales.order",
-        columns=[
-            {"name": "display_order_name", "type": "char"},
-            {"name": "platform", "type": "selection"},
-            {"name": "sla_status", "type": "selection"},
-            {"name": "total_duration_min", "type": "float"},
-        ],
+        columns=["display_order_name", "platform", "sla_status",
+                 "total_duration_min"],
         domain=[("sla_status", "=", "breached")],
         order_by=[{"name": "create_date", "asc": False}],
     )
     list_right = make_list(
         list_id="2",
+        name="Slowest Active Orders",
         model="wms.sales.order",
-        columns=[
-            {"name": "display_order_name", "type": "char"},
-            {"name": "status", "type": "selection"},
-            {"name": "pick_duration_min", "type": "float"},
-            {"name": "pack_duration_min", "type": "float"},
-        ],
+        columns=["display_order_name", "status", "pick_duration_min",
+                 "pack_duration_min"],
         domain=[("status", "in", ["picking", "packing"])],
         order_by=[{"name": "total_duration_min", "asc": False}],
     )
