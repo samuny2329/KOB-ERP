@@ -173,35 +173,39 @@ def make_list(*, list_id: str, model: str, columns: list[str], domain: list,
 
 
 def list_table_cells(*, start_col: str, header_row: int, list_id: str,
-                     columns: list[str]) -> dict:
-    """Generate cell formulas for a Top-N table.
+                     columns: list[str]) -> tuple[dict, dict]:
+    """Generate cells (bare-string formulas) + per-cell style map.
 
-    v22 cell `style` is integer styleId (key in styles dict). Use 2 for
-    table header (bold dark gray), no style for data rows.
+    Returns (cells_dict, styles_map_dict).  Sales schema stores cell
+    content as a plain string and references styleId via sheet-level
+    ``styles`` mapping (cell or range → integer style ID).
     """
-    cells = {}
+    cells: dict[str, str] = {}
+    styles: dict[str, int] = {}
     cols = [chr(ord(start_col) + i) for i in range(len(columns))]
+    # Header row — style 2 (bold gray)
     for i, col in enumerate(cols):
-        cells[f"{col}{header_row}"] = {
-            "content": f'=IFERROR(ODOO.LIST.HEADER({list_id},"{columns[i]}"),"")',
-            "style": 2,
-        }
+        cells[f"{col}{header_row}"] = (
+            f'=IFERROR(ODOO.LIST.HEADER({list_id},"{columns[i]}"),"")'
+        )
+        styles[f"{col}{header_row}"] = 2
+    # Data rows 1..10 — style 3 (regular text)
     for row_offset in range(1, 11):
         for i, col in enumerate(cols):
-            cells[f"{col}{header_row + row_offset}"] = {
-                "content": f'=IFERROR(ODOO.LIST({list_id},{row_offset},"{columns[i]}"),"")',
-            }
-    return cells
+            addr = f"{col}{header_row + row_offset}"
+            cells[addr] = (
+                f'=IFERROR(ODOO.LIST({list_id},{row_offset},"{columns[i]}"),"")'
+            )
+            styles[addr] = 3
+    return cells, styles
 
 
-def header_cell(text: str, anchor: str = "A1") -> dict:
-    """Bold dark-teal section title (style 1)."""
-    return {
-        anchor: {
-            "content": text,
-            "style": 1,
-        }
-    }
+def header_cell(text: str, anchor: str = "A1") -> tuple[dict, dict]:
+    """Bold dark-teal section title (style 1).
+
+    Returns (cells, styles) so caller can merge into sheet dicts.
+    """
+    return ({anchor: text}, {anchor: 1})
 
 
 # ── Common style block (clone Sales palette, numeric IDs per v22 schema)
@@ -276,19 +280,29 @@ def build_dashboard(
     list_left["fieldMatching"] = fm
     list_right["fieldMatching"] = fm
 
-    # Build Dashboard sheet — figures + cells
-    cells = {}
-    cells.update(header_cell(title, "B1"))
-    cells["A22"] = {"content": list_left_title, "style": "header"}
-    cells["E22"] = {"content": list_right_title, "style": "header"}
-    cells.update(list_table_cells(
+    # Build Dashboard sheet — figures + cells (bare strings) + style map
+    cells: dict[str, str] = {}
+    sheet_styles: dict[str, int] = {}
+
+    c, s_ = header_cell(title, "B1")
+    cells.update(c)
+    sheet_styles.update(s_)
+
+    cells["A22"] = list_left_title
+    sheet_styles["A22"] = 1
+    cells["E22"] = list_right_title
+    sheet_styles["E22"] = 1
+
+    c, s_ = list_table_cells(
         start_col="A", header_row=23,
         list_id=list_left["id"], columns=list_left_columns,
-    ))
-    cells.update(list_table_cells(
+    )
+    cells.update(c); sheet_styles.update(s_)
+    c, s_ = list_table_cells(
         start_col="E", header_row=23,
         list_id=list_right["id"], columns=list_right_columns,
-    ))
+    )
+    cells.update(c); sheet_styles.update(s_)
 
     # Sheet schema cloned from Odoo 19 Sales dashboard exactly.  Missing
     # keys (borders/comments/formats/styles) cause `getColRowOffset` and
@@ -307,7 +321,7 @@ def build_dashboard(
         "borders": {},
         "comments": {},
         "formats": {},
-        "styles": {},
+        "styles": sheet_styles,
         "conditionalFormats": [],
         "figures": tiles + [main_chart, breakdown_left, breakdown_right],
         "tables": [],

@@ -2,7 +2,7 @@
   "version": "18.5.10",
   "sheets": [
     {
-      "id": "sheet-af70fd71",
+      "id": "sheet-b7ec015b",
       "name": "Count Adjustments",
       "isVisible": true,
       "areGridLinesVisible": true,
@@ -14,265 +14,176 @@
         "B1:I1"
       ],
       "cells": {
-        "B1": {
-          "content": "Count Adjustments",
-          "style": 1
-        },
-        "A22": {
-          "content": "Top Variance Products",
-          "style": "header"
-        },
-        "E22": {
-          "content": "Top Variance Locations",
-          "style": "header"
-        },
-        "A23": {
-          "content": "=IFERROR(ODOO.LIST.HEADER(1,\"product_id\"),\"\")",
-          "style": 2
-        },
-        "B23": {
-          "content": "=IFERROR(ODOO.LIST.HEADER(1,\"variance_qty\"),\"\")",
-          "style": 2
-        },
-        "C23": {
-          "content": "=IFERROR(ODOO.LIST.HEADER(1,\"variance_pct\"),\"\")",
-          "style": 2
-        },
-        "D23": {
-          "content": "=IFERROR(ODOO.LIST.HEADER(1,\"state\"),\"\")",
-          "style": 2
-        },
-        "A24": {
-          "content": "=IFERROR(ODOO.LIST(1,1,\"product_id\"),\"\")"
-        },
-        "B24": {
-          "content": "=IFERROR(ODOO.LIST(1,1,\"variance_qty\"),\"\")"
-        },
-        "C24": {
-          "content": "=IFERROR(ODOO.LIST(1,1,\"variance_pct\"),\"\")"
-        },
-        "D24": {
-          "content": "=IFERROR(ODOO.LIST(1,1,\"state\"),\"\")"
-        },
-        "A25": {
-          "content": "=IFERROR(ODOO.LIST(1,2,\"product_id\"),\"\")"
-        },
-        "B25": {
-          "content": "=IFERROR(ODOO.LIST(1,2,\"variance_qty\"),\"\")"
-        },
-        "C25": {
-          "content": "=IFERROR(ODOO.LIST(1,2,\"variance_pct\"),\"\")"
-        },
-        "D25": {
-          "content": "=IFERROR(ODOO.LIST(1,2,\"state\"),\"\")"
-        },
-        "A26": {
-          "content": "=IFERROR(ODOO.LIST(1,3,\"product_id\"),\"\")"
-        },
-        "B26": {
-          "content": "=IFERROR(ODOO.LIST(1,3,\"variance_qty\"),\"\")"
-        },
-        "C26": {
-          "content": "=IFERROR(ODOO.LIST(1,3,\"variance_pct\"),\"\")"
-        },
-        "D26": {
-          "content": "=IFERROR(ODOO.LIST(1,3,\"state\"),\"\")"
-        },
-        "A27": {
-          "content": "=IFERROR(ODOO.LIST(1,4,\"product_id\"),\"\")"
-        },
-        "B27": {
-          "content": "=IFERROR(ODOO.LIST(1,4,\"variance_qty\"),\"\")"
-        },
-        "C27": {
-          "content": "=IFERROR(ODOO.LIST(1,4,\"variance_pct\"),\"\")"
-        },
-        "D27": {
-          "content": "=IFERROR(ODOO.LIST(1,4,\"state\"),\"\")"
-        },
-        "A28": {
-          "content": "=IFERROR(ODOO.LIST(1,5,\"product_id\"),\"\")"
-        },
-        "B28": {
-          "content": "=IFERROR(ODOO.LIST(1,5,\"variance_qty\"),\"\")"
-        },
-        "C28": {
-          "content": "=IFERROR(ODOO.LIST(1,5,\"variance_pct\"),\"\")"
-        },
-        "D28": {
-          "content": "=IFERROR(ODOO.LIST(1,5,\"state\"),\"\")"
-        },
-        "A29": {
-          "content": "=IFERROR(ODOO.LIST(1,6,\"product_id\"),\"\")"
-        },
-        "B29": {
-          "content": "=IFERROR(ODOO.LIST(1,6,\"variance_qty\"),\"\")"
-        },
-        "C29": {
-          "content": "=IFERROR(ODOO.LIST(1,6,\"variance_pct\"),\"\")"
-        },
-        "D29": {
-          "content": "=IFERROR(ODOO.LIST(1,6,\"state\"),\"\")"
-        },
-        "A30": {
-          "content": "=IFERROR(ODOO.LIST(1,7,\"product_id\"),\"\")"
-        },
-        "B30": {
-          "content": "=IFERROR(ODOO.LIST(1,7,\"variance_qty\"),\"\")"
-        },
-        "C30": {
-          "content": "=IFERROR(ODOO.LIST(1,7,\"variance_pct\"),\"\")"
-        },
-        "D30": {
-          "content": "=IFERROR(ODOO.LIST(1,7,\"state\"),\"\")"
-        },
-        "A31": {
-          "content": "=IFERROR(ODOO.LIST(1,8,\"product_id\"),\"\")"
-        },
-        "B31": {
-          "content": "=IFERROR(ODOO.LIST(1,8,\"variance_qty\"),\"\")"
-        },
-        "C31": {
-          "content": "=IFERROR(ODOO.LIST(1,8,\"variance_pct\"),\"\")"
-        },
-        "D31": {
-          "content": "=IFERROR(ODOO.LIST(1,8,\"state\"),\"\")"
-        },
-        "A32": {
-          "content": "=IFERROR(ODOO.LIST(1,9,\"product_id\"),\"\")"
-        },
-        "B32": {
-          "content": "=IFERROR(ODOO.LIST(1,9,\"variance_qty\"),\"\")"
-        },
-        "C32": {
-          "content": "=IFERROR(ODOO.LIST(1,9,\"variance_pct\"),\"\")"
-        },
-        "D32": {
-          "content": "=IFERROR(ODOO.LIST(1,9,\"state\"),\"\")"
-        },
-        "A33": {
-          "content": "=IFERROR(ODOO.LIST(1,10,\"product_id\"),\"\")"
-        },
-        "B33": {
-          "content": "=IFERROR(ODOO.LIST(1,10,\"variance_qty\"),\"\")"
-        },
-        "C33": {
-          "content": "=IFERROR(ODOO.LIST(1,10,\"variance_pct\"),\"\")"
-        },
-        "D33": {
-          "content": "=IFERROR(ODOO.LIST(1,10,\"state\"),\"\")"
-        },
-        "E23": {
-          "content": "=IFERROR(ODOO.LIST.HEADER(2,\"location_id\"),\"\")",
-          "style": 2
-        },
-        "F23": {
-          "content": "=IFERROR(ODOO.LIST.HEADER(2,\"variance_qty\"),\"\")",
-          "style": 2
-        },
-        "G23": {
-          "content": "=IFERROR(ODOO.LIST.HEADER(2,\"state\"),\"\")",
-          "style": 2
-        },
-        "E24": {
-          "content": "=IFERROR(ODOO.LIST(2,1,\"location_id\"),\"\")"
-        },
-        "F24": {
-          "content": "=IFERROR(ODOO.LIST(2,1,\"variance_qty\"),\"\")"
-        },
-        "G24": {
-          "content": "=IFERROR(ODOO.LIST(2,1,\"state\"),\"\")"
-        },
-        "E25": {
-          "content": "=IFERROR(ODOO.LIST(2,2,\"location_id\"),\"\")"
-        },
-        "F25": {
-          "content": "=IFERROR(ODOO.LIST(2,2,\"variance_qty\"),\"\")"
-        },
-        "G25": {
-          "content": "=IFERROR(ODOO.LIST(2,2,\"state\"),\"\")"
-        },
-        "E26": {
-          "content": "=IFERROR(ODOO.LIST(2,3,\"location_id\"),\"\")"
-        },
-        "F26": {
-          "content": "=IFERROR(ODOO.LIST(2,3,\"variance_qty\"),\"\")"
-        },
-        "G26": {
-          "content": "=IFERROR(ODOO.LIST(2,3,\"state\"),\"\")"
-        },
-        "E27": {
-          "content": "=IFERROR(ODOO.LIST(2,4,\"location_id\"),\"\")"
-        },
-        "F27": {
-          "content": "=IFERROR(ODOO.LIST(2,4,\"variance_qty\"),\"\")"
-        },
-        "G27": {
-          "content": "=IFERROR(ODOO.LIST(2,4,\"state\"),\"\")"
-        },
-        "E28": {
-          "content": "=IFERROR(ODOO.LIST(2,5,\"location_id\"),\"\")"
-        },
-        "F28": {
-          "content": "=IFERROR(ODOO.LIST(2,5,\"variance_qty\"),\"\")"
-        },
-        "G28": {
-          "content": "=IFERROR(ODOO.LIST(2,5,\"state\"),\"\")"
-        },
-        "E29": {
-          "content": "=IFERROR(ODOO.LIST(2,6,\"location_id\"),\"\")"
-        },
-        "F29": {
-          "content": "=IFERROR(ODOO.LIST(2,6,\"variance_qty\"),\"\")"
-        },
-        "G29": {
-          "content": "=IFERROR(ODOO.LIST(2,6,\"state\"),\"\")"
-        },
-        "E30": {
-          "content": "=IFERROR(ODOO.LIST(2,7,\"location_id\"),\"\")"
-        },
-        "F30": {
-          "content": "=IFERROR(ODOO.LIST(2,7,\"variance_qty\"),\"\")"
-        },
-        "G30": {
-          "content": "=IFERROR(ODOO.LIST(2,7,\"state\"),\"\")"
-        },
-        "E31": {
-          "content": "=IFERROR(ODOO.LIST(2,8,\"location_id\"),\"\")"
-        },
-        "F31": {
-          "content": "=IFERROR(ODOO.LIST(2,8,\"variance_qty\"),\"\")"
-        },
-        "G31": {
-          "content": "=IFERROR(ODOO.LIST(2,8,\"state\"),\"\")"
-        },
-        "E32": {
-          "content": "=IFERROR(ODOO.LIST(2,9,\"location_id\"),\"\")"
-        },
-        "F32": {
-          "content": "=IFERROR(ODOO.LIST(2,9,\"variance_qty\"),\"\")"
-        },
-        "G32": {
-          "content": "=IFERROR(ODOO.LIST(2,9,\"state\"),\"\")"
-        },
-        "E33": {
-          "content": "=IFERROR(ODOO.LIST(2,10,\"location_id\"),\"\")"
-        },
-        "F33": {
-          "content": "=IFERROR(ODOO.LIST(2,10,\"variance_qty\"),\"\")"
-        },
-        "G33": {
-          "content": "=IFERROR(ODOO.LIST(2,10,\"state\"),\"\")"
-        }
+        "B1": "Count Adjustments",
+        "A22": "Top Variance Products",
+        "E22": "Top Variance Locations",
+        "A23": "=IFERROR(ODOO.LIST.HEADER(1,\"product_id\"),\"\")",
+        "B23": "=IFERROR(ODOO.LIST.HEADER(1,\"variance_qty\"),\"\")",
+        "C23": "=IFERROR(ODOO.LIST.HEADER(1,\"variance_pct\"),\"\")",
+        "D23": "=IFERROR(ODOO.LIST.HEADER(1,\"state\"),\"\")",
+        "A24": "=IFERROR(ODOO.LIST(1,1,\"product_id\"),\"\")",
+        "B24": "=IFERROR(ODOO.LIST(1,1,\"variance_qty\"),\"\")",
+        "C24": "=IFERROR(ODOO.LIST(1,1,\"variance_pct\"),\"\")",
+        "D24": "=IFERROR(ODOO.LIST(1,1,\"state\"),\"\")",
+        "A25": "=IFERROR(ODOO.LIST(1,2,\"product_id\"),\"\")",
+        "B25": "=IFERROR(ODOO.LIST(1,2,\"variance_qty\"),\"\")",
+        "C25": "=IFERROR(ODOO.LIST(1,2,\"variance_pct\"),\"\")",
+        "D25": "=IFERROR(ODOO.LIST(1,2,\"state\"),\"\")",
+        "A26": "=IFERROR(ODOO.LIST(1,3,\"product_id\"),\"\")",
+        "B26": "=IFERROR(ODOO.LIST(1,3,\"variance_qty\"),\"\")",
+        "C26": "=IFERROR(ODOO.LIST(1,3,\"variance_pct\"),\"\")",
+        "D26": "=IFERROR(ODOO.LIST(1,3,\"state\"),\"\")",
+        "A27": "=IFERROR(ODOO.LIST(1,4,\"product_id\"),\"\")",
+        "B27": "=IFERROR(ODOO.LIST(1,4,\"variance_qty\"),\"\")",
+        "C27": "=IFERROR(ODOO.LIST(1,4,\"variance_pct\"),\"\")",
+        "D27": "=IFERROR(ODOO.LIST(1,4,\"state\"),\"\")",
+        "A28": "=IFERROR(ODOO.LIST(1,5,\"product_id\"),\"\")",
+        "B28": "=IFERROR(ODOO.LIST(1,5,\"variance_qty\"),\"\")",
+        "C28": "=IFERROR(ODOO.LIST(1,5,\"variance_pct\"),\"\")",
+        "D28": "=IFERROR(ODOO.LIST(1,5,\"state\"),\"\")",
+        "A29": "=IFERROR(ODOO.LIST(1,6,\"product_id\"),\"\")",
+        "B29": "=IFERROR(ODOO.LIST(1,6,\"variance_qty\"),\"\")",
+        "C29": "=IFERROR(ODOO.LIST(1,6,\"variance_pct\"),\"\")",
+        "D29": "=IFERROR(ODOO.LIST(1,6,\"state\"),\"\")",
+        "A30": "=IFERROR(ODOO.LIST(1,7,\"product_id\"),\"\")",
+        "B30": "=IFERROR(ODOO.LIST(1,7,\"variance_qty\"),\"\")",
+        "C30": "=IFERROR(ODOO.LIST(1,7,\"variance_pct\"),\"\")",
+        "D30": "=IFERROR(ODOO.LIST(1,7,\"state\"),\"\")",
+        "A31": "=IFERROR(ODOO.LIST(1,8,\"product_id\"),\"\")",
+        "B31": "=IFERROR(ODOO.LIST(1,8,\"variance_qty\"),\"\")",
+        "C31": "=IFERROR(ODOO.LIST(1,8,\"variance_pct\"),\"\")",
+        "D31": "=IFERROR(ODOO.LIST(1,8,\"state\"),\"\")",
+        "A32": "=IFERROR(ODOO.LIST(1,9,\"product_id\"),\"\")",
+        "B32": "=IFERROR(ODOO.LIST(1,9,\"variance_qty\"),\"\")",
+        "C32": "=IFERROR(ODOO.LIST(1,9,\"variance_pct\"),\"\")",
+        "D32": "=IFERROR(ODOO.LIST(1,9,\"state\"),\"\")",
+        "A33": "=IFERROR(ODOO.LIST(1,10,\"product_id\"),\"\")",
+        "B33": "=IFERROR(ODOO.LIST(1,10,\"variance_qty\"),\"\")",
+        "C33": "=IFERROR(ODOO.LIST(1,10,\"variance_pct\"),\"\")",
+        "D33": "=IFERROR(ODOO.LIST(1,10,\"state\"),\"\")",
+        "E23": "=IFERROR(ODOO.LIST.HEADER(2,\"location_id\"),\"\")",
+        "F23": "=IFERROR(ODOO.LIST.HEADER(2,\"variance_qty\"),\"\")",
+        "G23": "=IFERROR(ODOO.LIST.HEADER(2,\"state\"),\"\")",
+        "E24": "=IFERROR(ODOO.LIST(2,1,\"location_id\"),\"\")",
+        "F24": "=IFERROR(ODOO.LIST(2,1,\"variance_qty\"),\"\")",
+        "G24": "=IFERROR(ODOO.LIST(2,1,\"state\"),\"\")",
+        "E25": "=IFERROR(ODOO.LIST(2,2,\"location_id\"),\"\")",
+        "F25": "=IFERROR(ODOO.LIST(2,2,\"variance_qty\"),\"\")",
+        "G25": "=IFERROR(ODOO.LIST(2,2,\"state\"),\"\")",
+        "E26": "=IFERROR(ODOO.LIST(2,3,\"location_id\"),\"\")",
+        "F26": "=IFERROR(ODOO.LIST(2,3,\"variance_qty\"),\"\")",
+        "G26": "=IFERROR(ODOO.LIST(2,3,\"state\"),\"\")",
+        "E27": "=IFERROR(ODOO.LIST(2,4,\"location_id\"),\"\")",
+        "F27": "=IFERROR(ODOO.LIST(2,4,\"variance_qty\"),\"\")",
+        "G27": "=IFERROR(ODOO.LIST(2,4,\"state\"),\"\")",
+        "E28": "=IFERROR(ODOO.LIST(2,5,\"location_id\"),\"\")",
+        "F28": "=IFERROR(ODOO.LIST(2,5,\"variance_qty\"),\"\")",
+        "G28": "=IFERROR(ODOO.LIST(2,5,\"state\"),\"\")",
+        "E29": "=IFERROR(ODOO.LIST(2,6,\"location_id\"),\"\")",
+        "F29": "=IFERROR(ODOO.LIST(2,6,\"variance_qty\"),\"\")",
+        "G29": "=IFERROR(ODOO.LIST(2,6,\"state\"),\"\")",
+        "E30": "=IFERROR(ODOO.LIST(2,7,\"location_id\"),\"\")",
+        "F30": "=IFERROR(ODOO.LIST(2,7,\"variance_qty\"),\"\")",
+        "G30": "=IFERROR(ODOO.LIST(2,7,\"state\"),\"\")",
+        "E31": "=IFERROR(ODOO.LIST(2,8,\"location_id\"),\"\")",
+        "F31": "=IFERROR(ODOO.LIST(2,8,\"variance_qty\"),\"\")",
+        "G31": "=IFERROR(ODOO.LIST(2,8,\"state\"),\"\")",
+        "E32": "=IFERROR(ODOO.LIST(2,9,\"location_id\"),\"\")",
+        "F32": "=IFERROR(ODOO.LIST(2,9,\"variance_qty\"),\"\")",
+        "G32": "=IFERROR(ODOO.LIST(2,9,\"state\"),\"\")",
+        "E33": "=IFERROR(ODOO.LIST(2,10,\"location_id\"),\"\")",
+        "F33": "=IFERROR(ODOO.LIST(2,10,\"variance_qty\"),\"\")",
+        "G33": "=IFERROR(ODOO.LIST(2,10,\"state\"),\"\")"
       },
       "borders": {},
       "comments": {},
       "formats": {},
-      "styles": {},
+      "styles": {
+        "B1": 1,
+        "A22": 1,
+        "E22": 1,
+        "A23": 2,
+        "B23": 2,
+        "C23": 2,
+        "D23": 2,
+        "A24": 3,
+        "B24": 3,
+        "C24": 3,
+        "D24": 3,
+        "A25": 3,
+        "B25": 3,
+        "C25": 3,
+        "D25": 3,
+        "A26": 3,
+        "B26": 3,
+        "C26": 3,
+        "D26": 3,
+        "A27": 3,
+        "B27": 3,
+        "C27": 3,
+        "D27": 3,
+        "A28": 3,
+        "B28": 3,
+        "C28": 3,
+        "D28": 3,
+        "A29": 3,
+        "B29": 3,
+        "C29": 3,
+        "D29": 3,
+        "A30": 3,
+        "B30": 3,
+        "C30": 3,
+        "D30": 3,
+        "A31": 3,
+        "B31": 3,
+        "C31": 3,
+        "D31": 3,
+        "A32": 3,
+        "B32": 3,
+        "C32": 3,
+        "D32": 3,
+        "A33": 3,
+        "B33": 3,
+        "C33": 3,
+        "D33": 3,
+        "E23": 2,
+        "F23": 2,
+        "G23": 2,
+        "E24": 3,
+        "F24": 3,
+        "G24": 3,
+        "E25": 3,
+        "F25": 3,
+        "G25": 3,
+        "E26": 3,
+        "F26": 3,
+        "G26": 3,
+        "E27": 3,
+        "F27": 3,
+        "G27": 3,
+        "E28": 3,
+        "F28": 3,
+        "G28": 3,
+        "E29": 3,
+        "F29": 3,
+        "G29": 3,
+        "E30": 3,
+        "F30": 3,
+        "G30": 3,
+        "E31": 3,
+        "F31": 3,
+        "G31": 3,
+        "E32": 3,
+        "F32": 3,
+        "G32": 3,
+        "E33": 3,
+        "F33": 3,
+        "G33": 3
+      },
       "conditionalFormats": [],
       "figures": [
         {
-          "id": "ca-bar-state-b131acc6",
+          "id": "ca-bar-state-f64d653b",
           "width": 900,
           "height": 340,
           "tag": "chart",
@@ -311,7 +222,7 @@
             "stacked": false,
             "cumulatedStart": false,
             "axesDesign": {},
-            "chartId": "ca-bar-state-b131acc6"
+            "chartId": "ca-bar-state-f64d653b"
           },
           "col": 0,
           "row": 0,
@@ -321,7 +232,7 @@
           }
         },
         {
-          "id": "ca-pie-session-dc75d66b",
+          "id": "ca-pie-session-41710980",
           "width": 460,
           "height": 340,
           "tag": "chart",
@@ -360,7 +271,7 @@
             "stacked": false,
             "cumulatedStart": false,
             "axesDesign": {},
-            "chartId": "ca-pie-session-dc75d66b"
+            "chartId": "ca-pie-session-41710980"
           },
           "col": 0,
           "row": 0,
@@ -370,7 +281,7 @@
           }
         },
         {
-          "id": "ca-bar-sessiontype-e23a1c4b",
+          "id": "ca-bar-sessiontype-41b96b52",
           "width": 460,
           "height": 340,
           "tag": "chart",
@@ -409,7 +320,7 @@
             "stacked": false,
             "cumulatedStart": false,
             "axesDesign": {},
-            "chartId": "ca-bar-sessiontype-e23a1c4b"
+            "chartId": "ca-bar-sessiontype-41b96b52"
           },
           "col": 0,
           "row": 0,

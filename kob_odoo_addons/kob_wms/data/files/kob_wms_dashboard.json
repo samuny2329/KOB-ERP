@@ -2,7 +2,7 @@
   "version": "18.5.10",
   "sheets": [
     {
-      "id": "sheet-8177bd32",
+      "id": "sheet-0b8f3bd2",
       "name": "WMS Overview",
       "isVisible": true,
       "areGridLinesVisible": true,
@@ -14,231 +14,154 @@
         "B1:I1"
       ],
       "cells": {
-        "B1": {
-          "content": "WMS Overview",
-          "style": 1
-        },
-        "A22": {
-          "content": "Top Customers (by items picked)",
-          "style": "header"
-        },
-        "E22": {
-          "content": "Top Products (by qty picked)",
-          "style": "header"
-        },
-        "A23": {
-          "content": "=IFERROR(ODOO.LIST.HEADER(1,\"customer\"),\"\")",
-          "style": 2
-        },
-        "B23": {
-          "content": "=IFERROR(ODOO.LIST.HEADER(1,\"platform\"),\"\")",
-          "style": 2
-        },
-        "C23": {
-          "content": "=IFERROR(ODOO.LIST.HEADER(1,\"picked_total\"),\"\")",
-          "style": 2
-        },
-        "A24": {
-          "content": "=IFERROR(ODOO.LIST(1,1,\"customer\"),\"\")"
-        },
-        "B24": {
-          "content": "=IFERROR(ODOO.LIST(1,1,\"platform\"),\"\")"
-        },
-        "C24": {
-          "content": "=IFERROR(ODOO.LIST(1,1,\"picked_total\"),\"\")"
-        },
-        "A25": {
-          "content": "=IFERROR(ODOO.LIST(1,2,\"customer\"),\"\")"
-        },
-        "B25": {
-          "content": "=IFERROR(ODOO.LIST(1,2,\"platform\"),\"\")"
-        },
-        "C25": {
-          "content": "=IFERROR(ODOO.LIST(1,2,\"picked_total\"),\"\")"
-        },
-        "A26": {
-          "content": "=IFERROR(ODOO.LIST(1,3,\"customer\"),\"\")"
-        },
-        "B26": {
-          "content": "=IFERROR(ODOO.LIST(1,3,\"platform\"),\"\")"
-        },
-        "C26": {
-          "content": "=IFERROR(ODOO.LIST(1,3,\"picked_total\"),\"\")"
-        },
-        "A27": {
-          "content": "=IFERROR(ODOO.LIST(1,4,\"customer\"),\"\")"
-        },
-        "B27": {
-          "content": "=IFERROR(ODOO.LIST(1,4,\"platform\"),\"\")"
-        },
-        "C27": {
-          "content": "=IFERROR(ODOO.LIST(1,4,\"picked_total\"),\"\")"
-        },
-        "A28": {
-          "content": "=IFERROR(ODOO.LIST(1,5,\"customer\"),\"\")"
-        },
-        "B28": {
-          "content": "=IFERROR(ODOO.LIST(1,5,\"platform\"),\"\")"
-        },
-        "C28": {
-          "content": "=IFERROR(ODOO.LIST(1,5,\"picked_total\"),\"\")"
-        },
-        "A29": {
-          "content": "=IFERROR(ODOO.LIST(1,6,\"customer\"),\"\")"
-        },
-        "B29": {
-          "content": "=IFERROR(ODOO.LIST(1,6,\"platform\"),\"\")"
-        },
-        "C29": {
-          "content": "=IFERROR(ODOO.LIST(1,6,\"picked_total\"),\"\")"
-        },
-        "A30": {
-          "content": "=IFERROR(ODOO.LIST(1,7,\"customer\"),\"\")"
-        },
-        "B30": {
-          "content": "=IFERROR(ODOO.LIST(1,7,\"platform\"),\"\")"
-        },
-        "C30": {
-          "content": "=IFERROR(ODOO.LIST(1,7,\"picked_total\"),\"\")"
-        },
-        "A31": {
-          "content": "=IFERROR(ODOO.LIST(1,8,\"customer\"),\"\")"
-        },
-        "B31": {
-          "content": "=IFERROR(ODOO.LIST(1,8,\"platform\"),\"\")"
-        },
-        "C31": {
-          "content": "=IFERROR(ODOO.LIST(1,8,\"picked_total\"),\"\")"
-        },
-        "A32": {
-          "content": "=IFERROR(ODOO.LIST(1,9,\"customer\"),\"\")"
-        },
-        "B32": {
-          "content": "=IFERROR(ODOO.LIST(1,9,\"platform\"),\"\")"
-        },
-        "C32": {
-          "content": "=IFERROR(ODOO.LIST(1,9,\"picked_total\"),\"\")"
-        },
-        "A33": {
-          "content": "=IFERROR(ODOO.LIST(1,10,\"customer\"),\"\")"
-        },
-        "B33": {
-          "content": "=IFERROR(ODOO.LIST(1,10,\"platform\"),\"\")"
-        },
-        "C33": {
-          "content": "=IFERROR(ODOO.LIST(1,10,\"picked_total\"),\"\")"
-        },
-        "E23": {
-          "content": "=IFERROR(ODOO.LIST.HEADER(2,\"product_id\"),\"\")",
-          "style": 2
-        },
-        "F23": {
-          "content": "=IFERROR(ODOO.LIST.HEADER(2,\"expected_qty\"),\"\")",
-          "style": 2
-        },
-        "G23": {
-          "content": "=IFERROR(ODOO.LIST.HEADER(2,\"picked_qty\"),\"\")",
-          "style": 2
-        },
-        "E24": {
-          "content": "=IFERROR(ODOO.LIST(2,1,\"product_id\"),\"\")"
-        },
-        "F24": {
-          "content": "=IFERROR(ODOO.LIST(2,1,\"expected_qty\"),\"\")"
-        },
-        "G24": {
-          "content": "=IFERROR(ODOO.LIST(2,1,\"picked_qty\"),\"\")"
-        },
-        "E25": {
-          "content": "=IFERROR(ODOO.LIST(2,2,\"product_id\"),\"\")"
-        },
-        "F25": {
-          "content": "=IFERROR(ODOO.LIST(2,2,\"expected_qty\"),\"\")"
-        },
-        "G25": {
-          "content": "=IFERROR(ODOO.LIST(2,2,\"picked_qty\"),\"\")"
-        },
-        "E26": {
-          "content": "=IFERROR(ODOO.LIST(2,3,\"product_id\"),\"\")"
-        },
-        "F26": {
-          "content": "=IFERROR(ODOO.LIST(2,3,\"expected_qty\"),\"\")"
-        },
-        "G26": {
-          "content": "=IFERROR(ODOO.LIST(2,3,\"picked_qty\"),\"\")"
-        },
-        "E27": {
-          "content": "=IFERROR(ODOO.LIST(2,4,\"product_id\"),\"\")"
-        },
-        "F27": {
-          "content": "=IFERROR(ODOO.LIST(2,4,\"expected_qty\"),\"\")"
-        },
-        "G27": {
-          "content": "=IFERROR(ODOO.LIST(2,4,\"picked_qty\"),\"\")"
-        },
-        "E28": {
-          "content": "=IFERROR(ODOO.LIST(2,5,\"product_id\"),\"\")"
-        },
-        "F28": {
-          "content": "=IFERROR(ODOO.LIST(2,5,\"expected_qty\"),\"\")"
-        },
-        "G28": {
-          "content": "=IFERROR(ODOO.LIST(2,5,\"picked_qty\"),\"\")"
-        },
-        "E29": {
-          "content": "=IFERROR(ODOO.LIST(2,6,\"product_id\"),\"\")"
-        },
-        "F29": {
-          "content": "=IFERROR(ODOO.LIST(2,6,\"expected_qty\"),\"\")"
-        },
-        "G29": {
-          "content": "=IFERROR(ODOO.LIST(2,6,\"picked_qty\"),\"\")"
-        },
-        "E30": {
-          "content": "=IFERROR(ODOO.LIST(2,7,\"product_id\"),\"\")"
-        },
-        "F30": {
-          "content": "=IFERROR(ODOO.LIST(2,7,\"expected_qty\"),\"\")"
-        },
-        "G30": {
-          "content": "=IFERROR(ODOO.LIST(2,7,\"picked_qty\"),\"\")"
-        },
-        "E31": {
-          "content": "=IFERROR(ODOO.LIST(2,8,\"product_id\"),\"\")"
-        },
-        "F31": {
-          "content": "=IFERROR(ODOO.LIST(2,8,\"expected_qty\"),\"\")"
-        },
-        "G31": {
-          "content": "=IFERROR(ODOO.LIST(2,8,\"picked_qty\"),\"\")"
-        },
-        "E32": {
-          "content": "=IFERROR(ODOO.LIST(2,9,\"product_id\"),\"\")"
-        },
-        "F32": {
-          "content": "=IFERROR(ODOO.LIST(2,9,\"expected_qty\"),\"\")"
-        },
-        "G32": {
-          "content": "=IFERROR(ODOO.LIST(2,9,\"picked_qty\"),\"\")"
-        },
-        "E33": {
-          "content": "=IFERROR(ODOO.LIST(2,10,\"product_id\"),\"\")"
-        },
-        "F33": {
-          "content": "=IFERROR(ODOO.LIST(2,10,\"expected_qty\"),\"\")"
-        },
-        "G33": {
-          "content": "=IFERROR(ODOO.LIST(2,10,\"picked_qty\"),\"\")"
-        }
+        "B1": "WMS Overview",
+        "A22": "Top Customers (by items picked)",
+        "E22": "Top Products (by qty picked)",
+        "A23": "=IFERROR(ODOO.LIST.HEADER(1,\"customer\"),\"\")",
+        "B23": "=IFERROR(ODOO.LIST.HEADER(1,\"platform\"),\"\")",
+        "C23": "=IFERROR(ODOO.LIST.HEADER(1,\"picked_total\"),\"\")",
+        "A24": "=IFERROR(ODOO.LIST(1,1,\"customer\"),\"\")",
+        "B24": "=IFERROR(ODOO.LIST(1,1,\"platform\"),\"\")",
+        "C24": "=IFERROR(ODOO.LIST(1,1,\"picked_total\"),\"\")",
+        "A25": "=IFERROR(ODOO.LIST(1,2,\"customer\"),\"\")",
+        "B25": "=IFERROR(ODOO.LIST(1,2,\"platform\"),\"\")",
+        "C25": "=IFERROR(ODOO.LIST(1,2,\"picked_total\"),\"\")",
+        "A26": "=IFERROR(ODOO.LIST(1,3,\"customer\"),\"\")",
+        "B26": "=IFERROR(ODOO.LIST(1,3,\"platform\"),\"\")",
+        "C26": "=IFERROR(ODOO.LIST(1,3,\"picked_total\"),\"\")",
+        "A27": "=IFERROR(ODOO.LIST(1,4,\"customer\"),\"\")",
+        "B27": "=IFERROR(ODOO.LIST(1,4,\"platform\"),\"\")",
+        "C27": "=IFERROR(ODOO.LIST(1,4,\"picked_total\"),\"\")",
+        "A28": "=IFERROR(ODOO.LIST(1,5,\"customer\"),\"\")",
+        "B28": "=IFERROR(ODOO.LIST(1,5,\"platform\"),\"\")",
+        "C28": "=IFERROR(ODOO.LIST(1,5,\"picked_total\"),\"\")",
+        "A29": "=IFERROR(ODOO.LIST(1,6,\"customer\"),\"\")",
+        "B29": "=IFERROR(ODOO.LIST(1,6,\"platform\"),\"\")",
+        "C29": "=IFERROR(ODOO.LIST(1,6,\"picked_total\"),\"\")",
+        "A30": "=IFERROR(ODOO.LIST(1,7,\"customer\"),\"\")",
+        "B30": "=IFERROR(ODOO.LIST(1,7,\"platform\"),\"\")",
+        "C30": "=IFERROR(ODOO.LIST(1,7,\"picked_total\"),\"\")",
+        "A31": "=IFERROR(ODOO.LIST(1,8,\"customer\"),\"\")",
+        "B31": "=IFERROR(ODOO.LIST(1,8,\"platform\"),\"\")",
+        "C31": "=IFERROR(ODOO.LIST(1,8,\"picked_total\"),\"\")",
+        "A32": "=IFERROR(ODOO.LIST(1,9,\"customer\"),\"\")",
+        "B32": "=IFERROR(ODOO.LIST(1,9,\"platform\"),\"\")",
+        "C32": "=IFERROR(ODOO.LIST(1,9,\"picked_total\"),\"\")",
+        "A33": "=IFERROR(ODOO.LIST(1,10,\"customer\"),\"\")",
+        "B33": "=IFERROR(ODOO.LIST(1,10,\"platform\"),\"\")",
+        "C33": "=IFERROR(ODOO.LIST(1,10,\"picked_total\"),\"\")",
+        "E23": "=IFERROR(ODOO.LIST.HEADER(2,\"product_id\"),\"\")",
+        "F23": "=IFERROR(ODOO.LIST.HEADER(2,\"expected_qty\"),\"\")",
+        "G23": "=IFERROR(ODOO.LIST.HEADER(2,\"picked_qty\"),\"\")",
+        "E24": "=IFERROR(ODOO.LIST(2,1,\"product_id\"),\"\")",
+        "F24": "=IFERROR(ODOO.LIST(2,1,\"expected_qty\"),\"\")",
+        "G24": "=IFERROR(ODOO.LIST(2,1,\"picked_qty\"),\"\")",
+        "E25": "=IFERROR(ODOO.LIST(2,2,\"product_id\"),\"\")",
+        "F25": "=IFERROR(ODOO.LIST(2,2,\"expected_qty\"),\"\")",
+        "G25": "=IFERROR(ODOO.LIST(2,2,\"picked_qty\"),\"\")",
+        "E26": "=IFERROR(ODOO.LIST(2,3,\"product_id\"),\"\")",
+        "F26": "=IFERROR(ODOO.LIST(2,3,\"expected_qty\"),\"\")",
+        "G26": "=IFERROR(ODOO.LIST(2,3,\"picked_qty\"),\"\")",
+        "E27": "=IFERROR(ODOO.LIST(2,4,\"product_id\"),\"\")",
+        "F27": "=IFERROR(ODOO.LIST(2,4,\"expected_qty\"),\"\")",
+        "G27": "=IFERROR(ODOO.LIST(2,4,\"picked_qty\"),\"\")",
+        "E28": "=IFERROR(ODOO.LIST(2,5,\"product_id\"),\"\")",
+        "F28": "=IFERROR(ODOO.LIST(2,5,\"expected_qty\"),\"\")",
+        "G28": "=IFERROR(ODOO.LIST(2,5,\"picked_qty\"),\"\")",
+        "E29": "=IFERROR(ODOO.LIST(2,6,\"product_id\"),\"\")",
+        "F29": "=IFERROR(ODOO.LIST(2,6,\"expected_qty\"),\"\")",
+        "G29": "=IFERROR(ODOO.LIST(2,6,\"picked_qty\"),\"\")",
+        "E30": "=IFERROR(ODOO.LIST(2,7,\"product_id\"),\"\")",
+        "F30": "=IFERROR(ODOO.LIST(2,7,\"expected_qty\"),\"\")",
+        "G30": "=IFERROR(ODOO.LIST(2,7,\"picked_qty\"),\"\")",
+        "E31": "=IFERROR(ODOO.LIST(2,8,\"product_id\"),\"\")",
+        "F31": "=IFERROR(ODOO.LIST(2,8,\"expected_qty\"),\"\")",
+        "G31": "=IFERROR(ODOO.LIST(2,8,\"picked_qty\"),\"\")",
+        "E32": "=IFERROR(ODOO.LIST(2,9,\"product_id\"),\"\")",
+        "F32": "=IFERROR(ODOO.LIST(2,9,\"expected_qty\"),\"\")",
+        "G32": "=IFERROR(ODOO.LIST(2,9,\"picked_qty\"),\"\")",
+        "E33": "=IFERROR(ODOO.LIST(2,10,\"product_id\"),\"\")",
+        "F33": "=IFERROR(ODOO.LIST(2,10,\"expected_qty\"),\"\")",
+        "G33": "=IFERROR(ODOO.LIST(2,10,\"picked_qty\"),\"\")"
       },
       "borders": {},
       "comments": {},
       "formats": {},
-      "styles": {},
+      "styles": {
+        "B1": 1,
+        "A22": 1,
+        "E22": 1,
+        "A23": 2,
+        "B23": 2,
+        "C23": 2,
+        "A24": 3,
+        "B24": 3,
+        "C24": 3,
+        "A25": 3,
+        "B25": 3,
+        "C25": 3,
+        "A26": 3,
+        "B26": 3,
+        "C26": 3,
+        "A27": 3,
+        "B27": 3,
+        "C27": 3,
+        "A28": 3,
+        "B28": 3,
+        "C28": 3,
+        "A29": 3,
+        "B29": 3,
+        "C29": 3,
+        "A30": 3,
+        "B30": 3,
+        "C30": 3,
+        "A31": 3,
+        "B31": 3,
+        "C31": 3,
+        "A32": 3,
+        "B32": 3,
+        "C32": 3,
+        "A33": 3,
+        "B33": 3,
+        "C33": 3,
+        "E23": 2,
+        "F23": 2,
+        "G23": 2,
+        "E24": 3,
+        "F24": 3,
+        "G24": 3,
+        "E25": 3,
+        "F25": 3,
+        "G25": 3,
+        "E26": 3,
+        "F26": 3,
+        "G26": 3,
+        "E27": 3,
+        "F27": 3,
+        "G27": 3,
+        "E28": 3,
+        "F28": 3,
+        "G28": 3,
+        "E29": 3,
+        "F29": 3,
+        "G29": 3,
+        "E30": 3,
+        "F30": 3,
+        "G30": 3,
+        "E31": 3,
+        "F31": 3,
+        "G31": 3,
+        "E32": 3,
+        "F32": 3,
+        "G32": 3,
+        "E33": 3,
+        "F33": 3,
+        "G33": 3
+      },
       "conditionalFormats": [],
       "figures": [
         {
-          "id": "ov-line-daily-53d08b79",
+          "id": "ov-line-daily-ef07f3b8",
           "width": 900,
           "height": 340,
           "tag": "chart",
@@ -283,7 +206,7 @@
             "stacked": false,
             "cumulatedStart": false,
             "axesDesign": {},
-            "chartId": "ov-line-daily-53d08b79",
+            "chartId": "ov-line-daily-ef07f3b8",
             "fillArea": true,
             "fieldMatching": {
               "gf_ov_date": {
@@ -301,7 +224,7 @@
           }
         },
         {
-          "id": "ov-pie-platform-2d65a3e4",
+          "id": "ov-pie-platform-da2071ca",
           "width": 460,
           "height": 340,
           "tag": "chart",
@@ -346,7 +269,7 @@
             "stacked": false,
             "cumulatedStart": false,
             "axesDesign": {},
-            "chartId": "ov-pie-platform-2d65a3e4"
+            "chartId": "ov-pie-platform-da2071ca"
           },
           "col": 0,
           "row": 0,
@@ -356,7 +279,7 @@
           }
         },
         {
-          "id": "ov-bar-courier-8217470b",
+          "id": "ov-bar-courier-f09e1599",
           "width": 460,
           "height": 340,
           "tag": "chart",
@@ -404,7 +327,7 @@
             "stacked": false,
             "cumulatedStart": false,
             "axesDesign": {},
-            "chartId": "ov-bar-courier-8217470b"
+            "chartId": "ov-bar-courier-f09e1599"
           },
           "col": 0,
           "row": 0,

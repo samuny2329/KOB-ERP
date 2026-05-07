@@ -2,7 +2,7 @@
   "version": "18.5.10",
   "sheets": [
     {
-      "id": "sheet-0e74bee6",
+      "id": "sheet-40d114d1",
       "name": "KPI Performance",
       "isVisible": true,
       "areGridLinesVisible": true,
@@ -14,299 +14,198 @@
         "B1:I1"
       ],
       "cells": {
-        "B1": {
-          "content": "KPI Performance",
-          "style": 1
-        },
-        "A22": {
-          "content": "Top Pickers",
-          "style": "header"
-        },
-        "E22": {
-          "content": "Top Packers",
-          "style": "header"
-        },
-        "A23": {
-          "content": "=IFERROR(ODOO.LIST.HEADER(1,\"kob_user_id\"),\"\")",
-          "style": 2
-        },
-        "B23": {
-          "content": "=IFERROR(ODOO.LIST.HEADER(1,\"pick_count\"),\"\")",
-          "style": 2
-        },
-        "C23": {
-          "content": "=IFERROR(ODOO.LIST.HEADER(1,\"uph\"),\"\")",
-          "style": 2
-        },
-        "D23": {
-          "content": "=IFERROR(ODOO.LIST.HEADER(1,\"error_rate\"),\"\")",
-          "style": 2
-        },
-        "A24": {
-          "content": "=IFERROR(ODOO.LIST(1,1,\"kob_user_id\"),\"\")"
-        },
-        "B24": {
-          "content": "=IFERROR(ODOO.LIST(1,1,\"pick_count\"),\"\")"
-        },
-        "C24": {
-          "content": "=IFERROR(ODOO.LIST(1,1,\"uph\"),\"\")"
-        },
-        "D24": {
-          "content": "=IFERROR(ODOO.LIST(1,1,\"error_rate\"),\"\")"
-        },
-        "A25": {
-          "content": "=IFERROR(ODOO.LIST(1,2,\"kob_user_id\"),\"\")"
-        },
-        "B25": {
-          "content": "=IFERROR(ODOO.LIST(1,2,\"pick_count\"),\"\")"
-        },
-        "C25": {
-          "content": "=IFERROR(ODOO.LIST(1,2,\"uph\"),\"\")"
-        },
-        "D25": {
-          "content": "=IFERROR(ODOO.LIST(1,2,\"error_rate\"),\"\")"
-        },
-        "A26": {
-          "content": "=IFERROR(ODOO.LIST(1,3,\"kob_user_id\"),\"\")"
-        },
-        "B26": {
-          "content": "=IFERROR(ODOO.LIST(1,3,\"pick_count\"),\"\")"
-        },
-        "C26": {
-          "content": "=IFERROR(ODOO.LIST(1,3,\"uph\"),\"\")"
-        },
-        "D26": {
-          "content": "=IFERROR(ODOO.LIST(1,3,\"error_rate\"),\"\")"
-        },
-        "A27": {
-          "content": "=IFERROR(ODOO.LIST(1,4,\"kob_user_id\"),\"\")"
-        },
-        "B27": {
-          "content": "=IFERROR(ODOO.LIST(1,4,\"pick_count\"),\"\")"
-        },
-        "C27": {
-          "content": "=IFERROR(ODOO.LIST(1,4,\"uph\"),\"\")"
-        },
-        "D27": {
-          "content": "=IFERROR(ODOO.LIST(1,4,\"error_rate\"),\"\")"
-        },
-        "A28": {
-          "content": "=IFERROR(ODOO.LIST(1,5,\"kob_user_id\"),\"\")"
-        },
-        "B28": {
-          "content": "=IFERROR(ODOO.LIST(1,5,\"pick_count\"),\"\")"
-        },
-        "C28": {
-          "content": "=IFERROR(ODOO.LIST(1,5,\"uph\"),\"\")"
-        },
-        "D28": {
-          "content": "=IFERROR(ODOO.LIST(1,5,\"error_rate\"),\"\")"
-        },
-        "A29": {
-          "content": "=IFERROR(ODOO.LIST(1,6,\"kob_user_id\"),\"\")"
-        },
-        "B29": {
-          "content": "=IFERROR(ODOO.LIST(1,6,\"pick_count\"),\"\")"
-        },
-        "C29": {
-          "content": "=IFERROR(ODOO.LIST(1,6,\"uph\"),\"\")"
-        },
-        "D29": {
-          "content": "=IFERROR(ODOO.LIST(1,6,\"error_rate\"),\"\")"
-        },
-        "A30": {
-          "content": "=IFERROR(ODOO.LIST(1,7,\"kob_user_id\"),\"\")"
-        },
-        "B30": {
-          "content": "=IFERROR(ODOO.LIST(1,7,\"pick_count\"),\"\")"
-        },
-        "C30": {
-          "content": "=IFERROR(ODOO.LIST(1,7,\"uph\"),\"\")"
-        },
-        "D30": {
-          "content": "=IFERROR(ODOO.LIST(1,7,\"error_rate\"),\"\")"
-        },
-        "A31": {
-          "content": "=IFERROR(ODOO.LIST(1,8,\"kob_user_id\"),\"\")"
-        },
-        "B31": {
-          "content": "=IFERROR(ODOO.LIST(1,8,\"pick_count\"),\"\")"
-        },
-        "C31": {
-          "content": "=IFERROR(ODOO.LIST(1,8,\"uph\"),\"\")"
-        },
-        "D31": {
-          "content": "=IFERROR(ODOO.LIST(1,8,\"error_rate\"),\"\")"
-        },
-        "A32": {
-          "content": "=IFERROR(ODOO.LIST(1,9,\"kob_user_id\"),\"\")"
-        },
-        "B32": {
-          "content": "=IFERROR(ODOO.LIST(1,9,\"pick_count\"),\"\")"
-        },
-        "C32": {
-          "content": "=IFERROR(ODOO.LIST(1,9,\"uph\"),\"\")"
-        },
-        "D32": {
-          "content": "=IFERROR(ODOO.LIST(1,9,\"error_rate\"),\"\")"
-        },
-        "A33": {
-          "content": "=IFERROR(ODOO.LIST(1,10,\"kob_user_id\"),\"\")"
-        },
-        "B33": {
-          "content": "=IFERROR(ODOO.LIST(1,10,\"pick_count\"),\"\")"
-        },
-        "C33": {
-          "content": "=IFERROR(ODOO.LIST(1,10,\"uph\"),\"\")"
-        },
-        "D33": {
-          "content": "=IFERROR(ODOO.LIST(1,10,\"error_rate\"),\"\")"
-        },
-        "E23": {
-          "content": "=IFERROR(ODOO.LIST.HEADER(2,\"kob_user_id\"),\"\")",
-          "style": 2
-        },
-        "F23": {
-          "content": "=IFERROR(ODOO.LIST.HEADER(2,\"pack_count\"),\"\")",
-          "style": 2
-        },
-        "G23": {
-          "content": "=IFERROR(ODOO.LIST.HEADER(2,\"uph\"),\"\")",
-          "style": 2
-        },
-        "H23": {
-          "content": "=IFERROR(ODOO.LIST.HEADER(2,\"quality_score\"),\"\")",
-          "style": 2
-        },
-        "E24": {
-          "content": "=IFERROR(ODOO.LIST(2,1,\"kob_user_id\"),\"\")"
-        },
-        "F24": {
-          "content": "=IFERROR(ODOO.LIST(2,1,\"pack_count\"),\"\")"
-        },
-        "G24": {
-          "content": "=IFERROR(ODOO.LIST(2,1,\"uph\"),\"\")"
-        },
-        "H24": {
-          "content": "=IFERROR(ODOO.LIST(2,1,\"quality_score\"),\"\")"
-        },
-        "E25": {
-          "content": "=IFERROR(ODOO.LIST(2,2,\"kob_user_id\"),\"\")"
-        },
-        "F25": {
-          "content": "=IFERROR(ODOO.LIST(2,2,\"pack_count\"),\"\")"
-        },
-        "G25": {
-          "content": "=IFERROR(ODOO.LIST(2,2,\"uph\"),\"\")"
-        },
-        "H25": {
-          "content": "=IFERROR(ODOO.LIST(2,2,\"quality_score\"),\"\")"
-        },
-        "E26": {
-          "content": "=IFERROR(ODOO.LIST(2,3,\"kob_user_id\"),\"\")"
-        },
-        "F26": {
-          "content": "=IFERROR(ODOO.LIST(2,3,\"pack_count\"),\"\")"
-        },
-        "G26": {
-          "content": "=IFERROR(ODOO.LIST(2,3,\"uph\"),\"\")"
-        },
-        "H26": {
-          "content": "=IFERROR(ODOO.LIST(2,3,\"quality_score\"),\"\")"
-        },
-        "E27": {
-          "content": "=IFERROR(ODOO.LIST(2,4,\"kob_user_id\"),\"\")"
-        },
-        "F27": {
-          "content": "=IFERROR(ODOO.LIST(2,4,\"pack_count\"),\"\")"
-        },
-        "G27": {
-          "content": "=IFERROR(ODOO.LIST(2,4,\"uph\"),\"\")"
-        },
-        "H27": {
-          "content": "=IFERROR(ODOO.LIST(2,4,\"quality_score\"),\"\")"
-        },
-        "E28": {
-          "content": "=IFERROR(ODOO.LIST(2,5,\"kob_user_id\"),\"\")"
-        },
-        "F28": {
-          "content": "=IFERROR(ODOO.LIST(2,5,\"pack_count\"),\"\")"
-        },
-        "G28": {
-          "content": "=IFERROR(ODOO.LIST(2,5,\"uph\"),\"\")"
-        },
-        "H28": {
-          "content": "=IFERROR(ODOO.LIST(2,5,\"quality_score\"),\"\")"
-        },
-        "E29": {
-          "content": "=IFERROR(ODOO.LIST(2,6,\"kob_user_id\"),\"\")"
-        },
-        "F29": {
-          "content": "=IFERROR(ODOO.LIST(2,6,\"pack_count\"),\"\")"
-        },
-        "G29": {
-          "content": "=IFERROR(ODOO.LIST(2,6,\"uph\"),\"\")"
-        },
-        "H29": {
-          "content": "=IFERROR(ODOO.LIST(2,6,\"quality_score\"),\"\")"
-        },
-        "E30": {
-          "content": "=IFERROR(ODOO.LIST(2,7,\"kob_user_id\"),\"\")"
-        },
-        "F30": {
-          "content": "=IFERROR(ODOO.LIST(2,7,\"pack_count\"),\"\")"
-        },
-        "G30": {
-          "content": "=IFERROR(ODOO.LIST(2,7,\"uph\"),\"\")"
-        },
-        "H30": {
-          "content": "=IFERROR(ODOO.LIST(2,7,\"quality_score\"),\"\")"
-        },
-        "E31": {
-          "content": "=IFERROR(ODOO.LIST(2,8,\"kob_user_id\"),\"\")"
-        },
-        "F31": {
-          "content": "=IFERROR(ODOO.LIST(2,8,\"pack_count\"),\"\")"
-        },
-        "G31": {
-          "content": "=IFERROR(ODOO.LIST(2,8,\"uph\"),\"\")"
-        },
-        "H31": {
-          "content": "=IFERROR(ODOO.LIST(2,8,\"quality_score\"),\"\")"
-        },
-        "E32": {
-          "content": "=IFERROR(ODOO.LIST(2,9,\"kob_user_id\"),\"\")"
-        },
-        "F32": {
-          "content": "=IFERROR(ODOO.LIST(2,9,\"pack_count\"),\"\")"
-        },
-        "G32": {
-          "content": "=IFERROR(ODOO.LIST(2,9,\"uph\"),\"\")"
-        },
-        "H32": {
-          "content": "=IFERROR(ODOO.LIST(2,9,\"quality_score\"),\"\")"
-        },
-        "E33": {
-          "content": "=IFERROR(ODOO.LIST(2,10,\"kob_user_id\"),\"\")"
-        },
-        "F33": {
-          "content": "=IFERROR(ODOO.LIST(2,10,\"pack_count\"),\"\")"
-        },
-        "G33": {
-          "content": "=IFERROR(ODOO.LIST(2,10,\"uph\"),\"\")"
-        },
-        "H33": {
-          "content": "=IFERROR(ODOO.LIST(2,10,\"quality_score\"),\"\")"
-        }
+        "B1": "KPI Performance",
+        "A22": "Top Pickers",
+        "E22": "Top Packers",
+        "A23": "=IFERROR(ODOO.LIST.HEADER(1,\"kob_user_id\"),\"\")",
+        "B23": "=IFERROR(ODOO.LIST.HEADER(1,\"pick_count\"),\"\")",
+        "C23": "=IFERROR(ODOO.LIST.HEADER(1,\"uph\"),\"\")",
+        "D23": "=IFERROR(ODOO.LIST.HEADER(1,\"error_rate\"),\"\")",
+        "A24": "=IFERROR(ODOO.LIST(1,1,\"kob_user_id\"),\"\")",
+        "B24": "=IFERROR(ODOO.LIST(1,1,\"pick_count\"),\"\")",
+        "C24": "=IFERROR(ODOO.LIST(1,1,\"uph\"),\"\")",
+        "D24": "=IFERROR(ODOO.LIST(1,1,\"error_rate\"),\"\")",
+        "A25": "=IFERROR(ODOO.LIST(1,2,\"kob_user_id\"),\"\")",
+        "B25": "=IFERROR(ODOO.LIST(1,2,\"pick_count\"),\"\")",
+        "C25": "=IFERROR(ODOO.LIST(1,2,\"uph\"),\"\")",
+        "D25": "=IFERROR(ODOO.LIST(1,2,\"error_rate\"),\"\")",
+        "A26": "=IFERROR(ODOO.LIST(1,3,\"kob_user_id\"),\"\")",
+        "B26": "=IFERROR(ODOO.LIST(1,3,\"pick_count\"),\"\")",
+        "C26": "=IFERROR(ODOO.LIST(1,3,\"uph\"),\"\")",
+        "D26": "=IFERROR(ODOO.LIST(1,3,\"error_rate\"),\"\")",
+        "A27": "=IFERROR(ODOO.LIST(1,4,\"kob_user_id\"),\"\")",
+        "B27": "=IFERROR(ODOO.LIST(1,4,\"pick_count\"),\"\")",
+        "C27": "=IFERROR(ODOO.LIST(1,4,\"uph\"),\"\")",
+        "D27": "=IFERROR(ODOO.LIST(1,4,\"error_rate\"),\"\")",
+        "A28": "=IFERROR(ODOO.LIST(1,5,\"kob_user_id\"),\"\")",
+        "B28": "=IFERROR(ODOO.LIST(1,5,\"pick_count\"),\"\")",
+        "C28": "=IFERROR(ODOO.LIST(1,5,\"uph\"),\"\")",
+        "D28": "=IFERROR(ODOO.LIST(1,5,\"error_rate\"),\"\")",
+        "A29": "=IFERROR(ODOO.LIST(1,6,\"kob_user_id\"),\"\")",
+        "B29": "=IFERROR(ODOO.LIST(1,6,\"pick_count\"),\"\")",
+        "C29": "=IFERROR(ODOO.LIST(1,6,\"uph\"),\"\")",
+        "D29": "=IFERROR(ODOO.LIST(1,6,\"error_rate\"),\"\")",
+        "A30": "=IFERROR(ODOO.LIST(1,7,\"kob_user_id\"),\"\")",
+        "B30": "=IFERROR(ODOO.LIST(1,7,\"pick_count\"),\"\")",
+        "C30": "=IFERROR(ODOO.LIST(1,7,\"uph\"),\"\")",
+        "D30": "=IFERROR(ODOO.LIST(1,7,\"error_rate\"),\"\")",
+        "A31": "=IFERROR(ODOO.LIST(1,8,\"kob_user_id\"),\"\")",
+        "B31": "=IFERROR(ODOO.LIST(1,8,\"pick_count\"),\"\")",
+        "C31": "=IFERROR(ODOO.LIST(1,8,\"uph\"),\"\")",
+        "D31": "=IFERROR(ODOO.LIST(1,8,\"error_rate\"),\"\")",
+        "A32": "=IFERROR(ODOO.LIST(1,9,\"kob_user_id\"),\"\")",
+        "B32": "=IFERROR(ODOO.LIST(1,9,\"pick_count\"),\"\")",
+        "C32": "=IFERROR(ODOO.LIST(1,9,\"uph\"),\"\")",
+        "D32": "=IFERROR(ODOO.LIST(1,9,\"error_rate\"),\"\")",
+        "A33": "=IFERROR(ODOO.LIST(1,10,\"kob_user_id\"),\"\")",
+        "B33": "=IFERROR(ODOO.LIST(1,10,\"pick_count\"),\"\")",
+        "C33": "=IFERROR(ODOO.LIST(1,10,\"uph\"),\"\")",
+        "D33": "=IFERROR(ODOO.LIST(1,10,\"error_rate\"),\"\")",
+        "E23": "=IFERROR(ODOO.LIST.HEADER(2,\"kob_user_id\"),\"\")",
+        "F23": "=IFERROR(ODOO.LIST.HEADER(2,\"pack_count\"),\"\")",
+        "G23": "=IFERROR(ODOO.LIST.HEADER(2,\"uph\"),\"\")",
+        "H23": "=IFERROR(ODOO.LIST.HEADER(2,\"quality_score\"),\"\")",
+        "E24": "=IFERROR(ODOO.LIST(2,1,\"kob_user_id\"),\"\")",
+        "F24": "=IFERROR(ODOO.LIST(2,1,\"pack_count\"),\"\")",
+        "G24": "=IFERROR(ODOO.LIST(2,1,\"uph\"),\"\")",
+        "H24": "=IFERROR(ODOO.LIST(2,1,\"quality_score\"),\"\")",
+        "E25": "=IFERROR(ODOO.LIST(2,2,\"kob_user_id\"),\"\")",
+        "F25": "=IFERROR(ODOO.LIST(2,2,\"pack_count\"),\"\")",
+        "G25": "=IFERROR(ODOO.LIST(2,2,\"uph\"),\"\")",
+        "H25": "=IFERROR(ODOO.LIST(2,2,\"quality_score\"),\"\")",
+        "E26": "=IFERROR(ODOO.LIST(2,3,\"kob_user_id\"),\"\")",
+        "F26": "=IFERROR(ODOO.LIST(2,3,\"pack_count\"),\"\")",
+        "G26": "=IFERROR(ODOO.LIST(2,3,\"uph\"),\"\")",
+        "H26": "=IFERROR(ODOO.LIST(2,3,\"quality_score\"),\"\")",
+        "E27": "=IFERROR(ODOO.LIST(2,4,\"kob_user_id\"),\"\")",
+        "F27": "=IFERROR(ODOO.LIST(2,4,\"pack_count\"),\"\")",
+        "G27": "=IFERROR(ODOO.LIST(2,4,\"uph\"),\"\")",
+        "H27": "=IFERROR(ODOO.LIST(2,4,\"quality_score\"),\"\")",
+        "E28": "=IFERROR(ODOO.LIST(2,5,\"kob_user_id\"),\"\")",
+        "F28": "=IFERROR(ODOO.LIST(2,5,\"pack_count\"),\"\")",
+        "G28": "=IFERROR(ODOO.LIST(2,5,\"uph\"),\"\")",
+        "H28": "=IFERROR(ODOO.LIST(2,5,\"quality_score\"),\"\")",
+        "E29": "=IFERROR(ODOO.LIST(2,6,\"kob_user_id\"),\"\")",
+        "F29": "=IFERROR(ODOO.LIST(2,6,\"pack_count\"),\"\")",
+        "G29": "=IFERROR(ODOO.LIST(2,6,\"uph\"),\"\")",
+        "H29": "=IFERROR(ODOO.LIST(2,6,\"quality_score\"),\"\")",
+        "E30": "=IFERROR(ODOO.LIST(2,7,\"kob_user_id\"),\"\")",
+        "F30": "=IFERROR(ODOO.LIST(2,7,\"pack_count\"),\"\")",
+        "G30": "=IFERROR(ODOO.LIST(2,7,\"uph\"),\"\")",
+        "H30": "=IFERROR(ODOO.LIST(2,7,\"quality_score\"),\"\")",
+        "E31": "=IFERROR(ODOO.LIST(2,8,\"kob_user_id\"),\"\")",
+        "F31": "=IFERROR(ODOO.LIST(2,8,\"pack_count\"),\"\")",
+        "G31": "=IFERROR(ODOO.LIST(2,8,\"uph\"),\"\")",
+        "H31": "=IFERROR(ODOO.LIST(2,8,\"quality_score\"),\"\")",
+        "E32": "=IFERROR(ODOO.LIST(2,9,\"kob_user_id\"),\"\")",
+        "F32": "=IFERROR(ODOO.LIST(2,9,\"pack_count\"),\"\")",
+        "G32": "=IFERROR(ODOO.LIST(2,9,\"uph\"),\"\")",
+        "H32": "=IFERROR(ODOO.LIST(2,9,\"quality_score\"),\"\")",
+        "E33": "=IFERROR(ODOO.LIST(2,10,\"kob_user_id\"),\"\")",
+        "F33": "=IFERROR(ODOO.LIST(2,10,\"pack_count\"),\"\")",
+        "G33": "=IFERROR(ODOO.LIST(2,10,\"uph\"),\"\")",
+        "H33": "=IFERROR(ODOO.LIST(2,10,\"quality_score\"),\"\")"
       },
       "borders": {},
       "comments": {},
       "formats": {},
-      "styles": {},
+      "styles": {
+        "B1": 1,
+        "A22": 1,
+        "E22": 1,
+        "A23": 2,
+        "B23": 2,
+        "C23": 2,
+        "D23": 2,
+        "A24": 3,
+        "B24": 3,
+        "C24": 3,
+        "D24": 3,
+        "A25": 3,
+        "B25": 3,
+        "C25": 3,
+        "D25": 3,
+        "A26": 3,
+        "B26": 3,
+        "C26": 3,
+        "D26": 3,
+        "A27": 3,
+        "B27": 3,
+        "C27": 3,
+        "D27": 3,
+        "A28": 3,
+        "B28": 3,
+        "C28": 3,
+        "D28": 3,
+        "A29": 3,
+        "B29": 3,
+        "C29": 3,
+        "D29": 3,
+        "A30": 3,
+        "B30": 3,
+        "C30": 3,
+        "D30": 3,
+        "A31": 3,
+        "B31": 3,
+        "C31": 3,
+        "D31": 3,
+        "A32": 3,
+        "B32": 3,
+        "C32": 3,
+        "D32": 3,
+        "A33": 3,
+        "B33": 3,
+        "C33": 3,
+        "D33": 3,
+        "E23": 2,
+        "F23": 2,
+        "G23": 2,
+        "H23": 2,
+        "E24": 3,
+        "F24": 3,
+        "G24": 3,
+        "H24": 3,
+        "E25": 3,
+        "F25": 3,
+        "G25": 3,
+        "H25": 3,
+        "E26": 3,
+        "F26": 3,
+        "G26": 3,
+        "H26": 3,
+        "E27": 3,
+        "F27": 3,
+        "G27": 3,
+        "H27": 3,
+        "E28": 3,
+        "F28": 3,
+        "G28": 3,
+        "H28": 3,
+        "E29": 3,
+        "F29": 3,
+        "G29": 3,
+        "H29": 3,
+        "E30": 3,
+        "F30": 3,
+        "G30": 3,
+        "H30": 3,
+        "E31": 3,
+        "F31": 3,
+        "G31": 3,
+        "H31": 3,
+        "E32": 3,
+        "F32": 3,
+        "G32": 3,
+        "H32": 3,
+        "E33": 3,
+        "F33": 3,
+        "G33": 3,
+        "H33": 3
+      },
       "conditionalFormats": [],
       "figures": [
         {
-          "id": "kpi-line-uph-721a7a21",
+          "id": "kpi-line-uph-10f16572",
           "width": 900,
           "height": 340,
           "tag": "chart",
@@ -351,7 +250,7 @@
             "stacked": false,
             "cumulatedStart": false,
             "axesDesign": {},
-            "chartId": "kpi-line-uph-721a7a21",
+            "chartId": "kpi-line-uph-10f16572",
             "fillArea": true,
             "fieldMatching": {
               "gf_kpi_date": {
@@ -369,7 +268,7 @@
           }
         },
         {
-          "id": "kpi-bar-score-97c5f20f",
+          "id": "kpi-bar-score-2f57c618",
           "width": 460,
           "height": 340,
           "tag": "chart",
@@ -414,7 +313,7 @@
             "stacked": false,
             "cumulatedStart": false,
             "axesDesign": {},
-            "chartId": "kpi-bar-score-97c5f20f"
+            "chartId": "kpi-bar-score-2f57c618"
           },
           "col": 0,
           "row": 0,
@@ -424,7 +323,7 @@
           }
         },
         {
-          "id": "kpi-bar-errors-e7a313fb",
+          "id": "kpi-bar-errors-664d8ccb",
           "width": 460,
           "height": 340,
           "tag": "chart",
@@ -469,7 +368,7 @@
             "stacked": false,
             "cumulatedStart": false,
             "axesDesign": {},
-            "chartId": "kpi-bar-errors-e7a313fb",
+            "chartId": "kpi-bar-errors-664d8ccb",
             "fieldMatching": {
               "gf_kpi_date": {
                 "chain": "date",
