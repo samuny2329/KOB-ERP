@@ -2,7 +2,7 @@
   "version": 22,
   "sheets": [
     {
-      "id": "sheet-e4f66bc8",
+      "id": "sheet-e7156579",
       "name": "KPI Performance",
       "isVisible": true,
       "rowNumber": 60,
@@ -15,7 +15,7 @@
       "cells": {
         "B1": {
           "content": "KPI Performance",
-          "style": "section_title"
+          "style": 1
         },
         "A22": {
           "content": "Top Pickers",
@@ -27,19 +27,19 @@
         },
         "A23": {
           "content": "=IFERROR(ODOO.LIST.HEADER(1,\"kob_user_id\"),\"\")",
-          "style": "header"
+          "style": 2
         },
         "B23": {
           "content": "=IFERROR(ODOO.LIST.HEADER(1,\"pick_count\"),\"\")",
-          "style": "header"
+          "style": 2
         },
         "C23": {
           "content": "=IFERROR(ODOO.LIST.HEADER(1,\"uph\"),\"\")",
-          "style": "header"
+          "style": 2
         },
         "D23": {
           "content": "=IFERROR(ODOO.LIST.HEADER(1,\"error_rate\"),\"\")",
-          "style": "header"
+          "style": 2
         },
         "A24": {
           "content": "=IFERROR(ODOO.LIST(1,1,\"kob_user_id\"),\"\")"
@@ -163,19 +163,19 @@
         },
         "E23": {
           "content": "=IFERROR(ODOO.LIST.HEADER(2,\"kob_user_id\"),\"\")",
-          "style": "header"
+          "style": 2
         },
         "F23": {
           "content": "=IFERROR(ODOO.LIST.HEADER(2,\"pack_count\"),\"\")",
-          "style": "header"
+          "style": 2
         },
         "G23": {
           "content": "=IFERROR(ODOO.LIST.HEADER(2,\"uph\"),\"\")",
-          "style": "header"
+          "style": 2
         },
         "H23": {
           "content": "=IFERROR(ODOO.LIST.HEADER(2,\"quality_score\"),\"\")",
-          "style": "header"
+          "style": 2
         },
         "E24": {
           "content": "=IFERROR(ODOO.LIST(2,1,\"kob_user_id\"),\"\")"
@@ -301,7 +301,7 @@
       "conditionalFormats": [],
       "figures": [
         {
-          "id": "kpi-tile1-2844d7d9",
+          "id": "kpi-tile1-84cec19d",
           "x": 18,
           "y": 60,
           "width": 213,
@@ -329,17 +329,11 @@
             },
             "type": "odoo_bar",
             "verticalAxisPosition": "left",
-            "stacked": false,
-            "fieldMatching": {
-              "gf_kpi_date": {
-                "chain": "date",
-                "type": "date"
-              }
-            }
+            "stacked": false
           }
         },
         {
-          "id": "kpi-tile2-040d6796",
+          "id": "kpi-tile2-6b1709d0",
           "x": 241,
           "y": 60,
           "width": 213,
@@ -367,17 +361,11 @@
             },
             "type": "odoo_bar",
             "verticalAxisPosition": "left",
-            "stacked": false,
-            "fieldMatching": {
-              "gf_kpi_date": {
-                "chain": "date",
-                "type": "date"
-              }
-            }
+            "stacked": false
           }
         },
         {
-          "id": "kpi-tile3-a7948b79",
+          "id": "kpi-tile3-a236b3af",
           "x": 464,
           "y": 60,
           "width": 213,
@@ -405,17 +393,11 @@
             },
             "type": "odoo_bar",
             "verticalAxisPosition": "left",
-            "stacked": false,
-            "fieldMatching": {
-              "gf_kpi_date": {
-                "chain": "date",
-                "type": "date"
-              }
-            }
+            "stacked": false
           }
         },
         {
-          "id": "kpi-tile4-32c45546",
+          "id": "kpi-tile4-c42112cf",
           "x": 687,
           "y": 60,
           "width": 213,
@@ -443,17 +425,11 @@
             },
             "type": "odoo_bar",
             "verticalAxisPosition": "left",
-            "stacked": false,
-            "fieldMatching": {
-              "gf_kpi_date": {
-                "chain": "date",
-                "type": "date"
-              }
-            }
+            "stacked": false
           }
         },
         {
-          "id": "kpi-line-uph-b6a59dac",
+          "id": "kpi-line-uph-52dffc22",
           "x": 18,
           "y": 171,
           "width": 900,
@@ -502,7 +478,7 @@
           }
         },
         {
-          "id": "kpi-bar-score-592658e9",
+          "id": "kpi-bar-score-f86a92cf",
           "x": 18,
           "y": 800,
           "width": 460,
@@ -540,17 +516,11 @@
             },
             "type": "odoo_bar",
             "verticalAxisPosition": "left",
-            "stacked": false,
-            "fieldMatching": {
-              "gf_kpi_date": {
-                "chain": "date",
-                "type": "date"
-              }
-            }
+            "stacked": false
           }
         },
         {
-          "id": "kpi-bar-errors-358810fb",
+          "id": "kpi-bar-errors-ea552d5b",
           "x": 488,
           "y": 800,
           "width": 460,
@@ -612,25 +582,19 @@
     }
   ],
   "styles": {
-    "section_title": {
+    "1": {
       "bold": true,
       "fontSize": 16,
-      "textColor": "#01666b"
+      "textColor": "#01666b",
+      "align": "left"
     },
-    "header": {
+    "2": {
       "bold": true,
       "textColor": "#434343",
       "fontSize": 11
     },
-    "tile_label": {
-      "bold": true,
-      "fontSize": 10,
-      "textColor": "#6c757d"
-    },
-    "tile_value": {
-      "bold": true,
-      "fontSize": 24,
-      "textColor": "#2c2c2c"
+    "3": {
+      "textColor": "#01666B"
     }
   },
   "formats": {},

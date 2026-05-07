@@ -161,19 +161,16 @@ def list_table_cells(*, start_col: str, header_row: int, list_id: str,
                      columns: list[str]) -> dict:
     """Generate cell formulas for a Top-N table.
 
-    Layout:
-      Row(header_row):     ODOO.LIST.HEADER for each column
-      Row(header_row+1..10): ODOO.LIST data rows 1..10
+    v22 cell `style` is integer styleId (key in styles dict). Use 2 for
+    table header (bold dark gray), no style for data rows.
     """
     cells = {}
     cols = [chr(ord(start_col) + i) for i in range(len(columns))]
-    # Header row
     for i, col in enumerate(cols):
         cells[f"{col}{header_row}"] = {
             "content": f'=IFERROR(ODOO.LIST.HEADER({list_id},"{columns[i]}"),"")',
-            "style": "header",
+            "style": 2,
         }
-    # Data rows 1..10
     for row_offset in range(1, 11):
         for i, col in enumerate(cols):
             cells[f"{col}{header_row + row_offset}"] = {
@@ -183,38 +180,51 @@ def list_table_cells(*, start_col: str, header_row: int, list_id: str,
 
 
 def header_cell(text: str, anchor: str = "A1") -> dict:
-    """Bold dark-teal section title."""
+    """Bold dark-teal section title (style 1)."""
     return {
         anchor: {
             "content": text,
-            "style": "section_title",
+            "style": 1,
         }
     }
 
 
-# ── Common style block (clone Sales palette) ─────────────────────
+# ── Common style block (clone Sales palette, numeric IDs per v22 schema)
+# Style IDs:
+#   1 — section_title (sheet header H1, bold 16px teal)
+#   2 — table_header  (Top-N header row, bold 11px gray)
+#   3 — table_cell    (regular text)
 STYLES = {
-    "section_title": {
+    "1": {
         "bold": True,
         "fontSize": 16,
         "textColor": HEADER_TEAL,
+        "align": "left",
     },
-    "header": {
+    "2": {
         "bold": True,
         "textColor": "#434343",
         "fontSize": 11,
     },
-    "tile_label": {
-        "bold": True,
-        "fontSize": 10,
-        "textColor": "#6c757d",
-    },
-    "tile_value": {
-        "bold": True,
-        "fontSize": 24,
-        "textColor": "#2c2c2c",
+    "3": {
+        "textColor": "#01666B",
     },
 }
+
+
+_DATE_GRAN = (":day", ":week", ":month", ":quarter", ":year")
+
+
+def _has_date_groupby(figure: dict) -> bool:
+    """True if chart's groupBy[0] contains a date granularity suffix.
+
+    Odoo 19 spreadsheet ``getChartGranularity`` returns null for charts
+    whose first groupBy is not a date field — and ``_onGlobalFilterChange``
+    then destructures the null and crashes.  Charts without a date axis
+    must NOT carry ``fieldMatching`` for date-type global filters.
+    """
+    gb = figure.get("data", {}).get("metaData", {}).get("groupBy", [])
+    return bool(gb) and any(g.endswith(_DATE_GRAN) for g in gb)
 
 
 def build_dashboard(
@@ -237,18 +247,17 @@ def build_dashboard(
     """Assemble final JSON for one dashboard."""
     fm = {global_filter_id: {"chain": field_chain, "type": field_chain_type}}
 
-    # Apply field matching to chart figures
-    main_chart["data"]["fieldMatching"] = fm
-    breakdown_left["data"]["fieldMatching"] = fm
-    breakdown_right["data"]["fieldMatching"] = fm
+    # Charts: only apply fieldMatching when groupBy has a date axis.
+    # Tiles (empty groupBy) and non-date breakdown charts skip it,
+    # which avoids the spreadsheet engine destructuring null granularity
+    # in _onGlobalFilterChange.
+    for fig in [main_chart, breakdown_left, breakdown_right] + tiles:
+        if _has_date_groupby(fig):
+            fig["data"]["fieldMatching"] = fm
 
-    # Apply field matching to lists
+    # Lists are domain-pushed (no granularity), always apply fieldMatching.
     list_left["fieldMatching"] = fm
     list_right["fieldMatching"] = fm
-
-    # Apply field matching to scorecard tiles
-    for t in tiles:
-        t["data"]["fieldMatching"] = fm
 
     # Build Dashboard sheet — figures + cells
     cells = {}

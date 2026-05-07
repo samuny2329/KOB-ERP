@@ -2,7 +2,7 @@
   "version": 22,
   "sheets": [
     {
-      "id": "sheet-a4d1fd4d",
+      "id": "sheet-734ca3f5",
       "name": "Count Adjustments",
       "isVisible": true,
       "rowNumber": 60,
@@ -15,7 +15,7 @@
       "cells": {
         "B1": {
           "content": "Count Adjustments",
-          "style": "section_title"
+          "style": 1
         },
         "A22": {
           "content": "Top Variance Products",
@@ -27,19 +27,19 @@
         },
         "A23": {
           "content": "=IFERROR(ODOO.LIST.HEADER(1,\"product_id\"),\"\")",
-          "style": "header"
+          "style": 2
         },
         "B23": {
           "content": "=IFERROR(ODOO.LIST.HEADER(1,\"variance_qty\"),\"\")",
-          "style": "header"
+          "style": 2
         },
         "C23": {
           "content": "=IFERROR(ODOO.LIST.HEADER(1,\"variance_pct\"),\"\")",
-          "style": "header"
+          "style": 2
         },
         "D23": {
           "content": "=IFERROR(ODOO.LIST.HEADER(1,\"state\"),\"\")",
-          "style": "header"
+          "style": 2
         },
         "A24": {
           "content": "=IFERROR(ODOO.LIST(1,1,\"product_id\"),\"\")"
@@ -163,15 +163,15 @@
         },
         "E23": {
           "content": "=IFERROR(ODOO.LIST.HEADER(2,\"location_id\"),\"\")",
-          "style": "header"
+          "style": 2
         },
         "F23": {
           "content": "=IFERROR(ODOO.LIST.HEADER(2,\"variance_qty\"),\"\")",
-          "style": "header"
+          "style": 2
         },
         "G23": {
           "content": "=IFERROR(ODOO.LIST.HEADER(2,\"state\"),\"\")",
-          "style": "header"
+          "style": 2
         },
         "E24": {
           "content": "=IFERROR(ODOO.LIST(2,1,\"location_id\"),\"\")"
@@ -267,7 +267,7 @@
       "conditionalFormats": [],
       "figures": [
         {
-          "id": "ca-tile1-032d4770",
+          "id": "ca-tile1-cb667da2",
           "x": 18,
           "y": 60,
           "width": 213,
@@ -304,17 +304,11 @@
             },
             "type": "odoo_bar",
             "verticalAxisPosition": "left",
-            "stacked": false,
-            "fieldMatching": {
-              "gf_ca_date": {
-                "chain": "verified_date",
-                "type": "datetime"
-              }
-            }
+            "stacked": false
           }
         },
         {
-          "id": "ca-tile2-3e2a1279",
+          "id": "ca-tile2-51ddf8ce",
           "x": 241,
           "y": 60,
           "width": 213,
@@ -348,17 +342,11 @@
             },
             "type": "odoo_bar",
             "verticalAxisPosition": "left",
-            "stacked": false,
-            "fieldMatching": {
-              "gf_ca_date": {
-                "chain": "verified_date",
-                "type": "datetime"
-              }
-            }
+            "stacked": false
           }
         },
         {
-          "id": "ca-tile3-671f5314",
+          "id": "ca-tile3-7c5a84a3",
           "x": 464,
           "y": 60,
           "width": 213,
@@ -392,17 +380,11 @@
             },
             "type": "odoo_bar",
             "verticalAxisPosition": "left",
-            "stacked": false,
-            "fieldMatching": {
-              "gf_ca_date": {
-                "chain": "verified_date",
-                "type": "datetime"
-              }
-            }
+            "stacked": false
           }
         },
         {
-          "id": "ca-tile4-4e8a5d8a",
+          "id": "ca-tile4-b1a12f73",
           "x": 687,
           "y": 60,
           "width": 213,
@@ -439,17 +421,11 @@
             },
             "type": "odoo_bar",
             "verticalAxisPosition": "left",
-            "stacked": false,
-            "fieldMatching": {
-              "gf_ca_date": {
-                "chain": "verified_date",
-                "type": "datetime"
-              }
-            }
+            "stacked": false
           }
         },
         {
-          "id": "ca-bar-state-4e2c549a",
+          "id": "ca-bar-state-3c94eef8",
           "x": 18,
           "y": 171,
           "width": 900,
@@ -481,17 +457,11 @@
             },
             "type": "odoo_bar",
             "verticalAxisPosition": "left",
-            "stacked": false,
-            "fieldMatching": {
-              "gf_ca_date": {
-                "chain": "verified_date",
-                "type": "datetime"
-              }
-            }
+            "stacked": false
           }
         },
         {
-          "id": "ca-pie-session-00f36912",
+          "id": "ca-pie-session-a4d41cd7",
           "x": 18,
           "y": 800,
           "width": 460,
@@ -523,17 +493,11 @@
             },
             "type": "odoo_pie",
             "verticalAxisPosition": "left",
-            "stacked": false,
-            "fieldMatching": {
-              "gf_ca_date": {
-                "chain": "verified_date",
-                "type": "datetime"
-              }
-            }
+            "stacked": false
           }
         },
         {
-          "id": "ca-bar-sessiontype-39cac813",
+          "id": "ca-bar-sessiontype-a35356b6",
           "x": 488,
           "y": 800,
           "width": 460,
@@ -565,13 +529,7 @@
             },
             "type": "odoo_bar",
             "verticalAxisPosition": "left",
-            "stacked": false,
-            "fieldMatching": {
-              "gf_ca_date": {
-                "chain": "verified_date",
-                "type": "datetime"
-              }
-            }
+            "stacked": false
           }
         }
       ],
@@ -589,25 +547,19 @@
     }
   ],
   "styles": {
-    "section_title": {
+    "1": {
       "bold": true,
       "fontSize": 16,
-      "textColor": "#01666b"
+      "textColor": "#01666b",
+      "align": "left"
     },
-    "header": {
+    "2": {
       "bold": true,
       "textColor": "#434343",
       "fontSize": 11
     },
-    "tile_label": {
-      "bold": true,
-      "fontSize": 10,
-      "textColor": "#6c757d"
-    },
-    "tile_value": {
-      "bold": true,
-      "fontSize": 24,
-      "textColor": "#2c2c2c"
+    "3": {
+      "textColor": "#01666B"
     }
   },
   "formats": {},

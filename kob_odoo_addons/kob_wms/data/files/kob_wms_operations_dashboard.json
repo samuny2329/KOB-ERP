@@ -2,7 +2,7 @@
   "version": 22,
   "sheets": [
     {
-      "id": "sheet-648cdc11",
+      "id": "sheet-2ffeed8e",
       "name": "WMS Operations",
       "isVisible": true,
       "rowNumber": 60,
@@ -15,7 +15,7 @@
       "cells": {
         "B1": {
           "content": "WMS Operations",
-          "style": "section_title"
+          "style": 1
         },
         "A22": {
           "content": "Recent SLA Breaches",
@@ -27,19 +27,19 @@
         },
         "A23": {
           "content": "=IFERROR(ODOO.LIST.HEADER(1,\"display_order_name\"),\"\")",
-          "style": "header"
+          "style": 2
         },
         "B23": {
           "content": "=IFERROR(ODOO.LIST.HEADER(1,\"platform\"),\"\")",
-          "style": "header"
+          "style": 2
         },
         "C23": {
           "content": "=IFERROR(ODOO.LIST.HEADER(1,\"sla_status\"),\"\")",
-          "style": "header"
+          "style": 2
         },
         "D23": {
           "content": "=IFERROR(ODOO.LIST.HEADER(1,\"total_duration_min\"),\"\")",
-          "style": "header"
+          "style": 2
         },
         "A24": {
           "content": "=IFERROR(ODOO.LIST(1,1,\"display_order_name\"),\"\")"
@@ -163,19 +163,19 @@
         },
         "E23": {
           "content": "=IFERROR(ODOO.LIST.HEADER(2,\"display_order_name\"),\"\")",
-          "style": "header"
+          "style": 2
         },
         "F23": {
           "content": "=IFERROR(ODOO.LIST.HEADER(2,\"status\"),\"\")",
-          "style": "header"
+          "style": 2
         },
         "G23": {
           "content": "=IFERROR(ODOO.LIST.HEADER(2,\"pick_duration_min\"),\"\")",
-          "style": "header"
+          "style": 2
         },
         "H23": {
           "content": "=IFERROR(ODOO.LIST.HEADER(2,\"pack_duration_min\"),\"\")",
-          "style": "header"
+          "style": 2
         },
         "E24": {
           "content": "=IFERROR(ODOO.LIST(2,1,\"display_order_name\"),\"\")"
@@ -301,7 +301,7 @@
       "conditionalFormats": [],
       "figures": [
         {
-          "id": "op-tile1-893b4930",
+          "id": "op-tile1-a3847d15",
           "x": 18,
           "y": 60,
           "width": 213,
@@ -335,17 +335,11 @@
             },
             "type": "odoo_bar",
             "verticalAxisPosition": "left",
-            "stacked": false,
-            "fieldMatching": {
-              "gf_op_date": {
-                "chain": "create_date",
-                "type": "datetime"
-              }
-            }
+            "stacked": false
           }
         },
         {
-          "id": "op-tile2-9ce061e8",
+          "id": "op-tile2-c6662a84",
           "x": 241,
           "y": 60,
           "width": 213,
@@ -379,17 +373,11 @@
             },
             "type": "odoo_bar",
             "verticalAxisPosition": "left",
-            "stacked": false,
-            "fieldMatching": {
-              "gf_op_date": {
-                "chain": "create_date",
-                "type": "datetime"
-              }
-            }
+            "stacked": false
           }
         },
         {
-          "id": "op-tile3-351bdd89",
+          "id": "op-tile3-a0c45a76",
           "x": 464,
           "y": 60,
           "width": 213,
@@ -423,17 +411,11 @@
             },
             "type": "odoo_bar",
             "verticalAxisPosition": "left",
-            "stacked": false,
-            "fieldMatching": {
-              "gf_op_date": {
-                "chain": "create_date",
-                "type": "datetime"
-              }
-            }
+            "stacked": false
           }
         },
         {
-          "id": "op-tile4-ac8b3625",
+          "id": "op-tile4-d512eddc",
           "x": 687,
           "y": 60,
           "width": 213,
@@ -470,17 +452,11 @@
             },
             "type": "odoo_bar",
             "verticalAxisPosition": "left",
-            "stacked": false,
-            "fieldMatching": {
-              "gf_op_date": {
-                "chain": "create_date",
-                "type": "datetime"
-              }
-            }
+            "stacked": false
           }
         },
         {
-          "id": "op-line-duration-43b727e8",
+          "id": "op-line-duration-b19f5d35",
           "x": 18,
           "y": 171,
           "width": 900,
@@ -529,7 +505,7 @@
           }
         },
         {
-          "id": "op-pie-sla-3c2d74b0",
+          "id": "op-pie-sla-bf7a965e",
           "x": 18,
           "y": 800,
           "width": 460,
@@ -567,17 +543,11 @@
             },
             "type": "odoo_pie",
             "verticalAxisPosition": "left",
-            "stacked": false,
-            "fieldMatching": {
-              "gf_op_date": {
-                "chain": "create_date",
-                "type": "datetime"
-              }
-            }
+            "stacked": false
           }
         },
         {
-          "id": "op-bar-courier-3c27f4cb",
+          "id": "op-bar-courier-c3a2790e",
           "x": 488,
           "y": 800,
           "width": 460,
@@ -609,13 +579,7 @@
             },
             "type": "odoo_bar",
             "verticalAxisPosition": "left",
-            "stacked": false,
-            "fieldMatching": {
-              "gf_op_date": {
-                "chain": "create_date",
-                "type": "datetime"
-              }
-            }
+            "stacked": false
           }
         }
       ],
@@ -633,25 +597,19 @@
     }
   ],
   "styles": {
-    "section_title": {
+    "1": {
       "bold": true,
       "fontSize": 16,
-      "textColor": "#01666b"
+      "textColor": "#01666b",
+      "align": "left"
     },
-    "header": {
+    "2": {
       "bold": true,
       "textColor": "#434343",
       "fontSize": 11
     },
-    "tile_label": {
-      "bold": true,
-      "fontSize": 10,
-      "textColor": "#6c757d"
-    },
-    "tile_value": {
-      "bold": true,
-      "fontSize": 24,
-      "textColor": "#2c2c2c"
+    "3": {
+      "textColor": "#01666B"
     }
   },
   "formats": {},

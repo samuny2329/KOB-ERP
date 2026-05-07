@@ -2,7 +2,7 @@
   "version": 22,
   "sheets": [
     {
-      "id": "sheet-d75620db",
+      "id": "sheet-bf078403",
       "name": "WMS Overview",
       "isVisible": true,
       "rowNumber": 60,
@@ -15,7 +15,7 @@
       "cells": {
         "B1": {
           "content": "WMS Overview",
-          "style": "section_title"
+          "style": 1
         },
         "A22": {
           "content": "Top Customers (by items picked)",
@@ -27,15 +27,15 @@
         },
         "A23": {
           "content": "=IFERROR(ODOO.LIST.HEADER(1,\"customer\"),\"\")",
-          "style": "header"
+          "style": 2
         },
         "B23": {
           "content": "=IFERROR(ODOO.LIST.HEADER(1,\"platform\"),\"\")",
-          "style": "header"
+          "style": 2
         },
         "C23": {
           "content": "=IFERROR(ODOO.LIST.HEADER(1,\"picked_total\"),\"\")",
-          "style": "header"
+          "style": 2
         },
         "A24": {
           "content": "=IFERROR(ODOO.LIST(1,1,\"customer\"),\"\")"
@@ -129,15 +129,15 @@
         },
         "E23": {
           "content": "=IFERROR(ODOO.LIST.HEADER(2,\"product_id\"),\"\")",
-          "style": "header"
+          "style": 2
         },
         "F23": {
           "content": "=IFERROR(ODOO.LIST.HEADER(2,\"expected_qty\"),\"\")",
-          "style": "header"
+          "style": 2
         },
         "G23": {
           "content": "=IFERROR(ODOO.LIST.HEADER(2,\"picked_qty\"),\"\")",
-          "style": "header"
+          "style": 2
         },
         "E24": {
           "content": "=IFERROR(ODOO.LIST(2,1,\"product_id\"),\"\")"
@@ -233,7 +233,7 @@
       "conditionalFormats": [],
       "figures": [
         {
-          "id": "ov-tile1-39ed3aac",
+          "id": "ov-tile1-a4a4a0f1",
           "x": 18,
           "y": 60,
           "width": 213,
@@ -267,17 +267,11 @@
             },
             "type": "odoo_bar",
             "verticalAxisPosition": "left",
-            "stacked": false,
-            "fieldMatching": {
-              "gf_ov_date": {
-                "chain": "create_date",
-                "type": "datetime"
-              }
-            }
+            "stacked": false
           }
         },
         {
-          "id": "ov-tile2-5d0d19b1",
+          "id": "ov-tile2-124445b4",
           "x": 241,
           "y": 60,
           "width": 213,
@@ -314,17 +308,11 @@
             },
             "type": "odoo_bar",
             "verticalAxisPosition": "left",
-            "stacked": false,
-            "fieldMatching": {
-              "gf_ov_date": {
-                "chain": "create_date",
-                "type": "datetime"
-              }
-            }
+            "stacked": false
           }
         },
         {
-          "id": "ov-tile3-5dee1a1c",
+          "id": "ov-tile3-1e83ea70",
           "x": 464,
           "y": 60,
           "width": 213,
@@ -358,17 +346,11 @@
             },
             "type": "odoo_bar",
             "verticalAxisPosition": "left",
-            "stacked": false,
-            "fieldMatching": {
-              "gf_ov_date": {
-                "chain": "create_date",
-                "type": "datetime"
-              }
-            }
+            "stacked": false
           }
         },
         {
-          "id": "ov-tile4-260e6b34",
+          "id": "ov-tile4-4fefab78",
           "x": 687,
           "y": 60,
           "width": 213,
@@ -405,17 +387,11 @@
             },
             "type": "odoo_bar",
             "verticalAxisPosition": "left",
-            "stacked": false,
-            "fieldMatching": {
-              "gf_ov_date": {
-                "chain": "create_date",
-                "type": "datetime"
-              }
-            }
+            "stacked": false
           }
         },
         {
-          "id": "ov-line-daily-ce2864d0",
+          "id": "ov-line-daily-7ac58f20",
           "x": 18,
           "y": 171,
           "width": 900,
@@ -464,7 +440,7 @@
           }
         },
         {
-          "id": "ov-pie-platform-747c100d",
+          "id": "ov-pie-platform-68a51184",
           "x": 18,
           "y": 800,
           "width": 460,
@@ -502,17 +478,11 @@
             },
             "type": "odoo_pie",
             "verticalAxisPosition": "left",
-            "stacked": false,
-            "fieldMatching": {
-              "gf_ov_date": {
-                "chain": "create_date",
-                "type": "datetime"
-              }
-            }
+            "stacked": false
           }
         },
         {
-          "id": "ov-bar-courier-d048ca9d",
+          "id": "ov-bar-courier-f67717e0",
           "x": 488,
           "y": 800,
           "width": 460,
@@ -553,13 +523,7 @@
             },
             "type": "odoo_bar",
             "verticalAxisPosition": "left",
-            "stacked": false,
-            "fieldMatching": {
-              "gf_ov_date": {
-                "chain": "create_date",
-                "type": "datetime"
-              }
-            }
+            "stacked": false
           }
         }
       ],
@@ -577,25 +541,19 @@
     }
   ],
   "styles": {
-    "section_title": {
+    "1": {
       "bold": true,
       "fontSize": 16,
-      "textColor": "#01666b"
+      "textColor": "#01666b",
+      "align": "left"
     },
-    "header": {
+    "2": {
       "bold": true,
       "textColor": "#434343",
       "fontSize": 11
     },
-    "tile_label": {
-      "bold": true,
-      "fontSize": 10,
-      "textColor": "#6c757d"
-    },
-    "tile_value": {
-      "bold": true,
-      "fontSize": 24,
-      "textColor": "#2c2c2c"
+    "3": {
+      "textColor": "#01666B"
     }
   },
   "formats": {},
