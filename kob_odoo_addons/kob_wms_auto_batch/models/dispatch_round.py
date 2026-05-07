@@ -4,89 +4,150 @@ from odoo.exceptions import UserError
 
 # Inline stylesheet embedded in breakdown_html so the form-view html
 # widget renders styled regardless of asset bundle state.
+#
+# Visual language: matches Odoo 19's native list-view chrome (o_list_view) —
+# white card on subtle shadow, 11-px uppercase column headers, tabular-num
+# right-aligned numbers, light purple-tinted hover, sticky footer row with
+# accent border. Numbers in cells are rendered as <a> tags so they look
+# and behave like Odoo's standard "open record" links.
 _INLINE_CSS = """
 <style>
+:root {
+  --kob-dr-purple:  #714B67;
+  --kob-dr-purple2: #5d3a55;
+  --kob-dr-link:    #017e84;
+  --kob-dr-link-h:  #035a5f;
+  --kob-dr-text:    #2c2c2c;
+  --kob-dr-muted:   #6c757d;
+  --kob-dr-subtle:  #adb5bd;
+  --kob-dr-bg:      #ffffff;
+  --kob-dr-band:    #f6f6f6;
+  --kob-dr-border:  #e0e0e0;
+  --kob-dr-border2: #f0f0f0;
+  --kob-dr-emph:    #ededed;
+  --kob-dr-hover:   rgba(113,75,103,0.05);
+  --kob-dr-shadow:  0 1px 2px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.06);
+}
 .kob-dr-card-bare {
   font-family: "Inter","Roboto","Segoe UI",-apple-system,"Helvetica Neue",Arial,"Noto Sans Thai",sans-serif;
-  font-size: 13px; color: #4c4c4c; max-width: 1280px; margin: 8px 0;
+  font-size: 13px; color: var(--kob-dr-text); max-width: 1320px; margin: 8px 0;
 }
-.kob-dr-card-bare .kob-dr-section { margin: 14px 0 0; }
+.kob-dr-card-bare .kob-dr-section { margin: 16px 0 0; }
 .kob-dr-card-bare .kob-dr-section__title {
-  display: flex; align-items: baseline; gap: 10px; padding: 8px 4px;
-  font-size: 11px; font-weight: 600; color: #6c757d;
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+  font-size: 11px; font-weight: 600; color: var(--kob-dr-muted);
   text-transform: uppercase; letter-spacing: 0.6px;
-  border-bottom: 1px solid #f0f0f0;
+  background: var(--kob-dr-band);
+  border: 1px solid var(--kob-dr-border);
+  border-bottom: 0;
+  border-radius: 6px 6px 0 0;
 }
-.kob-dr-card-bare .kob-dr-section__name { color: #2c2c2c; }
+.kob-dr-card-bare .kob-dr-section__name { color: var(--kob-dr-text); font-weight: 700; letter-spacing: 0.5px; }
 .kob-dr-card-bare .kob-dr-section__icon { font-size: 14px; }
 .kob-dr-card-bare .kob-dr-section__totals {
   margin-left: auto; font-size: 11px; font-weight: 400;
-  color: #6c757d; text-transform: none; letter-spacing: 0;
+  color: var(--kob-dr-muted); text-transform: none; letter-spacing: 0;
+  display: inline-flex; align-items: center; gap: 6px;
 }
-.kob-dr-card-bare .kob-dr-section__totals b { color: #2c2c2c; font-weight: 600; }
+.kob-dr-card-bare .kob-dr-section__totals b { color: var(--kob-dr-text); font-weight: 700; font-variant-numeric: tabular-nums; }
 .kob-dr-card-bare .kob-dr-section--warn .kob-dr-section__title {
-  color: #b06000; border-bottom-color: #fde293;
+  color: #b06000; background: #fef7e0; border-color: #fde293;
 }
 .kob-dr-card-bare table.kob-dr-table {
-  width: 100%; border-collapse: collapse; font-size: 13px; margin: 0;
+  width: 100%; border-collapse: separate; border-spacing: 0;
+  font-size: 13px; margin: 0; background: var(--kob-dr-bg);
+  border: 1px solid var(--kob-dr-border);
+  border-radius: 0 0 6px 6px;
+  overflow: hidden;
+  box-shadow: var(--kob-dr-shadow);
 }
 .kob-dr-card-bare table.kob-dr-table thead th {
-  text-align: left; font-weight: 500; color: #6c757d;
-  font-size: 11px; text-transform: uppercase; letter-spacing: 0.4px;
-  padding: 10px 14px; background: #f6f6f6;
-  border-bottom: 1px solid #e0e0e0; white-space: nowrap;
+  text-align: left; font-weight: 600; color: var(--kob-dr-muted);
+  font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.6px;
+  padding: 11px 16px; background: var(--kob-dr-band);
+  border-bottom: 1px solid var(--kob-dr-border);
+  white-space: nowrap;
+  position: sticky; top: 0; z-index: 1;
 }
 .kob-dr-card-bare table.kob-dr-table thead th.kob-dr-num { text-align: right; }
+.kob-dr-card-bare table.kob-dr-table thead th + th { border-left: 1px solid var(--kob-dr-border2); }
 .kob-dr-card-bare table.kob-dr-table tbody td {
-  padding: 9px 14px; border-bottom: 1px solid #f0f0f0; color: #4c4c4c;
-  vertical-align: middle;
+  padding: 11px 16px; border-bottom: 1px solid var(--kob-dr-border2);
+  color: var(--kob-dr-text); vertical-align: middle;
+  transition: background-color 0.12s ease;
 }
 .kob-dr-card-bare table.kob-dr-table tbody td.kob-dr-num {
   text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap;
+  font-feature-settings: "tnum";
 }
 .kob-dr-card-bare table.kob-dr-table tbody td.kob-dr-platform {
-  font-weight: 500; color: #2c2c2c; white-space: nowrap;
+  font-weight: 600; color: var(--kob-dr-text); white-space: nowrap;
 }
+.kob-dr-card-bare table.kob-dr-table tbody tr:nth-child(even) td { background: rgba(246,246,246,0.4); }
 .kob-dr-card-bare table.kob-dr-table tbody tr:last-child td { border-bottom: 0; }
-.kob-dr-card-bare table.kob-dr-table tbody tr:hover td { background: rgba(113,75,103,0.035); }
+.kob-dr-card-bare table.kob-dr-table tbody tr:hover td { background: var(--kob-dr-hover); }
 .kob-dr-card-bare table.kob-dr-table tfoot tr td {
-  background: #f6f6f6; font-weight: 600; color: #2c2c2c;
-  border-top: 1px solid #e0e0e0; border-bottom: 0; padding: 10px 14px;
+  background: linear-gradient(180deg, var(--kob-dr-emph) 0%, var(--kob-dr-band) 100%);
+  font-weight: 700; color: var(--kob-dr-text);
+  border-top: 2px solid var(--kob-dr-purple);
+  padding: 12px 16px;
 }
 .kob-dr-card-bare table.kob-dr-table tfoot tr td.kob-dr-num {
   text-align: right; font-variant-numeric: tabular-nums;
 }
+/* Clickable number cells — render like Odoo's record-open links. */
+.kob-dr-card-bare a.kob-dr-cell-link {
+  color: var(--kob-dr-link); text-decoration: none; font-weight: 600;
+  cursor: pointer; padding: 2px 6px; border-radius: 4px;
+  transition: background-color 0.12s ease, color 0.12s ease;
+  font-variant-numeric: tabular-nums;
+}
+.kob-dr-card-bare a.kob-dr-cell-link:hover {
+  background: rgba(1,126,132,0.10); color: var(--kob-dr-link-h);
+  text-decoration: underline; text-underline-offset: 2px;
+}
+.kob-dr-card-bare a.kob-dr-cell-link:active { background: rgba(1,126,132,0.18); }
+.kob-dr-card-bare a.kob-dr-cell-link:focus-visible {
+  outline: 2px solid var(--kob-dr-link); outline-offset: 1px;
+}
 .kob-dr-card-bare .kob-dr-bar {
   display: inline-block; width: 90px; height: 6px;
-  background: #f0f0f0; border-radius: 3px; overflow: hidden;
+  background: var(--kob-dr-border2); border-radius: 3px; overflow: hidden;
   vertical-align: middle; margin-right: 8px;
 }
 .kob-dr-card-bare .kob-dr-bar__fill {
-  height: 100%; background: linear-gradient(90deg,#714B67 0%,#5d3a55 100%);
+  height: 100%;
+  background: linear-gradient(90deg, var(--kob-dr-purple) 0%, var(--kob-dr-purple2) 100%);
+  transition: width 0.3s ease;
 }
-.kob-dr-card-bare .kob-dr-bar-pct { font-size: 11px; color: #6c757d; font-variant-numeric: tabular-nums; }
+.kob-dr-card-bare .kob-dr-bar-pct { font-size: 11px; color: var(--kob-dr-muted); font-variant-numeric: tabular-nums; }
 .kob-dr-card-bare .kob-dr-pill {
-  display: inline-block; padding: 1px 8px; border-radius: 10px;
+  display: inline-block; padding: 2px 9px; border-radius: 11px;
   font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px;
-  font-weight: 600; background: #f6f6f6; color: #6c757d;
-  border: 1px solid #f0f0f0; white-space: nowrap;
+  font-weight: 700; background: var(--kob-dr-band); color: var(--kob-dr-muted);
+  border: 1px solid var(--kob-dr-border2); white-space: nowrap;
+  line-height: 1.5;
 }
 .kob-dr-card-bare .kob-dr-pill--ok { background: #e6f4ea; color: #137333; border-color: #cae9d4; }
 .kob-dr-card-bare .kob-dr-pill--warn { background: #fef7e0; color: #b06000; border-color: #fde293; }
 .kob-dr-card-bare .kob-dr-pill--scanning { background: #e8f0fe; color: #1a73e8; border-color: #c2dafd; }
 .kob-dr-card-bare .kob-dr-empty-block {
-  text-align: center; color: #adb5bd; padding: 24px 16px;
-  margin: 12px 0; border: 1px dashed #f0f0f0; border-radius: 4px; font-size: 12px;
+  text-align: center; color: var(--kob-dr-subtle); padding: 28px 18px;
+  margin: 12px 0; border: 1px dashed var(--kob-dr-border2);
+  border-radius: 6px; font-size: 12px;
+  background: var(--kob-dr-bg);
 }
 .kob-dr-card-bare .kob-dr-empty-block--ok {
   background: #f0fdf4; color: #137333; border: 1px solid #cae9d4;
 }
 .kob-dr-card-bare .kob-dr-check {
   display: inline-flex; align-items: center; gap: 4px;
-  font-size: 11px; margin-left: 6px;
+  font-size: 11px; margin-left: 6px; padding: 2px 8px;
+  border-radius: 10px; font-weight: 600;
 }
-.kob-dr-card-bare .kob-dr-check--ok { color: #137333; }
-.kob-dr-card-bare .kob-dr-check--bad { color: #c5221f; }
+.kob-dr-card-bare .kob-dr-check--ok  { color: #137333; background: rgba(19,115,51,0.10); }
+.kob-dr-card-bare .kob-dr-check--bad { color: #c5221f; background: rgba(197,34,31,0.10); }
 </style>
 """
 
