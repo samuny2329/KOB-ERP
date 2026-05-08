@@ -60,6 +60,12 @@
                     <button name="action_cancel" type="object" string="Cancel"
                             invisible="status in ('shipped', 'cancelled')"
                             groups="kob_wms.group_wms_supervisor"/>
+                    <button name="action_force_picked" type="object"
+                            string="🔓 Force Picked"
+                            class="btn-warning"
+                            invisible="status != 'picking' or not pick_group_id"
+                            confirm="Override the pick group gate and mark this SO as Picked despite incomplete siblings? Logged in chatter."
+                            groups="kob_wms.group_wms_manager"/>
                     <button name="action_open_cancel_return" type="object"
                             string="↩ Return" class="btn-secondary"
                             invisible="not picking_id"/>
@@ -88,6 +94,7 @@
                             <field name="kob_packer_id" string="Packer"/>
                             <field name="sale_order_id"/>
                             <field name="picking_id"/>
+                            <field name="pick_group_id"/>
                         </group>
                     </group>
                     <notebook>

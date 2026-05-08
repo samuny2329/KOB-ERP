@@ -144,3 +144,8 @@ access_wms_cc_turnover_manager,wms.cc.turnover.manager,model_wms_cc_hr_turnover,
 access_wms_cc_training_worker,wms.cc.training.worker,model_wms_cc_training_log,group_wms_worker,1,0,0,0
 access_wms_cc_training_supervisor,wms.cc.training.supervisor,model_wms_cc_training_log,group_wms_supervisor,1,1,1,0
 access_wms_cc_training_manager,wms.cc.training.manager,model_wms_cc_training_log,group_wms_manager,1,1,1,1
+
+access_wms_pick_group_worker,wms.pick.group.worker,model_wms_pick_group,group_wms_worker,1,1,1,0
+access_wms_pick_group_supervisor,wms.pick.group.supervisor,model_wms_pick_group,group_wms_supervisor,1,1,1,0
+access_wms_pick_group_manager,wms.pick.group.manager,model_wms_pick_group,group_wms_manager,1,1,1,1
+access_wms_pick_group_import_wizard,wms.pick.group.import.wizard,model_wms_pick_group_import_wizard,group_wms_supervisor,1,1,1,1

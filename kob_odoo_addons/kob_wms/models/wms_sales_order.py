@@ -87,6 +87,14 @@ class WmsSalesOrder(models.Model):
     company_id = fields.Many2one('res.company', string='Company',
                                  default=lambda self: self.env.company)
 
+    # --- Multi-order pick group linkage ---
+    pick_group_id = fields.Many2one(
+        'wms.pick.group', string='Pick Group',
+        ondelete='set null', index=True, tracking=True,
+        help='Multi-order pick set this SO belongs to. Status promotion to '
+             '"picked"/"packed" is gated until ALL members in group complete. '
+             'Standalone SOs (no group) keep legacy single-order behavior.')
+
     # --- Core Odoo integration ---
     sale_order_id = fields.Many2one('sale.order', string='Sale Order',
                                     tracking=True, ondelete='set null')
@@ -578,8 +586,21 @@ class WmsSalesOrder(models.Model):
             self.kob_picker_id = kob_wid
 
         if self.all_picked:
-            self.status = 'picked'
             self.picked_at = now
+            if self.pick_group_id:
+                # Multi-order group: only promote when ALL siblings done.
+                if self.pick_group_id.group_picked:
+                    siblings = self.pick_group_id.order_ids.filtered(
+                        lambda o: o.status in ('picking', 'pending'))
+                    siblings.write({'status': 'picked', 'picked_at': now})
+                    self.pick_group_id.state = 'picked'
+                else:
+                    # Stay 'picking' until siblings complete.
+                    self.pick_group_id.state = 'picking'
+            else:
+                self.status = 'picked'
+        elif self.pick_group_id and self.pick_group_id.state == 'open':
+            self.pick_group_id.state = 'picking'
         return {'ok': True}
 
     # ------------------------------------------------------------------
@@ -1273,6 +1294,34 @@ class WmsSalesOrder(models.Model):
 
     def action_cancel(self):
         self.write({'status': 'cancelled'})
+
+    def action_force_picked(self):
+        """Manager override: mark this SO as picked despite incomplete group.
+
+        Bypasses the multi-order group gate. Logs an audit message. Use only
+        for exception handling (group split, customer cancellation, missing
+        stock written off, etc.). Member SOs with all_picked=True but stuck
+        in 'picking' due to siblings → unblock them individually here.
+        """
+        if not self.env.user.has_group('kob_wms.group_wms_manager'):
+            raise UserError(
+                "Only WMS Manager can force-promote an order to Picked.")
+        now = fields.Datetime.now()
+        for so in self:
+            if so.status not in ('picking', 'pending'):
+                continue
+            if not so.all_picked:
+                raise UserError(
+                    f"{so.display_name}: cannot force Picked — "
+                    f"{so.picked_total}/{so.expected_total} items only. "
+                    f"Use Cancel/Return wizard for partial situations.")
+            so.write({'status': 'picked', 'picked_at': now})
+            so.message_post(
+                body=(f"Status forced to <b>Picked</b> by "
+                      f"{self.env.user.display_name} "
+                      f"(group gate override).")
+            )
+        return True
 
     def action_open_cancel_return(self):
         """Open Cancel / Return wizard for this order."""

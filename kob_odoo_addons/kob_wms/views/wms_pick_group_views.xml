@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_wms_pick_group_list" model="ir.ui.view">
+        <field name="name">wms.pick.group.list</field>
+        <field name="model">wms.pick.group</field>
+        <field name="arch" type="xml">
+            <list string="Pick Groups"
+                  decoration-success="state == 'picked' or state == 'packed' or state == 'shipped'"
+                  decoration-info="state == 'picking' or state == 'packing'"
+                  decoration-muted="state == 'cancelled'">
+                <field name="create_date"/>
+                <field name="name"/>
+                <field name="sku_sort" optional="hide"/>
+                <field name="source"/>
+                <field name="order_count" string="SOs"/>
+                <field name="expected_total" string="Expected"/>
+                <field name="picked_total" string="Picked"/>
+                <field name="packed_total" string="Packed" optional="hide"/>
+                <field name="pick_progress" widget="progressbar"/>
+                <field name="group_picked" widget="boolean_toggle" optional="show"/>
+                <field name="group_packed" widget="boolean_toggle" optional="hide"/>
+                <field name="state" widget="badge"
+                       decoration-info="state in ('open','picking','packing')"
+                       decoration-success="state in ('picked','packed','shipped')"
+                       decoration-muted="state == 'cancelled'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_wms_pick_group_form" model="ir.ui.view">
+        <field name="name">wms.pick.group.form</field>
+        <field name="model">wms.pick.group</field>
+        <field name="arch" type="xml">
+            <form string="Pick Group">
+                <header>
+                    <button name="action_view_orders" type="object"
+                            string="View Orders" class="btn-secondary"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="open,picking,picked,packing,packed,shipped"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Group key..."/></h1>
+                    </div>
+                    <group>
+                        <group string="Identity">
+                            <field name="sku_sort"/>
+                            <field name="source"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Progress">
+                            <field name="order_count"/>
+                            <field name="expected_total"/>
+                            <field name="picked_total"/>
+                            <field name="packed_total"/>
+                            <field name="pick_progress" widget="progressbar"/>
+                            <field name="group_picked" widget="boolean_toggle" readonly="1"/>
+                            <field name="group_packed" widget="boolean_toggle" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Orders">
+                            <field name="order_ids" readonly="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="ref"/>
+                                    <field name="customer"/>
+                                    <field name="expected_total"/>
+                                    <field name="picked_total"/>
+                                    <field name="packed_total"/>
+                                    <field name="all_picked" widget="boolean_toggle"/>
+                                    <field name="all_packed" widget="boolean_toggle"/>
+                                    <field name="status" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="note" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_wms_pick_group_search" model="ir.ui.view">
+        <field name="name">wms.pick.group.search</field>
+        <field name="model">wms.pick.group</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="sku_sort"/>
+                <filter name="open" string="Open" domain="[('state','=','open')]"/>
+                <filter name="picking" string="Picking" domain="[('state','=','picking')]"/>
+                <filter name="picked" string="Picked" domain="[('state','=','picked')]"/>
+                <filter name="src_label_app" string="From Print_Label-App"
+                        domain="[('source','=','print_label_app')]"/>
+                <filter name="src_auto" string="Auto Basket"
+                        domain="[('source','=','auto_basket')]"/>
+                <separator/>
+                <filter name="grp_state" string="State"
+                        context="{'group_by': 'state'}"/>
+                <filter name="grp_source" string="Source"
+                        context="{'group_by': 'source'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_wms_pick_group" model="ir.actions.act_window">
+        <field name="name">Pick Groups</field>
+        <field name="res_model">wms.pick.group</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_wms_pick_group_search"/>
+    </record>
+</odoo>

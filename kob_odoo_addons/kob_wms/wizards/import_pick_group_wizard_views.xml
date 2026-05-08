@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_wms_pick_group_import_wizard_form" model="ir.ui.view">
+        <field name="name">wms.pick.group.import.wizard.form</field>
+        <field name="model">wms.pick.group.import.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Import Pick Groups (Print_Label-App)">
+                <sheet>
+                    <div class="alert alert-info" role="alert">
+                        Upload the Excel produced by
+                        <b>Print_Label-App 1.0.3</b> (path:
+                        <code>A - First Step - Extractions/Result/Shopee {timestamp}.xlsx</code>).
+                        Required columns: <b>sku_sort</b>,
+                        <b>x_kob_source_ref</b>, <b>running</b>
+                        (e.g. <code>No.1-1/5</code>). Rows are grouped by
+                        <code>running</code> set number → one
+                        <i>wms.pick.group</i> per set, member SOs matched
+                        by <code>ref ↔ x_kob_source_ref</code>.
+                    </div>
+                    <group>
+                        <group string="Source">
+                            <field name="xlsx_file" filename="xlsx_filename" required="1"/>
+                            <field name="xlsx_filename" invisible="1"/>
+                        </group>
+                        <group string="Options">
+                            <field name="overwrite"/>
+                            <field name="promote_orders"/>
+                        </group>
+                    </group>
+                    <group string="Result" invisible="not summary">
+                        <field name="summary" readonly="1" nolabel="1" widget="text"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_import" type="object"
+                            string="Import" class="btn-primary"/>
+                    <button special="cancel" string="Close"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_wms_pick_group_import_wizard" model="ir.actions.act_window">
+        <field name="name">Import Pick Groups (xlsx)</field>
+        <field name="res_model">wms.pick.group.import.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

@@ -8,6 +8,7 @@ from . import wms_count_task
 from . import wms_count_entry
 from . import wms_count_adjustment
 from . import wms_courier
+from . import wms_pick_group
 from . import wms_sales_order
 from . import wms_courier_batch
 from . import wms_activity_log
