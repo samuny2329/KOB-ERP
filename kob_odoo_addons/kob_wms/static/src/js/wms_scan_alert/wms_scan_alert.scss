@@ -1,0 +1,103 @@
+/* WMS scan-error full-screen overlay + success toast.
+   Used from any scan-handling screen via wms_scan_alert.js. */
+
+@keyframes wms-scan-error-flash {
+    0%   { background: rgba(220, 38, 38, 0.85); }
+    20%  { background: rgba(220, 38, 38, 0.55); }
+    40%  { background: rgba(220, 38, 38, 0.85); }
+    60%  { background: rgba(220, 38, 38, 0.55); }
+    80%  { background: rgba(220, 38, 38, 0.85); }
+    100% { background: rgba(220, 38, 38, 0.0); }
+}
+
+@keyframes wms-scan-error-shake {
+    0%, 100% { transform: translateX(0); }
+    10%      { transform: translateX(-12px); }
+    20%      { transform: translateX(12px); }
+    30%      { transform: translateX(-10px); }
+    40%      { transform: translateX(10px); }
+    50%      { transform: translateX(-6px); }
+    60%      { transform: translateX(6px); }
+    70%      { transform: translateX(-3px); }
+    80%      { transform: translateX(3px); }
+}
+
+@keyframes wms-scan-success-pop {
+    0%   { transform: scale(0.6); opacity: 0; }
+    20%  { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1.0); opacity: 0; }
+}
+
+.wms-scan-error-overlay {
+    position: fixed;
+    inset: 0;
+    display: none;
+    z-index: 99999;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    background: rgba(220, 38, 38, 0.0);
+
+    &--show {
+        display: flex;
+        animation: wms-scan-error-flash 1.6s ease-out forwards;
+    }
+
+    .wms-scan-error-card {
+        background: #ffffff;
+        color: #b91c1c;
+        border: 6px solid #b91c1c;
+        border-radius: 16px;
+        padding: 32px 48px;
+        min-width: 320px;
+        max-width: 80vw;
+        text-align: center;
+        box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+        animation: wms-scan-error-shake 0.6s ease-in-out;
+    }
+
+    .wms-scan-error-icon {
+        font-size: 84px;
+        line-height: 1;
+        margin-bottom: 8px;
+    }
+
+    .wms-scan-error-title {
+        font-size: 36px;
+        font-weight: 900;
+        letter-spacing: 0.04em;
+        margin-bottom: 12px;
+    }
+
+    .wms-scan-error-msg {
+        font-size: 20px;
+        font-weight: 600;
+        color: #1f1f1f;
+        word-break: break-word;
+    }
+}
+
+.wms-scan-success-toast {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.6);
+    background: rgba(34, 197, 94, 0.92);
+    color: #ffffff;
+    border-radius: 50%;
+    width: 96px;
+    height: 96px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    font-weight: 900;
+    z-index: 99998;
+    pointer-events: none;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+    &--show {
+        display: flex;
+        animation: wms-scan-success-pop 0.6s ease-out forwards;
+    }
+}
