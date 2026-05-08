@@ -15,7 +15,7 @@
                 <field name="kwh_on_peak" optional="hide"/>
                 <field name="kwh_off_peak" optional="hide"/>
                 <field name="ft_rate"/>
-                <field name="total_amount" widget="monetary" sum="Total"/>
+                <field name="total_amount" sum="Total"/>
                 <field name="order_qty_btv_wh2" sum="BTV qty" optional="hide"/>
                 <field name="order_qty_kob_wh2" sum="KOB qty" optional="hide"/>
                 <field name="order_qty_total" sum="Orders" optional="show"/>
@@ -28,7 +28,7 @@
                 <field name="cost_per_ot_hour" optional="hide"/>
                 <field name="orders_per_ot_hour" optional="hide"/>
                 <field name="is_throughput_outlier" optional="hide"/>
-                <field name="expected_amount" widget="monetary" optional="hide"/>
+                <field name="expected_amount" optional="hide"/>
                 <field name="variance_pct" optional="show"
                        decoration-danger="variance_pct &gt; 5"
                        decoration-success="variance_pct &lt; -5"/>
