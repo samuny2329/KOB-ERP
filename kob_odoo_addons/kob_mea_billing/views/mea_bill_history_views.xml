@@ -155,6 +155,23 @@
                 <field name="meter_id"/>
                 <field name="site_short"/>
                 <field name="invoice_no"/>
+                <filter name="site_kk16" string="KK-16 (110/7)"
+                        domain="[('site_short','=','KOB-KK16')]"/>
+                <filter name="site_kk2" string="KK2 (24/9)"
+                        domain="[('site_short','=','KOB-KK2')]"/>
+                <filter name="site_hq" string="KOB-HQ"
+                        domain="[('site_short','=','KOB-HQ')]"/>
+                <filter name="site_btv_110" string="BTV 110/3"
+                        domain="[('site_short','=','BTV-110/3')]"/>
+                <filter name="site_btv_24" string="BTV 24/8"
+                        domain="[('site_short','=','BTV-24/8')]"/>
+                <filter name="site_cmn" string="CMN"
+                        domain="[('site_short','=','CMN')]"/>
+                <separator/>
+                <filter name="has_throughput" string="With Throughput Data"
+                        domain="[('order_qty_total','&gt;',0)]"/>
+                <filter name="has_ot" string="With OT Data"
+                        domain="[('ot_hours_online','&gt;',0)]"/>
                 <filter name="anomaly" string="Anomalies" domain="[('is_anomaly','=',True)]"/>
                 <filter name="manual_review" string="Manual Review"
                         domain="[('state','=','manual_review')]"/>
