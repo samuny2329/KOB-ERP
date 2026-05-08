@@ -1182,7 +1182,12 @@ class WmsSalesOrder(models.Model):
             order._log_action('ship', order.awb or '')
 
             # Create scan item — only when courier is assigned
-            # (courier_id is required on wms.scan.item)
+            # (courier_id is required on wms.scan.item).
+            # Auto-mark as scanned (scanned_qty = expected_qty) so the
+            # dispatch screen does NOT require redundant per-AWB rescan;
+            # pack-stage barcode verification already established the link
+            # and the audit trail (sales_order_id, AWB, courier, batch_id)
+            # is preserved on the scan item itself.
             scan_item = None
             if order.awb and order.courier_id:
                 scan_item = self.env['wms.scan.item'].create({
@@ -1191,6 +1196,8 @@ class WmsSalesOrder(models.Model):
                     'order_ref': order.ref or order.name,
                     'shop_name': order.platform or '',
                     'sales_order_id': order.id,
+                    'expected_qty': 1,
+                    'scanned_qty': 1,
                 })
 
             # Auto-add to active scanning batch (or create one)
