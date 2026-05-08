@@ -52,7 +52,9 @@
         <field name="name">Pack Queue (F2)</field>
         <field name="res_model">wms.sales.order</field>
         <field name="view_mode">list,form</field>
-        <field name="domain">[('status', 'in', ['picked', 'packing'])]</field>
+        <!-- Show only SOs whose multi-order pick group (if any) is fully
+             picked. Standalone SOs (no group) keep legacy behaviour. -->
+        <field name="domain">['&amp;', ('status', 'in', ['picked', 'packing']), '|', ('pick_group_id', '=', False), ('pick_group_id.group_picked', '=', True)]</field>
         <field name="view_ids" eval="[(5,0,0),
             (0,0,{'view_mode':'list','view_id':ref('view_wms_pack_list')}),
             (0,0,{'view_mode':'form','view_id':ref('view_wms_sales_order_form')})]"/>
@@ -70,8 +72,9 @@
         <field name="view_mode">list,form</field>
         <!-- Includes 'picked'/'packing' to support Skip-Pack mode
              (res.company.wms_skip_pack). When the pack scanner is back
-             online, revert this domain to ['packed','shipped'] only. -->
-        <field name="domain">[('status', 'in', ['picked', 'packing', 'packed', 'shipped'])]</field>
+             online, revert this domain to ['packed','shipped'] only.
+             Pick group gate: hide SOs whose group is not fully picked. -->
+        <field name="domain">['&amp;', ('status', 'in', ['picked', 'packing', 'packed', 'shipped']), '|', ('pick_group_id', '=', False), ('pick_group_id.group_picked', '=', True)]</field>
         <field name="view_ids" eval="[(5,0,0),
             (0,0,{'view_mode':'list','view_id':ref('view_wms_outbound_list')}),
             (0,0,{'view_mode':'form','view_id':ref('view_wms_sales_order_form')})]"/>
