@@ -726,6 +726,25 @@ class WmsSalesOrder(models.Model):
                         'All Active SOs already picked or shipped.'
                     )}
 
+        # Auto-basket group: when 2+ SOs are picked together without a
+        # pre-existing pick_group_id, create one on the fly. This makes the
+        # multi-order gate (in scan_pick) engage so no SO advances to 'picked'
+        # until ALL siblings are complete.
+        if len(orders) > 1 and not all(o.pick_group_id for o in orders):
+            existing = orders.mapped('pick_group_id')
+            if existing:
+                grp = existing[:1]
+            else:
+                lead = orders[0]
+                grp = self.env['wms.pick.group'].sudo().create({
+                    'name': f"AUTO-{lead.ref or lead.name}",
+                    'source': 'auto_basket',
+                    'state': 'picking',
+                })
+            unassigned = orders.filtered(lambda o: not o.pick_group_id)
+            if unassigned:
+                unassigned.write({'pick_group_id': grp.id})
+
         for order in orders:
             line = order._find_line_by_code(code)
             if not line or line.picked_qty >= line.expected_qty:
