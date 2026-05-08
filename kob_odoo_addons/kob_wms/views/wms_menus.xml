@@ -79,6 +79,13 @@
               sequence="75"
               groups="group_wms_supervisor"/>
 
+    <!-- Hide Command Center (and all its children) until user is ready to
+         use it. Deactivating the root cascades visibility to descendants
+         without removing the menu records or breaking parent references. -->
+    <record id="menu_cc_root" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+
     <!-- Cross-Company Audit (Operations Director scope) -->
     <menuitem id="menu_cc_crossco"
               name="Cross-Company Audit"
