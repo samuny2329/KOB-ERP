@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mea_bill_history_list" model="ir.ui.view">
+        <field name="name">mea.bill.history.list</field>
+        <field name="model">mea.bill.history</field>
+        <field name="arch" type="xml">
+            <list string="Bill History" class="o_mea_list o_list_table_compact"
+                  decoration-danger="is_anomaly"
+                  decoration-warning="state == 'manual_review'"
+                  decoration-success="state == 'confirmed'">
+                <field name="billing_month"/>
+                <field name="site_short"/>
+                <field name="meter_id" optional="hide"/>
+                <field name="kwh_total" sum="kWh"/>
+                <field name="kwh_on_peak" optional="hide"/>
+                <field name="kwh_off_peak" optional="hide"/>
+                <field name="ft_rate"/>
+                <field name="total_amount" widget="monetary" sum="Total"/>
+                <field name="order_qty_btv_wh2" sum="BTV qty" optional="hide"/>
+                <field name="order_qty_kob_wh2" sum="KOB qty" optional="hide"/>
+                <field name="order_qty_total" sum="Orders" optional="show"/>
+                <field name="kwh_per_order" optional="show"/>
+                <field name="cost_per_order" optional="show"/>
+                <field name="demand_per_kqty" optional="hide"/>
+                <field name="ot_hours_online" sum="OT hrs" optional="show"/>
+                <field name="ot_employee_count" optional="hide"/>
+                <field name="kwh_per_ot_hour" optional="hide"/>
+                <field name="cost_per_ot_hour" optional="hide"/>
+                <field name="orders_per_ot_hour" optional="hide"/>
+                <field name="is_throughput_outlier" optional="hide"/>
+                <field name="expected_amount" widget="monetary" optional="hide"/>
+                <field name="variance_pct" optional="show"
+                       decoration-danger="variance_pct &gt; 5"
+                       decoration-success="variance_pct &lt; -5"/>
+                <field name="is_anomaly" widget="boolean_toggle" optional="show"/>
+                <field name="source" optional="hide"/>
+                <field name="extraction_confidence" optional="hide"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-success="state == 'confirmed'"
+                       decoration-danger="state == 'anomaly'"
+                       decoration-warning="state == 'manual_review'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_mea_bill_history_form" model="ir.ui.view">
+        <field name="name">mea.bill.history.form</field>
+        <field name="model">mea.bill.history</field>
+        <field name="arch" type="xml">
+            <form string="Bill">
+                <header>
+                    <button name="action_recompute" type="object" string="Recompute Expected"
+                            class="btn-secondary"/>
+                    <button name="action_confirm" type="object" string="Confirm"
+                            class="btn-primary" invisible="state == 'confirmed'"/>
+                    <button name="action_reset_draft" type="object" string="Reset to Draft"
+                            invisible="state == 'draft'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,confirmed,anomaly"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="site_short" readonly="1"/> –
+                            <field name="billing_month"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Source">
+                            <field name="meter_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="tariff_id" readonly="1"/>
+                            <field name="is_tou" invisible="1"/>
+                            <field name="invoice_no"/>
+                            <field name="reading_date_start"/>
+                            <field name="reading_date_end"/>
+                            <field name="source"/>
+                            <field name="extraction_confidence"/>
+                        </group>
+                        <group string="Energy">
+                            <field name="kwh_prev"/>
+                            <field name="kwh_curr"/>
+                            <field name="kwh_total"/>
+                            <field name="kwh_on_peak" invisible="not is_tou"/>
+                            <field name="kwh_off_peak" invisible="not is_tou"/>
+                            <field name="demand_on_peak" invisible="not is_tou"/>
+                            <field name="demand_off_peak" invisible="not is_tou"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Charges (from Bill)">
+                            <field name="energy_charge"/>
+                            <field name="demand_charge" invisible="not is_tou"/>
+                            <field name="service_charge"/>
+                            <field name="pf_charge" invisible="not is_tou"/>
+                            <field name="ft_rate"/>
+                            <field name="ft_amount"/>
+                            <field name="subtotal"/>
+                            <field name="vat_amount"/>
+                            <field name="total_amount" class="oe_subtotal_footer"/>
+                        </group>
+                        <group string="Calculator">
+                            <field name="expected_amount"/>
+                            <field name="variance"/>
+                            <field name="variance_pct"/>
+                            <field name="is_anomaly" widget="boolean_toggle"/>
+                            <field name="expected_breakdown" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Throughput (Online Orders)">
+                            <field name="order_qty_btv_wh2"/>
+                            <field name="order_qty_kob_wh2"/>
+                            <field name="order_qty_total" readonly="1"/>
+                            <field name="is_throughput_outlier" widget="boolean_toggle"/>
+                        </group>
+                        <group string="Per-Order Metrics">
+                            <field name="kwh_per_order" readonly="1"/>
+                            <field name="cost_per_order" readonly="1"/>
+                            <field name="demand_per_kqty" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="OT (Online Team — outside 08:00–17:00)">
+                            <field name="ot_hours_online"/>
+                            <field name="ot_employee_count"/>
+                        </group>
+                        <group string="Per-OT-Hour Metrics">
+                            <field name="kwh_per_ot_hour" readonly="1"/>
+                            <field name="cost_per_ot_hour" readonly="1"/>
+                            <field name="orders_per_ot_hour" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Source PDF">
+                            <field name="attachment_id" readonly="1"/>
+                            <field name="raw_text" readonly="1" widget="text"/>
+                        </page>
+                        <page string="Notes">
+                            <field name="note" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_mea_bill_history_search" model="ir.ui.view">
+        <field name="name">mea.bill.history.search</field>
+        <field name="model">mea.bill.history</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="meter_id"/>
+                <field name="site_short"/>
+                <field name="invoice_no"/>
+                <filter name="anomaly" string="Anomalies" domain="[('is_anomaly','=',True)]"/>
+                <filter name="manual_review" string="Manual Review"
+                        domain="[('state','=','manual_review')]"/>
+                <separator/>
+                <filter name="grp_site" string="Site"
+                        context="{'group_by': 'site_short'}"/>
+                <filter name="grp_month" string="Month"
+                        context="{'group_by': 'billing_month'}"/>
+                <filter name="grp_state" string="State"
+                        context="{'group_by': 'state'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_mea_bill_history_graph" model="ir.ui.view">
+        <field name="name">mea.bill.history.graph</field>
+        <field name="model">mea.bill.history</field>
+        <field name="arch" type="xml">
+            <graph string="kWh vs Online Orders vs OT" type="bar" stacked="0">
+                <field name="billing_month" interval="month"/>
+                <field name="site_short"/>
+                <field name="kwh_total" type="measure"/>
+                <field name="order_qty_total" type="measure"/>
+                <field name="total_amount" type="measure"/>
+                <field name="ot_hours_online" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_mea_bill_history_pivot" model="ir.ui.view">
+        <field name="name">mea.bill.history.pivot</field>
+        <field name="model">mea.bill.history</field>
+        <field name="arch" type="xml">
+            <pivot string="Throughput vs Electricity vs OT">
+                <field name="site_short" type="row"/>
+                <field name="billing_month" interval="month" type="col"/>
+                <field name="kwh_total" type="measure"/>
+                <field name="kwh_off_peak" type="measure"/>
+                <field name="order_qty_total" type="measure"/>
+                <field name="total_amount" type="measure"/>
+                <field name="kwh_per_order" type="measure"/>
+                <field name="cost_per_order" type="measure"/>
+                <field name="ot_hours_online" type="measure"/>
+                <field name="kwh_per_ot_hour" type="measure"/>
+                <field name="cost_per_ot_hour" type="measure"/>
+                <field name="orders_per_ot_hour" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_mea_bill_history" model="ir.actions.act_window">
+        <field name="name">Bill History</field>
+        <field name="res_model">mea.bill.history</field>
+        <field name="view_mode">list,form,graph,pivot</field>
+        <field name="search_view_id" ref="view_mea_bill_history_search"/>
+    </record>
+</odoo>

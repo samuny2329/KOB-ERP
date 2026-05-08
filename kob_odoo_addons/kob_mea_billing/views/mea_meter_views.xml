@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mea_meter_list" model="ir.ui.view">
+        <field name="name">mea.meter.list</field>
+        <field name="model">mea.meter</field>
+        <field name="arch" type="xml">
+            <list string="MEA Meters" class="o_mea_list o_list_table_compact">
+                <field name="site_short"/>
+                <field name="ca_number"/>
+                <field name="meter_id"/>
+                <field name="partner_name" optional="show"/>
+                <field name="tariff_id" optional="show"/>
+                <field name="company_id" optional="show" groups="base.group_multi_company"/>
+                <field name="last_bill_date" optional="show"/>
+                <field name="last_reading_kwh" optional="show" sum="-"/>
+                <field name="last_total_amount" widget="monetary" sum="Total" optional="show"/>
+                <field name="bill_count" optional="show"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'active'"
+                       decoration-muted="state == 'inactive'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_mea_meter_kanban" model="ir.ui.view">
+        <field name="name">mea.meter.kanban</field>
+        <field name="model">mea.meter</field>
+        <field name="arch" type="xml">
+            <kanban class="o_mea_meter_kanban">
+                <templates>
+                    <t t-name="card">
+                        <div class="o_mea_card">
+                            <div class="o_mea_card_header">
+                                <strong><field name="site_short"/></strong>
+                                <span class="o_mea_badge"><field name="tariff_id"/></span>
+                            </div>
+                            <div class="o_mea_card_body">
+                                <div>CA: <field name="ca_number"/></div>
+                                <div>Meter: <field name="meter_id"/></div>
+                                <div class="text-muted"><field name="site_address"/></div>
+                            </div>
+                            <div class="o_mea_card_footer">
+                                <span>Last: <field name="last_bill_date"/></span>
+                                <span class="o_mea_amount">
+                                    <field name="last_total_amount" widget="monetary"/>
+                                </span>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_mea_meter_form" model="ir.ui.view">
+        <field name="name">mea.meter.form</field>
+        <field name="model">mea.meter</field>
+        <field name="arch" type="xml">
+            <form string="MEA Meter">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="active,inactive"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_meter_dashboard" type="object"
+                                class="oe_stat_button" icon="fa-tachometer">
+                            <span class="o_stat_value">📊</span>
+                            <span class="o_stat_text">Dashboard</span>
+                        </button>
+                        <button name="action_view_history" type="object"
+                                class="oe_stat_button" icon="fa-bar-chart">
+                            <field name="bill_count" widget="statinfo" string="Bills"/>
+                        </button>
+                        <button name="action_view_assets" type="object"
+                                class="oe_stat_button" icon="fa-cogs">
+                            <field name="asset_count" widget="statinfo" string="Assets"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="site_short"/>
+                        <h1><field name="site_short" placeholder="KOB-HQ"/></h1>
+                    </div>
+                    <group>
+                        <group string="Contract">
+                            <field name="ca_number"/>
+                            <field name="meter_id"/>
+                            <field name="partner_name"/>
+                            <field name="tariff_id"/>
+                            <field name="is_tou" invisible="1"/>
+                        </group>
+                        <group string="Site">
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="district"/>
+                            <field name="site_address"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Bills">
+                            <field name="bill_history_ids" readonly="1">
+                                <list>
+                                    <field name="billing_month"/>
+                                    <field name="kwh_total"/>
+                                    <field name="total_amount" widget="monetary"/>
+                                    <field name="expected_amount" widget="monetary"/>
+                                    <field name="variance_pct"/>
+                                    <field name="is_anomaly" widget="boolean_toggle"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="note" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mea_meter" model="ir.actions.act_window">
+        <field name="name">Meters</field>
+        <field name="res_model">mea.meter</field>
+        <field name="view_mode">kanban,list,form</field>
+    </record>
+</odoo>

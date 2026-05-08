@@ -1,0 +1,21 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mea_tariff_user,mea.tariff user,model_mea_tariff,group_mea_user,1,0,0,0
+access_mea_tariff_mgr,mea.tariff manager,model_mea_tariff,group_mea_manager,1,1,1,1
+access_mea_tariff_tier_user,mea.tariff.tier user,model_mea_tariff_tier,group_mea_user,1,0,0,0
+access_mea_tariff_tier_mgr,mea.tariff.tier manager,model_mea_tariff_tier,group_mea_manager,1,1,1,1
+access_mea_ft_period_user,mea.ft.period user,model_mea_ft_period,group_mea_user,1,0,0,0
+access_mea_ft_period_mgr,mea.ft.period manager,model_mea_ft_period,group_mea_manager,1,1,1,1
+access_mea_meter_user,mea.meter user,model_mea_meter,group_mea_user,1,0,0,0
+access_mea_meter_mgr,mea.meter manager,model_mea_meter,group_mea_manager,1,1,1,1
+access_mea_bill_history_user,mea.bill.history user,model_mea_bill_history,group_mea_user,1,0,0,0
+access_mea_bill_history_mgr,mea.bill.history manager,model_mea_bill_history,group_mea_manager,1,1,1,1
+access_mea_calc_wizard_mgr,mea.calculator.wizard manager,model_mea_calculator_wizard,group_mea_manager,1,1,1,1
+access_mea_pdf_wizard_mgr,mea.pdf.import.wizard manager,model_mea_pdf_import_wizard,group_mea_manager,1,1,1,1
+access_mea_throughput_wizard_mgr,mea.throughput.import.wizard manager,model_mea_throughput_import_wizard,group_mea_manager,1,1,1,1
+access_mea_ot_wizard_mgr,mea.ot.import.wizard manager,model_mea_ot_import_wizard,group_mea_manager,1,1,1,1
+access_mea_asset_cat_user,mea.asset.category user,model_mea_asset_category,group_mea_user,1,0,0,0
+access_mea_asset_cat_mgr,mea.asset.category manager,model_mea_asset_category,group_mea_manager,1,1,1,1
+access_mea_asset_user,mea.asset user,model_mea_asset,group_mea_user,1,0,0,0
+access_mea_asset_mgr,mea.asset manager,model_mea_asset,group_mea_manager,1,1,1,1
+access_mea_asset_action_user,mea.asset.action user,model_mea_asset_action,group_mea_user,1,0,0,0
+access_mea_asset_action_mgr,mea.asset.action manager,model_mea_asset_action,group_mea_manager,1,1,1,1

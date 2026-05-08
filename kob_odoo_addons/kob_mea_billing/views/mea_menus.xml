@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_kob_mea_root"
+              name="MEA Billing"
+              parent="kob_base.menu_kob_root"
+              sequence="50"
+              groups="kob_mea_billing.group_mea_user"/>
+
+    <menuitem id="menu_mea_dashboard"
+              name="Dashboard"
+              parent="menu_kob_mea_root"
+              action="action_mea_dashboard"
+              sequence="10"/>
+
+    <menuitem id="menu_mea_bills"
+              name="Bill History"
+              parent="menu_kob_mea_root"
+              action="action_mea_bill_history"
+              sequence="20"/>
+
+    <menuitem id="menu_mea_meters"
+              name="Meters"
+              parent="menu_kob_mea_root"
+              action="action_mea_meter"
+              sequence="30"/>
+
+    <menuitem id="menu_mea_assets_root"
+              name="Assets"
+              parent="menu_kob_mea_root"
+              sequence="35"/>
+
+    <menuitem id="menu_mea_assets"
+              name="Equipment"
+              parent="menu_mea_assets_root"
+              action="action_mea_asset"
+              sequence="10"/>
+
+    <menuitem id="menu_mea_asset_actions"
+              name="Saving Plan"
+              parent="menu_mea_assets_root"
+              action="action_mea_asset_action"
+              sequence="20"/>
+
+    <menuitem id="menu_mea_asset_categories"
+              name="Categories"
+              parent="menu_mea_assets_root"
+              action="action_mea_asset_category"
+              sequence="30"
+              groups="kob_mea_billing.group_mea_manager"/>
+
+    <menuitem id="menu_mea_calc"
+              name="What-If Calculator"
+              parent="menu_kob_mea_root"
+              action="action_mea_calculator_wizard"
+              sequence="40"/>
+
+    <menuitem id="menu_mea_pdf_import"
+              name="Import PDF"
+              parent="menu_kob_mea_root"
+              action="action_mea_pdf_import_wizard"
+              sequence="50"/>
+
+    <menuitem id="menu_mea_config"
+              name="Configuration"
+              parent="menu_kob_mea_root"
+              sequence="90"
+              groups="kob_mea_billing.group_mea_manager"/>
+
+    <menuitem id="menu_mea_tariffs"
+              name="Tariffs"
+              parent="menu_mea_config"
+              action="action_mea_tariff"
+              sequence="10"/>
+
+    <menuitem id="menu_mea_ft_periods"
+              name="Ft Periods"
+              parent="menu_mea_config"
+              action="action_mea_ft_period"
+              sequence="20"/>
+
+</odoo>

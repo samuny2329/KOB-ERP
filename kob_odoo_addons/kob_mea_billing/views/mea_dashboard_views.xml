@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_mea_dashboard" model="ir.actions.client">
+        <field name="name">MEA Dashboard</field>
+        <field name="tag">kob_mea_dashboard</field>
+    </record>
+
+    <record id="action_mea_meter_dashboard" model="ir.actions.client">
+        <field name="name">Meter Dashboard</field>
+        <field name="tag">kob_mea_meter_dashboard</field>
+    </record>
+</odoo>

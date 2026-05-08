@@ -1,0 +1,266 @@
+// MEA — Polish for Odoo 19 list views + recent-bills table.
+// Scoped to .o_mea_dashboard / .o_mea_list to avoid leaking globally.
+
+/* ─── Odoo 19 native list view styling ─────────────────────────────
+ * Mimics .o_list_view aesthetic: compact rows, sticky header, alt
+ * stripes, hover highlight in Odoo brand color, monospace numbers.
+ * Uses Odoo's CSS custom properties when available so the table
+ * inherits dark mode + theme variants. */
+
+.o_mea_dashboard .o_mea_table_wrap {
+    overflow-x: auto;
+    overflow-y: visible;
+    border: 1px solid var(--o-list-color-border, #d8dadd);
+    border-radius: 4px;
+    background: var(--o-list-color-bg, #FFFFFF);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.o_mea_dashboard .o_mea_table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--o-main-text-color, #4c4c4c);
+    margin-bottom: 0;
+    font-variant-numeric: tabular-nums;
+
+    /* ─── Header — Odoo 19 list header ─────── */
+    thead {
+        background: var(--o-list-headers-bg, #FFFFFF);
+    }
+
+    thead th {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        background: var(--o-list-headers-bg, #FFFFFF);
+        color: var(--o-list-headers-color, #4c4c4c);
+        font-weight: 700;
+        font-size: 12px;
+        text-transform: none;
+        letter-spacing: 0;
+        padding: 8px 10px;
+        text-align: left;
+        border-bottom: 1px solid var(--o-list-color-border, #d8dadd);
+        white-space: nowrap;
+        cursor: help;
+        user-select: none;
+        transition: background-color 0.1s ease;
+
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0 0 -1px 0;
+            border-bottom: 1px solid transparent;
+        }
+
+        &:hover {
+            background: var(--o-list-color-row-hover, #f5f6f7);
+            color: var(--o-action, #714B67);
+
+            .fa-info-circle { opacity: 1; color: var(--o-action, #714B67) !important; }
+        }
+
+        .fa-info-circle {
+            font-size: 11px;
+            opacity: 0.45;
+            color: #6c757d;
+        }
+    }
+
+    .o_mea_num {
+        font-variant-numeric: tabular-nums;
+        font-feature-settings: "tnum" 1;
+        white-space: nowrap;
+        font-family: var(--o-font-family-monospace, "Menlo", "Consolas", monospace);
+        font-size: 12.5px;
+    }
+
+    /* ─── Rows — Odoo 19 list rows ─────── */
+    tbody tr {
+        cursor: pointer;
+        transition: background-color 0.1s ease;
+        background: var(--o-list-color-bg, #FFFFFF);
+
+        td {
+            padding: 6px 10px;
+            border-bottom: 1px solid var(--o-list-color-border, #ededed);
+            color: var(--o-main-text-color, #4c4c4c);
+            vertical-align: middle;
+        }
+
+        &:nth-child(even) {
+            background: var(--o-list-color-bg-alt, #fafafa);
+            td { background: inherit; }
+        }
+
+        &:hover {
+            background: var(--o-list-color-row-hover, #e7f5ff) !important;
+            td { background: inherit; }
+        }
+
+        &:last-child td {
+            border-bottom: none;
+        }
+
+        &.o_mea_row_anomaly {
+            background: #fff5f5 !important;
+            border-left: 3px solid #f03e3e;
+            td {
+                background: inherit;
+                color: #b91c1c;
+            }
+            &:hover {
+                background: #ffe3e3 !important;
+            }
+        }
+    }
+
+    /* ─── Status badges — Odoo 19 badge style ─────── */
+    .o_mea_state {
+        font-size: 11px;
+        font-weight: 500;
+        padding: 2px 8px;
+        border-radius: 4px;
+        display: inline-block;
+        line-height: 1.5;
+
+        &--draft         { background: #f1f3f5; color: #495057; border: 1px solid #dee2e6; }
+        &--confirmed     { background: #d3f9d8; color: #2b8a3e; border: 1px solid #b2f2bb; }
+        &--anomaly       { background: #ffe3e3; color: #c92a2a; border: 1px solid #ffc9c9; }
+        &--manual_review { background: #fff3bf; color: #964900; border: 1px solid #ffe066; }
+    }
+}
+
+// Polish stock Odoo list views for mea.* models — applied via class="o_mea_list".
+// Inherits Odoo 19 native styling and refines: tabular numerals, monetary
+// alignment, sticky header, anomaly row highlight, and badge tweaks.
+.o_list_view.o_mea_list {
+    .o_list_table thead {
+        background: var(--o-list-headers-bg, #FFFFFF);
+
+        th {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            font-weight: 700;
+            font-size: 12px;
+            background: inherit;
+            border-bottom: 1px solid var(--o-list-color-border, #d8dadd);
+
+            &:hover {
+                background: var(--o-list-color-row-hover, #f5f6f7);
+                color: var(--o-action, #714B67);
+                cursor: help;
+            }
+        }
+    }
+
+    .o_data_row {
+        transition: background-color 0.1s ease;
+
+        &:nth-child(even) {
+            background: var(--o-list-color-bg-alt, #fafafa);
+        }
+
+        &:hover .o_data_cell {
+            background: var(--o-list-color-row-hover, #e7f5ff) !important;
+        }
+
+        // Anomaly highlight when boolean field is_anomaly is true
+        &.o_mea_anomaly_row,
+        &:has(.o_field_widget[name="is_anomaly"] input:checked) {
+            background: #fff5f5 !important;
+            border-left: 3px solid #f03e3e;
+        }
+    }
+
+    // Right-align + tabular numerals + monospace for monetary/numeric cells
+    .o_field_widget[name*="amount"],
+    .o_field_widget[name*="total"],
+    .o_field_widget[name*="kwh"],
+    .o_field_widget[name*="rate"],
+    .o_field_widget[name*="charge"],
+    .o_field_widget[name*="variance"],
+    .o_field_widget[name*="demand"],
+    .o_field_widget[name*="ft_"] {
+        font-variant-numeric: tabular-nums;
+        text-align: right;
+        font-feature-settings: "tnum" 1;
+        font-family: var(--o-font-family-monospace, "Menlo", "Consolas", monospace);
+        font-size: 12.5px;
+    }
+
+    // Compact row spacing matching Odoo o_list_table_compact
+    &.o_list_table_compact .o_data_cell,
+    .o_list_table_compact .o_data_cell {
+        padding: 6px 10px;
+    }
+}
+
+// Kanban polish for mea.meter
+.o_kanban_view.o_mea_meter_kanban {
+    .o_mea_card {
+        background: #FFFFFF;
+        border-radius: 12px;
+        padding: 14px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04),
+                    0 2px 8px rgba(0, 0, 0, 0.03);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+        cursor: pointer;
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08),
+                        0 8px 24px rgba(0, 0, 0, 0.05);
+        }
+
+        .o_mea_card_header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #E2E8F0;
+            padding-bottom: 8px;
+            margin-bottom: 8px;
+
+            strong {
+                font-size: 1rem;
+                color: #0F172A;
+            }
+
+            .o_mea_badge {
+                font-size: 0.7rem;
+                background: rgba(124, 58, 237, 0.12);
+                color: #7C3AED;
+                padding: 2px 8px;
+                border-radius: 999px;
+                font-weight: 600;
+            }
+        }
+
+        .o_mea_card_body {
+            font-size: 0.85rem;
+            color: #1E293B;
+
+            > div { margin-bottom: 4px; }
+            .text-muted { font-size: 0.78rem; color: #64748B !important; }
+        }
+
+        .o_mea_card_footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #E2E8F0;
+            padding-top: 8px;
+            margin-top: 8px;
+            font-size: 0.85rem;
+
+            .o_mea_amount {
+                font-weight: 600;
+                color: #7C3AED;
+            }
+        }
+    }
+}

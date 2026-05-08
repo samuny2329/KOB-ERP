@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- noupdate=0 so meter list refreshes on -u upgrade if rates/sites change.
+         Real meter records (CA + Meter ID verified against MEA portal). -->
+    <data noupdate="0">
+
+        <!-- KOB cosmetics group — 3 meters -->
+        <record id="meter_kob_kk2" model="mea.meter">
+            <field name="ca_number">015634979</field>
+            <field name="meter_id">96484442</field>
+            <field name="site_short">KOB-KK2</field>
+            <field name="partner_name">บริษัท คิสออฟบิวตี้ จำกัด</field>
+            <field name="site_address">24/9 หมู่ที่ 13 ซอยกิ่งแก้ว 25/2 ถนนกิ่งแก้ว ต.ราชาเทวะ อ.บางพลี สมุทรปราการ 10540</field>
+            <field name="district">บางพลี</field>
+            <field name="tariff_id" ref="tariff_3_2_3"/>
+            <field name="state">active</field>
+            <field name="note">คลังสินค้า KK2 / KPX050. TOU 3.2.3 medium voltage.</field>
+        </record>
+
+        <record id="meter_kob_kk16" model="mea.meter">
+            <field name="ca_number">018025585</field>
+            <field name="meter_id">96746654</field>
+            <field name="site_short">KOB-KK16</field>
+            <field name="partner_name">บริษัท คิสออฟบิวตี้ จำกัด</field>
+            <field name="site_address">110/7 ม.13 ต.ราชาเทวะ อ.บางพลี สมุทรปราการ 10540</field>
+            <field name="district">บางพลี</field>
+            <field name="tariff_id" ref="tariff_3_2_3"/>
+            <field name="state">active</field>
+            <field name="note">คลังสินค้า KK16. โอน CA จาก ULVAC (เดิม 016146464) → KOB ก.พ. 69. TOU 3.2.3 + HVAC ~28.7 kW.</field>
+        </record>
+
+        <record id="meter_kob_hq" model="mea.meter">
+            <field name="ca_number">016315726</field>
+            <field name="meter_id">96832680</field>
+            <field name="site_short">KOB-HQ</field>
+            <field name="partner_name">บริษัท คิสออฟบิวตี้ จำกัด</field>
+            <field name="site_address">23/126-127, 23/132-133 อาคารสรชัย ชั้น 32 ซอยสุขุมวิท 63 ถนนสุขุมวิท แขวงคลองตันเหนือ เขตวัฒนา กรุงเทพมหานคร 10110</field>
+            <field name="district">บางกะปิ</field>
+            <field name="tariff_id" ref="tariff_2_1_2"/>
+            <field name="state">active</field>
+            <field name="note">สำนักงานใหญ่ ชั้น 32 อาคารสรชัย. Flat 2.1.2 small business.</field>
+        </record>
+
+        <!-- Beauty Will (BTV) — 2 meters -->
+        <record id="meter_btv_110_3" model="mea.meter">
+            <field name="ca_number">015980029</field>
+            <field name="meter_id">96661486</field>
+            <field name="site_short">BTV-110/3</field>
+            <field name="partner_name">บริษัท บิวตี้วิลล์ จำกัด</field>
+            <field name="site_address">110/3 หมู่ที่ 13 ซ.กิ่งแก้ว 25/2 ถนนกิ่งแก้ว ต.ราชาเทวะ อ.บางพลี สมุทรปราการ 10540</field>
+            <field name="district">บางพลี</field>
+            <field name="tariff_id" ref="tariff_2_1_2"/>
+            <field name="state">active</field>
+            <field name="note">คลังสินค้า 110/3 กิ่งแก้ว. Flat 2.1.2.</field>
+        </record>
+
+        <record id="meter_btv_24_8" model="mea.meter">
+            <field name="ca_number">016470419</field>
+            <field name="meter_id">96895605</field>
+            <field name="site_short">BTV-24/8</field>
+            <field name="partner_name">บริษัท บิวตี้วิลล์ จำกัด</field>
+            <field name="site_address">24/8 หมู่ที่ 13 ต.ราชาเทวะ อ.บางพลี สมุทรปราการ 10540</field>
+            <field name="district">บางพลี</field>
+            <field name="tariff_id" ref="tariff_2_1_2"/>
+            <field name="state">active</field>
+            <field name="note">คลังสินค้า 24/8 ราชาเทวะ. Flat 2.1.2. Usage drop in Dec 2025 (~50%).</field>
+        </record>
+
+        <!-- Cosmonation (CMN) — 1 meter -->
+        <record id="meter_cmn_tower" model="mea.meter">
+            <field name="ca_number">014953128</field>
+            <field name="meter_id">96137824</field>
+            <field name="site_short">CMN-Tower</field>
+            <field name="partner_name">บริษัท คอสโมเนชั่น จำกัด</field>
+            <field name="site_address">24/10 หมู่ที่ 13 ซ.กิ่งแก้ว 25/2 ถ.กิ่งแก้ว ต.ราชาเทวะ อ.บางพลี สมุทรปราการ 10540</field>
+            <field name="district">บางพลี</field>
+            <field name="tariff_id" ref="tariff_3_2_3"/>
+            <field name="state">active</field>
+            <field name="note">ตึก CMN. Largest consumer (~190-240k baht/month, 30-42k kWh). TOU 3.2.3 assumed.</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Real KK16 assets from ULVAC handover (Asset PO KOBPO2512-06108).
+         noupdate=1 so users can edit/extend without -u upgrade overwriting. -->
+    <data noupdate="1">
+
+        <!-- ─── KOB-KK16 (Warehouse 110/7) — HVAC ─── -->
+        <record id="asset_kk16_daikin_42k" model="mea.asset">
+            <field name="meter_id" ref="meter_kob_kk16"/>
+            <field name="category_id" ref="cat_hvac"/>
+            <field name="name">Daikin AC 42,000 BTU</field>
+            <field name="brand">Daikin</field>
+            <field name="qty">2</field>
+            <field name="rating_btu">42000</field>
+            <field name="is_inverter">False</field>
+            <field name="eer">10.0</field>
+            <field name="hours_per_day">8.0</field>
+            <field name="days_per_month">26.0</field>
+            <field name="duty_cycle">75.0</field>
+            <field name="purchase_date">2025-12-16</field>
+            <field name="purchase_cost">11800.00</field>
+        </record>
+
+        <record id="asset_kk16_daikin_36k" model="mea.asset">
+            <field name="meter_id" ref="meter_kob_kk16"/>
+            <field name="category_id" ref="cat_hvac"/>
+            <field name="name">Daikin AC 36,000 BTU</field>
+            <field name="brand">Daikin</field>
+            <field name="qty">2</field>
+            <field name="rating_btu">36000</field>
+            <field name="is_inverter">False</field>
+            <field name="eer">10.0</field>
+            <field name="hours_per_day">8.0</field>
+            <field name="days_per_month">26.0</field>
+            <field name="duty_cycle">75.0</field>
+            <field name="purchase_date">2025-12-16</field>
+            <field name="purchase_cost">50000.00</field>
+        </record>
+
+        <record id="asset_kk16_daikin_30k" model="mea.asset">
+            <field name="meter_id" ref="meter_kob_kk16"/>
+            <field name="category_id" ref="cat_hvac"/>
+            <field name="name">Daikin AC 30,000 BTU</field>
+            <field name="brand">Daikin</field>
+            <field name="qty">2</field>
+            <field name="rating_btu">30000</field>
+            <field name="is_inverter">False</field>
+            <field name="eer">10.0</field>
+            <field name="hours_per_day">8.0</field>
+            <field name="days_per_month">26.0</field>
+            <field name="duty_cycle">75.0</field>
+            <field name="purchase_date">2025-12-16</field>
+            <field name="purchase_cost">8500.00</field>
+        </record>
+
+        <record id="asset_kk16_carrier_25k" model="mea.asset">
+            <field name="meter_id" ref="meter_kob_kk16"/>
+            <field name="category_id" ref="cat_hvac"/>
+            <field name="name">Carrier AC 25,000 BTU (42HFE025/38)</field>
+            <field name="brand">Carrier</field>
+            <field name="model_no">42HFE025/38</field>
+            <field name="qty">2</field>
+            <field name="rating_btu">25000</field>
+            <field name="is_inverter">False</field>
+            <field name="eer">9.5</field>
+            <field name="hours_per_day">8.0</field>
+            <field name="days_per_month">26.0</field>
+            <field name="duty_cycle">75.0</field>
+            <field name="purchase_date">2025-12-16</field>
+            <field name="purchase_cost">2000.00</field>
+        </record>
+
+        <record id="asset_kk16_daikin_12k" model="mea.asset">
+            <field name="meter_id" ref="meter_kob_kk16"/>
+            <field name="category_id" ref="cat_hvac"/>
+            <field name="name">Daikin AC 12,000 BTU</field>
+            <field name="brand">Daikin</field>
+            <field name="qty">1</field>
+            <field name="rating_btu">12000</field>
+            <field name="is_inverter">False</field>
+            <field name="eer">10.0</field>
+            <field name="hours_per_day">8.0</field>
+            <field name="days_per_month">26.0</field>
+            <field name="duty_cycle">70.0</field>
+            <field name="purchase_date">2025-12-16</field>
+            <field name="purchase_cost">12250.00</field>
+        </record>
+
+        <record id="asset_kk16_daikin_9k" model="mea.asset">
+            <field name="meter_id" ref="meter_kob_kk16"/>
+            <field name="category_id" ref="cat_hvac"/>
+            <field name="name">Daikin AC 9,000 BTU</field>
+            <field name="brand">Daikin</field>
+            <field name="qty">1</field>
+            <field name="rating_btu">9000</field>
+            <field name="is_inverter">False</field>
+            <field name="eer">10.0</field>
+            <field name="hours_per_day">8.0</field>
+            <field name="days_per_month">26.0</field>
+            <field name="duty_cycle">70.0</field>
+            <field name="purchase_date">2025-12-16</field>
+            <field name="purchase_cost">9250.00</field>
+        </record>
+
+        <!-- ─── KOB-KK16 — Other equipment ─── -->
+        <record id="asset_kk16_motor_shutter" model="mea.asset">
+            <field name="meter_id" ref="meter_kob_kk16"/>
+            <field name="category_id" ref="cat_motor"/>
+            <field name="name">Motor Shutter Door</field>
+            <field name="qty">1</field>
+            <field name="rating_w">2000</field>
+            <field name="hours_per_day">0.5</field>
+            <field name="days_per_month">26.0</field>
+            <field name="duty_cycle">100.0</field>
+            <field name="purchase_date">2025-12-16</field>
+            <field name="purchase_cost">2000.00</field>
+        </record>
+
+        <record id="asset_kk16_fan_50" model="mea.asset">
+            <field name="meter_id" ref="meter_kob_kk16"/>
+            <field name="category_id" ref="cat_motor"/>
+            <field name="name">Industrial Fan 50&quot;</field>
+            <field name="qty">3</field>
+            <field name="rating_w">200</field>
+            <field name="hours_per_day">8.0</field>
+            <field name="days_per_month">26.0</field>
+            <field name="duty_cycle">100.0</field>
+            <field name="purchase_date">2025-12-16</field>
+        </record>
+
+        <record id="asset_kk16_pump" model="mea.asset">
+            <field name="meter_id" ref="meter_kob_kk16"/>
+            <field name="category_id" ref="cat_pump"/>
+            <field name="name">Water Pump with Tank</field>
+            <field name="qty">1</field>
+            <field name="rating_w">1500</field>
+            <field name="hours_per_day">2.0</field>
+            <field name="days_per_month">30.0</field>
+            <field name="duty_cycle">80.0</field>
+            <field name="purchase_date">2025-12-16</field>
+        </record>
+
+        <record id="asset_kk16_cctv" model="mea.asset">
+            <field name="meter_id" ref="meter_kob_kk16"/>
+            <field name="category_id" ref="cat_it"/>
+            <field name="name">CCTV 16ch + VDO Recorder</field>
+            <field name="qty">1</field>
+            <field name="rating_w">200</field>
+            <field name="hours_per_day">24.0</field>
+            <field name="days_per_month">30.0</field>
+            <field name="duty_cycle">100.0</field>
+            <field name="purchase_date">2025-12-16</field>
+        </record>
+
+        <record id="asset_kk16_fire" model="mea.asset">
+            <field name="meter_id" ref="meter_kob_kk16"/>
+            <field name="category_id" ref="cat_fire"/>
+            <field name="name">Fire Alarm Control + Smoke Detectors</field>
+            <field name="qty">1</field>
+            <field name="rating_w">50</field>
+            <field name="hours_per_day">24.0</field>
+            <field name="days_per_month">30.0</field>
+            <field name="duty_cycle">100.0</field>
+            <field name="purchase_date">2025-12-16</field>
+        </record>
+
+        <!-- ─── Sample Saving Action: replace non-inverter ACs with inverter ─── -->
+        <record id="action_kk16_inverter_swap_36k" model="mea.asset.action">
+            <field name="asset_id" ref="asset_kk16_daikin_36k"/>
+            <field name="name">Replace 2× Daikin 36k non-inverter → inverter SEER 18</field>
+            <field name="action_type">replace</field>
+            <field name="priority">2</field>
+            <field name="target_pct_saving">35.0</field>
+            <field name="capex_required">90000.00</field>
+            <field name="state">proposed</field>
+            <field name="description">Two 36,000 BTU Daikin units (the largest-load HVAC group at KK16) are non-inverter. Replacing with inverter equivalents typically yields 30-40% energy reduction with payback ~2-3 years.</field>
+        </record>
+
+        <record id="action_kk16_inverter_swap_42k" model="mea.asset.action">
+            <field name="asset_id" ref="asset_kk16_daikin_42k"/>
+            <field name="name">Replace 2× Daikin 42k non-inverter → inverter SEER 18</field>
+            <field name="action_type">replace</field>
+            <field name="priority">2</field>
+            <field name="target_pct_saving">35.0</field>
+            <field name="capex_required">120000.00</field>
+            <field name="state">proposed</field>
+        </record>
+
+        <record id="action_kk16_solar" model="mea.asset.action">
+            <field name="asset_id" ref="asset_kk16_daikin_36k"/>
+            <field name="name">Solar PV 30 kW rooftop offset</field>
+            <field name="action_type">solar</field>
+            <field name="priority">1</field>
+            <field name="target_pct_saving">40.0</field>
+            <field name="capex_required">1050000.00</field>
+            <field name="state">draft</field>
+            <field name="description">30 kW solar PV system at ~35,000 THB/kW. Offsets daytime on-peak load (the most expensive). Payback ~5-6 years.</field>
+        </record>
+
+    </data>
+</odoo>

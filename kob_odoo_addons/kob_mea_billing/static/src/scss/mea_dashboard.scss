@@ -1,0 +1,539 @@
+// ─── MEA Dashboard — Native Odoo 19 design system ───────────────
+// Uses Odoo 19 CSS custom properties throughout so the dashboard
+// inherits theme variants (light/dark/custom-branded) automatically.
+// Component classes mirror Odoo's own naming (.o_*) for visual consistency.
+
+// ─── Top tab navigation — modern Odoo app style (replaces sidebar) ───
+.o_mea_dashboard .o_mea_tabs {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 0 24px;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    flex-wrap: nowrap;
+
+    .o_mea_tabs_left {
+        display: flex;
+        gap: 0;
+        flex: 1 1 auto;
+        overflow-x: auto;
+        scrollbar-width: thin;
+
+        &::-webkit-scrollbar { height: 3px; }
+        &::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 2px; }
+    }
+
+    .o_mea_tabs_right {
+        display: flex;
+        gap: 4px;
+        flex-shrink: 0;
+        padding: 8px 0;
+
+        .btn {
+            font-size: 14px;
+            padding: 6px 10px;
+            background: transparent;
+            border: 1px solid transparent;
+            color: #6c757d;
+
+            &:hover {
+                background: #f1f3f5;
+                color: #17a2b8;
+                border-color: transparent;
+            }
+        }
+    }
+
+    .o_mea_tab {
+        background: transparent;
+        border: none;
+        border-bottom: 3px solid transparent;
+        padding: 12px 16px 9px;
+        font-size: 13px;
+        font-weight: 500;
+        color: #6c757d;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: color 0.1s ease, border-color 0.1s ease, background 0.1s ease;
+
+        &:hover {
+            color: #17a2b8;
+            background: #f8f9fa;
+        }
+
+        &.o_mea_tab_active {
+            color: #17a2b8;
+            border-bottom-color: #17a2b8;
+            font-weight: 600;
+        }
+
+        .fa { font-size: 12px; }
+    }
+}
+
+// ─── Legacy sidebar layout — kept for any remaining references ───
+.o_mea_layout {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    height: 100%;
+    background: #ffffff;
+    overflow: hidden;
+    transition: grid-template-columns 0.2s ease;
+
+    &--collapsed {
+        grid-template-columns: 36px 1fr;
+    }
+
+    // Thin scrollbar (only when content overflows)
+    .o_search_panel {
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+
+        &::-webkit-scrollbar { width: 4px; }
+        &::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.15); border-radius: 2px; }
+        &::-webkit-scrollbar-thumb:hover { background: rgba(0, 0, 0, 0.3); }
+        &::-webkit-scrollbar-track { background: transparent; }
+    }
+
+    @media (max-width: 900px) {
+        grid-template-columns: 1fr;
+        .o_mea_sidebar, .o_mea_sidebar_collapsed { display: none; }
+    }
+}
+
+// Collapsed-state sidebar (slim bar with expand arrow)
+.o_mea_sidebar_collapsed {
+    width: 36px;
+    height: 100%;
+    border-right: 1px solid #e5e7eb;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 12px;
+    color: #6c757d;
+    transition: background 0.1s ease, color 0.1s ease;
+
+    &:hover {
+        background: #f1f3f5;
+        color: #17a2b8;
+    }
+
+    .fa { font-size: 14px; }
+}
+
+// Toggle button at top-right of expanded sidebar
+.o_mea_sidebar .o_mea_sidebar_toggle {
+    position: absolute;
+    top: 8px;
+    right: 6px;
+    background: transparent;
+    border: none;
+    color: #6c757d;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    z-index: 2;
+    transition: background 0.1s ease, color 0.1s ease;
+
+    &:hover {
+        background: #f1f3f5;
+        color: #17a2b8;
+    }
+}
+
+.o_mea_sidebar {
+    background: transparent;
+    border: none;
+    padding: 28px 0 16px 16px;
+    overflow-y: auto;
+    height: 100%;
+    font-size: 13px;
+    position: relative;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
+
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.12);
+        border-radius: 2px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .o_mea_sidebar_section {
+        margin-bottom: 24px;
+    }
+
+    .o_mea_sidebar_label {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: #495057;
+        padding: 0 0 6px;
+        margin: 0;
+    }
+
+    .o_mea_sidebar_list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .o_mea_sidebar_item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 4px 12px 4px 8px;
+        cursor: pointer;
+        color: #4c4c4c;
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 1.5;
+        border-radius: 4px;
+        transition: background 0.1s ease, color 0.1s ease;
+
+        &:hover {
+            background: #f1f3f5;
+            color: #17a2b8;
+        }
+
+        &.o_mea_sidebar_active {
+            background: #e6f7fa;
+            color: #17a2b8;
+            font-weight: 600;
+
+            .fa { color: #17a2b8; }
+        }
+
+        .fa { width: 14px; color: #adb5bd; font-size: 12px; }
+
+        &:hover .fa { color: #17a2b8; }
+    }
+
+    .o_mea_sidebar_dot {
+        display: none;
+    }
+}
+
+.o_mea_main {
+    padding: 16px 24px 24px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    min-width: 0;
+    height: 100%;
+}
+
+.o_mea_dashboard {
+    padding: 16px 24px 24px;
+    background: var(--o-view-background-color, #f8f9fa);
+    font-family: var(--o-font-family-sans-serif, "Inter", "Sarabun", -apple-system, BlinkMacSystemFont, sans-serif);
+    font-size: 13px;
+    color: var(--o-main-text-color, #4c4c4c);
+
+    // When used as Odoo client action — o_content already provides scroll
+    &.o_content {
+        overflow-y: auto;
+        height: 100%;
+    }
+
+    &.o_mea_layout {
+        padding: 0;
+        height: 100%;
+        overflow: hidden;  // children handle scroll
+    }
+
+    // ─── Filter row — Odoo Dashboards style (under topbar) ───
+    .o_mea_filters {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 16px;
+        padding: 8px 0;
+        border-bottom: 1px solid #e5e7eb;
+        flex-wrap: wrap;
+
+        .o_mea_filter_field {
+            min-width: 180px;
+            flex: 0 1 200px;
+
+            .form-select,
+            .btn {
+                font-size: 13px;
+                width: 100%;
+            }
+
+            .form-select {
+                border: 1px solid #d8dadd;
+                background-color: #fff;
+                padding: 4px 28px 4px 8px;
+                font-weight: 500;
+
+                &:focus {
+                    border-color: #17a2b8;
+                    box-shadow: 0 0 0 0.15rem rgba(23, 162, 184, 0.15);
+                }
+
+                &:hover {
+                    border-color: #17a2b8;
+                }
+            }
+        }
+    }
+
+    // ─── Top bar — Odoo Dashboards minimal header ───
+    .o_mea_topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+        padding: 0 0 8px;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        flex-wrap: wrap;
+        gap: 12px;
+        box-shadow: none;
+
+        .o_mea_title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2c2c2c;
+            margin: 0;
+            display: flex;
+            align-items: center;
+
+            .fa {
+                color: #17a2b8;
+                margin-right: 6px;
+                font-size: 18px;
+            }
+
+            small {
+                font-weight: 400;
+                margin-left: 8px;
+                color: #6c757d !important;
+                font-size: 12px;
+            }
+        }
+
+        .o_mea_actions {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+
+            .btn {
+                font-size: 12px;
+                padding: 4px 10px;
+                line-height: 1.5;
+                border-radius: 4px;
+            }
+        }
+
+        .o_mea_range_picker {
+            display: flex;
+            gap: 0;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid #d8dadd;
+            background: #fff;
+
+            .btn {
+                font-size: 12px;
+                padding: 4px 12px;
+                line-height: 1.5;
+                font-weight: 500;
+                min-width: 42px;
+                border: none !important;
+                border-radius: 0 !important;
+                background: transparent;
+                color: #4c4c4c;
+
+                &:hover {
+                    background: #f1f3f5;
+                    color: #17a2b8;
+                }
+
+                &.btn-primary {
+                    background: #17a2b8 !important;
+                    color: #fff !important;
+                }
+            }
+        }
+    }
+
+    // ─── Site info bar (per-meter dashboard) ───
+    .o_mea_meter_info {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 4px 24px;
+        font-size: 13px;
+
+        > div {
+            color: var(--o-main-text-color, #4c4c4c);
+            line-height: 1.6;
+
+            strong {
+                color: var(--o-text-muted, #6c757d);
+                font-weight: 500;
+                margin-right: 6px;
+            }
+        }
+    }
+
+    // ─── KPI cards — Odoo Dashboards module style ───
+    // Matches the look of /web/dashboards: light-tinted bg + simple
+    // title (small), value (big), trend pct line below.
+    .o_mea_kpis {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .o_mea_kpi {
+        background: #f6f8fa;
+        border: none;
+        border-radius: 4px;
+        padding: 12px 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        transition: background-color 0.1s ease;
+        position: relative;
+        min-height: 110px;
+
+        &:hover {
+            background: #eef1f5;
+        }
+
+        &--purple { background: #f3eef2; }
+        &--teal   { background: #e5f4f7; }
+        &--amber  { background: #fdf3e3; }
+        &--rose   { background: #fbe9e9; }
+
+        // Hide the icon — Odoo Dashboards doesn't use icons in KPI cards
+        .o_mea_kpi_icon { display: none; }
+
+        .o_mea_kpi_body { width: 100%; }
+
+        .o_mea_kpi_title {
+            color: #6c757d;
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: none;
+            letter-spacing: 0;
+            margin-bottom: 4px;
+        }
+
+        .o_mea_kpi_value {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--o-main-text-color, #2c2c2c);
+            font-variant-numeric: tabular-nums;
+            font-feature-settings: "tnum" 1;
+            line-height: 1.1;
+            font-family: var(--o-font-family-sans-serif, "Inter", sans-serif);
+            margin-bottom: 4px;
+
+            .o_mea_kpi_unit {
+                font-size: 13px;
+                color: var(--o-text-muted, #6c757d);
+                margin-left: 6px;
+                font-weight: 500;
+            }
+        }
+
+        .o_mea_kpi_trend {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--o-text-muted, #6c757d);
+
+            &.text-success { color: #2b8a3e !important; }
+            &.text-danger { color: #c92a2a !important; }
+        }
+    }
+
+    // ─── Grid of side-by-side panels — responsive auto-fit ───
+    .o_mea_grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+        gap: 12px;
+        margin-bottom: 12px;
+
+        > .o_mea_panel {
+            min-width: 0;
+            margin-bottom: 0;
+        }
+    }
+
+    // ─── Panel — Odoo Dashboards section style ───
+    // Title in teal/blue with bottom underline (matching Monthly Sales /
+    // Top Quotations sections in /web/dashboards).
+    .o_mea_panel {
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        padding: 24px 0 16px;
+        margin-bottom: 8px;
+        box-shadow: none;
+
+        .o_mea_panel_header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 16px;
+            padding-bottom: 4px;
+            border-bottom: 2px solid #17a2b8;
+
+            h3 {
+                font-size: 18px;
+                font-weight: 700;
+                margin: 0;
+                color: #17a2b8;
+
+                small {
+                    font-weight: 400;
+                    color: var(--o-text-muted, #6c757d);
+                    margin-left: 6px;
+                    font-size: 12px;
+                }
+            }
+
+            .btn {
+                font-size: 12px;
+                padding: 3px 8px;
+            }
+
+            .small { font-size: 11px; }
+        }
+    }
+
+    // ─── Charts wrapper ───
+    .o_mea_chart_wrap {
+        position: relative;
+        height: 320px;
+        width: 100%;
+    }
+
+    .o_mea_loading {
+        text-align: center;
+        padding: 80px 0;
+        color: var(--o-text-muted, #6c757d);
+        font-size: 14px;
+
+        .fa-spinner { color: var(--o-action, #714B67); }
+    }
+}

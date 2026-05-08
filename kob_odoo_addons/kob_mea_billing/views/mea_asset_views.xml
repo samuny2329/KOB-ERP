@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ─── Category ─── -->
+    <record id="view_mea_asset_category_list" model="ir.ui.view">
+        <field name="name">mea.asset.category.list</field>
+        <field name="model">mea.asset.category</field>
+        <field name="arch" type="xml">
+            <list string="Asset Categories" class="o_mea_list" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="icon"/>
+                <field name="typical_load_pct"/>
+                <field name="color" widget="color_picker"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_mea_asset_category" model="ir.actions.act_window">
+        <field name="name">Asset Categories</field>
+        <field name="res_model">mea.asset.category</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <!-- ─── Asset list ─── -->
+    <record id="view_mea_asset_list" model="ir.ui.view">
+        <field name="name">mea.asset.list</field>
+        <field name="model">mea.asset</field>
+        <field name="arch" type="xml">
+            <list string="Assets" class="o_mea_list o_list_table_compact"
+                  decoration-muted="state == 'retired'"
+                  decoration-warning="state == 'standby'">
+                <field name="meter_id" optional="show"/>
+                <field name="site_short" optional="hide"/>
+                <field name="category_id" optional="show"/>
+                <field name="name"/>
+                <field name="brand" optional="show"/>
+                <field name="qty"/>
+                <field name="rating_btu" optional="show"/>
+                <field name="rating_w" optional="show"/>
+                <field name="total_rating_w" optional="show"/>
+                <field name="hours_per_day" optional="hide"/>
+                <field name="duty_cycle" optional="hide"/>
+                <field name="kwh_per_hour" optional="show" sum="kWh/hr"/>
+                <field name="kwh_per_day" optional="show" sum="kWh/day"/>
+                <field name="kwh_per_month" sum="kWh/mo"/>
+                <field name="cost_per_month" sum="THB/mo" widget="monetary"/>
+                <field name="bill_share_pct" widget="percentage"/>
+                <field name="potential_savings_thb" optional="show" sum="Potential Savings"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'active'"
+                       decoration-warning="state == 'standby'"
+                       decoration-muted="state == 'retired'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_mea_asset_kanban" model="ir.ui.view">
+        <field name="name">mea.asset.kanban</field>
+        <field name="model">mea.asset</field>
+        <field name="arch" type="xml">
+            <kanban class="o_mea_meter_kanban">
+                <templates>
+                    <t t-name="card">
+                        <div class="o_mea_card">
+                            <div class="o_mea_card_header">
+                                <strong><field name="name"/></strong>
+                                <span class="o_mea_badge"><field name="category_id"/></span>
+                            </div>
+                            <div class="o_mea_card_body">
+                                <div><field name="brand"/> · qty <field name="qty"/></div>
+                                <div t-if="record.rating_btu.raw_value">
+                                    <field name="rating_btu"/> BTU · <field name="rating_w"/> W
+                                </div>
+                            </div>
+                            <div class="o_mea_card_footer">
+                                <span><field name="kwh_per_month"/> kWh/mo</span>
+                                <span class="o_mea_amount">
+                                    <field name="cost_per_month" widget="monetary"/>
+                                </span>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_mea_asset_form" model="ir.ui.view">
+        <field name="name">mea.asset.form</field>
+        <field name="model">mea.asset</field>
+        <field name="arch" type="xml">
+            <form string="Asset">
+                <header>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="active,standby,retired"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_actions" type="object"
+                                class="oe_stat_button" icon="fa-leaf">
+                            <field name="action_count" widget="statinfo" string="Saving Actions"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Daikin Inverter 36000 BTU - Hall A"/></h1>
+                    </div>
+                    <group>
+                        <group string="Identity">
+                            <field name="meter_id" options="{'no_create': True}"/>
+                            <field name="category_id" options="{'no_create': True}"/>
+                            <field name="brand"/>
+                            <field name="model_no"/>
+                            <field name="serial_no"/>
+                            <field name="qty"/>
+                            <field name="asset_code"/>
+                        </group>
+                        <group string="Power Rating">
+                            <field name="rating_btu"/>
+                            <field name="is_inverter"/>
+                            <field name="eer"/>
+                            <field name="rating_w"/>
+                            <field name="total_rating_w" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Operating Profile">
+                            <field name="hours_per_day"/>
+                            <field name="days_per_month"/>
+                            <field name="duty_cycle"/>
+                        </group>
+                        <group string="Computed Consumption">
+                            <field name="kwh_per_hour"/>
+                            <field name="kwh_per_day"/>
+                            <field name="kwh_per_month"/>
+                            <field name="cost_per_month" widget="monetary"/>
+                            <field name="bill_share_pct" widget="percentage"/>
+                            <field name="potential_savings_thb" widget="monetary"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Saving Actions">
+                            <field name="action_ids">
+                                <list editable="bottom" decoration-success="state == 'completed'"
+                                      decoration-info="state == 'approved'"
+                                      decoration-muted="state == 'cancelled'">
+                                    <field name="name"/>
+                                    <field name="action_type"/>
+                                    <field name="priority" widget="priority"/>
+                                    <field name="target_pct_saving"/>
+                                    <field name="annual_savings_kwh" sum="kWh"/>
+                                    <field name="annual_savings_thb" sum="THB"/>
+                                    <field name="capex_required" sum="Capex"/>
+                                    <field name="payback_months"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Registry">
+                            <group>
+                                <field name="purchase_date"/>
+                                <field name="purchase_cost" widget="monetary"/>
+                                <field name="expected_lifespan_years"/>
+                            </group>
+                        </page>
+                        <page string="Notes">
+                            <field name="note" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_mea_asset_search" model="ir.ui.view">
+        <field name="name">mea.asset.search</field>
+        <field name="model">mea.asset</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="brand"/>
+                <field name="meter_id"/>
+                <field name="category_id"/>
+                <filter name="filter_active" string="Active" domain="[('state','=','active')]"/>
+                <separator/>
+                <filter name="grp_meter" string="Site" context="{'group_by': 'meter_id'}"/>
+                <filter name="grp_cat" string="Category" context="{'group_by': 'category_id'}"/>
+                <filter name="grp_state" string="State" context="{'group_by': 'state'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_mea_asset" model="ir.actions.act_window">
+        <field name="name">Assets</field>
+        <field name="res_model">mea.asset</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="search_view_id" ref="view_mea_asset_search"/>
+    </record>
+
+    <!-- ─── Saving Actions list ─── -->
+    <record id="view_mea_asset_action_list" model="ir.ui.view">
+        <field name="name">mea.asset.action.list</field>
+        <field name="model">mea.asset.action</field>
+        <field name="arch" type="xml">
+            <list string="Saving Actions" class="o_mea_list o_list_table_compact"
+                  decoration-success="state == 'completed'"
+                  decoration-info="state == 'approved'"
+                  decoration-muted="state == 'cancelled'"
+                  default_order="priority desc, payback_months">
+                <field name="site_short"/>
+                <field name="asset_id"/>
+                <field name="category_id" optional="show"/>
+                <field name="name"/>
+                <field name="action_type"/>
+                <field name="priority" widget="priority"/>
+                <field name="target_pct_saving"/>
+                <field name="annual_savings_kwh" sum="kWh"/>
+                <field name="annual_savings_thb" sum="THB" widget="monetary"/>
+                <field name="capex_required" widget="monetary"/>
+                <field name="payback_months"/>
+                <field name="target_date" optional="show"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_mea_asset_action_form" model="ir.ui.view">
+        <field name="name">mea.asset.action.form</field>
+        <field name="model">mea.asset.action</field>
+        <field name="arch" type="xml">
+            <form string="Saving Action">
+                <header>
+                    <button name="action_propose" type="object" string="Propose"
+                            class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_approve" type="object" string="Approve"
+                            class="btn-primary" invisible="state != 'proposed'"/>
+                    <button name="action_start" type="object" string="Start"
+                            invisible="state != 'approved'"/>
+                    <button name="action_complete" type="object" string="Complete"
+                            class="btn-success" invisible="state != 'in_progress'"/>
+                    <button name="action_cancel" type="object" string="Cancel"
+                            invisible="state in ('completed','cancelled')"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,proposed,approved,in_progress,completed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group string="Scope">
+                            <field name="asset_id" options="{'no_create': True}"/>
+                            <field name="action_type"/>
+                            <field name="priority" widget="priority"/>
+                            <field name="target_date"/>
+                            <field name="completed_date" readonly="1"/>
+                        </group>
+                        <group string="Savings Model">
+                            <field name="target_pct_saving"/>
+                            <field name="annual_savings_kwh"/>
+                            <field name="annual_savings_thb" widget="monetary"/>
+                            <field name="capex_required" widget="monetary"/>
+                            <field name="payback_months"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description" nolabel="1"
+                                   placeholder="Detailed plan: scope, vendor, lead time..."/>
+                        </page>
+                        <page string="Notes">
+                            <field name="note" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mea_asset_action" model="ir.actions.act_window">
+        <field name="name">Saving Actions</field>
+        <field name="res_model">mea.asset.action</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

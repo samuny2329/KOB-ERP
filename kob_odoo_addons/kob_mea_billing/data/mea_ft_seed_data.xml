@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Ft retail rates published by ERC (กกพ.).
+             Periods cover Sep 2024 → Aug 2026. Source: erc.or.th -->
+
+        <record id="ft_2024_q4" model="mea.ft.period">
+            <field name="period_start">2024-09-01</field>
+            <field name="period_end">2024-12-31</field>
+            <field name="ft_rate">39.72</field>
+            <field name="change_satang">0.00</field>
+            <field name="published_date">2024-08-01</field>
+            <field name="source_url">https://www.erc.or.th/th/automatic/1355</field>
+        </record>
+
+        <record id="ft_2025_q1" model="mea.ft.period">
+            <field name="period_start">2025-01-01</field>
+            <field name="period_end">2025-04-30</field>
+            <field name="ft_rate">36.72</field>
+            <field name="change_satang">-3.00</field>
+            <field name="published_date">2024-12-01</field>
+            <field name="source_url">https://www.erc.or.th/th/automatic/1355</field>
+        </record>
+
+        <record id="ft_2025_q2" model="mea.ft.period">
+            <field name="period_start">2025-05-01</field>
+            <field name="period_end">2025-08-31</field>
+            <field name="ft_rate">19.72</field>
+            <field name="change_satang">-17.00</field>
+            <field name="published_date">2025-04-01</field>
+            <field name="source_url">https://www.erc.or.th/th/automatic/1355</field>
+        </record>
+
+        <record id="ft_2025_q3" model="mea.ft.period">
+            <field name="period_start">2025-09-01</field>
+            <field name="period_end">2025-12-31</field>
+            <field name="ft_rate">15.72</field>
+            <field name="change_satang">-4.00</field>
+            <field name="published_date">2025-08-01</field>
+            <field name="source_url">https://www.erc.or.th/th/automatic/1355</field>
+        </record>
+
+        <record id="ft_2026_q1" model="mea.ft.period">
+            <field name="period_start">2026-01-01</field>
+            <field name="period_end">2026-04-30</field>
+            <field name="ft_rate">9.72</field>
+            <field name="change_satang">-6.00</field>
+            <field name="published_date">2025-12-01</field>
+            <field name="source_url">https://www.erc.or.th/th/automatic/1355</field>
+        </record>
+
+        <record id="ft_2026_q2" model="mea.ft.period">
+            <field name="period_start">2026-05-01</field>
+            <field name="period_end">2026-08-31</field>
+            <field name="ft_rate">16.23</field>
+            <field name="change_satang">6.51</field>
+            <field name="published_date">2026-04-01</field>
+            <field name="source_url">https://www.erc.or.th/th/news-release/3402</field>
+        </record>
+
+    </data>
+</odoo>

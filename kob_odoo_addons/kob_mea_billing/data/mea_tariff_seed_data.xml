@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- noupdate=0 so rate corrections from MEA can be re-applied via -u upgrade.
+         Customers can still override rates manually; XML re-loads on upgrade. -->
+    <data noupdate="0">
+
+        <!-- TOU 3.2.3 — Medium Voltage 12-24 kV (typical for warehouses) -->
+        <!-- Empirical rates derived from real bills (KOB-KK16 + KK2 2025-2026): -->
+        <!--   peak 4.3300 / off 2.7400 / service 312.24 / demand 210 THB/kW -->
+        <record id="tariff_3_2_3" model="mea.tariff">
+            <field name="code">3.2.3</field>
+            <field name="name">TOU – Medium Voltage 12-24 kV (Business)</field>
+            <field name="is_tou">True</field>
+            <field name="voltage_level">medium</field>
+            <field name="peak_rate">4.3300</field>
+            <field name="off_peak_rate">2.6400</field>
+            <field name="service_charge">312.24</field>
+            <field name="demand_charge">210.00</field>
+            <field name="effective_date">2024-01-01</field>
+            <field name="note">TOU rate. Empirical (from KOB-KK16 Apr 2026 bill):
+- peak 4.3300 / off-peak 2.6400 THB/kWh (back-derived from On/Off Peak charge ÷ kWh)
+- demand 210 THB/kW (applied on highest 15-min on-peak kW)
+- service 312.24 THB/month
+Verified: 4943×4.33+2319×2.64=27,525 vs actual 27,516.68 (0.03% diff).</field>
+        </record>
+
+        <!-- Flat 2.1.2 — Small Business -->
+        <record id="tariff_2_1_2" model="mea.tariff">
+            <field name="code">2.1.2</field>
+            <field name="name">Flat – Small Business (Progressive)</field>
+            <field name="is_tou">False</field>
+            <field name="voltage_level">low</field>
+            <field name="service_charge">33.29</field>
+            <field name="effective_date">2024-01-01</field>
+            <field name="note">3 progressive tiers verified against BTV-110/3 bills (2026-03).</field>
+        </record>
+
+        <record id="tier_2_1_2_t1" model="mea.tariff.tier">
+            <field name="tariff_id" ref="tariff_2_1_2"/>
+            <field name="kwh_from">0</field>
+            <field name="kwh_to">150</field>
+            <field name="rate">3.2484</field>
+            <field name="note">First 150 kWh</field>
+        </record>
+        <record id="tier_2_1_2_t2" model="mea.tariff.tier">
+            <field name="tariff_id" ref="tariff_2_1_2"/>
+            <field name="kwh_from">150</field>
+            <field name="kwh_to">400</field>
+            <field name="rate">4.2218</field>
+            <field name="note">Next 250 kWh (151-400)</field>
+        </record>
+        <record id="tier_2_1_2_t3" model="mea.tariff.tier">
+            <field name="tariff_id" ref="tariff_2_1_2"/>
+            <field name="kwh_from">400</field>
+            <field name="kwh_to">0</field>
+            <field name="rate">4.4217</field>
+            <field name="note">Above 400 kWh</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mea_ot_import_wizard_form" model="ir.ui.view">
+        <field name="name">mea.ot.import.wizard.form</field>
+        <field name="model">mea.ot.import.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Import OT Hours (Online Team)">
+                <sheet>
+                    <div class="alert alert-info" role="alert">
+                        Upload <b>OT 69.xlsx</b> (HR overtime export, one sheet
+                        per month: <i>JAN 2026, FEB2026, …</i>).
+                        Standard work hours <b>08:00–17:00</b>; OT = work outside
+                        this window. Departments matching <b>Online</b>,
+                        <b>Admin online</b>, <b>Online officer</b>, or
+                        <b>Senior online</b> are aggregated and written to the
+                        matching <i>mea.bill.history</i> records.
+                    </div>
+                    <group>
+                        <group string="Source">
+                            <field name="xlsx_file" filename="xlsx_filename" required="1"/>
+                            <field name="xlsx_filename" invisible="1"/>
+                        </group>
+                        <group string="Target">
+                            <field name="meter_id" options="{'no_create': True}"/>
+                            <field name="overwrite"/>
+                        </group>
+                    </group>
+                    <group string="Result" invisible="not summary">
+                        <field name="summary" readonly="1" nolabel="1" widget="text"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_import" type="object"
+                            string="Import" class="btn-primary"/>
+                    <button special="cancel" string="Close"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mea_ot_import_wizard" model="ir.actions.act_window">
+        <field name="name">Import OT Hours (xlsx)</field>
+        <field name="res_model">mea.ot.import.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_mea_ot_import"
+              name="Import OT Hours"
+              parent="menu_kob_mea_root"
+              action="action_mea_ot_import_wizard"
+              sequence="56"/>
+</odoo>

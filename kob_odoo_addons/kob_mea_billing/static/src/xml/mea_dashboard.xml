@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="kob_mea_billing.MeaKpiCard">
+        <div t-att-class="'o_mea_kpi o_mea_kpi--' + (props.color || 'purple')">
+            <div class="o_mea_kpi_icon">
+                <i t-att-class="'fa ' + (props.icon || 'fa-bolt')"/>
+            </div>
+            <div class="o_mea_kpi_body">
+                <div class="o_mea_kpi_title" t-esc="props.title"/>
+                <div class="o_mea_kpi_value">
+                    <span t-esc="props.value"/>
+                    <small class="o_mea_kpi_unit" t-if="props.unit" t-esc="props.unit"/>
+                </div>
+                <div t-if="props.trend != null" t-att-class="'o_mea_kpi_trend ' + trendClass">
+                    <t t-esc="trendDisplay"/>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="kob_mea_billing.MeaFtChart">
+        <div class="o_mea_chart_wrap">
+            <canvas t-ref="canvas"/>
+        </div>
+    </t>
+
+    <t t-name="kob_mea_billing.MeaUsageChart">
+        <div class="o_mea_chart_wrap">
+            <canvas t-ref="canvas"/>
+        </div>
+    </t>
+
+    <t t-name="kob_mea_billing.MeaMeterDashboard">
+        <div class="o_action o_mea_dashboard o_content">
+            <!-- ─── Top tab navigation ─── -->
+            <nav class="o_mea_tabs">
+                <div class="o_mea_tabs_left">
+                    <button class="o_mea_tab" t-on-click="() =&gt; this.openMainDashboard()">
+                        <i class="fa fa-th-large me-1"/>Overview
+                    </button>
+                    <button t-foreach="state.meters" t-as="m" t-key="m.id"
+                            t-att-class="'o_mea_tab' + (m.id === state.currentMeterId ? ' o_mea_tab_active' : '')"
+                            t-on-click="() =&gt; this.openMeterDashboard(m.id)">
+                        <i class="fa fa-bolt me-1"/>
+                        <t t-esc="m.site_short"/>
+                    </button>
+                </div>
+                <div class="o_mea_tabs_right">
+                    <button class="btn btn-sm btn-light" t-on-click="() =&gt; this.openCalculator()" title="What-If Calculator">
+                        <i class="fa fa-calculator"/>
+                    </button>
+                    <button class="btn btn-sm btn-light" t-on-click="() =&gt; this.openImport()" title="Import PDF">
+                        <i class="fa fa-file-pdf-o"/>
+                    </button>
+                    <button class="btn btn-sm btn-light" t-on-click="() =&gt; this.openHistoryList()" title="All Bills">
+                        <i class="fa fa-list"/>
+                    </button>
+                </div>
+            </nav>
+
+            <!-- ─── Main content ─── -->
+            <main class="o_mea_main">
+            <div class="o_mea_topbar">
+                <h1 class="o_mea_title">
+                    <i class="fa fa-bolt me-2"/>
+                    <t t-if="state.meter">
+                        <t t-esc="state.meter.site_short"/>
+                        <small class="text-muted ms-2">
+                            CA <t t-esc="state.meter.ca_number"/> /
+                            Meter <t t-esc="state.meter.meter_id"/>
+                        </small>
+                    </t>
+                    <t t-else="">Meter Dashboard</t>
+                </h1>
+            </div>
+
+            <div t-if="state.meter" class="o_mea_filters">
+                <div class="o_mea_filter_field">
+                    <select class="form-select form-select-sm"
+                            t-on-change="(ev) =&gt; this.setStateFilter(ev.target.value)">
+                        <option value="">All States</option>
+                        <option value="draft" t-att-selected="state.stateFilter === 'draft'">Draft</option>
+                        <option value="confirmed" t-att-selected="state.stateFilter === 'confirmed'">Confirmed</option>
+                        <option value="anomaly" t-att-selected="state.stateFilter === 'anomaly'">Anomaly</option>
+                        <option value="manual_review" t-att-selected="state.stateFilter === 'manual_review'">Manual Review</option>
+                    </select>
+                </div>
+                <div class="o_mea_filter_field">
+                    <button t-att-class="'btn btn-sm ' + (state.anomalyOnly ? 'btn-danger' : 'btn-outline-secondary')"
+                            t-on-click="() =&gt; this.toggleAnomaly()">
+                        <i class="fa fa-exclamation-triangle me-1"/>
+                        <t t-if="state.anomalyOnly">Anomalies Only</t>
+                        <t t-else="">Show All</t>
+                    </button>
+                </div>
+            </div>
+
+            <div t-if="state.loading" class="o_mea_loading">
+                <i class="fa fa-spinner fa-spin"/> Loading…
+            </div>
+
+            <t t-elif="state.meter">
+                <div class="o_mea_panel">
+                    <div class="o_mea_meter_info">
+                        <div><strong>Owner:</strong> <t t-esc="state.meter.partner_name"/></div>
+                        <div><strong>Site:</strong> <t t-esc="state.meter.site_address"/></div>
+                        <div>
+                            <strong>Tariff:</strong>
+                            <t t-if="state.meter.tariff_id" t-esc="state.meter.tariff_id[1]"/>
+                            <span t-if="state.meter.is_tou" class="badge bg-primary ms-1">TOU</span>
+                            <span t-else="" class="badge bg-secondary ms-1">Flat</span>
+                        </div>
+                        <div t-if="state.meter.district"><strong>MEA District:</strong> <t t-esc="state.meter.district"/></div>
+                    </div>
+                </div>
+
+                <div class="o_mea_kpis">
+                    <MeaKpiCard
+                        title="'Last Month Total'"
+                        value="formatTHB(state.kpis.last_month_amount)"
+                        unit="'THB'"
+                        color="'purple'"
+                        icon="'fa-money'"/>
+                    <MeaKpiCard
+                        title="'Last Month kWh'"
+                        value="formatKwh(state.kpis.last_month_kwh)"
+                        unit="'kWh'"
+                        color="'teal'"
+                        icon="'fa-bolt'"/>
+                    <MeaKpiCard
+                        title="'Avg / Month'"
+                        value="formatTHB(state.kpis.avg_amount_12mo)"
+                        unit="'THB/mo'"
+                        color="'amber'"
+                        icon="'fa-chart-line'"/>
+                    <MeaKpiCard
+                        title="'Peak Demand (max)'"
+                        value="formatKwh(state.kpis.peak_demand)"
+                        unit="'kW'"
+                        color="'rose'"
+                        icon="'fa-tachometer'"/>
+                    <MeaKpiCard
+                        title="'Anomalies (all)'"
+                        value="state.kpis.anomaly_count"
+                        unit="'flagged'"
+                        color="'rose'"
+                        icon="'fa-exclamation-triangle'"/>
+                </div>
+
+                <div class="o_mea_grid">
+                    <div class="o_mea_panel">
+                        <div class="o_mea_panel_header">
+                            <h3>Monthly Usage</h3>
+                            <button class="btn btn-sm btn-outline-secondary"
+                                    t-on-click="() =&gt; this.toggleMetric()">
+                                <i class="fa fa-exchange me-1"/>
+                                <t t-esc="state.metric === 'amount' ? 'Show kWh' : 'Show THB'"/>
+                            </button>
+                        </div>
+                        <MeaUsageChart bills="state.bills" metric="state.metric"/>
+                    </div>
+
+                    <div class="o_mea_panel">
+                        <div class="o_mea_panel_header">
+                            <h3>Top Expensive Months</h3>
+                        </div>
+                        <div class="o_mea_table_wrap">
+                        <table class="o_mea_table table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Month</th>
+                                    <th class="text-end">kWh</th>
+                                    <th class="text-end">Amount (THB)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="state.topExpensive" t-as="b" t-key="b.id"
+                                    class="o_data_row" t-on-click="() =&gt; this.openBill(b.id)">
+                                    <td t-esc="b.billing_month"/>
+                                    <td class="text-end o_mea_num" t-esc="formatKwh(b.kwh_total)"/>
+                                    <td class="text-end o_mea_num fw-bold text-danger" t-esc="formatTHB(b.total_amount)"/>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="o_mea_grid">
+                    <div class="o_mea_panel">
+                        <div class="o_mea_panel_header">
+                            <h3>Top Heavy-Usage Months</h3>
+                        </div>
+                        <div class="o_mea_table_wrap">
+                        <table class="o_mea_table table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Month</th>
+                                    <th class="text-end">kWh</th>
+                                    <th class="text-end">On Peak</th>
+                                    <th class="text-end">Off Peak</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="state.topKwh" t-as="b" t-key="b.id"
+                                    class="o_data_row" t-on-click="() =&gt; this.openBill(b.id)">
+                                    <td t-esc="b.billing_month"/>
+                                    <td class="text-end o_mea_num fw-bold" t-esc="formatKwh(b.kwh_total)"/>
+                                    <td class="text-end o_mea_num" t-esc="b.kwh_on_peak ? formatKwh(b.kwh_on_peak) : '—'"/>
+                                    <td class="text-end o_mea_num" t-esc="b.kwh_off_peak ? formatKwh(b.kwh_off_peak) : '—'"/>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+
+                    <div class="o_mea_panel">
+                        <div class="o_mea_panel_header">
+                            <h3>Variance Distribution</h3>
+                        </div>
+                        <div class="o_mea_table_wrap">
+                        <table class="o_mea_table table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Month</th>
+                                    <th class="text-end">Actual</th>
+                                    <th class="text-end">Expected</th>
+                                    <th class="text-end">Var %</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="state.bills.slice(0, 5)" t-as="b" t-key="b.id"
+                                    class="o_data_row" t-on-click="() =&gt; this.openBill(b.id)">
+                                    <td t-esc="b.billing_month"/>
+                                    <td class="text-end o_mea_num" t-esc="formatTHB(b.total_amount)"/>
+                                    <td class="text-end o_mea_num" t-esc="formatTHB(b.expected_amount)"/>
+                                    <td class="text-end o_mea_num"
+                                        t-att-class="Math.abs(b.variance_pct || 0) &gt; 20 ? 'text-danger fw-bold' : ((b.variance_pct || 0) &gt; 0 ? 'text-warning' : 'text-success')">
+                                        <t t-esc="((b.variance_pct || 0) &gt;= 0 ? '+' : '') + (b.variance_pct || 0).toFixed(1)"/>%
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="o_mea_panel">
+                    <div class="o_mea_panel_header">
+                        <h3>Bills <small class="text-muted">(<t t-esc="state.bills.length"/> records)</small></h3>
+                        <span class="text-muted small">click row → open bill</span>
+                    </div>
+                    <div class="o_mea_table_wrap">
+                    <table class="o_mea_table table table-sm o_list_table">
+                        <thead>
+                            <tr>
+                                <th data-tooltip="Billing month — first day of the month (e.g. 2026-04-01 = April 2026).">Month <i class="fa fa-info-circle text-muted ms-1"/></th>
+                                <th class="text-end" data-tooltip="Energy consumed (kilowatt-hours). Formula: meter_curr − meter_prev.">kWh <i class="fa fa-info-circle text-muted ms-1"/></th>
+                                <th class="text-end" data-tooltip="Month-over-Month kWh change. Formula: (this − prev) ÷ prev × 100. Red = increase, green = decrease.">ΔkWh % <i class="fa fa-info-circle text-muted ms-1"/></th>
+                                <th class="text-end" data-tooltip="On-Peak kWh (TOU only) — Mon-Fri 09:00-22:00. Charged at 4.33 THB/kWh for tariff 3.2.3. '—' = Flat tariff.">On Peak <i class="fa fa-info-circle text-muted ms-1"/></th>
+                                <th class="text-end" data-tooltip="Off-Peak kWh (TOU only) — nights, weekends, holidays. 2.64 THB/kWh.">Off Peak <i class="fa fa-info-circle text-muted ms-1"/></th>
+                                <th class="text-end" data-tooltip="Highest 15-min on-peak demand (kW). Charge: demand × 210 THB/kW (TOU 3.2.3).">Demand kW <i class="fa fa-info-circle text-muted ms-1"/></th>
+                                <th class="text-end" data-tooltip="Ft (Fuel Tariff Adjustment) in THB/kWh. ERC publishes quarterly. Bill prints satang/kWh — divide by 100.">Ft (THB) <i class="fa fa-info-circle text-muted ms-1"/></th>
+                                <th class="text-end" data-tooltip="Actual amount billed by MEA (incl. VAT 7%). = 'รวมเงินที่ต้องชำระทั้งสิ้น' on printed bill.">Actual <i class="fa fa-info-circle text-muted ms-1"/></th>
+                                <th class="text-end" data-tooltip="Month-over-Month THB change. Formula: (this − prev) ÷ prev × 100. Red = bill up, green = down.">ΔTHB % <i class="fa fa-info-circle text-muted ms-1"/></th>
+                                <th class="text-end" data-tooltip="Predicted total from calculator. Formula: Energy + Demand + Service + Ft + VAT.">Expected <i class="fa fa-info-circle text-muted ms-1"/></th>
+                                <th class="text-end" data-tooltip="Variance %. Formula: (Actual − Expected) ÷ Expected × 100. |Var| > 20% → flagged anomaly.">Var % <i class="fa fa-info-circle text-muted ms-1"/></th>
+                                <th data-tooltip="Record state — draft / confirmed / anomaly / manual_review.">State <i class="fa fa-info-circle text-muted ms-1"/></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="state.bills" t-as="b" t-key="b.id"
+                                t-att-class="b.is_anomaly ? 'o_mea_row_anomaly o_data_row' : 'o_data_row'"
+                                t-on-click="() =&gt; this.openBill(b.id)">
+                                <td t-esc="b.billing_month"/>
+                                <td class="text-end o_mea_num" t-esc="formatKwh(b.kwh_total)"/>
+                                <td class="text-end o_mea_num"
+                                    t-att-class="b.mom_kwh_pct &gt; 0 ? 'text-danger' : (b.mom_kwh_pct &lt; 0 ? 'text-success' : 'text-muted')">
+                                    <t t-if="b.mom_kwh_pct != null">
+                                        <t t-esc="(b.mom_kwh_pct &gt;= 0 ? '+' : '') + b.mom_kwh_pct.toFixed(1)"/>%
+                                    </t>
+                                    <t t-else="">—</t>
+                                </td>
+                                <td class="text-end o_mea_num" t-esc="b.kwh_on_peak ? formatKwh(b.kwh_on_peak) : '—'"/>
+                                <td class="text-end o_mea_num" t-esc="b.kwh_off_peak ? formatKwh(b.kwh_off_peak) : '—'"/>
+                                <td class="text-end o_mea_num" t-esc="b.demand_on_peak ? formatKwh(b.demand_on_peak) : '—'"/>
+                                <td class="text-end o_mea_num" t-esc="(b.ft_rate || 0).toFixed(4)"/>
+                                <td class="text-end o_mea_num" t-esc="formatTHB(b.total_amount)"/>
+                                <td class="text-end o_mea_num"
+                                    t-att-class="b.mom_amount_pct &gt; 0 ? 'text-danger' : (b.mom_amount_pct &lt; 0 ? 'text-success' : 'text-muted')">
+                                    <t t-if="b.mom_amount_pct != null">
+                                        <t t-esc="(b.mom_amount_pct &gt;= 0 ? '+' : '') + b.mom_amount_pct.toFixed(1)"/>%
+                                    </t>
+                                    <t t-else="">—</t>
+                                </td>
+                                <td class="text-end o_mea_num" t-esc="formatTHB(b.expected_amount)"/>
+                                <td class="text-end o_mea_num"
+                                    t-att-class="Math.abs(b.variance_pct || 0) &gt; 20 ? 'text-danger fw-bold' : ((b.variance_pct || 0) &gt; 0 ? 'text-warning' : 'text-success')">
+                                    <t t-esc="((b.variance_pct || 0) &gt;= 0 ? '+' : '') + (b.variance_pct || 0).toFixed(1)"/>%
+                                </td>
+                                <td>
+                                    <span t-att-class="'badge o_mea_state o_mea_state--' + b.state"
+                                          t-esc="b.state"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </t>
+            </main>
+        </div>
+    </t>
+
+    <t t-name="kob_mea_billing.MeaDashboard">
+        <div class="o_action o_mea_dashboard o_content">
+            <!-- ─── Top tab navigation (replaces sidebar) ─── -->
+            <nav class="o_mea_tabs">
+                <div class="o_mea_tabs_left">
+                    <button class="o_mea_tab o_mea_tab_active">
+                        <i class="fa fa-th-large me-1"/>Overview
+                    </button>
+                    <button t-foreach="state.meters" t-as="m" t-key="m.id"
+                            class="o_mea_tab"
+                            t-on-click="() =&gt; this.openMeterDashboard(m.id)">
+                        <i class="fa fa-bolt me-1"/>
+                        <t t-esc="m.site_short"/>
+                    </button>
+                </div>
+                <div class="o_mea_tabs_right">
+                    <button class="btn btn-sm btn-light" t-on-click="() =&gt; this.openCalculator()" title="What-If Calculator">
+                        <i class="fa fa-calculator"/>
+                    </button>
+                    <button class="btn btn-sm btn-light" t-on-click="() =&gt; this.openImport()" title="Import PDF">
+                        <i class="fa fa-file-pdf-o"/>
+                    </button>
+                    <button class="btn btn-sm btn-light" t-on-click="() =&gt; this.openHistoryList()" title="All Bills">
+                        <i class="fa fa-list"/>
+                    </button>
+                </div>
+            </nav>
+
+            <!-- ─── Main content ─── -->
+            <main class="o_mea_main">
+                <div class="o_mea_topbar">
+                    <h1 class="o_mea_title">
+                        <i class="fa fa-bolt"/>MEA Billing
+                    </h1>
+                </div>
+
+                <div class="o_mea_filters">
+                    <div class="o_mea_filter_field">
+                        <select class="form-select form-select-sm"
+                                t-on-change="(ev) =&gt; this.setRange(parseInt(ev.target.value))">
+                            <option value="3" t-att-selected="state.range === 3">Last 3 Months</option>
+                            <option value="6" t-att-selected="state.range === 6">Last 6 Months</option>
+                            <option value="12" t-att-selected="state.range === 12">Last 12 Months</option>
+                            <option value="24" t-att-selected="state.range === 24">Last 24 Months</option>
+                            <option value="0" t-att-selected="state.range === 0">All Time</option>
+                        </select>
+                    </div>
+                    <div class="o_mea_filter_field">
+                        <select class="form-select form-select-sm"
+                                t-on-change="(ev) =&gt; this.setSiteFilter(ev.target.value)">
+                            <option value="">All Sites</option>
+                            <option t-foreach="state.meters" t-as="m" t-key="m.id"
+                                    t-att-value="m.site_short"
+                                    t-att-selected="state.siteFilter === m.site_short"
+                                    t-esc="m.site_short"/>
+                        </select>
+                    </div>
+                    <div class="o_mea_filter_field">
+                        <select class="form-select form-select-sm"
+                                t-on-change="(ev) =&gt; this.setStateFilter(ev.target.value)">
+                            <option value="">All States</option>
+                            <option value="draft" t-att-selected="state.stateFilter === 'draft'">Draft</option>
+                            <option value="confirmed" t-att-selected="state.stateFilter === 'confirmed'">Confirmed</option>
+                            <option value="anomaly" t-att-selected="state.stateFilter === 'anomaly'">Anomaly</option>
+                            <option value="manual_review" t-att-selected="state.stateFilter === 'manual_review'">Manual Review</option>
+                        </select>
+                    </div>
+                    <div class="o_mea_filter_field">
+                        <button t-att-class="'btn btn-sm ' + (state.anomalyOnly ? 'btn-danger' : 'btn-outline-secondary')"
+                                t-on-click="() =&gt; this.toggleAnomaly()">
+                            <i class="fa fa-exclamation-triangle me-1"/>
+                            <t t-if="state.anomalyOnly">Anomalies Only</t>
+                            <t t-else="">Show All</t>
+                        </button>
+                    </div>
+                </div>
+
+            <div t-if="state.loading" class="o_mea_loading">
+                <i class="fa fa-spinner fa-spin"/> Loading…
+            </div>
+
+            <t t-else="">
+                <div class="o_mea_kpis">
+                    <MeaKpiCard
+                        title="'Latest Month Total'"
+                        value="formatTHB(state.kpis.total_amount)"
+                        unit="'THB'"
+                        color="'purple'"
+                        icon="'fa-money'"/>
+                    <MeaKpiCard
+                        title="'Latest Month kWh'"
+                        value="formatKwh(state.kpis.total_kwh)"
+                        unit="'kWh'"
+                        color="'teal'"
+                        icon="'fa-bolt'"/>
+                    <MeaKpiCard
+                        title="'Current Ft'"
+                        value="state.kpis.ft_current.toFixed(2)"
+                        unit="'stang/kWh'"
+                        color="'amber'"
+                        icon="'fa-line-chart'"/>
+                    <MeaKpiCard
+                        title="'Anomalies (all)'"
+                        value="state.kpis.anomaly_count"
+                        unit="'flagged'"
+                        color="'rose'"
+                        icon="'fa-exclamation-triangle'"/>
+                    <MeaKpiCard
+                        title="'Active Meters'"
+                        value="state.kpis.meter_count"
+                        unit="'sites'"
+                        color="'purple'"
+                        icon="'fa-tachometer'"/>
+                </div>
+
+                <div class="o_mea_grid">
+                    <div class="o_mea_panel">
+                        <div class="o_mea_panel_header">
+                            <h3>Ft History (ERC published)</h3>
+                        </div>
+                        <MeaFtChart periods="state.ftPeriods"/>
+                    </div>
+
+                    <div class="o_mea_panel">
+                        <div class="o_mea_panel_header">
+                            <h3>12-Month Usage by Site</h3>
+                            <button class="btn btn-sm btn-outline-secondary"
+                                    t-on-click="() =&gt; this.toggleMetric()">
+                                <i class="fa fa-exchange me-1"/>
+                                <t t-esc="state.metric === 'amount' ? 'Show kWh' : 'Show THB'"/>
+                            </button>
+                        </div>
+                        <MeaUsageChart bills="state.bills" metric="state.metric"/>
+                    </div>
+                </div>
+
+                <div class="o_mea_panel">
+                    <div class="o_mea_panel_header">
+                        <h3>Recent Bills <small class="text-muted">(<t t-esc="state.bills.length"/> records, last 12 months)</small></h3>
+                        <span class="text-muted small">click row → open bill</span>
+                    </div>
+                    <div class="o_mea_table_wrap">
+                        <table class="o_mea_table table table-sm o_list_table">
+                            <thead>
+                                <tr>
+                                    <th data-tooltip="Billing month — first day of the month (e.g. 2026-04-01 = April 2026).">Month <i class="fa fa-info-circle text-muted ms-1"/></th>
+                                    <th data-tooltip="Site short code (e.g. KOB-HQ, BTV-110/3). Identifier across UI + charts.">Site <i class="fa fa-info-circle text-muted ms-1"/></th>
+                                    <th class="text-end" data-tooltip="Energy consumed (kilowatt-hours). 1 kWh = 1,000 watts running for 1 hour.">kWh <i class="fa fa-info-circle text-muted ms-1"/></th>
+                                    <th class="text-end" data-tooltip="Month-over-Month kWh change. Formula: (this_kWh − prev_kWh) ÷ prev_kWh × 100. Red = up, green = down.">ΔkWh % <i class="fa fa-info-circle text-muted ms-1"/></th>
+                                    <th class="text-end" data-tooltip="Actual amount billed by MEA (incl. VAT 7%). Equals 'รวมเงินที่ต้องชำระทั้งสิ้น' on the printed bill.">Actual <i class="fa fa-info-circle text-muted ms-1"/></th>
+                                    <th class="text-end" data-tooltip="Month-over-Month THB change. Formula: (this − prev) ÷ prev × 100. Red = bill up, green = down.">ΔTHB % <i class="fa fa-info-circle text-muted ms-1"/></th>
+                                    <th class="text-end" data-tooltip="Predicted total from calculator. Formula: Energy + Demand + Service + Ft + VAT. TOU: on×peak_rate + off×off_peak_rate. Flat: progressive tier sum.">Expected <i class="fa fa-info-circle text-muted ms-1"/></th>
+                                    <th class="text-end" data-tooltip="Variance % between Actual and Expected. Formula: (Actual − Expected) ÷ Expected × 100. |Variance| > 20% → flagged as anomaly.">Variance % <i class="fa fa-info-circle text-muted ms-1"/></th>
+                                    <th data-tooltip="Record state — draft / confirmed / anomaly / manual_review.">State <i class="fa fa-info-circle text-muted ms-1"/></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="state.bills" t-as="b" t-key="b.id"
+                                    t-att-class="b.is_anomaly ? 'o_mea_row_anomaly o_data_row' : 'o_data_row'"
+                                    t-on-click="() =&gt; this.openBill(b.id)">
+                                    <td t-esc="b.billing_month"/>
+                                    <td t-esc="b.site_short"/>
+                                    <td class="text-end o_mea_num" t-esc="formatKwh(b.kwh_total)"/>
+                                    <td class="text-end o_mea_num"
+                                        t-att-class="b.mom_kwh_pct &gt; 0 ? 'text-danger' : (b.mom_kwh_pct &lt; 0 ? 'text-success' : 'text-muted')">
+                                        <t t-if="b.mom_kwh_pct != null">
+                                            <t t-esc="(b.mom_kwh_pct &gt;= 0 ? '+' : '') + b.mom_kwh_pct.toFixed(1)"/>%
+                                        </t>
+                                        <t t-else="">—</t>
+                                    </td>
+                                    <td class="text-end o_mea_num" t-esc="formatTHB(b.total_amount)"/>
+                                    <td class="text-end o_mea_num"
+                                        t-att-class="b.mom_amount_pct &gt; 0 ? 'text-danger' : (b.mom_amount_pct &lt; 0 ? 'text-success' : 'text-muted')">
+                                        <t t-if="b.mom_amount_pct != null">
+                                            <t t-esc="(b.mom_amount_pct &gt;= 0 ? '+' : '') + b.mom_amount_pct.toFixed(1)"/>%
+                                        </t>
+                                        <t t-else="">—</t>
+                                    </td>
+                                    <td class="text-end o_mea_num" t-esc="formatTHB(b.expected_amount)"/>
+                                    <td class="text-end o_mea_num"
+                                        t-att-class="Math.abs(b.variance_pct) &gt; 20 ? 'text-danger fw-bold' : (b.variance_pct &gt; 0 ? 'text-warning' : 'text-success')">
+                                        <t t-esc="(b.variance_pct &gt;= 0 ? '+' : '') + b.variance_pct.toFixed(1)"/>%
+                                    </td>
+                                    <td>
+                                        <span t-att-class="'badge o_mea_state o_mea_state--' + b.state"
+                                              t-esc="b.state"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </t>
+            </main>
+        </div>
+    </t>
+</templates>
