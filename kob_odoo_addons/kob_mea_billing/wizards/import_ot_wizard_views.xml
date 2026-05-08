@@ -4,16 +4,18 @@
         <field name="name">mea.ot.import.wizard.form</field>
         <field name="model">mea.ot.import.wizard</field>
         <field name="arch" type="xml">
-            <form string="Import OT Hours (Online Team)">
+            <form string="Import OT Hours">
                 <sheet>
                     <div class="alert alert-info" role="alert">
                         Upload <b>OT 69.xlsx</b> (HR overtime export, one sheet
                         per month: <i>JAN 2026, FEB2026, …</i>).
                         Standard work hours <b>08:00–17:00</b>; OT = work outside
-                        this window. Departments matching <b>Online</b>,
-                        <b>Admin online</b>, <b>Online officer</b>, or
-                        <b>Senior online</b> are aggregated and written to the
-                        matching <i>mea.bill.history</i> records.
+                        this window. Default filter aggregates departments
+                        matching <b>Online</b>, <b>Admin online</b>,
+                        <b>Online officer</b>, <b>Senior online</b>; adapt the
+                        wizard model for non-online warehouses by extending
+                        <code>ONLINE_KEYWORDS</code> in
+                        <code>import_ot_wizard.py</code>.
                     </div>
                     <group>
                         <group string="Source">

@@ -181,24 +181,24 @@ class MeaBillHistory(models.Model):
 
     # ---------- Throughput linkage (online warehouses operating at this site) ----------
     order_qty_btv_wh2 = fields.Integer(
-        string="BTV-WH2 Online Orders",
+        string="BTV-WH2 Orders",
         tracking=True,
-        help="Quantity of units shipped via 'BTV-WH2 (Online): Delivery Orders' "
+        help="Quantity of units shipped via 'BTV-WH2 Delivery Orders' "
              "during this billing month. Imported from stock.move xlsx export. "
-             "Relevant for sites where BTV online warehouse physically operates "
+             "Relevant for sites where BTV warehouse physically operates "
              "(e.g. KK-16 hub).",
     )
     order_qty_kob_wh2 = fields.Integer(
-        string="KOB-WH2 Online Orders",
+        string="KOB-WH2 Orders",
         tracking=True,
-        help="Quantity of units shipped via 'KOB-WH2 (Online): Delivery Orders' "
+        help="Quantity of units shipped via 'KOB-WH2 Delivery Orders' "
              "during this billing month. Imported from stock.move xlsx export.",
     )
     order_qty_total = fields.Integer(
-        string="Total Online Orders",
+        string="Total Orders",
         compute="_compute_order_qty_total",
         store=True,
-        help="Sum of BTV-WH2 + KOB-WH2 online delivery orders for the month. "
+        help="Sum of BTV-WH2 + KOB-WH2 delivery orders for the month. "
              "Used to compute kWh-per-order and cost-per-order metrics.",
     )
     is_throughput_outlier = fields.Boolean(
@@ -237,17 +237,17 @@ class MeaBillHistory(models.Model):
     # or before 08:00, weekends). Helps explain elevated off_peak kWh and
     # suggests scheduling moves to flatten demand.
     ot_hours_online = fields.Float(
-        string="OT Hours (Online Team)",
+        string="OT Hours",
         digits=(10, 2),
         tracking=True,
-        help="Total overtime hours logged by Online-related departments "
-             "(Admin online, Online officer, Senior online, Online) for this "
-             "billing month. Imported from HR OT export (OT 69.xlsx).",
+        help="Total overtime hours logged by warehouse staff for this "
+             "billing month. Imported from HR OT export (OT 69.xlsx). "
+             "Default import filters Online-team departments; configurable "
+             "per site for non-online warehouses.",
     )
     ot_employee_count = fields.Integer(
-        string="OT Employees (Online)",
-        help="Distinct number of Online-team employees who logged any OT "
-             "during the month.",
+        string="OT Employees",
+        help="Distinct number of employees who logged any OT during the month.",
     )
     kwh_per_ot_hour = fields.Float(
         string="kWh / OT Hour",

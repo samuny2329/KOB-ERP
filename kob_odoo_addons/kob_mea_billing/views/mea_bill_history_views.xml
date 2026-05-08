@@ -109,7 +109,7 @@
                         </group>
                     </group>
                     <group>
-                        <group string="Throughput (Online Orders)">
+                        <group string="Throughput (Delivery Orders)">
                             <field name="order_qty_btv_wh2"/>
                             <field name="order_qty_kob_wh2"/>
                             <field name="order_qty_total" readonly="1"/>
@@ -122,7 +122,7 @@
                         </group>
                     </group>
                     <group>
-                        <group string="OT (Online Team — outside 08:00–17:00)">
+                        <group string="OT (outside 08:00–17:00)">
                             <field name="ot_hours_online"/>
                             <field name="ot_employee_count"/>
                         </group>
@@ -190,7 +190,7 @@
         <field name="name">mea.bill.history.graph</field>
         <field name="model">mea.bill.history</field>
         <field name="arch" type="xml">
-            <graph string="kWh vs Online Orders vs OT" type="bar" stacked="0">
+            <graph string="kWh vs Orders vs OT" type="bar" stacked="0">
                 <field name="billing_month" interval="month"/>
                 <field name="site_short"/>
                 <field name="kwh_total" type="measure"/>
