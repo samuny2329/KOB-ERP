@@ -1,193 +1,43 @@
 {
-  "version": "18.5.10",
+  "version": 19,
   "sheets": [
     {
-      "id": "sheet-b7ec015b",
+      "id": "sh_count_adj",
       "name": "Count Adjustments",
-      "isVisible": true,
-      "areGridLinesVisible": true,
-      "rowNumber": 60,
       "colNumber": 10,
-      "rows": {},
-      "cols": {},
+      "rowNumber": 60,
+      "rows": {
+        "0": {
+          "size": 32
+        },
+        "1": {
+          "size": 10
+        }
+      },
+      "cols": {
+        "0": {
+          "size": 30
+        }
+      },
       "merges": [
         "B1:I1"
       ],
       "cells": {
-        "B1": "Count Adjustments",
-        "A22": "Top Variance Products",
-        "E22": "Top Variance Locations",
-        "A23": "=IFERROR(ODOO.LIST.HEADER(1,\"product_id\"),\"\")",
-        "B23": "=IFERROR(ODOO.LIST.HEADER(1,\"variance_qty\"),\"\")",
-        "C23": "=IFERROR(ODOO.LIST.HEADER(1,\"variance_pct\"),\"\")",
-        "D23": "=IFERROR(ODOO.LIST.HEADER(1,\"state\"),\"\")",
-        "A24": "=IFERROR(ODOO.LIST(1,1,\"product_id\"),\"\")",
-        "B24": "=IFERROR(ODOO.LIST(1,1,\"variance_qty\"),\"\")",
-        "C24": "=IFERROR(ODOO.LIST(1,1,\"variance_pct\"),\"\")",
-        "D24": "=IFERROR(ODOO.LIST(1,1,\"state\"),\"\")",
-        "A25": "=IFERROR(ODOO.LIST(1,2,\"product_id\"),\"\")",
-        "B25": "=IFERROR(ODOO.LIST(1,2,\"variance_qty\"),\"\")",
-        "C25": "=IFERROR(ODOO.LIST(1,2,\"variance_pct\"),\"\")",
-        "D25": "=IFERROR(ODOO.LIST(1,2,\"state\"),\"\")",
-        "A26": "=IFERROR(ODOO.LIST(1,3,\"product_id\"),\"\")",
-        "B26": "=IFERROR(ODOO.LIST(1,3,\"variance_qty\"),\"\")",
-        "C26": "=IFERROR(ODOO.LIST(1,3,\"variance_pct\"),\"\")",
-        "D26": "=IFERROR(ODOO.LIST(1,3,\"state\"),\"\")",
-        "A27": "=IFERROR(ODOO.LIST(1,4,\"product_id\"),\"\")",
-        "B27": "=IFERROR(ODOO.LIST(1,4,\"variance_qty\"),\"\")",
-        "C27": "=IFERROR(ODOO.LIST(1,4,\"variance_pct\"),\"\")",
-        "D27": "=IFERROR(ODOO.LIST(1,4,\"state\"),\"\")",
-        "A28": "=IFERROR(ODOO.LIST(1,5,\"product_id\"),\"\")",
-        "B28": "=IFERROR(ODOO.LIST(1,5,\"variance_qty\"),\"\")",
-        "C28": "=IFERROR(ODOO.LIST(1,5,\"variance_pct\"),\"\")",
-        "D28": "=IFERROR(ODOO.LIST(1,5,\"state\"),\"\")",
-        "A29": "=IFERROR(ODOO.LIST(1,6,\"product_id\"),\"\")",
-        "B29": "=IFERROR(ODOO.LIST(1,6,\"variance_qty\"),\"\")",
-        "C29": "=IFERROR(ODOO.LIST(1,6,\"variance_pct\"),\"\")",
-        "D29": "=IFERROR(ODOO.LIST(1,6,\"state\"),\"\")",
-        "A30": "=IFERROR(ODOO.LIST(1,7,\"product_id\"),\"\")",
-        "B30": "=IFERROR(ODOO.LIST(1,7,\"variance_qty\"),\"\")",
-        "C30": "=IFERROR(ODOO.LIST(1,7,\"variance_pct\"),\"\")",
-        "D30": "=IFERROR(ODOO.LIST(1,7,\"state\"),\"\")",
-        "A31": "=IFERROR(ODOO.LIST(1,8,\"product_id\"),\"\")",
-        "B31": "=IFERROR(ODOO.LIST(1,8,\"variance_qty\"),\"\")",
-        "C31": "=IFERROR(ODOO.LIST(1,8,\"variance_pct\"),\"\")",
-        "D31": "=IFERROR(ODOO.LIST(1,8,\"state\"),\"\")",
-        "A32": "=IFERROR(ODOO.LIST(1,9,\"product_id\"),\"\")",
-        "B32": "=IFERROR(ODOO.LIST(1,9,\"variance_qty\"),\"\")",
-        "C32": "=IFERROR(ODOO.LIST(1,9,\"variance_pct\"),\"\")",
-        "D32": "=IFERROR(ODOO.LIST(1,9,\"state\"),\"\")",
-        "A33": "=IFERROR(ODOO.LIST(1,10,\"product_id\"),\"\")",
-        "B33": "=IFERROR(ODOO.LIST(1,10,\"variance_qty\"),\"\")",
-        "C33": "=IFERROR(ODOO.LIST(1,10,\"variance_pct\"),\"\")",
-        "D33": "=IFERROR(ODOO.LIST(1,10,\"state\"),\"\")",
-        "E23": "=IFERROR(ODOO.LIST.HEADER(2,\"location_id\"),\"\")",
-        "F23": "=IFERROR(ODOO.LIST.HEADER(2,\"variance_qty\"),\"\")",
-        "G23": "=IFERROR(ODOO.LIST.HEADER(2,\"state\"),\"\")",
-        "E24": "=IFERROR(ODOO.LIST(2,1,\"location_id\"),\"\")",
-        "F24": "=IFERROR(ODOO.LIST(2,1,\"variance_qty\"),\"\")",
-        "G24": "=IFERROR(ODOO.LIST(2,1,\"state\"),\"\")",
-        "E25": "=IFERROR(ODOO.LIST(2,2,\"location_id\"),\"\")",
-        "F25": "=IFERROR(ODOO.LIST(2,2,\"variance_qty\"),\"\")",
-        "G25": "=IFERROR(ODOO.LIST(2,2,\"state\"),\"\")",
-        "E26": "=IFERROR(ODOO.LIST(2,3,\"location_id\"),\"\")",
-        "F26": "=IFERROR(ODOO.LIST(2,3,\"variance_qty\"),\"\")",
-        "G26": "=IFERROR(ODOO.LIST(2,3,\"state\"),\"\")",
-        "E27": "=IFERROR(ODOO.LIST(2,4,\"location_id\"),\"\")",
-        "F27": "=IFERROR(ODOO.LIST(2,4,\"variance_qty\"),\"\")",
-        "G27": "=IFERROR(ODOO.LIST(2,4,\"state\"),\"\")",
-        "E28": "=IFERROR(ODOO.LIST(2,5,\"location_id\"),\"\")",
-        "F28": "=IFERROR(ODOO.LIST(2,5,\"variance_qty\"),\"\")",
-        "G28": "=IFERROR(ODOO.LIST(2,5,\"state\"),\"\")",
-        "E29": "=IFERROR(ODOO.LIST(2,6,\"location_id\"),\"\")",
-        "F29": "=IFERROR(ODOO.LIST(2,6,\"variance_qty\"),\"\")",
-        "G29": "=IFERROR(ODOO.LIST(2,6,\"state\"),\"\")",
-        "E30": "=IFERROR(ODOO.LIST(2,7,\"location_id\"),\"\")",
-        "F30": "=IFERROR(ODOO.LIST(2,7,\"variance_qty\"),\"\")",
-        "G30": "=IFERROR(ODOO.LIST(2,7,\"state\"),\"\")",
-        "E31": "=IFERROR(ODOO.LIST(2,8,\"location_id\"),\"\")",
-        "F31": "=IFERROR(ODOO.LIST(2,8,\"variance_qty\"),\"\")",
-        "G31": "=IFERROR(ODOO.LIST(2,8,\"state\"),\"\")",
-        "E32": "=IFERROR(ODOO.LIST(2,9,\"location_id\"),\"\")",
-        "F32": "=IFERROR(ODOO.LIST(2,9,\"variance_qty\"),\"\")",
-        "G32": "=IFERROR(ODOO.LIST(2,9,\"state\"),\"\")",
-        "E33": "=IFERROR(ODOO.LIST(2,10,\"location_id\"),\"\")",
-        "F33": "=IFERROR(ODOO.LIST(2,10,\"variance_qty\"),\"\")",
-        "G33": "=IFERROR(ODOO.LIST(2,10,\"state\"),\"\")"
-      },
-      "borders": {},
-      "comments": {},
-      "formats": {},
-      "styles": {
-        "B1": 1,
-        "A22": 1,
-        "E22": 1,
-        "A23": 2,
-        "B23": 2,
-        "C23": 2,
-        "D23": 2,
-        "A24": 3,
-        "B24": 3,
-        "C24": 3,
-        "D24": 3,
-        "A25": 3,
-        "B25": 3,
-        "C25": 3,
-        "D25": 3,
-        "A26": 3,
-        "B26": 3,
-        "C26": 3,
-        "D26": 3,
-        "A27": 3,
-        "B27": 3,
-        "C27": 3,
-        "D27": 3,
-        "A28": 3,
-        "B28": 3,
-        "C28": 3,
-        "D28": 3,
-        "A29": 3,
-        "B29": 3,
-        "C29": 3,
-        "D29": 3,
-        "A30": 3,
-        "B30": 3,
-        "C30": 3,
-        "D30": 3,
-        "A31": 3,
-        "B31": 3,
-        "C31": 3,
-        "D31": 3,
-        "A32": 3,
-        "B32": 3,
-        "C32": 3,
-        "D32": 3,
-        "A33": 3,
-        "B33": 3,
-        "C33": 3,
-        "D33": 3,
-        "E23": 2,
-        "F23": 2,
-        "G23": 2,
-        "E24": 3,
-        "F24": 3,
-        "G24": 3,
-        "E25": 3,
-        "F25": 3,
-        "G25": 3,
-        "E26": 3,
-        "F26": 3,
-        "G26": 3,
-        "E27": 3,
-        "F27": 3,
-        "G27": 3,
-        "E28": 3,
-        "F28": 3,
-        "G28": 3,
-        "E29": 3,
-        "F29": 3,
-        "G29": 3,
-        "E30": 3,
-        "F30": 3,
-        "G30": 3,
-        "E31": 3,
-        "F31": 3,
-        "G31": 3,
-        "E32": 3,
-        "F32": 3,
-        "G32": 3,
-        "E33": 3,
-        "F33": 3,
-        "G33": 3
+        "B1": {
+          "content": "KOB WMS — Inventory Count Adjustments"
+        }
       },
       "conditionalFormats": [],
       "figures": [
         {
-          "id": "ca-bar-state-f64d653b",
-          "width": 900,
+          "id": "cnt-pie-adj-state",
+          "x": 18,
+          "y": 60,
+          "width": 465,
           "height": 340,
           "tag": "chart",
           "data": {
+            "type": "odoo_pie",
             "title": {
               "text": "Adjustments by State"
             },
@@ -198,96 +48,139 @@
                 "state"
               ],
               "measure": "__count",
-              "order": "DESC",
+              "order": null,
               "resModel": "wms.count.adjustment",
-              "mode": "bar",
-              "cumulatedStart": false
+              "mode": "pie"
             },
             "searchParams": {
               "comparison": null,
-              "context": {
-                "group_by": []
-              },
+              "context": {},
               "domain": [],
               "groupBy": [
                 "state"
               ],
               "orderBy": []
             },
-            "type": "odoo_bar",
-            "dataSets": [
-              {}
-            ],
-            "verticalAxisPosition": "left",
-            "stacked": false,
-            "cumulatedStart": false,
-            "axesDesign": {},
-            "chartId": "ca-bar-state-f64d653b"
-          },
-          "col": 0,
-          "row": 0,
-          "offset": {
-            "x": 18,
-            "y": 171
+            "fieldMatching": {
+              "gf_count_date": {
+                "chain": "create_date",
+                "type": "datetime"
+              }
+            }
           }
         },
         {
-          "id": "ca-pie-session-41710980",
-          "width": 460,
+          "id": "cnt-bar-variance-product",
+          "x": 503,
+          "y": 60,
+          "width": 465,
           "height": 340,
           "tag": "chart",
           "data": {
+            "type": "odoo_bar",
             "title": {
-              "text": "Sessions by State"
+              "text": "Total Variance by Product"
             },
             "background": "#FFFFFF",
-            "legendPosition": "right",
+            "legendPosition": "none",
             "metaData": {
               "groupBy": [
-                "state"
+                "product_id"
+              ],
+              "measure": "variance_qty",
+              "order": "DESC",
+              "resModel": "wms.count.adjustment",
+              "mode": "bar"
+            },
+            "searchParams": {
+              "comparison": null,
+              "context": {},
+              "domain": [
+                [
+                  "variance_qty",
+                  "!=",
+                  0
+                ],
+                [
+                  "state",
+                  "!=",
+                  "rejected"
+                ]
+              ],
+              "groupBy": [
+                "product_id"
+              ],
+              "orderBy": []
+            },
+            "fieldMatching": {
+              "gf_count_date": {
+                "chain": "create_date",
+                "type": "datetime"
+              }
+            },
+            "verticalAxisPosition": "left",
+            "stacked": false
+          }
+        },
+        {
+          "id": "cnt-bar-adj-location",
+          "x": 18,
+          "y": 420,
+          "width": 465,
+          "height": 340,
+          "tag": "chart",
+          "data": {
+            "type": "odoo_bar",
+            "title": {
+              "text": "Adjustments by Location"
+            },
+            "background": "#FFFFFF",
+            "legendPosition": "top",
+            "metaData": {
+              "groupBy": [
+                "location_id"
               ],
               "measure": "__count",
               "order": "DESC",
-              "resModel": "wms.count.session",
-              "mode": "pie",
-              "cumulatedStart": false
+              "resModel": "wms.count.adjustment",
+              "mode": "bar"
             },
             "searchParams": {
               "comparison": null,
-              "context": {
-                "group_by": []
-              },
-              "domain": [],
+              "context": {},
+              "domain": [
+                [
+                  "state",
+                  "!=",
+                  "rejected"
+                ]
+              ],
               "groupBy": [
-                "state"
+                "location_id"
               ],
               "orderBy": []
             },
-            "type": "odoo_pie",
-            "dataSets": [
-              {}
-            ],
+            "fieldMatching": {
+              "gf_count_date": {
+                "chain": "create_date",
+                "type": "datetime"
+              }
+            },
             "verticalAxisPosition": "left",
-            "stacked": false,
-            "cumulatedStart": false,
-            "axesDesign": {},
-            "chartId": "ca-pie-session-41710980"
-          },
-          "col": 0,
-          "row": 0,
-          "offset": {
-            "x": 18,
-            "y": 800
+            "stacked": false
           }
         },
         {
-          "id": "ca-bar-sessiontype-41b96b52",
-          "width": 460,
+          "id": "cnt-pie-session-type",
+          "x": 503,
+          "y": 420,
+          "width": 465,
           "height": 340,
           "tag": "chart",
           "data": {
+            "type": "odoo_pie",
             "title": {
-              "text": "Sessions by Type — Done Tasks"
+              "text": "Count Sessions by Type"
             },
             "background": "#FFFFFF",
             "legendPosition": "right",
@@ -295,74 +188,91 @@
               "groupBy": [
                 "session_type"
               ],
-              "measure": "done_count",
-              "order": "DESC",
+              "measure": "__count",
+              "order": null,
               "resModel": "wms.count.session",
-              "mode": "bar",
-              "cumulatedStart": false
+              "mode": "pie"
             },
             "searchParams": {
               "comparison": null,
-              "context": {
-                "group_by": []
-              },
+              "context": {},
               "domain": [],
               "groupBy": [
                 "session_type"
               ],
               "orderBy": []
             },
-            "type": "odoo_bar",
-            "dataSets": [
-              {}
-            ],
+            "fieldMatching": {
+              "gf_count_date": {
+                "chain": "create_date",
+                "type": "datetime"
+              }
+            }
+          }
+        },
+        {
+          "id": "cnt-line-daily-adj",
+          "x": 18,
+          "y": 780,
+          "width": 950,
+          "height": 360,
+          "tag": "chart",
+          "data": {
+            "type": "odoo_line",
+            "title": {
+              "text": "Daily Adjustments Created"
+            },
+            "background": "#FFFFFF",
+            "legendPosition": "top",
+            "metaData": {
+              "groupBy": [
+                "create_date:day"
+              ],
+              "measure": "__count",
+              "order": null,
+              "resModel": "wms.count.adjustment",
+              "mode": "line"
+            },
+            "searchParams": {
+              "comparison": null,
+              "context": {},
+              "domain": [],
+              "groupBy": [
+                "create_date:day"
+              ],
+              "orderBy": []
+            },
+            "fieldMatching": {
+              "gf_count_date": {
+                "chain": "create_date",
+                "type": "datetime"
+              }
+            },
             "verticalAxisPosition": "left",
             "stacked": false,
-            "cumulatedStart": false,
-            "axesDesign": {},
-            "chartId": "ca-bar-sessiontype-41b96b52"
-          },
-          "col": 0,
-          "row": 0,
-          "offset": {
-            "x": 488,
-            "y": 800
+            "cumulative": false
           }
         }
       ],
-      "tables": [],
-      "headerGroups": {
-        "ROW": [],
-        "COL": []
-      },
-      "dataValidationRules": []
+      "areGridLinesVisible": false,
+      "isVisible": true
     }
   ],
   "styles": {
     "1": {
       "bold": true,
-      "fontSize": 16,
-      "textColor": "#01666b",
-      "align": "left"
-    },
-    "2": {
-      "bold": true,
-      "textColor": "#434343",
-      "fontSize": 11
-    },
-    "3": {
-      "textColor": "#01666B"
+      "fontSize": 18,
+      "textColor": "#111827",
+      "fillColor": "#F9FAFB"
     }
   },
   "formats": {},
   "borders": {},
-  "customTableStyles": {},
   "revisionId": "START_REVISION",
-  "uniqueFigureIds": true,
   "settings": {
     "locale": {
-      "name": "English (US)",
-      "code": "en_US",
+      "name": "Thai (Thailand)",
+      "code": "th_TH",
       "thousandsSeparator": ",",
       "decimalSeparator": ".",
       "weekStart": 7,
@@ -372,76 +282,11 @@
   },
   "pivots": {},
   "pivotNextId": 1,
-  "lists": {
-    "1": {
-      "id": "1",
-      "name": "Top Variance Products",
-      "model": "wms.count.adjustment",
-      "columns": [
-        "product_id",
-        "variance_qty",
-        "variance_pct",
-        "state"
-      ],
-      "domain": [
-        [
-          "variance_qty",
-          "!=",
-          0
-        ]
-      ],
-      "context": {},
-      "orderBy": [
-        {
-          "name": "variance_qty",
-          "asc": false
-        }
-      ],
-      "fieldMatching": {
-        "gf_ca_date": {
-          "chain": "verified_date",
-          "type": "datetime",
-          "offset": 0
-        }
-      }
-    },
-    "2": {
-      "id": "2",
-      "name": "Top Variance Locations",
-      "model": "wms.count.adjustment",
-      "columns": [
-        "location_id",
-        "variance_qty",
-        "state"
-      ],
-      "domain": [
-        [
-          "variance_qty",
-          "!=",
-          0
-        ]
-      ],
-      "context": {},
-      "orderBy": [
-        {
-          "name": "variance_qty",
-          "asc": false
-        }
-      ],
-      "fieldMatching": {
-        "gf_ca_date": {
-          "chain": "verified_date",
-          "type": "datetime",
-          "offset": 0
-        }
-      }
-    }
-  },
-  "listNextId": 3,
-  "chartOdooMenusReferences": {},
+  "lists": {},
+  "listNextId": 1,
   "globalFilters": [
     {
-      "id": "gf_ca_date",
+      "id": "gf_count_date",
       "type": "date",
       "label": "Date Range",
       "rangeType": "month",

@@ -1,220 +1,140 @@
 {
-  "version": "18.5.10",
+  "version": 19,
   "sheets": [
     {
-      "id": "sheet-40d114d1",
+      "id": "sh_wms_kpi",
       "name": "KPI Performance",
-      "isVisible": true,
-      "areGridLinesVisible": true,
-      "rowNumber": 60,
       "colNumber": 10,
-      "rows": {},
-      "cols": {},
+      "rowNumber": 60,
+      "rows": {
+        "0": {
+          "size": 32
+        },
+        "1": {
+          "size": 10
+        }
+      },
+      "cols": {
+        "0": {
+          "size": 30
+        }
+      },
       "merges": [
         "B1:I1"
       ],
       "cells": {
-        "B1": "KPI Performance",
-        "A22": "Top Pickers",
-        "E22": "Top Packers",
-        "A23": "=IFERROR(ODOO.LIST.HEADER(1,\"kob_user_id\"),\"\")",
-        "B23": "=IFERROR(ODOO.LIST.HEADER(1,\"pick_count\"),\"\")",
-        "C23": "=IFERROR(ODOO.LIST.HEADER(1,\"uph\"),\"\")",
-        "D23": "=IFERROR(ODOO.LIST.HEADER(1,\"error_rate\"),\"\")",
-        "A24": "=IFERROR(ODOO.LIST(1,1,\"kob_user_id\"),\"\")",
-        "B24": "=IFERROR(ODOO.LIST(1,1,\"pick_count\"),\"\")",
-        "C24": "=IFERROR(ODOO.LIST(1,1,\"uph\"),\"\")",
-        "D24": "=IFERROR(ODOO.LIST(1,1,\"error_rate\"),\"\")",
-        "A25": "=IFERROR(ODOO.LIST(1,2,\"kob_user_id\"),\"\")",
-        "B25": "=IFERROR(ODOO.LIST(1,2,\"pick_count\"),\"\")",
-        "C25": "=IFERROR(ODOO.LIST(1,2,\"uph\"),\"\")",
-        "D25": "=IFERROR(ODOO.LIST(1,2,\"error_rate\"),\"\")",
-        "A26": "=IFERROR(ODOO.LIST(1,3,\"kob_user_id\"),\"\")",
-        "B26": "=IFERROR(ODOO.LIST(1,3,\"pick_count\"),\"\")",
-        "C26": "=IFERROR(ODOO.LIST(1,3,\"uph\"),\"\")",
-        "D26": "=IFERROR(ODOO.LIST(1,3,\"error_rate\"),\"\")",
-        "A27": "=IFERROR(ODOO.LIST(1,4,\"kob_user_id\"),\"\")",
-        "B27": "=IFERROR(ODOO.LIST(1,4,\"pick_count\"),\"\")",
-        "C27": "=IFERROR(ODOO.LIST(1,4,\"uph\"),\"\")",
-        "D27": "=IFERROR(ODOO.LIST(1,4,\"error_rate\"),\"\")",
-        "A28": "=IFERROR(ODOO.LIST(1,5,\"kob_user_id\"),\"\")",
-        "B28": "=IFERROR(ODOO.LIST(1,5,\"pick_count\"),\"\")",
-        "C28": "=IFERROR(ODOO.LIST(1,5,\"uph\"),\"\")",
-        "D28": "=IFERROR(ODOO.LIST(1,5,\"error_rate\"),\"\")",
-        "A29": "=IFERROR(ODOO.LIST(1,6,\"kob_user_id\"),\"\")",
-        "B29": "=IFERROR(ODOO.LIST(1,6,\"pick_count\"),\"\")",
-        "C29": "=IFERROR(ODOO.LIST(1,6,\"uph\"),\"\")",
-        "D29": "=IFERROR(ODOO.LIST(1,6,\"error_rate\"),\"\")",
-        "A30": "=IFERROR(ODOO.LIST(1,7,\"kob_user_id\"),\"\")",
-        "B30": "=IFERROR(ODOO.LIST(1,7,\"pick_count\"),\"\")",
-        "C30": "=IFERROR(ODOO.LIST(1,7,\"uph\"),\"\")",
-        "D30": "=IFERROR(ODOO.LIST(1,7,\"error_rate\"),\"\")",
-        "A31": "=IFERROR(ODOO.LIST(1,8,\"kob_user_id\"),\"\")",
-        "B31": "=IFERROR(ODOO.LIST(1,8,\"pick_count\"),\"\")",
-        "C31": "=IFERROR(ODOO.LIST(1,8,\"uph\"),\"\")",
-        "D31": "=IFERROR(ODOO.LIST(1,8,\"error_rate\"),\"\")",
-        "A32": "=IFERROR(ODOO.LIST(1,9,\"kob_user_id\"),\"\")",
-        "B32": "=IFERROR(ODOO.LIST(1,9,\"pick_count\"),\"\")",
-        "C32": "=IFERROR(ODOO.LIST(1,9,\"uph\"),\"\")",
-        "D32": "=IFERROR(ODOO.LIST(1,9,\"error_rate\"),\"\")",
-        "A33": "=IFERROR(ODOO.LIST(1,10,\"kob_user_id\"),\"\")",
-        "B33": "=IFERROR(ODOO.LIST(1,10,\"pick_count\"),\"\")",
-        "C33": "=IFERROR(ODOO.LIST(1,10,\"uph\"),\"\")",
-        "D33": "=IFERROR(ODOO.LIST(1,10,\"error_rate\"),\"\")",
-        "E23": "=IFERROR(ODOO.LIST.HEADER(2,\"kob_user_id\"),\"\")",
-        "F23": "=IFERROR(ODOO.LIST.HEADER(2,\"pack_count\"),\"\")",
-        "G23": "=IFERROR(ODOO.LIST.HEADER(2,\"uph\"),\"\")",
-        "H23": "=IFERROR(ODOO.LIST.HEADER(2,\"quality_score\"),\"\")",
-        "E24": "=IFERROR(ODOO.LIST(2,1,\"kob_user_id\"),\"\")",
-        "F24": "=IFERROR(ODOO.LIST(2,1,\"pack_count\"),\"\")",
-        "G24": "=IFERROR(ODOO.LIST(2,1,\"uph\"),\"\")",
-        "H24": "=IFERROR(ODOO.LIST(2,1,\"quality_score\"),\"\")",
-        "E25": "=IFERROR(ODOO.LIST(2,2,\"kob_user_id\"),\"\")",
-        "F25": "=IFERROR(ODOO.LIST(2,2,\"pack_count\"),\"\")",
-        "G25": "=IFERROR(ODOO.LIST(2,2,\"uph\"),\"\")",
-        "H25": "=IFERROR(ODOO.LIST(2,2,\"quality_score\"),\"\")",
-        "E26": "=IFERROR(ODOO.LIST(2,3,\"kob_user_id\"),\"\")",
-        "F26": "=IFERROR(ODOO.LIST(2,3,\"pack_count\"),\"\")",
-        "G26": "=IFERROR(ODOO.LIST(2,3,\"uph\"),\"\")",
-        "H26": "=IFERROR(ODOO.LIST(2,3,\"quality_score\"),\"\")",
-        "E27": "=IFERROR(ODOO.LIST(2,4,\"kob_user_id\"),\"\")",
-        "F27": "=IFERROR(ODOO.LIST(2,4,\"pack_count\"),\"\")",
-        "G27": "=IFERROR(ODOO.LIST(2,4,\"uph\"),\"\")",
-        "H27": "=IFERROR(ODOO.LIST(2,4,\"quality_score\"),\"\")",
-        "E28": "=IFERROR(ODOO.LIST(2,5,\"kob_user_id\"),\"\")",
-        "F28": "=IFERROR(ODOO.LIST(2,5,\"pack_count\"),\"\")",
-        "G28": "=IFERROR(ODOO.LIST(2,5,\"uph\"),\"\")",
-        "H28": "=IFERROR(ODOO.LIST(2,5,\"quality_score\"),\"\")",
-        "E29": "=IFERROR(ODOO.LIST(2,6,\"kob_user_id\"),\"\")",
-        "F29": "=IFERROR(ODOO.LIST(2,6,\"pack_count\"),\"\")",
-        "G29": "=IFERROR(ODOO.LIST(2,6,\"uph\"),\"\")",
-        "H29": "=IFERROR(ODOO.LIST(2,6,\"quality_score\"),\"\")",
-        "E30": "=IFERROR(ODOO.LIST(2,7,\"kob_user_id\"),\"\")",
-        "F30": "=IFERROR(ODOO.LIST(2,7,\"pack_count\"),\"\")",
-        "G30": "=IFERROR(ODOO.LIST(2,7,\"uph\"),\"\")",
-        "H30": "=IFERROR(ODOO.LIST(2,7,\"quality_score\"),\"\")",
-        "E31": "=IFERROR(ODOO.LIST(2,8,\"kob_user_id\"),\"\")",
-        "F31": "=IFERROR(ODOO.LIST(2,8,\"pack_count\"),\"\")",
-        "G31": "=IFERROR(ODOO.LIST(2,8,\"uph\"),\"\")",
-        "H31": "=IFERROR(ODOO.LIST(2,8,\"quality_score\"),\"\")",
-        "E32": "=IFERROR(ODOO.LIST(2,9,\"kob_user_id\"),\"\")",
-        "F32": "=IFERROR(ODOO.LIST(2,9,\"pack_count\"),\"\")",
-        "G32": "=IFERROR(ODOO.LIST(2,9,\"uph\"),\"\")",
-        "H32": "=IFERROR(ODOO.LIST(2,9,\"quality_score\"),\"\")",
-        "E33": "=IFERROR(ODOO.LIST(2,10,\"kob_user_id\"),\"\")",
-        "F33": "=IFERROR(ODOO.LIST(2,10,\"pack_count\"),\"\")",
-        "G33": "=IFERROR(ODOO.LIST(2,10,\"uph\"),\"\")",
-        "H33": "=IFERROR(ODOO.LIST(2,10,\"quality_score\"),\"\")"
-      },
-      "borders": {},
-      "comments": {},
-      "formats": {},
-      "styles": {
-        "B1": 1,
-        "A22": 1,
-        "E22": 1,
-        "A23": 2,
-        "B23": 2,
-        "C23": 2,
-        "D23": 2,
-        "A24": 3,
-        "B24": 3,
-        "C24": 3,
-        "D24": 3,
-        "A25": 3,
-        "B25": 3,
-        "C25": 3,
-        "D25": 3,
-        "A26": 3,
-        "B26": 3,
-        "C26": 3,
-        "D26": 3,
-        "A27": 3,
-        "B27": 3,
-        "C27": 3,
-        "D27": 3,
-        "A28": 3,
-        "B28": 3,
-        "C28": 3,
-        "D28": 3,
-        "A29": 3,
-        "B29": 3,
-        "C29": 3,
-        "D29": 3,
-        "A30": 3,
-        "B30": 3,
-        "C30": 3,
-        "D30": 3,
-        "A31": 3,
-        "B31": 3,
-        "C31": 3,
-        "D31": 3,
-        "A32": 3,
-        "B32": 3,
-        "C32": 3,
-        "D32": 3,
-        "A33": 3,
-        "B33": 3,
-        "C33": 3,
-        "D33": 3,
-        "E23": 2,
-        "F23": 2,
-        "G23": 2,
-        "H23": 2,
-        "E24": 3,
-        "F24": 3,
-        "G24": 3,
-        "H24": 3,
-        "E25": 3,
-        "F25": 3,
-        "G25": 3,
-        "H25": 3,
-        "E26": 3,
-        "F26": 3,
-        "G26": 3,
-        "H26": 3,
-        "E27": 3,
-        "F27": 3,
-        "G27": 3,
-        "H27": 3,
-        "E28": 3,
-        "F28": 3,
-        "G28": 3,
-        "H28": 3,
-        "E29": 3,
-        "F29": 3,
-        "G29": 3,
-        "H29": 3,
-        "E30": 3,
-        "F30": 3,
-        "G30": 3,
-        "H30": 3,
-        "E31": 3,
-        "F31": 3,
-        "G31": 3,
-        "H31": 3,
-        "E32": 3,
-        "F32": 3,
-        "G32": 3,
-        "H32": 3,
-        "E33": 3,
-        "F33": 3,
-        "G33": 3,
-        "H33": 3
+        "B1": {
+          "content": "KOB WMS — KPI Performance"
+        }
       },
       "conditionalFormats": [],
       "figures": [
         {
-          "id": "kpi-line-uph-10f16572",
-          "width": 900,
-          "height": 340,
+          "id": "kpi-bar-worker-score",
+          "x": 18,
+          "y": 60,
+          "width": 475,
+          "height": 360,
           "tag": "chart",
           "data": {
+            "type": "odoo_bar",
             "title": {
-              "text": "Daily UPH Trend"
+              "text": "Worker Score (Top Performers)"
             },
             "background": "#FFFFFF",
             "legendPosition": "none",
+            "metaData": {
+              "groupBy": [
+                "user_id"
+              ],
+              "measure": "worker_score",
+              "order": "DESC",
+              "resModel": "wms.worker.performance",
+              "mode": "bar"
+            },
+            "searchParams": {
+              "comparison": null,
+              "context": {},
+              "domain": [],
+              "groupBy": [
+                "user_id"
+              ],
+              "orderBy": []
+            },
+            "fieldMatching": {
+              "gf_kpi_date": {
+                "chain": "date",
+                "type": "date"
+              },
+              "gf_kpi_worker": {
+                "chain": "user_id",
+                "type": "many2one"
+              }
+            },
+            "verticalAxisPosition": "left",
+            "stacked": false
+          }
+        },
+        {
+          "id": "kpi-bar-actions-by-worker",
+          "x": 503,
+          "y": 60,
+          "width": 465,
+          "height": 360,
+          "tag": "chart",
+          "data": {
+            "type": "odoo_bar",
+            "title": {
+              "text": "Actions by Worker"
+            },
+            "background": "#FFFFFF",
+            "legendPosition": "top",
+            "metaData": {
+              "groupBy": [
+                "user_id"
+              ],
+              "measure": "total_actions",
+              "order": "DESC",
+              "resModel": "wms.worker.performance",
+              "mode": "bar"
+            },
+            "searchParams": {
+              "comparison": null,
+              "context": {},
+              "domain": [],
+              "groupBy": [
+                "user_id"
+              ],
+              "orderBy": []
+            },
+            "fieldMatching": {
+              "gf_kpi_date": {
+                "chain": "date",
+                "type": "date"
+              },
+              "gf_kpi_worker": {
+                "chain": "user_id",
+                "type": "many2one"
+              }
+            },
+            "verticalAxisPosition": "left",
+            "stacked": true
+          }
+        },
+        {
+          "id": "kpi-line-uph-trend",
+          "x": 18,
+          "y": 440,
+          "width": 950,
+          "height": 360,
+          "tag": "chart",
+          "data": {
+            "type": "odoo_line",
+            "title": {
+              "text": "UPH Trend"
+            },
+            "background": "#FFFFFF",
+            "legendPosition": "top",
             "metaData": {
               "groupBy": [
                 "date:day"
@@ -222,202 +142,144 @@
               "measure": "uph",
               "order": null,
               "resModel": "wms.worker.performance",
-              "mode": "line",
-              "cumulatedStart": false
+              "mode": "line"
             },
             "searchParams": {
               "comparison": null,
-              "context": {
-                "group_by": []
-              },
-              "domain": [
-                [
-                  "uph",
-                  ">",
-                  0
-                ]
-              ],
+              "context": {},
+              "domain": [],
               "groupBy": [
                 "date:day"
               ],
               "orderBy": []
             },
-            "type": "odoo_line",
-            "dataSets": [
-              {}
-            ],
-            "verticalAxisPosition": "left",
-            "stacked": false,
-            "cumulatedStart": false,
-            "axesDesign": {},
-            "chartId": "kpi-line-uph-10f16572",
-            "fillArea": true,
             "fieldMatching": {
               "gf_kpi_date": {
                 "chain": "date",
-                "type": "date",
-                "offset": 0
-              }
-            }
-          },
-          "col": 0,
-          "row": 0,
-          "offset": {
-            "x": 18,
-            "y": 171
-          }
-        },
-        {
-          "id": "kpi-bar-score-2f57c618",
-          "width": 460,
-          "height": 340,
-          "tag": "chart",
-          "data": {
-            "title": {
-              "text": "Worker Score (Top 10)"
-            },
-            "background": "#FFFFFF",
-            "legendPosition": "right",
-            "metaData": {
-              "groupBy": [
-                "kob_user_id"
-              ],
-              "measure": "worker_score",
-              "order": "DESC",
-              "resModel": "wms.worker.performance",
-              "mode": "bar",
-              "cumulatedStart": false
-            },
-            "searchParams": {
-              "comparison": null,
-              "context": {
-                "group_by": []
+                "type": "date"
               },
-              "domain": [
-                [
-                  "kob_user_id",
-                  "!=",
-                  false
-                ]
-              ],
-              "groupBy": [
-                "kob_user_id"
-              ],
-              "orderBy": []
+              "gf_kpi_worker": {
+                "chain": "user_id",
+                "type": "many2one"
+              }
             },
-            "type": "odoo_bar",
-            "dataSets": [
-              {}
-            ],
             "verticalAxisPosition": "left",
             "stacked": false,
-            "cumulatedStart": false,
-            "axesDesign": {},
-            "chartId": "kpi-bar-score-2f57c618"
-          },
-          "col": 0,
-          "row": 0,
-          "offset": {
-            "x": 18,
-            "y": 800
+            "cumulative": false
           }
         },
         {
-          "id": "kpi-bar-errors-664d8ccb",
-          "width": 460,
+          "id": "kpi-bar-errors",
+          "x": 18,
+          "y": 820,
+          "width": 475,
           "height": 340,
           "tag": "chart",
           "data": {
+            "type": "odoo_bar",
             "title": {
-              "text": "Daily Errors"
+              "text": "Errors by Worker"
             },
             "background": "#FFFFFF",
-            "legendPosition": "right",
+            "legendPosition": "top",
             "metaData": {
               "groupBy": [
-                "date:day"
+                "user_id"
               ],
               "measure": "total_errors",
               "order": "DESC",
               "resModel": "wms.worker.performance",
-              "mode": "bar",
-              "cumulatedStart": false
+              "mode": "bar"
             },
             "searchParams": {
               "comparison": null,
-              "context": {
-                "group_by": []
-              },
-              "domain": [
-                [
-                  "total_errors",
-                  ">",
-                  0
-                ]
-              ],
+              "context": {},
+              "domain": [],
               "groupBy": [
-                "date:day"
+                "user_id"
               ],
               "orderBy": []
             },
-            "type": "odoo_bar",
-            "dataSets": [
-              {}
-            ],
-            "verticalAxisPosition": "left",
-            "stacked": false,
-            "cumulatedStart": false,
-            "axesDesign": {},
-            "chartId": "kpi-bar-errors-664d8ccb",
             "fieldMatching": {
               "gf_kpi_date": {
                 "chain": "date",
-                "type": "date",
-                "offset": 0
+                "type": "date"
+              },
+              "gf_kpi_worker": {
+                "chain": "user_id",
+                "type": "many2one"
               }
-            }
-          },
-          "col": 0,
-          "row": 0,
-          "offset": {
-            "x": 488,
-            "y": 800
+            },
+            "verticalAxisPosition": "left",
+            "stacked": true
+          }
+        },
+        {
+          "id": "kpi-bar-quality",
+          "x": 503,
+          "y": 820,
+          "width": 465,
+          "height": 340,
+          "tag": "chart",
+          "data": {
+            "type": "odoo_bar",
+            "title": {
+              "text": "Quality % by Worker"
+            },
+            "background": "#FFFFFF",
+            "legendPosition": "none",
+            "metaData": {
+              "groupBy": [
+                "user_id"
+              ],
+              "measure": "quality_score",
+              "order": "DESC",
+              "resModel": "wms.worker.performance",
+              "mode": "bar"
+            },
+            "searchParams": {
+              "comparison": null,
+              "context": {},
+              "domain": [],
+              "groupBy": [
+                "user_id"
+              ],
+              "orderBy": []
+            },
+            "fieldMatching": {
+              "gf_kpi_date": {
+                "chain": "date",
+                "type": "date"
+              },
+              "gf_kpi_worker": {
+                "chain": "user_id",
+                "type": "many2one"
+              }
+            },
+            "verticalAxisPosition": "left",
+            "stacked": false
           }
         }
       ],
-      "tables": [],
-      "headerGroups": {
-        "ROW": [],
-        "COL": []
-      },
-      "dataValidationRules": []
+      "areGridLinesVisible": false,
+      "isVisible": true
     }
   ],
   "styles": {
     "1": {
       "bold": true,
-      "fontSize": 16,
-      "textColor": "#01666b",
-      "align": "left"
-    },
-    "2": {
-      "bold": true,
-      "textColor": "#434343",
-      "fontSize": 11
-    },
-    "3": {
-      "textColor": "#01666B"
+      "fontSize": 18,
+      "textColor": "#111827",
+      "fillColor": "#F9FAFB"
     }
   },
   "formats": {},
   "borders": {},
-  "customTableStyles": {},
   "revisionId": "START_REVISION",
-  "uniqueFigureIds": true,
   "settings": {
     "locale": {
-      "name": "English (US)",
-      "code": "en_US",
+      "name": "Thai (Thailand)",
+      "code": "th_TH",
       "thousandsSeparator": ",",
       "decimalSeparator": ".",
       "weekStart": 7,
@@ -427,84 +289,8 @@
   },
   "pivots": {},
   "pivotNextId": 1,
-  "lists": {
-    "1": {
-      "id": "1",
-      "name": "Top Pickers",
-      "model": "wms.worker.performance",
-      "columns": [
-        "kob_user_id",
-        "pick_count",
-        "uph",
-        "error_rate"
-      ],
-      "domain": [
-        [
-          "pick_count",
-          ">",
-          0
-        ],
-        [
-          "kob_user_id",
-          "!=",
-          false
-        ]
-      ],
-      "context": {},
-      "orderBy": [
-        {
-          "name": "pick_count",
-          "asc": false
-        }
-      ],
-      "fieldMatching": {
-        "gf_kpi_date": {
-          "chain": "date",
-          "type": "date",
-          "offset": 0
-        }
-      }
-    },
-    "2": {
-      "id": "2",
-      "name": "Top Packers",
-      "model": "wms.worker.performance",
-      "columns": [
-        "kob_user_id",
-        "pack_count",
-        "uph",
-        "quality_score"
-      ],
-      "domain": [
-        [
-          "pack_count",
-          ">",
-          0
-        ],
-        [
-          "kob_user_id",
-          "!=",
-          false
-        ]
-      ],
-      "context": {},
-      "orderBy": [
-        {
-          "name": "pack_count",
-          "asc": false
-        }
-      ],
-      "fieldMatching": {
-        "gf_kpi_date": {
-          "chain": "date",
-          "type": "date",
-          "offset": 0
-        }
-      }
-    }
-  },
-  "listNextId": 3,
-  "chartOdooMenusReferences": {},
+  "lists": {},
+  "listNextId": 1,
   "globalFilters": [
     {
       "id": "gf_kpi_date",
@@ -512,6 +298,14 @@
       "label": "Date Range",
       "rangeType": "month",
       "defaultValue": {}
+    },
+    {
+      "id": "gf_kpi_worker",
+      "type": "relation",
+      "label": "Worker",
+      "modelName": "res.users",
+      "defaultValue": [],
+      "defaultValueDisplayNames": []
     }
   ]
 }

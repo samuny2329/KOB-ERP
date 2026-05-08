@@ -101,7 +101,7 @@ class WmsCourierPlatformMap(models.Model):
                 if not order:
                     continue
                 # Update order + scan item courier
-                order.with_context(kob_stage_skip_track=True).courier_id = new_courier.id
+                order.with_context(skip_track=True).courier_id = new_courier.id
                 item.write({"courier_id": new_courier.id})
 
                 # Reroute via the same logic action_ship uses
