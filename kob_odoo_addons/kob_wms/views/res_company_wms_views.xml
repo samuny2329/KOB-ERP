@@ -19,6 +19,16 @@
                             the pack scanner station is offline. Turn OFF to
                             restore the normal Pick → Pack → Out flow.
                         </p>
+                        <field name="wms_skip_dispatch_scan"/>
+                        <p class="text-muted oe_grey" colspan="2">
+                            <strong>Skip Dispatch AWB scan:</strong> When ON,
+                            the courier batch can be dispatched via
+                            <em>⚡ Quick Dispatch</em> without scanning each
+                            AWB or collecting a signature. Auto-Fill pulls
+                            packed AWBs into the batch in one click. Use only
+                            with trusted couriers — proof-of-handoff defaults
+                            to the AWB list, not a barcode trail.
+                        </p>
                     </group>
                 </page>
             </notebook>

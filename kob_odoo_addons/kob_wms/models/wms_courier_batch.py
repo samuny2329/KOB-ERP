@@ -61,6 +61,82 @@ class WmsCourierBatch(models.Model):
             batch.dispatched_by = self.env.user
         return True
 
+    def action_autofill_from_packed(self):
+        """Bulk-link AWBs from packed SOs without per-package scanning.
+
+        Finds all `wms.scan.item` rows that:
+            - share the batch's courier
+            - have batch_id=False (not yet linked to any batch)
+            - their `sales_order_id` is at status='packed'/'shipped'
+        and links them to this batch in one click. The matching scan
+        items are usually auto-created by `action_ship()` on the SO,
+        so calling this action covers the entire pack-to-dispatch
+        handoff without redundant scanning.
+
+        Use when company.wms_skip_dispatch_scan is ON or for trusted
+        couriers where worker confirms the AWB list via paperwork.
+        """
+        ScanItem = self.env['wms.scan.item']
+        assigned_total = 0
+        for batch in self:
+            domain = [
+                ('courier_id', '=', batch.courier_id.id),
+                ('batch_id', '=', False),
+                ('sales_order_id.status', 'in', ('packed', 'shipped')),
+            ]
+            unassigned = ScanItem.search(domain)
+            if unassigned:
+                unassigned.write({'batch_id': batch.id})
+                assigned_total += len(unassigned)
+            if batch.state == 'draft':
+                batch.state = 'scanning'
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': _('Dispatch Batch Auto-Fill'),
+                'message': _('Linked %s AWB(s) from packed orders.') %
+                           assigned_total,
+                'type': 'success' if assigned_total else 'warning',
+                'sticky': False,
+            },
+        }
+
+    def action_quick_dispatch(self):
+        """Auto-fill packed AWBs + dispatch in one click.
+
+        For workflows where the AWB scan is redundant. Skips the
+        signature requirement when company.wms_skip_dispatch_scan is
+        ON; otherwise still asks for signature.
+        """
+        for batch in self:
+            # Step 1 — auto-fill
+            ScanItem = self.env['wms.scan.item']
+            domain = [
+                ('courier_id', '=', batch.courier_id.id),
+                ('batch_id', '=', False),
+                ('sales_order_id.status', 'in', ('packed', 'shipped')),
+            ]
+            unassigned = ScanItem.search(domain)
+            if unassigned:
+                unassigned.write({'batch_id': batch.id})
+            # Step 2 — guard
+            if not batch.scan_item_ids:
+                raise UserError(_(
+                    'No packed AWBs found for courier %s — nothing to '
+                    'dispatch.') % batch.courier_id.display_name)
+            skip_scan = batch.company_id.wms_skip_dispatch_scan
+            if not batch.signature and not skip_scan:
+                raise UserError(_(
+                    'Please collect the receiver signature first '
+                    '(or enable "Skip Dispatch AWB scan" on the company '
+                    'to bypass).'))
+            # Step 3 — dispatch
+            batch.state = 'dispatched'
+            batch.dispatched_at = fields.Datetime.now()
+            batch.dispatched_by = self.env.user
+        return True
+
     def action_cancel(self):
         self.write({'state': 'cancelled'})
 

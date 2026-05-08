@@ -22,3 +22,15 @@ class ResCompany(models.Model):
              "scanner station is unavailable. Turn OFF to restore the "
              "normal Pick → Pack → Out workflow.",
     )
+
+    wms_skip_dispatch_scan = fields.Boolean(
+        string="Skip Dispatch AWB scan",
+        default=False,
+        help="When ON, the Dispatch screen does not require manually "
+             "scanning each AWB into the courier batch. The batch's "
+             "'Auto-Fill from Packed' action collects all packed/shipped "
+             "SOs assigned to the batch's courier and links their AWBs "
+             "in one step. Receiver signature is still required. Use "
+             "when the worker trusts the courier driver and the AWB list "
+             "is verified by paperwork instead of barcode.",
+    )

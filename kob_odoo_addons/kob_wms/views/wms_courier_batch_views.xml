@@ -29,6 +29,16 @@
                     <button name="action_start_scanning" type="object"
                             string="Start Scanning" class="oe_highlight"
                             invisible="state != 'draft'"/>
+                    <button name="action_autofill_from_packed" type="object"
+                            string="🔗 Auto-Fill from Packed"
+                            class="btn-secondary"
+                            invisible="state in ('dispatched', 'cancelled')"/>
+                    <button name="action_quick_dispatch" type="object"
+                            string="⚡ Quick Dispatch"
+                            class="btn-warning"
+                            confirm="Auto-fill all packed AWBs + dispatch in one click?"
+                            invisible="state in ('dispatched', 'cancelled')"
+                            groups="kob_wms.group_wms_supervisor"/>
                     <button name="action_dispatch" type="object"
                             string="Dispatch" class="oe_highlight"
                             invisible="state != 'scanning'"/>
