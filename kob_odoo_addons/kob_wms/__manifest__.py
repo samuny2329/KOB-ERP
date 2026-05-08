@@ -1,6 +1,6 @@
 {
     'name': 'KOB WMS Pro — WH-Online E-Commerce',
-    'version': '19.0.1.1.0',
+    'version': '19.0.1.1.1',
     'category': 'KOB ERP/WH-Online E-Commerce',
     'summary': 'Warehouse Management for online E-commerce '
                '(Shopee · Lazada · TikTok · POS) — Kiss of Beauty.',
@@ -154,6 +154,9 @@ Features
         'web.assets_backend': [
             # ── Shared fulfilment design system ──────────────────────────────
             'kob_wms/static/src/js/wms_fulfilment/wms_fulfilment.scss',
+            # ── Shared scan-error alert (full-screen flash + alarm + vibrate) ─
+            'kob_wms/static/src/js/wms_scan_alert/wms_scan_alert.scss',
+            'kob_wms/static/src/js/wms_scan_alert/wms_scan_alert.js',
             # ── Worker login screen ───────────────────────────────────────────
             'kob_wms/static/src/js/wms_login/wms_login_screen.js',
             'kob_wms/static/src/js/wms_login/wms_login_screen.xml',
