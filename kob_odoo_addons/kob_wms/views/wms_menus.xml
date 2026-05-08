@@ -69,18 +69,6 @@
               action="action_wms_sales_order_all"
               sequence="70"/>
 
-    <menuitem id="menu_wms_pick_group"
-              name="Pick Groups"
-              parent="menu_kob_wms_root"
-              action="action_wms_pick_group"
-              sequence="72"/>
-
-    <menuitem id="menu_wms_pick_group_import"
-              name="Import Pick Groups (xlsx)"
-              parent="menu_kob_wms_root"
-              action="action_wms_pick_group_import_wizard"
-              sequence="73"
-              groups="group_wms_supervisor"/>
 
     <!-- ══════════════════════════════════════════════════════════════
          🏠 Command Center (empty placeholder — user-defined content)
