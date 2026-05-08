@@ -57,7 +57,7 @@ case "$cmd" in
     ;;
   update)
     mod="${1:-kob_base}"
-    run_ssh "cd $REMOTE_DIR && docker compose exec -T odoo odoo -c /etc/odoo/odoo.conf -d kobdb -u $mod --stop-after-init && docker compose restart odoo"
+    run_ssh "cd $REMOTE_DIR && docker compose exec -T odoo odoo -c /etc/odoo/odoo.conf -d kobdb -u $mod --no-http --stop-after-init && docker compose restart odoo"
     ;;
   db-backup)
     TS=$(date +%Y%m%d_%H%M%S)
