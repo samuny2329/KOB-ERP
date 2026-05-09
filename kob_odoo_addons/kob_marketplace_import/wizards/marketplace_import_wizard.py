@@ -536,28 +536,19 @@ class MarketplaceImportWizard(models.TransientModel):
             )
 
     def _notify_progress(self, done, total, last_label):
-        """Push a live toast to the current user's bus channel.
-
-        Frontend (web client) listens on the user partner channel and
-        shows a sticky toast — refreshed in-place each time we send.
+        """Update the wizard's progress_pct field for the form-bound
+        progress bar widget. No more sticky toasts — the user sees
+        progress on the wizard form itself, not as rapid-fire popups.
         """
         try:
             pct = int(done * 100 / total) if total else 100
-            msg = _("Marketplace Import: %(done)s / %(total)s "
-                    "(%(pct)s%%) — %(last)s",
-                    done=done, total=total, pct=pct, last=last_label)
-            self.env["bus.bus"]._sendone(
-                self.env.user.partner_id,
-                "simple_notification",
-                {
-                    "title": _("Marketplace Import"),
-                    "message": msg,
-                    "sticky": done < total,
-                    "type": "info",
-                },
-            )
+            self.with_context(prefetch_fields=False).write({
+                "progress_pct": pct,
+            })
+            # Commit so AJAX form refresh sees the new percentage.
+            self.env.cr.commit()
         except Exception as e:
-            _logger.debug("progress notify skipped: %s", e)
+            _logger.debug("progress write skipped: %s", e)
 
     def action_import(self):
         self.ensure_one()
@@ -908,32 +899,63 @@ class MarketplaceImportWizard(models.TransientModel):
         })
         self.env.cr.commit()
 
-        # Final summary toast — non-sticky, with breakdown.
+        # Snapshot results into a persistent session record so the user
+        # has history + drill-down + auto-batch link, instead of a
+        # transient wizard that vacuums.
+        session = self.env["kob.marketplace.import.session"].sudo().create({
+            "user_id": self.env.user.id,
+            "platform": self.platform,
+            "company_id": self.company_id.id,
+            "warehouse_id": self.warehouse_id.id if self.warehouse_id else False,
+            "date_started": getattr(self, "_kob_t0", False) or fields.Datetime.now(),
+            "date_finished": fields.Datetime.now(),
+            "file_count": 1 + len(self.batch_attachment_ids) if hasattr(self, "batch_attachment_ids") else 1,
+            "filenames": (self.filename or "") + ("\n" + "\n".join(
+                a.name for a in self.batch_attachment_ids) if hasattr(self, "batch_attachment_ids") and self.batch_attachment_ids else ""),
+            "total_rows": total,
+            "orders_attempted": total,
+            "orders_created": imported_n,
+            "orders_skipped": duplicate_n,
+            "orders_failed": unresolved_n,
+            "sale_order_ids": [(6, 0, sales.ids)],
+            "log": "\n".join(log_lines),
+            "state": "done",
+        })
+
+        # Auto-create WMS courier batch grouping the freshly-imported SOs
+        # by courier so the dispatch worker can ship the whole import
+        # round in one click instead of opening every order.
         try:
-            summary_msg = _(
-                "Import complete: %(ok)s new, %(dup)s duplicates skipped, "
-                "%(unres)s unresolved (total %(tot)s).",
-                ok=imported_n, dup=duplicate_n, unres=unresolved_n, tot=total,
-            )
-            self.env["bus.bus"]._sendone(
-                self.env.user.partner_id,
-                "simple_notification",
-                {
-                    "title": _("Marketplace Import — Done"),
-                    "message": summary_msg,
-                    "sticky": True,
-                    "type": "warning" if duplicate_n or unresolved_n else "success",
-                },
-            )
-        except Exception as e:
-            _logger.debug("final summary notify skipped: %s", e)
+            confirmed_sos = sales.filtered(
+                lambda s: s.state in ("sale", "done") and s.picking_ids)
+            couriers = {}
+            for so in confirmed_sos:
+                for pick in so.picking_ids.filtered(
+                        lambda p: p.state in ("assigned", "done")):
+                    if pick.kob_carrier_id:
+                        couriers.setdefault(pick.kob_carrier_id.id, set()).add(so.id)
+            if confirmed_sos and "wms.courier.batch" in self.env.registry.models:
+                Batch = self.env["wms.courier.batch"].sudo()
+                lead_courier = next(iter(couriers), False) if couriers else False
+                courier = self.env["wms.courier"].browse(lead_courier) \
+                    if lead_courier else self.env["wms.courier"].search([], limit=1)
+                if courier:
+                    batch = Batch.create({
+                        "courier_id": courier.id,
+                        "state": "scanning",
+                        "note": f"Auto-created from import session {session.name}",
+                    })
+                    session.write({"wms_batch_id": batch.id})
+        except Exception as exc:  # noqa: BLE001
+            _logger.info("Auto-batch skipped for session %s: %s", session.name, exc)
+
         return {
             "type": "ir.actions.act_window",
-            "res_model": self._name,
-            "res_id": self.id,
+            "name": _("Import Session — %s") % session.name,
+            "res_model": "kob.marketplace.import.session",
+            "res_id": session.id,
             "view_mode": "form",
-            "target": "new",
-            "name": _("Marketplace Import — Result"),
+            "target": "current",
         }
 
     def action_open_orders(self):

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="seq_kob_marketplace_import_session" model="ir.sequence">
+        <field name="name">Marketplace Import Session</field>
+        <field name="code">kob.marketplace.import.session</field>
+        <field name="prefix">MIS-</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="view_kob_import_session_list" model="ir.ui.view">
+        <field name="name">kob.marketplace.import.session.list</field>
+        <field name="model">kob.marketplace.import.session</field>
+        <field name="arch" type="xml">
+            <list string="Import Sessions"
+                  default_order="create_date desc"
+                  decoration-success="state=='done' and orders_failed==0"
+                  decoration-warning="state=='done' and orders_failed&gt;0"
+                  decoration-danger="state=='failed'">
+                <field name="name"/>
+                <field name="create_date"/>
+                <field name="user_id"/>
+                <field name="platform"/>
+                <field name="company_id"/>
+                <field name="warehouse_id"/>
+                <field name="file_count"/>
+                <field name="orders_attempted"/>
+                <field name="orders_created" sum="Created"/>
+                <field name="orders_skipped" sum="Skipped"/>
+                <field name="orders_failed" sum="Failed"/>
+                <field name="duration_sec" widget="float_time"/>
+                <field name="wms_batch_id"/>
+                <field name="state" widget="badge"
+                       decoration-success="state=='done'"
+                       decoration-warning="state=='running'"
+                       decoration-danger="state=='failed'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_kob_import_session_form" model="ir.ui.view">
+        <field name="name">kob.marketplace.import.session.form</field>
+        <field name="model">kob.marketplace.import.session</field>
+        <field name="arch" type="xml">
+            <form string="Import Session" create="false" edit="false">
+                <header>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="running,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object"
+                                name="action_view_orders"
+                                icon="fa-shopping-cart">
+                            <field name="sale_order_count" widget="statinfo"
+                                   string="SOs Created"/>
+                        </button>
+                        <button class="oe_stat_button" type="object"
+                                name="action_view_failures"
+                                icon="fa-exclamation-triangle"
+                                invisible="failure_count == 0">
+                            <field name="failure_count" widget="statinfo"
+                                   string="Failed"/>
+                        </button>
+                        <button class="oe_stat_button" type="object"
+                                name="action_view_batch"
+                                icon="fa-truck"
+                                invisible="not wms_batch_id">
+                            <span class="o_stat_text">Dispatch Batch</span>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Run Info">
+                            <field name="user_id"/>
+                            <field name="platform"/>
+                            <field name="company_id"/>
+                            <field name="warehouse_id"/>
+                            <field name="date_started"/>
+                            <field name="date_finished"/>
+                            <field name="duration_sec" widget="float_time"/>
+                        </group>
+                        <group string="Results">
+                            <field name="file_count"/>
+                            <field name="total_rows"/>
+                            <field name="orders_attempted"/>
+                            <field name="orders_created"/>
+                            <field name="orders_skipped"/>
+                            <field name="orders_failed"/>
+                            <field name="wms_batch_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Imported SOs">
+                            <field name="sale_order_ids" readonly="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="client_order_ref"/>
+                                    <field name="partner_id"/>
+                                    <field name="amount_total" widget="monetary"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Failed Orders">
+                            <field name="failure_ids" readonly="1">
+                                <list>
+                                    <field name="order_sn"/>
+                                    <field name="shop"/>
+                                    <field name="sku"/>
+                                    <field name="qty"/>
+                                    <field name="error"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Files">
+                            <field name="filenames" widget="text" readonly="1"/>
+                        </page>
+                        <page string="Log">
+                            <field name="log" widget="text" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_kob_import_session_failure_list" model="ir.ui.view">
+        <field name="name">kob.marketplace.import.session.failure.list</field>
+        <field name="model">kob.marketplace.import.session.failure</field>
+        <field name="arch" type="xml">
+            <list string="Failed Imports" create="false" edit="false">
+                <field name="session_id"/>
+                <field name="order_sn"/>
+                <field name="shop"/>
+                <field name="sku"/>
+                <field name="qty"/>
+                <field name="error"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_kob_import_session" model="ir.actions.act_window">
+        <field name="name">Import Sessions</field>
+        <field name="res_model">kob.marketplace.import.session</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_kob_import_session"
+              name="Import History"
+              parent="kob_base.menu_kob_marketplace"
+              action="action_kob_import_session"
+              sequence="20"/>
+
+</odoo>

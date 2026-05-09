@@ -4,3 +4,7 @@ access_kob_marketplace_import_wizard_manager,kob.marketplace.import.wizard manag
 access_kob_marketplace_import_wizard_stock_user,kob.marketplace.import.wizard stock user,model_kob_marketplace_import_wizard,stock.group_stock_user,1,1,1,1
 access_sale_order_type_user,sale.order.type user,model_sale_order_type,sales_team.group_sale_salesman,1,0,0,0
 access_sale_order_type_manager,sale.order.type manager,model_sale_order_type,sales_team.group_sale_manager,1,1,1,1
+access_kob_import_session_user,kob.marketplace.import.session user,model_kob_marketplace_import_session,sales_team.group_sale_salesman,1,0,0,0
+access_kob_import_session_manager,kob.marketplace.import.session manager,model_kob_marketplace_import_session,sales_team.group_sale_manager,1,1,1,1
+access_kob_import_session_failure_user,kob.marketplace.import.session.failure user,model_kob_marketplace_import_session_failure,sales_team.group_sale_salesman,1,0,0,0
+access_kob_import_session_failure_manager,kob.marketplace.import.session.failure manager,model_kob_marketplace_import_session_failure,sales_team.group_sale_manager,1,1,1,1
