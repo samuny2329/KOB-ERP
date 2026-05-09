@@ -23,6 +23,7 @@ Adds:
     "license": "LGPL-3",
     "depends": [
         "kob_base",
+        "kob_wms",
         "sale_management",
         "stock",
         "account",
