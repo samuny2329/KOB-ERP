@@ -21,7 +21,11 @@
         t-inherit="web.KanbanView.Buttons"
         t-inherit-mode="primary"
     >
-        <xpath expr="//div" position="inside">
+        <!-- Odoo 19 compat: root-level inject; the parent template no
+             longer wraps buttons in a <div>, so the original
+             expr="//div" xpath fails on Odoo 19+. Use "." (root) so
+             the buttons sit alongside the standard New button. -->
+        <xpath expr="." position="inside">
             <t t-if="props.archInfo.activeActions.create">
                 <button
                     type="button"
