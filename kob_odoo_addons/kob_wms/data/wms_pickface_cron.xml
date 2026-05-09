@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Hourly cron: scan every active pickface; create Bulk → Pickface
+         restock transfers for any whose current_qty <= min_qty.
+         Idempotent — wms.pickface skips records that already have an
+         in-progress restock transfer. -->
+    <record id="ir_cron_wms_pickface_bulk_restock" model="ir.cron">
+        <field name="name">WMS — Auto restock all low pickfaces</field>
+        <field name="model_id" ref="model_wms_pickface"/>
+        <field name="state">code</field>
+        <field name="code">model.action_bulk_restock()</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="active" eval="True"/>
+    </record>
+
+</odoo>

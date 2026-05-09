@@ -14,6 +14,7 @@ from . import wms_courier_batch
 from . import wms_activity_log
 from . import wms_api_config
 from . import stock_picking
+from . import stock_move
 from . import pos_config
 from . import pos_order
 from . import wms_worker_performance
