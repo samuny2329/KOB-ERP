@@ -79,17 +79,21 @@ class StockMove(models.Model):
                     "Pickface redirect skipped for move %s: %s",
                     move.id, exc)
 
-    def _action_assign(self, force_qty=False):
+    def _action_assign(self, *args, **kwargs):
         # Redirect first, then call the standard reservation path.
         self._kob_redirect_to_pickface()
-        result = super()._action_assign(force_qty=force_qty)
-        self._kob_refresh_pickface_demand()
+        result = super()._action_assign(*args, **kwargs)
+        try:
+            self._kob_refresh_pickface_demand()
+        except Exception:  # noqa: BLE001
+            pass
         return result
 
-    def _action_confirm(self, merge=True, merge_into=False):
-        result = super()._action_confirm(merge=merge, merge_into=merge_into)
-        # New demand may need restock; refresh pickface fields + auto-trigger
-        # transfer for any pickface that flips needs_restock=True.
+    def _action_confirm(self, *args, **kwargs):
+        # Use *args/**kwargs so we transparently forward future Odoo
+        # signature additions (e.g. create_proc kwarg used by stock
+        # backorder logic at addons/stock/models/stock_move.py:2182).
+        result = super()._action_confirm(*args, **kwargs)
         try:
             (result or self)._kob_refresh_pickface_demand(auto_restock=True)
         except Exception:  # noqa: BLE001
