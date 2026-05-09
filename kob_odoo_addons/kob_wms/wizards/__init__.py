@@ -3,3 +3,4 @@ from . import wms_user_set_password
 from . import wms_cancel_return_wizard
 from . import wms_box_recommender_wizard
 from . import import_pick_group_wizard
+from . import stock_valuation_at_date_wizard

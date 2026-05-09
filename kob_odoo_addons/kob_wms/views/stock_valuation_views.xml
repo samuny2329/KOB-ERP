@@ -30,6 +30,63 @@
         </field>
     </record>
 
+    <record id="view_stock_valuation_form_kob" model="ir.ui.view">
+        <field name="name">stock.move.valuation.form.kob</field>
+        <field name="model">stock.move</field>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <form string="Stock Valuation Detail" create="false" edit="false" delete="false">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="reference" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Move">
+                            <field name="date" widget="datetime" readonly="1"/>
+                            <field name="product_id" readonly="1"/>
+                            <field name="picking_id" readonly="1"/>
+                            <field name="state" widget="badge" readonly="1"/>
+                            <field name="company_id" readonly="1"
+                                   groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Valuation">
+                            <field name="quantity" readonly="1"/>
+                            <field name="product_uom_qty" readonly="1"/>
+                            <field name="value" widget="monetary" readonly="1"/>
+                            <field name="remaining_qty" readonly="1"/>
+                            <field name="remaining_value" widget="monetary" readonly="1"/>
+                            <field name="is_in" readonly="1"/>
+                            <field name="is_out" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Source / Destination">
+                        <group>
+                            <field name="location_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="location_dest_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Move Lines">
+                            <field name="move_line_ids" readonly="1">
+                                <list>
+                                    <field name="lot_id"/>
+                                    <field name="quantity"/>
+                                    <field name="location_id"/>
+                                    <field name="location_dest_id"/>
+                                    <field name="state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
     <record id="view_stock_valuation_pivot_kob" model="ir.ui.view">
         <field name="name">stock.move.valuation.pivot.kob</field>
         <field name="model">stock.move</field>
@@ -89,7 +146,7 @@
     <record id="stock_account.stock_move_valuation_action"
             model="ir.actions.act_window">
         <field name="name">Stock Valuation</field>
-        <field name="view_mode">list,pivot,graph</field>
+        <field name="view_mode">list,form,pivot,graph</field>
         <field name="search_view_id" ref="view_stock_valuation_search_kob"/>
     </record>
 
@@ -98,6 +155,14 @@
         <field name="sequence">1</field>
         <field name="view_mode">list</field>
         <field name="view_id" ref="view_stock_valuation_list_kob"/>
+        <field name="act_window_id" ref="stock_account.stock_move_valuation_action"/>
+    </record>
+
+    <record id="stock_valuation_action_view_form"
+            model="ir.actions.act_window.view">
+        <field name="sequence">2</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_stock_valuation_form_kob"/>
         <field name="act_window_id" ref="stock_account.stock_move_valuation_action"/>
     </record>
 
@@ -111,10 +176,19 @@
 
     <record id="stock_valuation_action_view_graph"
             model="ir.actions.act_window.view">
-        <field name="sequence">3</field>
+        <field name="sequence">4</field>
         <field name="view_mode">graph</field>
         <field name="view_id" ref="view_stock_valuation_graph_kob"/>
         <field name="act_window_id" ref="stock_account.stock_move_valuation_action"/>
     </record>
+
+    <!-- Menu: Stock Valuation at Date wizard, sibling to the standard
+         Stock Valuation menu under Inventory > Reporting -->
+    <menuitem id="menu_wms_stock_valuation_at_date"
+              name="Stock Valuation at Date"
+              parent="stock.menu_warehouse_report"
+              action="action_wms_stock_valuation_date_wizard"
+              sequence="35"
+              groups="kob_wms.group_wms_supervisor"/>
 
 </odoo>

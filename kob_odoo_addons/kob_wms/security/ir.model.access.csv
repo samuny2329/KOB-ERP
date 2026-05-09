@@ -149,3 +149,4 @@ access_wms_pick_group_worker,wms.pick.group.worker,model_wms_pick_group,group_wm
 access_wms_pick_group_supervisor,wms.pick.group.supervisor,model_wms_pick_group,group_wms_supervisor,1,1,1,0
 access_wms_pick_group_manager,wms.pick.group.manager,model_wms_pick_group,group_wms_manager,1,1,1,1
 access_wms_pick_group_import_wizard,wms.pick.group.import.wizard,model_wms_pick_group_import_wizard,group_wms_supervisor,1,1,1,1
+access_wms_stock_val_date_wizard,wms.stock.valuation.date.wizard,model_wms_stock_valuation_date_wizard,group_wms_supervisor,1,1,1,1
