@@ -34,10 +34,6 @@
         <field name="target">new</field>
     </record>
 
-    <menuitem id="menu_wms_stock_valuation_at_date"
-              name="Stock Valuation at Date"
-              parent="stock.menu_warehouse_report"
-              action="action_wms_stock_valuation_date_wizard"
-              sequence="35"
-              groups="kob_wms.group_wms_supervisor"/>
+    <!-- No separate menu — wizard is reached from the 'Valuation at
+         Date' button at the top of the Stock Valuation list view. -->
 </odoo>

@@ -12,6 +12,13 @@
             <list string="Stock Valuation"
                   create="false" edit="false" delete="false"
                   default_order="date desc">
+                <header>
+                    <button name="%(action_wms_stock_valuation_date_wizard)d"
+                            type="action"
+                            string="📅 Valuation at Date"
+                            class="btn-primary"
+                            display="always"/>
+                </header>
                 <field name="date" widget="datetime"/>
                 <field name="reference"/>
                 <field name="product_id"/>
