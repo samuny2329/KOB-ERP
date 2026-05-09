@@ -13,12 +13,30 @@ class WmsPickface(models.Model):
     product_id = fields.Many2one('product.product', string='Assigned Product',
                                  tracking=True)
     location_id = fields.Many2one('stock.location', string='Stock Location')
-    min_qty = fields.Float(string='Min Level', default=0.0)
-    max_qty = fields.Float(string='Max Level', default=0.0)
+    min_qty = fields.Float(string='Min Level', default=0.0,
+                           help='Legacy threshold. Demand-driven restock '
+                                'ignores this if pending_demand > 0.')
+    max_qty = fields.Float(string='Max Level', default=0.0,
+                           help='Legacy ceiling. Demand-driven restock '
+                                'sizes transfers from pending_demand only.')
     current_qty = fields.Float(string='Current Qty',
                                compute='_compute_current_qty', store=True)
+    pending_demand = fields.Float(
+        string='Pending Demand',
+        compute='_compute_demand', store=True,
+        help='Sum of unfulfilled outbound move qty for this product whose '
+             'source location is the pickface (ready/confirmed/waiting). '
+             'This is the qty workers still need to pick.',
+    )
+    in_transit_qty = fields.Float(
+        string='Inbound Restock',
+        compute='_compute_demand', store=True,
+        help='Qty already on the way to this pickface from open Bulk → '
+             'Pickface internal transfers (not yet validated). Subtracted '
+             'from restock_qty to avoid duplicate transfers.',
+    )
     restock_qty = fields.Float(string='Restock Qty',
-                               compute='_compute_restock_qty')
+                               compute='_compute_restock_qty', store=True)
     needs_restock = fields.Boolean(string='Needs Restock',
                                    compute='_compute_needs_restock', store=True)
     company_id = fields.Many2one('res.company', related='zone_id.company_id',
@@ -53,21 +71,91 @@ class WmsPickface(models.Model):
             else:
                 pf.current_qty = 0
 
-    @api.depends('current_qty', 'max_qty')
-    def _compute_restock_qty(self):
-        for pf in self:
-            pf.restock_qty = max(pf.max_qty - pf.current_qty, 0) if pf.max_qty else 0
+    @api.depends('product_id', 'location_id')
+    def _compute_demand(self):
+        """Compute pending outbound demand + inbound restock-in-flight per pickface.
 
-    @api.depends('current_qty', 'min_qty')
-    def _compute_needs_restock(self):
+        pending_demand = sum of stock.move.product_uom_qty (state in
+            confirmed/waiting/partially_available/assigned) for outbound
+            picking_type whose source location is THIS pickface.
+        in_transit_qty = sum of stock.move.product_uom_qty (state in
+            confirmed/waiting/partially_available/assigned) for INTERNAL
+            picking_type whose destination location is THIS pickface.
+        """
+        Move = self.env['stock.move'].sudo()
+        active_states = ('waiting', 'confirmed', 'partially_available',
+                         'assigned')
         for pf in self:
-            pf.needs_restock = pf.min_qty > 0 and pf.current_qty <= pf.min_qty
+            if not pf.product_id or not pf.location_id:
+                pf.pending_demand = 0.0
+                pf.in_transit_qty = 0.0
+                continue
+            outbound = Move.search([
+                ('product_id', '=', pf.product_id.id),
+                ('location_id', '=', pf.location_id.id),
+                ('state', 'in', active_states),
+                ('picking_type_id.code', '=', 'outgoing'),
+            ])
+            inbound = Move.search([
+                ('product_id', '=', pf.product_id.id),
+                ('location_dest_id', '=', pf.location_id.id),
+                ('state', 'in', active_states),
+                ('picking_type_id.code', '=', 'internal'),
+            ])
+            pf.pending_demand = sum(outbound.mapped('product_uom_qty'))
+            pf.in_transit_qty = sum(inbound.mapped('product_uom_qty'))
+
+    @api.depends('current_qty', 'pending_demand', 'in_transit_qty', 'max_qty')
+    def _compute_restock_qty(self):
+        """Demand-driven restock sizing.
+
+        restock_qty = max(0, pending_demand - current_qty - in_transit_qty)
+        Falls back to legacy (max_qty - current_qty) ONLY when no demand
+        and the pickface has a configured max_qty.
+        """
+        for pf in self:
+            net_need = (pf.pending_demand or 0.0) \
+                - (pf.current_qty or 0.0) \
+                - (pf.in_transit_qty or 0.0)
+            if net_need > 0:
+                pf.restock_qty = net_need
+            elif pf.max_qty and pf.current_qty < pf.max_qty:
+                pf.restock_qty = pf.max_qty - pf.current_qty
+            else:
+                pf.restock_qty = 0.0
+
+    @api.depends('current_qty', 'pending_demand', 'in_transit_qty', 'min_qty')
+    def _compute_needs_restock(self):
+        """Trigger when:
+            (a) demand > available + in-flight stock, OR
+            (b) legacy: current_qty <= min_qty (when min_qty set).
+        """
+        for pf in self:
+            avail = (pf.current_qty or 0.0) + (pf.in_transit_qty or 0.0)
+            demand_gap = (pf.pending_demand or 0.0) > avail
+            min_breach = pf.min_qty > 0 and pf.current_qty <= pf.min_qty
+            pf.needs_restock = bool(demand_gap or min_breach)
 
     def action_create_restock_transfer(self):
-        """Create internal transfer from Bulk → Pickface to restock."""
+        """Create internal transfer from Bulk → Pickface to restock.
+
+        Idempotent — skip when an open (non-done, non-cancel) Bulk →
+        Pickface transfer for this product+pickface already exists, OR
+        when computed restock_qty <= 0.
+        """
         self.ensure_one()
         if not self.product_id or not self.location_id:
             return
+
+        existing_open = self.env['stock.move'].sudo().search([
+            ('product_id', '=', self.product_id.id),
+            ('location_dest_id', '=', self.location_id.id),
+            ('state', 'in', ('draft', 'waiting', 'confirmed',
+                             'partially_available', 'assigned')),
+            ('picking_type_id.code', '=', 'internal'),
+        ], limit=1)
+        if existing_open:
+            return False
 
         # Find bulk storage location in same warehouse
         warehouse = self.location_id.warehouse_id

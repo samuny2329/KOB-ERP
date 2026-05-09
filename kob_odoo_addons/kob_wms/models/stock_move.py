@@ -82,4 +82,68 @@ class StockMove(models.Model):
     def _action_assign(self, force_qty=False):
         # Redirect first, then call the standard reservation path.
         self._kob_redirect_to_pickface()
-        return super()._action_assign(force_qty=force_qty)
+        result = super()._action_assign(force_qty=force_qty)
+        self._kob_refresh_pickface_demand()
+        return result
+
+    def _action_confirm(self, merge=True, merge_into=False):
+        result = super()._action_confirm(merge=merge, merge_into=merge_into)
+        # New demand may need restock; refresh pickface fields + auto-trigger
+        # transfer for any pickface that flips needs_restock=True.
+        try:
+            (result or self)._kob_refresh_pickface_demand(auto_restock=True)
+        except Exception:  # noqa: BLE001
+            pass
+        return result
+
+    def write(self, vals):
+        result = super().write(vals)
+        if {'state', 'product_uom_qty', 'location_id', 'location_dest_id'} & set(vals):
+            try:
+                self._kob_refresh_pickface_demand(auto_restock=True)
+            except Exception:  # noqa: BLE001
+                pass
+        return result
+
+    def _kob_refresh_pickface_demand(self, auto_restock=False):
+        """Recompute wms.pickface.pending_demand for affected products+locations.
+
+        Called after move state/qty/location changes so pickface restock
+        decisions stay in sync with live order pipeline. Recursion is
+        broken via the ``kob_pickface_refresh`` context flag — when set,
+        nested move-write callbacks no-op.
+        """
+        if self.env.context.get('kob_pickface_refresh'):
+            return
+        self_ctx = self.with_context(kob_pickface_refresh=True)
+        Pickface = self_ctx.env['wms.pickface'].sudo()
+        if not self_ctx:
+            return
+        product_ids = self_ctx.mapped('product_id').ids
+        loc_ids = (self_ctx.mapped('location_id') | self_ctx.mapped('location_dest_id')).ids
+        if not product_ids or not loc_ids:
+            return
+        affected = Pickface.search([
+            ('product_id', 'in', product_ids),
+            ('location_id', 'in', loc_ids),
+            ('active', '=', True),
+        ])
+        if not affected:
+            return
+        affected.invalidate_recordset(['pending_demand', 'in_transit_qty',
+                                       'restock_qty', 'needs_restock',
+                                       'current_qty'])
+        affected._compute_current_qty()
+        affected._compute_demand()
+        affected._compute_restock_qty()
+        affected._compute_needs_restock()
+        if auto_restock:
+            for pf in affected.filtered('needs_restock'):
+                if pf.restock_qty > 0:
+                    try:
+                        pf.with_context(
+                            kob_pickface_refresh=True
+                        ).action_create_restock_transfer()
+                    except Exception as exc:  # noqa: BLE001
+                        _logger.info(
+                            "Auto-restock skipped for %s: %s", pf.code, exc)
