@@ -182,13 +182,5 @@
         <field name="act_window_id" ref="stock_account.stock_move_valuation_action"/>
     </record>
 
-    <!-- Menu: Stock Valuation at Date wizard, sibling to the standard
-         Stock Valuation menu under Inventory > Reporting -->
-    <menuitem id="menu_wms_stock_valuation_at_date"
-              name="Stock Valuation at Date"
-              parent="stock.menu_warehouse_report"
-              action="action_wms_stock_valuation_date_wizard"
-              sequence="35"
-              groups="kob_wms.group_wms_supervisor"/>
 
 </odoo>
