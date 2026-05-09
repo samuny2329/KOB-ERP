@@ -15,9 +15,68 @@ class SaleOrderType(models.Model):
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
+    # ---------------- Cross-warehouse pickface restock approval ----------
+    kob_cross_wh_restock = fields.Boolean(
+        string='Cross-WH Pickface Restock',
+        default=False,
+        copy=False,
+        help='True when this internal transfer pulls stock from another '
+             'warehouse (e.g. K-Off when the receiving pickface lives in '
+             'K-On). Requires manager approval before validation.',
+    )
+    kob_restock_approved = fields.Boolean(
+        string='Restock Approved',
+        default=False,
+        copy=False,
+        tracking=True,
+        help='Set by manager via the Approve button. Validation is '
+             'blocked until True for kob_cross_wh_restock pickings.',
+    )
+    kob_restock_approved_by = fields.Many2one(
+        'res.users', string='Approved By', readonly=True, copy=False,
+    )
+    kob_restock_approved_at = fields.Datetime(
+        string='Approved At', readonly=True, copy=False,
+    )
+    kob_source_wh_label = fields.Char(
+        string='Source Warehouse', readonly=True, copy=False,
+    )
+
+    def action_kob_approve_restock(self):
+        """Manager approval for cross-warehouse pickface restock."""
+        if not self.env.user.has_group('kob_wms.group_wms_manager'):
+            raise UserError(_(
+                'Only WMS Manager can approve cross-warehouse restocks.'))
+        for picking in self:
+            if not picking.kob_cross_wh_restock:
+                continue
+            picking.write({
+                'kob_restock_approved': True,
+                'kob_restock_approved_by': self.env.user.id,
+                'kob_restock_approved_at': fields.Datetime.now(),
+            })
+            # Now confirm + assign so worker can validate
+            try:
+                if picking.state == 'draft':
+                    picking.action_confirm()
+                if picking.state in ('confirmed', 'waiting'):
+                    picking.action_assign()
+            except Exception as exc:  # noqa: BLE001
+                raise UserError(_(
+                    'Approval saved but reservation failed: %s') % exc) from exc
+            picking.message_post(body=_(
+                'Cross-WH restock approved by %s. Worker may now validate.'
+            ) % self.env.user.display_name)
+        return True
+
     def button_validate(self):
         """Block validation if any move touches a location being counted."""
         for picking in self:
+            if picking.kob_cross_wh_restock and not picking.kob_restock_approved:
+                raise UserError(_(
+                    '🔒 Cross-warehouse restock %s requires manager approval '
+                    'before validation. Click "Approve Restock" first.'
+                ) % picking.name)
             for move in picking.move_ids:
                 for loc in (move.location_id, move.location_dest_id):
                     if loc.counting_task_id:

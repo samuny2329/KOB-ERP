@@ -24,6 +24,73 @@
         </field>
     </record>
 
+    <!-- Cross-WH restock approval — buttons + banner -->
+    <record id="view_picking_form_kob_restock" model="ir.ui.view">
+        <field name="name">stock.picking.form.kob_restock</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Approve button placed at the very top of the header -->
+            <header position="inside">
+                <button name="action_kob_approve_restock"
+                        type="object"
+                        string="✓ Approve Restock"
+                        class="btn-warning"
+                        invisible="not kob_cross_wh_restock or kob_restock_approved or state in ('done','cancel')"
+                        groups="kob_wms.group_wms_manager"/>
+            </header>
+
+            <!-- Banner: pending approval -->
+            <sheet position="before">
+                <div class="alert alert-warning text-center"
+                     role="alert"
+                     invisible="not kob_cross_wh_restock or kob_restock_approved">
+                    <strong>⚠ Cross-Warehouse Restock</strong> —
+                    pulls stock from another warehouse.
+                    Manager approval required before validation.
+                </div>
+            </sheet>
+
+            <!-- Hidden helper fields for the invisible attrs -->
+            <xpath expr="//sheet//group[1]" position="inside">
+                <field name="kob_cross_wh_restock" invisible="1"/>
+                <field name="kob_restock_approved" invisible="1"/>
+                <field name="kob_source_wh_label"
+                       string="Source Warehouse"
+                       invisible="not kob_cross_wh_restock"
+                       readonly="1"/>
+                <field name="kob_restock_approved_by"
+                       string="Approved By"
+                       invisible="not kob_cross_wh_restock or not kob_restock_approved"
+                       readonly="1"/>
+                <field name="kob_restock_approved_at"
+                       string="Approved At"
+                       invisible="not kob_cross_wh_restock or not kob_restock_approved"
+                       readonly="1"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Date format polish — render scheduled_date and date_deadline on
+         their own rows with the project-standard widget so the two
+         dates don't visually collide on the same line -->
+    <record id="view_picking_form_kob_date_polish" model="ir.ui.view">
+        <field name="name">stock.picking.form.kob_date_polish</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='scheduled_date']" position="attributes">
+                <attribute name="widget">datetime</attribute>
+                <attribute name="options">{"warn_future": false}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='date_deadline']" position="attributes">
+                <attribute name="widget">datetime</attribute>
+            </xpath>
+        </field>
+    </record>
+
     <record id="view_sale_order_form_wms" model="ir.ui.view">
         <field name="name">sale.order.form.wms</field>
         <field name="model">sale.order</field>

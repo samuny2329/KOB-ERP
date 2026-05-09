@@ -1,4 +1,7 @@
+import math
+
 from odoo import models, fields, api, _
+from odoo.exceptions import UserError
 
 
 class WmsPickface(models.Model):
@@ -19,6 +22,14 @@ class WmsPickface(models.Model):
     max_qty = fields.Float(string='Max Level', default=0.0,
                            help='Legacy ceiling. Demand-driven restock '
                                 'sizes transfers from pending_demand only.')
+    case_qty = fields.Integer(
+        string='Units per Case',
+        default=1,
+        help='Number of units per Bulk packaging case (e.g. 12 = '
+             'one case = 12 bottles). Restock qty is rounded UP to a '
+             'multiple of this number — if demand is 9 and case=12, '
+             'one full case (12 units) is moved.',
+    )
     current_qty = fields.Float(string='Current Qty',
                                compute='_compute_current_qty', store=True)
     pending_demand = fields.Float(
@@ -105,24 +116,31 @@ class WmsPickface(models.Model):
             pf.pending_demand = sum(outbound.mapped('product_uom_qty'))
             pf.in_transit_qty = sum(inbound.mapped('product_uom_qty'))
 
-    @api.depends('current_qty', 'pending_demand', 'in_transit_qty', 'max_qty')
+    @api.depends('current_qty', 'pending_demand', 'in_transit_qty',
+                 'max_qty', 'case_qty')
     def _compute_restock_qty(self):
-        """Demand-driven restock sizing.
+        """Demand-driven restock sizing, rounded up to case_qty multiple.
 
-        restock_qty = max(0, pending_demand - current_qty - in_transit_qty)
-        Falls back to legacy (max_qty - current_qty) ONLY when no demand
-        and the pickface has a configured max_qty.
+        Raw need = max(0, pending_demand - current_qty - in_transit_qty)
+        Falls back to (max_qty - current_qty) when no demand exists.
+        Final restock_qty = ceil(raw_need / case_qty) * case_qty
+        so transfers always pull whole packaging cases from Bulk.
         """
         for pf in self:
             net_need = (pf.pending_demand or 0.0) \
                 - (pf.current_qty or 0.0) \
                 - (pf.in_transit_qty or 0.0)
             if net_need > 0:
-                pf.restock_qty = net_need
+                raw = net_need
             elif pf.max_qty and pf.current_qty < pf.max_qty:
-                pf.restock_qty = pf.max_qty - pf.current_qty
+                raw = pf.max_qty - pf.current_qty
             else:
-                pf.restock_qty = 0.0
+                raw = 0.0
+            case = max(int(pf.case_qty or 1), 1)
+            if raw > 0 and case > 1:
+                pf.restock_qty = math.ceil(raw / case) * case
+            else:
+                pf.restock_qty = raw
 
     @api.depends('current_qty', 'pending_demand', 'in_transit_qty', 'min_qty')
     def _compute_needs_restock(self):
@@ -136,12 +154,69 @@ class WmsPickface(models.Model):
             min_breach = pf.min_qty > 0 and pf.current_qty <= pf.min_qty
             pf.needs_restock = bool(demand_gap or min_breach)
 
+    def _kob_loc_qty(self, location):
+        """Sum free (unreserved) qty of self.product_id at given location."""
+        Quant = self.env['stock.quant'].sudo()
+        quants = Quant.search([
+            ('product_id', '=', self.product_id.id),
+            ('location_id', '=', location.id),
+        ])
+        return sum(q.quantity - q.reserved_quantity for q in quants)
+
+    def _kob_find_bulk(self, qty_needed):
+        """Locate a Bulk source location with at least ``qty_needed`` units.
+
+        Search order:
+            1. Primary bulk in the SAME warehouse as the pickface.
+               If it has enough → return (loc, requires_approval=False).
+            2. Bulk locations in OTHER warehouses of the SAME company
+               (e.g. K-Off, B-Off). First match with enough stock is
+               returned with requires_approval=True (cross-WH transfer
+               needs a manager click).
+            3. Fall back to primary bulk regardless of stock — the move
+               will be ``confirmed`` not ``assigned`` until restocked.
+
+        Returns: (bulk_loc, requires_approval).
+        """
+        Loc = self.env['stock.location'].sudo()
+        warehouse = self.location_id.warehouse_id
+        if not warehouse:
+            return Loc.browse(), False
+        primary = Loc.search([
+            ('usage', '=', 'internal'),
+            ('warehouse_id', '=', warehouse.id),
+            ('name', 'ilike', 'Stock'),
+            ('id', '!=', self.location_id.id),
+            # exclude PICKFACE children
+            '!', ('complete_name', 'ilike', 'PICKFACE'),
+        ], limit=1)
+        if primary and self._kob_loc_qty(primary) >= qty_needed:
+            return primary, False
+        # Cross-warehouse fallback within same company
+        company = warehouse.company_id
+        alt_bulks = Loc.search([
+            ('usage', '=', 'internal'),
+            ('company_id', '=', company.id) if company else (1, '=', 1),
+            ('warehouse_id', '!=', warehouse.id),
+            ('name', 'ilike', 'Stock'),
+            '!', ('complete_name', 'ilike', 'PICKFACE'),
+        ])
+        for alt in alt_bulks:
+            if self._kob_loc_qty(alt) >= qty_needed:
+                return alt, True
+        return primary, False  # last resort
+
     def action_create_restock_transfer(self):
         """Create internal transfer from Bulk → Pickface to restock.
 
         Idempotent — skip when an open (non-done, non-cancel) Bulk →
         Pickface transfer for this product+pickface already exists, OR
         when computed restock_qty <= 0.
+
+        Cross-warehouse: if the primary bulk lacks stock, an alternate
+        bulk in another warehouse (same company) is used; the resulting
+        picking is flagged as requiring manager approval before the
+        worker can validate it.
         """
         self.ensure_one()
         if not self.product_id or not self.location_id:
@@ -157,21 +232,19 @@ class WmsPickface(models.Model):
         if existing_open:
             return False
 
-        # Find bulk storage location in same warehouse
         warehouse = self.location_id.warehouse_id
         if not warehouse:
             return
 
-        bulk_loc = self.env['stock.location'].search([
-            ('usage', '=', 'internal'),
-            ('warehouse_id', '=', warehouse.id),
-            ('name', 'ilike', 'Stock'),
-            ('id', '!=', self.location_id.id),
-        ], limit=1)
+        qty = self.restock_qty
+        if qty <= 0:
+            return
+
+        bulk_loc, requires_approval = self._kob_find_bulk(qty)
         if not bulk_loc:
             return
 
-        # Find internal transfer picking type
+        # Find internal transfer picking type — pickface's own warehouse
         int_type = self.env['stock.picking.type'].search([
             ('code', '=', 'internal'),
             ('warehouse_id', '=', warehouse.id),
@@ -179,16 +252,16 @@ class WmsPickface(models.Model):
         if not int_type:
             return
 
-        qty = self.restock_qty
-        if qty <= 0:
-            return
-
-        picking = self.env['stock.picking'].create({
+        picking_vals = {
             'picking_type_id': int_type.id,
             'location_id': bulk_loc.id,
             'location_dest_id': self.location_id.id,
             'origin': _('Restock %s') % self.code,
-        })
+            'kob_cross_wh_restock': bool(requires_approval),
+            'kob_source_wh_label': bulk_loc.warehouse_id.display_name
+                                   if bulk_loc.warehouse_id else False,
+        }
+        picking = self.env['stock.picking'].create(picking_vals)
         self.env['stock.move'].create({
             'description_picking': _('Restock %s → %s') % (
                 self.product_id.display_name, self.code),
@@ -199,12 +272,18 @@ class WmsPickface(models.Model):
             'location_id': bulk_loc.id,
             'location_dest_id': self.location_id.id,
         })
-        picking.action_confirm()
-        picking.action_assign()
+        # Cross-WH restocks stay in 'draft' until a manager approves;
+        # same-WH restocks go straight to confirmed/assigned.
+        if not requires_approval:
+            picking.action_confirm()
+            picking.action_assign()
 
+        suffix = (' [needs approval — cross-warehouse from %s]'
+                  % bulk_loc.warehouse_id.display_name) \
+            if requires_approval else ''
         self.message_post(body=_(
-            'Restock transfer created: %s (%.0f units from %s)'
-        ) % (picking.name, qty, bulk_loc.complete_name))
+            'Restock transfer created: %s (%.0f units from %s)%s'
+        ) % (picking.name, qty, bulk_loc.complete_name, suffix))
 
         return {
             'type': 'ir.actions.act_window',
