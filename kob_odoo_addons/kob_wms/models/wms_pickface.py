@@ -102,7 +102,8 @@ class WmsPickface(models.Model):
             'origin': _('Restock %s') % self.code,
         })
         self.env['stock.move'].create({
-            'name': _('Restock %s → %s') % (self.product_id.display_name, self.code),
+            'description_picking': _('Restock %s → %s') % (
+                self.product_id.display_name, self.code),
             'picking_id': picking.id,
             'product_id': self.product_id.id,
             'product_uom_qty': qty,
@@ -191,14 +192,17 @@ class WmsPickface(models.Model):
 
     def action_bulk_restock(self):
         """Create restock transfers for all pickfaces that need it."""
+        import logging
+        _logger = logging.getLogger(__name__)
         to_restock = self.search([('needs_restock', '=', True)])
         created = 0
         for pf in to_restock:
             try:
                 pf.action_create_restock_transfer()
                 created += 1
-            except Exception:
-                pass
+            except Exception as exc:  # noqa: BLE001
+                _logger.warning(
+                    "Restock failed for pickface %s: %s", pf.code, exc)
         return {
             'type': 'ir.actions.client',
             'tag': 'display_notification',
