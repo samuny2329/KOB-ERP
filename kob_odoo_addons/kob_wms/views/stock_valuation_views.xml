@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Custom Stock Valuation list view — Odoo 18-style report on
+         stock.move with signed Quantity + Total Value, matching the
+         enterprise/legacy 'Stock Valuation' page UX. -->
+    <record id="view_stock_valuation_list_kob" model="ir.ui.view">
+        <field name="name">stock.move.valuation.list.kob</field>
+        <field name="model">stock.move</field>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <list string="Stock Valuation"
+                  create="false" edit="false" delete="false"
+                  default_order="date desc">
+                <field name="date" widget="datetime"/>
+                <field name="reference"/>
+                <field name="product_id"/>
+                <field name="picking_id" optional="show"/>
+                <field name="company_id" optional="hide"
+                       groups="base.group_multi_company"/>
+                <field name="quantity" sum="Quantity"/>
+                <field name="value" sum="Total Value" widget="monetary"/>
+                <field name="remaining_qty" optional="hide" sum="Remaining Qty"/>
+                <field name="remaining_value" optional="hide"
+                       widget="monetary" sum="Remaining Value"/>
+                <field name="state" widget="badge" optional="hide"/>
+                <field name="is_in" optional="hide"/>
+                <field name="is_out" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_stock_valuation_pivot_kob" model="ir.ui.view">
+        <field name="name">stock.move.valuation.pivot.kob</field>
+        <field name="model">stock.move</field>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <pivot string="Stock Valuation" sample="1">
+                <field name="date" interval="month" type="row"/>
+                <field name="product_id" type="row"/>
+                <field name="quantity" type="measure"/>
+                <field name="value" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_stock_valuation_graph_kob" model="ir.ui.view">
+        <field name="name">stock.move.valuation.graph.kob</field>
+        <field name="model">stock.move</field>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <graph string="Stock Valuation" type="line" sample="1">
+                <field name="date" interval="month"/>
+                <field name="value" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_stock_valuation_search_kob" model="ir.ui.view">
+        <field name="name">stock.move.valuation.search.kob</field>
+        <field name="model">stock.move</field>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="reference"/>
+                <field name="product_id"/>
+                <field name="picking_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <filter name="done" string="Done"
+                        domain="[('state','=','done')]"/>
+                <filter name="incoming" string="Incoming (IN)"
+                        domain="[('is_in','=',True)]"/>
+                <filter name="outgoing" string="Outgoing (OUT)"
+                        domain="[('is_out','=',True)]"/>
+                <separator/>
+                <filter name="grp_product" string="Product"
+                        context="{'group_by': 'product_id'}"/>
+                <filter name="grp_date" string="Date"
+                        context="{'group_by': 'date:month'}"/>
+                <filter name="grp_company" string="Company"
+                        context="{'group_by': 'company_id'}"
+                        groups="base.group_multi_company"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Override existing standard action 478 (stock_account.stock_move_valuation_action)
+         to use list+pivot+graph views and rename to 'Stock Valuation'. -->
+    <record id="stock_account.stock_move_valuation_action"
+            model="ir.actions.act_window">
+        <field name="name">Stock Valuation</field>
+        <field name="view_mode">list,pivot,graph</field>
+        <field name="search_view_id" ref="view_stock_valuation_search_kob"/>
+    </record>
+
+    <record id="stock_valuation_action_view_list"
+            model="ir.actions.act_window.view">
+        <field name="sequence">1</field>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="view_stock_valuation_list_kob"/>
+        <field name="act_window_id" ref="stock_account.stock_move_valuation_action"/>
+    </record>
+
+    <record id="stock_valuation_action_view_pivot"
+            model="ir.actions.act_window.view">
+        <field name="sequence">2</field>
+        <field name="view_mode">pivot</field>
+        <field name="view_id" ref="view_stock_valuation_pivot_kob"/>
+        <field name="act_window_id" ref="stock_account.stock_move_valuation_action"/>
+    </record>
+
+    <record id="stock_valuation_action_view_graph"
+            model="ir.actions.act_window.view">
+        <field name="sequence">3</field>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="view_stock_valuation_graph_kob"/>
+        <field name="act_window_id" ref="stock_account.stock_move_valuation_action"/>
+    </record>
+
+</odoo>

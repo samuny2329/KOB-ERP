@@ -1,6 +1,6 @@
 {
     'name': 'KOB WMS Pro — WH-Online E-Commerce',
-    'version': '19.0.1.5.1',
+    'version': '19.0.1.6.0',
     'category': 'KOB ERP/WH-Online E-Commerce',
     'summary': 'Warehouse Management for online E-commerce '
                '(Shopee · Lazada · TikTok · POS) — Kiss of Beauty.',
@@ -86,6 +86,7 @@ Features
 
         # ── Odoo stock / POS extensions ──────────────────────────────────────
         'views/stock_picking_inherit_views.xml',
+        'views/stock_valuation_views.xml',
         'views/pos_order_inherit_views.xml',
         'views/res_company_wms_views.xml',
 
