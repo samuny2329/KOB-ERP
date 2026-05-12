@@ -322,6 +322,32 @@ export class PickScreen extends Component {
         }
     }
 
+    get activeBasketEntry() {
+        if (!this.state.basket.length) return null;
+        const id = this.state.basketActiveId;
+        return this.state.basket.find(b => b.id === id) || this.state.basket[0];
+    }
+
+    get activeBasketProgressPct() {
+        const e = this.activeBasketEntry;
+        if (!e || !e.expected_total) return 0;
+        return Math.min(100, Math.round((e.picked_total / e.expected_total) * 100));
+    }
+
+    get basketTotals() {
+        const list = this.state.basket;
+        const expected = list.reduce((s, b) => s + (b.expected_total || 0), 0);
+        const picked = list.reduce((s, b) => s + (b.picked_total || 0), 0);
+        const done = list.filter(b => b.all_picked).length;
+        return {
+            orders: list.length,
+            done,
+            expected,
+            picked,
+            pct: expected ? Math.min(100, Math.round((picked / expected) * 100)) : 0,
+        };
+    }
+
     removeFromBasket(orderId) {
         this.state.basket = this.state.basket.filter(o => o.id !== orderId);
         if (this.state.basketActiveId === orderId) {

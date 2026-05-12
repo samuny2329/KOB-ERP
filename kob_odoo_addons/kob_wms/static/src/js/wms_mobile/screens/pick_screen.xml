@@ -197,6 +197,70 @@
                 </button>
             </div>
 
+            <!-- ── BASKET-ACTIVE PANEL ─── shown when 1+ orders in basket.
+                 Replaces queue table so worker focuses on items + progress
+                 of the active order while ยิงรัว SKU. -->
+            <t t-if="state.basket.length and activeBasketEntry">
+                <div class="kob_basket_summary">
+                    <div class="bs_block">
+                        <div class="bs_lbl">Active Order</div>
+                        <div class="bs_val" t-esc="activeBasketEntry.awb || activeBasketEntry.ref || activeBasketEntry.so_name || activeBasketEntry.name"/>
+                        <div class="bs_sub" t-esc="activeBasketEntry.customer || '—'"/>
+                    </div>
+                    <div class="bs_block">
+                        <div class="bs_lbl">Picked</div>
+                        <div class="bs_val">
+                            <span t-esc="activeBasketEntry.picked_total"/>
+                            <span class="of"> / </span>
+                            <span t-esc="activeBasketEntry.expected_total"/>
+                        </div>
+                        <div class="bs_bar"><div class="bs_fill" t-att-style="'width:' + activeBasketProgressPct + '%'"/></div>
+                    </div>
+                    <div class="bs_block">
+                        <div class="bs_lbl">Basket Totals</div>
+                        <div class="bs_val">
+                            <span t-esc="basketTotals.picked"/>
+                            <span class="of"> / </span>
+                            <span t-esc="basketTotals.expected"/>
+                        </div>
+                        <div class="bs_sub">
+                            <span t-esc="basketTotals.done"/>
+                            <span> / </span>
+                            <span t-esc="basketTotals.orders"/>
+                            <span> ใบ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kob_basket_lines">
+                    <t t-if="!activeBasketEntry.lines or !activeBasketEntry.lines.length">
+                        <div class="kob_pick_empty">
+                            <div class="big_icon">📭</div>
+                            <div class="msg">No items</div>
+                        </div>
+                    </t>
+                    <t t-else="">
+                        <t t-foreach="activeBasketEntry.lines" t-as="line" t-key="line.id">
+                            <div t-att-class="'kob_line ' + ((line.picked_qty || 0) &gt;= (line.expected_qty || 0) ? 'done' : '')">
+                                <div class="check">
+                                    <t t-if="(line.picked_qty || 0) &gt;= (line.expected_qty || 0)">✓</t>
+                                </div>
+                                <div class="info">
+                                    <div class="sku" t-esc="line.sku"/>
+                                    <div class="name" t-esc="line.product_name"/>
+                                </div>
+                                <div class="qty">
+                                    <span t-esc="line.picked_qty || 0"/>
+                                    <span class="of"> / <t t-esc="line.expected_qty || 0"/></span>
+                                </div>
+                            </div>
+                        </t>
+                    </t>
+                </div>
+            </t>
+
+            <!-- ── DEFAULT (no basket) ─── filters + flat queue table -->
+            <t t-else="">
             <!-- Filters: platform chips -->
             <div class="kob_queue_filters">
                 <button t-att-class="'kob_filter_chip ' + (state.platformFilter === 'all' ? 'active' : '')"
@@ -279,6 +343,7 @@
                     </tbody>
                 </table>
             </div>
+            </t><!-- end basket-empty default branch -->
         </div>
     </t>
 </t>
