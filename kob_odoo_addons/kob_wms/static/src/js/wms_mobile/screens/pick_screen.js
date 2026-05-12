@@ -211,9 +211,11 @@ export class PickScreen extends Component {
         const activeIds = this.state.basket.map(o => o.id);
         let result;
         try {
+            // queue_scan_dispatch is decorated @api.model → no leading ids
+            // list in the args (see wms_sales_order.py:843).
             result = await this.orm.call(
                 "wms.sales.order", "queue_scan_dispatch",
-                [[], activeIds, code, this.props.worker?.id || null],
+                [activeIds, code, this.props.worker?.id || null],
             );
         } catch (e) {
             console.error("[KOB Mobile Pick] queue_scan_dispatch", e);
