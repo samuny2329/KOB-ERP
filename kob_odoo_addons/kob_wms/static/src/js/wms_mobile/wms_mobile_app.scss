@@ -1,0 +1,1498 @@
+// =====================================================================
+// KOB WMS Mobile App — Design Tokens & Layout
+// Style: Odoo 19 native Barcode app (teal primary) + KOB scan-first UX
+// Optimized for handheld scanners + tablets + phones
+// =====================================================================
+
+// Primary = Odoo 19 native barcode teal (matches stock_barcode app palette)
+$kob-primary:        #00A09D;        // teal 500
+$kob-primary-dark:   #007873;        // teal 700
+$kob-primary-light:  #E0F4F3;        // teal 50
+$kob-accent:         #875A7B;        // secondary accent (legacy KOB purple)
+$kob-accent-light:   #F3EDF7;
+$kob-warning:        #FF9800;
+$kob-danger:         #D32F2F;
+$kob-success:        #2E7D32;
+
+$kob-surface:        #FFFFFF;
+$kob-surface-alt:    #FAFAFA;
+$kob-surface-low:    #F4F4F4;
+
+$kob-text:           #212121;
+$kob-text-muted:     #6B6B6B;
+$kob-text-faint:     #9C9C9C;
+$kob-border:         #E0E0E0;
+$kob-border-soft:    #F0F0F0;
+
+// Account Report platform colors
+$plat-shopee:        #EE4D2D;
+$plat-tiktok:        #000000;
+$plat-lazada:        #0F156D;
+$plat-odoo:          $kob-primary;
+$plat-pos:           #017E84;
+$plat-manual:        #6B6B6B;
+
+// =====================================================================
+// Root container — fullscreen, fills viewport
+// =====================================================================
+.kob_mobile_app {
+    position: fixed;
+    inset: 0;
+    background: $kob-surface-alt;
+    color: $kob-text;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "IBM Plex Sans Thai", Tahoma, sans-serif;
+    font-size: 14px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+
+    * { box-sizing: border-box; }
+
+    button { font-family: inherit; cursor: pointer; }
+
+    // Top bar (header) — appears on every screen
+    .kob_topbar {
+        flex-shrink: 0;
+        height: 52px;
+        background: $kob-primary;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        padding: 0 12px;
+        gap: 10px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+
+        .kob_back {
+            width: 36px; height: 36px;
+            border: none;
+            background: rgba(255,255,255,0.12);
+            color: #fff;
+            border-radius: 8px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s;
+            &:active { background: rgba(255,255,255,0.25); }
+        }
+        .kob_title {
+            flex: 1;
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: 0.2px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .kob_subtitle {
+            font-size: 11px;
+            opacity: 0.85;
+            font-weight: 500;
+        }
+        .kob_user_chip {
+            background: rgba(255,255,255,0.18);
+            padding: 4px 10px;
+            border-radius: 14px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+    }
+
+    // Body — scrollable content area
+    .kob_body {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    // Bottom action bar — sticky
+    .kob_actionbar {
+        flex-shrink: 0;
+        background: $kob-surface;
+        border-top: 1px solid $kob-border;
+        padding: 8px 10px;
+        display: flex;
+        gap: 8px;
+        box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+
+        button {
+            flex: 1;
+            min-height: 52px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: transform 0.1s, background 0.15s;
+
+            &:active { transform: scale(0.97); }
+
+            &.btn_primary { background: $kob-primary; color: #fff; }
+            &.btn_primary:active { background: $kob-primary-dark; }
+            &.btn_success { background: $kob-success; color: #fff; }
+            &.btn_warning { background: $kob-warning; color: #fff; }
+            &.btn_danger  { background: $kob-danger; color: #fff; }
+            &.btn_ghost   {
+                background: $kob-surface;
+                color: $kob-text;
+                border: 1px solid $kob-border;
+            }
+            &:disabled { opacity: 0.4; }
+        }
+    }
+}
+
+// =====================================================================
+// PROFILE screen — Worker selection grid
+// =====================================================================
+.kob_profile {
+    padding: 12px;
+
+    .kob_profile_search_wrap {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        padding-bottom: 10px;
+        background: $kob-surface-alt;
+    }
+    .kob_profile_search {
+        width: 100%;
+        min-height: 44px;
+        border: 1px solid $kob-border;
+        border-radius: 10px;
+        padding: 0 14px;
+        font-size: 14px;
+        background: $kob-surface;
+        &:focus {
+            outline: 2px solid $kob-primary-light;
+            border-color: $kob-primary;
+        }
+    }
+
+    .kob_profile_grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        @media (min-width: 600px) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        @media (min-width: 900px) {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    .kob_profile_card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        padding: 14px 10px;
+        background: $kob-surface;
+        border: 1px solid $kob-border;
+        border-radius: 14px;
+        text-align: center;
+        cursor: pointer;
+        transition: transform 0.1s, border-color 0.15s, box-shadow 0.15s;
+        min-height: 140px;
+
+        &:active {
+            transform: scale(0.96);
+            border-color: $kob-primary;
+            box-shadow: 0 4px 12px rgba(0, 160, 157, 0.18);
+        }
+    }
+
+    .kob_profile_avatar {
+        width: 56px; height: 56px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 4px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    }
+    .kob_profile_name {
+        font-size: 13px;
+        font-weight: 700;
+        color: $kob-text;
+        line-height: 1.2;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .kob_profile_role {
+        font-size: 10px;
+        font-weight: 800;
+        padding: 2px 8px;
+        border-radius: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .kob_profile_pos {
+        font-size: 10px;
+        color: $kob-text-muted;
+        margin-top: 2px;
+    }
+
+    .kob_profile_empty {
+        text-align: center;
+        padding: 60px 20px;
+        color: $kob-text-faint;
+        .big_icon { font-size: 64px; opacity: 0.3; }
+        .msg { margin-top: 12px; font-size: 14px; }
+    }
+}
+
+// User chip on login screen (selected profile preview)
+.kob_login_user_chip {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: $kob-surface;
+    border: 1px solid $kob-border;
+    border-radius: 14px;
+    width: 100%;
+    max-width: 320px;
+
+    .kob_login_avatar {
+        width: 48px; height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        font-weight: 800;
+        color: #fff;
+        flex-shrink: 0;
+    }
+    .kob_login_user_info {
+        flex: 1;
+        min-width: 0;
+        text-align: left;
+
+        .name {
+            font-size: 15px;
+            font-weight: 700;
+            color: $kob-text;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .role {
+            font-size: 11px;
+            color: $kob-text-muted;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+    }
+}
+
+// =====================================================================
+// LOGIN screen — PIN-based worker login
+// =====================================================================
+.kob_login {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    gap: 18px;
+
+    .kob_login_brand {
+        text-align: center;
+        margin-bottom: 8px;
+
+        .icon {
+            font-size: 64px;
+            line-height: 1;
+        }
+        .title {
+            margin-top: 8px;
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            color: $kob-primary;
+        }
+        .sub {
+            font-size: 12px;
+            color: $kob-text-muted;
+            margin-top: 4px;
+        }
+    }
+
+    .kob_login_input {
+        width: 100%;
+        max-width: 320px;
+        padding: 14px 16px;
+        border: 2px solid $kob-border;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: 600;
+        text-align: center;
+        letter-spacing: 6px;
+        transition: border-color 0.15s;
+
+        &:focus {
+            outline: none;
+            border-color: $kob-primary;
+        }
+    }
+
+    .kob_login_pin_dots {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        margin-top: 4px;
+
+        .dot {
+            width: 14px; height: 14px;
+            border-radius: 50%;
+            background: $kob-border;
+            transition: background 0.15s;
+            &.filled { background: $kob-primary; }
+        }
+    }
+
+    .kob_login_pad {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        max-width: 320px;
+        width: 100%;
+
+        .pad_btn {
+            min-height: 60px;
+            border: 1px solid $kob-border;
+            background: $kob-surface;
+            border-radius: 12px;
+            font-size: 22px;
+            font-weight: 700;
+            color: $kob-text;
+            transition: transform 0.08s, background 0.12s;
+            &:active {
+                transform: scale(0.95);
+                background: $kob-primary-light;
+            }
+            &.pad_action {
+                background: $kob-primary;
+                color: #fff;
+                border-color: transparent;
+                font-size: 16px;
+            }
+            &.pad_clear {
+                background: $kob-surface-low;
+                color: $kob-text-muted;
+                font-size: 14px;
+            }
+        }
+    }
+
+    .kob_login_error {
+        color: $kob-danger;
+        font-size: 13px;
+        font-weight: 600;
+        min-height: 18px;
+    }
+}
+
+// =====================================================================
+// HOME screen — 5 operation tiles
+// =====================================================================
+.kob_home {
+    padding: 12px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    align-content: start;
+
+    @media (min-width: 768px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .kob_tile {
+        background: $kob-surface;
+        border: 1px solid $kob-border;
+        border-radius: 14px;
+        padding: 18px 14px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        text-align: center;
+        transition: transform 0.1s, box-shadow 0.15s, border-color 0.15s;
+        cursor: pointer;
+
+        &:active {
+            transform: scale(0.97);
+            border-color: $kob-primary;
+        }
+
+        .icon {
+            font-size: 38px;
+            line-height: 1;
+        }
+        .name {
+            font-size: 13px;
+            font-weight: 700;
+            color: $kob-text;
+            letter-spacing: 0.3px;
+        }
+        .count {
+            font-size: 22px;
+            font-weight: 800;
+            color: $kob-primary;
+            font-variant-numeric: tabular-nums;
+        }
+        .hint {
+            font-size: 10px;
+            color: $kob-text-faint;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        &.tile_pack  { .count { color: #017E84; } }
+        &.tile_out   { .count { color: $kob-warning; } }
+        &.tile_disp  { .count { color: $kob-danger; } }
+        &.tile_count { .count { color: $kob-accent; } }
+    }
+}
+
+// =====================================================================
+// OP_TABLE — Account Report-style hierarchical table
+// =====================================================================
+.kob_optable {
+    width: 100%;
+    background: $kob-surface;
+    border-bottom: 1px solid $kob-border;
+    font-variant-numeric: tabular-nums;
+
+    // Toolbar (filters)
+    .kob_optable_toolbar {
+        display: flex;
+        gap: 6px;
+        padding: 8px;
+        background: $kob-surface;
+        border-bottom: 1px solid $kob-border-soft;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 5;
+
+        input.kob_search {
+            flex: 1;
+            min-height: 36px;
+            border: 1px solid $kob-border;
+            border-radius: 8px;
+            padding: 0 10px;
+            font-size: 13px;
+            background: $kob-surface-low;
+            &:focus { outline: 2px solid $kob-primary-light; border-color: $kob-primary; }
+        }
+        .kob_filter_chip {
+            padding: 6px 10px;
+            border: 1px solid $kob-border;
+            border-radius: 18px;
+            background: $kob-surface;
+            font-size: 12px;
+            font-weight: 600;
+            color: $kob-text-muted;
+            white-space: nowrap;
+            &.active {
+                background: $kob-primary;
+                color: #fff;
+                border-color: transparent;
+            }
+        }
+    }
+
+    // Header row (sticky below toolbar)
+    .kob_optable_thead {
+        display: grid;
+        grid-template-columns: 1fr 60px 50px 60px;
+        padding: 8px 12px;
+        background: $kob-surface-low;
+        border-bottom: 2px solid $kob-border;
+        position: sticky;
+        top: 52px;        // below toolbar
+        z-index: 4;
+
+        > div {
+            font-size: 10px;
+            font-weight: 800;
+            color: $kob-text-muted;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            &.num { text-align: right; }
+        }
+    }
+
+    // Group row (collapsible) — Account Report style
+    .kob_optable_group {
+        display: grid;
+        grid-template-columns: 24px 1fr auto;
+        align-items: center;
+        padding: 10px 12px;
+        background: linear-gradient(to bottom, $kob-surface-low, $kob-surface-alt);
+        border-bottom: 1px solid $kob-border;
+        cursor: pointer;
+        font-weight: 700;
+        font-size: 13px;
+        transition: background 0.12s;
+        &:active { background: $kob-primary-light; }
+
+        .caret {
+            display: inline-block;
+            transition: transform 0.15s;
+        }
+        &.collapsed .caret { transform: rotate(-90deg); }
+
+        .group_name {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            .platform_dot {
+                width: 8px; height: 8px;
+                border-radius: 50%;
+                background: $plat-manual;
+            }
+            &.shopee  .platform_dot { background: $plat-shopee; }
+            &.tiktok  .platform_dot { background: $plat-tiktok; }
+            &.lazada  .platform_dot { background: $plat-lazada; }
+            &.odoo    .platform_dot { background: $plat-odoo; }
+            &.pos     .platform_dot { background: $plat-pos; }
+        }
+
+        .group_count {
+            font-size: 11px;
+            color: $kob-text-muted;
+            font-weight: 700;
+            background: $kob-surface;
+            padding: 3px 8px;
+            border-radius: 10px;
+            border: 1px solid $kob-border;
+        }
+    }
+
+    // Data row — tap-friendly
+    .kob_optable_row {
+        display: grid;
+        grid-template-columns: 1fr 60px 50px 60px;
+        align-items: center;
+        padding: 10px 12px 10px 28px;       // indent under group
+        border-bottom: 1px solid $kob-border-soft;
+        font-size: 13px;
+        transition: background 0.1s;
+        cursor: pointer;
+
+        &:active { background: $kob-primary-light; }
+
+        .cell_main {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            min-width: 0;
+            overflow: hidden;
+
+            .ref {
+                font-weight: 700;
+                color: $kob-text;
+                font-size: 13px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .sub {
+                font-size: 11px;
+                color: $kob-text-muted;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+        .cell_num {
+            text-align: right;
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+        }
+        .cell_status {
+            text-align: center;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 6px;
+            border-radius: 4px;
+            background: $kob-border-soft;
+            color: $kob-text-muted;
+            text-transform: uppercase;
+
+            &.on_track { background: $kob-accent-light; color: $kob-accent; }
+            &.at_risk  { background: #FFF3E0; color: $kob-warning; }
+            &.breached { background: #FFEBEE; color: $kob-danger; }
+            &.done     { background: #E8F5E9; color: $kob-success; }
+        }
+    }
+
+    // Total row (sticky bottom — Account Report signature)
+    .kob_optable_total {
+        position: sticky;
+        bottom: 0;
+        display: grid;
+        grid-template-columns: 1fr auto auto auto;
+        gap: 12px;
+        padding: 10px 12px;
+        background: $kob-text;
+        color: #fff;
+        font-weight: 700;
+        font-size: 12px;
+        z-index: 5;
+        box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
+
+        .label { letter-spacing: 0.5px; text-transform: uppercase; opacity: 0.75; }
+        .value { font-variant-numeric: tabular-nums; }
+    }
+
+    .kob_empty {
+        text-align: center;
+        padding: 60px 20px;
+        color: $kob-text-faint;
+        font-size: 13px;
+        .icon { font-size: 48px; opacity: 0.3; }
+        .msg  { margin-top: 12px; }
+    }
+}
+
+// =====================================================================
+// QUEUE LIST — Pick Queue (F1) style: scan bar + flat table + pill chips
+// =====================================================================
+.kob_queue_body {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background: $kob-surface;
+}
+
+.kob_queue_scanbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    background: $kob-surface;
+    border-bottom: 1px solid $kob-border-soft;
+
+    .bar_icon {
+        width: 38px; height: 38px;
+        border: 1px solid $kob-primary;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        background: $kob-primary-light;
+    }
+    .bar_input {
+        flex: 1;
+        min-height: 44px;
+        padding: 0 14px;
+        border: 2px solid $kob-primary;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        color: $kob-text;
+        background: $kob-surface;
+        &:focus {
+            outline: none;
+            border-color: $kob-primary-dark;
+            box-shadow: 0 0 0 3px rgba(0, 160, 157, 0.18);
+        }
+        &::placeholder { color: $kob-text-muted; font-weight: 400; }
+    }
+    .bar_ready {
+        flex-shrink: 0;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.8px;
+        padding: 5px 10px;
+        background: #E8F5E9;
+        color: #2E7D32;
+        border: 1px solid #C8E6C9;
+        border-radius: 6px;
+    }
+}
+
+.kob_queue_filters {
+    display: flex;
+    gap: 6px;
+    padding: 8px 14px;
+    background: $kob-surface-low;
+    border-bottom: 1px solid $kob-border-soft;
+    overflow-x: auto;
+    align-items: center;
+
+    .kob_filter_chip {
+        padding: 4px 12px;
+        border: 1px solid $kob-border;
+        border-radius: 14px;
+        background: $kob-surface;
+        font-size: 12px;
+        font-weight: 600;
+        color: $kob-text-muted;
+        white-space: nowrap;
+        flex-shrink: 0;
+        transition: all 0.12s;
+
+        &.active {
+            background: $kob-primary;
+            color: #fff;
+            border-color: transparent;
+        }
+        &:active { transform: scale(0.96); }
+    }
+
+    .kob_queue_count {
+        margin-left: auto;
+        font-size: 11px;
+        font-weight: 700;
+        color: $kob-text-muted;
+        font-variant-numeric: tabular-nums;
+        flex-shrink: 0;
+    }
+}
+
+// Basket strip — multi-pick session header in Pick Queue.
+// Worker scans AWB → card appears here. Subsequent SKU scans dispatch
+// into the right card automatically (see queue_scan_dispatch in
+// wms_sales_order.py:844).
+.kob_basket_strip {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+    padding: 8px 10px;
+    background: $kob-primary-light;
+    border-bottom: 2px solid $kob-primary;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+
+    .basket_label {
+        flex-shrink: 0;
+        align-self: center;
+        font-size: 10px;
+        font-weight: 900;
+        letter-spacing: 1.4px;
+        color: $kob-primary-dark;
+        padding: 0 4px;
+    }
+
+    .kob_basket_card {
+        flex: 0 0 180px;
+        background: $kob-surface;
+        border: 2px solid $kob-border;
+        border-radius: 8px;
+        padding: 8px 10px;
+        cursor: pointer;
+        transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s, background 0.3s;
+        position: relative;
+        font-variant-numeric: tabular-nums;
+
+        &.active {
+            border-color: $kob-primary;
+            box-shadow: 0 0 0 3px rgba(0, 160, 157, 0.18);
+        }
+        &.complete {
+            border-color: $kob-success;
+            background: #E8F5E9;
+        }
+        &.flash {
+            animation: kob-basket-flash 600ms ease-out;
+        }
+
+        .bc_head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            margin-bottom: 2px;
+
+            .bc_ref {
+                font-size: 13px;
+                font-weight: 800;
+                color: $kob-text;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                flex: 1;
+            }
+            .bc_x {
+                flex-shrink: 0;
+                width: 22px;
+                height: 22px;
+                border-radius: 4px;
+                border: 1px solid $kob-border;
+                background: $kob-surface-low;
+                color: $kob-text-muted;
+                font-size: 14px;
+                font-weight: 700;
+                line-height: 1;
+                padding: 0;
+                cursor: pointer;
+                &:hover { background: $kob-danger; color: #fff; border-color: $kob-danger; }
+            }
+        }
+        .bc_cust {
+            font-size: 11px;
+            color: $kob-text-muted;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 4px;
+        }
+        .bc_progress {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            font-size: 13px;
+            color: $kob-text;
+
+            .bc_qty strong { font-size: 16px; font-weight: 900; }
+            .bc_done {
+                margin-left: auto;
+                color: $kob-success;
+                font-weight: 900;
+                font-size: 16px;
+            }
+        }
+        .bc_bar {
+            margin-top: 4px;
+            height: 4px;
+            background: $kob-surface-low;
+            border-radius: 2px;
+            overflow: hidden;
+            .bc_fill {
+                height: 100%;
+                background: $kob-primary;
+                transition: width 0.25s ease;
+            }
+        }
+    }
+
+    .kob_basket_clear {
+        flex-shrink: 0;
+        align-self: stretch;
+        padding: 0 12px;
+        border: 1px solid $kob-border;
+        border-radius: 8px;
+        background: $kob-surface;
+        color: $kob-text-muted;
+        font-size: 11px;
+        font-weight: 700;
+        cursor: pointer;
+        &:hover { background: $kob-danger; color: #fff; border-color: $kob-danger; }
+    }
+}
+
+@keyframes kob-basket-flash {
+    0%   { background: $kob-primary-light; }
+    50%  { background: #C8E6C9; box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.4); }
+    100% { background: $kob-surface; box-shadow: 0 0 0 0 rgba(46, 125, 50, 0); }
+}
+
+// Bar error/success highlights on the queue scan bar
+.kob_queue_scanbar.err .bar_input {
+    border-color: $kob-danger;
+    box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.2);
+}
+.kob_queue_scanbar .bar_err {
+    flex-shrink: 0;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 5px 10px;
+    background: #FFEBEE;
+    color: $kob-danger;
+    border: 1px solid #FFCDD2;
+    border-radius: 6px;
+    letter-spacing: 0.4px;
+}
+.kob_queue_scanbar .bar_ready.basket {
+    background: $kob-primary-light;
+    color: $kob-primary-dark;
+    border-color: $kob-primary;
+}
+
+.kob_queue_body.flash_success { background: rgba(46, 125, 50, 0.06); transition: background 0.25s; }
+.kob_queue_body.flash_error   { background: rgba(211, 47, 47, 0.06); transition: background 0.25s; }
+
+.kob_queue_table_wrap {
+    flex: 1;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    background: $kob-surface;
+}
+.kob_queue_table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    color: $kob-text;
+    table-layout: auto;
+
+    thead th {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        text-align: left;
+        font-size: 11px;
+        font-weight: 700;
+        color: $kob-text-muted;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 10px 12px;
+        background: $kob-surface;
+        border-bottom: 2px solid $kob-border;
+        white-space: nowrap;
+
+        &.col_num { text-align: right; }
+    }
+
+    tbody tr {
+        border-bottom: 1px solid $kob-border-soft;
+        transition: background 0.1s;
+        cursor: pointer;
+        &:active { background: $kob-primary-light; }
+        &:hover  { background: $kob-surface-low; }
+    }
+
+    tbody td {
+        padding: 12px;
+        vertical-align: middle;
+        font-variant-numeric: tabular-nums;
+
+        &.col_order {
+            font-weight: 700;
+            color: $kob-text;
+            white-space: nowrap;
+        }
+        &.col_ref {
+            font-family: ui-monospace, "SF Mono", Menlo, monospace;
+            color: $kob-text;
+            white-space: nowrap;
+        }
+        &.col_cust {
+            color: $kob-text-muted;
+            max-width: 220px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        &.col_num {
+            text-align: right;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+    }
+
+    .kob_queue_empty_row td {
+        padding: 0;
+        background: $kob-surface;
+    }
+}
+
+// Platform pill chip — matches Pick Queue F1 style
+.kob_chip_plat {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    border: 1px solid $kob-primary;
+    color: $kob-primary;
+    background: $kob-primary-light;
+    white-space: nowrap;
+
+    &.shopee  { color: $plat-shopee; border-color: $plat-shopee; background: rgba(238, 77, 45, 0.08); }
+    &.tiktok  { color: $plat-tiktok; border-color: $plat-tiktok; background: rgba(0, 0, 0, 0.06); }
+    &.lazada  { color: $plat-lazada; border-color: $plat-lazada; background: rgba(15, 21, 109, 0.08); }
+    &.pos     { color: $plat-pos;    border-color: $plat-pos;    background: rgba(1, 126, 132, 0.08); }
+    &.odoo    { color: $kob-primary; border-color: $kob-primary; background: $kob-primary-light; }
+    &.manual  { color: #6B6B6B; border-color: $kob-border; background: $kob-surface-low; }
+}
+
+// SLA status pill chip
+.kob_chip_sla {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+
+    &.on_track { background: #DCFCE7; color: #166534; }
+    &.at_risk  { background: #FEF3C7; color: #92400E; }
+    &.breached { background: #FEE2E2; color: #991B1B; }
+    &.done     { background: #DBEAFE; color: #1E40AF; }
+    &.none     { background: $kob-surface-low; color: $kob-text-muted; }
+}
+
+// Status pill chip
+.kob_chip_status {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    background: $kob-surface-low;
+    color: $kob-text-muted;
+    border: 1px solid $kob-border;
+    white-space: nowrap;
+    text-transform: capitalize;
+
+    &.status_pending  { background: #FEF3C7; color: #92400E; border-color: transparent; }
+    &.status_picking  { background: #DBEAFE; color: #1E40AF; border-color: transparent; }
+    &.status_picked   { background: #DCFCE7; color: #166534; border-color: transparent; }
+    &.status_packing  { background: #E9D5FF; color: #6B21A8; border-color: transparent; }
+    &.status_packed   { background: #C7D2FE; color: #3730A3; border-color: transparent; }
+    &.status_shipped  { background: #BFDBFE; color: #1E3A8A; border-color: transparent; }
+    &.status_cancelled{ background: #FEE2E2; color: #991B1B; border-color: transparent; }
+}
+
+// =====================================================================
+// PICK SCREEN — detail
+// =====================================================================
+.kob_pick_detail {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: $kob-surface-alt;
+
+    .kob_order_summary {
+        background: $kob-surface;
+        padding: 12px;
+        border-bottom: 1px solid $kob-border;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 8px;
+        align-items: center;
+
+        .ref { font-weight: 800; font-size: 16px; color: $kob-text; }
+        .meta { font-size: 12px; color: $kob-text-muted; margin-top: 2px; }
+        .progress {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            background: $kob-primary-light;
+            color: $kob-primary;
+            border-radius: 12px;
+        }
+        .progress_bar {
+            grid-column: 1 / -1;
+            height: 6px;
+            border-radius: 3px;
+            background: $kob-border-soft;
+            overflow: hidden;
+            margin-top: 2px;
+            .fill {
+                height: 100%;
+                background: $kob-primary;
+                transition: width 0.25s ease-out;
+            }
+        }
+    }
+
+    .kob_scan_container {
+        background: $kob-surface;
+        padding: 10px 12px;
+        border-bottom: 1px solid $kob-border;
+        position: sticky;
+        top: 0;
+        z-index: 5;
+
+        .kob_scan_input {
+            width: 100%;
+            min-height: 56px;
+            padding: 10px 14px;
+            border: 2px solid $kob-primary;
+            border-radius: 12px;
+            background: $kob-primary-light;
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: $kob-primary-dark;
+            text-align: center;
+            // Pulse the border to indicate "ready to scan" — cursor is blinking
+            // inside, plus the border glows so user sees the active scan field
+            // even when looking away from the typing position.
+            animation: kob_scan_ready_pulse 1.6s ease-in-out infinite;
+            caret-color: $kob-primary;
+
+            &:focus {
+                outline: none;
+                border-color: $kob-primary-dark;
+                background: #fff;
+                animation: kob_scan_focus_pulse 1.2s ease-in-out infinite;
+            }
+            &::placeholder { color: rgba(0, 160, 157, 0.45); letter-spacing: 2px; }
+        }
+        .scan_hint {
+            font-size: 10px;
+            color: $kob-text-muted;
+            text-align: center;
+            margin-top: 4px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+    }
+
+    .kob_lines {
+        flex: 1;
+        overflow-y: auto;
+        padding: 8px 0;
+    }
+    .kob_line {
+        display: grid;
+        grid-template-columns: 28px 1fr auto;
+        gap: 10px;
+        align-items: center;
+        padding: 12px 14px;
+        background: $kob-surface;
+        margin: 4px 8px;
+        border-radius: 10px;
+        border: 1px solid $kob-border-soft;
+        transition: background 0.15s, border-color 0.15s;
+
+        .check {
+            width: 24px; height: 24px;
+            border-radius: 50%;
+            background: $kob-border;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 800;
+        }
+        .info {
+            min-width: 0;
+            .sku  { font-size: 11px; color: $kob-text-muted; font-weight: 600; }
+            .name {
+                font-size: 13px;
+                font-weight: 600;
+                color: $kob-text;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+        .qty {
+            font-size: 16px;
+            font-weight: 800;
+            font-variant-numeric: tabular-nums;
+            color: $kob-text;
+            min-width: 50px;
+            text-align: right;
+            .of { color: $kob-text-faint; font-size: 12px; font-weight: 600; }
+        }
+
+        &.done {
+            background: $kob-accent-light;
+            border-color: $kob-accent;
+            .check { background: $kob-accent; }
+            .qty   { color: $kob-accent; }
+        }
+        &.flash {
+            animation: kob_flash 0.6s ease-out;
+        }
+    }
+
+    @keyframes kob_flash {
+        0%   { background: $kob-warning; }
+        100% { background: $kob-surface; }
+    }
+
+    // ── Red flash overlay on scan error — DRAMATIC FULL-SCREEN STROBE ──
+    &.flash_error {
+        position: relative;
+        animation: kob_screen_red_strobe 1.6s steps(8, end);
+
+        // Strobing red overlay
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: $kob-danger;
+            border: 14px solid #B71C1C;
+            z-index: 200;
+            animation: kob_screen_red_overlay 1.6s ease-out;
+        }
+
+        // Big ERROR badge popped center
+        &::after {
+            content: "❌ ERROR";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            color: $kob-danger;
+            font-size: 64px;
+            font-weight: 900;
+            letter-spacing: 4px;
+            padding: 20px 50px;
+            border: 6px solid $kob-danger;
+            border-radius: 16px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+            z-index: 201;
+            pointer-events: none;
+            animation: kob_error_badge 1.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            white-space: nowrap;
+        }
+    }
+
+    &.flash_success::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: rgba(46, 125, 50, 0.10);
+        z-index: 100;
+        animation: kob_screen_green_pulse 0.5s ease-out;
+    }
+
+    .kob_scan_input.err {
+        border-color: $kob-danger !important;
+        background: #FFEBEE !important;
+        color: $kob-danger;
+        animation: kob_input_shake 0.5s;
+    }
+    .scan_hint.err {
+        color: $kob-danger;
+        font-weight: 700;
+    }
+
+    // ── Auto-done countdown banner ─────────────────────────────────
+    .kob_autodone_banner {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 16px;
+        background: linear-gradient(90deg, $kob-success, #4caf50);
+        color: #fff;
+        box-shadow: 0 2px 12px rgba(46, 125, 50, 0.3);
+        animation: kob_banner_in 0.3s ease-out;
+
+        .banner_icon {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+        .banner_msg {
+            flex: 1;
+            min-width: 0;
+            .t1 { font-size: 14px; font-weight: 800; }
+            .t2 { font-size: 12px; opacity: 0.9; margin-top: 2px; }
+        }
+        .banner_cancel {
+            padding: 6px 14px;
+            background: rgba(255,255,255,0.18);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 12px;
+            &:active { background: rgba(255,255,255,0.3); }
+        }
+    }
+}
+
+@keyframes kob_screen_red_strobe {
+    0%   { background: $kob-surface-alt; }
+    10%  { background: #FFCDD2; }
+    20%  { background: $kob-surface-alt; }
+    35%  { background: #FFCDD2; }
+    50%  { background: $kob-surface-alt; }
+    65%  { background: #FFCDD2; }
+    80%  { background: $kob-surface-alt; }
+    90%  { background: #FFCDD2; }
+    100% { background: $kob-surface-alt; }
+}
+
+@keyframes kob_screen_red_overlay {
+    0%   { opacity: 0.95; }
+    15%  { opacity: 0.20; }
+    30%  { opacity: 0.85; }
+    45%  { opacity: 0.15; }
+    60%  { opacity: 0.70; }
+    75%  { opacity: 0.10; }
+    90%  { opacity: 0.40; }
+    100% { opacity: 0; }
+}
+
+@keyframes kob_error_badge {
+    0%   { transform: translate(-50%, -50%) scale(0.2) rotate(-12deg); opacity: 0; }
+    25%  { transform: translate(-50%, -50%) scale(1.25) rotate(4deg); opacity: 1; }
+    40%  { transform: translate(-50%, -50%) scale(0.95) rotate(-2deg); }
+    55%  { transform: translate(-50%, -50%) scale(1.08) rotate(1deg); }
+    70%  { transform: translate(-50%, -50%) scale(1.0)  rotate(0deg); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(0.85) rotate(0deg); opacity: 0; }
+}
+
+@keyframes kob_screen_green_pulse {
+    0%   { opacity: 0.8; }
+    100% { opacity: 0; }
+}
+
+@keyframes kob_input_shake {
+    0%   { transform: translateX(0); }
+    20%  { transform: translateX(-6px); }
+    40%  { transform: translateX(6px); }
+    60%  { transform: translateX(-4px); }
+    80%  { transform: translateX(4px); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes kob_banner_in {
+    from { transform: translateY(-100%); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+}
+
+// Scan input "ready to scan" pulse — keeps user aware the field is live
+@keyframes kob_scan_ready_pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(0, 160, 157, 0.45); }
+    50%  { box-shadow: 0 0 0 6px rgba(0, 160, 157, 0.0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 160, 157, 0.0); }
+}
+@keyframes kob_scan_focus_pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(0, 160, 157, 0.55); }
+    50%  { box-shadow: 0 0 0 8px rgba(0, 160, 157, 0.0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 160, 157, 0.0); }
+}
+
+// Apply same pulse to OUT scan bar (.bar_input) and Pack scan input
+.kob_queue_scanbar .bar_input,
+.kob_pick_detail .kob_scan_input,
+.kob_mobile_app .kob_scan_input {
+    animation: kob_scan_ready_pulse 1.6s ease-in-out infinite;
+    caret-color: $kob-primary;
+
+    &:focus {
+        animation: kob_scan_focus_pulse 1.2s ease-in-out infinite;
+    }
+}
+
+.kob_pick_detail {
+
+    // Box picker dialog (Pack screen)
+    .kob_dialog_backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.55);
+        z-index: 200;
+    }
+    .kob_dialog {
+        position: fixed;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        background: $kob-surface;
+        border-radius: 16px;
+        z-index: 201;
+        width: 90%;
+        max-width: 720px;
+        max-height: 85vh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+
+        .kob_dialog_head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px;
+            background: $kob-primary;
+            color: #fff;
+            font-weight: 800;
+            font-size: 16px;
+            .close {
+                background: rgba(255,255,255,0.2);
+                color: #fff;
+                border: none;
+                width: 32px; height: 32px;
+                border-radius: 50%;
+                font-size: 16px;
+            }
+        }
+        .kob_dialog_body {
+            padding: 14px;
+            overflow-y: auto;
+        }
+    }
+    .kob_box_grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 10px;
+    }
+    .kob_box_card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        padding: 14px 10px;
+        background: $kob-surface;
+        border: 2px solid $kob-border;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: transform 0.1s, border-color 0.15s;
+        &:active {
+            transform: scale(0.95);
+            border-color: $kob-primary;
+            background: $kob-primary-light;
+        }
+        .code { font-size: 22px; font-weight: 800; color: $kob-primary; letter-spacing: 1px; }
+        .name { font-size: 11px; color: $kob-text-muted; }
+        .vol  { font-size: 11px; color: $kob-text; font-variant-numeric: tabular-nums; }
+        .cost { font-size: 12px; font-weight: 700; color: $kob-success; margin-top: 4px; }
+    }
+
+    .kob_pick_empty {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        color: $kob-text-faint;
+        gap: 12px;
+        text-align: center;
+        padding: 20px;
+
+        .big_icon { font-size: 80px; opacity: 0.3; }
+        .msg { font-size: 14px; }
+        .hint { font-size: 12px; opacity: 0.7; }
+    }
+}

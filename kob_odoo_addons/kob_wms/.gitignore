@@ -34,8 +34,10 @@ htmlcov/
 .pytest_cache/
 
 # ── React / Vite SPA (not part of Odoo addon) ────────────────────────────────
-src/
-public/
+# Anchor with leading slash so it only matches the SPA `src/` at addon root,
+# not Odoo's tracked `static/src/...` JS/XML/SCSS sources.
+/src/
+/public/
 node_modules/
 package.json
 package-lock.json

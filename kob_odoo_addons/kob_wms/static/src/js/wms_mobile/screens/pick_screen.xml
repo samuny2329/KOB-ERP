@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+<t t-name="kob_wms.MobilePickScreen">
+    <!-- ─── DETAIL VIEW (when order selected) ─── -->
+    <t t-if="state.currentOrder">
+        <div class="kob_topbar">
+            <button class="kob_back" t-on-click="() => this.closeDetail()">←</button>
+            <div class="kob_title">
+                <span t-esc="props.op.icon"/>
+                <span>Pick</span>
+                <span class="kob_subtitle" style="margin-left:8px"
+                      t-esc="state.currentOrder.ref || state.currentOrder.name"/>
+            </div>
+            <div class="kob_user_chip" t-esc="props.worker?.name"/>
+        </div>
+
+        <div t-att-class="'kob_pick_detail' + (state.flashError ? ' flash_error' : '') + (state.flashSuccess ? ' flash_success' : '')">
+            <!-- Auto-done countdown banner — shows after 100% picked -->
+            <div t-if="state.autoDoneCountdown &gt; 0" class="kob_autodone_banner">
+                <div class="banner_icon">✓</div>
+                <div class="banner_msg">
+                    <div class="t1">All items picked!</div>
+                    <div class="t2">Auto-confirming in <strong t-esc="state.autoDoneCountdown"/>s…</div>
+                </div>
+                <button class="banner_cancel" t-on-click="() => this.cancelAutoDone()">Cancel</button>
+            </div>
+
+            <div class="kob_order_summary">
+                <div>
+                    <div class="ref" t-esc="state.currentOrder.ref || state.currentOrder.name"/>
+                    <div class="meta">
+                        <span t-esc="state.currentOrder.customer || '—'"/> ·
+                        <span t-esc="state.currentOrder.platform || ''"/>
+                    </div>
+                </div>
+                <div class="progress">
+                    <span t-esc="state.currentLines.filter(l => (l.picked_qty || 0) &gt;= (l.expected_qty || 0)).length"/>
+                    <span>/</span>
+                    <span t-esc="state.currentLines.length"/>
+                </div>
+                <div class="progress_bar">
+                    <div class="fill" t-att-style="'width:' + progressPct + '%'"/>
+                </div>
+            </div>
+
+            <div class="kob_scan_container">
+                <input type="text"
+                       t-ref="scan"
+                       t-att-class="'kob_scan_input' + (state.flashError ? ' err' : '')"
+                       placeholder="SCAN SKU..."
+                       autofocus="autofocus"
+                       autocomplete="off"
+                       autocapitalize="off"
+                       spellcheck="false"
+                       inputmode="none"
+                       t-att-value="state.scanValue"
+                       t-on-input="(ev) => state.scanValue = ev.target.value"
+                       t-on-keydown="onScan"/>
+                <div t-if="state.errorMsg" class="scan_hint err">
+                    ⚠ <span t-esc="state.errorMsg"/>
+                </div>
+                <div t-elif="state.history.length === 0" class="scan_hint">
+                    Scan barcode to start picking
+                </div>
+                <div t-else="" class="scan_hint">
+                    ✓ Last: <strong t-esc="state.history[0].sku"/>
+                </div>
+            </div>
+
+            <div class="kob_lines">
+                <t t-if="state.loadingDetail">
+                    <div class="kob_pick_empty">
+                        <div class="big_icon">⏳</div>
+                        <div class="msg">Loading…</div>
+                    </div>
+                </t>
+                <t t-elif="state.currentLines.length === 0">
+                    <div class="kob_pick_empty">
+                        <div class="big_icon">📭</div>
+                        <div class="msg">No items in this order</div>
+                    </div>
+                </t>
+                <t t-else="">
+                    <t t-foreach="state.currentLines" t-as="line" t-key="line.id">
+                        <div t-att-class="'kob_line ' + ((line.picked_qty || 0) &gt;= (line.expected_qty || 0) ? 'done' : '')">
+                            <div class="check">
+                                <t t-if="(line.picked_qty || 0) &gt;= (line.expected_qty || 0)">✓</t>
+                                <t t-else=""></t>
+                            </div>
+                            <div class="info">
+                                <div class="sku" t-esc="line.sku"/>
+                                <div class="name" t-esc="line.product_name"/>
+                            </div>
+                            <div class="qty">
+                                <span t-esc="line.picked_qty || 0"/>
+                                <span class="of">/ <t t-esc="line.expected_qty || 0"/></span>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </div>
+
+            <div class="kob_actionbar">
+                <button class="btn_ghost" t-on-click="() => this.closeDetail()">← Back</button>
+                <button t-att-class="'btn_' + (progressPct &gt;= 100 ? 'success' : 'primary')"
+                        t-on-click="() => this.confirmPick()">
+                    <t t-if="progressPct &gt;= 100">✓ Done</t>
+                    <t t-else="">Save (<t t-esc="progressPct"/>%)</t>
+                </button>
+            </div>
+        </div>
+    </t>
+
+    <!-- ─── LIST VIEW (Pick Queue F1 style — flat table with pill chips) ─── -->
+    <t t-else="">
+        <div class="kob_topbar">
+            <button class="kob_back" t-on-click="() => this.props.onBack()">←</button>
+            <div class="kob_title">
+                <span t-esc="props.op.icon"/>
+                <span>Pick Queue (F1)</span>
+            </div>
+            <div class="kob_user_chip" t-esc="props.worker?.name"/>
+        </div>
+
+        <div t-att-class="'kob_body kob_queue_body' + (state.flashError ? ' flash_error' : '') + (state.flashSuccess ? ' flash_success' : '')">
+            <!-- Big scan bar — list-level scan drives the basket multi-pick.
+                 Scan AWB/ref → adds to basket. Scan SKU → dispatches +1
+                 to whichever basket order needs it. -->
+            <div t-att-class="'kob_queue_scanbar' + (state.flashError ? ' err' : '')">
+                <div class="bar_icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                        <rect x="3" y="6" width="2" height="12" fill="#00A09D"/>
+                        <rect x="6" y="6" width="1" height="12" fill="#00A09D"/>
+                        <rect x="8" y="6" width="3" height="12" fill="#00A09D"/>
+                        <rect x="12" y="6" width="1" height="12" fill="#00A09D"/>
+                        <rect x="14" y="6" width="2" height="12" fill="#00A09D"/>
+                        <rect x="17" y="6" width="3" height="12" fill="#00A09D"/>
+                    </svg>
+                </div>
+                <input class="bar_input"
+                       type="text"
+                       t-ref="listScan"
+                       t-att-placeholder="state.basket.length ? 'SCAN SKU เพิ่มสินค้า / AWB เพิ่มใบใหม่...' : 'SCAN AWB เพื่อเริ่มยิงรัว...'"
+                       autofocus="autofocus"
+                       autocomplete="off"
+                       autocapitalize="off"
+                       spellcheck="false"
+                       inputmode="none"
+                       t-att-value="state.search"
+                       t-on-input="(ev) => state.search = ev.target.value"
+                       t-on-keydown="onListScan"/>
+                <div t-if="state.errorMsg" class="bar_err">
+                    ⚠ <span t-esc="state.errorMsg"/>
+                </div>
+                <div t-elif="state.basket.length" class="bar_ready basket">
+                    <span t-esc="state.basket.length"/> IN BASKET
+                </div>
+                <div t-else="" class="bar_ready">READY</div>
+            </div>
+
+            <!-- Basket strip — visible whenever 1+ orders are scanned in.
+                 Each card: AWB/ref, customer, picked/total, eject (X).
+                 Active card (most-recently-touched) gets teal border. -->
+            <div t-if="state.basket.length" class="kob_basket_strip">
+                <div class="basket_label">BASKET</div>
+                <t t-foreach="state.basket" t-as="b" t-key="b.id">
+                    <div t-att-class="'kob_basket_card'
+                            + (state.basketActiveId === b.id ? ' active' : '')
+                            + (b.all_picked ? ' complete' : '')
+                            + (b.flashSuccess ? ' flash' : '')"
+                         t-on-click="() => state.basketActiveId = b.id">
+                        <div class="bc_head">
+                            <span class="bc_ref" t-esc="b.awb || b.ref || b.so_name || b.name"/>
+                            <button class="bc_x"
+                                    t-on-click.stop="() => this.removeFromBasket(b.id)">×</button>
+                        </div>
+                        <div class="bc_cust" t-esc="b.customer || '—'"/>
+                        <div class="bc_progress">
+                            <span class="bc_qty">
+                                <strong t-esc="b.picked_total"/>
+                                <span> / </span>
+                                <span t-esc="b.expected_total"/>
+                            </span>
+                            <t t-if="b.all_picked">
+                                <span class="bc_done">✓</span>
+                            </t>
+                        </div>
+                        <div class="bc_bar">
+                            <div class="bc_fill"
+                                 t-att-style="'width:' + (b.expected_total ? Math.min(100, Math.round((b.picked_total / b.expected_total) * 100)) : 0) + '%'"/>
+                        </div>
+                    </div>
+                </t>
+                <button class="kob_basket_clear" t-on-click="() => this.clearBasket()">
+                    Clear
+                </button>
+            </div>
+
+            <!-- Filters: platform chips -->
+            <div class="kob_queue_filters">
+                <button t-att-class="'kob_filter_chip ' + (state.platformFilter === 'all' ? 'active' : '')"
+                        t-on-click="() => state.platformFilter = 'all'">All</button>
+                <button t-att-class="'kob_filter_chip ' + (state.platformFilter === 'shopee' ? 'active' : '')"
+                        t-on-click="() => state.platformFilter = 'shopee'">Shopee</button>
+                <button t-att-class="'kob_filter_chip ' + (state.platformFilter === 'tiktok' ? 'active' : '')"
+                        t-on-click="() => state.platformFilter = 'tiktok'">TikTok</button>
+                <button t-att-class="'kob_filter_chip ' + (state.platformFilter === 'lazada' ? 'active' : '')"
+                        t-on-click="() => state.platformFilter = 'lazada'">Lazada</button>
+                <div class="kob_queue_count">
+                    <span t-esc="filteredOrders.length"/> / <span t-esc="state.orders.length"/>
+                </div>
+            </div>
+
+            <!-- Flat table — matches Pick Queue F1 column layout -->
+            <div class="kob_queue_table_wrap">
+                <table class="kob_queue_table">
+                    <thead>
+                        <tr>
+                            <th class="col_order">Order</th>
+                            <th class="col_ref">Platform Ref</th>
+                            <th class="col_cust">Customer</th>
+                            <th class="col_plat">Platform</th>
+                            <th class="col_num">Items</th>
+                            <th class="col_num">Picked</th>
+                            <th class="col_sla">SLA Status</th>
+                            <th class="col_st">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-if="state.loadingList">
+                            <tr class="kob_queue_empty_row">
+                                <td colspan="8">
+                                    <div class="kob_empty">
+                                        <div class="icon">⏳</div>
+                                        <div class="msg">Loading…</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-elif="filteredOrders.length === 0">
+                            <tr class="kob_queue_empty_row">
+                                <td colspan="8">
+                                    <div class="kob_empty">
+                                        <div class="icon">📭</div>
+                                        <div class="msg">No orders matching</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </t>
+                        <t t-else="">
+                            <t t-foreach="filteredOrders" t-as="o" t-key="o.id">
+                                <tr class="kob_queue_row" t-on-click="() => this.loadOrderDetail(o.id)">
+                                    <td class="col_order" t-esc="o.so_name || o.name"/>
+                                    <td class="col_ref" t-esc="o.ref || '—'"/>
+                                    <td class="col_cust" t-esc="o.customer || '—'"/>
+                                    <td class="col_plat">
+                                        <span t-att-class="'kob_chip_plat ' + platformKey(o.platform)"
+                                              t-esc="platformLabel(o.platform)"/>
+                                    </td>
+                                    <td class="col_num" t-esc="o.expected_total || 0"/>
+                                    <td class="col_num" t-esc="o.picked_total || 0"/>
+                                    <td class="col_sla">
+                                        <span t-att-class="'kob_chip_sla ' + (o.sla_status || 'none')">
+                                            <t t-if="o.sla_status === 'on_track'">✓ On Track</t>
+                                            <t t-elif="o.sla_status === 'at_risk'">⚠ At Risk</t>
+                                            <t t-elif="o.sla_status === 'breached'">✗ Breached</t>
+                                            <t t-elif="o.sla_status === 'done'">✓ Done</t>
+                                            <t t-else="">—</t>
+                                        </span>
+                                    </td>
+                                    <td class="col_st">
+                                        <span t-att-class="'kob_chip_status status_' + (o.status || '')"
+                                              t-esc="o.status || '—'"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </t>
+</t>
+
+</templates>

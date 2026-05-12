@@ -1,6 +1,6 @@
 {
     'name': 'KOB WMS Pro — WH-Online E-Commerce',
-    'version': '19.0.1.6.2',
+    'version': '19.0.1.7.3',
     'category': 'KOB ERP/WH-Online E-Commerce',
     'summary': 'Warehouse Management for online E-commerce '
                '(Shopee · Lazada · TikTok · POS) — Kiss of Beauty.',
@@ -118,6 +118,7 @@ Features
         'data/wms_sprint2_crons.xml',
         'data/wms_cc_crons.xml',
         'data/wms_sale_order_types.xml',
+        'data/wms_courier_bin_data.xml',
         'data/wms_kpi_templates.xml',
         'data/wms_kpi_iso_sustainability.xml',  # P9: ISO, GMP & Sustainability pillar
         'data/wms_box_size_data.xml',
@@ -132,6 +133,9 @@ Features
         'report/wms_awb_label_template.xml',
         'report/wms_awb_label_100x150_template.xml',
         'report/wms_qc_monthly_report_template.xml',
+        'report/wms_courier_batch_manifest_template.xml',
+        'report/wms_eod_outbound_manifest_template.xml',
+        'wizards/wms_eod_manifest_wizard_views.xml',
 
         # ── Inventory & Box Analytics ────────────────────────────────────────
         'views/wms_inventory_views.xml',
@@ -185,6 +189,10 @@ Features
             'kob_wms/static/src/js/wms_pick_pos/wms_pick_screen.xml',
             'kob_wms/static/src/js/wms_pack_pos/wms_pack_screen.js',
             'kob_wms/static/src/js/wms_pack_pos/wms_pack_screen.xml',
+            'kob_wms/static/src/js/wms_outbound/speak.js',
+            'kob_wms/static/src/js/wms_outbound/bin_hint_card.scss',
+            'kob_wms/static/src/js/wms_outbound/bin_hint_card.js',
+            'kob_wms/static/src/js/wms_outbound/bin_hint_card.xml',
             'kob_wms/static/src/js/wms_outbound/wms_outbound_screen.js',
             'kob_wms/static/src/js/wms_outbound/wms_outbound_screen.xml',
             'kob_wms/static/src/js/wms_dispatch/wms_dispatch_screen.js',
