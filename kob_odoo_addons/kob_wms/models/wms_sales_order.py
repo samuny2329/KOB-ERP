@@ -1,6 +1,10 @@
+import logging
+
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 from datetime import timedelta
+
+_logger = logging.getLogger(__name__)
 
 
 class WmsSalesOrder(models.Model):
@@ -37,6 +41,13 @@ class WmsSalesOrder(models.Model):
         ('shipped', 'Shipped'),
         ('cancelled', 'Cancelled'),
     ], string='Status', default='pending', tracking=True)
+
+    # SLA breach surfacing — feeds the OUT-scan dispatch list with red /
+    # amber decorations that mirror the WMS Pro reference UI.
+    sla_state = fields.Selection(
+        [('ok', 'On Track'), ('warn', 'Warn'), ('late', 'Late')],
+        compute='_compute_sla_state', store=True,
+    )
     line_ids = fields.One2many('wms.sales.order.line', 'order_id',
                                string='Items')
     quality_check_ids = fields.One2many('wms.quality.check', 'wms_order_id',
@@ -123,6 +134,50 @@ class WmsSalesOrder(models.Model):
     def _compute_display_order_name(self):
         for rec in self:
             rec.display_order_name = rec.so_name or rec.name or ''
+
+    # === SLA breach (per WMS Pro reference: 48h Shopee/Lazada, 72h
+    # TikTok, 24h Odoo/manual). Late = past deadline; Warn = >80% used.
+    _PLATFORM_SLA_HOURS = {
+        'shopee': 48, 'lazada': 48, 'tiktok': 72,
+        'odoo': 24, 'pos': 24, 'manual': 24,
+    }
+
+    @api.depends('create_date', 'platform', 'status')
+    def _compute_sla_state(self):
+        now = fields.Datetime.now()
+        for so in self:
+            if so.status in ('shipped', 'cancelled') or not so.create_date:
+                so.sla_state = 'ok'
+                continue
+            sla_h = self._PLATFORM_SLA_HOURS.get(so.platform or '', 24)
+            elapsed_h = (now - so.create_date).total_seconds() / 3600
+            if elapsed_h > sla_h:
+                so.sla_state = 'late'
+            elif elapsed_h > sla_h * 0.8:
+                so.sla_state = 'warn'
+            else:
+                so.sla_state = 'ok'
+
+    def _kob_bin_hint(self):
+        """Pack bin metadata + voice prompt for the OUT scan UI.
+
+        Falls back to a sane default when the courier has no bin metadata
+        (e.g. KISS in-house deliveries) so the OWL bin-hint card always
+        renders something useful.
+        """
+        self.ensure_one()
+        courier = self.courier_id
+        return {
+            'bin': courier.bin_number or 6,
+            'color': courier.bin_color or '#2563eb',
+            'label': (courier.name or 'KISS') if courier else 'KISS',
+            'voice': (
+                courier.voice_label or courier.name or ''
+            ) if courier else '',
+            'all_picked': self.all_picked,
+            'all_packed': self.all_packed,
+            'sla_state': self.sla_state,
+        }
     picking_id = fields.Many2one('stock.picking', string='Delivery Order',
                                  tracking=True, ondelete='set null')
 
@@ -386,21 +441,89 @@ class WmsSalesOrder(models.Model):
                 demand.get(pid, {}).get(lot_id, 0) + remaining)
         return demand
 
+    @staticmethod
+    def _norm_code(s):
+        """Normalise a scanned/stored code for comparison.
+
+        Strips:
+        - surrounding whitespace
+        - one trailing ``.`` or ``.0`` suffix (Excel/CSV float→string artifact
+          where a barcode stored as a number gets serialised with a decimal
+          point; e.g. ``8859139108017.`` or ``8859139108017.0`` should match
+          a scan of ``8859139108017``)
+
+        DOES NOT touch trailing digits — that would corrupt legitimate
+        barcodes ending in ``0`` (e.g. ``100`` must NOT become ``1``).
+
+        Result is uppercased for case-insensitive comparison.
+        """
+        if not s:
+            return ""
+        v = str(s).strip()
+        # Match exactly: trailing `.` or `.0` (but NOT `.123`)
+        if v.endswith(".0"):
+            v = v[:-2]
+        elif v.endswith("."):
+            v = v[:-1]
+        return v.upper()
+
     def _find_line_by_code(self, code):
-        """Match a wms.sales.order.line by sku, default_code, or barcode (case-insensitive)."""
-        code_upper = (code or "").strip().upper()
+        """Match a wms.sales.order.line by sku, default_code, or barcode.
+        Match is case-insensitive and tolerant of trailing dot/zero noise.
+        """
+        norm = self._norm_code(code)
         def _match(l):
             if l.picked_qty >= l.expected_qty:
                 return False
-            if l.sku and l.sku.upper() == code_upper:
+            if l.sku and self._norm_code(l.sku) == norm:
                 return True
             if l.product_id:
-                if l.product_id.default_code and l.product_id.default_code.upper() == code_upper:
+                if l.product_id.default_code and self._norm_code(l.product_id.default_code) == norm:
                     return True
-                if l.product_id.barcode and l.product_id.barcode == code:
+                if l.product_id.barcode and self._norm_code(l.product_id.barcode) == norm:
                     return True
             return False
         return self.line_ids.filtered(_match)[:1]
+
+    def _diagnose_scan_miss(self, code):
+        """Return a more useful error message when a scan fails to match any
+        line. Differentiates:
+        - product unknown in DB
+        - product known but not in this order
+        - product in order but already fully picked
+        """
+        norm = self._norm_code(code)
+        if not norm:
+            return _('Empty scan')
+        # Lookup product by sku/default_code/barcode anywhere in DB.
+        # Use both raw and norm forms to cover dirty imports (trailing dots).
+        Product = self.env['product.product']
+        candidates = (
+            Product.search([('default_code', '=ilike', code)], limit=5)
+            | Product.search([('default_code', '=ilike', norm)], limit=5)
+            | Product.search([('barcode', '=ilike', code)], limit=5)
+            | Product.search([('barcode', '=ilike', norm)], limit=5)
+            | Product.search([('barcode', '=ilike', norm + '.')], limit=5)
+            | Product.search([('barcode', '=ilike', norm + '.0')], limit=5)
+        )
+        # Pick whichever matches after normalisation
+        product = candidates.filtered(
+            lambda p: self._norm_code(p.default_code) == norm
+                   or self._norm_code(p.barcode) == norm
+        )[:1]
+        if not product:
+            return _('ไม่พบสินค้า "%s" ในระบบ (SKU/Barcode ไม่ถูกต้อง)') % code
+        # Product exists — check if in this order
+        line_in_order = self.line_ids.filtered(lambda l: l.product_id == product)
+        if not line_in_order:
+            return _('สินค้า "%s" (%s) ไม่อยู่ใน order นี้') % (
+                product.default_code or product.name, code)
+        # In order but already fully picked
+        return _('"%s" pick ครบแล้ว (%d/%d)') % (
+            product.default_code or product.name,
+            line_in_order[0].picked_qty,
+            line_in_order[0].expected_qty,
+        )
 
     def _find_move_line(self, product, lot=None):
         """Find the exact stock.move.line to update for this product+lot.
@@ -556,7 +679,7 @@ class WmsSalesOrder(models.Model):
                         break
 
         if not line:
-            return _err(_('Invalid SKU or already fully picked: %s') % sku)
+            return _err(self._diagnose_scan_miss(sku))
 
         product = line.product_id
         if not product:
@@ -566,6 +689,35 @@ class WmsSalesOrder(models.Model):
         if line.picked_qty >= line.expected_qty:
             return _err(_('Already fully picked: %s (%d/%d)') % (
                 sku, line.picked_qty, line.expected_qty))
+
+        # 4b. Per-product availability gate — block scan if THIS specific
+        # product has 0 reserved qty on the linked picking. Without this,
+        # the user can scan a barcode that maps to a product whose stock
+        # vanished after the picking was confirmed (cycle-count adjustment,
+        # cross-warehouse transfer, manual unreserve), and Odoo silently
+        # creates a 0-qty pick that blows up at validate time.
+        product_reserved = sum(
+            ml.quantity_product_uom for ml in picking.move_line_ids
+            if ml.product_id.id == product.id
+        )
+        if product_reserved <= 0:
+            on_hand = self.env['stock.quant']._get_available_quantity(
+                product, picking.location_id,
+            )
+            return _err(_(
+                '🚫 สินค้าไม่พร้อมหยิบ (Out of Stock)\n'
+                'SKU: %(sku)s\n'
+                'Product: %(name)s\n'
+                'Reserved: 0 — On-hand at %(loc)s: %(qty).0f\n'
+                'แก้ไข: ตรวจ Inventory แล้ว Re-assign delivery %(pick)s '
+                'หรือเติม stock ก่อนสแกน'
+            ) % {
+                'sku': sku,
+                'name': product.display_name,
+                'loc': picking.location_id.complete_name,
+                'qty': on_hand,
+                'pick': picking.name,
+            })
 
         # 5. WMS only tracks picked_qty — does NOT touch delivery move_line
         # Odoo delivery handles qty/lot/reserve automatically
@@ -594,6 +746,17 @@ class WmsSalesOrder(models.Model):
                         lambda o: o.status in ('picking', 'pending'))
                     siblings.write({'status': 'picked', 'picked_at': now})
                     self.pick_group_id.state = 'picked'
+                    # Skip-Pack: autopack each sibling as well
+                    for sib in siblings:
+                        if (sib.all_picked
+                                and getattr(sib.company_id or self.env.company,
+                                            'wms_skip_pack', False)):
+                            try:
+                                sib._kob_skip_pack_autopack()
+                            except Exception:
+                                _logger.exception(
+                                    "skip_pack autopack failed for sibling %s",
+                                    sib.name)
                 else:
                     # Stay 'picking' until siblings complete.
                     self.pick_group_id.state = 'picking'
@@ -601,7 +764,75 @@ class WmsSalesOrder(models.Model):
                 self.status = 'picked'
         elif self.pick_group_id and self.pick_group_id.state == 'open':
             self.pick_group_id.state = 'picking'
-        return {'ok': True}
+
+        # ── Skip-Pack mode: auto-flip picked → packed at PICK completion ──
+        # When res.company.wms_skip_pack is enabled, the warehouse skips
+        # the dedicated Pack station. As soon as Pick is fully done, mirror
+        # picked_qty into packed_qty, validate stock, post invoice, set a
+        # default box, and stamp status='packed' so the SO appears on the
+        # OUT screen ready for AWB scan.
+        if (self.status == 'picked'
+                and self.all_picked
+                and getattr(self.company_id or self.env.company,
+                            'wms_skip_pack', False)):
+            try:
+                self._kob_skip_pack_autopack()
+            except Exception:
+                _logger.exception(
+                    "skip_pack autopack failed at scan_pick for %s", self.name)
+
+        bin_hint = self._kob_bin_hint()
+        spoken = (f"ครบแล้ว {bin_hint['voice']}".strip()
+                  if self.all_picked else f"ชิ้นที่ {line.picked_qty}")
+        return {'ok': True, 'bin_hint': bin_hint, 'spoken_text': spoken}
+
+    def _kob_skip_pack_autopack(self):
+        """Run Pack's work inline so SO advances to status='packed'.
+
+        Called when wms_skip_pack is enabled on the SO's company AND the
+        order is fully picked. Mirrors picked → packed quantities, picks a
+        default box (suggested → smallest active), validates stock,
+        creates the invoice, and stamps packed_at + status='packed'.
+        Idempotent: already-packed orders short-circuit.
+        """
+        self.ensure_one()
+        if self.status not in ('picked', 'picking', 'packing'):
+            return
+        if not self.all_picked:
+            return
+        # Mirror picked_qty into packed_qty so reports tie out
+        for line in self.line_ids:
+            if (line.packed_qty or 0) < (line.picked_qty or 0):
+                line.packed_qty = line.picked_qty
+        # Auto-assign a default box if none chosen yet
+        if not self.actual_box_id and not self.box_barcode:
+            default_box = self.suggested_box_id
+            if not default_box:
+                default_box = self.env['wms.box.size'].search(
+                    [('active', '=', True)],
+                    order='volume_cm3 asc', limit=1)
+            if default_box:
+                self.box_barcode = default_box.code
+        # Cut stock through the picking (idempotent inside _validate_picking)
+        if self.picking_id:
+            stock_errors = self._validate_picking()
+            if stock_errors:
+                _logger.warning(
+                    "skip_pack autopack: stock issues on %s — %s",
+                    self.name, stock_errors[0])
+                return
+        # Post invoice (best-effort)
+        try:
+            self._auto_create_invoice()
+        except Exception:
+            _logger.exception(
+                "skip_pack autopack: invoice post failed for %s", self.name)
+        self.status = 'packed'
+        self.packed_at = fields.Datetime.now()
+        self._log_action(
+            'skip_pack', self.ref or self.name,
+            note='Pack stage auto-skipped at PICK completion '
+                 '— invoice + stock + auto-box handled inline')
 
     # ------------------------------------------------------------------
     # Queue-level multi-order scan dispatcher (F1 basket mode)
@@ -644,7 +875,8 @@ class WmsSalesOrder(models.Model):
         return self.browse()
 
     @api.model
-    def queue_scan_dispatch(self, active_order_ids, code, kob_worker_id=None):
+    def queue_scan_dispatch(self, active_order_ids, code, kob_worker_id=None,
+                            burst=False):
         """Queue-level multi-order scan orchestrator.
 
         Behaviour:
@@ -745,6 +977,47 @@ class WmsSalesOrder(models.Model):
             if unassigned:
                 unassigned.write({'pick_group_id': grp.id})
 
+        # Burst mode: 1 scan fills every basket line that still needs this
+        # product. Worker หยิบของจากชั้นเป็น lot แล้วยิงครั้งเดียว — backend
+        # loop scan_pick per unit so all existing rules apply (stock
+        # reservation, picked_qty bounds, kob_worker assignment, activity
+        # log, auto-status to 'picked' + pick_group gate).
+        if burst:
+            per_order = []
+            total_filled = 0
+            for order in orders:
+                line = order._find_line_by_code(code)
+                if not line:
+                    continue
+                need = max(0, int(line.expected_qty) - int(line.picked_qty))
+                filled = 0
+                for _ in range(need):
+                    res = order.scan_pick(code, kob_worker_id=kob_worker_id)
+                    if not res.get('ok'):
+                        break
+                    filled += 1
+                if filled:
+                    total_filled += filled
+                    per_order.append({
+                        'order_id': order.id,
+                        'order_name': order.display_order_name or order.name,
+                        'filled': filled,
+                        'line_done': line.picked_qty >= line.expected_qty,
+                        'all_picked_in_order': bool(order.all_picked),
+                    })
+            if total_filled == 0:
+                return {'type': 'error',
+                        'error': _(
+                            'SKU %s not needed in any Active SO.'
+                        ) % code}
+            all_done = all(o.all_picked for o in orders)
+            return {'type': 'burst',
+                    'product_name': product.display_name,
+                    'total_filled': total_filled,
+                    'orders_touched': len(per_order),
+                    'per_order': per_order,
+                    'all_done_in_basket': bool(all_done)}
+
         for order in orders:
             line = order._find_line_by_code(code)
             if not line or line.picked_qty >= line.expected_qty:
@@ -757,13 +1030,22 @@ class WmsSalesOrder(models.Model):
                 return {'type': 'error',
                         'error': result.get('error') or _('Pick failed')}
             all_done = all(o.all_picked for o in orders)
+            bin_hint = order._kob_bin_hint()
+            line_done = line.picked_qty >= line.expected_qty
+            spoken_text = (
+                f"ครบแล้ว {bin_hint['voice']}".strip()
+                if line_done
+                else f"ชิ้นที่ {line.picked_qty}"
+            )
             return {'type': 'pick',
                     'order_id': order.id,
                     'order_name': order.display_order_name or order.name,
                     'line_id': line.id,
                     'product_name': line.product_id.display_name,
                     'all_picked_in_order': bool(order.all_picked),
-                    'all_done_in_basket': bool(all_done)}
+                    'all_done_in_basket': bool(all_done),
+                    'bin_hint': bin_hint,
+                    'spoken_text': spoken_text}
 
         return {'type': 'error',
                 'error': _(
@@ -783,22 +1065,31 @@ class WmsSalesOrder(models.Model):
         if self.status not in ('picked', 'packing'):
             return _err(_('Order must be picked first. Status: %s') % self.status)
 
-        sku_upper = (sku or "").strip().upper()
+        sku_norm = self._norm_code(sku)
         def _match(l):
             if l.packed_qty >= l.picked_qty:
                 return False
-            if l.sku and l.sku.upper() == sku_upper:
+            if l.sku and self._norm_code(l.sku) == sku_norm:
                 return True
             if l.product_id:
-                if l.product_id.default_code and l.product_id.default_code.upper() == sku_upper:
+                if l.product_id.default_code and self._norm_code(l.product_id.default_code) == sku_norm:
                     return True
-                if l.product_id.barcode and l.product_id.barcode == sku:
+                if l.product_id.barcode and self._norm_code(l.product_id.barcode) == sku_norm:
                     return True
             return False
 
         line = self.line_ids.filtered(_match)[:1]
         if not line:
-            return _err(_('Invalid SKU or already fully packed: %s') % sku)
+            return _err(self._diagnose_scan_miss(sku))
+
+        # Block pack scan if line has zero picked qty — picker hasn't taken
+        # this product off the shelf yet, so packing it is invalid.
+        if line.picked_qty <= 0:
+            return _err(_(
+                '🚫 ยังไม่ได้ pick — pack ไม่ได้\n'
+                'SKU: %s\n'
+                'ต้อง scan pick ก่อนถึงจะ pack ได้'
+            ) % sku)
 
         if line.packed_qty >= line.picked_qty:
             return _err(_('Already fully packed: %s (%d/%d)') % (
@@ -820,7 +1111,13 @@ class WmsSalesOrder(models.Model):
         # Outgoing QC: create pending checks on first transition into packing
         if previous_status != 'packing':
             self.env['wms.quality.check'].sudo().register_for_order(self)
-        return {'ok': True, 'all_packed': self.all_packed}
+        bin_hint = self._kob_bin_hint()
+        spoken = (f"ครบแล้ว {bin_hint['voice']}".strip()
+                  if self.all_packed else f"แพ็คชิ้นที่ {line.packed_qty}")
+        return {'ok': True,
+                'all_packed': self.all_packed,
+                'bin_hint': bin_hint,
+                'spoken_text': spoken}
 
     def close_box(self, box_barcode=False, box_size=False, kob_worker_id=None):
         """Select box size → validate picking (cut stock) → auto invoice → print AWB."""
@@ -1220,12 +1517,35 @@ class WmsSalesOrder(models.Model):
         return action
 
     def set_awb_and_ship(self, awb):
-        """Set AWB barcode then ship. Called from Outbound screen."""
+        """Set AWB barcode then ship. Called from Outbound screen.
+
+        Returns a dict the OWL screen can consume directly (ok, bin_hint,
+        spoken_text). Skips the navigation action that `action_ship`
+        returns — the screen handles its own re-render via loadOrders.
+        """
         self.ensure_one()
         if self.status != 'packed':
-            return {'ok': False, 'error': _('Order %s is not packed.') % self.name}
+            return {
+                'ok': False,
+                'error': _('Order %s is not packed.') % self.name,
+            }
         self.awb = awb
-        return self.action_ship()
+        # Capture the bin hint BEFORE action_ship() flips status to
+        # 'shipped' (so courier metadata is still available even if
+        # action_ship reassigns batch / clears courier).
+        bin_hint = self._kob_bin_hint()
+        spoken = f"จ่ายออก {bin_hint['voice']}".strip()
+        try:
+            self.action_ship()
+        except Exception as e:
+            return {'ok': False, 'error': str(e)}
+        return {
+            'ok': True,
+            'bin_hint': bin_hint,
+            'spoken_text': spoken,
+            'awb': awb,
+            'order_name': self.display_order_name or self.name,
+        }
 
     # ------------------------------------------------------------------
     # Auto-Box Sizing
@@ -1675,3 +1995,45 @@ class WmsSalesOrderLine(models.Model):
         for line in self:
             line.remaining_pick = max(line.expected_qty - line.picked_qty, 0)
             line.remaining_pack = max(line.picked_qty - line.packed_qty, 0)
+
+    # Availability gate — surfaces "Available / Out of Stock" per line so
+    # picker sees the red flag BEFORE attempting to scan.
+    availability_state = fields.Selection(
+        [('available', 'Available'),
+         ('partial', 'Partial'),
+         ('not_available', 'Not Available')],
+        compute='_compute_availability_state',
+        store=False,
+    )
+    available_qty = fields.Float(
+        compute='_compute_availability_state', store=False,
+        help='Reserved quantity on the linked delivery for THIS product. '
+             '0 = stock vanished after picking confirmation.',
+    )
+
+    @api.depends('order_id.picking_id.move_line_ids',
+                 'order_id.picking_id.move_line_ids.quantity_product_uom',
+                 'product_id', 'expected_qty', 'is_service')
+    def _compute_availability_state(self):
+        for line in self:
+            # Service/fee lines never need physical availability.
+            if line.is_service or not line.product_id:
+                line.available_qty = 0.0
+                line.availability_state = 'available'
+                continue
+            picking = line.order_id.picking_id
+            if not picking:
+                line.available_qty = 0.0
+                line.availability_state = 'not_available'
+                continue
+            reserved = sum(
+                ml.quantity_product_uom for ml in picking.move_line_ids
+                if ml.product_id.id == line.product_id.id
+            )
+            line.available_qty = reserved
+            if reserved <= 0:
+                line.availability_state = 'not_available'
+            elif reserved < line.expected_qty:
+                line.availability_state = 'partial'
+            else:
+                line.availability_state = 'available'

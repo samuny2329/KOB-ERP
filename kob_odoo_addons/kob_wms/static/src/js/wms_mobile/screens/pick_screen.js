@@ -213,9 +213,16 @@ export class PickScreen extends Component {
         try {
             // queue_scan_dispatch is decorated @api.model → no leading ids
             // list in the args (see wms_sales_order.py:843).
+            // burst kwarg: when basket has any order, one product scan
+            // distributes the SKU across every basket line that needs it
+            // (1 scan = N units across M orders). When basket is empty
+            // the dispatcher returns the "scan order ref first" error
+            // before burst even runs, so passing it unconditionally is
+            // safe.
             result = await this.orm.call(
                 "wms.sales.order", "queue_scan_dispatch",
                 [activeIds, code, this.props.worker?.id || null],
+                { burst: activeIds.length > 0 },
             );
         } catch (e) {
             console.error("[KOB Mobile Pick] queue_scan_dispatch", e);
@@ -254,6 +261,25 @@ export class PickScreen extends Component {
                     this._basketComplete();
                 }
                 break;
+            case "burst": {
+                // 1 scan filled multiple basket lines — refresh every
+                // order the backend touched, flash each card green,
+                // focus the last one.
+                const touched = result.per_order || [];
+                for (const r of touched) {
+                    await this._updateBasketOrder(r.order_id);
+                    this._flashBasketEntry(r.order_id);
+                }
+                const last = touched[touched.length - 1];
+                if (last) this.state.basketActiveId = last.order_id;
+                this._listScanSuccess(
+                    `${result.product_name} × ${result.total_filled} → ${result.orders_touched} ใบ`,
+                );
+                if (result.all_done_in_basket) {
+                    this._basketComplete();
+                }
+                break;
+            }
             case "error":
             default:
                 this._listScanError(
@@ -460,6 +486,20 @@ export class PickScreen extends Component {
 
         const order = this.state.currentOrder;
         if (!order) return;
+
+        // Guard: picker accidentally re-scans the OPEN order's barcode/AWB
+        // on the product scan input. Ignore silently — they likely meant to
+        // confirm they were still on this order, not pick a product.
+        const orderIdentifiers = [
+            order.name, order.so_name, order.ref, order.awb,
+            order.display_order_name, order.box_barcode,
+        ].filter(Boolean).map(s => String(s).toUpperCase());
+        if (orderIdentifiers.includes(code)) {
+            this.state.scanValue = "";
+            const el = this.scanRef?.el;
+            if (el) { el.value = ""; el.focus(); }
+            return;
+        }
 
         // Client-side qty pre-check ONLY when the scanned code matches a line
         // by SKU exactly. Skip this when code looks like a product barcode/EAN
