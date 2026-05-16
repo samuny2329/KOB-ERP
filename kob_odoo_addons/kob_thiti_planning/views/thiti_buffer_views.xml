@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_thiti_buffer_list" model="ir.ui.view">
+        <field name="name">thiti.buffer.list</field>
+        <field name="model">thiti.buffer</field>
+        <field name="arch" type="xml">
+            <list string="Buffers" sample="1">
+                <field name="item_id"/>
+                <field name="location_id"/>
+                <field name="buffer_type"/>
+                <field name="onhand"/>
+                <field name="minimum"/>
+                <field name="maximum"/>
+                <field name="leadtime_days"/>
+                <field name="lotsize_rule"/>
+                <field name="active" widget="boolean_toggle" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_thiti_buffer_search" model="ir.ui.view">
+        <field name="name">thiti.buffer.search</field>
+        <field name="model">thiti.buffer</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="item_id"/>
+                <field name="location_id"/>
+                <field name="buffer_type"/>
+                <group>
+                    <filter name="gb_item" string="Item" context="{'group_by':'item_id'}"/>
+                    <filter name="gb_location" string="Location" context="{'group_by':'location_id'}"/>
+                    <filter name="gb_type" string="Type" context="{'group_by':'buffer_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_thiti_buffer_form" model="ir.ui.view">
+        <field name="name">thiti.buffer.form</field>
+        <field name="model">thiti.buffer</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <label for="display_name"/>
+                        <h1><field name="display_name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="item_id"/>
+                            <field name="location_id"/>
+                            <field name="buffer_type"/>
+                        </group>
+                        <group>
+                            <field name="onhand"/>
+                            <field name="minimum"/>
+                            <field name="maximum"/>
+                            <field name="min_calendar_id"/>
+                        </group>
+                    </group>
+                    <group string="Replenishment">
+                        <group>
+                            <field name="leadtime_days"/>
+                            <field name="fence_days"/>
+                            <field name="lotsize_rule"/>
+                        </group>
+                        <group>
+                            <field name="sizeminimum"/>
+                            <field name="sizemultiple"/>
+                            <field name="sizemaximum"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes"><field name="note" nolabel="1"/></page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_thiti_buffer" model="ir.actions.act_window">
+        <field name="name">Buffers</field>
+        <field name="res_model">thiti.buffer</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_thiti_buffer_search"/>
+    </record>
+</odoo>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ========== KPI Scorecard ========== -->
+    <record id="view_thiti_kpi_list" model="ir.ui.view">
+        <field name="name">thiti.kpi.list</field>
+        <field name="model">thiti.kpi</field>
+        <field name="arch" type="xml">
+            <list string="KPI Scorecards" sample="1">
+                <field name="run_id"/>
+                <field name="create_date"/>
+                <field name="service_level_pct" sum="Avg"
+                       widget="percentage"
+                       decoration-success="service_level_pct &gt;= 95"
+                       decoration-warning="service_level_pct &gt;= 80 and service_level_pct &lt; 95"
+                       decoration-danger="service_level_pct &lt; 80"/>
+                <field name="average_delay_days"
+                       decoration-danger="average_delay_days &gt; 1"/>
+                <field name="max_delay_days" optional="show"/>
+                <field name="capacity_utilization_pct" widget="percentage"
+                       decoration-success="capacity_utilization_pct &gt;= 60 and capacity_utilization_pct &lt;= 85"
+                       decoration-warning="capacity_utilization_pct &gt; 85 and capacity_utilization_pct &lt;= 100"
+                       decoration-danger="capacity_utilization_pct &gt; 100"/>
+                <field name="resource_overload_count"
+                       decoration-danger="resource_overload_count &gt; 0"/>
+                <field name="buffer_shortage_count"
+                       decoration-danger="buffer_shortage_count &gt; 0"/>
+                <field name="po_count" optional="show"/>
+                <field name="mo_count" optional="show"/>
+                <field name="do_count" optional="hide"/>
+                <field name="problem_critical"
+                       decoration-danger="problem_critical &gt; 0"/>
+                <field name="plan_cost"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_thiti_kpi_form" model="ir.ui.view">
+        <field name="name">thiti.kpi.form</field>
+        <field name="model">thiti.kpi</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="run_id"/>
+                        <h1><field name="run_id"/></h1>
+                    </div>
+                    <group string="Service" col="4">
+                        <field name="total_demands"/>
+                        <field name="on_time_demands"/>
+                        <field name="late_demands"/>
+                        <field name="service_level_pct" widget="percentage"/>
+                        <field name="average_delay_days"/>
+                        <field name="max_delay_days"/>
+                    </group>
+                    <group string="Capacity" col="4">
+                        <field name="capacity_utilization_pct" widget="percentage"/>
+                        <field name="resource_overload_count"/>
+                        <field name="avg_resource_idle_pct" widget="percentage"/>
+                        <field name="total_operations"/>
+                    </group>
+                    <group string="Inventory" col="4">
+                        <field name="buffer_shortage_count"/>
+                        <field name="buffer_below_safety_count"/>
+                    </group>
+                    <group string="Forecast Accuracy" col="4">
+                        <field name="forecast_mape_pct" widget="percentage"/>
+                        <field name="forecast_bias"/>
+                    </group>
+                    <group string="Replenishment" col="4">
+                        <field name="total_replenishments"/>
+                        <field name="po_count"/>
+                        <field name="mo_count"/>
+                        <field name="do_count"/>
+                    </group>
+                    <group string="Problems" col="4">
+                        <field name="problem_critical"/>
+                        <field name="problem_error"/>
+                        <field name="problem_warning"/>
+                    </group>
+                    <group string="Cost" col="2">
+                        <field name="plan_cost"/>
+                        <field name="currency_id" invisible="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_thiti_kpi_graph" model="ir.ui.view">
+        <field name="name">thiti.kpi.graph</field>
+        <field name="model">thiti.kpi</field>
+        <field name="arch" type="xml">
+            <graph string="KPI Trend" sample="1" type="line">
+                <field name="create_date" interval="day"/>
+                <field name="service_level_pct" type="measure"/>
+                <field name="capacity_utilization_pct" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_thiti_kpi" model="ir.actions.act_window">
+        <field name="name">KPI Scorecard</field>
+        <field name="res_model">thiti.kpi</field>
+        <field name="view_mode">list,form,graph</field>
+    </record>
+
+    <!-- ========== Resource Report (alias of plan.resource.load with pivot first) ========== -->
+    <record id="action_thiti_report_resource" model="ir.actions.act_window">
+        <field name="name">Resource Report</field>
+        <field name="res_model">thiti.plan.resource.load</field>
+        <field name="view_mode">pivot,graph,list</field>
+    </record>
+
+    <!-- ========== Inventory Report ========== -->
+    <record id="view_thiti_report_inventory_pivot" model="ir.ui.view">
+        <field name="name">thiti.report.inventory.pivot</field>
+        <field name="model">thiti.plan.buffer.projection</field>
+        <field name="arch" type="xml">
+            <pivot string="Inventory Projection" sample="1">
+                <field name="item_id" type="row"/>
+                <field name="bucket_start" type="col" interval="week"/>
+                <field name="end_onhand" type="measure"/>
+                <field name="shortage_qty" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_thiti_report_inventory" model="ir.actions.act_window">
+        <field name="name">Inventory Report</field>
+        <field name="res_model">thiti.plan.buffer.projection</field>
+        <field name="view_mode">pivot,graph,list</field>
+        <field name="view_id" ref="view_thiti_report_inventory_pivot"/>
+    </record>
+
+    <!-- ========== Demand Report (forecast vs actual) ========== -->
+    <record id="view_thiti_report_demand_pivot" model="ir.ui.view">
+        <field name="name">thiti.report.demand.pivot</field>
+        <field name="model">thiti.forecast</field>
+        <field name="arch" type="xml">
+            <pivot string="Forecast vs Actual" sample="1">
+                <field name="item_id" type="row"/>
+                <field name="bucket_start" type="col" interval="month"/>
+                <field name="history_qty" type="measure"/>
+                <field name="baseline_qty" type="measure"/>
+                <field name="net_qty" type="measure"/>
+                <field name="consumed_qty" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_thiti_report_demand" model="ir.actions.act_window">
+        <field name="name">Demand Report</field>
+        <field name="res_model">thiti.forecast</field>
+        <field name="view_mode">pivot,graph,list</field>
+        <field name="view_id" ref="view_thiti_report_demand_pivot"/>
+    </record>
+
+    <!-- ========== Purchase Order Analysis ========== -->
+    <record id="view_thiti_report_purchase_pivot" model="ir.ui.view">
+        <field name="name">thiti.report.purchase.pivot</field>
+        <field name="model">thiti.plan.replenishment</field>
+        <field name="arch" type="xml">
+            <pivot string="Purchase Analysis" sample="1">
+                <field name="partner_id" type="row"/>
+                <field name="scheduled_date" type="col" interval="week"/>
+                <field name="quantity" type="measure"/>
+                <field name="cost" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_thiti_report_purchase" model="ir.actions.act_window">
+        <field name="name">Purchase Analysis</field>
+        <field name="res_model">thiti.plan.replenishment</field>
+        <field name="domain">[('kind','=','po')]</field>
+        <field name="view_mode">pivot,graph,list</field>
+        <field name="view_id" ref="view_thiti_report_purchase_pivot"/>
+    </record>
+
+    <!-- ========== Cost Report ========== -->
+    <record id="view_thiti_report_cost_pivot" model="ir.ui.view">
+        <field name="name">thiti.report.cost.pivot</field>
+        <field name="model">thiti.plan.replenishment</field>
+        <field name="arch" type="xml">
+            <pivot string="Cost Report" sample="1">
+                <field name="kind" type="row"/>
+                <field name="run_id" type="col"/>
+                <field name="cost" type="measure"/>
+                <field name="quantity" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_thiti_report_cost" model="ir.actions.act_window">
+        <field name="name">Cost Report</field>
+        <field name="res_model">thiti.plan.replenishment</field>
+        <field name="view_mode">pivot,graph,list</field>
+        <field name="view_id" ref="view_thiti_report_cost_pivot"/>
+    </record>
+
+</odoo>

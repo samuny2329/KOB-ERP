@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="kob_thiti_planning.GanttView">
+        <div class="o_thiti_gantt o-action p-3">
+            <div class="d-flex justify-content-between mb-2">
+                <h3>🪐 Plan Gantt</h3>
+                <small class="text-muted">
+                    <t t-esc="state.timelineStart"/> → <t t-esc="state.timelineEnd"/>
+                </small>
+            </div>
+
+            <div t-if="state.loading" class="text-center p-5">
+                <i class="fa fa-spinner fa-spin fa-2x"/>
+            </div>
+
+            <div t-elif="state.rows.length === 0" class="alert alert-info">
+                No plan operations to display. Run a plan first.
+            </div>
+
+            <div t-else="" class="o_thiti_gantt_grid">
+                <div t-foreach="state.rows" t-as="row" t-key="row.name" class="o_thiti_gantt_row d-flex mb-1">
+                    <div class="o_thiti_gantt_label" style="width: 180px; padding: 4px 8px; background: #f0f0f0; border-radius: 4px;">
+                        <strong><t t-esc="row.name"/></strong>
+                    </div>
+                    <div class="o_thiti_gantt_track flex-grow-1 position-relative" style="height: 28px; background: #fafafa; border: 1px solid #e0e0e0; border-radius: 4px;">
+                        <div t-foreach="row.bars" t-as="bar" t-key="bar.id"
+                             class="o_thiti_gantt_bar position-absolute"
+                             t-att-style="'left:' + bar.leftPct + '%; width:' + bar.widthPct + '%; top:2px; height:22px; border-radius:3px; padding:2px 6px; font-size:11px; color:white; overflow:hidden; white-space:nowrap;'
+                                + (bar.late ? ' background:#C8102E;' : (bar.opType === 'po' ? ' background:#F5A623;' : (bar.opType === 'mo' ? ' background:#002B5C;' : ' background:#2ECC71;')))">
+                            <t t-esc="bar.label"/> · <t t-esc="bar.qty"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-3 small text-muted">
+                <span style="display:inline-block; width:12px; height:12px; background:#002B5C; margin-right:4px;"/> MO
+                <span style="display:inline-block; width:12px; height:12px; background:#F5A623; margin: 0 4px 0 12px;"/> PO
+                <span style="display:inline-block; width:12px; height:12px; background:#2ECC71; margin: 0 4px 0 12px;"/> Other
+                <span style="display:inline-block; width:12px; height:12px; background:#C8102E; margin: 0 4px 0 12px;"/> Late
+            </div>
+        </div>
+    </t>
+
+</templates>

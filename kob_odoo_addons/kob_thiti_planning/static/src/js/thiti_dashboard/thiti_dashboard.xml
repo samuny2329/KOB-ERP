@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="kob_thiti_planning.Dashboard">
+        <div class="o_thiti_dashboard o-action p-3">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="o_thiti_brand">🪐 Thiti Planning Dashboard</h2>
+                <button class="btn btn-primary" t-on-click="createNewRun">
+                    <i class="fa fa-play"/> New Plan Run
+                </button>
+            </div>
+
+            <div t-if="state.loading" class="text-center p-5">
+                <i class="fa fa-spinner fa-spin fa-3x"/>
+            </div>
+
+            <div t-else="" class="row g-3">
+
+                <!-- KPI tiles -->
+                <div class="col-md-3">
+                    <div class="o_thiti_kpi_tile">
+                        <div class="small text-muted">Service Level</div>
+                        <div class="h2"
+                             t-att-class="state.kpi and state.kpi.service_level_pct >= 95 ? 'text-success' : (state.kpi and state.kpi.service_level_pct >= 80 ? 'text-warning' : 'text-danger')">
+                            <t t-esc="state.kpi ? state.kpi.service_level_pct.toFixed(1) + '%' : '—'"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="o_thiti_kpi_tile">
+                        <div class="small text-muted">Capacity Utilization</div>
+                        <div class="h2">
+                            <t t-esc="state.kpi ? state.kpi.capacity_utilization_pct.toFixed(1) + '%' : '—'"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="o_thiti_kpi_tile">
+                        <div class="small text-muted">Avg Delay (days)</div>
+                        <div class="h2"
+                             t-att-class="state.kpi and state.kpi.average_delay_days > 0 ? 'text-danger' : 'text-success'">
+                            <t t-esc="state.kpi ? state.kpi.average_delay_days.toFixed(2) : '—'"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="o_thiti_kpi_tile">
+                        <div class="small text-muted">Plan Cost</div>
+                        <div class="h2">
+                            <t t-esc="state.kpi ? state.kpi.plan_cost.toFixed(2) : '—'"/>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sub-counts -->
+                <div class="col-md-4">
+                    <div class="o_thiti_kpi_tile">
+                        <h5>Replenishment</h5>
+                        <div>PO: <strong><t t-esc="state.kpi ? state.kpi.po_count : 0"/></strong></div>
+                        <div>MO: <strong><t t-esc="state.kpi ? state.kpi.mo_count : 0"/></strong></div>
+                        <div>DO: <strong><t t-esc="state.kpi ? state.kpi.do_count : 0"/></strong></div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="o_thiti_kpi_tile">
+                        <h5>Problems</h5>
+                        <div class="text-danger">Critical: <strong><t t-esc="state.kpi ? state.kpi.problem_critical : 0"/></strong></div>
+                        <div class="text-warning">Error: <strong><t t-esc="state.kpi ? state.kpi.problem_error : 0"/></strong></div>
+                        <div>Warning: <strong><t t-esc="state.kpi ? state.kpi.problem_warning : 0"/></strong></div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="o_thiti_kpi_tile">
+                        <h5>Service Mix</h5>
+                        <canvas t-ref="loadChart" style="max-height: 150px;"/>
+                    </div>
+                </div>
+
+                <!-- Recent runs -->
+                <div class="col-12 mt-3">
+                    <h4>Recent Plan Runs</h4>
+                    <table class="table table-sm table-hover">
+                        <thead>
+                            <tr>
+                                <th>Run</th>
+                                <th>Created</th>
+                                <th>Items</th>
+                                <th>Demands</th>
+                                <th>Duration (s)</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="state.recentRuns" t-as="run" t-key="run.id"
+                                style="cursor: pointer;"
+                                t-on-click="() => this.openRun(run.id)">
+                                <td><strong><t t-esc="run.name"/></strong></td>
+                                <td><t t-esc="run.create_date"/></td>
+                                <td><t t-esc="run.item_count"/></td>
+                                <td><t t-esc="run.demand_count"/></td>
+                                <td><t t-esc="run.duration_seconds ? run.duration_seconds.toFixed(2) : ''"/></td>
+                                <td><i class="fa fa-arrow-right"/></td>
+                            </tr>
+                            <tr t-if="state.recentRuns.length === 0">
+                                <td colspan="6" class="text-center text-muted">No runs yet. Click "New Plan Run" above.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </t>
+
+</templates>

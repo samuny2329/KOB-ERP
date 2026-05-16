@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_thiti_dashboard_client" model="ir.actions.client">
+        <field name="name">Thiti Dashboard</field>
+        <field name="tag">thiti_dashboard</field>
+    </record>
+
+    <record id="action_thiti_gantt_client" model="ir.actions.client">
+        <field name="name">Thiti Plan Gantt</field>
+        <field name="tag">thiti_gantt</field>
+    </record>
+</odoo>

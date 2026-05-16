@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_thiti_kob_brand_line_list" model="ir.ui.view">
+        <field name="name">thiti.kob.brand.line.list</field>
+        <field name="model">thiti.kob.brand.line</field>
+        <field name="arch" type="xml">
+            <list string="KOB Brand Lines">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="full_name"/>
+                <field name="boat_carrier" widget="boolean_toggle"/>
+                <field name="crate_required" widget="boolean_toggle"/>
+                <field name="bottles_per_crate"/>
+                <field name="extra_leadtime_days"/>
+                <field name="item_count"/>
+                <field name="active" widget="boolean_toggle" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_thiti_kob_brand_line_form" model="ir.ui.view">
+        <field name="name">thiti.kob.brand.line.form</field>
+        <field name="model">thiti.kob.brand.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="code"/>
+                        <h1><field name="code"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="full_name"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="boat_carrier"/>
+                            <field name="crate_required"/>
+                            <field name="bottles_per_crate"/>
+                            <field name="crate_weight_kg"/>
+                            <field name="extra_leadtime_days"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Items">
+                            <field name="item_ids" readonly="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="description"/>
+                                    <field name="category_id"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_thiti_kob_brand_line" model="ir.actions.act_window">
+        <field name="name">KOB Brand Lines</field>
+        <field name="res_model">thiti.kob.brand.line</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

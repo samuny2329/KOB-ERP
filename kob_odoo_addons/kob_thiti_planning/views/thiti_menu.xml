@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Top-level app menu -->
+        <menuitem id="menu_thiti_root"
+                  name="Thiti Planning"
+                  web_icon="kob_thiti_planning,static/description/icon.png"
+                  sequence="20"
+                  groups="group_thiti_user"/>
+
+        <!-- Dashboard -->
+        <menuitem id="menu_thiti_dashboard"
+                  parent="menu_thiti_root"
+                  name="Dashboard"
+                  action="action_thiti_dashboard_client"
+                  sequence="5"/>
+        <menuitem id="menu_thiti_gantt"
+                  parent="menu_thiti_root"
+                  name="Gantt"
+                  action="action_thiti_gantt_client"
+                  sequence="6"/>
+
+        <!-- Sales (Group B) -->
+        <menuitem id="menu_thiti_sales"
+                  parent="menu_thiti_root"
+                  name="Sales"
+                  sequence="10"/>
+        <menuitem id="menu_thiti_demand"
+                  parent="menu_thiti_sales"
+                  name="Demand"
+                  action="action_thiti_demand"
+                  sequence="10"/>
+        <menuitem id="menu_thiti_forecast"
+                  parent="menu_thiti_sales"
+                  name="Forecast"
+                  action="action_thiti_forecast"
+                  sequence="20"/>
+        <menuitem id="menu_thiti_forecast_override"
+                  parent="menu_thiti_sales"
+                  name="Forecast Overrides"
+                  action="action_thiti_forecast_override"
+                  sequence="25"/>
+        <menuitem id="menu_thiti_demand_aggregation"
+                  parent="menu_thiti_sales"
+                  name="Demand Aggregations"
+                  action="action_thiti_demand_aggregation"
+                  sequence="30"/>
+        <menuitem id="menu_thiti_customer"
+                  parent="menu_thiti_sales"
+                  name="Customers"
+                  action="action_thiti_customer"
+                  sequence="40"/>
+
+        <!-- Inventory (Group C) -->
+        <menuitem id="menu_thiti_inventory"
+                  parent="menu_thiti_root"
+                  name="Inventory"
+                  sequence="20"/>
+        <menuitem id="menu_thiti_buffer"
+                  parent="menu_thiti_inventory"
+                  name="Buffers"
+                  action="action_thiti_buffer"
+                  sequence="10"/>
+        <menuitem id="menu_thiti_inventory_policy"
+                  parent="menu_thiti_inventory"
+                  name="Inventory Policies"
+                  action="action_thiti_inventory_policy"
+                  sequence="20"/>
+        <menuitem id="menu_thiti_abc_xyz_matrix"
+                  parent="menu_thiti_inventory"
+                  name="ABC/XYZ Matrix"
+                  action="action_thiti_item_abc_pivot"
+                  sequence="30"/>
+        <menuitem id="menu_thiti_abc_xyz_config"
+                  parent="menu_thiti_inventory"
+                  name="ABC/XYZ Settings"
+                  action="action_thiti_abc_xyz_config"
+                  sequence="40"
+                  groups="group_thiti_manager"/>
+
+        <!-- Capacity -->
+        <menuitem id="menu_thiti_capacity"
+                  parent="menu_thiti_root"
+                  name="Capacity"
+                  sequence="30"/>
+        <menuitem id="menu_thiti_resource"
+                  parent="menu_thiti_capacity"
+                  name="Resources"
+                  action="action_thiti_resource"
+                  sequence="10"/>
+        <menuitem id="menu_thiti_skill"
+                  parent="menu_thiti_capacity"
+                  name="Skills"
+                  action="action_thiti_skill"
+                  sequence="20"/>
+        <menuitem id="menu_thiti_calendar"
+                  parent="menu_thiti_capacity"
+                  name="Calendars"
+                  action="action_thiti_calendar"
+                  sequence="30"/>
+        <menuitem id="menu_thiti_setup_matrix"
+                  parent="menu_thiti_capacity"
+                  name="Setup Matrices"
+                  action="action_thiti_setup_matrix"
+                  sequence="40"/>
+
+        <!-- Manufacturing -->
+        <menuitem id="menu_thiti_manufacturing"
+                  parent="menu_thiti_root"
+                  name="Manufacturing"
+                  sequence="40"/>
+        <menuitem id="menu_thiti_operation"
+                  parent="menu_thiti_manufacturing"
+                  name="Operations"
+                  action="action_thiti_operation"
+                  sequence="10"/>
+        <menuitem id="menu_thiti_supplier"
+                  parent="menu_thiti_manufacturing"
+                  name="Suppliers"
+                  action="action_thiti_supplier"
+                  sequence="20"/>
+
+        <!-- Execute -->
+        <menuitem id="menu_thiti_execute"
+                  parent="menu_thiti_root"
+                  name="Execute"
+                  sequence="50"/>
+        <menuitem id="menu_thiti_plan_run"
+                  parent="menu_thiti_execute"
+                  name="Plan Runs"
+                  action="action_thiti_plan_run"
+                  sequence="10"/>
+        <menuitem id="menu_thiti_plan_operation"
+                  parent="menu_thiti_execute"
+                  name="Plan Operations"
+                  action="action_thiti_plan_operation"
+                  sequence="20"/>
+        <menuitem id="menu_thiti_plan_demand_peg"
+                  parent="menu_thiti_execute"
+                  name="Demand Pegging"
+                  action="action_thiti_plan_demand_peg"
+                  sequence="30"/>
+        <menuitem id="menu_thiti_plan_resource_load"
+                  parent="menu_thiti_execute"
+                  name="Resource Load"
+                  action="action_thiti_plan_resource_load"
+                  sequence="40"/>
+        <menuitem id="menu_thiti_plan_buffer_projection"
+                  parent="menu_thiti_execute"
+                  name="Buffer Projection"
+                  action="action_thiti_plan_buffer_projection"
+                  sequence="50"/>
+        <menuitem id="menu_thiti_plan_problem"
+                  parent="menu_thiti_execute"
+                  name="Problems"
+                  action="action_thiti_plan_problem"
+                  sequence="60"/>
+        <menuitem id="menu_thiti_plan_replenishment"
+                  parent="menu_thiti_execute"
+                  name="Replenishment"
+                  action="action_thiti_plan_replenishment"
+                  sequence="70"/>
+        <menuitem id="menu_thiti_scenario"
+                  parent="menu_thiti_execute"
+                  name="Scenarios"
+                  action="action_thiti_scenario"
+                  sequence="80"/>
+        <menuitem id="menu_thiti_scenario_compare"
+                  parent="menu_thiti_execute"
+                  name="Compare Scenarios"
+                  action="action_thiti_scenario_compare"
+                  sequence="90"/>
+        <menuitem id="menu_thiti_kob_brand_line"
+                  parent="menu_thiti_config"
+                  name="KOB Brand Lines"
+                  action="action_thiti_kob_brand_line"
+                  sequence="50"/>
+
+        <!-- Reports -->
+        <menuitem id="menu_thiti_reports"
+                  parent="menu_thiti_root"
+                  name="Reports"
+                  sequence="60"/>
+        <menuitem id="menu_thiti_kpi"
+                  parent="menu_thiti_reports"
+                  name="KPI Scorecard"
+                  action="action_thiti_kpi"
+                  sequence="10"/>
+        <menuitem id="menu_thiti_report_resource"
+                  parent="menu_thiti_reports"
+                  name="Resource Report"
+                  action="action_thiti_report_resource"
+                  sequence="20"/>
+        <menuitem id="menu_thiti_report_inventory"
+                  parent="menu_thiti_reports"
+                  name="Inventory Report"
+                  action="action_thiti_report_inventory"
+                  sequence="30"/>
+        <menuitem id="menu_thiti_report_demand"
+                  parent="menu_thiti_reports"
+                  name="Demand Report"
+                  action="action_thiti_report_demand"
+                  sequence="40"/>
+        <menuitem id="menu_thiti_report_purchase"
+                  parent="menu_thiti_reports"
+                  name="Purchase Analysis"
+                  action="action_thiti_report_purchase"
+                  sequence="50"/>
+        <menuitem id="menu_thiti_report_cost"
+                  parent="menu_thiti_reports"
+                  name="Cost Report"
+                  action="action_thiti_report_cost"
+                  sequence="60"/>
+
+        <!-- Configuration -->
+        <menuitem id="menu_thiti_config"
+                  parent="menu_thiti_root"
+                  name="Configuration"
+                  sequence="100"
+                  groups="group_thiti_manager"/>
+        <menuitem id="menu_thiti_item_category"
+                  parent="menu_thiti_config"
+                  name="Item Categories"
+                  action="action_thiti_item_category"
+                  sequence="10"/>
+        <menuitem id="menu_thiti_item"
+                  parent="menu_thiti_config"
+                  name="Items"
+                  action="action_thiti_item"
+                  sequence="20"/>
+        <menuitem id="menu_thiti_location"
+                  parent="menu_thiti_config"
+                  name="Locations"
+                  action="action_thiti_location"
+                  sequence="30"/>
+        <menuitem id="menu_thiti_settings"
+                  parent="menu_thiti_config"
+                  name="Settings"
+                  action="action_thiti_config_settings"
+                  sequence="100"/>
+
+    </data>
+</odoo>

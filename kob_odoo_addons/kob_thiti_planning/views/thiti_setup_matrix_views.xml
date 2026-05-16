@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_thiti_setup_matrix_list" model="ir.ui.view">
+        <field name="name">thiti.setup.matrix.list</field>
+        <field name="model">thiti.setup.matrix</field>
+        <field name="arch" type="xml">
+            <list string="Setup Matrices">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="active" widget="boolean_toggle" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_thiti_setup_matrix_form" model="ir.ui.view">
+        <field name="name">thiti.setup.matrix.form</field>
+        <field name="model">thiti.setup.matrix</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title"><label for="name"/><h1><field name="name"/></h1></div>
+                    <group>
+                        <field name="code"/>
+                        <field name="active"/>
+                    </group>
+                    <notebook>
+                        <page string="Rules">
+                            <field name="rule_ids">
+                                <list editable="bottom">
+                                    <field name="priority"/>
+                                    <field name="from_setup"/>
+                                    <field name="to_setup"/>
+                                    <field name="duration_hours"/>
+                                    <field name="cost"/>
+                                    <field name="resource_id"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes"><field name="note" nolabel="1"/></page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_thiti_setup_matrix" model="ir.actions.act_window">
+        <field name="name">Setup Matrices</field>
+        <field name="res_model">thiti.setup.matrix</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_thiti_calendar_list" model="ir.ui.view">
+        <field name="name">thiti.calendar.list</field>
+        <field name="model">thiti.calendar</field>
+        <field name="arch" type="xml">
+            <list string="Calendars">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="default_value"/>
+                <field name="resource_calendar_id"/>
+                <field name="active" widget="boolean_toggle" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_thiti_calendar_form" model="ir.ui.view">
+        <field name="name">thiti.calendar.form</field>
+        <field name="model">thiti.calendar</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="active"/>
+                    <div class="oe_title"><label for="name"/><h1><field name="name"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="default_value"/>
+                        </group>
+                        <group>
+                            <field name="resource_calendar_id"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Buckets">
+                            <field name="bucket_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                    <field name="value"/>
+                                    <field name="priority"/>
+                                    <field name="monday"/>
+                                    <field name="tuesday"/>
+                                    <field name="wednesday"/>
+                                    <field name="thursday"/>
+                                    <field name="friday"/>
+                                    <field name="saturday"/>
+                                    <field name="sunday"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes"><field name="note" nolabel="1"/></page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_thiti_calendar" model="ir.actions.act_window">
+        <field name="name">Calendars</field>
+        <field name="res_model">thiti.calendar</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

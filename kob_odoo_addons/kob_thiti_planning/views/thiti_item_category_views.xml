@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_thiti_item_category_list" model="ir.ui.view">
+        <field name="name">thiti.item.category.list</field>
+        <field name="model">thiti.item.category</field>
+        <field name="arch" type="xml">
+            <list string="Item Categories">
+                <field name="complete_name"/>
+                <field name="code"/>
+                <field name="parent_id"/>
+                <field name="item_count"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_thiti_item_category_form" model="ir.ui.view">
+        <field name="name">thiti.item.category.form</field>
+        <field name="model">thiti.item.category</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="parent_id"/>
+                        </group>
+                        <group>
+                            <field name="odoo_categ_id"/>
+                            <field name="item_count"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Children">
+                            <field name="child_ids" readonly="1"/>
+                        </page>
+                        <page string="Notes">
+                            <field name="note" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_thiti_item_category" model="ir.actions.act_window">
+        <field name="name">Item Categories</field>
+        <field name="res_model">thiti.item.category</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

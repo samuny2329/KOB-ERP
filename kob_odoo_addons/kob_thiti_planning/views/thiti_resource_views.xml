@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_thiti_resource_list" model="ir.ui.view">
+        <field name="name">thiti.resource.list</field>
+        <field name="model">thiti.resource</field>
+        <field name="arch" type="xml">
+            <list string="Resources">
+                <field name="name"/>
+                <field name="resource_type"/>
+                <field name="workcenter_id"/>
+                <field name="location_id"/>
+                <field name="calendar_id"/>
+                <field name="maximum"/>
+                <field name="cost_per_hour"/>
+                <field name="efficiency" optional="show"/>
+                <field name="active" widget="boolean_toggle" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_thiti_resource_form" model="ir.ui.view">
+        <field name="name">thiti.resource.form</field>
+        <field name="model">thiti.resource</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="active"/>
+                    <div class="oe_title"><label for="name"/><h1><field name="name"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="resource_type"/>
+                            <field name="workcenter_id"/>
+                            <field name="location_id"/>
+                        </group>
+                        <group>
+                            <field name="maximum"/>
+                            <field name="cost_per_hour"/>
+                            <field name="efficiency"/>
+                            <field name="calendar_id"/>
+                            <field name="setup_matrix_id"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Skills">
+                            <field name="skill_ids">
+                                <list editable="bottom">
+                                    <field name="skill_id"/>
+                                    <field name="priority"/>
+                                    <field name="effective_start"/>
+                                    <field name="effective_end"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Loads">
+                            <field name="load_ids" readonly="1">
+                                <list>
+                                    <field name="operation_id"/>
+                                    <field name="quantity"/>
+                                    <field name="skill_id"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes"><field name="note" nolabel="1"/></page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_thiti_resource" model="ir.actions.act_window">
+        <field name="name">Resources</field>
+        <field name="res_model">thiti.resource</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

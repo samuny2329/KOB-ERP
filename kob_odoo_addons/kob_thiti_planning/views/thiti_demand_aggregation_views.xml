@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_thiti_demand_aggregation_list" model="ir.ui.view">
+        <field name="name">thiti.demand.aggregation.list</field>
+        <field name="model">thiti.demand.aggregation</field>
+        <field name="arch" type="xml">
+            <list string="Demand Aggregations">
+                <field name="complete_name"/>
+                <field name="code"/>
+                <field name="level"/>
+                <field name="item_count"/>
+                <field name="active" widget="boolean_toggle" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_thiti_demand_aggregation_form" model="ir.ui.view">
+        <field name="name">thiti.demand.aggregation.form</field>
+        <field name="model">thiti.demand.aggregation</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="level"/>
+                            <field name="parent_id"/>
+                        </group>
+                        <group>
+                            <field name="item_count" readonly="1"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Items">
+                            <field name="item_ids" widget="many2many_tags"/>
+                        </page>
+                        <page string="Locations">
+                            <field name="location_ids" widget="many2many_tags"/>
+                        </page>
+                        <page string="Customers">
+                            <field name="customer_ids" widget="many2many_tags"/>
+                        </page>
+                        <page string="Children">
+                            <field name="child_ids" readonly="1"/>
+                        </page>
+                        <page string="Notes"><field name="note" nolabel="1"/></page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_thiti_demand_aggregation" model="ir.actions.act_window">
+        <field name="name">Demand Aggregations</field>
+        <field name="res_model">thiti.demand.aggregation</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

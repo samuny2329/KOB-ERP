@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_thiti_item_list" model="ir.ui.view">
+        <field name="name">thiti.item.list</field>
+        <field name="model">thiti.item</field>
+        <field name="arch" type="xml">
+            <list string="Items" sample="1">
+                <field name="name"/>
+                <field name="description"/>
+                <field name="category_id"/>
+                <field name="product_id"/>
+                <field name="uom_id"/>
+                <field name="cost"/>
+                <field name="abc_xyz" optional="show"/>
+                <field name="active" widget="boolean_toggle" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_thiti_item_search" model="ir.ui.view">
+        <field name="name">thiti.item.search</field>
+        <field name="model">thiti.item</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="category_id"/>
+                <field name="product_id"/>
+                <separator/>
+                <filter name="active" string="Active" domain="[('active','=',True)]"/>
+                <filter name="archived" string="Archived" domain="[('active','=',False)]"/>
+                <group>
+                    <filter name="gb_category" string="Category" context="{'group_by':'category_id'}"/>
+                    <filter name="gb_abc" string="ABC Class" context="{'group_by':'abc_class'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_thiti_item_form" model="ir.ui.view">
+        <field name="name">thiti.item.form</field>
+        <field name="model">thiti.item</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Item code"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="description"/>
+                            <field name="category_id"/>
+                            <field name="product_id"/>
+                            <field name="uom_id"/>
+                        </group>
+                        <group>
+                            <field name="cost"/>
+                            <field name="price"/>
+                            <field name="weight"/>
+                            <field name="volume"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group string="Classification" col="4">
+                        <field name="abc_class"/>
+                        <field name="xyz_class"/>
+                        <field name="abc_xyz" readonly="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Notes"><field name="note" nolabel="1"/></page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_thiti_item_kanban" model="ir.ui.view">
+        <field name="name">thiti.item.kanban</field>
+        <field name="model">thiti.item</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="category_id"/>
+                <field name="abc_xyz"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="o_kanban_record_top">
+                            <strong><field name="name"/></strong>
+                            <span class="float-end"><field name="abc_xyz"/></span>
+                        </div>
+                        <div><field name="description"/></div>
+                        <div class="text-muted small"><field name="category_id"/></div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_thiti_item" model="ir.actions.act_window">
+        <field name="name">Items</field>
+        <field name="res_model">thiti.item</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="search_view_id" ref="view_thiti_item_search"/>
+    </record>
+</odoo>

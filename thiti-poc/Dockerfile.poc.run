@@ -1,0 +1,3 @@
+FROM thiti-poc:latest
+COPY poc_run.py /poc_run.py
+COPY poc_ctypes.py /poc_ctypes.py

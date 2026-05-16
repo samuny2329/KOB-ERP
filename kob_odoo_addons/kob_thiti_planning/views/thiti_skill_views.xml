@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_thiti_skill_list" model="ir.ui.view">
+        <field name="name">thiti.skill.list</field>
+        <field name="model">thiti.skill</field>
+        <field name="arch" type="xml">
+            <list string="Skills">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="resource_count"/>
+                <field name="active" widget="boolean_toggle" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_thiti_skill_form" model="ir.ui.view">
+        <field name="name">thiti.skill.form</field>
+        <field name="model">thiti.skill</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title"><label for="name"/><h1><field name="name"/></h1></div>
+                    <group>
+                        <field name="code"/>
+                        <field name="resource_count" readonly="1"/>
+                        <field name="active"/>
+                    </group>
+                    <notebook>
+                        <page string="Notes"><field name="note" nolabel="1"/></page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_thiti_skill" model="ir.actions.act_window">
+        <field name="name">Skills</field>
+        <field name="res_model">thiti.skill</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

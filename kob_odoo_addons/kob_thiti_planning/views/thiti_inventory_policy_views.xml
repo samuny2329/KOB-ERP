@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_thiti_inventory_policy_list" model="ir.ui.view">
+        <field name="name">thiti.inventory.policy.list</field>
+        <field name="model">thiti.inventory.policy</field>
+        <field name="arch" type="xml">
+            <list string="Inventory Policies" sample="1">
+                <field name="buffer_id"/>
+                <field name="item_id"/>
+                <field name="location_id"/>
+                <field name="reorder_method" widget="badge"/>
+                <field name="safety_stock_method"/>
+                <field name="service_level_pct"/>
+                <field name="reorder_point"/>
+                <field name="reorder_qty"/>
+                <field name="eoq_qty" optional="show"/>
+                <field name="avg_demand_per_day" optional="hide"/>
+                <field name="demand_std_dev" optional="hide"/>
+                <field name="active" widget="boolean_toggle" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_thiti_inventory_policy_search" model="ir.ui.view">
+        <field name="name">thiti.inventory.policy.search</field>
+        <field name="model">thiti.inventory.policy</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="buffer_id"/>
+                <field name="item_id"/>
+                <field name="location_id"/>
+                <separator/>
+                <filter name="active" string="Active" domain="[('active','=',True)]"/>
+                <filter name="archived" string="Archived" domain="[('active','=',False)]"/>
+                <group>
+                    <filter name="gb_method" string="Reorder Method"
+                            context="{'group_by':'reorder_method'}"/>
+                    <filter name="gb_ss" string="Safety Method"
+                            context="{'group_by':'safety_stock_method'}"/>
+                    <filter name="gb_location" string="Location"
+                            context="{'group_by':'location_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_thiti_inventory_policy_form" model="ir.ui.view">
+        <field name="name">thiti.inventory.policy.form</field>
+        <field name="model">thiti.inventory.policy</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <label for="display_name"/>
+                        <h1><field name="display_name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="buffer_id"/>
+                            <field name="item_id" readonly="1"/>
+                            <field name="location_id" readonly="1"/>
+                            <field name="reorder_method"/>
+                            <field name="review_period_days"/>
+                            <field name="max_inventory"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="safety_stock_method"/>
+                            <field name="service_level_pct"/>
+                            <field name="safety_stock_days"/>
+                            <field name="safety_stock_qty"/>
+                            <field name="safety_stock_k"/>
+                        </group>
+                    </group>
+                    <group string="Computed Triggers" col="4">
+                        <field name="reorder_point" readonly="1"/>
+                        <field name="reorder_qty" readonly="1"/>
+                        <field name="eoq_qty" readonly="1"/>
+                    </group>
+                    <group string="EOQ Inputs" col="4">
+                        <field name="eoq_holding_cost_pct"/>
+                        <field name="eoq_order_cost"/>
+                        <field name="avg_demand_per_day" readonly="1"/>
+                        <field name="demand_std_dev" readonly="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Notes"><field name="note" nolabel="1"/></page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_thiti_inventory_policy" model="ir.actions.act_window">
+        <field name="name">Inventory Policies</field>
+        <field name="res_model">thiti.inventory.policy</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_thiti_inventory_policy_search"/>
+    </record>
+</odoo>

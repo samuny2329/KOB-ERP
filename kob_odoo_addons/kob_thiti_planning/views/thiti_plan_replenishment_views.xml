@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_thiti_plan_replenishment_list" model="ir.ui.view">
+        <field name="name">thiti.plan.replenishment.list</field>
+        <field name="model">thiti.plan.replenishment</field>
+        <field name="arch" type="xml">
+            <list string="Replenishment Proposals" sample="1">
+                <field name="run_id"/>
+                <field name="kind" widget="badge"
+                       decoration-info="kind == 'po'"
+                       decoration-success="kind == 'mo'"
+                       decoration-warning="kind == 'do'"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'created'"
+                       decoration-info="state == 'proposed'"
+                       decoration-danger="state == 'canceled'"/>
+                <field name="product_id"/>
+                <field name="item_id" optional="hide"/>
+                <field name="location_id"/>
+                <field name="partner_id" optional="show"/>
+                <field name="bom_id" optional="hide"/>
+                <field name="quantity" sum="Total"/>
+                <field name="scheduled_date"/>
+                <field name="purchase_order_id" optional="show"/>
+                <field name="production_id" optional="show"/>
+                <field name="picking_id" optional="show"/>
+                <field name="origin" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_thiti_plan_replenishment_form" model="ir.ui.view">
+        <field name="name">thiti.plan.replenishment.form</field>
+        <field name="model">thiti.plan.replenishment</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_open_target" type="object"
+                            string="Open Document"
+                            class="btn-primary"
+                            invisible="not purchase_order_id and not production_id and not picking_id"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="proposed,created,confirmed,done"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="run_id"/>
+                            <field name="plan_operation_id"/>
+                            <field name="kind"/>
+                            <field name="item_id"/>
+                            <field name="product_id"/>
+                            <field name="bom_id"/>
+                        </group>
+                        <group>
+                            <field name="location_id"/>
+                            <field name="warehouse_id"/>
+                            <field name="source_warehouse_id"/>
+                            <field name="supplier_id"/>
+                            <field name="partner_id"/>
+                        </group>
+                    </group>
+                    <group string="Schedule" col="4">
+                        <field name="quantity"/>
+                        <field name="uom_id"/>
+                        <field name="cost"/>
+                        <field name="currency_id"/>
+                        <field name="scheduled_date"/>
+                        <field name="due_date"/>
+                    </group>
+                    <group string="Linked Odoo Documents" col="3">
+                        <field name="purchase_order_id"/>
+                        <field name="production_id"/>
+                        <field name="picking_id"/>
+                    </group>
+                    <group>
+                        <field name="origin"/>
+                        <field name="error_message" invisible="not error_message"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_thiti_plan_replenishment_search" model="ir.ui.view">
+        <field name="name">thiti.plan.replenishment.search</field>
+        <field name="model">thiti.plan.replenishment</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="run_id"/>
+                <field name="item_id"/>
+                <field name="product_id"/>
+                <field name="partner_id"/>
+                <field name="origin"/>
+                <separator/>
+                <filter name="kind_po" string="Purchase" domain="[('kind','=','po')]"/>
+                <filter name="kind_mo" string="Manufacturing" domain="[('kind','=','mo')]"/>
+                <filter name="kind_do" string="Distribution" domain="[('kind','=','do')]"/>
+                <separator/>
+                <filter name="state_proposed" string="Proposed" domain="[('state','=','proposed')]"/>
+                <filter name="state_created" string="Created" domain="[('state','=','created')]"/>
+                <filter name="state_canceled" string="Canceled" domain="[('state','=','canceled')]"/>
+                <group>
+                    <filter name="gb_run" string="Run" context="{'group_by':'run_id'}"/>
+                    <filter name="gb_kind" string="Kind" context="{'group_by':'kind'}"/>
+                    <filter name="gb_state" string="State" context="{'group_by':'state'}"/>
+                    <filter name="gb_partner" string="Supplier/Partner" context="{'group_by':'partner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_thiti_plan_replenishment" model="ir.actions.act_window">
+        <field name="name">Replenishment</field>
+        <field name="res_model">thiti.plan.replenishment</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_thiti_plan_replenishment_search"/>
+    </record>
+</odoo>

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Plan Operations -->
+    <record id="view_thiti_plan_operation_list" model="ir.ui.view">
+        <field name="name">thiti.plan.operation.list</field>
+        <field name="model">thiti.plan.operation</field>
+        <field name="arch" type="xml">
+            <list string="Plan Operations" sample="1">
+                <field name="run_id"/>
+                <field name="reference"/>
+                <field name="op_type" widget="badge"/>
+                <field name="item_id"/>
+                <field name="location_id"/>
+                <field name="resource_id"/>
+                <field name="quantity" sum="Total Qty"/>
+                <field name="start_datetime"/>
+                <field name="end_datetime"/>
+                <field name="duration_hours" optional="show"/>
+                <field name="status" widget="badge"/>
+                <field name="delay_days" optional="show"
+                       decoration-danger="delay_days &gt; 0"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_thiti_plan_operation_form" model="ir.ui.view">
+        <field name="name">thiti.plan.operation.form</field>
+        <field name="model">thiti.plan.operation</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="run_id"/>
+                            <field name="reference"/>
+                            <field name="operation_name"/>
+                            <field name="op_type"/>
+                            <field name="status"/>
+                            <field name="bom_id"/>
+                        </group>
+                        <group>
+                            <field name="item_id"/>
+                            <field name="product_id"/>
+                            <field name="location_id"/>
+                            <field name="resource_id"/>
+                            <field name="workcenter_id"/>
+                        </group>
+                    </group>
+                    <group string="Schedule" col="4">
+                        <field name="quantity"/>
+                        <field name="start_datetime"/>
+                        <field name="end_datetime"/>
+                        <field name="duration_hours"/>
+                        <field name="criticality"/>
+                        <field name="delay_days"/>
+                    </group>
+                    <notebook>
+                        <page string="Notes"><field name="note" nolabel="1"/></page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_thiti_plan_operation" model="ir.actions.act_window">
+        <field name="name">Plan Operations</field>
+        <field name="res_model">thiti.plan.operation</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Demand Pegging -->
+    <record id="view_thiti_plan_demand_peg_list" model="ir.ui.view">
+        <field name="name">thiti.plan.demand.peg.list</field>
+        <field name="model">thiti.plan.demand.peg</field>
+        <field name="arch" type="xml">
+            <list string="Demand Pegging" sample="1">
+                <field name="run_id"/>
+                <field name="demand_name"/>
+                <field name="demand_id"/>
+                <field name="item_id"/>
+                <field name="location_id"/>
+                <field name="quantity" sum="Total"/>
+                <field name="due"/>
+                <field name="plan_end"/>
+                <field name="delay_days"
+                       decoration-danger="delay_days &gt; 0"/>
+                <field name="operation_reference"/>
+                <field name="level"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_thiti_plan_demand_peg" model="ir.actions.act_window">
+        <field name="name">Demand Pegging</field>
+        <field name="res_model">thiti.plan.demand.peg</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Resource Load -->
+    <record id="view_thiti_plan_resource_load_list" model="ir.ui.view">
+        <field name="name">thiti.plan.resource.load.list</field>
+        <field name="model">thiti.plan.resource.load</field>
+        <field name="arch" type="xml">
+            <list string="Resource Load" sample="1">
+                <field name="run_id"/>
+                <field name="resource_id"/>
+                <field name="workcenter_id"/>
+                <field name="bucket_start"/>
+                <field name="bucket_end"/>
+                <field name="available_hours"/>
+                <field name="loaded_hours"/>
+                <field name="free_hours"/>
+                <field name="utilization_pct"
+                       decoration-danger="utilization_pct &gt; 100"
+                       decoration-warning="utilization_pct &gt; 85 and utilization_pct &lt;= 100"
+                       decoration-success="utilization_pct &lt;= 85"/>
+                <field name="setup_hours" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_thiti_plan_resource_load_pivot" model="ir.ui.view">
+        <field name="name">thiti.plan.resource.load.pivot</field>
+        <field name="model">thiti.plan.resource.load</field>
+        <field name="arch" type="xml">
+            <pivot string="Resource Utilization" sample="1">
+                <field name="resource_id" type="row"/>
+                <field name="bucket_start" type="col" interval="week"/>
+                <field name="utilization_pct" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_thiti_plan_resource_load_graph" model="ir.ui.view">
+        <field name="name">thiti.plan.resource.load.graph</field>
+        <field name="model">thiti.plan.resource.load</field>
+        <field name="arch" type="xml">
+            <graph string="Capacity vs Load" sample="1" type="bar" stacked="1">
+                <field name="bucket_start" interval="week"/>
+                <field name="loaded_hours" type="measure"/>
+                <field name="free_hours" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_thiti_plan_resource_load" model="ir.actions.act_window">
+        <field name="name">Resource Load</field>
+        <field name="res_model">thiti.plan.resource.load</field>
+        <field name="view_mode">list,pivot,graph</field>
+    </record>
+
+    <!-- Buffer Projection -->
+    <record id="view_thiti_plan_buffer_projection_list" model="ir.ui.view">
+        <field name="name">thiti.plan.buffer.projection.list</field>
+        <field name="model">thiti.plan.buffer.projection</field>
+        <field name="arch" type="xml">
+            <list string="Buffer Projection" sample="1">
+                <field name="run_id"/>
+                <field name="item_id"/>
+                <field name="location_id"/>
+                <field name="bucket_start"/>
+                <field name="start_onhand"/>
+                <field name="consumed"/>
+                <field name="produced"/>
+                <field name="end_onhand"/>
+                <field name="safety_stock"/>
+                <field name="below_safety" widget="boolean_toggle"/>
+                <field name="shortage_qty"
+                       decoration-danger="shortage_qty &gt; 0"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_thiti_plan_buffer_projection_graph" model="ir.ui.view">
+        <field name="name">thiti.plan.buffer.projection.graph</field>
+        <field name="model">thiti.plan.buffer.projection</field>
+        <field name="arch" type="xml">
+            <graph string="Stock Projection" sample="1" type="line">
+                <field name="bucket_start" interval="day"/>
+                <field name="end_onhand" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_thiti_plan_buffer_projection" model="ir.actions.act_window">
+        <field name="name">Buffer Projection</field>
+        <field name="res_model">thiti.plan.buffer.projection</field>
+        <field name="view_mode">list,graph</field>
+    </record>
+
+    <!-- Problems -->
+    <record id="view_thiti_plan_problem_list" model="ir.ui.view">
+        <field name="name">thiti.plan.problem.list</field>
+        <field name="model">thiti.plan.problem</field>
+        <field name="arch" type="xml">
+            <list string="Plan Problems" sample="1"
+                  decoration-danger="severity == 'critical'"
+                  decoration-warning="severity == 'warning'"
+                  decoration-info="severity == 'info'">
+                <field name="run_id"/>
+                <field name="severity" widget="badge"/>
+                <field name="problem_type"/>
+                <field name="entity_kind"/>
+                <field name="entity_name"/>
+                <field name="weight"/>
+                <field name="start_datetime"/>
+                <field name="end_datetime"/>
+                <field name="description"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_thiti_plan_problem_kanban" model="ir.ui.view">
+        <field name="name">thiti.plan.problem.kanban</field>
+        <field name="model">thiti.plan.problem</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="severity" sample="1">
+                <field name="problem_type"/>
+                <field name="entity_kind"/>
+                <field name="entity_name"/>
+                <field name="weight"/>
+                <field name="severity"/>
+                <templates>
+                    <t t-name="card">
+                        <div>
+                            <strong><field name="problem_type"/></strong>
+                            <span class="float-end"><field name="entity_kind"/></span>
+                        </div>
+                        <div class="text-muted"><field name="entity_name"/></div>
+                        <div class="small"><field name="description"/></div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_thiti_plan_problem" model="ir.actions.act_window">
+        <field name="name">Plan Problems</field>
+        <field name="res_model">thiti.plan.problem</field>
+        <field name="view_mode">kanban,list,form</field>
+    </record>
+
+</odoo>

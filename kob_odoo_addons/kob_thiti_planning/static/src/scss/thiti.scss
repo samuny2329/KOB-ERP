@@ -1,0 +1,21 @@
+// Thiti Planning — KOB brand palette (mirrors frePPLe accent colors)
+$thiti-primary: #002B5C; // KOB blue
+$thiti-accent:  #F5A623; // frePPLe orange
+$thiti-danger:  #C8102E; // KOB red
+$thiti-success: #2ECC71;
+$thiti-bg:      #FAFAFA;
+
+.o_thiti_brand {
+    color: $thiti-primary;
+}
+
+.o_thiti_kpi_tile {
+    background: $thiti-bg;
+    border-left: 4px solid $thiti-accent;
+    padding: 12px 16px;
+    border-radius: 6px;
+}
+
+.o_thiti_status_critical { background: rgba($thiti-danger, .12); }
+.o_thiti_status_warning  { background: rgba($thiti-accent, .15); }
+.o_thiti_status_ok       { background: rgba($thiti-success, .12); }

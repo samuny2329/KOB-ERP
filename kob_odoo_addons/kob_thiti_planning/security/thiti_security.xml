@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="module_category_thiti_planning" model="ir.module.category">
+            <field name="name">Thiti Planning</field>
+            <field name="description">Advanced Planning &amp; Scheduling</field>
+            <field name="sequence">25</field>
+        </record>
+
+        <record id="privilege_thiti_planning" model="res.groups.privilege">
+            <field name="name">Thiti Planning</field>
+            <field name="description">Access level for Thiti Planning application</field>
+            <field name="sequence">25</field>
+            <field name="category_id" ref="module_category_thiti_planning"/>
+        </record>
+
+        <record id="group_thiti_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="privilege_id" ref="privilege_thiti_planning"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_thiti_planner" model="res.groups">
+            <field name="name">Planner</field>
+            <field name="privilege_id" ref="privilege_thiti_planning"/>
+            <field name="implied_ids" eval="[(4, ref('group_thiti_user'))]"/>
+        </record>
+
+        <record id="group_thiti_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="privilege_id" ref="privilege_thiti_planning"/>
+            <field name="implied_ids" eval="[(4, ref('group_thiti_planner'))]"/>
+            <field name="user_ids" eval="[(4, ref('base.user_admin'))]"/>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_thiti_abc_xyz_config_list" model="ir.ui.view">
+        <field name="name">thiti.abc.xyz.config.list</field>
+        <field name="model">thiti.abc.xyz.config</field>
+        <field name="arch" type="xml">
+            <list string="ABC/XYZ Configurations">
+                <field name="name"/>
+                <field name="abc_method"/>
+                <field name="abc_a_threshold_pct"/>
+                <field name="abc_b_threshold_pct"/>
+                <field name="xyz_method"/>
+                <field name="xyz_x_threshold"/>
+                <field name="xyz_y_threshold"/>
+                <field name="history_days"/>
+                <field name="last_run"/>
+                <field name="items_classified"/>
+                <field name="active" widget="boolean_toggle" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_thiti_abc_xyz_config_form" model="ir.ui.view">
+        <field name="name">thiti.abc.xyz.config.form</field>
+        <field name="model">thiti.abc.xyz.config</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_classify"
+                            type="object"
+                            string="Run Classification"
+                            class="btn-primary"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group string="ABC (Pareto)">
+                            <field name="abc_method"/>
+                            <field name="abc_a_threshold_pct"/>
+                            <field name="abc_b_threshold_pct"/>
+                        </group>
+                        <group string="XYZ (Variability)">
+                            <field name="xyz_method"/>
+                            <field name="xyz_x_threshold"/>
+                            <field name="xyz_y_threshold"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="history_days"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="last_run" readonly="1"/>
+                            <field name="last_run_user_id" readonly="1"/>
+                            <field name="items_classified" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_thiti_item_abc_pivot" model="ir.ui.view">
+        <field name="name">thiti.item.abc.pivot</field>
+        <field name="model">thiti.item</field>
+        <field name="arch" type="xml">
+            <pivot string="ABC × XYZ Distribution" sample="1">
+                <field name="abc_class" type="row"/>
+                <field name="xyz_class" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_thiti_abc_xyz_config" model="ir.actions.act_window">
+        <field name="name">ABC/XYZ Settings</field>
+        <field name="res_model">thiti.abc.xyz.config</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_thiti_item_abc_pivot" model="ir.actions.act_window">
+        <field name="name">ABC/XYZ Matrix</field>
+        <field name="res_model">thiti.item</field>
+        <field name="view_mode">pivot,list</field>
+        <field name="domain">[('abc_class','!=',False)]</field>
+    </record>
+</odoo>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_thiti_demand_list" model="ir.ui.view">
+        <field name="name">thiti.demand.list</field>
+        <field name="model">thiti.demand</field>
+        <field name="arch" type="xml">
+            <list string="Demand" sample="1">
+                <field name="name"/>
+                <field name="item_id"/>
+                <field name="location_id"/>
+                <field name="customer_id"/>
+                <field name="quantity" sum="Total Qty"/>
+                <field name="due"/>
+                <field name="priority"/>
+                <field name="status" widget="badge"
+                       decoration-success="status == 'open'"
+                       decoration-muted="status == 'closed'"
+                       decoration-danger="status == 'canceled'"/>
+                <field name="plan_late_days" optional="show"
+                       decoration-danger="plan_late_days &gt; 0"
+                       decoration-success="plan_late_days &lt;= 0"/>
+                <field name="odoo_sale_order_id" optional="show"/>
+                <field name="active" widget="boolean_toggle" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_thiti_demand_search" model="ir.ui.view">
+        <field name="name">thiti.demand.search</field>
+        <field name="model">thiti.demand</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="item_id"/>
+                <field name="location_id"/>
+                <field name="customer_id"/>
+                <field name="odoo_sale_order_id"/>
+                <separator/>
+                <filter name="status_open" string="Open"
+                        domain="[('status','=','open')]"/>
+                <filter name="status_quote" string="Quote"
+                        domain="[('status','=','quote')]"/>
+                <filter name="status_closed" string="Closed"
+                        domain="[('status','=','closed')]"/>
+                <separator/>
+                <filter name="late" string="Late (planned)"
+                        domain="[('plan_late_days','&gt;',0)]"/>
+                <separator/>
+                <filter name="active" string="Active" domain="[('active','=',True)]"/>
+                <filter name="archived" string="Archived" domain="[('active','=',False)]"/>
+                <group>
+                    <filter name="gb_item" string="Item" context="{'group_by':'item_id'}"/>
+                    <filter name="gb_location" string="Location" context="{'group_by':'location_id'}"/>
+                    <filter name="gb_customer" string="Customer" context="{'group_by':'customer_id'}"/>
+                    <filter name="gb_status" string="Status" context="{'group_by':'status'}"/>
+                    <filter name="gb_due_month" string="Due Month" context="{'group_by':'due:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_thiti_demand_form" model="ir.ui.view">
+        <field name="name">thiti.demand.form</field>
+        <field name="model">thiti.demand</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="status" widget="statusbar"
+                           statusbar_visible="inquiry,quote,open,closed"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Demand reference"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="item_id"/>
+                            <field name="location_id"/>
+                            <field name="customer_id"/>
+                            <field name="odoo_sale_line_id"/>
+                            <field name="odoo_sale_order_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="quantity"/>
+                            <field name="due"/>
+                            <field name="priority"/>
+                            <field name="minshipment"/>
+                            <field name="maxlateness_days"/>
+                            <field name="policy"/>
+                        </group>
+                    </group>
+                    <group string="Plan Result" col="3">
+                        <field name="plan_quantity" readonly="1"/>
+                        <field name="plan_due" readonly="1"/>
+                        <field name="plan_late_days" readonly="1"
+                               decoration-danger="plan_late_days &gt; 0"/>
+                    </group>
+                    <group string="Constraints">
+                        <field name="operation_id"/>
+                        <field name="delivery_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Notes"><field name="note" nolabel="1"/></page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_thiti_demand_pivot" model="ir.ui.view">
+        <field name="name">thiti.demand.pivot</field>
+        <field name="model">thiti.demand</field>
+        <field name="arch" type="xml">
+            <pivot string="Demand Analysis" sample="1">
+                <field name="item_id" type="row"/>
+                <field name="due" type="col" interval="month"/>
+                <field name="quantity" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_thiti_demand_graph" model="ir.ui.view">
+        <field name="name">thiti.demand.graph</field>
+        <field name="model">thiti.demand</field>
+        <field name="arch" type="xml">
+            <graph string="Demand by Period" sample="1" type="bar">
+                <field name="due" interval="month"/>
+                <field name="quantity" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_thiti_demand" model="ir.actions.act_window">
+        <field name="name">Demand</field>
+        <field name="res_model">thiti.demand</field>
+        <field name="view_mode">list,form,pivot,graph</field>
+        <field name="search_view_id" ref="view_thiti_demand_search"/>
+    </record>
+</odoo>

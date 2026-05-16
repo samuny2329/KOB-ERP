@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_thiti_config_settings" model="ir.ui.view">
+        <field name="name">thiti.config.settings.view.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Thiti Planning" string="Thiti Planning" name="thiti_planning"
+                     groups="kob_thiti_planning.group_thiti_manager">
+                    <block title="Closed-loop Auto-creation"
+                           name="thiti_autocreate_block">
+                        <setting id="thiti_auto_create_po">
+                            <field name="thiti_auto_create_po"/>
+                            <div class="content-group">
+                                <div class="row mt8">
+                                    <label class="col-lg-4" for="thiti_po_horizon_days"/>
+                                    <field name="thiti_po_horizon_days"/>
+                                </div>
+                            </div>
+                        </setting>
+                        <setting id="thiti_auto_create_mo">
+                            <field name="thiti_auto_create_mo"/>
+                            <div class="content-group">
+                                <div class="row mt8">
+                                    <label class="col-lg-4" for="thiti_mo_horizon_days"/>
+                                    <field name="thiti_mo_horizon_days"/>
+                                </div>
+                            </div>
+                        </setting>
+                        <setting id="thiti_auto_create_do">
+                            <field name="thiti_auto_create_do"/>
+                            <div class="content-group">
+                                <div class="row mt8">
+                                    <label class="col-lg-4" for="thiti_do_horizon_days"/>
+                                    <field name="thiti_do_horizon_days"/>
+                                </div>
+                            </div>
+                        </setting>
+                        <setting id="thiti_delete_obsolete">
+                            <field name="thiti_delete_obsolete_drafts"/>
+                        </setting>
+                    </block>
+                    <block title="Engine"
+                           name="thiti_engine_block">
+                        <setting id="thiti_engine_binary">
+                            <field name="thiti_engine_binary_path"/>
+                        </setting>
+                        <setting id="thiti_engine_libdir">
+                            <field name="thiti_engine_lib_dir"/>
+                        </setting>
+                        <setting id="thiti_engine_timeout">
+                            <field name="thiti_engine_timeout_sec"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_thiti_config_settings" model="ir.actions.act_window">
+        <field name="name">Thiti Settings</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+        <field name="context">{'module': 'kob_thiti_planning'}</field>
+    </record>
+</odoo>

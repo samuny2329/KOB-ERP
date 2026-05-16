@@ -1,0 +1,75 @@
+# POC: build libfrepple.so + bin/frepple from frepple/ source
+# Target: prove engine compiles + runs sample plan inside container before
+# committing to port into Odoo addon (kob_thiti_planning).
+
+FROM ubuntu:24.04 AS builder
+
+ENV LANG=C.UTF-8 \
+    LC_ALL=C.UTF-8 \
+    DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get -y update && \
+    apt-get -y install \
+        build-essential \
+        cmake \
+        ninja-build \
+        g++ \
+        gcc \
+        make \
+        git \
+        ca-certificates \
+        python3 \
+        python3-dev \
+        python3-pip \
+        python3-venv \
+        libxerces-c-dev \
+        libxerces-c3.2 \
+        libssl-dev \
+        libpq-dev \
+        postgresql-client \
+        time \
+        xmlstarlet \
+        && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /src
+COPY frepple/ /src/
+
+# Skip Django venv build — POC only needs the C++ engine (libfrepple.so + bin/frepple).
+# The `add_dependencies(utils venv)` line in src/CMakeLists.txt forces venv build
+# (which requires pip install of django, psycopg2, lxml, etc.) — none of which
+# are needed for native C++ solver execution. Strip it.
+RUN sed -i '/add_dependencies(utils venv)/d' /src/src/CMakeLists.txt && \
+    sed -i '/add_dependencies(forecast solver)/d' /src/src/CMakeLists.txt && \
+    sed -i '/add_dependencies(solver model)/d' /src/src/CMakeLists.txt && \
+    sed -i '/add_dependencies(model utils)/d' /src/src/CMakeLists.txt
+
+# Also patch the post-build cmake-copy step that puts binaries in /src/bin —
+# leave as is; we want them in /src/bin so the test XMLs find frepple.xsd.
+
+RUN mkdir -p /build && \
+    cd /build && \
+    cmake /src \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DPython3_EXECUTABLE=/usr/bin/python3 \
+        && \
+    cmake --build /build --target frepple-main -j "$(nproc)"
+
+# Verify artifacts
+RUN ls -lh /src/bin/ && \
+    file /src/bin/frepple /src/bin/libfrepple.so* && \
+    /src/bin/frepple --help 2>&1 | head -20 || true
+
+WORKDIR /src
+ENV FREPPLE_HOME=/src/bin \
+    PYTHONPATH=/src \
+    LD_LIBRARY_PATH=/src/bin
+
+# Quick smoke test target — runs the constraints_material_1 sample plan
+# during image build (catch errors early). Output XMLs land in WORKDIR.
+RUN cp test/constraints_material_1/constraints_material_1.xml /tmp/smoke.xml && \
+    cd /tmp && \
+    /src/bin/frepple /tmp/smoke.xml 2>&1 | tee /tmp/smoke.log | head -100 && \
+    ls -lh /tmp/output*.xml || (echo "SMOKE FAILED" && cat /tmp/smoke.log && exit 1)
+
+CMD ["/bin/bash"]

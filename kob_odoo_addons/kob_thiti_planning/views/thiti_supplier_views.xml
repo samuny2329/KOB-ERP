@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_thiti_supplier_list" model="ir.ui.view">
+        <field name="name">thiti.supplier.list</field>
+        <field name="model">thiti.supplier</field>
+        <field name="arch" type="xml">
+            <list string="Suppliers">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="partner_id"/>
+                <field name="lead_time_days"/>
+                <field name="calendar_id"/>
+                <field name="active" widget="boolean_toggle" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_thiti_supplier_form" model="ir.ui.view">
+        <field name="name">thiti.supplier.form</field>
+        <field name="model">thiti.supplier</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" invisible="active"/>
+                    <div class="oe_title"><label for="name"/><h1><field name="name"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="partner_id"/>
+                            <field name="calendar_id"/>
+                        </group>
+                        <group>
+                            <field name="lead_time_days"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes"><field name="note" nolabel="1"/></page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_thiti_supplier" model="ir.actions.act_window">
+        <field name="name">Suppliers</field>
+        <field name="res_model">thiti.supplier</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
