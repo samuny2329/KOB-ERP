@@ -29,4 +29,4 @@ class TestXmlSerializer(TransactionCase):
     def test_python_directive_included(self):
         xml = self.ser.serialize({}, plan_type="1", constraint="15")
         self.assertIn(b"frepple.solver_mrp", xml)
-        self.assertIn(b"saveplan", xml)
+        self.assertIn(b"saveXMLfile", xml)

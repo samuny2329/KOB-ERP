@@ -66,11 +66,13 @@ class ThitiXmlSerializer(models.AbstractModel):
         # frePPLe engine = embedded Python interpreter. <?python ?>
         # blocks must live inside <plan> to run after model load.
         # Re-emit with directives appended before closing </plan> tag.
+        # frepple.saveplan writes a tab-separated text dump.
+        # We need the full XML tree for parsing → use saveXMLfile instead.
         directive = (
             f'<?python\n'
             f'frepple.solver_mrp(plantype={plan_type}, '
             f'constraints={constraint}, loglevel={loglevel}).solve()\n'
-            f'frepple.saveplan("output.xml")\n'
+            f'frepple.saveXMLfile("output.xml")\n'
             f'?>\n'
         ).encode("utf-8")
         return xml_body.replace(b"</plan>", directive + b"</plan>")

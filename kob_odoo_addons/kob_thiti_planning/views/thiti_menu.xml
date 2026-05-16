@@ -171,11 +171,6 @@
                   name="Compare Scenarios"
                   action="action_thiti_scenario_compare"
                   sequence="90"/>
-        <menuitem id="menu_thiti_kob_brand_line"
-                  parent="menu_thiti_config"
-                  name="KOB Brand Lines"
-                  action="action_thiti_kob_brand_line"
-                  sequence="50"/>
 
         <!-- Reports -->
         <menuitem id="menu_thiti_reports"
@@ -234,6 +229,11 @@
                   name="Locations"
                   action="action_thiti_location"
                   sequence="30"/>
+        <menuitem id="menu_thiti_kob_brand_line"
+                  parent="menu_thiti_config"
+                  name="KOB Brand Lines"
+                  action="action_thiti_kob_brand_line"
+                  sequence="50"/>
         <menuitem id="menu_thiti_settings"
                   parent="menu_thiti_config"
                   name="Settings"

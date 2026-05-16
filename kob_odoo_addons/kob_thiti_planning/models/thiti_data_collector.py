@@ -201,10 +201,15 @@ class ThitiDataCollector(models.AbstractModel):
         cal_by_id = {c["_odoo_id"]: c["name"] for c in calendars}
         out: list[dict] = []
         for wc in workcenters:
+            # Odoo 19 dropped `default_capacity` on mrp.workcenter — fall back
+            # to capacity_ids (per-product) or assume 1 unit parallelism.
+            capacity = 1.0
+            if wc.capacity_ids:
+                capacity = max(wc.capacity_ids.mapped("capacity") or [1.0])
             out.append({
                 "name": wc.code or wc.name,
                 "description": wc.name,
-                "maximum": wc.default_capacity or 1.0,
+                "maximum": capacity,
                 "cost_per_hour": wc.costs_hour or 0.0,
                 "efficiency": wc.time_efficiency or 100.0,
                 "calendar": cal_by_id.get(wc.resource_calendar_id.id),
