@@ -1,6 +1,6 @@
 {
     'name': 'KOB WMS Pro — WH-Online E-Commerce',
-    'version': '19.0.1.7.8',
+    'version': '19.0.1.10.0',
     'category': 'KOB ERP/WH-Online E-Commerce',
     'summary': 'Warehouse Management for online E-commerce '
                '(Shopee · Lazada · TikTok · POS) — Kiss of Beauty.',
@@ -48,6 +48,7 @@ Features
         # ── Security (always first) ──────────────────────────────────────────
         'security/wms_security.xml',
         'security/ir.model.access.csv',
+        'security/audit_ir_rules.xml',
 
         # ── Sequences & base data ────────────────────────────────────────────
         'data/wms_sequence.xml',
@@ -110,6 +111,7 @@ Features
 
         # ── Static master data ───────────────────────────────────────────────
         'data/kob_wms_user_data.xml',
+        'data/crm_tag_cancel.xml',
         'data/wms_count_cron.xml',
         'data/wms_pickface_cron.xml',
         'data/wms_automation_audit_cron.xml',
@@ -217,8 +219,14 @@ Features
             'kob_wms/static/src/js/wms_mobile/screens/out_screen.xml',
             'kob_wms/static/src/js/wms_mobile/screens/disp_screen.js',
             'kob_wms/static/src/js/wms_mobile/screens/disp_screen.xml',
+            'kob_wms/static/src/js/wms_mobile/screens/return_screen.js',
+            'kob_wms/static/src/js/wms_mobile/screens/return_screen.xml',
             'kob_wms/static/src/js/wms_mobile/wms_mobile_app.js',
             'kob_wms/static/src/js/wms_mobile/wms_mobile_app.xml',
+            # ── Audit Hash Badge (3-way compare with Boat recovery) ───────────
+            'kob_wms/static/src/js/audit_badge/audit_badge.scss',
+            'kob_wms/static/src/js/audit_badge/audit_badge.js',
+            'kob_wms/static/src/js/audit_badge/audit_badge.xml',
         ],
     },
     'post_init_hook': 'post_init_hook',

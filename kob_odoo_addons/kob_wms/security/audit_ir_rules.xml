@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- ============================================================
+             Audit Hash Tamper Protection — ORM Layer
+             ============================================================
+             ir.rule cannot block individual field writes, so we use a
+             record rule + Python-side guard. The hash field itself is
+             declared readonly=True (model side), so any ORM write must
+             come through sudo or _seal_audit_hash. Combined with the
+             AFTER UPDATE Postgres trigger (Phase 3), three layers of
+             defense:
+               1. readonly=True at field level (blocks UI writes)
+               2. ir.rule below (blocks unlink on sealed records)
+               3. PG trigger (catches psql direct writes)
+             ============================================================ -->
+
+        <!-- Block unlink on audit log entries (chain integrity).
+             domain_force matches nothing → unlink always denied. -->
+        <record id="rule_activity_log_no_unlink_sealed" model="ir.rule">
+            <field name="name">WMS Activity Log: no unlink (audit chain)</field>
+            <field name="model_id" ref="model_wms_activity_log"/>
+            <field name="domain_force">[('id', '=', -1)]</field>
+            <field name="perm_read" eval="False"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="groups" eval="[(4, ref('group_wms_worker')),
+                                       (4, ref('group_wms_supervisor')),
+                                       (4, ref('group_wms_manager')),
+                                       (4, ref('group_wms_director'))]"/>
+        </record>
+
+    </data>
+</odoo>

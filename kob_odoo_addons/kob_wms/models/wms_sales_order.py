@@ -73,9 +73,44 @@ class WmsSalesOrder(models.Model):
     packed_at = fields.Datetime(string='Pack End')
     shipped_at = fields.Datetime(string='Shipped At')
 
+    # Cancel + Return audit trail
+    # - cancelled_at  : set when status → 'cancelled' (any path)
+    # - cancelled_by_id : Odoo user who triggered the cancel
+    # - returned_at   : set when warehouse worker scans in Return mode
+    # - returned_by_id : kob.wms.user (warehouse worker) who scanned
+    cancelled_at = fields.Datetime(string='Cancelled At', readonly=True,
+                                   tracking=True)
+    cancelled_by_id = fields.Many2one('res.users', string='Cancelled By',
+                                       readonly=True, tracking=True)
+    returned_at = fields.Datetime(string='Returned At', readonly=True,
+                                   tracking=True)
+    returned_by_id = fields.Many2one('kob.wms.user', string='Returned By',
+                                       readonly=True, tracking=True)
+
     # Smart Ring error counts
     pick_errors = fields.Integer(string='Pick Errors', default=0)
     pack_errors = fields.Integer(string='Pack Errors', default=0)
+
+    # ── Audit Hash (Blockchain-style tamper detection w/ Boat recovery) ─
+    # Sealed at terminal status transitions (packed/shipped/cancelled/returned).
+    # 3-way compare on UI: sealed vs current vs boat-live.
+    # Postgres AFTER UPDATE trigger catches silent psql tampering.
+    audit_hash = fields.Char(
+        string='Audit Hash', readonly=True, copy=False, index=True,
+        help='SHA-256 fingerprint of order+lines snapshot at terminal '
+             'status transition. Mismatch with recompute = tampering.')
+    audit_hash_at = fields.Datetime(string='Sealed At', readonly=True, copy=False)
+    audit_hash_user_id = fields.Many2one(
+        'res.users', string='Sealed By', readonly=True, copy=False)
+    audit_hash_version = fields.Integer(
+        string='Hash Schema Version', default=1, readonly=True,
+        help='Snapshot schema version. Bump when _compute_audit_snapshot '
+             'changes; old hashes need re-seal under new version.')
+    audit_hash_source = fields.Selection([
+        ('realtime', 'Realtime (at seal)'),
+        ('backfill', 'Backfill (post-hoc)'),
+        ('recovery', 'Recovery (re-synced from Boat)'),
+    ], string='Hash Source', readonly=True, copy=False, default='realtime')
 
     # Smart Ring computed durations
     wait_pick_min = fields.Float(compute='_compute_durations', store=True,
@@ -392,7 +427,20 @@ class WmsSalesOrder(models.Model):
             if vals.get('name', _('New')) == _('New'):
                 vals['name'] = self.env['ir.sequence'].next_by_code(
                     'wms.sales.order') or _('New')
-        return super().create(vals_list)
+        records = super().create(vals_list)
+        # Bump today's daily report so the dashboard reflects the new
+        # order immediately, not at next cron tick.
+        self.env['wms.daily.report'].sudo().refresh_today()
+        return records
+
+    def write(self, vals):
+        """Refresh today's daily report whenever status changes so live
+        dashboard numbers (shipped / pending / cancelled) stay accurate
+        without waiting for the cron tick."""
+        res = super().write(vals)
+        if 'status' in vals:
+            self.env['wms.daily.report'].sudo().refresh_today()
+        return res
 
     # ------------------------------------------------------------------
     # Stock integration helpers (strict — no best-effort)
@@ -625,6 +673,17 @@ class WmsSalesOrder(models.Model):
             self._log_action('error_pick', sku or '', note=msg)
             return {'ok': False, 'error': msg}
 
+        # 0. Cancelled guard — block pickers from wasting time on dead
+        #    orders. Show when it was cancelled so picker can hand the
+        #    order over to the Return queue.
+        if self.status == 'cancelled':
+            when = fields.Datetime.to_string(self.cancelled_at) \
+                if self.cancelled_at else _('unknown time')
+            return _err(_(
+                '⚠ ORDER CANCELLED at %s — do not pick. '
+                'Move to Return queue.'
+            ) % when)
+
         # 1. Must have delivery
         if not self.picking_id:
             return _err(_('No delivery linked to %s.') % (self.ref or self.name))
@@ -850,7 +909,13 @@ class WmsSalesOrder(models.Model):
     @api.model
     def _resolve_so_ref(self, code):
         """Resolve a barcode to a wms.sales.order by name/ref/so_name or
-        by sale.order.name. Returns empty recordset if not matched.
+        by sale.order.name / client_order_ref. Returns empty recordset
+        if not matched.
+
+        When the scanned ref maps to a sale.order that is still in
+        Quotation state (``draft``/``sent``), the SO is auto-confirmed
+        and a wms.sales.order is created on the fly so workers can
+        proceed with Pick without going back to the back-office.
         """
         code = (code or '').strip()
         if not code:
@@ -867,12 +932,64 @@ class WmsSalesOrder(models.Model):
         rec = self.search([('so_name', '=', code)], limit=1)
         if rec:
             return rec
-        sale = self.env['sale.order'].search([('name', '=', code)], limit=1)
+        # Match on sale.order: name OR client_order_ref (marketplace ref).
+        # Restrict to companies the current user is allowed to see so a
+        # cross-company duplicate ref doesn't surface the wrong row.
+        company_ids = self.env.companies.ids or [self.env.company.id]
+        sale = self.env['sale.order'].sudo().search([
+            '|', ('name', '=', code), ('client_order_ref', '=', code),
+            ('company_id', 'in', company_ids),
+        ], limit=1)
         if sale:
             rec = self.search([('sale_order_id', '=', sale.id)], limit=1)
             if rec:
                 return rec
+            # No wms row yet — bridge it now (auto-confirm if Quotation).
+            return self._auto_bridge_sale_order(sale)
         return self.browse()
+
+    @api.model
+    def _auto_bridge_sale_order(self, sale):
+        """Confirm a Quotation-state sale.order on first scan and create
+        the matching wms.sales.order so Pick/Pack screens see it.
+
+        Mirrors ``marketplace_import_wizard``'s auto_confirm+WMS-bridge
+        path so SOs that came in as draft (rds_state='draft' or whose
+        wizard import skipped confirm) become pickable as soon as a
+        worker scans the ref. Idempotent — a row that already exists
+        is returned unchanged.
+        """
+        so = sale.sudo()
+        # Already bridged → just return it.
+        rec = self.search([('sale_order_id', '=', so.id)], limit=1)
+        if rec:
+            return rec
+        if so.state in ('draft', 'sent'):
+            try:
+                so.with_company(so.company_id).action_confirm()
+            except Exception as exc:  # noqa: BLE001
+                _logger.warning(
+                    "Scan-time auto-confirm failed for %s: %s",
+                    so.name, exc,
+                )
+                return self.browse()
+        if so.state != 'sale':
+            return self.browse()
+        for picking in so.picking_ids.filtered(lambda p: p.state != 'cancel'):
+            try:
+                picking.with_company(so.company_id).action_assign()
+            except Exception:  # noqa: BLE001
+                pass
+            if picking.wms_sales_order_ids:
+                continue
+            try:
+                picking.with_company(so.company_id).action_create_wms_order()
+            except Exception as exc:  # noqa: BLE001
+                _logger.warning(
+                    "Scan-time WMS bridge failed for %s: %s",
+                    picking.name, exc,
+                )
+        return self.search([('sale_order_id', '=', so.id)], limit=1)
 
     @api.model
     def queue_scan_dispatch(self, active_order_ids, code, kob_worker_id=None,
@@ -1061,6 +1178,15 @@ class WmsSalesOrder(models.Model):
             self.pack_errors = (self.pack_errors or 0) + 1
             self._log_action('error_pack', sku or '', note=msg, kob_user_id=kob_wid)
             return {'ok': False, 'error': msg}
+
+        # Cancelled guard — block packers same as scan_pick.
+        if self.status == 'cancelled':
+            when = fields.Datetime.to_string(self.cancelled_at) \
+                if self.cancelled_at else _('unknown time')
+            return _err(_(
+                '⚠ ORDER CANCELLED at %s — do not pack. '
+                'Move to Return queue.'
+            ) % when)
 
         if self.status not in ('picked', 'packing'):
             return _err(_('Order must be picked first. Status: %s') % self.status)
@@ -1497,19 +1623,40 @@ class WmsSalesOrder(models.Model):
                     'scanned_qty': 1,
                 })
 
-            # Auto-add to active scanning batch (or create one)
-            # Only when scan item was created (i.e. courier is assigned)
+            # Auto-add to active scanning batch (or create one) — round-aware.
+            # One batch per (courier_id, dispatch_round_date, dispatch_round_number).
+            # SOs shipped before company.wms_dispatch_cutoff_time land in today's
+            # round; after cut-off they roll into the next day's round.
             if scan_item:
-                batch = self.env['wms.courier.batch'].search([
-                    ('state', '=', 'scanning'),
+                Batch = self.env['wms.courier.batch']
+                round_date, round_no = Batch._compute_round_date()
+                batch = Batch.search([
                     ('courier_id', '=', order.courier_id.id),
+                    ('dispatch_round_date', '=', round_date),
+                    ('dispatch_round_number', '=', round_no),
+                    ('state', 'in', ['draft', 'scanning']),
                 ], limit=1)
                 if not batch:
-                    batch = self.env['wms.courier.batch'].create({
+                    batch = Batch.create({
                         'state': 'scanning',
                         'courier_id': order.courier_id.id,
+                        'dispatch_round_date': round_date,
+                        'dispatch_round_number': round_no,
+                        'work_date': round_date,
                     })
                 scan_item.batch_id = batch.id
+
+                # Tag the underlying sale.order with a crm.tag matching the
+                # batch name so operations can filter "all SOs of
+                # ROUND-1/SHOPEE/2026-05-15" from the standard SO list view.
+                if order.sale_order_id:
+                    Tag = self.env['crm.tag'].sudo()
+                    tag = Tag.search([('name', '=', batch.name)], limit=1)
+                    if not tag:
+                        tag = Tag.create({'name': batch.name})
+                    order.sale_order_id.sudo().write({
+                        'tag_ids': [(4, tag.id)],
+                    })
 
         # Navigate back to Outbound Queue after shipping
         action = self.env.ref('kob_wms.action_wms_outbound_screen').sudo().read()[0]
@@ -1638,8 +1785,118 @@ class WmsSalesOrder(models.Model):
             'note': weight_note,
         }
 
+    @api.model
+    def action_return_scan(self, code, kob_worker_id=None):
+        """Return-mode scan from the mobile Return screen.
+
+        Resolves ``code`` against the same identifier fields used elsewhere
+        in the WMS (name / so_name / ref / awb / display_order_name /
+        box_barcode), tolerating Excel float artifacts via ``_norm_code``.
+
+        Outcomes:
+        - match found + status='cancelled' + not yet returned →
+          stamp ``returned_at`` + ``returned_by_id``, log to activity log,
+          return ``{ok: True, original_order_date: ..., name: ...}``
+        - match found but status ≠ 'cancelled' → return ``{ok: False,
+          error: 'not cancelled — no return'}``
+        - match found but already returned → return ``{ok: False,
+          error: 'already returned at ...'}``
+        - no match → return ``{ok: False, error: 'not found'}``
+
+        ``code`` is searched across ALL companies the calling user can see
+        (ir.rule still applies); the worker's company switcher should be
+        on for both KOB and BTV when they handle multi-company returns.
+        """
+        if not code or not str(code).strip():
+            return {'ok': False, 'error': _('Empty scan')}
+
+        norm = self._norm_code(code)
+
+        match_fields = (
+            'name', 'so_name', 'ref', 'awb',
+            'display_order_name', 'box_barcode',
+        )
+        domain = []
+        for idx, fname in enumerate(match_fields):
+            domain.append('|' if idx < len(match_fields) - 1 else None)
+        # Build an OR-chain domain across the identifier fields, normalised
+        # against the trailing-dot Excel artifact by checking both raw +
+        # normalised values.
+        candidates = self.search([])  # ir.rule already restricts visibility
+
+        def _key(rec):
+            for f in match_fields:
+                val = getattr(rec, f, None)
+                if val and self._norm_code(val) == norm:
+                    return True
+            return False
+
+        rec = candidates.filtered(_key)[:1]
+        if not rec:
+            return {'ok': False, 'error': _(
+                '⚠ ไม่พบ order "%s" — ตรวจ AWB/Ref อีกครั้ง'
+            ) % code}
+
+        if rec.status != 'cancelled':
+            return {'ok': False, 'error': _(
+                '⚠ %s (status: %s) — ไม่ได้ cancelled ห้ามรับคืน'
+            ) % (rec.name, rec.status)}
+
+        if rec.returned_at:
+            return {'ok': False, 'error': _(
+                '⚠ %s รับคืนไปแล้วเมื่อ %s'
+            ) % (rec.name, fields.Datetime.to_string(rec.returned_at))}
+
+        rec.sudo().write({
+            'returned_at': fields.Datetime.now(),
+            'returned_by_id': kob_worker_id or False,
+        })
+        try:
+            rec._log_action(
+                'return', code,
+                note=_('Returned via mobile Return scan'),
+                kob_user_id=kob_worker_id,
+            )
+        except Exception:  # noqa: BLE001
+            pass
+
+        original_date = False
+        if rec.sale_order_id and rec.sale_order_id.date_order:
+            original_date = fields.Date.to_string(
+                fields.Datetime.to_datetime(rec.sale_order_id.date_order).date()
+            )
+
+        return {
+            'ok': True,
+            'id': rec.id,
+            'name': rec.name,
+            'original_order_date': original_date,
+        }
+
     def action_cancel(self):
-        self.write({'status': 'cancelled'})
+        """Cancel one or more WMS orders.
+
+        Stamps the audit fields (cancelled_at + cancelled_by_id) and writes
+        an entry to wms.activity.log so the Cancel Report can render the
+        timeline. Idempotent — re-cancelling an already-cancelled row is a
+        no-op and does not overwrite the original cancellation timestamp.
+        """
+        for rec in self:
+            if rec.status == 'cancelled':
+                continue
+            rec.write({
+                'status': 'cancelled',
+                'cancelled_at': fields.Datetime.now(),
+                'cancelled_by_id': self.env.uid,
+            })
+            try:
+                rec._log_action(
+                    'cancel', '',
+                    note=_('Cancelled via action_cancel'),
+                )
+            except Exception:  # noqa: BLE001
+                # Never let logging break the cancel itself.
+                pass
 
     def action_force_picked(self):
         """Manager override: mark this SO as picked despite incomplete group.
@@ -1732,6 +1989,15 @@ class WmsSalesOrder(models.Model):
         if not barcode:
             return {'ok': False, 'error': _('Empty barcode')}
 
+        # Cancelled guard — same surface as scan_pick / scan_pack.
+        if self.status == 'cancelled':
+            when = fields.Datetime.to_string(self.cancelled_at) \
+                if self.cancelled_at else _('unknown time')
+            return {'ok': False, 'error': _(
+                '⚠ ORDER CANCELLED at %s — do not scan. '
+                'Move to Return queue.'
+            ) % when}
+
         status_before = self.status
         if status_before in ('pending', 'picking'):
             ctx = dict(self._context, kob_worker_id=kob_worker_id) if kob_worker_id else self._context
@@ -1798,14 +2064,25 @@ class WmsSalesOrder(models.Model):
                 self.partner_id = self.sale_order_id.partner_id
                 self.customer = self.sale_order_id.partner_id.name
             for sol in self.sale_order_id.order_line:
-                if sol.product_id and sol.product_uom_qty > 0:
-                    lines.append({
-                        'order_id': self.id,
-                        'product_id': sol.product_id.id,
-                        'product_name': sol.product_id.display_name,
-                        'sku': sol.product_id.default_code or sol.product_id.barcode or '',
-                        'expected_qty': int(sol.product_uom_qty),
-                    })
+                if not (sol.product_id and sol.product_uom_qty > 0):
+                    continue
+                # Skip service / non-storable products (e.g. Logistics Fees,
+                # Platform Fees). These appear on the SO + invoice but are
+                # not physical items the warehouse picks/packs/scans, so
+                # they would never reach picked_qty and would block the
+                # auto-done transition.
+                prod = sol.product_id
+                if prod.type == "service":
+                    continue
+                if "is_storable" in prod._fields and not prod.is_storable:
+                    continue
+                lines.append({
+                    'order_id': self.id,
+                    'product_id': prod.id,
+                    'product_name': prod.display_name,
+                    'sku': prod.default_code or prod.barcode or '',
+                    'expected_qty': int(sol.product_uom_qty),
+                })
             if not source_picking:
                 source_picking = self.sale_order_id.picking_ids[:1]
                 if source_picking:
@@ -1817,14 +2094,21 @@ class WmsSalesOrder(models.Model):
                 self.partner_id = source_picking.partner_id
                 self.customer = source_picking.partner_id.name
             for ml in source_picking.move_ids:
-                if ml.product_id and ml.product_uom_qty > 0:
-                    lines.append({
-                        'order_id': self.id,
-                        'product_id': ml.product_id.id,
-                        'product_name': ml.product_id.display_name,
-                        'sku': ml.product_id.default_code or ml.product_id.barcode or '',
-                        'expected_qty': int(ml.product_uom_qty),
-                    })
+                if not (ml.product_id and ml.product_uom_qty > 0):
+                    continue
+                prod = ml.product_id
+                # Skip service / non-storable products.
+                if prod.type == "service":
+                    continue
+                if "is_storable" in prod._fields and not prod.is_storable:
+                    continue
+                lines.append({
+                    'order_id': self.id,
+                    'product_id': prod.id,
+                    'product_name': prod.display_name,
+                    'sku': prod.default_code or prod.barcode or '',
+                    'expected_qty': int(ml.product_uom_qty),
+                })
         if lines:
             self.env['wms.sales.order.line'].create(lines)
         return True
@@ -1945,6 +2229,213 @@ class WmsSalesOrder(models.Model):
             },
         }
 
+    # ───────────────────────────────────────────────────────────────────
+    # Audit Hash — Blockchain-style tamper detection with Boat recovery
+    # ───────────────────────────────────────────────────────────────────
+    _AUDIT_TERMINAL_STATES = ('packed', 'shipped', 'cancelled')
+
+    def _build_audit_snapshot(self) -> dict:
+        """Deterministic dict for SHA-256. Sorted keys via json.dumps."""
+        self.ensure_one()
+        lines = []
+        for ln in self.line_ids.sorted(lambda l: l.id):
+            lines.append({
+                'id': ln.id,
+                'product_id': ln.product_id.id or False,
+                'sku': ln.sku or '',
+                'expected_qty': float(ln.expected_qty or 0.0),
+                'picked_qty': float(ln.picked_qty or 0.0),
+                'packed_qty': float(ln.packed_qty or 0.0),
+            })
+        return {
+            'name': self.name or '',
+            'ref': self.ref or '',
+            'platform': self.platform or '',
+            'status': self.status or '',
+            'partner_id': self.partner_id.id or False,
+            'courier_id': self.courier_id.id or False,
+            'awb': self.awb or '',
+            'box_barcode': self.box_barcode or '',
+            'sale_order_id': self.sale_order_id.id or False,
+            'lines': lines,
+        }
+
+    def _compute_audit_snapshot(self) -> str:
+        """SHA-256 hex digest of canonical JSON snapshot."""
+        import hashlib
+        import json
+        self.ensure_one()
+        snap = self._build_audit_snapshot()
+        raw = json.dumps(snap, sort_keys=True, default=str).encode('utf-8')
+        return hashlib.sha256(raw).hexdigest()
+
+    def _seal_audit_hash(self, source: str = 'realtime') -> None:
+        """Seal hash for this record. Idempotent if already sealed
+        and snapshot unchanged."""
+        self.ensure_one()
+        new_hash = self._compute_audit_snapshot()
+        if self.audit_hash == new_hash:
+            return
+        self.sudo().write({
+            'audit_hash': new_hash,
+            'audit_hash_at': fields.Datetime.now(),
+            'audit_hash_user_id': self.env.uid,
+            'audit_hash_source': source,
+        })
+        self.env['wms.activity.log'].sudo().create({
+            'action': 'seal_audit',
+            'ref': self.name,
+            'code': new_hash[:16],
+            'note': f'sealed at status={self.status} src={source}',
+            'sales_order_id': self.id,
+        })
+
+    def write(self, vals):
+        """Override to auto-seal on terminal status transition."""
+        res = super().write(vals)
+        if 'status' in vals and vals['status'] in self._AUDIT_TERMINAL_STATES:
+            for order in self:
+                if order.status in self._AUDIT_TERMINAL_STATES \
+                        and not order.audit_hash:
+                    try:
+                        order._seal_audit_hash(source='realtime')
+                    except Exception as exc:  # noqa: BLE001
+                        _logger.warning(
+                            'audit seal failed for %s: %s', order.name, exc)
+        return res
+
+    def _fetch_boat_snapshot(self) -> tuple[str, dict] | tuple[None, str]:
+        """Fetch live data from Boat RDS for this order via psycopg2.
+
+        Returns (hash, snapshot) on success, or (None, error_msg) on failure.
+        Requires linked sale.order with x_boat_id field populated.
+        """
+        self.ensure_one()
+        sale_order = self.sale_order_id
+        if not sale_order:
+            return None, 'no_linked_sale_order'
+        boat_id = getattr(sale_order, 'x_boat_id', None)
+        if not boat_id:
+            return None, 'no_x_boat_id'
+        try:
+            import psycopg2
+            import psycopg2.extras
+            dsn = self.env['kob.boat.sync.dsn'].get_dsn()
+        except Exception as exc:  # noqa: BLE001
+            return None, f'boat_offline:{exc}'
+        try:
+            import hashlib
+            import json
+            with psycopg2.connect(dsn, connect_timeout=5) as conn:
+                with conn.cursor(
+                    cursor_factory=psycopg2.extras.RealDictCursor
+                ) as cur:
+                    cur.execute(
+                        'SELECT id, name, date_order, origin, note, state '
+                        'FROM sale_order WHERE id = %s', (boat_id,))
+                    header = cur.fetchone()
+                    if not header:
+                        return None, 'not_in_boat'
+                    cur.execute(
+                        'SELECT id, product_id, product_uom_qty, price_unit, '
+                        'discount, name FROM sale_order_line '
+                        'WHERE order_id = %s ORDER BY id ASC', (boat_id,))
+                    lines = [dict(r) for r in cur.fetchall()]
+            snap = {
+                'boat_id': boat_id,
+                'header': {k: str(v) if v is not None else '' for k, v
+                           in header.items()},
+                'lines': [{k: str(v) if v is not None else '' for k, v
+                           in ln.items()} for ln in lines],
+            }
+            raw = json.dumps(snap, sort_keys=True).encode('utf-8')
+            return hashlib.sha256(raw).hexdigest(), snap
+        except Exception as exc:  # noqa: BLE001
+            return None, f'boat_query_failed:{exc}'
+
+    def get_audit_status(self) -> dict:
+        """Return audit state for UI badge. Caller = controller."""
+        self.ensure_one()
+        sealed = self.audit_hash or ''
+        if not sealed:
+            return {
+                'result': 'UNSEALED',
+                'hash_short': '',
+                'sealed_at': False,
+                'message': 'Not yet sealed (terminal status not reached)',
+            }
+        current = self._compute_audit_snapshot()
+        boat_hash, boat_info = self._fetch_boat_snapshot()
+        result = 'VERIFIED'
+        if sealed != current:
+            result = 'TAMPERED'
+        elif boat_hash is None:
+            if boat_info in ('no_linked_sale_order', 'no_x_boat_id',
+                             'not_in_boat'):
+                result = 'NOT_IN_BOAT'
+            else:
+                result = 'BOAT_OFFLINE'
+        elif boat_hash != sealed and boat_hash != current:
+            result = 'DIVERGED'
+        return {
+            'result': result,
+            'hash_short': sealed[:10] + '…',
+            'sealed_at': fields.Datetime.to_string(self.audit_hash_at)
+                if self.audit_hash_at else False,
+            'message': boat_info if isinstance(boat_info, str)
+                else 'ok',
+        }
+
+    def action_recover_from_boat(self) -> dict:
+        """Re-sync this order's underlying sale.order from Boat, then re-seal.
+
+        Triggers kob.boat.sync._pull_one() with a pinned where_clause so only
+        this record's sale.order id is fetched. Manager/admin gated.
+        """
+        self.ensure_one()
+        if not self.env.user.has_group('kob_wms.group_wms_manager'):
+            raise UserError(_('Only managers can trigger Boat recovery.'))
+        sale_order = self.sale_order_id
+        if not sale_order or not getattr(sale_order, 'x_boat_id', None):
+            raise UserError(_('No linked sale.order with x_boat_id.'))
+        boat_id = sale_order.x_boat_id
+        Target = self.env['kob.boat.sync.target']
+        target = Target.sudo().search([
+            ('odoo_model', '=', 'sale.order'),
+        ], limit=1)
+        if not target:
+            raise UserError(_('No kob.boat.sync.target for sale.order.'))
+        # Pin where_clause to this single boat id (in-memory only,
+        # we use cursor savepoint to avoid persisting the change).
+        sp = 'boat_recover_pin'
+        self.env.cr.execute(f'SAVEPOINT "{sp}"')
+        try:
+            target.sudo().write({
+                'where_clause': f'id = {int(boat_id)}',
+                'cursor_id': 0,
+            })
+            old_hash = self.audit_hash or ''
+            self.env['kob.boat.sync'].sudo()._pull_one(target)
+            self.invalidate_recordset()
+            new_hash = self._compute_audit_snapshot()
+            self.sudo().write({
+                'audit_hash': new_hash,
+                'audit_hash_at': fields.Datetime.now(),
+                'audit_hash_user_id': self.env.uid,
+                'audit_hash_source': 'recovery',
+            })
+            self.env['wms.activity.log'].sudo().create({
+                'action': 'auto_healed_from_boat',
+                'ref': self.name,
+                'code': new_hash[:16],
+                'note': f'healed: {old_hash[:16]}… → {new_hash[:16]}…',
+                'sales_order_id': self.id,
+            })
+        finally:
+            self.env.cr.execute(f'ROLLBACK TO SAVEPOINT "{sp}"')
+            self.env.cr.execute(f'RELEASE SAVEPOINT "{sp}"')
+        return {'result': 'VERIFIED', 'hash_short': new_hash[:10] + '…'}
+
 
 class WmsSalesOrderLine(models.Model):
     _name = 'wms.sales.order.line'
@@ -1963,6 +2454,14 @@ class WmsSalesOrderLine(models.Model):
     product_barcode = fields.Char(
         related='product_id.barcode', string='Barcode', readonly=True,
         help='EAN/UPC barcode from product master — this is what the scanner reads.',
+    )
+    # Referenced by the wms.sales.order.form embedded list (view id 3391):
+    #   <field name="product_image_128" widget="image" ... />
+    # Without this related declaration the form crashes with:
+    #   "wms.sales.order.line"."product_image_128" field is undefined.
+    product_image_128 = fields.Image(
+        related='product_id.image_128', string='Image',
+        readonly=True, store=False,
     )
     remaining_pick = fields.Integer(compute='_compute_remaining', store=False)
     remaining_pack = fields.Integer(compute='_compute_remaining', store=False)

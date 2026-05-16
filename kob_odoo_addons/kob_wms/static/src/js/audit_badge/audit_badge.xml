@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="kob_wms.AuditBadge">
+        <div class="kob-audit-badge-wrap d-inline-flex align-items-center gap-2">
+            <span t-if="state.loading"
+                  class="kob-audit-badge kob-audit-loading">
+                <i class="fa fa-spinner fa-spin"/>
+                <span class="ms-1">Checking…</span>
+            </span>
+            <span t-else=""
+                  t-attf-class="kob-audit-badge kob-audit-{{ meta.css }}"
+                  t-attf-title="{{ state.message }} — sealed {{ state.sealed_at or 'never' }}">
+                <i t-attf-class="fa {{ meta.icon }}"/>
+                <span class="ms-1" t-out="meta.label"/>
+                <small t-if="state.hash_short" class="ms-2 text-muted" t-out="state.hash_short"/>
+            </span>
+            <button t-if="!state.loading and canRecover"
+                    type="button"
+                    class="btn btn-sm btn-warning"
+                    t-on-click="onRecover"
+                    t-att-disabled="state.recovering">
+                <i t-if="state.recovering" class="fa fa-spinner fa-spin"/>
+                <i t-else="" class="fa fa-refresh"/>
+                <span class="ms-1">Re-sync from Boat</span>
+            </button>
+            <button t-if="!state.loading and !state.recovering"
+                    type="button"
+                    class="btn btn-sm btn-link p-0"
+                    t-on-click="refresh"
+                    title="Re-check audit status">
+                <i class="fa fa-refresh"/>
+            </button>
+        </div>
+    </t>
+
+</templates>

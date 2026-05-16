@@ -32,6 +32,12 @@ class WmsActivityLog(models.Model):
         ('error_pick', 'Pick Error'),
         ('error_pack', 'Pack Error'),
         ('print_picklist', 'Print Pick List'),
+        ('skip_pack', 'Skip Pack Auto'),
+        ('seal_audit', 'Audit Hash Sealed'),
+        ('tamper_detected_realtime', 'Tamper Detected (Realtime)'),
+        ('tamper_detected', 'Tamper Detected'),
+        ('auto_healed_from_boat', 'Auto Healed from Boat'),
+        ('backfill_seal', 'Backfill Seal'),
         ('other', 'Other'),
     ], string='Action', required=True)
     ref = fields.Char(string='Order Ref')
@@ -43,6 +49,17 @@ class WmsActivityLog(models.Model):
                                ondelete='set null')
     company_id = fields.Many2one('res.company', string='Company',
                                  default=lambda self: self.env.company)
+
+    # Linked Sale Order's date_order — stored so the Return Report can
+    # group return events by the ORIGINAL order date (not the return event
+    # timestamp). Type is Datetime to mirror sale.order.date_order; the
+    # search view groups by :day. Indexed so the group-by query stays fast
+    # as the log grows.
+    original_order_date = fields.Datetime(
+        string='Order Date (Ref)',
+        related='sales_order_id.sale_order_id.date_order',
+        store=True, index=True, readonly=True,
+    )
 
     @api.depends('kob_user_id', 'user_id')
     def _compute_worker_name(self):

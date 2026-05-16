@@ -75,6 +75,11 @@
                 <sheet>
                     <!-- Barcode scan bar — always focused, routes pick/pack by status -->
                     <widget name="wms_scan_bar"/>
+                    <!-- Audit Hash Badge (3-way compare with Boat recovery) -->
+                    <div class="oe_button_box" name="audit_box">
+                        <field name="audit_hash" widget="kob_audit_badge"
+                               nolabel="1"/>
+                    </div>
                     <div class="oe_title">
                         <label for="name"/>
                         <h1><field name="name" readonly="1"/></h1>
@@ -102,7 +107,8 @@
                             <field name="line_ids">
                                 <list editable="bottom"
                                       decoration-success="picked_qty >= expected_qty and not is_service"
-                                      decoration-muted="is_service">
+                                      decoration-muted="is_service"
+                                      decoration-danger="availability_state == 'not_available' and not is_service">
                                     <field name="sequence" widget="handle"/>
                                     <field name="sku"/>
                                     <field name="product_barcode" string="Barcode"
@@ -112,6 +118,15 @@
                                     <field name="expected_qty"/>
                                     <field name="picked_qty"/>
                                     <field name="packed_qty"/>
+                                    <field name="availability_state"
+                                           string="Stock"
+                                           widget="badge"
+                                           decoration-success="availability_state == 'available'"
+                                           decoration-warning="availability_state == 'partial'"
+                                           decoration-danger="availability_state == 'not_available'"/>
+                                    <field name="available_qty"
+                                           string="Reserved"
+                                           optional="hide"/>
                                     <field name="is_service" column_invisible="1"/>
                                 </list>
                             </field>
@@ -125,6 +140,14 @@
                                     <field name="picked_at" readonly="1"/>
                                     <field name="packed_at" readonly="1"/>
                                     <field name="shipped_at" readonly="1"/>
+                                    <field name="cancelled_at" readonly="1"
+                                           invisible="not cancelled_at"/>
+                                    <field name="cancelled_by_id" readonly="1"
+                                           invisible="not cancelled_at"/>
+                                    <field name="returned_at" readonly="1"
+                                           invisible="not returned_at"/>
+                                    <field name="returned_by_id" readonly="1"
+                                           invisible="not returned_at"/>
                                 </group>
                             </group>
                         </page>
@@ -450,7 +473,11 @@ action = report.report_action(records)
                 <field name="expected_total" string="Items"/>
                 <field name="picked_total"   string="Picked"/>
                 <field name="packed_total"   string="Packed" optional="show"/>
-                <field name="sla_status"     widget="badge" optional="show"
+                <field name="sla_state"      widget="badge" string="SLA"
+                       decoration-success="sla_state == 'ok'"
+                       decoration-warning="sla_state == 'warn'"
+                       decoration-danger="sla_state == 'late'"/>
+                <field name="sla_status"     widget="badge" optional="hide"
                        decoration-success="sla_status == 'on_track'"
                        decoration-warning="sla_status == 'at_risk'"
                        decoration-danger="sla_status == 'breached'"/>
@@ -467,7 +494,9 @@ action = report.report_action(records)
         <field name="model">wms.sales.order</field>
         <field name="arch" type="xml">
             <list string="Outbound Queue" js_class="wms_outbound_list"
-                  decoration-success="status == 'shipped'">
+                  decoration-success="status == 'shipped'"
+                  decoration-danger="sla_state == 'late'"
+                  decoration-warning="sla_state == 'warn'">
                 <field name="display_order_name" string="Order"/>
                 <field name="name"           string="WMS Ref" optional="hide"/>
                 <field name="sale_order_date" string="Order Date" widget="datetime"/>
@@ -477,7 +506,11 @@ action = report.report_action(records)
                 <field name="awb"            string="AWB / Tracking"/>
                 <field name="box_barcode"    optional="show"/>
                 <field name="kob_packer_id"  string="Packer" optional="show"/>
-                <field name="sla_status"     widget="badge" optional="show"
+                <field name="sla_state"      widget="badge" string="SLA"
+                       decoration-success="sla_state == 'ok'"
+                       decoration-warning="sla_state == 'warn'"
+                       decoration-danger="sla_state == 'late'"/>
+                <field name="sla_status"     widget="badge" optional="hide"
                        decoration-success="sla_status == 'on_track'"
                        decoration-warning="sla_status == 'at_risk'"
                        decoration-danger="sla_status == 'breached'"/>
@@ -494,7 +527,9 @@ action = report.report_action(records)
         <field name="model">wms.sales.order</field>
         <field name="arch" type="xml">
             <list string="Dispatch Queue" js_class="wms_list"
-                  decoration-success="status == 'dispatched'">
+                  decoration-success="status == 'dispatched'"
+                  decoration-danger="sla_state == 'late'"
+                  decoration-warning="sla_state == 'warn'">
                 <field name="display_order_name" string="Order"/>
                 <field name="name"       string="WMS Ref" optional="hide"/>
                 <field name="sale_order_date" string="Order Date" widget="datetime"/>
@@ -502,10 +537,65 @@ action = report.report_action(records)
                 <field name="courier_id" string="Courier"/>
                 <field name="awb"        string="AWB"/>
                 <field name="shipped_at" widget="datetime" optional="show"/>
+                <field name="sla_state"  widget="badge" string="SLA"
+                       decoration-success="sla_state == 'ok'"
+                       decoration-warning="sla_state == 'warn'"
+                       decoration-danger="sla_state == 'late'"/>
                 <field name="status"     widget="badge"
                        decoration-warning="status == 'shipped'"
                        decoration-success="status == 'dispatched'"/>
             </list>
+        </field>
+    </record>
+
+    <!--
+        Return Queue — desktop sibling of the mobile Return screen.
+        Lists cancelled WMS orders not yet returned. The list view uses
+        `js_class="wms_return_list"` which mounts a persistent scan bar
+        above the rows; scanning AWB / Ref / SO name calls the same
+        `wms.sales.order.action_return_scan` server method as the mobile
+        screen, then refreshes the list so the just-returned row drops
+        off the queue.
+    -->
+    <record id="view_wms_return_list" model="ir.ui.view">
+        <field name="name">wms.sales.order.return.list</field>
+        <field name="model">wms.sales.order</field>
+        <field name="arch" type="xml">
+            <list string="Return Queue" js_class="wms_return_list"
+                  decoration-danger="status == 'cancelled'">
+                <field name="display_order_name" string="Order"/>
+                <field name="name"           string="WMS Ref" optional="hide"/>
+                <field name="sale_order_date" string="Order Date" widget="datetime"/>
+                <field name="ref"            string="Platform Ref" optional="show"/>
+                <field name="customer"/>
+                <field name="platform"       widget="badge"/>
+                <field name="awb"            string="AWB" optional="show"/>
+                <field name="cancelled_at"   widget="datetime"/>
+                <field name="cancelled_by_id" string="Cancelled By" optional="show"/>
+                <field name="status"         widget="badge"
+                       decoration-danger="status == 'cancelled'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_wms_return_queue" model="ir.actions.act_window">
+        <field name="name">Return Queue</field>
+        <field name="res_model">wms.sales.order</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_wms_return_list"/>
+        <field name="domain">[
+            ('status', '=', 'cancelled'),
+            ('returned_at', '=', False),
+        ]</field>
+        <field name="context">{'create': False}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                ไม่มี order ที่รอรับคืน 🎉
+            </p>
+            <p>
+                หน้านี้แสดง order ที่ถูก cancel แต่ยังไม่ได้รับคืนสินค้า.
+                สแกน AWB / Platform Ref / SO name ในแถบสแกนด้านบนเพื่อ mark return.
+            </p>
         </field>
     </record>
 
