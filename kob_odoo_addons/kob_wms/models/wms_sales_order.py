@@ -958,12 +958,21 @@ class WmsSalesOrder(models.Model):
         wizard import skipped confirm) become pickable as soon as a
         worker scans the ref. Idempotent — a row that already exists
         is returned unchanged.
+
+        Policy: allow Pick for any non-cancel state. Cancel = blocked.
+        Draft/sent attempts auto-confirm; if confirm fails the bridge
+        still proceeds when stock.picking already exists (admin may
+        have printed a pick list manually).
         """
         so = sale.sudo()
         # Already bridged → just return it.
         rec = self.search([('sale_order_id', '=', so.id)], limit=1)
         if rec:
             return rec
+        # Hard block: cancel.
+        if so.state == 'cancel':
+            return self.browse()
+        # Try to confirm draft/sent so stock.picking is generated.
         if so.state in ('draft', 'sent'):
             try:
                 so.with_company(so.company_id).action_confirm()
@@ -972,10 +981,12 @@ class WmsSalesOrder(models.Model):
                     "Scan-time auto-confirm failed for %s: %s",
                     so.name, exc,
                 )
-                return self.browse()
-        if so.state != 'sale':
+                # Fall through — bridge anyway if pickings exist.
+        # Bridge if there is at least one non-cancel picking to attach to.
+        pickings = so.picking_ids.filtered(lambda p: p.state != 'cancel')
+        if not pickings:
             return self.browse()
-        for picking in so.picking_ids.filtered(lambda p: p.state != 'cancel'):
+        for picking in pickings:
             try:
                 picking.with_company(so.company_id).action_assign()
             except Exception:  # noqa: BLE001
@@ -1032,11 +1043,16 @@ class WmsSalesOrder(models.Model):
                 return {'type': 'so_duplicate',
                         'order_id': so.id,
                         'order_name': so.display_order_name or so.name}
-            if so.status not in ('pending', 'picking'):
+            # Policy: Pick allowed on every status EXCEPT cancelled.
+            # Admin prints pick list for all states; worker scan must
+            # only be blocked when the upstream order is cancelled.
+            # Use f-string instead of _() to avoid shadowing of the
+            # gettext shortcut by local '_' loop variables elsewhere
+            # in this method scope.
+            if so.status == 'cancelled':
+                _name = so.display_order_name or so.name
                 return {'type': 'so_invalid',
-                        'error': _(
-                            'Order %s status=%s — not pickable'
-                        ) % (so.display_order_name or so.name, so.status)}
+                        'error': f'⚠️ Order {_name} ถูก CANCELLED — ห้ามแพ็ค'}
             # Move from pending → picking + assign worker (delegated to
             # scan_pick when first SKU is shot, but flip status now so the
             # row decoration in the queue updates immediately).
