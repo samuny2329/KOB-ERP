@@ -256,51 +256,18 @@ class WmsScanBar extends Component {
             // ── Step 2: SKU branch ────────────────────────────────────
             const merge = this._loadMerge();
 
-            if (!merge.length) {
-                // Single-order classic flow — UNCHANGED behaviour
-                const res = await this.orm.call(
-                    "wms.sales.order",
-                    "action_scan_item",
-                    [[recordId], val, worker.id || false],
-                );
-
-                if (!res.ok) {
-                    triggerScanError(res.error || "Scan error");
-                    this._flash(`✗  ${res.error}`, "wms-scan-error");
-                    return;
-                }
-                triggerScanSuccess();
-
-                if (res.all_done && res.phase === "pack") {
-                    this._setStatus("✓ PACKING COMPLETE — Select box...", "wms-scan-found");
-                    await this.props.record.load();
-                    await this._openCloseBoxDialog(recordId);
-                    this._scheduleReset();
-                    return;
-                }
-
-                if (res.all_done && res.phase === "pick") {
-                    this._setStatus("✓ ALL PICKED  —  Returning to queue...", "wms-scan-found");
-                    await this.props.record.load();
-                    setTimeout(() => {
-                        this.action.doAction("kob_wms.action_wms_pick_screen");
-                    }, 1500);
-                    return;
-                }
-
-                this._setStatus(`✓ ${res.msg}`, "wms-scan-found");
-                this._refocus = true;
-                await this.props.record.load();
-                this._scheduleReset();
-                return;
-            }
-
-            // Merge-mode SKU — distribute via orchestrator
-            const activeIds = [recordId, ...merge];
+            // Burst mode dispatch: 1 scan = qty units. Active orders =
+            // [recordId] for single-order form, [recordId, ...merge] for
+            // multi-order merge. queue_scan_dispatch with burst=true
+            // distributes one product scan across every line that still
+            // needs it. Same code path serves both modes — the only
+            // difference is the size of activeIds.
+            const activeIds = merge.length ? [recordId, ...merge] : [recordId];
             const dispatch = await this.orm.call(
                 "wms.sales.order",
                 "queue_scan_dispatch",
                 [activeIds, val, worker.id || false],
+                { burst: true },
             );
 
             if (!dispatch || dispatch.type === "error" || dispatch.type === "so_invalid") {
@@ -308,20 +275,65 @@ class WmsScanBar extends Component {
                 this._flash(`✗  ${dispatch?.error || "Unknown"}`, "wms-scan-error");
                 return;
             }
+
+            // Burst response: filled qty across one or more orders in one shot.
+            if (dispatch.type === "burst") {
+                triggerScanSuccess();
+                const orders_n = dispatch.orders_touched || 1;
+                const filled = dispatch.total_filled || 0;
+                const label = orders_n > 1
+                    ? `${dispatch.product_name} × ${filled} → ${orders_n} ใบ`
+                    : `${dispatch.product_name} × ${filled}`;
+                this._setStatus(`✓ ${label}`, "wms-scan-found");
+                await this.props.record.load();
+                if (merge.length) {
+                    await this._renderMergePanel();
+                }
+                if (dispatch.all_done_in_basket) {
+                    // Phase complete — auto-close box dialog (pack) or
+                    // return to queue (pick) based on order status.
+                    const phase = (this.props.record?.data?.status === "packing"
+                        || this.props.record?.data?.status === "packed") ? "pack" : "pick";
+                    if (phase === "pack") {
+                        this._setStatus("✓ PACKING COMPLETE — Select box...", "wms-scan-found");
+                        await this._openCloseBoxDialog(recordId);
+                    } else {
+                        this._setStatus(
+                            merge.length
+                                ? "✓ ทุกใบงานครบ — กลับ Pick Queue"
+                                : "✓ ALL PICKED  —  Returning to queue...",
+                            "wms-scan-found",
+                        );
+                        if (merge.length) this._clearMerge();
+                        setTimeout(() => {
+                            this.action.doAction("kob_wms.action_wms_pick_screen");
+                        }, 1500);
+                    }
+                    return;
+                }
+                this._refocus = true;
+                this._scheduleReset();
+                return;
+            }
+
+            // Single-unit pick (rare: only when burst loop fills exactly 1)
             if (dispatch.type === "pick") {
+                triggerScanSuccess();
                 this._setStatus(
                     `✓ ${dispatch.product_name} → ${dispatch.order_name}`
                     + (dispatch.all_picked_in_order ? " [DONE]" : ""),
                     "wms-scan-found",
                 );
                 await this.props.record.load();
-                await this._renderMergePanel(dispatch.line_id);
+                if (merge.length) await this._renderMergePanel(dispatch.line_id);
                 if (dispatch.all_done_in_basket) {
                     this._setStatus(
-                        "✓ ทุกใบงานครบ — กลับ Pick Queue",
+                        merge.length
+                            ? "✓ ทุกใบงานครบ — กลับ Pick Queue"
+                            : "✓ ALL PICKED  —  Returning to queue...",
                         "wms-scan-found",
                     );
-                    this._clearMerge();
+                    if (merge.length) this._clearMerge();
                     setTimeout(() => {
                         this.action.doAction("kob_wms.action_wms_pick_screen");
                     }, 1500);
@@ -330,6 +342,7 @@ class WmsScanBar extends Component {
                 this._scheduleReset();
                 return;
             }
+
             // Fallback for unexpected response shape
             this._flash("✗  Unknown response", "wms-scan-error");
 

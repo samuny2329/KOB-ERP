@@ -5,6 +5,8 @@ import { _t } from "@web/core/l10n/translation";
 import { Component, useState, onMounted, onWillUnmount, useRef } from "@odoo/owl";
 import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 import { triggerScanError, triggerScanSuccess } from "@kob_wms/js/wms_scan_alert/wms_scan_alert";
+import { KobBinHintCard } from "../wms_outbound/bin_hint_card";
+import { speakThai } from "../wms_outbound/speak";
 
 // ── Theme colours per mode ────────────────────────────────────────
 export const MODE_ACCENT = {
@@ -96,7 +98,7 @@ export class WmsPickCard extends Component {
 // ── WmsPickScreen ─────────────────────────────────────────────────
 export class WmsPickScreen extends Component {
     static template   = "kob_wms.WmsPickScreen";
-    static components = { WmsTopNav, WmsPickCard };
+    static components = { WmsTopNav, WmsPickCard, KobBinHintCard };
     static props      = { ...standardActionServiceProps };
 
     get accentColor() { return MODE_ACCENT.pick; }
@@ -113,6 +115,9 @@ export class WmsPickScreen extends Component {
             loading: true, flashLineId: null, flashType: null,
             scanning: false, lastScan: "", lastScanOk: null,
             filterPlatform: "all", searchQuery: "", viewMode: "card",
+            // Bin hint card (WMS Pro alignment) — drives <KobBinHintCard>
+            lastBinHint: null,
+            lastBinMessage: "",
         });
 
         this._scanBuffer = "";
@@ -281,10 +286,15 @@ export class WmsPickScreen extends Component {
         this.state.scanning = true;
         const _wmsWorker = (() => { try { return JSON.parse(localStorage.getItem("wms_worker") || "{}"); } catch(e) { return {}; } })();
         try {
+            // Burst dispatch: 1 scan = qty units in this order's lines.
+            // queue_scan_dispatch(burst=true) loops scan_pick internally
+            // until expected_qty - picked_qty == 0 for the matched line.
             const result = await this.orm.call(
-                "wms.sales.order", "scan_pick",
-                [[this.state.selectedOrderId], code, _wmsWorker.id || false]);
-            if (result && result.ok) {
+                "wms.sales.order", "queue_scan_dispatch",
+                [[this.state.selectedOrderId], code, _wmsWorker.id || false],
+                { burst: true });
+            const ok = result && (result.type === "burst" || result.type === "pick");
+            if (ok) {
                 const codeUpper = code.toUpperCase();
                 const line = this.state.currentLines.find(l =>
                     (l.sku && l.sku.toUpperCase() === codeUpper) ||
@@ -295,6 +305,16 @@ export class WmsPickScreen extends Component {
                     setTimeout(() => { this.state.flashLineId = null; this.state.flashType = null; }, 850);
                 }
                 this.state.lastScanOk = true;
+                // bin_hint / spoken_text only populated for single-pick
+                // path; burst aggregates so the last unit's hint is
+                // representative.
+                if (result.bin_hint) {
+                    this.state.lastBinHint = result.bin_hint;
+                    this.state.lastBinMessage = (this.state.currentOrder &&
+                        (this.state.currentOrder.ref || this.state.currentOrder.name))
+                        || "";
+                }
+                try { speakThai(result.spoken_text || ""); } catch (e) {}
                 triggerScanSuccess();
                 await this._reloadCurrent();
                 if (this.state.currentOrder && this.state.currentOrder.all_picked) {
