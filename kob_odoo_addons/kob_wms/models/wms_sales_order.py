@@ -1068,8 +1068,20 @@ class WmsSalesOrder(models.Model):
 
         # 2) Treat as a product code — but first verify it IS a product so
         #    we can give a precise "Unknown barcode" error otherwise.
+        # Boat-side stores some EAN-13 barcodes with a trailing "." or
+        # ".0" artifact (e.g. "8859139108017."). Scanners read the raw
+        # digits, so we tolerate both forms here. Same fix that
+        # `_norm_code()` already applies inside `_find_line_by_code()` —
+        # apply at the outer product lookup so the user does NOT get a
+        # spurious "Unknown barcode" error before the line matcher runs.
+        norm = self._norm_code(code)
         product = self.env['product.product'].search([
-            '|', ('default_code', '=', code), ('barcode', '=', code),
+            '|', '|', '|', '|',
+            ('default_code', '=', code),
+            ('barcode', '=', code),
+            ('barcode', '=', norm),
+            ('barcode', '=', norm + '.'),
+            ('barcode', '=', norm + '.0'),
         ], limit=1)
         if not product:
             return {'type': 'error',
