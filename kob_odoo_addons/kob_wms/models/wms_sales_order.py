@@ -517,10 +517,40 @@ class WmsSalesOrder(models.Model):
 
     def _find_line_by_code(self, code):
         """Match a wms.sales.order.line by sku, default_code, or barcode.
-        Match is case-insensitive and tolerant of trailing dot/zero noise.
+
+        Two-phase match so 13 known KOB SKU pairs that share the same
+        EAN-13 (one variant stores it with a trailing ``.``, the other
+        without — e.g. KMP088 ``8859139107140.`` vs KMP080
+        ``8859139107140``) deduct from the RIGHT line based on what's
+        printed on the package:
+
+          Phase 1 — exact equality (case-sensitive). If the worker
+          scanned exactly what is stored, match that line first.
+          Stock comes off the product the order line actually carries.
+
+          Phase 2 — normalized equality (case-insensitive, trailing
+          ``.`` / ``.0`` stripped). Only consulted when no exact line
+          matches. Picks up the legacy float-artifact rows.
+
+        Both phases skip lines already fully picked.
         """
+        def _exact_match(l):
+            if l.picked_qty >= l.expected_qty:
+                return False
+            if l.sku == code:
+                return True
+            if l.product_id:
+                if l.product_id.default_code == code:
+                    return True
+                if l.product_id.barcode == code:
+                    return True
+            return False
+        exact = self.line_ids.filtered(_exact_match)[:1]
+        if exact:
+            return exact
+
         norm = self._norm_code(code)
-        def _match(l):
+        def _norm_match(l):
             if l.picked_qty >= l.expected_qty:
                 return False
             if l.sku and self._norm_code(l.sku) == norm:
@@ -531,7 +561,7 @@ class WmsSalesOrder(models.Model):
                 if l.product_id.barcode and self._norm_code(l.product_id.barcode) == norm:
                     return True
             return False
-        return self.line_ids.filtered(_match)[:1]
+        return self.line_ids.filtered(_norm_match)[:1]
 
     def _diagnose_scan_miss(self, code):
         """Return a more useful error message when a scan fails to match any
@@ -1219,20 +1249,36 @@ class WmsSalesOrder(models.Model):
         if self.status not in ('picked', 'packing'):
             return _err(_('Order must be picked first. Status: %s') % self.status)
 
-        sku_norm = self._norm_code(sku)
-        def _match(l):
+        # Two-phase match (exact → normalized) so EAN-13 collisions
+        # between paired SKUs (one with trailing ``.``, one without)
+        # deduct from the right line. See _find_line_by_code() for
+        # the rationale and the 13 known KOB pairs.
+        def _exact_match(l):
             if l.packed_qty >= l.picked_qty:
                 return False
-            if l.sku and self._norm_code(l.sku) == sku_norm:
+            if l.sku == sku:
                 return True
             if l.product_id:
-                if l.product_id.default_code and self._norm_code(l.product_id.default_code) == sku_norm:
+                if l.product_id.default_code == sku:
                     return True
-                if l.product_id.barcode and self._norm_code(l.product_id.barcode) == sku_norm:
+                if l.product_id.barcode == sku:
                     return True
             return False
-
-        line = self.line_ids.filtered(_match)[:1]
+        line = self.line_ids.filtered(_exact_match)[:1]
+        if not line:
+            sku_norm = self._norm_code(sku)
+            def _norm_match(l):
+                if l.packed_qty >= l.picked_qty:
+                    return False
+                if l.sku and self._norm_code(l.sku) == sku_norm:
+                    return True
+                if l.product_id:
+                    if l.product_id.default_code and self._norm_code(l.product_id.default_code) == sku_norm:
+                        return True
+                    if l.product_id.barcode and self._norm_code(l.product_id.barcode) == sku_norm:
+                        return True
+                return False
+            line = self.line_ids.filtered(_norm_match)[:1]
         if not line:
             return _err(self._diagnose_scan_miss(sku))
 
