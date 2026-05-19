@@ -69,6 +69,14 @@
                     <button name="action_open_cancel_return" type="object"
                             string="↩ Return" class="btn-secondary"
                             invisible="not picking_id"/>
+                    <button name="action_open_picking" type="object"
+                            string="🚚 Open Delivery" class="btn-secondary"
+                            invisible="not picking_id"
+                            help="เปิด Delivery Order (stock.picking) ของ Odoo"/>
+                    <button name="action_open_sale_order" type="object"
+                            string="📄 Open Sale Order" class="btn-secondary"
+                            invisible="not sale_order_id"
+                            help="เปิด Sale Order ของ Odoo"/>
                     <field name="status" widget="statusbar"
                            statusbar_visible="pending,picking,picked,packing,packed,shipped"/>
                 </header>

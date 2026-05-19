@@ -2053,6 +2053,32 @@ class WmsSalesOrder(models.Model):
     def action_open_scan_box(self):
         return self._open_scan_wizard('box')
 
+    def action_open_picking(self):
+        """Open the linked stock.picking (Delivery Order) form in Odoo."""
+        self.ensure_one()
+        if not self.picking_id:
+            raise UserError(_('No delivery order linked to %s.') % self.name)
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'stock.picking',
+            'res_id': self.picking_id.id,
+            'view_mode': 'form',
+            'target': 'current',
+        }
+
+    def action_open_sale_order(self):
+        """Open the linked sale.order form in Odoo."""
+        self.ensure_one()
+        if not self.sale_order_id:
+            raise UserError(_('No sale order linked to %s.') % self.name)
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'sale.order',
+            'res_id': self.sale_order_id.id,
+            'view_mode': 'form',
+            'target': 'current',
+        }
+
     def action_scan_item(self, barcode, kob_worker_id=None):
         """Direct scan from the form view scan bar.
         Routes to scan_pick or scan_pack based on current status.
