@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- List view -->
+    <record id="view_wms_daily_pick_demand_list" model="ir.ui.view">
+        <field name="name">wms.daily.pick.demand.list</field>
+        <field name="model">wms.daily.pick.demand</field>
+        <field name="arch" type="xml">
+            <list string="Daily Pick Demand"
+                  decoration-info="remaining_qty &gt; 0"
+                  decoration-muted="remaining_qty == 0"
+                  default_order="order_date desc, expected_qty desc">
+                <field name="order_date"/>
+                <field name="default_code"/>
+                <field name="barcode" optional="show"/>
+                <field name="product_id"/>
+                <field name="expected_qty" sum="Expected"/>
+                <field name="pulled_qty" sum="Pulled"/>
+                <field name="shipped_qty" sum="Shipped" optional="show"/>
+                <field name="remaining_qty" sum="Remaining"/>
+                <field name="order_count" sum="Orders"/>
+                <field name="company_id" optional="show"
+                       groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Pivot view -->
+    <record id="view_wms_daily_pick_demand_pivot" model="ir.ui.view">
+        <field name="name">wms.daily.pick.demand.pivot</field>
+        <field name="model">wms.daily.pick.demand</field>
+        <field name="arch" type="xml">
+            <pivot string="Daily Pick Demand">
+                <field name="order_date" type="row"/>
+                <field name="product_id" type="row"/>
+                <field name="expected_qty" type="measure"/>
+                <field name="pulled_qty" type="measure"/>
+                <field name="shipped_qty" type="measure"/>
+                <field name="remaining_qty" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Graph view -->
+    <record id="view_wms_daily_pick_demand_graph" model="ir.ui.view">
+        <field name="name">wms.daily.pick.demand.graph</field>
+        <field name="model">wms.daily.pick.demand</field>
+        <field name="arch" type="xml">
+            <graph string="Daily Pick Demand" type="bar" stacked="0">
+                <field name="order_date"/>
+                <field name="remaining_qty" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_wms_daily_pick_demand" model="ir.actions.act_window">
+        <field name="name">Daily Pick Demand</field>
+        <field name="res_model">wms.daily.pick.demand</field>
+        <field name="view_mode">list,pivot,graph</field>
+    </record>
+
+</odoo>

@@ -1,5 +1,6 @@
 from . import res_company
 from . import kob_wms_user
+from . import wms_daily_pick_demand
 from . import wms_zone
 from . import wms_rack
 from . import wms_pickface

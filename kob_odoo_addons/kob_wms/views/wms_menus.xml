@@ -57,10 +57,29 @@
               action="action_wms_dispatch_screen"
               sequence="50"/>
 
+    <menuitem id="menu_wms_return_queue"
+              name="↩️ Return Queue"
+              parent="menu_kob_wms_root"
+              action="action_wms_return_queue"
+              sequence="52"/>
+
+    <menuitem id="menu_wms_eod_manifest"
+              name="📋 EOD Manifest"
+              parent="menu_kob_wms_root"
+              action="action_wms_eod_manifest_wizard"
+              sequence="55"/>
+
+    <menuitem id="menu_wms_qr_url"
+              name="📱 URL → QR Card"
+              parent="menu_kob_wms_root"
+              action="action_wms_qr_url_wizard"
+              sequence="56"
+              groups="group_wms_supervisor"/>
+
     <menuitem id="menu_wms_count_screen"
               name="🔢 Count (F5)"
               parent="menu_kob_wms_root"
-              action="action_wms_count_screen"
+              action="action_wms_count_task"
               sequence="60"/>
 
     <menuitem id="menu_wms_list"
@@ -212,6 +231,12 @@
               action="action_wms_daily_report"
               sequence="10"/>
 
+    <menuitem id="menu_wms_report_daily_pick_demand"
+              name="Daily Pick Demand"
+              parent="menu_cc_reports"
+              action="action_wms_daily_pick_demand"
+              sequence="15"/>
+
     <menuitem id="menu_wms_count_monitor"
               name="Count Monitor"
               parent="menu_cc_reports"
@@ -229,6 +254,18 @@
               parent="menu_cc_reports"
               action="action_wms_activity_log"
               sequence="40"/>
+
+    <menuitem id="menu_wms_report_cancel"
+              name="Cancel Report"
+              parent="menu_cc_reports"
+              action="action_wms_cancel_report"
+              sequence="50"/>
+
+    <menuitem id="menu_wms_report_return"
+              name="Return Report"
+              parent="menu_cc_reports"
+              action="action_wms_return_report"
+              sequence="55"/>
 
     <!-- ══════════════════════════════════════════════════════════════
          🏭 Warehouse
