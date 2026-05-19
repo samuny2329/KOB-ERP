@@ -43,6 +43,14 @@ class WmsDailyPickDemand(models.Model):
     company_id = fields.Many2one(
         'res.company', string='Company', readonly=True)
 
+    def get_formview_action(self, access_uid=None):
+        """Override: row click → orders list instead of form view."""
+        self.ensure_one()
+        return self.action_view_orders()
+
+    def get_formview_id(self, access_uid=None):
+        return False
+
     def action_view_orders(self):
         """Open the WMS orders that contain this SKU on this order date."""
         self.ensure_one()

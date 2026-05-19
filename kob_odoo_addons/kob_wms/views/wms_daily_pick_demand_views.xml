@@ -21,11 +21,6 @@
                 <field name="order_count" sum="Orders"/>
                 <field name="company_id" optional="show"
                        groups="base.group_multi_company"/>
-                <button name="action_view_orders"
-                        type="object"
-                        icon="fa-arrow-right"
-                        title="View Orders"
-                        string="Orders"/>
             </list>
         </field>
     </record>
