@@ -493,12 +493,15 @@ class WmsSalesOrder(models.Model):
     def _norm_code(s):
         """Normalise a scanned/stored code for comparison.
 
-        Strips:
+        Strips (in order):
         - surrounding whitespace
-        - one trailing ``.`` or ``.0`` suffix (Excel/CSV float→string artifact
-          where a barcode stored as a number gets serialised with a decimal
-          point; e.g. ``8859139108017.`` or ``8859139108017.0`` should match
-          a scan of ``8859139108017``)
+        - one trailing ``-CL`` suffix (clearance variant — 591 KOB SKUs
+          have a ``-CL`` mirror with the same EAN-13 plus the suffix;
+          scanners read the raw digits printed on the package)
+        - one trailing ``.`` or ``.0`` suffix (Excel/CSV float→string
+          artifact where a barcode stored as a number gets serialised
+          with a decimal point; e.g. ``8859139108017.`` or
+          ``8859139108017.0`` should match a scan of ``8859139108017``)
 
         DOES NOT touch trailing digits — that would corrupt legitimate
         barcodes ending in ``0`` (e.g. ``100`` must NOT become ``1``).
@@ -508,7 +511,12 @@ class WmsSalesOrder(models.Model):
         if not s:
             return ""
         v = str(s).strip()
-        # Match exactly: trailing `.` or `.0` (but NOT `.123`)
+        # Strip -CL FIRST (case-insensitive). Some stored values are
+        # "8859139102152-CL", others lowercase "-cl"; both should normalise
+        # to the bare EAN.
+        if v.upper().endswith("-CL"):
+            v = v[:-3]
+        # Then handle trailing dot artifacts
         if v.endswith(".0"):
             v = v[:-2]
         elif v.endswith("."):
@@ -583,6 +591,8 @@ class WmsSalesOrder(models.Model):
             | Product.search([('barcode', '=ilike', norm)], limit=5)
             | Product.search([('barcode', '=ilike', norm + '.')], limit=5)
             | Product.search([('barcode', '=ilike', norm + '.0')], limit=5)
+            | Product.search([('barcode', '=ilike', norm + '-CL')], limit=5)
+            | Product.search([('default_code', '=ilike', norm + '-CL')], limit=5)
         )
         # Pick whichever matches after normalisation
         product = candidates.filtered(
@@ -1106,12 +1116,14 @@ class WmsSalesOrder(models.Model):
         # spurious "Unknown barcode" error before the line matcher runs.
         norm = self._norm_code(code)
         product = self.env['product.product'].search([
-            '|', '|', '|', '|',
+            '|', '|', '|', '|', '|', '|',
             ('default_code', '=', code),
             ('barcode', '=', code),
             ('barcode', '=', norm),
             ('barcode', '=', norm + '.'),
             ('barcode', '=', norm + '.0'),
+            ('barcode', '=', norm + '-CL'),
+            ('default_code', '=', norm + '-CL'),
         ], limit=1)
         if not product:
             return {'type': 'error',
