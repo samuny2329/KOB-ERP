@@ -63,11 +63,44 @@
               action="action_wms_return_queue"
               sequence="52"/>
 
+    <!-- ══════════════════════════════════════════════════════════════
+         🌙 End of Day — รายงาน + manifest ปิดวัน
+         ══════════════════════════════════════════════════════════════ -->
+    <menuitem id="menu_wms_eod"
+              name="🌙 End of Day"
+              parent="menu_kob_wms_root"
+              sequence="55"
+              groups="group_wms_supervisor"/>
+
     <menuitem id="menu_wms_eod_manifest"
               name="📋 EOD Manifest"
-              parent="menu_kob_wms_root"
+              parent="menu_wms_eod"
               action="action_wms_eod_manifest_wizard"
-              sequence="55"/>
+              sequence="10"/>
+
+    <menuitem id="menu_wms_eod_daily_pick_demand"
+              name="📦 Daily Pick Demand"
+              parent="menu_wms_eod"
+              action="action_wms_daily_pick_demand"
+              sequence="20"/>
+
+    <menuitem id="menu_wms_eod_daily_report"
+              name="📊 Daily Sales Report"
+              parent="menu_wms_eod"
+              action="action_wms_daily_report"
+              sequence="30"/>
+
+    <menuitem id="menu_wms_eod_count_monitor"
+              name="🔢 Count Monitor"
+              parent="menu_wms_eod"
+              action="action_wms_count_monitor"
+              sequence="40"/>
+
+    <menuitem id="menu_wms_eod_activity_log"
+              name="📜 Activity Log"
+              parent="menu_wms_eod"
+              action="action_wms_activity_log"
+              sequence="50"/>
 
     <menuitem id="menu_wms_qr_url"
               name="📱 URL → QR Card"
