@@ -1149,6 +1149,59 @@ class WmsSalesOrder(models.Model):
         return self.search([('sale_order_id', '=', so.id)], limit=1)
 
     @api.model
+    def cron_auto_confirm_imported_drafts(self):
+        """Confirm draft sale.orders left behind by Boat ingestion and
+        bridge each to wms.sales.order so handheld workers can scan
+        them immediately. Runs every 1 minute via cron.
+
+        Scope: orders created in the last 4 hours, state='draft',
+        non-cancel. Limit 100 per cycle to keep worker time bounded.
+        Idempotent: if an order is already confirmed or has a WMS row
+        the inner conditionals skip the work.
+        """
+        SO = self.env['sale.order'].sudo()
+        cutoff = fields.Datetime.now() - timedelta(hours=4)
+        drafts = SO.search([
+            ('state', '=', 'draft'),
+            ('create_date', '>=', cutoff),
+        ], limit=100, order='create_date asc')
+        if not drafts:
+            return 0
+        ok = bridged = 0
+        for so in drafts:
+            try:
+                so.with_company(so.company_id).action_confirm()
+                ok += 1
+            except Exception as exc:  # noqa: BLE001
+                _logger.warning(
+                    "[cron auto-confirm] %s failed: %s",
+                    so.name, exc,
+                )
+                continue
+            for pick in so.picking_ids.filtered(lambda p: p.state != 'cancel'):
+                if pick.wms_sales_order_ids:
+                    continue
+                if not hasattr(pick, 'action_create_wms_order'):
+                    continue
+                try:
+                    pick.with_company(so.company_id).action_create_wms_order()
+                    bridged += 1
+                except Exception as exc:  # noqa: BLE001
+                    _logger.warning(
+                        "[cron bridge] picking %s failed: %s",
+                        pick.name, exc,
+                    )
+            # Commit per record so a single failure doesn't roll back
+            # the whole batch — handheld latency wins over batch atomicity.
+            self.env.cr.commit()
+        if ok or bridged:
+            _logger.info(
+                "[cron auto-confirm] confirmed=%s wms_bridged=%s",
+                ok, bridged,
+            )
+        return ok
+
+    @api.model
     def queue_scan_dispatch(self, active_order_ids, code, kob_worker_id=None,
                             burst=False):
         """Queue-level multi-order scan orchestrator.

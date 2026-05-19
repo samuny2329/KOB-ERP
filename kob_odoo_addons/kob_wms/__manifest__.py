@@ -1,6 +1,6 @@
 {
     'name': 'KOB WMS Pro — WH-Online E-Commerce',
-    'version': '19.0.1.25.0',
+    'version': '19.0.1.26.0',
     'category': 'KOB ERP/WH-Online E-Commerce',
     'summary': 'Warehouse Management for online E-commerce '
                '(Shopee · Lazada · TikTok · POS) — Kiss of Beauty.',
@@ -114,6 +114,7 @@ Features
         'data/kob_wms_user_data.xml',
         'data/crm_tag_cancel.xml',
         'data/wms_count_cron.xml',
+        'data/wms_auto_confirm_cron.xml',
         'data/wms_pickface_cron.xml',
         'data/wms_automation_audit_cron.xml',
         'data/wms_platform_sync_cron.xml',

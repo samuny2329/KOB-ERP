@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+
+    <!--
+        Auto-confirm + WMS-bridge cron for sale.orders left in draft
+        state by Boat ingestion (rds_to_odoo.py imports as draft then
+        relies on a separate reconciler that may crash). This cron
+        replaces that brittle host-side script with an in-process
+        Odoo job: confirms every minute, bridges to wms.sales.order,
+        so handheld workers always see a scannable order.
+    -->
+    <record id="cron_wms_auto_confirm_imported_drafts" model="ir.cron">
+        <field name="name">WMS · Auto-confirm Boat-imported drafts + bridge</field>
+        <field name="model_id" ref="model_wms_sales_order"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_auto_confirm_imported_drafts()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">minutes</field>
+        <field name="active" eval="True"/>
+        <field name="user_id" ref="base.user_admin"/>
+    </record>
+
+</odoo>
