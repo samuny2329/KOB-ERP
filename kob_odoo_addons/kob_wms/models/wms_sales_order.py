@@ -946,46 +946,152 @@ class WmsSalesOrder(models.Model):
         rec = self._resolve_so_ref(code)
         return rec.id if rec else False
 
+    @staticmethod
+    def _norm_so_ref(code):
+        """Aggressive normalize for fallback match: upper + strip + drop
+        whitespace/dot/hyphen/slash + drop leading zeros. Used only as
+        last-stage fuzzy match so two near-identical refs collide.
+        """
+        if not code:
+            return ''
+        s = str(code).strip().upper()
+        # Drop common separators handheld scanners may insert.
+        for ch in (' ', '\t', '.', '-', '/', '_', ' '):
+            s = s.replace(ch, '')
+        return s.lstrip('0') or s
+
     @api.model
     def _resolve_so_ref(self, code):
-        """Resolve a barcode to a wms.sales.order by name/ref/so_name or
-        by sale.order.name / client_order_ref. Returns empty recordset
-        if not matched.
-
-        When the scanned ref maps to a sale.order that is still in
-        Quotation state (``draft``/``sent``), the SO is auto-confirmed
-        and a wms.sales.order is created on the fly so workers can
-        proceed with Pick without going back to the back-office.
+        """Resolve a scanned barcode to a wms.sales.order across every
+        Boat-populated identifier: WMS name/ref/so_name/awb, sale.order
+        name/client_order_ref/reference/origin/x_boat_id, stock.picking
+        name/carrier_tracking_ref/origin/x_kob_source_ref. Three stages:
+          1. exact case-sensitive match on each field
+          2. case-insensitive ilike on each field
+          3. aggressive-normalized match (strip space/dot/hyphen/slash,
+             upper, drop leading zeros) — runs only if 1+2 miss
+        Auto-confirms Quotation-state SOs and bridges WMS row on the fly
+        so workers never see "order not found" for valid Boat orders.
         """
         code = (code or '').strip()
         if not code:
             return self.browse()
-        # Try the WMS sequence (e.g. WMS/2026/0001)
-        rec = self.search([('name', '=', code)], limit=1)
-        if rec:
-            return rec
-        # Try the platform ref
-        rec = self.search([('ref', '=', code)], limit=1)
-        if rec:
-            return rec
-        # Try the linked sale.order name (e.g. SO0042)
-        rec = self.search([('so_name', '=', code)], limit=1)
-        if rec:
-            return rec
-        # Match on sale.order: name OR client_order_ref (marketplace ref).
-        # Restrict to companies the current user is allowed to see so a
-        # cross-company duplicate ref doesn't surface the wrong row.
+
+        SO    = self.env['sale.order'].sudo()
+        PICK  = self.env['stock.picking'].sudo()
         company_ids = self.env.companies.ids or [self.env.company.id]
-        sale = self.env['sale.order'].sudo().search([
-            '|', ('name', '=', code), ('client_order_ref', '=', code),
-            ('company_id', 'in', company_ids),
-        ], limit=1)
-        if sale:
+
+        def _from_sale(sale):
+            if not sale:
+                return self.browse()
             rec = self.search([('sale_order_id', '=', sale.id)], limit=1)
+            return rec or self._auto_bridge_sale_order(sale)
+
+        def _from_picking(pick):
+            if not pick:
+                return self.browse()
+            rec = self.search([('picking_id', '=', pick.id)], limit=1)
             if rec:
                 return rec
-            # No wms row yet — bridge it now (auto-confirm if Quotation).
-            return self._auto_bridge_sale_order(sale)
+            if pick.sale_id:
+                return _from_sale(pick.sale_id)
+            # Last-ditch: try to bridge via picking directly.
+            try:
+                pick.with_company(pick.company_id).action_create_wms_order()
+            except Exception:  # noqa: BLE001
+                pass
+            return self.search([('picking_id', '=', pick.id)], limit=1)
+
+        # ── Stage 1: exact match across every identifier field ──────────
+        # 1a. wms.sales.order direct fields
+        for field in ('name', 'ref', 'so_name', 'awb'):
+            rec = self.search([(field, '=', code)], limit=1)
+            if rec:
+                return rec
+        # 1b. sale.order identifier fields
+        domains = [
+            ('name', '=', code),
+            ('client_order_ref', '=', code),
+            ('reference', '=', code),
+            ('origin', '=', code),
+        ]
+        # numeric Boat id
+        if code.isdigit():
+            domains.append(('x_boat_id', '=', code))
+        sale = SO.search([
+            ('company_id', 'in', company_ids),
+            '|', '|', '|', '|', *domains,
+        ] if code.isdigit() else [
+            ('company_id', 'in', company_ids),
+            '|', '|', '|', *domains,
+        ], limit=1)
+        if sale:
+            return _from_sale(sale)
+        # 1c. stock.picking identifier fields
+        pick = PICK.search([
+            ('company_id', 'in', company_ids),
+            '|', '|', '|',
+            ('name', '=', code),
+            ('carrier_tracking_ref', '=', code),
+            ('origin', '=', code),
+            ('x_kob_source_ref', '=', code),
+        ], limit=1)
+        if pick:
+            return _from_picking(pick)
+
+        # ── Stage 2: case-insensitive ilike ─────────────────────────────
+        for field in ('name', 'ref', 'so_name', 'awb'):
+            rec = self.search([(field, '=ilike', code)], limit=1)
+            if rec:
+                return rec
+        sale = SO.search([
+            ('company_id', 'in', company_ids),
+            '|', '|', '|',
+            ('name', '=ilike', code),
+            ('client_order_ref', '=ilike', code),
+            ('reference', '=ilike', code),
+            ('origin', '=ilike', code),
+        ], limit=1)
+        if sale:
+            return _from_sale(sale)
+        pick = PICK.search([
+            ('company_id', 'in', company_ids),
+            '|', '|', '|',
+            ('name', '=ilike', code),
+            ('carrier_tracking_ref', '=ilike', code),
+            ('origin', '=ilike', code),
+            ('x_kob_source_ref', '=ilike', code),
+        ], limit=1)
+        if pick:
+            return _from_picking(pick)
+
+        # ── Stage 3: aggressive-normalized fuzzy match ──────────────────
+        norm = self._norm_so_ref(code)
+        if not norm or norm == code.upper().strip():
+            return self.browse()
+        # WMS-side fuzzy
+        for field in ('name', 'ref', 'so_name', 'awb'):
+            for cand in self.search([(field, 'ilike', norm[:6] or norm)],
+                                    limit=50):
+                if self._norm_so_ref(cand[field]) == norm:
+                    return cand
+        # sale.order fuzzy
+        for field in ('name', 'client_order_ref', 'reference', 'origin'):
+            for cand in SO.search([
+                ('company_id', 'in', company_ids),
+                (field, 'ilike', norm[:6] or norm),
+            ], limit=50):
+                if self._norm_so_ref(cand[field]) == norm:
+                    return _from_sale(cand)
+        # stock.picking fuzzy
+        for field in ('name', 'carrier_tracking_ref', 'origin',
+                      'x_kob_source_ref'):
+            for cand in PICK.search([
+                ('company_id', 'in', company_ids),
+                (field, 'ilike', norm[:6] or norm),
+            ], limit=50):
+                if self._norm_so_ref(cand[field]) == norm:
+                    return _from_picking(cand)
         return self.browse()
 
     @api.model
