@@ -7,6 +7,7 @@
         <field name="model">wms.daily.pick.demand</field>
         <field name="arch" type="xml">
             <list string="Daily Pick Demand"
+                  js_class="wms_pick_demand_list"
                   decoration-info="remaining_qty &gt; 0"
                   decoration-muted="remaining_qty == 0"
                   default_order="order_date desc, expected_qty desc">
