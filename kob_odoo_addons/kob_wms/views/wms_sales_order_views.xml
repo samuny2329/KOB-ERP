@@ -69,22 +69,33 @@
                     <button name="action_open_cancel_return" type="object"
                             string="↩ Return" class="btn-secondary"
                             invisible="not picking_id"/>
-                    <button name="action_open_picking" type="object"
-                            string="🚚 Open Delivery" class="btn-secondary"
-                            invisible="not picking_id"
-                            help="เปิด Delivery Order (stock.picking) ของ Odoo"/>
-                    <button name="action_open_sale_order" type="object"
-                            string="📄 Open Sale Order" class="btn-secondary"
-                            invisible="not sale_order_id"
-                            help="เปิด Sale Order ของ Odoo"/>
                     <field name="status" widget="statusbar"
                            statusbar_visible="pending,picking,picked,packing,packed,shipped"/>
                 </header>
                 <sheet>
                     <!-- Barcode scan bar — always focused, routes pick/pack by status -->
                     <widget name="wms_scan_bar"/>
-                    <!-- Audit Hash Badge (3-way compare with Boat recovery) -->
-                    <div class="oe_button_box" name="audit_box">
+                    <!-- Smart buttons (Odoo standard top-right of sheet) -->
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_picking" type="object"
+                                class="oe_stat_button" icon="fa-truck"
+                                invisible="not picking_id"
+                                help="เปิด Delivery Order ของ Odoo">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value">1</span>
+                                <span class="o_stat_text">Delivery</span>
+                            </div>
+                        </button>
+                        <button name="action_open_sale_order" type="object"
+                                class="oe_stat_button" icon="fa-file-text-o"
+                                invisible="not sale_order_id"
+                                help="เปิด Sale Order ของ Odoo">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value">1</span>
+                                <span class="o_stat_text">Sale Order</span>
+                            </div>
+                        </button>
+                        <!-- Audit Hash Badge (3-way compare with Boat recovery) -->
                         <field name="audit_hash" widget="kob_audit_badge"
                                nolabel="1"/>
                     </div>
