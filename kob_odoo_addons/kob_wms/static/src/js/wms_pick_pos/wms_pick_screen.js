@@ -333,7 +333,14 @@ export class WmsPickScreen extends Component {
         } catch (e) {
             if (e.event) e.event.preventDefault();
             this.state.lastScanOk = false;
-            this.notification.add("Scan error", { type: "danger" });
+            const raw =
+                e?.data?.message ||
+                e?.data?.name ||
+                e?.message ||
+                "Scan error";
+            const msg = String(raw).split("\n")[0].slice(0, 200);
+            triggerScanError(msg);
+            this.notification.add(msg, { type: "danger" });
         }
         this.state.scanning = false;
         this._focusScan();

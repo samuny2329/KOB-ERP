@@ -348,7 +348,17 @@ class WmsScanBar extends Component {
 
         } catch (err) {
             console.error("[WMS] scan_item error:", err);
-            this._flash("RPC ERROR — see console", "wms-scan-error");
+            // Surface the real backend message to the worker instead of
+            // a generic "RPC ERROR — see console". Trim to fit the alert
+            // banner; full traceback still goes to DevTools console.
+            const raw =
+                err?.data?.message ||
+                err?.data?.name ||
+                err?.message ||
+                "RPC error";
+            const msg = String(raw).split("\n")[0].slice(0, 200);
+            triggerScanError(msg);
+            this._flash(`✗  ${msg}`, "wms-scan-error");
         }
     }
 

@@ -1166,7 +1166,10 @@ class WmsSalesOrder(models.Model):
                     continue
                 need = max(0, int(line.expected_qty) - int(line.picked_qty))
                 filled = 0
-                for _ in range(need):
+                # NB: don't use `_` as loop var here — would shadow the
+                # gettext shortcut imported at module top and break every
+                # later `_('error message')` in this function.
+                for _i in range(need):
                     res = order.scan_pick(code, kob_worker_id=kob_worker_id)
                     if not res.get('ok'):
                         break
