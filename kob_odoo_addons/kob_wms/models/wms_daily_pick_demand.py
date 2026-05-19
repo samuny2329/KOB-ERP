@@ -43,6 +43,26 @@ class WmsDailyPickDemand(models.Model):
     company_id = fields.Many2one(
         'res.company', string='Company', readonly=True)
 
+    def action_view_orders(self):
+        """Open the WMS orders that contain this SKU on this order date."""
+        self.ensure_one()
+        order_ids = self.env['wms.sales.order.line'].search([
+            ('product_id', '=', self.product_id.id),
+            ('order_id.status', '!=', 'cancelled'),
+        ]).filtered(lambda l: (l.order_id.sale_order_date
+                               and l.order_id.sale_order_date.date() == self.order_date)
+                              or (not l.order_id.sale_order_date
+                                  and l.order_id.create_date.date() == self.order_date)
+                    ).mapped('order_id').ids
+        return {
+            'type': 'ir.actions.act_window',
+            'name': f'{self.default_code} — {self.order_date}',
+            'res_model': 'wms.sales.order',
+            'view_mode': 'list,form',
+            'domain': [('id', 'in', order_ids)],
+            'target': 'current',
+        }
+
     def init(self):
         tools.drop_view_if_exists(self.env.cr, self._table)
         self.env.cr.execute(f"""
